@@ -1,0 +1,69 @@
+angry_spearfish_sword:
+  name: Angry Spearfish Scythe
+  type: WEAPON
+  rarity: VERY_RARE
+  material: IRON_HOE
+  stats:
+    damage: +30
+    strength: +72
+    enchant_power: +4
+    
+angry_piranha_dagger:
+  name: Angry Piranha Dagger
+  type: WEAPON
+  rarity: VERY_RARE
+  material: IRON_SWORD
+  statuses:
+    BLEED: 20
+  stats:
+    damage: +34
+    savagery: +23
+    enchant_power: +4
+    
+flaming_sword:
+  name: Flaming Sword
+  type: WEAPON
+  rarity: VERY_RARE
+  material: GOLDEN_SWORD
+  glow: true
+  statuses:
+    BURN: 45
+  stats:
+    damage: +26
+    power: +20
+    enchant_power: +6
+    
+    
+jims_better_sword:
+  name: Jim's Sword
+  type: WEAPON
+  rarity: VERY_RARE
+  material: DIAMOND_SWORD
+  glow: true
+  stats:
+    damage: +28
+    strength: +21
+    power: +15
+    might: +20
+    defence: +25
+    enchant_power: +8
+    
+    
+lionfish_bow:
+  name: Lionfish Bow
+  type: BOW
+  rarity: VERY_RARE
+  material: BOW
+  stats:
+    damage: +50
+    enchant_power: +3
+    
+candiru_bow:
+  name: Candiru Bow
+  type: BOW
+  rarity: VERY_RARE
+  material: BOW
+  stats:
+    damage: +40
+    power: +25
+    enchant_power: +3

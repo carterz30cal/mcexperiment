@@ -1,0 +1,46 @@
+hydra_slayer:
+  name: Hydra's Bane
+  type: WEAPON
+  rarity: INCREDIBLE
+  material: GOLDEN_AXE
+  abilities:
+    - HYDRA_SLAYER
+  statuses:
+    DEATH: 30
+  stats:
+    damage: +40
+    strength: +30
+    might: +60
+    enchant_power: +5
+    
+    
+tetrafish_dagger:
+  name: Tetrafish Dagger
+  type: WEAPON
+  rarity: INCREDIBLE
+  material: DIAMOND_SWORD
+    
+hammerhead_sword:
+  name: Hammerhead Sword
+  type: WEAPON
+  rarity: INCREDIBLE
+  material: NETHERITE_SWORD
+  abilities: 
+    - HAMMERHEAD_SWORD
+  stats:
+    damage: +35
+    power: +30
+    savagery: +10
+    enchant_power: +20
+    
+warden_whip:
+  name: Warden Whip
+  type: WEAPON
+  rarity: INCREDIBLE
+  material: FISHING_ROD
+  abilities:
+    - WARDEN_WHIP
+  stats:
+    damage: +20
+    might: +400
+    enchant_power: +2

@@ -1,0 +1,23 @@
+main: com.carterz30cal.main.Dungeons
+name: Dungeons
+version: 1.0.0
+api-version: 1.19
+author: carterz30cal
+depend: [ProtocolLib, ActionBarAPI]
+commands:
+  item: 
+    description: "Creates an item from thin air"
+  spawn:
+    description: "Spawn a mob"
+  setlevel:
+    description: "Set target's level"
+    usage: "Something went wrong"
+  force:
+    description: "Weird admin command that does stuff not worthy of a unique command"
+    usage: "suk"
+  kit:
+    description: "Grants OP items for testing"
+    usage: "stop cheating my home slice"
+  max:
+    description: "Hypermax an item."
+    usage: "stop cheating my home slice"

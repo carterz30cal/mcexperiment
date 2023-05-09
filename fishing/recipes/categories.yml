@@ -1,0 +1,13 @@
+fishing:
+  name: Fishing
+  icon: FISHING_ROD
+  parent: base
+
+fishing_rods:
+  name: Fishing Rods
+  icon: FISHING_ROD
+  parent: fishing
+fishing_attuners:
+  name: Attuners
+  icon: water_gem
+  parent: fishing

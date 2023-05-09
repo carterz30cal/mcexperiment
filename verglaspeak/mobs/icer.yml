@@ -1,0 +1,65 @@
+icer_1:
+  name: Icer
+  type: SIMPLE
+  entity-type: SKELETON
+  level: 7
+  health: 1000
+  knockback: 75
+  damage: 35
+  damage-type: PHYSICAL
+  display-height: 1.9
+  blood-colour: 255,0,0
+  speed: 0.8
+  tags:
+    - VERGLASIAN
+  armour:
+    PHYSICAL: 0
+    PROJECTILE: 200
+    MAGICAL: 0
+    HOLY: 0
+    BLEED: 0
+    FIRE: 0
+    WITHER: 0
+  equipment:
+    HEAD: ICE
+    CHEST: icer_chestplate
+    LEGS: icer_leggings
+    FEET: icer_boots
+  drops:
+    dry_ice:
+      amount: 1/1
+    frozen_handle:
+      chance: 1/175
+      
+icer_2:
+  name: Icer
+  type: SIMPLE
+  entity-type: SKELETON
+  level: 8
+  health: 1500
+  knockback: 70
+  damage: 40
+  damage-type: PHYSICAL
+  display-height: 1.9
+  blood-colour: 255,0,0
+  speed: 0.8
+  tags:
+    - VERGLASIAN
+  armour:
+    PHYSICAL: 0
+    PROJECTILE: 200
+    MAGICAL: 0
+    HOLY: 0
+    BLEED: 0
+    FIRE: 0
+    WITHER: 0
+  equipment:
+    HEAD: ICE
+    CHEST: icer_chestplate
+    LEGS: icer_leggings
+    FEET: icer_boots
+  drops:
+    dry_ice:
+      amount: 1/3
+    frozen_handle:
+      chance: 1/175

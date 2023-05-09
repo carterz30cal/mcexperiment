@@ -1,0 +1,22 @@
+verglasian_peak:
+  name: Verglasian Peak
+  icon: BLUE_ICE
+  parent: base
+  
+verglasian_peak_weapons:
+  name: Weapons
+  icon: DIAMOND_SWORD
+  parent: verglasian_peak
+  
+verglasian_peak_swords:
+  name: Swords
+  icon: IRON_SWORD
+  parent: verglasian_peak_weapons
+verglasian_peak_bows:
+  name: Bows
+  icon: BOW
+  parent: verglasian_peak_weapons
+verglasian_peak_arrows:
+  name: Arrows
+  icon: ARROW
+  parent: verglasian_peak_weapons

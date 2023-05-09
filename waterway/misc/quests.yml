@@ -1,0 +1,360 @@
+zombie_jim_quest_1:
+  name: Jim's Boots
+  prerequisites:
+    - player_joined
+  questgiver:
+    name: Jim the Zombie
+    mob: ZOMBIE
+    location: -232.5, 67, -4.5
+    show-before-reqs: true
+    show-after-complete: false
+    sound: ENTITY_ZOMBIE_HURT
+  config:
+    type: QUEST_TYPE_FETCH
+    config:
+      item: soggy_boots
+      amount: 1
+      consumed: true
+  rewards:
+    coins: 200
+    xp: 25
+    items: 
+      - jims_sword,1
+  dialog-start:
+    - Hey there! I'm Jim.
+    - I live in the nearby village of Raintown.
+    - I would go home, but I appear to be in somewhat of a pickle.
+    - I've lost my Soggy Boots.
+    - They're very special to me, will you help me find them?
+  dialog-during:
+    - I suspect a Dripper may have stole them.
+    - No amount of violence is too much violence when it comes to my Soggy Boots.
+    - Please find them for me!
+  dialog-finishing:
+    - Wow!
+    - You found them!
+    - Have this as a token of my appreciation. It's not much, but it's something.
+    
+zombie_jim_quest_2:
+  name: Jim's Bragging Rights
+  prerequisites:
+    - zombie_jim_quest_1
+  questgiver:
+    name: Jim
+    mob: ZOMBIE
+    location: -260.5, 70, -27.5
+    show-before-reqs: false
+    show-after-complete: false
+    sound: ENTITY_ZOMBIE_HURT
+    equipment:
+      FEET: soggy_boots
+  config:
+    type: QUEST_TYPE_FETCH
+    config:
+      item: wet_paper
+      amount: 24
+      consumed: true
+  rewards:
+    coins: 400
+    xp: 85
+    items: 
+      - water_orb,1
+  dialog-start:
+    - Hey friend!
+    - I see you've stumbled upon my humble abode.
+    - Nice isn't it?
+    - Anyways, could you do me a favour?
+    - I'm trying to impress this BLUEskeletonWHITE named Steve.
+    - Is there any chance you could fetch me YELLOW24x Wet PaperWHITE?
+    - Rumour has it the BLUEDrippersWHITE may have some.
+  dialog-during:
+    - I heard most drippers will have YELLOWWet PaperWHITE.
+    - Hurry up! I need that paper!
+    - Drippers wearing more than just boots will have this item.
+  dialog-finishing:
+    - Wow, you must really be quite the warrior...
+    - Time to go and brag to that stupid skeleton.
+    - Oh right, your reward..
+    - Take this, I have no use for it.
+    
+zombie_jim_quest_3_part1:
+  name: Jim Might Be In Trouble (Part 1)
+  prerequisites:
+    - zombie_jim_quest_2
+    - skeleton_steve_quest_1
+  questgiver:
+    name: Jim
+    mob: ZOMBIE
+    location: -260.5, 70, -27.5
+    show-before-reqs: false
+    show-after-complete: false
+    sound: ENTITY_ZOMBIE_HURT
+    equipment:
+      FEET: soggy_boots
+  config:
+    type: QUEST_TYPE_FETCH
+    config:
+      item: cod_helmet
+      amount: 1
+      consumed: true
+  rewards:
+    xp: 50
+  dialog-start:
+    - I need another favour.
+    - Steve doesn't believe I killed a REDTitanWHITE.
+    - So to get out of this lie, I need to actually go and kill one.
+    - Trouble is, I don't have the strength nor the gear to do it.
+    - Could you first go and fetch me a GREENCod HelmetWHITE?
+  dialog-during:
+    - I need the helmet to not REDdieWHITE.
+    - Hurry up!
+    - Quick before Steve catches on!
+  dialog-finishing:
+    - Good start partner.
+    - I'll just borrow it until the REDTitanWHITE is slain.
+    
+zombie_jim_quest_3_part2:
+  name: Jim Might Be In Trouble (Part 2)
+  prerequisites:
+    - zombie_jim_quest_3_part1
+  questgiver:
+    name: Jim
+    mob: ZOMBIE
+    location: -260.5, 70, -27.5
+    show-before-reqs: false
+    show-after-complete: false
+    sound: ENTITY_ZOMBIE_HURT
+    equipment:
+      HEAD: cod_helmet
+      FEET: soggy_boots
+  config:
+    type: QUEST_TYPE_FETCH
+    config:
+      item: cod_chestplate
+      amount: 1
+      consumed: true
+  rewards:
+    xp: 65
+    items:
+      - ocean_eye,2
+  dialog-start:
+    - Next up is a GREENCod ChestplateWHITE.
+    - With that, I should be tanky enough to slay a REDTitanWHITE!
+    - Then I'll just need a better weapon...
+  dialog-during:
+    - I need the chestplate to not REDdieWHITE.
+    - Hurry up!
+    - You're not very quick are you?
+  dialog-finishing:
+    - Now that is a job well done my friend!
+    - Oh, take these as payment, maybe you'll find a use for them?
+    - Talk to me again when you're ready to find me an adequate weapon.
+    
+zombie_jim_quest_3_part3:
+  name: Jim Might Be In Trouble (Part 3)
+  prerequisites:
+    - zombie_jim_quest_3_part2
+  questgiver:
+    name: Jim
+    mob: ZOMBIE
+    location: -260.5, 70, -27.5
+    show-before-reqs: false
+    show-after-complete: false
+    sound: ENTITY_ZOMBIE_HURT
+    equipment:
+      HAND: jims_sword
+      HEAD: cod_helmet
+      CHEST: cod_chestplate
+      FEET: soggy_boots
+  config:
+    type: QUEST_TYPE_FETCH
+    config:
+      item: water_pearl
+      amount: 1
+      consumed: true
+  rewards:
+    xp: 90
+    items:
+      - ocean_eye,3
+  dialog-start:
+    - Finally! The end is in sight!
+    - I can already hear the REDTitanWHITE calling my name!
+    - ITALIC"JIM"WHITE it will roar as I slash it down with my blade!
+    - Oh right yeah.. my blade.
+    - I need something really special to upgrade this hunk of garbage.
+    - Maybe a GREENWater PearlWHITE will do the trick?
+  dialog-during:
+    - Water Pearls are known to be a powerful ingredient, so maybe it will improve this terrible sword of mine.
+    - I'm excited to fight the REDTitanWHITE!
+    - I can't wait to see the look on Steve's face when I slay the Titan!
+  dialog-finishing:
+    - Ah..
+    - That doesn't appear to have worked..
+    - I think it needs a glue of some sort?
+    - Maybe my cousin will have an idea?
+    - You should talk to them.
+    
+cousin_quest_1:
+  name: Jim's Cousin has a Plan!
+  prerequisites:
+    - zombie_jim_quest_3_part3
+    - skeleton_steve_quest_2
+  questgiver:
+    name: Cousin Letty
+    mob: ZOMBIE
+    location: -259.5, 70, -24.5, 170
+    show-before-reqs: false
+    show-after-complete: false
+    sound: ENTITY_ZOMBIE_HURT
+    equipment:
+      HAND: great_white_shark_scythe
+      CHEST: wraith_chestplate
+      LEGS: wraith_leggings
+      FEET: wraith_boots
+  config:
+    type: QUEST_TYPE_KILL
+    config:
+      tag: TITAN
+      pretty: Titan
+      amount: 1
+  rewards:
+    xp: 75
+    coins: 200
+    items:
+      - jims_sword_upgrader,1
+  dialog-start:
+    - ITALIC*sigh*WHITE Jim is such an idiot.
+    - The GREENWater PearlsWHITE alone would work, you don't need glue!
+    - How would that even work?!
+    - Tell you what, you go and slay a REDTitanWHITE, and I'll fix Jim's weapon.
+    - And then I'll try and convince him to stay at home instead of following this ridiculous dream of his.
+  dialog-during:
+    - I must say, negotiation is not going well.
+    - By slaying a REDTitanWHITE, you'll weaken the rest of them, which means Jim might actually survive..
+  dialog-finishing:
+    - You actually slew a Titan?
+    - Congrats!
+    - Perfectly timed, I must say.
+    - I've vastly improved Jim's weapon, but unfortunately I have not managed to convince him to abandon this quest.
+    - I'll leave him in your capable hands. Bye!
+    
+skeleton_steve_quest_1:
+  name: Steve's Challenge
+  prerequisites:
+    - zombie_jim_quest_1
+  questgiver:
+    name: Steve
+    mob: SKELETON
+    location: -262.5, 70, -17.5
+    show-before-reqs: true
+    show-after-complete: false
+    sound: ENTITY_SKELETON_HURT
+    equipment:
+      HAND: DIAMOND_SWORD
+      HEAD: DIAMOND_HELMET
+  config:
+    type: QUEST_TYPE_KILL
+    config:
+      tag: DRIPPER
+      pretty: Drippers
+      amount: 25
+  rewards:
+    coins: 100
+    xp: 60
+  dialog-start:
+    - You look like someone in need of a challenge!
+    - If you slay RED25 DrippersWHITE, I may consider you worthy!
+    - Report back to me when you're done.
+  dialog-during:
+    - You haven't completed your task!
+    - I hope you're stronger than poor Jim..
+    - Is Jim still trying to impress me?
+    - Just slay 25 of the damn things!
+  dialog-finishing:
+    - You did it!
+    - Hardly impressive, but I'll reward you nevertheless.
+    
+skeleton_steve_quest_2:
+  name: Steve's Challenge 2.0
+  prerequisites:
+    - skeleton_steve_quest_1
+    - zombie_jim_quest_3_part1  
+  questgiver:
+    name: Steve
+    mob: SKELETON
+    location: -262.5, 70, -17.5
+    show-before-reqs: false
+    show-after-complete: false
+    sound: ENTITY_SKELETON_HURT
+    equipment:
+      HAND: DIAMOND_SWORD
+      HEAD: DIAMOND_HELMET
+  config:
+    type: QUEST_TYPE_KILL
+    config:
+      tag: DRENCHED
+      pretty: Drenched
+      amount: 25
+  rewards:
+    coins: 100
+    xp: 300
+    items:
+      - sword_of_ungen,1
+  dialog-start:
+    - What on earth is that idiot Jim up to?
+    - I seriously doubt he slew a REDTitanWHITE.
+    - Not with his current gear anyways..
+    - I would help him out, but I'm enjoying watching him struggle.
+    - Anyways, slay.. uhh.. 25 Drenched for a reward!
+  dialog-during:
+    - You haven't completed your task!
+    - How is Jim doing?
+    - I wish that idiot Jim would stop trying to impress me.
+  dialog-finishing:
+    - You did it!
+    - Take this sword, it may come in handy.
+    
+skeleton_steve_quest_3:
+  name: Steve's Retirement Plan
+  prerequisites:
+    - skeleton_steve_quest_2
+  questgiver:
+    name: Steve
+    mob: SKELETON
+    location: -178.5, 75, -13.5, 90, 0
+    show-before-reqs: false
+    show-after-complete: true
+    sound: ENTITY_SKELETON_HURT
+    equipment:
+      HAND: DIAMOND_SWORD
+      HEAD: DIAMOND_HELMET
+      CHEST: DIAMOND_CHESTPLATE
+      FEET: DIAMOND_BOOTS
+  config:
+    type: QUEST_TYPE_FETCH
+    config:
+      item: hydra_totem
+      amount: 1
+      consumed: false
+  rewards:
+    xp: 70
+    items:
+      - hydra_totem,4
+  dialog-start:
+    - I can't retire just quite yet!
+    - I need to face the REDWaterway HydraWHITE!
+    - Bring me a Hydra Totem so I know what to look for!
+  dialog-during:
+    - I can't wait for my retirement.
+    - The REDHydraWHITE is a tough adversary.
+  dialog-finishing:
+    - Oh.. it's quite a simple design.
+    - I think I can craft about ten of these.
+    - Here, take four as a token of my appreciation.
+    - Meet me back at my house later.
+    
+    
+    
+    
+    
+  

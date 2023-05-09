@@ -1,0 +1,131 @@
+titan_1:
+  name: Titan
+  boss: true
+  type: TITAN
+  entity-type: HUSK
+  level: 10
+  health: 7000
+  knockback: 35
+  speed: 0.6
+  damage: 80
+  damage-type: PHYSICAL
+  display-height: 2.1
+  blood-colour: 0,50,150
+  
+  damage-cap-percentage: 5
+  overkill-reward: 5
+  
+  explosion-radius: 5
+  explosion-damage: 500
+  explosion-cooldown: 320
+  
+  slash-damage: 50
+  slash-cooldown: 35
+  slash-time: 15
+  
+  beam-damage: 110
+  beam-min-range: 7
+  beam-cooldown: 18
+  
+  rain-damage: 40
+  rain-min-range: 5
+  rain-max-range: 11
+  
+  resistances:
+    BLEED: 50
+    BURN: 500
+    POISON: 60
+    DEATH: -1
+  armour:
+    PHYSICAL: 0
+    MAGICAL: -10
+    HOLY: -30
+    BLEED: 0
+    FIRE: 30
+    WITHER: 100
+  equipment:
+    HAND: GOLDEN_PICKAXE
+    HEAD: PLAYER_HEAD
+    CHEST: flamefin_chestplate
+    LEGS: coldfin_leggings
+    FEET: flamefin_boots
+  tags:
+    - TITAN
+  drops:
+    cayenne_powder:
+      amount: 1/2
+    spicy_arrow: 
+      chance: 1/4
+      amount: 32/128
+    ocean_eye:
+      chance: 1/7
+      amount: 1/2
+    enchanted_book-SHARP1:
+      chance: 1/6
+      enchants: ENCHANT_SHARPNESS-1
+    enchanted_book-TITANIC1:
+      chance: 1/8
+      enchants: ENCHANT_TITANIC-1
+    combination_catalyst_shard:
+      chance: 15/100
+      amount: 1/2
+    titan_hammer:
+      chance: 1/50
+      amount: 1/1
+      
+titan_1_rain:
+  name: Storm Titan
+  type: TITAN
+  entity-type: HUSK
+  level: 14
+  health: 13500
+  knockback: 30
+  damage: 70
+  damage-type: PHYSICAL
+  display-height: 2
+  blood-colour: 0,50,150
+  speed: 1.05
+  damage-cap-percentage: 7
+  overkill-reward: 4
+  
+  life-drain: 20
+  life-drain-timer: 20
+  life-drain-radius: 8
+  
+  armour:
+    PHYSICAL: 0
+    PROJECTILE: 500000
+    MAGICAL: -10
+    HOLY: -30
+    BLEED: 100
+    FIRE: 200
+    WITHER: 100
+  equipment:
+    HAND: DIAMOND_PICKAXE
+    HEAD: PLAYER_HEAD
+    CHEST: DIAMOND_CHESTPLATE
+    LEGS: frostfin_leggings
+    FEET: blazefin_boots
+  tags:
+    - TITAN
+  drops:
+    cayenne_powder:
+      amount: 2/4
+    storm_crystals:
+      amount: 16/48
+    spicy_arrow: 
+      chance: 1/2
+      amount: 32/128
+    ocean_eye:
+      chance: 1/3
+      amount: 1/4
+    enchanted_book-TITANIC2:
+      chance: 1/4
+      enchants: ENCHANT_TITANIC-2
+    combination_catalyst_shard:
+      chance: 1/5
+      amount: 2/5
+    enchanted_book-TITANIC3:
+      chance: 1/20
+      enchants: ENCHANT_TITANIC-3
+    

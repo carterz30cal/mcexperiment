@@ -1,0 +1,33 @@
+leaf_ball:
+  level: 3
+  time: 30s
+  category: waterway_ingredients
+  discovery: leaf_mush_discovery
+  discovery-tier: 2
+  coins: 10
+  items:
+    leaf_mush: 128
+    
+    
+chilli_apple:
+  level: 4
+  time: 30s
+  category: waterway_ingredients
+  items:
+    cayenne_powder: 1
+    jalapeno_powder: 1
+    leaf_ball: 1
+    rotten_fish: 48
+    
+fish_barrel:
+  level: 5
+  time: 5m
+  category: waterway_ingredients
+  discovery: rotten_fish_discovery
+  discovery-tier: 3
+  items:
+    rotten_fish: 512
+    leaf_mush: 16
+    
+
+  

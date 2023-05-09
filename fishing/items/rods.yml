@@ -1,0 +1,28 @@
+flimsy_rod:
+  name: Flimsy Fishing Rod
+  type: ROD
+  rarity: COMMON
+  material: FISHING_ROD
+  stats:
+    FISHING_POWER: +5
+    ENCHANT_POWER: +10
+    
+shard_rod:
+  name: Shard Fishing Rod
+  type: ROD
+  rarity: UNCOMMON
+  material: FISHING_ROD
+  stats:
+    DAMAGE: +10
+    FISHING_POWER: +96
+    ENCHANT_POWER: +20
+    
+flowery_rod:
+  name: Flowery Rod
+  type: ROD
+  rarity: UNCOMMON
+  material: FISHING_ROD
+  stats:
+    DAMAGE: +8
+    FISHING_POWER: +60
+    ENCHANT_POWER: +80

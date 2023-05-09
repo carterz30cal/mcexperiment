@@ -1,0 +1,74 @@
+lurker_1:
+  name: Lurker
+  type: SIMPLE
+  entity-type: SKELETON
+  level: 5
+  health: 400
+  knockback: 150
+  damage: 14
+  damage-type: PHYSICAL
+  display-height: 1.9
+  blood-colour: 255,0,0
+  armour:
+    PHYSICAL: 0
+    PROJECTILE: 0
+    MAGICAL: 0
+    HOLY: 0
+    BLEED: 0
+    FIRE: -20
+    WITHER: 0
+  equipment:
+    CHEST: forager_chestplate
+    FEET: forager_boots
+  drops:
+    woodchip:
+      amount: 1/2
+    lurker_talisman_common:
+      chance: 1/175
+    enchanted_book-HEALTHY:
+      chance: 1/225
+      enchants: ENCHANT_HEALTHY-1
+    enchanted_book-SCYTHELIKE:
+      chance: 1/5000
+      enchants: ENCHANT_SCYTHELIKE-1
+      
+lurker_2:
+  name: Lurker
+  type: SIMPLE
+  entity-type: SKELETON
+  level: 9
+  health: 2000
+  knockback: 140
+  damage: 45
+  damage-type: PHYSICAL
+  display-height: 1.9
+  blood-colour: 255,0,0
+  armour:
+    PHYSICAL: 50
+    PROJECTILE: 0
+    MAGICAL: 0
+    HOLY: 0
+    BLEED: 0
+    FIRE: -20
+    WITHER: 0
+  equipment:
+    CHEST: forager_chestplate
+    FEET: forager_boots
+  drops:
+    woodchip:
+      amount: 1/4
+    leaf_ball:
+      chance: 1/25
+      amount: 1/2
+    lurker_talisman_common:
+      chance: 1/125
+    enchanted_book-HEALTHY:
+      chance: 1/180
+      enchants: ENCHANT_HEALTHY-1
+    enchanted_book-HEALTHY2:
+      chance: 1/300
+      enchants: ENCHANT_HEALTHY-2
+    enchanted_book-SCYTHELIKE:
+      chance: 1/4995
+      enchants: ENCHANT_SCYTHELIKE-1
+    

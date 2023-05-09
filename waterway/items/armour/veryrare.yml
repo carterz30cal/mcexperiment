@@ -1,0 +1,17 @@
+supreme_fish_leggings:
+  name: Supreme Fish Leggings
+  type: LEGGINGS
+  material: LEATHER_LEGGINGS
+  rarity: VERY_RARE
+  glow: true
+  description:
+    - You look a bit silly.
+  abilities:
+    - FISH_BRAIN
+  colour:
+    r: 255
+    g: 70
+    b: 0
+  stats:
+    health: +225
+    defence: -20

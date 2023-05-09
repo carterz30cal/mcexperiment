@@ -1,0 +1,213 @@
+seraph_mage_health:
+  name: BOLDMage of Health
+  type: SERAPH_MAGE_HEALTH
+  entity-type: ZOMBIE
+  level: 12
+  health: 8000
+  knockback: 50
+  damage: 30
+  damage-type: MAGICAL
+  display-height: 2.4
+  blood-colour: 200,0,0
+  speed: 0.7
+  ignore-target-limit: true
+  armour:
+    WITHER: -25
+    MAGICAL: 50
+  equipment:
+    HAND: BLAZE_ROD
+  drops: {}
+  
+seraph_mage_defence:
+  name: BOLDMage of Defence
+  type: SIMPLE
+  entity-type: ZOMBIE
+  level: 12
+  health: 1500
+  knockback: 40
+  damage: 30
+  damage-type: MAGICAL
+  speed: 0.5
+  display-height: 2.4
+  blood-colour: 200,0,0
+  ignore-target-limit: true
+  armour:
+    PHYSICAL: 350
+    PROJECTILE: 1000
+    MAGICAL: 50
+  equipment:
+    HAND: BLAZE_ROD
+  drops: {}
+  
+seraph_mage_mana:
+  name: BOLDMage of Mana
+  type: SERAPH_MAGE_MANA
+  entity-type: ZOMBIE
+  level: 12
+  health: 4000
+  knockback: 40
+  damage: 40
+  damage-type: MAGICAL
+  speed: 0.8
+  display-height: 2.4
+  blood-colour: 200,0,0
+  ignore-target-limit: true
+  
+  life-drain: 2
+  life-drain-timer: 9
+  life-drain-radius: 13
+  
+  summon-timer: 80
+  summon: seraph_wraith
+  summon-heal: 80
+  
+  armour:
+    MAGICAL: 666
+  equipment:
+    HAND: BLAZE_ROD
+  drops: {}
+  
+seraph_wraith:
+  name: BLACKMage Wraith
+  type: WRAITHLIKE
+  entity-type: SKELETON
+  level: 0
+  health: 120
+  knockback: 60
+  damage: 40
+  damage-type: WITHER
+  speed: 0.9
+  display-height: 1.7
+  blood-colour: 200,0,0
+  armour: 
+    PHYSICAL: 600
+    HOLY: -50
+    MAGICAL: 500
+    FIRE: 200
+    WITHER: 1000
+  equipment:
+    HEAD: CHAINMAIL_HELMET
+    CHEST: wraith_chestplate
+  drops: {}
+  
+seraph_cultist:
+  name: Cultist
+  type: SIMPLE
+  entity-type: STRAY
+  level: 0
+  health: 130
+  knockback: 0
+  damage: 8
+  damage-type: WITHER
+  speed: 1.5
+  display-height: 1.9
+  blood-colour: 0,0,0
+  ignore-target-limit: true
+  armour:
+    WITHER: 100000
+    FIRE: -67
+    HOLY: -33
+  equipment:
+    HAND: IRON_SWORD
+    CHEST: NETHERITE_CHESTPLATE
+  drops: {}
+  
+corrupt_seraph_cultist:
+  name: Cultist
+  type: SIMPLE
+  entity-type: STRAY
+  level: 0
+  health: 500
+  knockback: 0
+  damage: 10
+  damage-type: WITHER
+  speed: 1.6
+  display-height: 1.9
+  blood-colour: 0,0,0
+  ignore-target-limit: true
+  armour:
+    WITHER: 100000
+    FIRE: -80
+    HOLY: -50
+  equipment:
+    HAND: IRON_SWORD
+    CHEST: NETHERITE_CHESTPLATE
+  drops: {}
+  
+seraph_lab_servant:
+  name: Lab Servant
+  type: SIMPLE
+  entity-type: SKELETON
+  level: 0
+  health: 160
+  knockback: 400
+  damage: 10
+  damage-type: WITHER
+  speed: 1.6
+  display-height: 1.7
+  blood-colour: 0,0,0
+  ignore-target-limit: true
+  armour:
+    WITHER: 100000
+    FIRE: -67
+    HOLY: -33
+    
+seraph_golem:
+  name: Lab Automaton
+  type: SIMPLE
+  entity-type: IRON_GOLEM
+  level: 0
+  health: 9000
+  knockback: 0
+  damage: 35
+  damage-type: MAGICAL
+  speed: 0.5
+  display-height: 2
+  blood-colour: 200,200,200
+  ignore-target-limit: true
+  armour:
+    PHYSICAL: 3000
+    BLEED: 10000
+    WITHER: 10000
+    FIRE: 10000
+    HOLY: -70
+    
+seraph:
+  name: Waterway Seraph
+  type: SERAPH
+  entity-type: ENDERMAN
+  level: 16
+  health: 25000
+  knockback: 85
+  damage: 30
+  damage-type: MAGICAL
+  speed: 0.4
+  display-height: 3
+  drops: {}
+  blood-colour: 50,0,170
+  ignore-target-limit: true
+  armour:
+    FROST: -50
+    FIRE: -10
+  damage-cap-percentage: 3
+  overkill-reward: 4
+  
+corrupt_seraph:
+  name: Corrupted Seraph
+  type: SERAPH
+  entity-type: ENDERMAN
+  level: 21
+  health: 75000
+  knockback: 85
+  damage: 70
+  damage-type: MAGICAL
+  speed: 0.4
+  display-height: 3
+  drops: {}
+  blood-colour: 50,0,170
+  ignore-target-limit: true
+  armour:
+    FROST: -60
+    FIRE: -15
+  damage-cap-percentage: 2
+  overkill-reward: 10

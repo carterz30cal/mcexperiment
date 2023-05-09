@@ -1,0 +1,17 @@
+flimsy_sword:
+  name: Flimsy Sword
+  type: WEAPON
+  rarity: COMMON
+  material: WOODEN_SWORD
+  stats:
+    damage: +10
+    enchant_power: +1
+    
+flimsy_bow:
+  name: Flimsy Bow
+  type: BOW
+  rarity: COMMON
+  material: BOW
+  stats:
+    damage: +12
+    enchant_power: 0

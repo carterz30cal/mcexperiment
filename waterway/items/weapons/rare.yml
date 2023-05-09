@@ -1,0 +1,30 @@
+spearfish_sword:
+  name: Spearfish Scythe
+  type: WEAPON
+  rarity: RARE
+  material: IRON_HOE
+  stats:
+    damage: +25
+    strength: +65
+    enchant_power: +3
+    
+piranha_dagger:
+  name: Piranha Dagger
+  type: WEAPON
+  rarity: RARE
+  material: IRON_SWORD
+  statuses:
+    BLEED: 20
+  stats:
+    damage: +27
+    savagery: +15
+    enchant_power: +3
+    
+cod_bow:
+  name: Cod Bow
+  type: BOW
+  rarity: RARE
+  material: BOW
+  stats:
+    damage: +40
+    enchant_power: +2

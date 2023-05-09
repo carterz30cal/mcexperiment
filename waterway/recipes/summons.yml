@@ -1,0 +1,33 @@
+hydra_totem:
+  level: 4
+  time: 20s
+  category: waterway_summoning_items
+  items:
+    sea_shard: 1
+    rotten_fish: 5
+    
+corrupted_hydra_totem:
+  level: 8
+  time: 10m
+  category: waterway_summoning_items
+  items:
+    sea_shard: 2
+    rotten_fish: 10
+    water_flower: 1
+    
+seraph_summon:
+  level: 5
+  time: 30s
+  category: waterway_summoning_items
+  items:
+    water_pearl: 4
+    hydra_flesh: 1
+    
+rain_summon:
+  level: 6
+  time: 1m
+  category: waterway_summoning_items
+  amount: 3
+  items:
+    waterway_gold: 1
+    storm_crystals: 12

@@ -1,0 +1,17 @@
+frost_sword:
+  level: 8
+  time: 6m
+  category: verglasian_peak_swords
+  items: 
+    frozen_handle: 1
+    dry_ice: 32
+    water_pearl: 8
+    
+blizzard_sword_1:
+  level: 8
+  time: 15s
+  category: verglasian_peak_swords
+  items:
+    frozen_handle: 1
+    blizzard_dust: 5
+    jalapeno_powder: 1

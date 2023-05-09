@@ -1,0 +1,292 @@
+armour-soggy:
+  name:
+    - Soggy Helmet
+    - Soggy Shirt
+    - Soggy Leggings
+    - Soggy Boots
+  material: LEATHER
+  rarity: COMMON
+  colour:
+    g: 240
+    b: 30
+  stats:
+    health: +10
+    enchant_power: +1
+    
+    
+armour-rotten_fish:
+  name:
+    - Rotten Fish Helmet
+    - Rotten Fish Chestplate
+    - Rotten Fish Leggings
+    - Rotten Fish Boots
+  material: LEATHER
+  rarity: UNCOMMON
+  colour:
+    r: 150
+    g: 75
+  stats:
+    health: +20
+    defence: +10,+20,+15,+5
+    enchant_power: +2
+    
+armour-cod:
+  name:
+    - Cod Helmet
+    - Cod Chestplate
+    - Cod Leggings
+    - Cod Boots
+  material: LEATHER
+  rarity: RARE
+  colour:
+    r: 194
+    g: 178
+    b: 128
+  stats:
+    health: +30
+    vitality: +1
+    defence: +15,+25,+20,+10
+    enchant_power: +2
+    
+armour-coldfin:
+  name:
+    - Coldfin Helmet
+    - Coldfin Chestplate
+    - Coldfin Leggings
+    - Coldfin Boots
+  material: LEATHER
+  rarity: VERY_RARE
+  colour:
+    r: 194
+    g: 178
+    b: 250
+  stats:
+    health: +45
+    vitality: +1
+    defence: +17,+27,+23,+13
+    enchant_power: +3
+armour-flamefin:
+  name:
+    - Flamefin Helmet
+    - Flamefin Chestplate
+    - Flamefin Leggings
+    - Flamefin Boots
+  material: LEATHER
+  rarity: VERY_RARE
+  colour:
+    r: 250
+    g: 178
+    b: 128
+  stats:
+    health: +30
+    defence: +15,+25,+20,+10
+    power: +5,+10,+10,+5
+    enchant_power: +3
+armour-manafin:
+  name:
+    - Manafin Helmet
+    - Manafin Chestplate
+    - Manafin Leggings
+    - Manafin Sandals
+  material: LEATHER
+  rarity: VERY_RARE
+  colour:
+    r: 90
+    g: 50
+    b: 130
+  stats:
+    health: +30
+    defence: +15,+25,+20,+10
+    mana: +5
+    focus: 1,0,0,1
+    enchant_power: +2
+
+paper_helmet:
+  name: Paper Cap
+  type: HELMET
+  material: LEATHER_HELMET
+  rarity: VERY_RARE
+  colour:
+    r: 255
+    g: 255
+    b: 255
+  stats:
+    health: -50
+    power: +30
+    focus: +3
+    enchant_power: +1
+    
+armour-frostfin:
+  name:
+    - Frostfin Helmet
+    - Frostfin Chestplate
+    - Frostfin Leggings
+    - Frostfin Boots
+  material: LEATHER
+  rarity: EPIC
+  colour:
+    r: 20
+    g: 90
+    b: 250
+  stats:
+    health: +25,+35,+30,+25
+    defence: +15,+25,+20,+10
+    enchant_power: +8
+    
+armour-blazefin:
+  name:
+    - Blazefin Helmet
+    - Blazefin Chestplate
+    - Blazefin Leggings
+    - Blazefin Boots
+  material: LEATHER
+  rarity: EPIC
+  colour:
+    r: 250
+    g: 122
+    b: 97
+  stats:
+    health: +20,+40,+25,+25
+    power: +15,+20,+15,+15
+    might: +5,+15,+10,+5
+    enchant_power: +8
+    
+
+    
+hydra_helmet:
+  name: Hydra Helmet
+  type: HELMET
+  material: GOLDEN_HELMET
+  rarity: INCREDIBLE
+  abilities:
+    - HYDRA_HELMET
+  stats:
+    health: +10
+    enchant_power: +100
+hydra_chestplate:
+  name: Hydra Chestplate
+  type: CHESTPLATE
+  material: GOLDEN_CHESTPLATE
+  rarity: INCREDIBLE
+  abilities:
+    - HYDRA_CHESTPLATE
+  stats:
+    health: +10
+    enchant_power: +100
+hydra_leggings:
+  name: Hydra Leggings
+  type: LEGGINGS
+  material: GOLDEN_LEGGINGS
+  rarity: INCREDIBLE
+  abilities:
+    - HYDRA_LEGGINGS
+  stats:
+    health: +10
+    enchant_power: +100
+hydra_boots:
+  name: Hydra Boots
+  type: BOOTS
+  material: GOLDEN_BOOTS
+  rarity: INCREDIBLE
+  abilities:
+    - HYDRA_BOOTS
+  stats:
+    health: +10
+    enchant_power: +100
+    
+armour-shark:
+  name:
+    - Shark Head
+    - Shark Shirt
+    - Shark Leggings
+    - Shark Shoes
+  material: LEATHER
+  rarity: INCREDIBLE
+  colour:
+    r: 150
+    g: 150
+    b: 150
+  stats:
+    health: +30, +45, +35, +15
+    defence: +10, +20, +15, +5
+    strength: +10, +15, +15, +10
+    power: +10, +10, +10, +10
+    enchant_power: +12
+    
+armour-regrowth:
+  name:
+    - Regrowth Helmet
+    - Regrowth Chestplate
+    - Regrowth Leggings
+    - Regrowth Boots
+  material: LEATHER
+  rarity: INCREDIBLE
+  colour:
+    r: 20
+    g: 200
+    b: 40
+  abilities:
+    - ARMOUR_REGROWTH
+  stats:
+    health: +10, +30, +20, +5
+    vitality: +2
+    visibility: +1
+    enchant_power: +20
+    
+armour-greatwhiteshark:
+  name:
+    - Great White Shark Head
+    - Great White Shark Shirt
+    - Great White Shark Leggings
+    - Great White Shark Shoes
+  material: LEATHER
+  rarity: LEGENDARY
+  colour:
+    r: 200
+    g: 200
+    b: 220
+  stats:
+    health: +40, +65, +40, +25
+    defence: +15, +25, +20, +10
+    strength: +10, +20, +20, +10
+    power: +10, +10, +10, +10
+    might: +5, +5, +5, +5
+    enchant_power: +15
+    
+    
+armour-dripper:
+  name: 
+    - Dripper Helmet
+    - Dripper Chestplate
+    - Dripper Leggings
+    - Dripper Boots
+  material: LEATHER
+  rarity: UNOBTAINABLE
+  colour:
+    r: 0,0,0,0
+    g: 50,50,50,50
+    b: 150,150,150,150
+    
+armour-drenched:
+  name: 
+    - Drenched Helmet
+    - Drenched Chestplate
+    - Drenched Leggings
+    - Drenched Boots
+  material: LEATHER
+  rarity: UNOBTAINABLE
+  colour:
+    r: 0,0,0,0
+    g: 80,80,80,80
+    b: 140,140,140,140
+    
+wraith_chestplate:
+  name: Wraith Chestplate
+  type: CHESTPLATE
+  material: LEATHER_CHESTPLATE
+  rarity: UNOBTAINABLE
+  colour:
+    r: 0
+    g: 0
+    b: 0
+  

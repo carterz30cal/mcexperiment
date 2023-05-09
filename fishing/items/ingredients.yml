@@ -1,0 +1,28 @@
+sea_shard:
+  name: Sea Shard
+  type: INGREDIENT
+  rarity: UNCOMMON
+  material: PRISMARINE_SHARD
+  description:
+    - Shiny and slimy.
+    - Dropped by nearly all fishable creatures.
+    
+water_flower:
+  name: Water Flower
+  type: INGREDIENT
+  rarity: UNCOMMON
+  material: CORNFLOWER
+  description:
+    - ITALICHow lovely.
+    - Dropped by long forgotten fish.
+    
+water_warden_soul:
+  name: Water Warden Soul
+  type: INGREDIENT
+  rarity: RARE
+  material: CYAN_WOOL
+  description:
+    - The water warden is the weakest of
+    - all wardens, but the soul of one is
+    - still a valuable commodity.
+  

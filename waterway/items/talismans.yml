@@ -1,0 +1,111 @@
+fish_talisman_common:
+  name: Fish Talisman
+  type: TALISMAN
+  rarity: COMMON
+  material: COOKED_COD
+  stats:
+    health: +25
+  tags:
+    - FISH_TALISMAN
+    
+fish_talisman_uncommon:
+  name: Fish Talisman
+  type: TALISMAN
+  rarity: UNCOMMON
+  material: COOKED_COD
+  stats:
+    health: +30
+    might: +1
+  tags:
+    - FISH_TALISMAN
+    
+fish_talisman_rare:
+  name: Fish Talisman
+  type: TALISMAN
+  rarity: RARE
+  material: COOKED_COD
+  stats:
+    health: +20
+  tags:
+    - FISH_TALISMAN
+   
+fish_talisman_very_rare:
+  name: Fish Talisman
+  type: TALISMAN
+  rarity: VERY_RARE
+  material: COOKED_COD
+  stats:
+    health: +25
+  tags:
+    - FISH_TALISMAN
+    
+fish_talisman_epic:
+  name: Fish Talisman
+  type: TALISMAN
+  rarity: EPIC
+  material: COOKED_COD
+  stats:
+    health: +30
+  tags:
+    - FISH_TALISMAN
+   
+fish_talisman_incredible:
+  name: Fish Talisman
+  type: TALISMAN
+  rarity: INCREDIBLE
+  material: COOKED_COD
+  stats:
+    health: +35
+  tags:
+    - FISH_TALISMAN
+    
+fish_talisman_legendary:
+  name: Fish Talisman
+  type: TALISMAN
+  rarity: LEGENDARY
+  material: COOKED_COD
+  stats:
+    health: +40
+    vitality: +1
+  tags:
+    - FISH_TALISMAN
+    
+    
+
+    
+regrowth_amulet:
+  name: Regrowth Amulet
+  type: TALISMAN
+  rarity: LEGENDARY
+  material: OAK_LEAVES
+  glow: true
+  stats:
+    vitality: +3
+  description:
+    - Incompatible with the GOLDShark AmuletGRAY.
+  tags:
+    - AMULET_WATERWAY
+    
+    
+shark_amulet:
+  name: Shark Amulet
+  type: TALISMAN
+  rarity: LEGENDARY
+  material: GHAST_TEAR
+  stats:
+    health: -5
+    might: +10
+  description:
+    - Incompatible with the GOLDRegrowth AmuletGRAY.
+  tags:
+    - AMULET_WATERWAY
+    
+seraph_talisman:
+  name: Seraph's Talisman
+  type: TALISMAN
+  rarity: LEGENDARY
+  material: ENDER_EYE
+  glow: true
+  stats:
+    power: +5
+    focus: +1

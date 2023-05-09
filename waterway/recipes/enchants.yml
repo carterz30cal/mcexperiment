@@ -1,0 +1,89 @@
+enchanted_book-FLOWING:
+  custom-name: GREENFlowing DARK_GRAY[Enchantment]
+  enchants: ENCHANT_FLOWING-1
+  level: 2
+  time: 2m
+  category: waterway_enchantments
+  items:
+    rotten_fish: 32
+    wet_paper: 16
+
+### later?
+enchanted_book-PEARLED:
+  custom-name: LIGHT_PURPLEPearled DARK_GRAY(Enchantment)
+  enchants: ENCHANT_PEARLED-1
+  level: 1000
+  time: 5m
+  category: waterway_enchantments
+  items:
+    rotten_fish: 64
+    water_pearl: 4
+    
+enchanted_book-ELECTRICHEALTH:
+  custom-name: AQUAElectric Health DARK_GRAY(Enchantment)
+  enchants: ENCHANT_ELECTRICHEALTH-1
+  level: 1000
+  time: 5m
+  category: waterway_enchantments
+  items:
+    rotten_fish: 256
+    storm_crystals: 20
+    
+enchanted_book-SHOCKED:
+  custom-name: AQUAShocked DARK_GRAY(Enchantment)
+  enchants: ENCHANT_SHOCKED-1
+  level: 1000
+  time: 2m
+  category: waterway_enchantments
+  items:
+    storm_crystals: 32
+    leaf_mush: 70
+    jalapeno_powder: 1
+    
+enchanted_book-STEALTH:
+  custom-name: Stealth DARK_GRAY(Enchantment)
+  enchants: ENCHANT_STEALTH-1
+  level: 1000
+  time: 12m
+  category: waterway_enchantments
+  items:
+    hydra_flesh: 5
+    chilli_apple: 2
+    fish_barrel: 2
+    
+enchanted_book-FIREASPECT:
+  custom-name: GOLDFire Aspect DARK_GRAY(Enchantment)
+  enchants: ENCHANT_FIREASPECT-1
+  level: 1000
+  time: 14m
+  category: waterway_enchantments
+  items:
+    waterway_gold: 1
+    chilli_apple: 1
+    cayenne_powder: 4
+    
+enchanted_book-HEALTHY:
+  custom-name: GREENHealthy DARK_GRAY(Enchantment)
+  enchants: ENCHANT_HEALTHY-1
+  level: 4
+  time: 8m
+  category: waterway_enchantments
+  discovery: leaf_mush_discovery
+  discovery-tier: 2
+  items:
+    leaf_ball: 2
+    ghost_powder: 1
+    
+    
+enchanted_book-SCYTHELIKE:
+  custom-name: YELLOWScythelike DARK_GRAY(Enchantment)
+  enchants: ENCHANT_SCYTHELIKE-1
+  level: 1000
+  time: 11m
+  category: waterway_enchantments
+  discovery: leaf_mush_discovery
+  discovery-tier: 3
+  items:
+    leaf_ball: 1
+    woodchip: 15
+    storm_crystals: 40

@@ -1,0 +1,48 @@
+hydra_totem:
+  name: Hydra Totem
+  type: ARTEFACT
+  rarity: EPIC
+  material: TOTEM_OF_UNDYING
+  abilities:
+    - HYDRA_TOTEM
+    
+corrupted_hydra_totem:
+  name: Corrupt Hydra Totem
+  type: ARTEFACT
+  rarity: INCREDIBLE
+  material: TOTEM_OF_UNDYING
+  abilities:
+    - HYDRA_TOTEM_CORRUPTED
+    
+seraph_summon:
+  name: Seraph's Lab Key
+  type: ARTEFACT
+  rarity: LEGENDARY
+  material: ECHO_SHARD
+  abilities:
+    - SERAPH_SUMMON
+    
+seraph_summon_corrupted:
+  name: Seraph's Corrupted Key
+  type: ARTEFACT
+  rarity: LEGENDARY
+  material: ECHO_SHARD
+  glow: true
+  abilities:
+    - SERAPH_SUMMON_CORRUPT
+    
+rain_summon:
+  name: Storm Catalyst
+  type: ARTEFACT
+  rarity: LEGENDARY
+  material: BEACON
+  abilities:
+    - RAIN_SUMMON
+    
+waterway_dungeon_key:
+  name: Waterway Dungeon Key
+  type: ARTEFACT
+  rarity: LEGENDARY
+  material: TRIPWIRE_HOOK
+  abilities:
+    - WATERWAY_DUNGEON_KEY

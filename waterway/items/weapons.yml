@@ -1,0 +1,283 @@
+flimsy_sword:
+  name: Flimsy Sword
+  type: WEAPON
+  rarity: COMMON
+  material: WOODEN_SWORD
+  stats:
+    damage: +10
+    enchant_power: +1
+    
+rotten_fish_sword:
+  name: Rotten Fish Sword
+  type: WEAPON
+  rarity: UNCOMMON
+  material: WOODEN_SWORD
+  stats:
+    damage: +20
+    strength: +50
+    enchant_power: +2
+    
+jims_sword:
+  name: Jim's Shoddy Sword
+  type: WEAPON
+  rarity: UNCOMMON
+  material: WOODEN_SWORD
+  glow: true
+  stats:
+    damage: +24
+    might: +30
+    enchant_power: +2
+    
+spearfish_sword:
+  name: Spearfish Scythe
+  type: WEAPON
+  rarity: RARE
+  material: IRON_HOE
+  stats:
+    damage: +25
+    strength: +65
+    enchant_power: +3
+    
+piranha_dagger:
+  name: Piranha Dagger
+  type: WEAPON
+  rarity: RARE
+  material: IRON_SWORD
+  statuses:
+    BLEED: 20
+  stats:
+    damage: +27
+    savagery: +20
+    enchant_power: +3
+    
+angry_spearfish_sword:
+  name: Angry Spearfish Scythe
+  type: WEAPON
+  rarity: VERY_RARE
+  material: IRON_HOE
+  stats:
+    damage: +30
+    strength: +80
+    might: +5
+    enchant_power: +4
+    
+angry_piranha_dagger:
+  name: Angry Piranha Dagger
+  type: WEAPON
+  rarity: VERY_RARE
+  material: IRON_SWORD
+  statuses:
+    BLEED: 25
+  stats:
+    damage: +34
+    savagery: +25
+    enchant_power: +4
+    
+flaming_sword:
+  name: Flaming Sword
+  type: WEAPON
+  rarity: VERY_RARE
+  material: GOLDEN_SWORD
+  glow: true
+  statuses:
+    BURN: 45
+  abilities:
+    - FLAMING_SWORD
+  stats:
+    damage: +26
+    power: +15
+    might: +15
+    enchant_power: +6
+    
+    
+jims_better_sword:
+  name: Jim's Sword
+  type: WEAPON
+  rarity: VERY_RARE
+  material: DIAMOND_SWORD
+  glow: true
+  stats:
+    damage: +28
+    power: +20
+    might: +20
+    defence: +25
+    enchant_power: +8
+    
+
+    
+
+incensed_spearfish_sword:
+  name: Incensed Spearfish Scythe
+  type: WEAPON
+  rarity: EPIC
+  material: IRON_HOE
+  stats:
+    damage: +38
+    strength: +90
+    might: +15
+    enchant_power: +5
+    
+incensed_piranha_dagger:
+  name: Incensed Piranha Dagger
+  type: WEAPON
+  rarity: EPIC
+  material: IRON_SWORD
+  statuses:
+    BLEED: 30
+  stats:
+    damage: +42
+    savagery: +45
+    power: +20
+    enchant_power: +5
+    
+angrily_flaming_sword:
+  name: Angrily Flaming Sword
+  type: WEAPON
+  rarity: EPIC
+  material: GOLDEN_SWORD
+  glow: true
+  statuses:
+    BURN: 65
+  abilities:
+    - FLAMING_SWORD
+  stats:
+    damage: +32
+    power: +35
+    might: +25
+    enchant_power: +8
+    
+dungeon_dagger:
+  name: Dungeon Dagger
+  type: WEAPON
+  rarity: EPIC
+  material: STONE_SWORD
+  abilities:
+    - DUNGEON_SWORD
+  stats:
+    damage: +12
+    power: +100
+    enchant_power: +20
+    
+    
+
+frost_axe: ## the upgrade for the flaming sword OLD VERSION WE DO NOT USE THIS VERSION!!!!!
+  name: Frost Axe
+  type: WEAPON
+  rarity: EPIC
+  material: DIAMOND_AXE
+  abilities:
+    - FROST_AXE
+  stats:
+    damage: +20
+    power: +50
+    enchant_power: +20
+    
+hydra_slayer:
+  name: Hydra Beheader
+  type: WEAPON
+  rarity: INCREDIBLE
+  material: GOLDEN_AXE
+  abilities:
+    - HYDRA_SLAYER
+  stats:
+    damage: +19
+    strength: +30
+    might: +5
+    enchant_power: +5
+    
+hammerhead_sword:
+  name: Hammerhead Sword
+  type: WEAPON
+  rarity: INCREDIBLE
+  material: NETHERITE_SWORD
+  abilities: 
+    - HAMMERHEAD_SWORD
+  stats:
+    damage: +35
+    power: +30
+    savagery: +10
+    enchant_power: +20
+    
+warden_whip:
+  name: Warden Whip
+  type: WEAPON
+  rarity: INCREDIBLE
+  material: FISHING_ROD
+  stats:
+    damage: +20
+    might: +70
+    enchant_power: +20
+    
+super_flaming_sword:
+  name: Super-Flaming Sword
+  type: WEAPON
+  rarity: LEGENDARY
+  material: GOLDEN_SWORD
+  glow: true
+  abilities:
+    - FLAMING_SWORD
+  stats:
+    damage: +12
+    savagery: +175
+    enchant_power: +30
+    
+great_white_shark_scythe:
+  name: Great White Shark Scythe
+  type: WEAPON
+  rarity: LEGENDARY
+  material: IRON_HOE
+  abilities:
+    - GREAT_WHITE_SCYTHE
+  stats:
+    damage: +45
+    power: +50
+    savagery: +15
+    enchant_power: +22
+    
+waterway_whip:
+  name: Waterway Whip
+  type: WEAPON
+  rarity: LEGENDARY
+  material: FISHING_ROD
+  glow: true
+  abilities:
+    - WATERWAY_KING
+  stats:
+    damage: +30
+    might: +80
+    enchant_power: +22
+    
+    
+    
+    
+    
+    
+    
+    
+test_sword:
+  name: Test Sword
+  type: WEAPON
+  rarity: UNOBTAINABLE
+  material: NETHERITE_SWORD
+  stats:
+    damage: +69420
+    strength: +420
+    might: +69
+    power: +420
+    savagery: +200
+    enchant_power: +10000
+    level_requirement: 999
+    
+test_bow:
+  name: Test Bow
+  type: BOW
+  rarity: UNOBTAINABLE
+  material: CROSSBOW
+  stats:
+    damage: +69420
+    strength: +420
+    might: +69
+    power: +420
+    savagery: +200
+    enchant_power: +10000
+    level_requirement: 999

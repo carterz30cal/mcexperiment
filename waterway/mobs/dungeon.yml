@@ -1,0 +1,25 @@
+waterway_crypt_dweller:
+  name: Crypt Dweller
+  type: SIMPLE
+  level: 5
+  health: 220
+  knockback: 110
+  damage: 30
+  damage-type: PHYSICAL
+  display-height: 1.9
+  blood-colour: 255,0,0
+  armour:
+    PHYSICAL: 0
+    PROJECTILE: 0
+    MAGICAL: 0
+    HOLY: 0
+    BLEED: 0
+    FIRE: 0
+    WITHER: 0
+  equipment:
+    HAND: DIAMOND_SWORD
+    CHEST: CHAINMAIL_CHESTPLATE
+    FEET: CHAINMAIL_BOOTS
+  tags:
+    - DUNGEON_WATERWAY
+    - DUNGEON

@@ -1,0 +1,520 @@
+rotten_fish_helmet:
+  custom-name: YELLOWRotten Fish Armour
+  level: 1
+  time: 5s
+  category: waterway_armour_rotten_fish
+  items:
+    soggy_helmet: 1
+    rotten_fish: 15
+rotten_fish_chestplate:
+  hide: true
+  level: 1
+  time: 5s
+  category: waterway_armour_rotten_fish
+  items:
+    soggy_chestplate: 1
+    rotten_fish: 15
+rotten_fish_leggings:
+  hide: true
+  level: 1
+  time: 5s
+  category: waterway_armour_rotten_fish
+  items:
+    soggy_leggings: 1
+    rotten_fish: 15
+rotten_fish_boots:
+  hide: true
+  level: 1
+  time: 5s
+  category: waterway_armour_rotten_fish
+  items:
+    soggy_boots: 1
+    rotten_fish: 15
+    
+cod_helmet:
+  custom-name: GREENCod Armour
+  level: 2
+  time: 5s
+  category: waterway_armour_cod
+  items:
+    rotten_fish: 48
+    rotten_fish_helmet: 1
+    wet_paper: 10
+cod_chestplate:
+  level: 2
+  hide: true
+  time: 5s
+  category: waterway_armour_cod
+  items:
+    rotten_fish: 48
+    rotten_fish_chestplate: 1
+    wet_paper: 10
+cod_leggings:
+  level: 2
+  hide: true
+  time: 5s
+  category: waterway_armour_cod
+  items:
+    rotten_fish: 48
+    rotten_fish_leggings: 1
+    wet_paper: 10
+cod_boots:
+  level: 2
+  hide: true
+  time: 5s
+  category: waterway_armour_cod
+  items:
+    rotten_fish: 48
+    rotten_fish_boots: 1
+    wet_paper: 10
+    
+coldfin_helmet:
+  level: 3
+  custom-name: BLUEColdfin Armour
+  time: 10s
+  category: waterway_armour_coldfin
+  items:
+    water_pearl: 8
+    rotten_fish: 160
+    cod_helmet: 1
+coldfin_chestplate:
+  level: 3
+  hide: true
+  time: 10s
+  category: waterway_armour_coldfin
+  items:
+    water_pearl: 8
+    rotten_fish: 160
+    cod_chestplate: 1
+coldfin_leggings:
+  level: 3
+  hide: true
+  time: 10s
+  category: waterway_armour_coldfin
+  items:
+    water_pearl: 8
+    rotten_fish: 160
+    cod_leggings: 1
+coldfin_boots:
+  level: 3
+  hide: true
+  time: 10s
+  category: waterway_armour_coldfin
+  items:
+    water_pearl: 8
+    rotten_fish: 160
+    cod_boots: 1
+    
+
+flamefin_helmet:
+  level: 3
+  custom-name: BLUEFlamefin Armour
+  time: 10s
+  category: waterway_armour_flamefin
+  items:
+    leaf_mush: 120
+    water_pearl: 11
+    cod_helmet: 1
+flamefin_chestplate:
+  level: 3
+  hide: true
+  time: 10s
+  category: waterway_armour_flamefin
+  items:
+    leaf_mush: 120
+    water_pearl: 11
+    cod_chestplate: 1
+flamefin_leggings:
+  level: 3
+  hide: true
+  time: 10s
+  category: waterway_armour_flamefin
+  items:
+    leaf_mush: 120
+    water_pearl: 11
+    cod_leggings: 1
+flamefin_boots:
+  level: 3
+  hide: true
+  time: 10s
+  category: waterway_armour_flamefin
+  items:
+    leaf_mush: 120
+    water_pearl: 11
+    cod_boots: 1
+    
+manafin_helmet:
+  level: 3
+  custom-name: BLUEManafin Armour
+  time: 10s
+  category: waterway_armour_manafin
+  items:
+    water_pearl: 24
+    cod_helmet: 1
+manafin_chestplate:
+  level: 3
+  hide: true
+  time: 10s
+  category: waterway_armour_manafin
+  items:
+    water_pearl: 24
+    cod_chestplate: 1
+manafin_leggings:
+  level: 3
+  hide: true
+  time: 10s
+  category: waterway_armour_manafin
+  items:
+    water_pearl: 24
+    cod_leggings: 1
+manafin_boots:
+  level: 3
+  hide: true
+  time: 10s
+  category: waterway_armour_manafin
+  items:
+    water_pearl: 24
+    cod_boots: 1
+paper_cap:
+  item: paper_helmet
+  level: 3
+  custom-name: BLUEPaper Cap
+  time: 1m
+  category: waterway_armour_misc
+  coins: 250
+  discovery: wet_paper_discovery
+  discovery-tier: 4
+  items:
+    soggy_helmet: 4
+    wet_paper: 100
+    water_pearl: 14
+    leaf_mush: 200
+    
+supreme_fish_leggings:
+  item: supreme_fish_leggings
+  level: 3
+  custom-name: BLUESupreme Fish Leggings
+  time: 1m
+  category: waterway_armour_misc
+  coins: 4000
+  discovery: rotten_fish_discovery
+  discovery-tier: 4
+  items:
+    rotten_fish: 900
+    water_pearl: 10
+    
+    
+    
+frostfin_helmet:
+  level: 4
+  custom-name: DARK_PURPLEFrostfin Armour
+  time: 10m
+  category: waterway_armour_frostfin
+  items:
+    chilli_apple: 1
+    coldfin_helmet: 1
+frostfin_chestplate:
+  level: 4
+  hide: true
+  time: 10m
+  category: waterway_armour_frostfin
+  items:
+    chilli_apple: 1
+    coldfin_chestplate: 1
+frostfin_leggings:
+  level: 4
+  hide: true
+  time: 10m
+  category: waterway_armour_frostfin
+  items:
+    chilli_apple: 1
+    coldfin_leggings: 1
+frostfin_boots:
+  level: 4
+  hide: true
+  time: 10m
+  category: waterway_armour_frostfin
+  items:
+    chilli_apple: 1
+    coldfin_boots: 1
+    
+blazefin_helmet:
+  level: 4
+  custom-name: DARK_PURPLEBlazefin Armour
+  time: 10m
+  category: waterway_armour_blazefin
+  items:
+    chilli_apple: 1
+    flamefin_helmet: 1
+blazefin_chestplate:
+  level: 4
+  hide: true
+  time: 10m
+  category: waterway_armour_blazefin
+  items:
+    chilli_apple: 1
+    flamefin_chestplate: 1
+blazefin_leggings:
+  level: 4
+  hide: true
+  time: 10m
+  category: waterway_armour_blazefin
+  items:
+    chilli_apple: 1
+    flamefin_leggings: 1
+blazefin_boots:
+  level: 4
+  hide: true
+  time: 10m
+  category: waterway_armour_blazefin
+  items:
+    chilli_apple: 1
+    flamefin_boots: 1
+    
+
+    
+manafin_helmet_alt:
+  item: manafin_helmet
+  level: 4
+  hide: true
+  time: 10m
+  category: waterway_armour_manafin
+  items:
+    chilli_apple: 1
+    flamefin_helmet: 1
+manafin_chestplate_alt:
+  item: manafin_chestplate
+  level: 4
+  hide: true
+  time: 10m
+  category: waterway_armour_manafin
+  items:
+    chilli_apple: 1
+    flamefin_chestplate: 1
+manafin_leggings_alt:
+  item: manafin_leggings
+  level: 4
+  hide: true
+  time: 10m
+  category: waterway_armour_manafin
+  items:
+    chilli_apple: 1
+    flamefin_leggings: 1
+manafin_boots_alt:
+  item: manafin_boots
+  level: 4
+  hide: true
+  time: 10m
+  category: waterway_armour_manafin
+  items:
+    chilli_apple: 1
+    flamefin_boots: 1
+    
+shark_helmet_frost:
+  item: shark_helmet
+  level: 5
+  time: 45s
+  category: waterway_armour_shark_frost
+  custom-name: LIGHT_PURPLEShark Armour
+  items:
+    frostfin_helmet: 1
+    chilli_apple: 1
+    shark_tooth: 5
+    hydra_flesh: 2
+    leaf_ball: 3
+    ocean_eye: 2
+shark_helmet_blaze:
+  item: shark_helmet
+  level: 5
+  time: 45s
+  category: waterway_armour_shark_blaze
+  hide: true
+  items:
+    blazefin_helmet: 1
+    chilli_apple: 1
+    shark_tooth: 5
+    hydra_flesh: 2
+    leaf_ball: 3
+    ocean_eye: 2
+shark_helmet_mana:
+  item: shark_helmet
+  level: 5
+  time: 45s
+  category: waterway_armour_shark_mana
+  hide: true
+  items:
+    manafin_helmet: 1
+    chilli_apple: 1
+    shark_tooth: 5
+    hydra_flesh: 2
+    leaf_ball: 3
+    ocean_eye: 2
+    
+shark_chestplate_frost:
+  item: shark_chestplate
+  level: 5
+  time: 45s
+  category: waterway_armour_shark_frost
+  hide: true
+  items:
+    frostfin_chestplate: 1
+    chilli_apple: 1
+    shark_tooth: 5
+    hydra_flesh: 2
+    leaf_ball: 3
+    ocean_eye: 2
+shark_chestplate_blaze:
+  item: shark_chestplate
+  level: 5
+  time: 45s
+  category: waterway_armour_shark_blaze
+  hide: true
+  items:
+    blazefin_chestplate: 1
+    chilli_apple: 1
+    shark_tooth: 5
+    hydra_flesh: 2
+    leaf_ball: 3
+    ocean_eye: 2
+shark_chestplate_mana:
+  item: shark_chestplate
+  level: 5
+  time: 45s
+  category: waterway_armour_shark_mana
+  hide: true
+  items:
+    manafin_chestplate: 1
+    chilli_apple: 1
+    shark_tooth: 5
+    hydra_flesh: 2
+    leaf_ball: 3
+    ocean_eye: 2
+    
+shark_leggings_frost:
+  item: shark_leggings
+  level: 5
+  time: 45s
+  category: waterway_armour_shark_frost
+  hide: true
+  items:
+    frostfin_leggings: 1
+    chilli_apple: 1
+    shark_tooth: 5
+    hydra_flesh: 2
+    leaf_ball: 3
+    ocean_eye: 2
+shark_leggings_blaze:
+  item: shark_leggings
+  level: 5
+  time: 45s
+  category: waterway_armour_shark_blaze
+  hide: true
+  items:
+    blazefin_leggings: 1
+    chilli_apple: 1
+    shark_tooth: 5
+    hydra_flesh: 2
+    leaf_ball: 3
+    ocean_eye: 2
+shark_leggings_mana:
+  item: shark_leggings
+  level: 5
+  time: 45s
+  category: waterway_armour_shark_mana
+  hide: true
+  items:
+    manafin_leggings: 1
+    chilli_apple: 1
+    shark_tooth: 5
+    hydra_flesh: 2
+    leaf_ball: 3
+    ocean_eye: 2
+  
+shark_boots_frost:
+  item: shark_boots
+  level: 5
+  time: 45s
+  category: waterway_armour_shark_frost
+  hide: true
+  items:
+    frostfin_boots: 1
+    chilli_apple: 1
+    shark_tooth: 5
+    hydra_flesh: 2
+    leaf_ball: 3
+    ocean_eye: 2
+shark_boots_blaze:
+  item: shark_boots
+  level: 5
+  time: 45s
+  category: waterway_armour_shark_blaze
+  hide: true
+  items:
+    blazefin_boots: 1
+    chilli_apple: 1
+    shark_tooth: 5
+    hydra_flesh: 2
+    leaf_ball: 3
+    ocean_eye: 2
+shark_boots_mana:
+  item: shark_boots
+  level: 5
+  time: 45s
+  category: waterway_armour_shark_mana
+  hide: true
+  items:
+    manafin_boots: 1
+    chilli_apple: 1
+    shark_tooth: 5
+    hydra_flesh: 2
+    leaf_ball: 3
+    ocean_eye: 2
+    
+great_shark_helmet:
+  item: greatwhiteshark_helmet
+  level: 6
+  time: 0s
+  category: waterway_armour_greatwhite
+  custom-name: GOLDGreat White Shark Armour
+  items:
+    shark_helmet: 1
+    waterway_gold: 2
+    fish_barrel: 2
+    ocean_eye: 5
+great_shark_chestplate:
+  item: greatwhiteshark_chestplate
+  level: 6
+  time: 0s
+  category: waterway_armour_greatwhite
+  hide: true
+  items:
+    shark_chestplate: 1
+    waterway_gold: 2
+    fish_barrel: 2
+    ocean_eye: 5
+great_shark_leggings:
+  item: greatwhiteshark_leggings
+  level: 6
+  time: 0s
+  category: waterway_armour_greatwhite
+  hide: true
+  items:
+    shark_leggings: 1
+    waterway_gold: 2
+    fish_barrel: 2
+    ocean_eye: 5
+great_shark_boots:
+  item: greatwhiteshark_boots
+  level: 6
+  time: 0s
+  category: waterway_armour_greatwhite
+  hide: true
+  items:
+    shark_boots: 1
+    waterway_gold: 2
+    fish_barrel: 2
+    ocean_eye: 5
+    
+    
+
+    

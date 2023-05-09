@@ -1,0 +1,12 @@
+rotten_fish_charm:
+  item: rotten_fish_charm
+  level: 3
+  time: 20s
+  category: waterway_talismans
+  discovery: rotten_fish_discovery
+  discovery-tier: 3
+  items:
+    fish_barrel: 1
+    rotten_fish: 256
+    water_pearl: 12
+    cayenne_powder: 5

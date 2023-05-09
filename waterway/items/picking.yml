@@ -1,0 +1,91 @@
+basic_harvester:
+  name: Basic Harvester
+  type: TOOL
+  rarity: COMMON
+  material: WOODEN_HOE
+  stats:
+    mining_speed: +10
+    picking: +10
+    enchant_power: 10
+    
+mediocre_harvester:
+  name: Mediocre Harvester
+  type: TOOL
+  rarity: UNCOMMON
+  material: STONE_HOE
+  stats:
+    mining_speed: +15
+    picking: +20
+    enchant_power: 10
+    
+good_harvester:
+  name: Good Harvester
+  type: TOOL
+  rarity: RARE
+  material: IRON_HOE
+  stats:
+    mining_speed: +20
+    picking: +30
+    enchant_power: +15
+    
+great_harvester:
+  name: Great Harvester
+  type: TOOL
+  rarity: VERY_RARE
+  material: GOLDEN_HOE
+  stats:
+    mining_speed: +25
+    picking: +40
+    clearing: +1
+    enchant_power: +15
+    
+lurker_talisman_common:
+  name: Lurker Talisman
+  type: TALISMAN
+  rarity: COMMON
+  material: WITHER_ROSE
+  stats:
+    health: +5
+    mining_speed: +5
+    picking: +7
+  tags:
+    - LURKER_TALISMAN
+    
+lurker_talisman_uncommon:
+  name: Lurker Talisman
+  type: TALISMAN
+  rarity: UNCOMMON
+  material: WITHER_ROSE
+  stats:
+    health: +10
+    mining_speed: +6
+    picking: +8
+  tags:
+    - LURKER_TALISMAN
+    
+test_harvester:
+  name: OMG THIS IS INSANE!!!
+  type: TOOL
+  rarity: UNOBTAINABLE
+  material: NETHERITE_HOE
+  stats:
+    mining_speed: +50000
+    picking: +1000
+    clearing: +500
+    
+armour-forager:
+  name:
+    - Forager Hat
+    - Forager Shirt
+    - Forager Trousers
+    - Forager Wellies
+  material: LEATHER
+  rarity: UNCOMMON
+  colour:
+    g: 75
+    b: 10
+  stats:
+    health: +10,+10,+10,+10
+    mining_speed: +2,+3,+3,+2
+    picking: +5
+    enchant_power: +10

@@ -1,0 +1,90 @@
+basic_harvester:
+  item: basic_harvester
+  level: 1
+  category: waterway_gathering
+  discovery: rotten_fish_discovery
+  discovery-tier: 2
+  items:
+    rotten_fish: 25
+    
+mediocre_harvester:
+  item: mediocre_harvester
+  coins: 100
+  category: waterway_gathering
+  discovery: leaf_mush_discovery
+  discovery-tier: 1
+  items:
+    leaf_mush: 128
+    water_pearl: 2
+    basic_harvester: 1
+    
+good_harvester:
+  item: good_harvester
+  coins: 500
+  category: waterway_gathering
+  discovery: leaf_mush_discovery
+  discovery-tier: 2
+  items:
+    leaf_ball: 3
+    woodchip: 12
+    mediocre_harvester: 1
+    
+great_harvester:
+  coins: 750
+  category: waterway_gathering
+  discovery: leaf_mush_discovery
+  discovery-tier: 3
+  items:
+    leaf_ball: 5
+    woodchip: 64
+    ghost_powder: 5
+    good_harvester: 1
+    
+lurker_talisman_uncommon:
+  coins: 3333
+  time: 1h
+  category: waterway_talismans
+  discovery: leaf_mush_discovery
+  discovery-tier: 3
+  items:
+    lurker_talisman_common: 2 
+    woodchip: 128
+    leaf_ball: 10
+    ghost_powder: 10
+    
+forager_helmet:
+  time: 1m
+  category: waterway_gathering_armour
+  discovery: leaf_mush_discovery
+  discovery-tier: 2
+  items:
+    leaf_ball: 1
+    woodchip: 15
+    ghost_powder: 2
+forager_chestplate:
+  time: 1m
+  category: waterway_gathering_armour
+  discovery: leaf_mush_discovery
+  discovery-tier: 4
+  items:
+    leaf_ball: 2
+    woodchip: 30
+    ghost_powder: 2
+forager_leggings:
+  time: 1m
+  category: waterway_gathering_armour
+  discovery: leaf_mush_discovery
+  discovery-tier: 3
+  items:
+    leaf_ball: 2
+    woodchip: 30
+    ghost_powder: 2
+forager_boots:
+  time: 1m
+  category: waterway_gathering_armour
+  discovery: leaf_mush_discovery
+  discovery-tier: 1
+  items:
+    leaf_ball: 1
+    woodchip: 15
+    ghost_powder: 2

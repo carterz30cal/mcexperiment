@@ -1,0 +1,42 @@
+rickety_shield:
+  name: Rickety Shield
+  type: SHIELD
+  rarity: RARE
+  material: PHANTOM_MEMBRANE
+  stats:
+    defence: +10
+    
+reinforced_shield:
+  name: Reinforced Shield
+  type: SHIELD
+  rarity: EPIC
+  material: SPRUCE_LOG
+  stats:
+    defence: +15
+    
+hammerhead_shield:
+  name: Hammerhead Shield
+  type: SHIELD
+  rarity: INCREDIBLE
+  material: BIRCH_LOG
+  stats:
+    defence: +20
+    vitality: +1
+    
+regrowth_shield:
+  name: Regrowth Shield
+  type: SHIELD
+  rarity: INCREDIBLE
+  material: OAK_LEAVES
+  stats:
+    health: +35
+    focus: +2
+    
+shark_shield:
+  name: Shark Shield
+  type: SHIELD
+  rarity: LEGENDARY
+  material: STRIPPED_BIRCH_LOG
+  stats:
+    defence: +25
+    vitality: +2

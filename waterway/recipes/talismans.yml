@@ -1,0 +1,88 @@
+fish_talisman_common:
+  level: 1
+  time: 5s
+  category: waterway_talismans_fish
+  items:
+    rotten_fish: 12
+    
+fish_talisman_uncommon:
+  level: 2
+  time: 30s
+  category: waterway_talismans_fish
+  items:
+    fish_talisman_common: 1
+    rotten_fish: 64
+    wet_paper: 32
+    
+fish_talisman_rare:
+  level: 3
+  time: 2m
+  category: waterway_talismans_fish
+  items:
+    fish_talisman_uncommon: 1
+    rotten_fish: 128
+    water_pearl: 5
+    
+fish_talisman_very_rare:
+  level: 4
+  time: 3m
+  category: waterway_talismans_fish
+  items:
+    fish_talisman_rare: 1
+    rotten_fish: 256
+    water_pearl: 10
+    cayenne_powder: 1
+    
+fish_talisman_epic:
+  level: 5
+  time: 4m
+  category: waterway_talismans_fish
+  items:
+    fish_talisman_very_rare: 1
+    fish_barrel: 1
+    water_pearl: 15
+    cayenne_powder: 2
+    jalapeno_powder: 2
+    
+fish_talisman_incredible:
+  level: 6
+  time: 5m
+  category: waterway_talismans_fish
+  items:
+    fish_talisman_epic: 1
+    fish_barrel: 2
+    water_pearl: 20
+    cayenne_powder: 3
+    jalapeno_powder: 3
+    hydra_flesh: 4
+    
+fish_talisman_legendary:
+  level: 7
+  time: 6m
+  category: waterway_talismans_fish
+  items:
+    fish_talisman_incredible: 1
+    fish_barrel: 3
+    water_pearl: 25
+    cayenne_powder: 4
+    jalapeno_powder: 4
+    hydra_flesh: 6
+    waterway_gold: 2
+    
+regrowth_amulet:
+  level: 6
+  time: 10m
+  category: waterway_talismans
+  items:
+    ocean_eye: 5
+    waterway_gold: 5
+    hydra_flesh: 14
+    
+shark_amulet:
+  level: 6
+  time: 10m
+  category: waterway_talismans
+  items:
+    waterway_gold: 5
+    shark_tooth: 16
+    leaf_mush: 1024

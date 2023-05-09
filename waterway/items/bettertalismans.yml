@@ -1,0 +1,9 @@
+rotten_fish_charm:
+  name: Rotten Fish Charm
+  type: TALISMAN
+  rarity: VERY_RARE
+  material: PUFFERFISH
+  abilities:
+    - FISH_CHARM
+  tags:
+    - FISH_TALISMAN

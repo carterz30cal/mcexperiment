@@ -1,0 +1,49 @@
+arrow:
+  level: 1
+  custom-name: GRAYArrow DARK_GRAYx32
+  time: 0s
+  category: waterway_weapons_arrows
+  amount: 16
+  items:
+    rotten_fish: 4
+arrow_from_wet_paper:
+  level: 2
+  item: arrow
+  custom-name: GRAYArrow DARK_GRAY[Alternative Recipe]
+  time: 0s
+  category: waterway_weapons_arrows
+  amount: 24
+  items:
+    wet_paper: 1
+
+spicy_arrow:
+  level: 4
+  custom-name: BLUESpicy Arrow DARK_GRAYx128
+  time: 16s
+  category: waterway_weapons_arrows
+  amount: 128
+  items:
+    rotten_fish: 24
+    cayenne_powder: 1
+    
+spicy_arrow_alt:
+  item: spicy_arrow
+  level: 5
+  custom-name: BLUESpicy Arrow DARK_GRAY[Alternative Recipe]
+  time: 32s
+  category: waterway_weapons_arrows
+  amount: 64
+  items:
+    rotten_fish: 24
+    jalapeno_powder: 1
+    
+    
+seraph_arrow:
+  level: 7
+  custom-name: BLUESeraph's Arrow DARK_GRAYx100
+  time: 70s
+  category: waterway_weapons_arrows
+  amount: 100
+  items:
+    arrow_bundle_seraph: 1
+  

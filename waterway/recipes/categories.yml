@@ -1,0 +1,136 @@
+waterway:
+  name: Waterway
+  icon: WATER_BUCKET
+  parent: base
+  
+waterway_ingredients:
+  name: Ingredients
+  icon: CRAFTING_TABLE
+  parent: waterway
+  
+waterway_weapons:
+  name: Weapons
+  icon: DIAMOND_SWORD
+  parent: waterway
+  
+waterway_weapons_swords:
+  name: Swords
+  icon: IRON_SWORD
+  parent: waterway_weapons
+waterway_weapons_bows:
+  name: Bows
+  icon: CROSSBOW
+  parent: waterway_weapons
+waterway_weapons_tomes:
+  name: Tomes
+  icon: BOOK
+  parent: waterway_weapons
+  
+waterway_weapons_arrows:
+  name: Arrows
+  icon: ARROW
+  parent: waterway_weapons
+  
+waterway_weapons_attuners:
+  name: Attuners
+  icon: FLINT
+  parent: waterway_weapons
+  
+waterway_armour:
+  name: Armour Sets
+  icon: DIAMOND_CHESTPLATE
+  parent: waterway
+ 
+  
+waterway_armour_rotten_fish:
+  name: YELLOWRotten Fish Armour
+  icon: rotten_fish_chestplate
+  parent: waterway_armour
+waterway_armour_cod:
+  name: GREENCod Armour
+  icon: cod_chestplate
+  parent: waterway_armour
+waterway_armour_coldfin:
+  name: BLUEColdfin Armour
+  icon: coldfin_chestplate
+  parent: waterway_armour
+waterway_armour_flamefin:
+  name: BLUEFlamefin Armour
+  icon: flamefin_chestplate
+  parent: waterway_armour
+waterway_armour_manafin:
+  name: BLUEManafin Armour
+  icon: manafin_chestplate
+  parent: waterway_armour
+waterway_armour_frostfin:
+  name: DARK_PURPLEFrostfin Armour
+  icon: frostfin_chestplate
+  parent: waterway_armour
+waterway_armour_blazefin:
+  name: DARK_PURPLEBlazefin Armour
+  icon: blazefin_chestplate
+  parent: waterway_armour
+
+waterway_armour_shark:
+  name: AQUAShark Armour
+  icon: shark_chestplate
+  parent: waterway_armour
+waterway_armour_shark_frost:
+  name: Frostfin -> Shark
+  icon: frostfin_chestplate
+  parent: waterway_armour_shark
+waterway_armour_shark_blaze:
+  name: Blazefin -> Shark
+  icon: blazefin_chestplate
+  parent: waterway_armour_shark
+waterway_armour_shark_mana:
+  name: Manafin -> Shark
+  icon: manafin_chestplate
+  parent: waterway_armour_shark
+waterway_armour_greatwhite:
+  name: GOLDGreat White Shark Armour
+  icon: greatwhiteshark_chestplate
+  parent: waterway_armour
+waterway_armour_misc:
+  name: Misc. Pieces
+  icon: GREEN_CONCRETE
+  parent: waterway_armour
+  
+waterway_shields:
+  name: Shields
+  icon: SHIELD
+  parent: waterway
+  
+waterway_gathering:
+  name: Gathering
+  icon: basic_harvester
+  parent: waterway
+waterway_gathering_armour:
+  name: Gathering Armours
+  icon: forager_helmet
+  parent: waterway_gathering
+   
+waterway_talismans:
+  name: Talismans
+  icon: MINECART
+  parent: waterway
+waterway_talismans_fish:
+  name: Fish Talismans
+  icon: COOKED_COD
+  parent: waterway_talismans
+   
+waterway_wands:
+  name: Wands
+  icon: wand_of_vitality
+  parent: waterway
+  
+waterway_summoning_items:
+  name: Summoning Items
+  icon: ENDER_EYE
+  parent: waterway
+  
+  
+waterway_enchantments:
+  name: LIGHT_PURPLEEnchantments
+  icon: BOOKSHELF
+  parent: waterway

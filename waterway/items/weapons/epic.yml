@@ -1,0 +1,105 @@
+incensed_spearfish_sword:
+  name: Incensed Spearfish Scythe
+  type: WEAPON
+  rarity: EPIC
+  material: IRON_HOE
+  stats:
+    damage: +36
+    strength: +75
+    might: +5
+    enchant_power: +5
+    
+incensed_piranha_dagger:
+  name: Incensed Piranha Dagger
+  type: WEAPON
+  rarity: EPIC
+  material: IRON_SWORD
+  statuses:
+    BLEED: 30
+  stats:
+    damage: +40
+    savagery: +28
+    enchant_power: +5
+    
+angrily_flaming_sword:
+  name: Angrily Flaming Sword
+  type: WEAPON
+  rarity: EPIC
+  material: GOLDEN_SWORD
+  glow: true
+  statuses:
+    BURN: 65
+  stats:
+    damage: +22
+    power: +35
+    might: +25
+    enchant_power: +8
+    
+titan_hammer:
+  name: Titan Hammer
+  type: WEAPON
+  rarity: EPIC
+  material: NETHERITE_SHOVEL
+  abilities:
+    - TITAN_HAMMER
+  stats:
+    damage: +15
+    strength: +200
+    might: +30
+    enchant_power: +9
+    
+dungeon_dagger:
+  name: Dungeon Dagger
+  type: WEAPON
+  rarity: EPIC
+  material: STONE_SWORD
+  abilities:
+    - DUNGEON_SWORD
+  stats:
+    damage: +12
+    power: +100
+    enchant_power: +20
+    
+stormfrost_axe:
+  name: Stormfrost Axe
+  type: WEAPON
+  rarity: EPIC
+  material: IRON_AXE
+  abilities:
+    - FROSTED
+  stats:
+    damage: +50
+    power: +20
+    enchant_power: +10
+    
+sword_of_ungen:
+  name: Sword of Ungen
+  type: WEAPON
+  rarity: EPIC
+  material: STONE_SWORD
+  glow: true
+  statuses:
+    DEATH: 60
+  stats:
+    damage: +30
+    power: +40
+    
+angry_lionfish_bow:
+  name: Angry Lionfish Bow
+  type: BOW
+  rarity: EPIC
+  material: BOW
+  stats:
+    damage: +68
+    enchant_power: +4
+    
+angry_candiru_bow:
+  name: Angry Candiru Bow
+  type: BOW
+  rarity: EPIC
+  material: BOW
+  stats:
+    damage: +40
+    power: +75
+    enchant_power: +4
+    

@@ -1,0 +1,96 @@
+flimsy_bow:
+  name: Flimsy Bow
+  type: BOW
+  rarity: COMMON
+  material: BOW
+  stats:
+    damage: +11
+    enchant_power: +1
+
+rotten_fish_bow:
+  name: Rotten Fish Bow
+  type: BOW
+  rarity: UNCOMMON
+  material: BOW
+  stats:
+    damage: +22
+    power: +25
+    enchant_power: +2
+    
+cod_bow:
+  name: Cod Bow
+  type: BOW
+  rarity: RARE
+  material: BOW
+  stats:
+    damage: +32
+    power: +40
+    enchant_power: +3
+    
+candiru_bow:
+  name: Candiru Bow
+  type: BOW
+  rarity: VERY_RARE
+  material: BOW
+  stats:
+    damage: +35
+    power: +50
+    enchant_power: +4
+lionfish_bow:
+  name: Lionfish Bow
+  type: BOW
+  rarity: VERY_RARE
+  material: BOW
+  stats:
+    damage: +45
+    enchant_power: +4
+    
+    
+shiny_fish_bow:
+  name: Shiny Fish Bow
+  type: BOW
+  rarity: VERY_RARE
+  material: BOW
+  glow: true
+  stats:
+    damage: +15
+    power: +5
+    might: +5
+    enchant_power: +6
+    
+glasseye_bow:
+  name: Glasseye Bow
+  type: BOW
+  rarity: EPIC
+  material: BOW
+  stats:
+    damage: +16
+    strength: +5
+    power: +5
+    might: +20
+    enchant_power: +7
+    
+tooth_bow:
+  name: Tooth Bow
+  type: BOW
+  rarity: INCREDIBLE
+  material: BOW
+  stats:
+    damage: +18
+    strength: +10
+    power: +10
+    might: +20
+    enchant_power: +15
+    
+horizon_bow:
+  name: Horizon Bow
+  type: BOW
+  rarity: LEGENDARY
+  material: BOW
+  glow: true
+  stats:
+    damage: +20
+    strength: +20
+    power: +20
+    might: +30
+    enchant_power: +20

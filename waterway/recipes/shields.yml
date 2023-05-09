@@ -1,0 +1,43 @@
+rickety_shield:
+  level: 2
+  time: 20s
+  category: waterway_shields
+  items:
+    rotten_fish: 128
+    wet_paper: 32
+    
+reinforced_shield:
+  level: 4
+  time: 2m
+  category: waterway_shields
+  items:
+    rickety_shield: 1
+    cayenne_powder: 1
+    
+hammerhead_shield:
+  level: 5
+  time: 3m
+  category: waterway_shields
+  items:
+    reinforced_shield: 1
+    jalapeno_powder: 1
+    hydra_flesh: 2
+    
+regrowth_shield:
+  level: 5
+  time: 11m
+  category: waterway_shields
+  items:
+    hydra_flesh: 12
+    shark_tooth: 4
+    ocean_eye: 4
+    water_pearl: 20
+    
+shark_shield:
+  level: 6
+  time: 4m
+  category: waterway_shields
+  items:
+    hammerhead_shield: 1
+    shark_tooth: 20
+    waterway_gold: 1

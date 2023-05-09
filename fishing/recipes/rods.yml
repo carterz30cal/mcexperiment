@@ -1,0 +1,17 @@
+shard_rod:
+  level: 1
+  time: 1m
+  category: fishing_rods
+  items:
+    flimsy_rod: 1
+    sea_shard: 5
+    water_pearl: 2
+    
+flowery_rod:
+  level: 1
+  time: 5m
+  category: fishing_rods
+  items:
+    flimsy_rod: 1
+    sea_shard: 8
+    water_flower: 2

@@ -1,0 +1,23 @@
+shoddy_water_gem:
+  name: Shoddy Water Gem
+  type: ATTUNER
+  rarity: UNCOMMON
+  attuner-icon: GRAYQ
+  material: DIAMOND
+  stats:
+    FISHING_POWER: +1
+  description:
+    - ITALICA shoddy recreation of the real thing.
+
+water_gem:
+  name: Water Gem
+  type: ATTUNER
+  rarity: RARE
+  attuner-icon: AQUAQ
+  material: DIAMOND
+  glow: true
+  stats:
+    FISHING_POWER: +5
+    MANA: +2
+    
+    

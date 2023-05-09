@@ -1,0 +1,238 @@
+rotten_fish:
+  name: Rotten Fish
+  type: INGREDIENT
+  rarity: COMMON
+  material: COD
+  discovery: rotten_fish_discovery
+  discovery-progress: 1
+  description:
+    - Smells absolutely vile.
+    - Used in most BLUEWaterwayGRAY recipes.
+  
+leaf_mush:
+  name: Leaf Mush
+  type: INGREDIENT
+  rarity: COMMON
+  material: GREEN_DYE
+  discovery: leaf_mush_discovery
+  discovery-progress: 1
+  description:
+    - Wet, mushy and disgusting.
+    - Found by GREENForagingGRAY within BLUEWaterwayGRAY.
+    
+wet_paper:
+  name: Wet Paper
+  type: INGREDIENT
+  rarity: UNCOMMON
+  material: PAPER
+  glow: true
+  discovery: wet_paper_discovery
+  discovery-progress: 1
+  description:
+    - Dissolves at the slightest touch.
+    - Used in some BLUEWaterwayGRAY recipes.
+    
+woodchip:
+  name: Woodchip
+  type: INGREDIENT
+  rarity: UNCOMMON
+  material: BROWN_DYE
+  discovery: leaf_mush_discovery
+  discovery-progress: 5
+  description:
+    - How much wood could a woodchip chip?
+    - Not very much, as it turns out.
+    - Found by GREENForagingGRAY within BLUEWaterwayGRAY.
+    
+dungeon_dust:
+  name: Dungeon Dust
+  type: INGREDIENT
+  rarity: UNCOMMON
+  material: DEAD_TUBE_CORAL_FAN
+  discovery: dungeon_dust_discovery
+  discovery-progress: 1
+  description:
+    - Slowly produced by skeletons gnashing their teeth.
+    - Has an extremely fine consistency.
+    - Found in the BLUEWaterway DungeonsGRAY.
+  
+water_pearl:
+  name: Water Pearl
+  type: INGREDIENT
+  rarity: RARE
+  material: ENDER_PEARL
+  description:
+    - If you stare deep enough, you
+    - might just see a faint ripple.
+    - Used in some BLUEWaterwayGRAY recipes.
+    
+storm_crystals:
+  name: Storm Crystals
+  type: INGREDIENT
+  rarity: UNCOMMON
+  material: PRISMARINE_CRYSTALS
+  description:
+    - Forms during heavy rain.
+    - Used in some BLUEWaterwayGRAY recipes.
+    
+ocean_eye:
+  name: Eye of the Ocean
+  type: INGREDIENT
+  rarity: RARE
+  material: ENDER_EYE
+  description:
+    - A combination of foul, wet ingredients.
+    - Created in WHITEThe ForgeGRAY.
+    - Used to craft BLUEWaterwayGRAY armours.
+    
+cayenne_powder:
+  name: Cayenne Powder
+  type: INGREDIENT
+  rarity: RARE
+  material: GLOWSTONE_DUST
+  discovery: chilli_powder_discovery
+  discovery-progress: 2
+  description: 
+    - REDITALICSpicy!
+    - Dropped by the BLUETitanGRAY.
+    - Used to craft powerful weapons.
+    
+jalapeno_powder:
+  name: Jalapeno Powder
+  type: INGREDIENT
+  rarity: RARE
+  material: REDSTONE
+  discovery: chilli_powder_discovery
+  discovery-progress: 1
+  description:
+    - REDITALICSpicy!
+    - Used to craft many powerful items.
+    
+ghost_powder:
+  name: Ghost Pepper Powder
+  type: INGREDIENT
+  rarity: RARE
+  material: GUNPOWDER
+  discovery: chilli_powder_discovery
+  discovery-progress: 1
+  description:
+    - REDITALICSpicy!
+    - Used to craft many powerful items.
+    - Found by GREENForagingGRAY within BLUEWaterwayGRAY.
+  
+    
+    
+chilli_apple:
+  name: Chilli Apple
+  type: INGREDIENT
+  rarity: VERY_RARE
+  material: APPLE
+  discovery: chilli_powder_discovery
+  discovery-progress: 3
+  description:
+    - Quite the acquired taste.
+    - Created in WHITEThe ForgeGRAY.
+    - Used to craft powerful armours.
+    
+jims_sword_upgrader:
+  name: Replacement Hilt
+  type: QUEST_ITEM
+  rarity: VERY_RARE
+  material: STICK
+  glow: true
+  description:
+    - Lovingly crafted by Jim's cousin, Letty.
+    - Use in WHITEThe ForgeGRAY to upgrade Jim's Shoddy Sword.
+
+
+    
+fish_barrel:
+  name: Barrel of Fish
+  type: INGREDIENT
+  rarity: UNCOMMON
+  material: BARREL
+  glow: true
+  discovery: rotten_fish_discovery
+  discovery-progress: 512
+  description:
+    - When you need loads of fish, build a barrel.
+    - Created in WHITEThe ForgeGRAY.
+    - Used in GOLDexpensiveGRAY recipes.
+    
+leaf_ball:
+  name: Leaf Ball
+  type: INGREDIENT
+  rarity: UNCOMMON
+  material: SLIME_BALL
+  discovery: leaf_mush_discovery
+  discovery-progress: 128
+  description:
+    - Heavy and wet. Gross.
+    - Created in WHITEThe ForgeGRAY.
+    
+hydra_flesh:
+  name: Hydra Flesh
+  type: INGREDIENT
+  rarity: EPIC
+  material: RAW_COPPER
+  description:
+    - Offers regenerative properties.
+    - Obtained by slaying a deadly GREENHydraGRAY.
+    - Used in high-level BLUEWaterwayGRAY recipes.
+    
+shark_tooth:
+  name: Shark Tooth
+  type: INGREDIENT
+  rarity: EPIC
+  material: GHAST_TEAR
+  description:
+    - Made for killing. 
+    - Obtained by slaying AQUAsharksGRAY.
+    - Used in high-level BLUEWaterwayGRAY recipes.
+    
+waterway_gold:
+  name: Waterway Gold
+  type: INGREDIENT
+  rarity: INCREDIBLE
+  material: GOLD_INGOT
+  description:
+    - ITALICThe Seraph spent many years 
+    - ITALICattempting to construct a
+    - ITALICsuit that would protect their 
+    - ITALICsensitive form from water.
+    - Used in GOLDLegendary RecipesGRAY.
+    
+arrow_bundle_seraph:
+  name: Seraph's Arrow Bundle
+  type: INGREDIENT
+  rarity: VERY_RARE
+  material: PLAYER_HEAD
+  description:
+    - Contains many arrows of a particular variety.
+    - Open in WHITEThe ForgeGRAY.
+    
+    
+hydra_head:
+  name: Mangled Hydra Head
+  type: INGREDIENT
+  rarity: INCREDIBLE
+  material: PLAYER_HEAD
+  description:
+    - Rather disgusting, but exceedingly powerful.
+    - Obtained by slaying a REDHydraGRAY.
+    
+enchanted_book:
+  name: Enchanted Book
+  type: ENCHANTMENT
+  rarity: MYSTERIOUS
+  material: ENCHANTED_BOOK
+  
+combination_catalyst_shard:
+  name: Combination Catalyst Shard
+  type: CATALYST
+  rarity: RARE
+  material: QUARTZ
+  description:
+    - Required to LIGHT_PURPLEenchantGRAY items
+    - with weak enchantments.
+  

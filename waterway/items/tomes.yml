@@ -1,0 +1,12 @@
+water_bolt_tome:
+  name: Water Bolt
+  type: TOME
+  rarity: VERY_RARE
+  material: BOOK
+  abilities:
+    - TOME_WATERBOLT
+  stats:
+    damage: +30
+    mana: +10
+    focus: +2
+    enchant_power: +5

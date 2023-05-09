@@ -1,0 +1,39 @@
+water_orb:
+  item: water_orb
+  level: 2
+  amount: 1
+  time: 2m
+  category: waterway_weapons_attuners
+  items:
+    rotten_fish: 48
+    wet_paper: 4
+    
+cheap_flint:
+  level: 3
+  time: 5m
+  category: waterway_weapons_attuners
+  discovery: wet_paper_discovery
+  discovery-tier: 3
+  items:
+    wet_paper: 32
+    water_pearl: 7
+    
+    
+leaf_goop:
+  level: 4
+  time: 10m
+  category: waterway_weapons_attuners
+  discovery: leaf_mush_discovery
+  discovery-tier: 4
+  items:
+    leaf_ball: 2
+    cayenne_powder: 1
+    
+spiced_sugar:
+  level: 4
+  amount: 1
+  time: 5m
+  category: waterway_weapons_attuners
+  items:
+    cayenne_powder: 2
+    leaf_mush: 128

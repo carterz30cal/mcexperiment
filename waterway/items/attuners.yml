@@ -1,0 +1,63 @@
+water_orb:
+  name: Water Orb
+  type: ATTUNER
+  rarity: UNCOMMON
+  attuner-icon: BLUE+
+  material: HEART_OF_THE_SEA
+  stats:
+    power: +2
+    health: +2
+    
+cheap_flint:
+  name: Cheap Flint
+  type: ATTUNER
+  rarity: RARE
+  attuner-icon: GRAY+
+  material: FLINT
+  stats:
+    strength: +3
+    
+leaf_goop:
+  name: Leaf Goop
+  type: ATTUNER
+  rarity: UNCOMMON
+  attuner-icon: GREEN?
+  material: GREEN_DYE
+  glow: true
+  stats:
+    mining_speed: +1
+    picking: +2
+    health: +9
+    
+spiced_sugar:
+  name: Spiced Sugar
+  type: ATTUNER
+  rarity: EPIC
+  attuner-icon: RED$
+  material: SUGAR_CANE
+  glow: true
+  applies:
+    BLEED: 1
+  stats:
+    savagery: +1
+    
+warped_hydra_flesh:
+  name: Warped Flesh
+  type: ATTUNER
+  rarity: EPIC
+  attuner-icon: DARK_AQUA&
+  material: FERMENTED_SPIDER_EYE
+  stats:
+    power: +11
+    might: -10
+    
+ender_stew:
+  name: Enderstew
+  type: ATTUNER
+  rarity: INCREDIBLE
+  attuner-icon: DARK_PURPLE%
+  material: SUSPICIOUS_STEW
+  stats:
+    damage: +2
+    might: -8
+    

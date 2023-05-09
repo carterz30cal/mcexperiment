@@ -1,0 +1,26 @@
+arrow:
+  name: Arrow
+  type: ARROW
+  rarity: COMMON
+  material: ARROW
+  stats:
+    damage: +1
+    
+spicy_arrow:
+  name: Spicy Arrow
+  type: ARROW
+  rarity: VERY_RARE
+  material: ARROW
+  glow: true
+  stats:
+    damage: +3
+    power: +5
+    
+seraph_arrow:
+  name: Seraph's Arrow
+  type: ARROW
+  rarity: RARE
+  material: ENDER_PEARL
+  stats:
+    damage: -2
+    power: +50

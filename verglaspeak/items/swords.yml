@@ -1,0 +1,91 @@
+frost_sword:
+  name: Frost Sword
+  type: WEAPON
+  rarity: COMMON
+  material: IRON_SWORD
+  abilities:
+    - FROST_SWORD
+  stats:
+    damage: +30
+    might: +15
+    enchant_power: +25
+    
+blizzard_sword_1:
+  name: Snow Dagger
+  type: WEAPON
+  rarity: COMMON
+  material: STONE_SWORD
+  abilities:
+    - SLAYER_BLIZZARD_SWORD_1
+  stats:
+    damage: +10
+    power: +80
+    enchant_power: +50
+    
+blizzard_sword_2:
+  name: Icicle Dagger
+  type: WEAPON
+  rarity: UNCOMMON
+  material: STONE_SWORD
+  abilities:
+    - SLAYER_BLIZZARD_SWORD_1
+  stats:
+    damage: +17
+    power: +100
+    savagery: +5
+    enchant_power: +50
+    
+blizzard_sword_3:
+  name: Snowstorm Dagger
+  type: WEAPON
+  rarity: RARE
+  material: STONE_SWORD
+  abilities:
+    - SLAYER_BLIZZARD_SWORD_1
+  stats:
+    damage: +23
+    power: +120
+    savagery: +10
+    enchant_power: +50
+    
+blizzard_sword_4:
+  name: Froststorm Dagger
+  type: WEAPON
+  rarity: VERY_RARE
+  material: STONE_SWORD
+  glow: true
+  abilities:
+    - SLAYER_BLIZZARD_SWORD_1
+  stats:
+    damage: +29
+    power: +140
+    savagery: +15
+    enchant_power: +50
+    
+blizzard_sword_5:
+  name: Permafrost Dagger
+  type: WEAPON
+  rarity: EPIC
+  material: STONE_SWORD
+  glow: true
+  abilities:
+    - SLAYER_BLIZZARD_SWORD_1
+  stats:
+    damage: +36
+    power: +160
+    savagery: +20
+    enchant_power: +50
+    
+blizzard_sword_6:
+  name: Deathfrost Dagger
+  type: WEAPON
+  rarity: INCREDIBLE
+  material: STONE_SWORD
+  glow: true
+  abilities:
+    - SLAYER_BLIZZARD_SWORD_1
+  stats:
+    damage: +45
+    power: +180
+    savagery: +25
+    enchant_power: +60

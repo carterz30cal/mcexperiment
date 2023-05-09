@@ -1,0 +1,35 @@
+blizzard_tier1:
+  name: Raging Blizzard
+  type: SLAYER_BLIZZARD
+  entity-type: BLAZE
+  level: 10
+  health: 7500
+  knockback: 0
+  damage: 40
+  damage-type: FROST
+  display-height: 2.2
+  blood-colour: 0,50,175
+  speed: 0.8
+  ignore-target-limit: true
+  
+  life-drain-radius: 10
+  life-drain-timer: 40
+  
+  slayer-tier: 1
+  
+  tags:
+    - VERGLASIAN
+    - SLAYER_BLIZZARD
+  armour:
+    PHYSICAL: 80
+    FIRE: -33
+    FROST: 1000
+    WITHER: -33
+  drops:
+    blizzard_dust:
+      amount: 1/2
+    enchanted_book:
+      chance: 1/10
+      amount: 1/1
+      enchants: ENCHANT_SNOWSTORM-1
+   

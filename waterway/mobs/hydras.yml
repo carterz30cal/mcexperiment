@@ -1,0 +1,316 @@
+hydra:
+  name: "Hydra's Head"
+  type: HYDRA_HEAD
+  boss: true
+  level: 12
+  health: 5000
+  coinm: 3
+  knockback: 0
+  display-height: 0.8
+  blood-colour: 0,255,0
+  resistances:
+    DEATH: 550
+    BURN: 80
+    BLEED: 1000
+  armour:
+    MAGICAL: 100
+    BLEED: 1000
+    FIRE: -60
+    HOLY: -10
+  tags:
+    - HYDRA
+  drops:
+    hydra_flesh:
+      amount: 1/1
+    
+hydra_servant:
+  name: "Servant"
+  type: SIMPLE
+  entity-type: ZOMBIE
+  ignore-target-limit: true
+  level: 0
+  coinm: 0
+  health: 600
+  damage: 20
+  knockback: 80
+  display-height: 1
+  blood-colour: 0,255,0
+  speed: 1.35
+  resistances:
+    DEATH: 150
+    BURN: 60
+    BLEED: 300
+  armour:
+    PHYSICAL: 60
+    MAGICAL: 100
+    BLEED: 0
+    FIRE: -45
+    HOLY: -50
+    
+    
+hydra_head:
+  name: Hydra Head
+  type: SIMPLE
+  entity-type: GUARDIAN
+  level: 12
+  health: 100000
+  knockback: 0
+  damage: 20
+  damage-type: MAGICAL
+  display-height: 1.5
+  blood-colour: 0,200,44
+  armour:
+    PHYSICAL: 5000
+    PROJECTILE: 5000
+    MAGICAL: 5000
+    HOLY: 0
+    BLEED: 5000
+    FIRE: 2500
+    WITHER: 5000
+    
+hydra_regular_swarmer:
+  name: Swarmer
+  type: WAVE
+  entity-type: ZOMBIE
+  level: 0
+  health: 100
+  knockback: 50
+  damage: 10
+  display-height: 1.7
+  blood-colour: 0,150,100
+  speed: 1.3
+  ignore-target-limit: true
+  wave-points: 1
+  tags:
+    - AFFECTED_BY_HYDRA_LEGGINGS
+  armour:
+    FIRE: -50
+    
+hydra_regular_mite:
+  name: Mite
+  type: WAVE
+  entity-type: ENDERMITE
+  level: 0
+  health: 40
+  knockback: 200
+  damage: 15
+  display-height: 0.9
+  blood-colour: 100,30,130
+  speed: 1.3
+  ignore-target-limit: true
+  wave-points: 7
+  tags:
+    - AFFECTED_BY_HYDRA_LEGGINGS
+  armour:
+    MAGICAL: 10000
+    HOLY: 400
+    FIRE: -95
+  
+    
+hydra_regular_flamer:
+  name: Flamer
+  type: WAVE
+  entity-type: ZOMBIFIED_PIGLIN
+  level: 0
+  health: 60
+  knockback: 110
+  damage: 30
+  damage-type: FIRE
+  display-height: 1.7
+  blood-colour: 0,150,100
+  speed: 1.4
+  ignore-target-limit: true
+  wave-points: 5
+  armour:
+    MAGICAL: 600
+    FIRE: 10000
+    
+    
+    
+hydra_regular_tanker:
+  name: Tanker
+  type: WAVE
+  entity-type: IRON_GOLEM
+  level: 0
+  health: 333
+  knockback: 50
+  damage: 15
+  display-height: 2.5
+  blood-colour: 0,150,100
+  speed: 0.9
+  ignore-target-limit: true
+  wave-points: 15
+  armour:
+    PHYSICAL: 175
+    FIRE: 500
+    
+hydra_regular_dominator:
+  name: Dominator
+  type: WAVE
+  entity-type: ENDERMAN
+  level: 0
+  health: 556
+  knockback: 10
+  damage: 50
+  display-height: 3.1
+  blood-colour: 100,30,130
+  speed: 0.8
+  ignore-target-limit: true
+  wave-points: 35
+  tags:
+    - AFFECTED_BY_HYDRA_LEGGINGS
+  armour:
+    PHYSICAL: -10
+    FIRE: -50
+    HOLY: 100
+    
+hydra_regular_obliterator:
+  name: Obliterator
+  type: WAVE
+  entity-type: PIGLIN_BRUTE
+  level: 0
+  health: 2000
+  knockback: 10
+  damage: 80
+  display-height: 2.4
+  blood-colour: 100,30,130
+  speed: 0.8
+  ignore-target-limit: true
+  wave-points: 80
+  tags:
+    - AFFECTED_BY_HYDRA_BOOTS
+  armour:
+    PHYSICAL: -88
+    MAGICAL: -96
+    FIRE: -10
+    HOLY: 100
+    
+hydra_regular_deathbringer:
+  name: Deathbringer
+  type: WAVE
+  entity-type: ZOGLIN
+  level: 0
+  health: 1150
+  knockback: 0
+  damage: 120
+  display-height: 2
+  blood-colour: 100,30,130
+  speed: 0.7
+  ignore-target-limit: true
+  wave-points: 160
+  tags:
+    - AFFECTED_BY_HYDRA_BOOTS
+  
+    
+
+
+hydra_1:
+  name: BOLDWater Hydra
+  type: HYDRA
+  entity-type: ZOMBIE
+  level: 11
+  health: 6667
+  knockback: 20
+  damage: 23
+  damage-type: PHYSICAL
+  display-height: 2.9
+  blood-colour: 0,200,0
+  
+  damage-cap-percentage: 6
+  overkill-reward: 3
+  
+  life-drain: 4
+  life-drain-timer: 60
+  life-drain-radius: 12
+  
+  minion: hydra_1_minion
+  minion-count: 7
+  minion-timer: 500
+  
+  armour:
+    PHYSICAL: 0
+    PROJECTILE: 0
+    MAGICAL: 30
+    HOLY: -75
+    BLEED: 100
+    FIRE: -10
+    WITHER: 100
+  equipment:
+    HAND: ENDER_EYE
+    CHEST: manafin_chestplate
+    LEGS: blazefin_leggings
+    FEET: blazefin_boots
+  drops:
+    hydra_flesh:
+      amount: 1/1
+    enchanted_book-SHARPNESS:
+      chance: 1/5
+      enchants: ENCHANT_SHARPNESS-3
+    warped_hydra_flesh:
+      chance: 1/6
+      amount: 1/2
+      
+hydra_1_minion:
+  name: Hydra Disciple
+  type: SIMPLE
+  entity-type: SKELETON
+  level: 0
+  health: 90
+  knockback: 15
+  damage: 6
+  damage-type: PHYSICAL
+  display-height: 1.8
+  blood-colour: 200,50,0
+  coin-multiplier: 0
+  equipment:
+    CHEST: dripper_chestplate
+  armour:
+    MAGICAL: 10
+    FIRE: -98
+  drops: {}
+  
+hydra_2:
+  name: DARK_PURPLEBOLDCorrupted Water Hydra
+  type: HYDRA
+  entity-type: ZOMBIE
+  level: 14
+  health: 26667
+  knockback: 30
+  damage: 60
+  damage-type: PHYSICAL
+  display-height: 2.9
+  blood-colour: 0,200,0
+  
+  damage-cap-percentage: 5
+  overkill-reward: 3
+  
+  life-drain: 15
+  life-drain-timer: 60
+  life-drain-radius: 12
+  
+  minion: hydra_1_minion
+  minion-count: 18
+  minion-timer: 500
+  
+  armour:
+    PHYSICAL: 0
+    PROJECTILE: 0
+    MAGICAL: 30
+    HOLY: -75
+    BLEED: 100
+    FIRE: -10
+    WITHER: 100
+  equipment:
+    HAND: ENDER_EYE
+    CHEST: manafin_chestplate
+    LEGS: blazefin_leggings
+    FEET: blazefin_boots
+  drops:
+    hydra_flesh:
+      amount: 5/5
+    enchanted_book-SHARPNESS:
+      chance: 1/5
+      enchants: ENCHANT_SHARPNESS-4
+    warped_hydra_flesh:
+      chance: 1/6
+      amount: 2/4

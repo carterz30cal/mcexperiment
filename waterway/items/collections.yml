@@ -1,0 +1,133 @@
+rotten_fish_discovery:
+  name: Rotten Fish
+  display-item: rotten_fish
+  description:
+    - Rotten fish is an essential component in
+    - nearly all BLUEWaterway GRAYrecipes. 
+    - It is easiest to obtain from killing Drenched.
+  tiers:
+    - 5
+    - 50
+    - 250
+    - 1000
+    - 5000
+    - 10000
+    - 100000
+  xp-rewards:
+    - 25
+    - 75
+    - 150
+    - 300
+    - 400
+    - 500
+    - 5000
+    
+wet_paper_discovery:
+  name: Paper
+  display-item: wet_paper
+  description:
+    - Drippers are avid readers, but most books last
+    - mere hours in their disgustingly wet hands. 
+    - Over time, the pages build up around their revolting bodies.
+    - Obtained by killing all but the youngest of Drippers.
+  tiers:
+    - 10
+    - 100
+    - 250
+    - 500
+    - 1000
+    - 10000
+    - 100000
+    - 1000000
+  xp-rewards:
+    - 5
+    - 10
+    - 20
+    - 30
+    - 40
+    - 250
+    - 3000
+    - 30000
+    
+leaf_mush_discovery:
+  name: Leaf Mush
+  display-item: leaf_mush
+  description:
+    - Leaf mush is mined from chunks of leafy mass found
+    - all throughout BLUEWaterway. GRAYIt has many uses in
+    - crafting recipes all throughout the world.
+  tiers:
+    - 25
+    - 100
+    - 500
+    - 1000
+    - 5000
+    - 10000
+    - 50000
+    - 100000
+    - 500000
+    - 1000000
+  xp-rewards:
+    - 10
+    - 20
+    - 30
+    - 40
+    - 50
+    - 100
+    - 400
+    - 1000
+    - 2500
+    - 10000
+    
+    
+dungeon_dust_discovery:
+  name: Dungeon Dust
+  display-item: dungeon_dust
+  description:
+    - Found within the depths of the BLUEWaterway DungeonsGRAY.
+    - Used extensively to create powerful items and enchantments.
+    - It may also be used as a weak potion precursor.
+  tiers:
+    - 5
+    - 10
+    - 50
+    - 100
+    - 500
+    - 1000
+    - 5000
+    - 10000
+    - 50000
+    - 100000
+    - 1000000
+  xp-rewards:
+    - 10
+    - 20
+    - 50
+    - 100
+    - 200
+    - 500
+    - 1000
+    - 5000
+    - 10000
+    - 10000
+    - 10000
+    
+chilli_powder_discovery:
+  name: Chilli Powders
+  display-item: jalapeno_powder
+  description:
+    - These powders are potent and powerful improvements to
+    - existing ingredients. They can produce high-tier
+    - weapons and attuners.
+  tiers:
+    - 5
+    - 20
+    - 50
+    - 100
+    - 1000
+  xp-rewards:
+    - 75
+    - 100
+    - 125
+    - 275
+    - 525

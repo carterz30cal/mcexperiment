@@ -1,0 +1,254 @@
+drenched_1:
+  name: Drenched
+  type: SIMPLE
+  level: 4
+  health: 240
+  knockback: 90
+  damage: 20
+  damage-type: PHYSICAL
+  display-height: 1.9
+  blood-colour: 0,50,150
+  armour:
+    PHYSICAL: 0
+    PROJECTILE: 0
+    MAGICAL: -25
+    HOLY: 0
+    BLEED: 0
+    FIRE: 0
+    WITHER: 0
+  equipment:
+    HAND: piranha_sword
+    HEAD: dripper_helmet
+    CHEST: dripper_chestplate
+    FEET: dripper_boots
+  tags:
+    - DRENCHED
+  drops:
+    rotten_fish:
+      amount: 2/5
+    water_pearl:
+      chance: 1/3
+    enchanted_book-SHARPNESS:
+      chance: 1/100
+      enchants: ENCHANT_SHARPNESS-1
+    enchanted_book-FLOWING:
+      chance: 1/200
+      enchants: ENCHANT_FLOWING-1
+      
+drenched_2:
+  name: Drenched
+  type: SIMPLE
+  level: 5
+  health: 300
+  knockback: 90
+  damage: 25
+  damage-type: PHYSICAL
+  display-height: 1.9
+  blood-colour: 0,50,150
+  armour:
+    PHYSICAL: 0
+    PROJECTILE: 0
+    MAGICAL: -25
+    HOLY: 0
+    BLEED: 0
+    FIRE: 0
+    WITHER: 0
+  equipment:
+    HAND: angry_piranha_sword
+    HEAD: dripper_helmet
+    CHEST: drenched_chestplate
+    LEGS: dripper_leggings
+    FEET: drenched_boots
+  tags:
+    - DRENCHED
+  drops:
+    rotten_fish:
+      amount: 2/6
+    water_pearl:
+      chance: 1/2
+    jalapeno_powder:
+      chance: 1/20
+    jalapeno_powder-bundle:
+      chance: 1/200
+      amount: 4/5
+    enchanted_book-SHARPNESS:
+      chance: 1/100
+      enchants: ENCHANT_SHARPNESS-1
+    enchanted_book-FLOWING:
+      chance: 1/175
+      enchants: ENCHANT_FLOWING-1
+    enchanted_book-SHARPNESS:
+      chance: 1/1000
+      enchants: ENCHANT_SHARPNESS-2
+      
+drenched_miner:
+  name: Drenched Miner
+  type: SIMPLE
+  level: 4
+  health: 170
+  knockback: 75
+  damage: 25
+  damage-type: PHYSICAL
+  display-height: 1.9
+  blood-colour: 0,50,150
+  armour:
+    PHYSICAL: 70
+    PROJECTILE: -30
+    MAGICAL: 0
+    HOLY: 0
+    BLEED: 0
+    FIRE: -70
+    WITHER: 0
+  equipment:
+    HAND: GOLDEN_PICKAXE
+    HEAD: dripper_helmet
+    CHEST: drenched_chestplate
+    LEGS: dripper_leggings
+    FEET: dripper_boots
+  tags:
+    - DRENCHED
+  drops:
+    leaf_mush:
+      amount: 2/8
+    leaf_mush-boon:
+      chance: 1/5
+      amount: 10/20
+    rotten_fish:
+      amount: 1/2
+    water_pearl:
+      chance: 1/6
+    enchanted_book-SHARPNESS:
+      chance: 1/300
+      enchants: ENCHANT_SHARPNESS-1
+      
+drenched_3:
+  name: Powder Drenched
+  type: SIMPLE
+  level: 5
+  health: 240
+  knockback: 130
+  damage: 30
+  damage-type: PHYSICAL
+  display-height: 1.9
+  blood-colour: 75,10,125
+  armour:
+    PHYSICAL: 15
+    PROJECTILE: 100
+    MAGICAL: 0
+    HOLY: 0
+    BLEED: 300
+    FIRE: -25
+    WITHER: 0
+  equipment:
+    HAND: flaming_sword
+    HEAD: drenched_helmet
+    CHEST: flamefin_chestplate
+    LEGS: drenched_leggings
+    FEET: flamefin_boots
+  tags:
+    - DRENCHED
+  drops:
+    rotten_fish:
+      amount: 1/4
+    rotten_fish-boon:
+      chance: 1/5
+      amount: 12/24
+    water_pearl:
+      chance: 1/5
+      amount: 1/2
+    jalapeno_powder:
+      chance: 1/25
+      amount: 1/1
+    enchanted_book-SHARPNESS:
+      chance: 1/200
+      enchants: ENCHANT_SHARPNESS-1
+      
+drenched_golden:
+  name: Golden Drenched
+  type: SIMPLE
+  level: 5
+  health: 1000
+  knockback: 10
+  damage: 50
+  damage-type: HOLY
+  display-height: 1.95
+  blood-colour: 100,100,0
+  resistances:
+    DEATH: -1
+  armour:
+    PHYSICAL: 50
+    PROJECTILE: 50
+    MAGICAL: 0
+    HOLY: 50
+    BLEED: 0
+    FIRE: -50
+    WITHER: 0
+  equipment:
+    HAND: flaming_sword
+    HEAD: GOLDEN_HELMET
+    CHEST: GOLDEN_CHESTPLATE
+    LEGS: drenched_leggings
+    FEET: flamefin_boots
+  tags:
+    - DRENCHED
+  drops:
+    combination_catalyst_shard:
+      amount: 2/2
+    jalapeno_powder:
+      chance: 1/1
+      amount: 1/1
+
+      
+drenched_4:
+  name: Drenchshark
+  type: SIMPLE
+  level: 6
+  health: 530
+  knockback: 85
+  damage: 32
+  damage-type: PHYSICAL
+  display-height: 1.9
+  blood-colour: 75,10,125
+  speed: 1.25
+  armour:
+    PHYSICAL: 12
+    PROJECTILE: 100
+    MAGICAL: 0
+    HOLY: 0
+    BLEED: 3000
+    FIRE: 0
+    WITHER: 0
+  equipment:
+    HAND: GHAST_TEAR
+    HEAD: drenched_helmet
+    CHEST: flamefin_chestplate
+    LEGS: drenched_leggings
+    FEET: flamefin_boots
+  tags:
+    - DRENCHED
+  drops:
+    rotten_fish:
+      amount: 1/7
+    rotten_fish-boon:
+      chance: 1/5
+      amount: 12/40
+    water_pearl:
+      chance: 1/5
+      amount: 1/3
+    shark_tooth:
+      chance: 1/6
+      amount: 1/2
+    enchanted_book-SHARPNESS:
+      chance: 1/200
+      enchants: ENCHANT_SHARPNESS-1
+    enchanted_book-SHARKING:
+      chance: 1/1000
+      enchants: ENCHANT_SHARKING-1
+      
+
+    #enchanted_book-SHARPNESS2:
+    #  chance: 1/10
+    #  enchants: ENCHANT_SHARPNESS-2
+      
+      
+      

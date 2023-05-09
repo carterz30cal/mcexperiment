@@ -1,0 +1,46 @@
+wand_of_vitality:
+  name: Wand of Lesser Vitality
+  type: WAND
+  rarity: EPIC
+  material: BLAZE_ROD
+  abilities:
+    - WAND_OF_LESSER_VITALITY
+  stats:
+    damage: +15
+    focus: +1
+    
+wand_of_healing_1:
+  name: Wand of Lesser Healing
+  type: WAND
+  rarity: EPIC
+  material: BONE
+  glow: true
+  abilities:
+    - WAND_OF_LESSER_HEALING
+  stats:
+    damage: +12
+    mana: +20
+    
+wand_of_vitality_2:
+  name: Wand of Vitality
+  type: WAND
+  rarity: INCREDIBLE
+  material: BLAZE_ROD
+  glow: true
+  abilities:
+    - WAND_OF_VITALITY
+  stats:
+    damage: +16
+    focus: +2
+    
+wand_of_vitality_3:
+  name: Wand of Greater Vitality
+  type: WAND
+  rarity: LEGENDARY
+  material: BLAZE_ROD
+  glow: true
+  abilities:
+    - WAND_OF_GREATER_VITALITY
+  stats:
+    damage: +16
+    focus: +2

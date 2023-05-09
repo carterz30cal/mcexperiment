@@ -1,0 +1,14 @@
+armour-icer:
+  name:
+    - Icer Helmet
+    - Icer Chestplate
+    - Icer Leggings
+    - Icer Boots
+  material: LEATHER
+  rarity: COMMON
+  colour:
+    g: 75
+    b: 200
+  stats:
+    defence: +30,+50,+40,+20
+    enchant_power: +15

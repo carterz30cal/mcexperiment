@@ -1,0 +1,177 @@
+flimsy_bow:
+  item: flimsy_bow
+  level: 0
+  time: 5s
+  category: waterway_weapons_bows
+  items:
+    rotten_fish: 6
+
+rotten_fish_sword:
+  item: rotten_fish_sword
+  coins: 0
+  level: 0
+  amount: 1
+  time: 5s
+  category: waterway_weapons_swords
+  items:
+    flimsy_sword: 1
+    rotten_fish: 5
+    
+rotten_fish_bow:
+  level: 1
+  amount: 1
+  time: 5s
+  category: waterway_weapons_bows
+  discovery: rotten_fish_discovery
+  discovery-tier: 1
+  items:
+    flimsy_bow: 1
+    rotten_fish: 15
+    
+    
+spearfish_sword:
+  level: 2
+  category: waterway_weapons_swords
+  items:
+    rotten_fish_sword: 1
+    rotten_fish: 64
+    wet_paper: 20
+    
+piranha_dagger:
+  item: piranha_dagger
+  level: 2
+  category: waterway_weapons_swords
+  items:
+    rotten_fish_sword: 1
+    rotten_fish: 64
+    wet_paper: 20
+cod_bow:
+  item: cod_bow
+  level: 2
+  category: waterway_weapons_bows
+  items:
+    rotten_fish_bow: 1
+    rotten_fish: 128
+    wet_paper: 8
+    
+angry_spearfish_sword:
+  item: angry_spearfish_sword
+  level: 3
+  category: waterway_weapons_swords
+  items:
+    spearfish_sword: 1
+    rotten_fish: 128
+    water_pearl: 8
+angry_piranha_dagger:
+  level: 3
+  category: waterway_weapons_swords
+  items:
+    piranha_dagger: 1
+    rotten_fish: 150
+    water_pearl: 5
+flaming_sword:
+  level: 3
+  category: waterway_weapons_swords
+  time: 5s
+  items:
+    storm_crystals: 20
+    rotten_fish: 200
+    water_pearl: 16
+    
+jims_better_sword:
+  level: 3
+  category: waterway_weapons_swords
+  items:
+    jims_sword: 1
+    jims_sword_upgrader: 1
+    water_pearl: 1
+    
+candiru_bow:
+  level: 3
+  category: waterway_weapons_bows
+  items:
+    cod_bow: 1
+    leaf_mush: 110
+    water_pearl: 10
+lionfish_bow:
+  level: 3
+  category: waterway_weapons_bows
+  items:
+    cod_bow: 1
+    wet_paper: 30
+    water_pearl: 8
+water_bolt_tome:
+  level: 3
+  category: waterway_weapons_tomes
+  time: 1m
+  items:
+    storm_crystals: 25
+    water_pearl: 19
+    leaf_mush: 160
+    rotten_fish: 64
+    
+incensed_spearfish_sword:
+  level: 4
+  category: waterway_weapons_swords
+  items:
+    angry_spearfish_sword: 1
+    rotten_fish: 150
+    cayenne_powder: 2
+    
+incensed_piranha_dagger:
+  level: 4
+  category: waterway_weapons_swords
+  items:
+    angry_piranha_dagger: 1
+    rotten_fish: 20
+    leaf_mush: 20
+    cayenne_powder: 5
+    
+angrily_flaming_sword:
+  level: 4
+  category: waterway_weapons_swords
+  items:
+    flaming_sword: 1
+    cayenne_powder: 6
+    
+titan_hammer:
+  level: 4
+  category: waterway_weapons_swords
+  time: 12m
+  items:
+    cayenne_powder: 34
+    water_pearl: 10
+    
+stormfrost_axe:
+  level: 4
+  category: waterway_weapons_swords
+  time: 6m
+  items:
+    cayenne_powder: 10
+    fish_barrel: 1
+    storm_crystals: 48
+    
+angry_candiru_bow:
+  level: 4
+  category: waterway_weapons_bows
+  items:
+    candiru_bow: 1
+    cayenne_powder: 1
+    wet_paper: 60
+    
+angry_lionfish_bow:
+  level: 4
+  category: waterway_weapons_bows
+  items:
+    lionfish_bow: 1
+    cayenne_powder: 1
+    jalapeno_powder: 2    
+
+     
+
+
+  
+    
+
+  
+    

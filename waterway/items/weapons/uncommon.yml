@@ -1,0 +1,29 @@
+rotten_fish_sword:
+  name: Rotten Fish Sword
+  type: WEAPON
+  rarity: UNCOMMON
+  material: WOODEN_SWORD
+  stats:
+    damage: +20
+    strength: +50
+    enchant_power: +2
+    
+jims_sword:
+  name: Jim's Shoddy Sword
+  type: WEAPON
+  rarity: UNCOMMON
+  material: WOODEN_SWORD
+  glow: true
+  stats:
+    damage: +24
+    might: +30
+    enchant_power: +2
+    
+rotten_fish_bow:
+  name: Rotten Fish Bow
+  type: BOW
+  rarity: UNCOMMON
+  material: BOW
+  stats:
+    damage: +30
+    enchant_power: +1

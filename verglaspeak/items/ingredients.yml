@@ -1,0 +1,29 @@
+dry_ice:
+  name: Dry Ice
+  type: INGREDIENT
+  rarity: COMMON
+  material: PACKED_ICE
+  description:
+    - I wouldn't touch this.
+    - Used in most BLUEVerglasian PeakGRAY recipes.
+    
+frozen_handle:
+  name: Frozen Handle
+  type: INGREDIENT
+  rarity: UNCOMMON
+  material: STICK
+  glow: true
+  description:
+    - Sturdy and shiny.
+    - Used to create BLUEVerglasianGRAY weapons.
+    
+blizzard_dust:
+  name: Blizzard Dust
+  type: INGREDIENT
+  rarity: UNCOMMON
+  material: BLUE_DYE
+  glow: true
+  description:
+    - Strangely foamy?
+    - Dropped by BLUERaging BlizzardsGRAY.
+    - Used to forge many powerful weapons.
