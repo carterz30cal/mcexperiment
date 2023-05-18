@@ -19,19 +19,25 @@ tetrafish_dagger:
   type: WEAPON
   rarity: INCREDIBLE
   material: DIAMOND_SWORD
+  statuses:
+    BLEED: 40
+  stats:
+    damage: +45
+    savagery: +55
+    enchant_power: +5
     
 hammerhead_sword:
-  name: Hammerhead Sword
+  name: Hammerhead Scythe
   type: WEAPON
   rarity: INCREDIBLE
-  material: NETHERITE_SWORD
+  material: NETHERITE_HOE
   abilities: 
     - HAMMERHEAD_SWORD
   stats:
-    damage: +35
-    power: +30
-    savagery: +10
-    enchant_power: +20
+    damage: +48
+    strength: +80
+    might: +8
+    enchant_power: +7
     
 warden_whip:
   name: Warden Whip
