@@ -25,6 +25,7 @@ public enum Abilities
 	ENCHANT_SCYTHELIKE(Scythelike.class),
 	ENCHANT_HEALTHY(Healthy.class),
 	ENCHANT_FLOWING(Flowing.class),
+	ENCHANT_DEATHPOKE(DeathPoke.class),
 	
 	FLAMING_SWORD(AbilityFlamingSword.class),
 	
