@@ -59,7 +59,7 @@ public class BossHydra extends AbstractArea {
 			closeEnough = true;
 			break;
 		}
-		if (!closeEnough) {
+		if (!closeEnough && participants.size() > 0) {
 			onEnd();
 		}
 		
