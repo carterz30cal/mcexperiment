@@ -16,6 +16,16 @@ spicy_arrow:
     damage: +3
     power: +5
     
+hydra_arrow:
+  name: Hydra's Bolt
+  type: ARROW
+  rarity: INCREDIBLE
+  material: STICK
+  stats:
+    damage: +2
+    strength: +10
+    savagery: +1
+    
 seraph_arrow:
   name: Seraph's Arrow
   type: ARROW

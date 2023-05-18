@@ -37,6 +37,16 @@ spicy_arrow_alt:
     rotten_fish: 24
     jalapeno_powder: 1
     
+hydra_arrow:
+  item: hydra_arrow
+  level: 5
+  custom-name: LIGHT_PURPLEHydra's Bolt DARK_GRAYx1024
+  time: 10m
+  amount: 1024
+  items:
+    hydra_flesh: 5
+    leaf_mush: 32
+    
     
 seraph_arrow:
   level: 7
