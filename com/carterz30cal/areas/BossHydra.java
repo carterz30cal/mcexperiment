@@ -113,7 +113,7 @@ public class BossHydra extends AbstractArea {
 	private void phase1() {
 		if (heads.size() == 0) wonFight();
 		
-		if (participants.size() > 0 && currentTick % (int)(60D / (headsTotal + 1) - heads.size()) == 2) {
+		if (participants.size() > 0 && currentTick % (int)(80D / ((headsTotal + 1) - heads.size())) == 2) {
 			BlockStructure spit = BlockUtils.createStructure("spit" + currentTick);
 			GameEnemy head = RandomUtils.getChoice(heads);
 			GamePlayer choice = RandomUtils.getChoice(participants);
@@ -139,15 +139,15 @@ public class BossHydra extends AbstractArea {
 					public void run() {
 						// TODO Auto-generated method stub
 						GameParticleProjectile proj = GameParticleProjectile.spawnBasicProjectile(DUST_SPIT, s, dir);
-						proj.speed = 13;
+						proj.speed = 12;
 						proj.damagesPlayers = true;
-						proj.piercesLeft = 3;
-						proj.damage = 70;
+						proj.piercesLeft = 4;
+						proj.damage = 60;
 						
 						spit.setAll(Material.BLACK_CONCRETE);
 					}
 					
-				}.runTaskLater(Dungeons.instance, 12);
+				}.runTaskLater(Dungeons.instance, 14);
 				
 				new BukkitRunnable() {
 
