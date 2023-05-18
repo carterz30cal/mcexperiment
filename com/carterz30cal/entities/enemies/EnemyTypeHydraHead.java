@@ -87,7 +87,15 @@ public class EnemyTypeHydraHead extends AbstractEnemyType {
 		boolean onGround = (boolean)enemy.data.getOrDefault("onground", false);
 		
 		
-		if (!onGround) head = head.add(0, 0, sin);
+		if (onGround) {
+			if (enemy.health == 1) {
+				enemy.data.put("onground", false);
+				enemy.data.put("target", (Location)enemy.data.get("original"));
+				onTick(enemy);
+				return;
+			}
+		}
+		else head = head.add(0, 0, sin);
 		
 		Vector travel = head.clone().subtract(root.clone()).toVector();
 		travel.setY(0);
