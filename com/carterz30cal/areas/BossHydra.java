@@ -27,6 +27,7 @@ import com.carterz30cal.utils.RandomUtils;
 public class BossHydra extends AbstractArea {
 	
 	private static final Particle.DustOptions DUST_SPIT = new Particle.DustOptions(Color.LIME, 1.3F);
+	private static final Location ROOT = new Location(Dungeons.w, -167, 79.2, -23);
 	
 	private static BossHydra instance;
 	public static int tierFighting;
@@ -51,6 +52,16 @@ public class BossHydra extends AbstractArea {
 	public void onTick()
 	{
 		if (!active) return;
+		
+		boolean closeEnough = false;
+		for (GamePlayer p : participants) {
+			if (p.getLocation().distance(ROOT) > 35) continue;
+			closeEnough = true;
+			break;
+		}
+		if (!closeEnough) {
+			onEnd();
+		}
 		
 		currentTick++;
 		if (phase == 0) {
