@@ -59,8 +59,12 @@ public class DeathPoke extends ItemEnchant {
 	public List<String> description()
 	{
 		List<String> l = new ArrayList<>();
-		l.add("Any existing WHITEDeath \u2620GRAY buildup is multiplied by RED1.3xGRAY.");
-		if (level == 2) l.add("Any " + Stat.VITALITY.getReverse() + "GRAY on this weapon is converted into YELLOWDecayGRAY buildup.");
+		
+		String multi = "1.3x";
+		if (level == 2) multi = "1.4x";
+		
+		l.add("GRAYAny existing WHITEDeath \u2620GRAY buildup is multiplied by RED" + multi + "GRAY.");
+		if (level == 2) l.add("GRAYAny " + Stat.VITALITY.getReverse() + "GRAY on this weapon is converted into YELLOWDecayGRAY buildup.");
 		l.add("GRAYThen, convert all statuses on this weapon to YELLOWDecay \u2620GRAY.");
 		l.add("GRAYLose " + display(Stat.HEALTH, level * 25) + "GRAY.");
 		return l;
@@ -70,7 +74,11 @@ public class DeathPoke extends ItemEnchant {
 		if (level == 2) item.statuses.effects.put(StatusEffect.DECAY, item.statuses.getStatus(StatusEffect.DECAY) + item.getStat(Stat.VITALITY));
 		for (StatusEffect effect : item.statuses.effects.keySet()) {
 			if (effect == StatusEffect.DECAY) continue;
-			item.statuses.effects.put(StatusEffect.DECAY, item.statuses.getStatus(StatusEffect.DECAY) + item.statuses.getStatus(effect));
+			
+			int sta = item.statuses.getStatus(effect);
+			if (effect == StatusEffect.DEATH) sta = (int)(sta * (1.2D + 0.1D * level));
+			
+			item.statuses.effects.put(StatusEffect.DECAY, item.statuses.getStatus(StatusEffect.DECAY) + sta);
 			item.statuses.effects.put(effect, 0);
 		}
 		item.scheduleOperation(Stat.VITALITY, StatOperationType.CAP_MAX, 0);
