@@ -7,3 +7,13 @@ rotten_fish_charm:
     - FISH_CHARM
   tags:
     - FISH_TALISMAN
+    
+hydra_talisman:
+  name: Hydra's Secret
+  type: TALISMAN
+  rarity: EPIC
+  material: KELP
+  abilities:
+    - HYDRA_TALISMAN
+  tags:
+    - HYDRA_TALISMAN

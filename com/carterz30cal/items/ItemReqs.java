@@ -103,7 +103,7 @@ public class ItemReqs
 	
 	public String grabDataFromRequirements(GamePlayer by)
 	{
-		ItemStack dataHolder = ItemFactory.build("test_sword");
+		ItemStack dataHolder = ItemFactory.build("flimsy_sword");
 		
 		Map<String, Integer> working = new HashMap<>(reqs);
 		for (ItemStack i : by.player.getInventory().getContents())
@@ -113,7 +113,10 @@ public class ItemReqs
 			if (!working.containsKey(item.id)) continue;
 			
 			Map<String, String> data = ItemFactory.getItemData(i);
-			if (data.size() != 0) ItemFactory.setItemData(dataHolder, data);
+			if (data.size() != 0) 
+			{
+				ItemFactory.setItemData(dataHolder, data);
+			}
 			
 			int am = working.getOrDefault(item.id, 0) - i.getAmount();
 			if (am <= 0) working.remove(item.id);

@@ -8,6 +8,18 @@ enchanted_book-FLOWING:
     rotten_fish: 32
     wet_paper: 16
 
+
+enchanted_book-DEATHPOKE:
+  custom-name: LIGHT_PURPLEDeathpoke DARK_GRAY[Enchantment]
+  enchants: ENCHANT_DEATHPOKE-1
+  level: 5
+  time: 5m
+  category: waterway_enchantments
+  items:
+    hydra_flesh: 15
+    water_pearl: 20
+    fish_barrel: 1
+
 ### later?
 enchanted_book-PEARLED:
   custom-name: LIGHT_PURPLEPearled DARK_GRAY(Enchantment)
@@ -62,17 +74,7 @@ enchanted_book-FIREASPECT:
     chilli_apple: 1
     cayenne_powder: 4
     
-enchanted_book-HEALTHY:
-  custom-name: GREENHealthy DARK_GRAY(Enchantment)
-  enchants: ENCHANT_HEALTHY-1
-  level: 4
-  time: 8m
-  category: waterway_enchantments
-  discovery: leaf_mush_discovery
-  discovery-tier: 2
-  items:
-    leaf_ball: 2
-    ghost_powder: 1
+
     
     
 enchanted_book-SCYTHELIKE:

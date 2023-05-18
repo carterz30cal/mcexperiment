@@ -1,10 +1,10 @@
 hydra_totem:
   level: 4
-  time: 20s
+  time: 1s
   category: waterway_summoning_items
   items:
-    sea_shard: 1
-    rotten_fish: 5
+    woodchip: 2
+    rotten_fish: 15
     
 corrupted_hydra_totem:
   level: 8

@@ -34,6 +34,7 @@ public class BossHydra extends AbstractArea {
 	
 	public static int phase;
 	public static int headsKilled;
+	private static int headsTotal;
 	public int currentTick = 0;
 	
 	public List<BlockStructure> structures = new ArrayList<>();
@@ -90,6 +91,7 @@ public class BossHydra extends AbstractArea {
 				break;
 			case 50:
 				phase = 1;
+				headsTotal = heads.size();
 				currentTick = 0;
 			default: break;
 			}
@@ -111,7 +113,7 @@ public class BossHydra extends AbstractArea {
 	private void phase1() {
 		if (heads.size() == 0) wonFight();
 		
-		if (participants.size() > 0 && currentTick % 47 == 29) {
+		if (participants.size() > 0 && currentTick % (int)(60D / (headsTotal + 1) - heads.size()) == 2) {
 			BlockStructure spit = BlockUtils.createStructure("spit" + currentTick);
 			GameEnemy head = RandomUtils.getChoice(heads);
 			GamePlayer choice = RandomUtils.getChoice(participants);
@@ -137,15 +139,15 @@ public class BossHydra extends AbstractArea {
 					public void run() {
 						// TODO Auto-generated method stub
 						GameParticleProjectile proj = GameParticleProjectile.spawnBasicProjectile(DUST_SPIT, s, dir);
-						proj.speed = 11;
+						proj.speed = 13;
 						proj.damagesPlayers = true;
-						proj.piercesLeft = 1;
+						proj.piercesLeft = 3;
 						proj.damage = 70;
 						
 						spit.setAll(Material.BLACK_CONCRETE);
 					}
 					
-				}.runTaskLater(Dungeons.instance, 15);
+				}.runTaskLater(Dungeons.instance, 12);
 				
 				new BukkitRunnable() {
 
@@ -155,14 +157,14 @@ public class BossHydra extends AbstractArea {
 						spit.wipe();
 					}
 					
-				}.runTaskLater(Dungeons.instance, 24);
+				}.runTaskLater(Dungeons.instance, 20);
 			}
 			
 			
 		}
 		
 		
-		if (participants.size() > 0 && RandomUtils.getRandom(1, 100) == 1) {
+		if (participants.size() > 0 && RandomUtils.getRandom(1, 80) == 1) {
 			BlockStructure slam = BlockUtils.createStructure("slam" + currentTick);
 			GameEnemy head = RandomUtils.getChoice(heads);
 			GamePlayer choice = RandomUtils.getChoice(participants);

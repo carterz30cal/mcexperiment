@@ -88,15 +88,6 @@ public class EnemyTypeHydraHead extends AbstractEnemyType {
 		
 		
 		if (!onGround) head = head.add(0, 0, sin);
-		else if (RandomUtils.getRandom(0, 340) == 1 && BossHydra.minions.size() < 18) {
-			for (int m = 0; m < 8; m++) BossHydra.minions.add(EnemyManager.spawn("hydra_servant", enemy.main.getLocation()));
-			
-			
-			BossHydra.headsKilled--;
-			enemy.lastDamager = null;
-			enemy.kill();
-		}
-		
 		
 		Vector travel = head.clone().subtract(root.clone()).toVector();
 		travel.setY(0);
@@ -167,7 +158,7 @@ public class EnemyTypeHydraHead extends AbstractEnemyType {
 	
 	public void onKilled(GameEnemy enemy)
 	{
-		BossHydra.minions.add(EnemyManager.spawn("hydra_servant", enemy.main.getLocation()));
+		for (int m = 0; m < 8; m++) BossHydra.minions.add(EnemyManager.spawn("hydra_servant", enemy.main.getLocation()));
 		
 		BossHydra.headsKilled++;
 		BossHydra.heads.remove(enemy);

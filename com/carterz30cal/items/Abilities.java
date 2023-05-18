@@ -5,6 +5,7 @@ import java.lang.reflect.InvocationTargetException;
 import com.carterz30cal.entities.GamePlayer;
 import com.carterz30cal.items.abilities.*;
 import com.carterz30cal.items.abilities.talismans.TalismanFishCharm;
+import com.carterz30cal.items.abilities.talismans.TalismanHydra;
 import com.carterz30cal.items.enchants.*;
 
 public enum Abilities
@@ -35,6 +36,7 @@ public enum Abilities
 	TITAN_HAMMER(AbilityTitanHammer.class),
 	FISH_BRAIN(AbilityFishBrain.class),
 	FISH_CHARM(TalismanFishCharm.class),
+	HYDRA_TALISMAN(TalismanHydra.class),
 	
 	// below is old stuff
 	

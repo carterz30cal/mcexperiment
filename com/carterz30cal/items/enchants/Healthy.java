@@ -36,8 +36,7 @@ public class Healthy extends ItemEnchant {
 	public List<ItemReq> getCatalystRequirements(int level) 
 	{
 		List<ItemReq> reqs = new ArrayList<>();
-		reqs.add(new ItemReq("combination_catalyst_shard", 1, 0));
-		reqs.add(new ItemReq("woodchip", 4 * level, 0));
+		reqs.add(new ItemReq("combination_catalyst_shard", 1, 20 * level));
 		return reqs;
 	}
 

@@ -273,43 +273,6 @@ blazefin_boots:
     
 
     
-manafin_helmet_alt:
-  item: manafin_helmet
-  level: 4
-  hide: true
-  time: 10m
-  category: waterway_armour_manafin
-  items:
-    chilli_apple: 1
-    flamefin_helmet: 1
-manafin_chestplate_alt:
-  item: manafin_chestplate
-  level: 4
-  hide: true
-  time: 10m
-  category: waterway_armour_manafin
-  items:
-    chilli_apple: 1
-    flamefin_chestplate: 1
-manafin_leggings_alt:
-  item: manafin_leggings
-  level: 4
-  hide: true
-  time: 10m
-  category: waterway_armour_manafin
-  items:
-    chilli_apple: 1
-    flamefin_leggings: 1
-manafin_boots_alt:
-  item: manafin_boots
-  level: 4
-  hide: true
-  time: 10m
-  category: waterway_armour_manafin
-  items:
-    chilli_apple: 1
-    flamefin_boots: 1
-    
 shark_helmet_frost:
   item: shark_helmet
   level: 5

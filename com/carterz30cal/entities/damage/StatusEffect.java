@@ -8,6 +8,7 @@ public enum StatusEffect
 	BURN("Burn", "BRN", "\u00D7", "GOLD", 100, 1.6, new DotStatus(10, 0.005, 4, 7, DamageType.FIRE)),
 	POISON("Poison", "PSN", "\u2620", "GREEN", 1000, 1.2, new DotStatus(5, 0, 20, 2, DamageType.WITHER)),
 	DEATH("Instant Death", "DTH", "\u2620", "WHITE", 10000, 1.04, new DeathStatus()),
+	DECAY("Decay", "DCY", "\u2620", "YELLOW", 400, 1.2, new DamagingStatus(300, 0.008, DamageType.HOLY))
 	;
 	
 	private StatusEffect(String name, String shortName, String symbol, String colour, int defaultResistance, double resistanceMultiplier, AbstractStatus effect) {

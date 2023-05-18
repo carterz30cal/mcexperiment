@@ -10,7 +10,7 @@ reinforced_shield:
   name: Reinforced Shield
   type: SHIELD
   rarity: EPIC
-  material: SPRUCE_LOG
+  material: PHANTOM_MEMBRANE
   stats:
     defence: +15
     

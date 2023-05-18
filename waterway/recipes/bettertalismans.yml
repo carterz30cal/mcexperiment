@@ -10,3 +10,12 @@ rotten_fish_charm:
     rotten_fish: 256
     water_pearl: 12
     cayenne_powder: 5
+    
+hydra_talisman:
+  level: 5
+  time: 2m
+  category: waterway_talismans
+  items:
+    hydra_flesh: 16
+    jalapeno_powder: 2
+    water_pearl: 10

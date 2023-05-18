@@ -533,7 +533,7 @@ public class GamePlayer extends GameEntity
 	
 	public void scheduleForgeItem(ForgingItem item)
 	{
-		if (item.time == 0) giveItem(item.produce());
+		if (item.time == 0) giveItem(item.produce(), false);
 		else forge.add(item);
 	}
 	

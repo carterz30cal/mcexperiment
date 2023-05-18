@@ -58,9 +58,8 @@ forager_helmet:
   discovery: leaf_mush_discovery
   discovery-tier: 2
   items:
-    leaf_ball: 1
-    woodchip: 15
-    ghost_powder: 2
+    leaf_mush: 100
+    woodchip: 4
 forager_chestplate:
   time: 1m
   category: waterway_gathering_armour
@@ -68,23 +67,21 @@ forager_chestplate:
   discovery-tier: 4
   items:
     leaf_ball: 2
-    woodchip: 30
-    ghost_powder: 2
+    woodchip: 24
+    ghost_powder: 1
 forager_leggings:
   time: 1m
   category: waterway_gathering_armour
   discovery: leaf_mush_discovery
   discovery-tier: 3
   items:
-    leaf_ball: 2
-    woodchip: 30
-    ghost_powder: 2
+    leaf_ball: 1
+    woodchip: 12
 forager_boots:
   time: 1m
   category: waterway_gathering_armour
   discovery: leaf_mush_discovery
   discovery-tier: 1
   items:
-    leaf_ball: 1
-    woodchip: 15
-    ghost_powder: 2
+    leaf_mush: 32
+    woodchip: 1
