@@ -353,6 +353,39 @@ skeleton_steve_quest_3:
     - Here, take four as a token of my appreciation.
     - Meet me back at my house later.
     
+blood_pact_1:
+  name: Blood Pact I
+  prerequisites:
+    - player_joined
+  questgiver:
+    name: Wellseeker
+    mob: DROWNED
+    location: -271.7, 70, -18.2, -137, 0
+    show-before-reqs: true
+    show-after-complete: false
+    sound: ENTITY_WITHER_HURT
+    equipment:
+      HEAD: GOLDEN_HELMET
+  config:
+    type: QUEST_TYPE_STAT_REQ
+    config:
+      stat: HEALTH
+      amount: 500
+  rewards:
+    xp: 25
+  dialog-start:
+    - If I stare long enough, a fish might appear!
+    - Oh right.
+    - Would you like to learn the secrets of blood?
+  dialog-during:
+    - You don't appear to be strong enough just yet.
+    - Come back when you have RED500\u2665 HealthGRAY.
+  dialog-finishing:
+    - I think you're ready for the secrets of the blood.
+    - We are the foremost blood cult in BLUEWaterwayGRAY!
+    - We just really like blood, to be honest.
+    
+    
     
     
     

@@ -7,6 +7,7 @@ import com.carterz30cal.entities.GamePlayer;
 public enum QuestTypes {
 	QUEST_TYPE_FETCH(MissionFetchQuest.class),
 	QUEST_TYPE_KILL(MissionKillQuest.class),
+	QUEST_TYPE_STAT_REQ(MissionStatReq.class),
 	;
 	private Class<? extends AbstractQuestType> abClass;
 	
