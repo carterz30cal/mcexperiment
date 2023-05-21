@@ -1,27 +1,22 @@
 package com.carterz30cal.quests;
 
-
 import java.util.ArrayList;
 import java.util.List;
 
 import com.carterz30cal.entities.GamePlayer;
-import com.carterz30cal.items.ItemFactory;
-import com.carterz30cal.items.ItemReq;
-import com.carterz30cal.items.ItemReqs;
+import com.carterz30cal.stats.Stat;
 
 public class MissionStatReq extends AbstractQuestType 
 {
-	public String item;
+	public Stat stat;
 	public int amount;
-	public boolean consume;
 	
 	private String qgname;
 	public MissionStatReq(GamePlayer owner, Quest config, String progress) {
 		super(owner, config, progress);
 		
-		item = config.questConfig.getString("item");
+		stat = Stat.valueOf(config.questConfig.getString("stat"));
 		amount = config.questConfig.getInt("amount");
-		consume = config.questConfig.getBoolean("consumed");
 		qgname = config.questgiverName;
 	}
 
@@ -46,27 +41,20 @@ public class MissionStatReq extends AbstractQuestType
 	@Override
 	public List<String> description() {
 		List<String> l = new ArrayList<>();
-		l.add("GRAYFetch " + amount + "x " + ItemFactory.getItemTypeName(item));
-		l.add("GRAYfor GOLD" + qgname + "GRAY.");
-		
+		l.add("GRAYAcquire " + stat.colour + amount + stat.getIcon() + "GRAY and return");
+		l.add("GRAYto " + qgname + "GRAY.");
+		l.add("GRAYCurrently, you have " + stat.colour + owner.stats.getStat(stat) + stat.getIcon() + "GRAY!");
 		return l;
 	}
-	
 	
 	public int getQuestPriority() {
 		return 10;
 	}
 	
 	public boolean attemptHandIn() {
-		ItemReqs reqs = new ItemReqs();
-		reqs.addRequirement(new ItemReq(item, amount, 0));
-		
-		if (reqs.areRequirementsMet(owner))
-		{
-			if (consume) reqs.execute(owner);
-			return true;
-		}
-		else return false;
+		return owner.stats.getStat(stat) >= amount;
 	}
+	
+	
 
 }

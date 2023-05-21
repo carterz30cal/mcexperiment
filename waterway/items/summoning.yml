@@ -6,6 +6,14 @@ hydra_totem:
   abilities:
     - HYDRA_TOTEM
     
+blood_medallion:
+  name: Blood Medallion
+  type: ARTEFACT
+  rarity: INCREDIBLE
+  material: RED_DYE
+  abilities:
+    - BLOOD_MEDALLION
+    
 corrupted_hydra_totem:
   name: Corrupt Hydra Totem
   type: ARTEFACT

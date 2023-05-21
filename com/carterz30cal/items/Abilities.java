@@ -38,6 +38,7 @@ public enum Abilities
 	FISH_BRAIN(AbilityFishBrain.class),
 	FISH_CHARM(TalismanFishCharm.class),
 	HYDRA_TALISMAN(TalismanHydra.class),
+	BLOOD_MEDALLION(AbilityBloodMedallion.class),
 	
 	// below is old stuff
 	
