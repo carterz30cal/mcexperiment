@@ -44,7 +44,7 @@ import com.carterz30cal.utils.LevelUtils;
 import com.carterz30cal.utils.ScoreboardWrapper;
 import com.carterz30cal.utils.StringUtils;
 
-import de.ancash.actionbar.ActionBarAPI;
+//import de.ancash.actionbar.ActionBarAPI;
 
 public class GamePlayer extends GameEntity
 {
@@ -443,7 +443,7 @@ public class GamePlayer extends GameEntity
 	
 	public void sendActionBar(String message)
 	{
-		ActionBarAPI.sendActionBar(player, StringUtils.colourString(message));
+		//ActionBarAPI.sendActionBar(player, StringUtils.colourString(message));
 	}
 
 	public boolean isTargetable(GameEnemy by)

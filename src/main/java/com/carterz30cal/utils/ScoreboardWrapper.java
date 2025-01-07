@@ -45,7 +45,7 @@ public class ScoreboardWrapper {
     }
 
     /**
-     * Modifies the line with §r strings in the way to add
+     * Modifies the line with r strings in the way to add
      * a line equal to another.
      */
     private String getLineCoded(String line) {
