@@ -270,7 +270,7 @@ public class GameEnemy extends GameEntity
 		
 		if (target == null)  {
 			type.onTarget(this, null);
-			EntityUtils.applyPotionEffect((LivingEntity)main, PotionEffectType.SLOW, 19, 50, false);
+			EntityUtils.applyPotionEffect((LivingEntity)main, PotionEffectType.SLOWNESS, 19, 50, false);
 		}
 		else type.onTarget(this, target);
 	}

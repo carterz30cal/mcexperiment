@@ -266,7 +266,7 @@ public class BossWaterwaySeraph extends AbstractArea
 					boss.setHealth(3000);
 					phase = 6;
 					EntityUtils.sayTo(participating, "DARK_RED<< REDWaterway Seraph DARK_RED>>: WHITEENOUGH!");
-					ParticleUtils.spawn(bossArenaMid.clone().add(0, 3, 0), Particle.EXPLOSION_HUGE, 4);
+					ParticleUtils.spawn(bossArenaMid.clone().add(0, 3, 0), Particle.EXPLOSION, 4);
 					
 					for (GameEnemy servant : mages)
 					{
@@ -318,10 +318,11 @@ public class BossWaterwaySeraph extends AbstractArea
 					boss.setHealth(3000);
 					
 					phase = 6;
-					ParticleUtils.spawn(bossArenaMid.clone().add(0, 3, 0), Particle.EXPLOSION_HUGE, 4);
-					ParticleUtils.spawn(bossArenaMid.clone().add(2, 3, 0), Particle.EXPLOSION_HUGE, 4);
-					ParticleUtils.spawn(bossArenaMid.clone().add(0, 3, 3), Particle.EXPLOSION_HUGE, 4);
-					ParticleUtils.spawn(bossArenaMid.clone().add(1, 3, 2), Particle.EXPLOSION_HUGE, 4);
+
+					ParticleUtils.spawn(bossArenaMid.clone().add(0, 3, 0), Particle.EXPLOSION, 4);
+					ParticleUtils.spawn(bossArenaMid.clone().add(2, 3, 0), Particle.EXPLOSION, 4);
+					ParticleUtils.spawn(bossArenaMid.clone().add(0, 3, 3), Particle.EXPLOSION, 4);
+					ParticleUtils.spawn(bossArenaMid.clone().add(1, 3, 2), Particle.EXPLOSION, 4);
 					EntityUtils.sayTo(participating, "DARK_RED<< REDWaterway Seraph DARK_RED>>: WHITEENOUGH!");
 					EntityUtils.sayTo(participating, "DARK_RED<< REDWaterway Seraph DARK_RED>>: WHITEYou leave me no choice.", 20);
 					EntityUtils.sayTo(participating, "DARK_RED<< REDWaterway Seraph DARK_RED>>: WHITEI must test my latest invention.", 40);
@@ -353,10 +354,10 @@ public class BossWaterwaySeraph extends AbstractArea
 								boss.main = Dungeons.w.spawnEntity(bossArenaMid.clone().add(0, 3, 0), EntityType.IRON_GOLEM);
 								boss.register();
 								boss.setImmune(true);
-								ParticleUtils.spawn(bossArenaMid.clone().add(0, 3, 0), Particle.EXPLOSION_HUGE, 4);
-								ParticleUtils.spawn(bossArenaMid.clone().add(2, 3, 0), Particle.EXPLOSION_HUGE, 4);
-								ParticleUtils.spawn(bossArenaMid.clone().add(0, 3, 3), Particle.EXPLOSION_HUGE, 4);
-								ParticleUtils.spawn(bossArenaMid.clone().add(1, 3, 2), Particle.EXPLOSION_HUGE, 4);
+								ParticleUtils.spawn(bossArenaMid.clone().add(0, 3, 0), Particle.EXPLOSION, 4);
+								ParticleUtils.spawn(bossArenaMid.clone().add(2, 3, 0), Particle.EXPLOSION, 4);
+								ParticleUtils.spawn(bossArenaMid.clone().add(0, 3, 3), Particle.EXPLOSION, 4);
+								ParticleUtils.spawn(bossArenaMid.clone().add(1, 3, 2), Particle.EXPLOSION, 4);
 							}
 							else if (tick < 120 && tick % 2 == 0)
 							{
@@ -408,7 +409,7 @@ public class BossWaterwaySeraph extends AbstractArea
 							int i_max = corrupted ? 20 : 7;
 							for (int i = 0; i < i_max; i++)
 							{
-								TNTPrimed tnt = (TNTPrimed)Dungeons.w.spawnEntity(tntSpawn, EntityType.PRIMED_TNT);
+								TNTPrimed tnt = (TNTPrimed)Dungeons.w.spawnEntity(tntSpawn, EntityType.TNT);
 								tnt.setFuseTicks(60 - (i_max - i));
 								
 								tnt.setVelocity(new Vector(RandomUtils.getDouble(0, 1.1), 0, RandomUtils.getDouble(-0.75, 0.75)));

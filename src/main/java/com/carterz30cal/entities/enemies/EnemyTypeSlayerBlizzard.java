@@ -41,7 +41,7 @@ public class EnemyTypeSlayerBlizzard extends EnemyTypeSimple
 		GameEnemy e = super.generate(location);
 		e.deregisterEnemy();
 		Zombie rails = (Zombie)Dungeons.w.spawnEntity(location, EntityType.ZOMBIE);
-		rails.getAttribute(Attribute.GENERIC_MOVEMENT_SPEED).addModifier(new AttributeModifier("MOD_SPEED", speed - 1, Operation.MULTIPLY_SCALAR_1));
+		rails.getAttribute(Attribute.MOVEMENT_SPEED).addModifier(new AttributeModifier("MOD_SPEED", speed - 1, Operation.MULTIPLY_SCALAR_1));
 		rails.getEquipment().clear();
 		rails.getEquipment().setHelmet(ItemFactory.build("STONE_BUTTON"));
 		rails.setAdult();

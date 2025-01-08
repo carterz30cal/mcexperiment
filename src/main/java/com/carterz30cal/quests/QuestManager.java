@@ -7,7 +7,7 @@ import com.carterz30cal.utils.FileUtils;
 
 public class QuestManager
 {
-	public static final String[] files = {"waterway/misc/quests"};
+	public static final String[] files = {};
 	
 	public QuestManager() {
 		for (String file : files)

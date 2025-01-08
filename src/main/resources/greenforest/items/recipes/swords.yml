@@ -1,0 +1,7 @@
+flimsy_sword:
+  item: flimsy_sword
+  level: 0
+  time: 1s
+  category: greenforest_weapons
+  items:
+    weird_flesh: 5

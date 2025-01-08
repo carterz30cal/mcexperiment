@@ -46,30 +46,13 @@ public class ItemFactory
 	public static NamespacedKey kData = new NamespacedKey(Dungeons.instance, "data");
 	public static NamespacedKey kUUID = new NamespacedKey(Dungeons.instance, "uuid");
 	public static String[] files = {
-			"waterway/items/weapons/common","waterway/items/weapons/uncommon","waterway/items/weapons/rare","waterway/items/weapons/veryrare","waterway/items/weapons/epic",
-			"waterway/items/weapons/incredible",
-			"waterway/items/armour/veryrare",
-			"waterway/items/bettertalismans",
-			"waterway/items/tomes","waterway/items/armour","waterway/items/ingredients","waterway/items/arrows",
-			"waterway/items/attuners","waterway/items/wands","waterway/items/shields","waterway/items/summoning",
-			"waterway/items/picking",
-			"verglaspeak/items/swords","verglaspeak/items/armour","verglaspeak/items/ingredients",
-			"fishing/items/rods",
-			"fishing/items/attuners","fishing/items/ingredients"
+			"greenforest/items/ingredients", "greenforest/items/weapons/swords"
 	};
 	public static String[] categoryFiles = {
-			"waterway/recipes/categories","fishing/recipes/categories","verglaspeak/recipes/categories"
+			"greenforest/items/recipes/categories"
 	};
 	public static String[] recipeFiles = {
-			"waterway/recipes/weapons","waterway/recipes/armour","waterway/recipes/enchants","waterway/recipes/ingredients","waterway/recipes/arrows",
-			
-			// new
-			"waterway/recipes/bettertalismans",
-			// old
-			
-			"waterway/recipes/attuners","waterway/recipes/shields","waterway/recipes/summons","waterway/recipes/picking",
-			"fishing/recipes/rods","fishing/recipes/attuners",
-			"verglaspeak/recipes/swords"
+			"greenforest/items/recipes/swords"
 	};
 	
 	private static List<String> itemList;
@@ -298,7 +281,7 @@ public class ItemFactory
 		}
 		meta.getPersistentDataContainer().set(kData, PersistentDataType.STRING, "");
 		meta.addItemFlags(ItemFlag.HIDE_ATTRIBUTES, ItemFlag.HIDE_DESTROYS, ItemFlag.HIDE_DYE, 
-				ItemFlag.HIDE_ENCHANTS, ItemFlag.HIDE_PLACED_ON, ItemFlag.HIDE_POTION_EFFECTS, ItemFlag.HIDE_UNBREAKABLE);
+				ItemFlag.HIDE_ENCHANTS, ItemFlag.HIDE_PLACED_ON, ItemFlag.HIDE_ADDITIONAL_TOOLTIP, ItemFlag.HIDE_UNBREAKABLE);
 		meta.setUnbreakable(true);
 		stack.setItemMeta(meta);
 		if (item != null) update(stack, null);
@@ -464,9 +447,9 @@ public class ItemFactory
 		
 		if (item.glow)
 		{
-			meta.addEnchant(Enchantment.DURABILITY, 1, false);
+			meta.addEnchant(Enchantment.UNBREAKING, 1, false);
 		}
-		else meta.removeEnchant(Enchantment.DURABILITY);
+		else meta.removeEnchant(Enchantment.UNBREAKING);
 		
 		i.setItemMeta(meta);
 	}

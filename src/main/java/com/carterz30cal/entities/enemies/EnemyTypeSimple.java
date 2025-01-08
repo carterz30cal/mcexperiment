@@ -55,7 +55,7 @@ public class EnemyTypeSimple extends AbstractEnemyType
 			}
 			main.setRemoveWhenFarAway(false);
 			
-			main.getAttribute(Attribute.GENERIC_MOVEMENT_SPEED).addModifier(new AttributeModifier("MOD_SPEED", speed - 1, Operation.MULTIPLY_SCALAR_1));
+			main.getAttribute(Attribute.MOVEMENT_SPEED).addModifier(new AttributeModifier("MOD_SPEED", speed - 1, Operation.MULTIPLY_SCALAR_1));
 		}
 		
 		if (mob.main instanceof Slime)

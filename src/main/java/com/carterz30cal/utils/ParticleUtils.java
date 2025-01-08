@@ -14,7 +14,7 @@ import com.carterz30cal.entities.PlayerManager;
 public class ParticleUtils {
 	public static void spawnAround(Entity p, Particle.DustOptions t, int a)
 	{
-		p.getWorld().spawnParticle(Particle.REDSTONE, p.getLocation().add(0, 1, 0), a, 0.5D, 0.25D, 0.5D, t);
+		p.getWorld().spawnParticle(Particle.DUST, p.getLocation().add(0, 1, 0), a, 0.5D, 0.25D, 0.5D, t);
 	}
 	public static void spawnAround(Entity p, Particle t, int a)
 	{
@@ -30,7 +30,7 @@ public class ParticleUtils {
 	}
 	public static void spawn(Location l, Particle.DustOptions d, double radius)
 	{
-		l.getWorld().spawnParticle(Particle.REDSTONE, l, 1, radius / 2, radius / 2, radius / 2, 0, d);
+		l.getWorld().spawnParticle(Particle.DUST, l, 1, radius / 2, radius / 2, radius / 2, 0, d);
 	}
 	
 	

@@ -134,7 +134,7 @@ public class GamePlayer extends GameEntity
 			if (m != null) m.damage(this);
 		}
 		
-		EntityUtils.applyPotionEffect(player, PotionEffectType.SLOW_DIGGING, 25, 0, false);
+		EntityUtils.applyPotionEffect(player, PotionEffectType.MINING_FATIGUE, 25, 0, false);
 		player.removePotionEffect(PotionEffectType.DARKNESS);
 		
 		
@@ -311,7 +311,7 @@ public class GamePlayer extends GameEntity
 				that.gui.runTaskTimer(Dungeons.instance, 1, 1);
 			}
 			
-		}.runTaskLater(Dungeons.instance, 0);
+		}.runTaskLater(Dungeons.instance, 1);
 	}
 	
 	
@@ -695,7 +695,7 @@ public class GamePlayer extends GameEntity
 	{
 		sendMessage("REDYou were slain..");
 		playSound(Sound.ENTITY_PLAYER_DEATH, 1, 0.9);
-		player.teleport(new Location(Dungeons.w, -235, 67, 10));
+		player.teleport(new Location(Dungeons.w, 0.5, 65, 0.5));
 		
 		health = 1;
 	}

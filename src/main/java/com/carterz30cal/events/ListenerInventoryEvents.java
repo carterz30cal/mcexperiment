@@ -19,18 +19,12 @@ public class ListenerInventoryEvents implements Listener
 	public void onInventoryClick(InventoryClickEvent e)
 	{
 		GamePlayer p = (GamePlayer)GameEntity.get(e.getWhoClicked());
-		if ((e.getCurrentItem() != null && e.getCurrentItem().isSimilar(ItemFactory.menuItem))
-				|| (e.getCursor() != null && e.getCursor().isSimilar(ItemFactory.menuItem))
-				|| (e.getClick() == ClickType.NUMBER_KEY && p.player.getInventory().getItem(e.getHotbarButton()) != null 
-				&& p.player.getInventory().getItem(e.getHotbarButton()).isSimilar(ItemFactory.menuItem))) 
-		{
-			if (p != null && e.getCurrentItem() != null && e.getCurrentItem().isSimilar(ItemFactory.menuItem))
-			{
-				p.openGui(new MenuGUI(p));
-			}
+		if (p != null && e.getSlot() == 8) {
+			p.openGui(new MenuGUI(p));
 			e.setCancelled(true);
 			return;
 		}
+
 		if ((p.gui != null && e.getClick() == ClickType.NUMBER_KEY) || e.getRawSlot() == -999)
 		{
 			e.setCancelled(true);

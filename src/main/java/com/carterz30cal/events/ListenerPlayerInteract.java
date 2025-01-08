@@ -31,10 +31,9 @@ public class ListenerPlayerInteract implements Listener {
 		if (p.player.getGameMode() == GameMode.CREATIVE) return;
 		else e.setCancelled(true);
 		
-		if (e.getItem() != null && e.getItem().isSimilar(ItemFactory.menuItem))
+		if (e.getItem() != null && p.player.getInventory().getHeldItemSlot() == 8)
 		{
 			p.openGui(new MenuGUI(p));
-			
 		}
 		else
 		{

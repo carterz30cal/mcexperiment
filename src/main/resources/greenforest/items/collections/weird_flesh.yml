@@ -1,0 +1,23 @@
+weird_flesh_discovery:
+  name: Weird Flesh
+  display-item: weird_flesh
+  description:
+    - Rotten fish is an essential component in
+    - nearly all BLUEWaterway GRAYrecipes.
+    - It is easiest to obtain from killing Drenched.
+  tiers:
+    - 5
+    - 50
+    - 250
+    - 1000
+    - 5000
+    - 10000
+    - 100000
+  xp-rewards:
+    - 25
+    - 75
+    - 150
+    - 300
+    - 400
+    - 500
+    - 5000

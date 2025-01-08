@@ -145,7 +145,7 @@ public class EnemyTypeTitanDrench extends EnemyTypeDamageCapped
 				
 			}.runTaskLater(Dungeons.instance, 70);
 			
-			EntityUtils.applyPotionEffect((LivingEntity)enemy.getMain(), PotionEffectType.SLOW, 80, 20, true);
+			EntityUtils.applyPotionEffect((LivingEntity)enemy.getMain(), PotionEffectType.SLOWNESS, 80, 20, true);
 			for (int x = -explosionRadius; x <= explosionRadius; x++) {
 				for (int z = -explosionRadius; z <= explosionRadius; z++) {
 					int distance = (int)Math.sqrt(x*x + z*z);
@@ -257,7 +257,7 @@ public class EnemyTypeTitanDrench extends EnemyTypeDamageCapped
 			
 			
 			
-			EntityUtils.applyPotionEffect((LivingEntity)enemy.getMain(), PotionEffectType.SLOW, 30, 20, true);
+			EntityUtils.applyPotionEffect((LivingEntity)enemy.getMain(), PotionEffectType.SLOWNESS, 30, 20, true);
 			enemy.data.put("slash", 0);
 		}
 		else enemy.data.put("slash", slash + 1);

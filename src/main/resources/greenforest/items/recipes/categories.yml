@@ -1,0 +1,9 @@
+greenforest:
+  name: The Lush Forest
+  icon: OAK_SAPLING
+  parent: base
+
+greenforest_weapons:
+  name: Weapons
+  icon: WOODEN_SWORD
+  parent: greenforest

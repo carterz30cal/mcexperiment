@@ -65,8 +65,8 @@ public class Dungeons extends JavaPlugin
 		
 		new AreaWaterway();
 		//new BossWaterwayHydra();
-		new BossHydra();
-		new BossWaterwaySeraph();
+		//new BossHydra();
+		//new BossWaterwaySeraph();
 		new ForagingAreaWaterway();
 		
 		proto.addPacketListener(
