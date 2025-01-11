@@ -79,6 +79,11 @@ public class SackGUI extends AbstractGUI
 						owner.sack.put(i.id, owner.sack.getOrDefault(i.id, 0) + am);
 						it.setAmount(0);
 					}
+					else if (owner.getSackSpaceRemaining() > 0) {
+						int ram = owner.getSackSpaceRemaining();
+						owner.sack.put(i.id, owner.sack.getOrDefault(i.id, 0) + ram);
+						clicked.setAmount(am - ram);
+					}
 				}
 			}
 		}
@@ -94,6 +99,11 @@ public class SackGUI extends AbstractGUI
 				if (owner.hasSackSpace(am)) {
 					owner.sack.put(i.id, owner.sack.getOrDefault(i.id, 0) + am);
 					clicked.setAmount(0);
+				}
+				else if (owner.getSackSpaceRemaining() > 0) {
+					int ram = owner.getSackSpaceRemaining();
+					owner.sack.put(i.id, owner.sack.getOrDefault(i.id, 0) + ram);
+					clicked.setAmount(am - ram);
 				}
 			}
 		}

@@ -327,13 +327,29 @@ public class GamePlayer extends GameEntity
 	public int getSackSize() {
 		return stats.getStat(Stat.SACK_SPACE);
 	}
-	
+
+
+	/**
+	@deprecated Use getSackSpaceUsed() instead
+	 */
+	@Deprecated
 	public int getSackUsed() {
 		int used = 0;
 		for (int i : sack.values()) used += i;
 		
 		return used;
 	}
+
+	public int getSackSpaceUsed() {
+		int used = 0;
+		for (int i : sack.values()) used += i;
+
+		return used;
+	}
+	public int getSackSpaceRemaining() {
+		return getSackSize() - getSackSpaceUsed();
+	}
+
 	
 	public boolean hasSackSpace(int am) {
 		return getSackUsed() + am <= getSackSize();
