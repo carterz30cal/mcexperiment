@@ -1,0 +1,146 @@
+zombie_jim_quest_1:
+  name: Jim's Request
+  prerequisites:
+    - player_joined
+  questgiver:
+    name: Jim
+    mob: ZOMBIE
+    location: -6, 64, 5, -130, 0
+    show-before-reqs: true
+    show-after-complete: false
+    sound: ENTITY_ZOMBIE_HURT
+  config:
+    type: QUEST_TYPE_KILL
+    config:
+      tag: LUNATIC
+      pretty: "Lunatics"
+      amount: 15
+  rewards:
+    coins: 200
+    xp: 200
+    items:
+      - jims_sword,1
+  dialog-start:
+    - Hey there! I'm Jim.
+    - I live in the nearby village of Raintown.
+    - I would go home, but I appear to be in somewhat of a pickle.
+    - These REDLunaticsWHITE are blocking my way!
+    - Can you... get rid of them?
+  dialog-during:
+    - I really, really hate those REDLunaticsWHITE.
+    - No amount of violence is too much violence.
+    - Listen to me boy. REDLunaticsWHITE are the problem.
+  dialog-finishing:
+    - Wow!
+    - You did it!
+    - Have this as a token of my appreciation. It's not much, but it's something.
+    - I'll be seeing you.
+
+#-50.5, 75, 6.6, -116, 40
+zombie_jim_quest_2:
+  name: Prejudice I
+  prerequisites:
+    - zombie_jim_quest_1
+    - player_joined
+  questgiver:
+    name: Jim
+    mob: ZOMBIE
+    location: -50.5, 75, 6.6, -116, 40
+    show-before-reqs: false
+    show-after-complete: false
+    sound: ENTITY_ZOMBIE_HURT
+  config:
+    type: QUEST_TYPE_KILL
+    config:
+      tag: LUNATIC
+      pretty: "Lunatics"
+      amount: 30
+  rewards:
+    coins: 300
+    xp: 250
+    items:
+      - weird_flesh,256
+  dialog-start:
+    - Hey again friend!
+    - I'm offering more paid work.
+    - Deal with some more of these lunatics.
+  dialog-during:
+    - I still really, really hate those REDLunaticsWHITE.
+    - No amount of violence is enough violence.
+    - Get on with the job!
+  dialog-finishing:
+    - Here's your payment boy. I'll see you around.
+
+#-90.5, 75, -24, -13, 9
+zombie_jim_quest_3:
+  name: Prejudice II
+  prerequisites:
+    - zombie_jim_quest_2
+    - player_joined
+  questgiver:
+    name: Jim
+    mob: ZOMBIE
+    location: -90.5, 75, -24, -13, 9
+    show-before-reqs: false
+    show-after-complete: false
+    sound: ENTITY_ZOMBIE_HURT
+  config:
+    type: QUEST_TYPE_FETCH
+    config:
+      item: water_chestplate
+      amount: 1
+      consumed: true
+  rewards:
+    coins: 100
+    xp: 300
+    items:
+      - chilli_powder,12
+  dialog-start:
+    - I'm offering more paid work.
+    - I'm looking for a YELLOWWater ChestplateWHITE.
+    - Some of the stronger REDLunaticsWHITE keep them as in case they need a spare change of clothes.
+    - Can you fetch me one?
+  dialog-during:
+    - I still really, really, really hate those REDLunaticsWHITE.
+    - One day... I'll finish them.
+    - Get on with the job!
+  dialog-finishing:
+    - Here's your payment. I'll find you later.
+
+#-98.5, 75, -21.4, -109.1, 3.6
+scared_steve_quest_1:
+  name: Butcher
+  prerequisites:
+    - zombie_jim_quest_2
+  questgiver:
+    name: Steve
+    mob: WITHER_SKELETON
+    location: -98.5, 75, -21.4, -109.1, 3.6
+    show-before-reqs: false
+    show-after-complete: false
+    sound: ENTITY_SKELETON_HURT
+  config:
+    type: QUEST_TYPE_FETCH
+    config:
+      item: spiced_meat
+      amount: 8
+      consumed: true
+  rewards:
+    coins: 0
+    xp: 700
+    items:
+      - steves_bone_sack,1
+  dialog-start:
+    - Hey friend!
+    - Oh, you're new around here?
+    - I'm Steve, and I run the local butcher's.
+    - I see you've met Jim... DARK_GRAYITALIC(I think he's a bit weird)WHITE
+    - Could you fetch me 8x YELLOW Spiced MeatWHITE?
+  dialog-during:
+    - Hey friend!
+    - Hey buddy!
+    - Isn't YELLOWSpiced MeatWHITE just delicious?
+    - Jim is giving me some weird looks..
+  dialog-finishing:
+    - Thank you so much!
+    - Take this little pouch I made a while ago.

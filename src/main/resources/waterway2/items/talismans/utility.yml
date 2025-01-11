@@ -1,0 +1,16 @@
+supposed_perfume:
+  name: Supposed Perfume
+  type: TALISMAN
+  rarity: COMMON
+  material: RED_BUNDLE
+  glow: false
+  stats:
+    VISIBILITY: -4
+
+steves_bone_sack:
+  name: Steve's Bone Sack
+  type: TALISMAN
+  rarity: UNCOMMON
+  material: LIGHT_GRAY_BUNDLE
+  stats:
+    SACK_SPACE: +7500
