@@ -157,7 +157,7 @@ public class ItemFactory
 			item.glow = i.getBoolean("glow", false);
 			item.description = i.getStringList("description");
 			item.tags = i.getStringList("tags");
-			item.set = i.getString("set");
+			item.set = i.getString("set", "null");
 			if (item.description == null) item.description = new ArrayList<>();
 			item.abilities = i.getStringList("abilities");
 			if (item.abilities == null) item.abilities = new ArrayList<>();
