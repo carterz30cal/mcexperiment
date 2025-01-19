@@ -98,7 +98,10 @@ public class PlayerManager
 	
 	public static void loadPlayer(GamePlayer p)
 	{
-		if (!f.contains(p.player.getUniqueId().toString())) return;
+		if (!f.contains(p.player.getUniqueId().toString())) {
+			System.out.println("Could not load player: " + p.player.getUniqueId().toString());
+			return;
+		}
 		ConfigurationSection c = f.getConfigurationSection(p.player.getUniqueId().toString());
 		
 		p.level = c.getInt("level", 0);

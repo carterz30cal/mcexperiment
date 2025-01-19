@@ -10,6 +10,8 @@ import com.carterz30cal.main.Dungeons;
 import com.carterz30cal.quests.Quest;
 import com.carterz30cal.utils.EntityUtils;
 
+import javax.swing.text.html.CSS;
+
 public class GameQuestgiver extends GameOwnable {
 	private Quest q;
 	public GameQuestgiver(String name, Location location, EntityType type) {
@@ -46,7 +48,7 @@ public class GameQuestgiver extends GameOwnable {
 				
 				if (!met) continue;
 			}
-			
+			//System.out.println(p.player.getName());
 			addOwner(p, false);
 		}
 		refreshVisibility();

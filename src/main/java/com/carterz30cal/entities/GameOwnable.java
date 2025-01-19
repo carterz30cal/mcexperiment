@@ -56,9 +56,17 @@ public class GameOwnable extends GameEntity {
 	}
 	
 	public void refreshVisibility() {
-
+		if (main == null || !main.isValid() || main.isDead()) {
+			if (main != null) main.remove();
+			main = generateMain(location, type);
+		}
+		if (display == null || !display.isValid() || display.isDead()) {
+			if (display != null) display.remove();
+			display = generateDisplay(name, location);
+		}
 		for (GamePlayer p : PlayerManager.players.values()) {
 			if (owners.contains(p)) {
+				//System.out.println("show - " + main + " - " + display);
 				p.player.showEntity(Dungeons.instance, main);
 				p.player.showEntity(Dungeons.instance, display);
 			} else {

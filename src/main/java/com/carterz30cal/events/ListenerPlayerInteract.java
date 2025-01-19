@@ -1,5 +1,6 @@
 package com.carterz30cal.events;
 
+import com.carterz30cal.items.*;
 import org.bukkit.GameMode;
 import org.bukkit.Material;
 import org.bukkit.entity.Arrow;
@@ -10,16 +11,13 @@ import org.bukkit.event.player.PlayerAnimationEvent;
 import org.bukkit.event.player.PlayerAnimationType;
 import org.bukkit.event.player.PlayerInteractEntityEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
+import org.bukkit.inventory.ItemStack;
 import org.bukkit.persistence.PersistentDataType;
 
 import com.carterz30cal.entities.GameEnemy;
 import com.carterz30cal.entities.GameEntity;
 import com.carterz30cal.entities.GamePlayer;
 import com.carterz30cal.gui.MenuGUI;
-import com.carterz30cal.items.Item;
-import com.carterz30cal.items.ItemAbility;
-import com.carterz30cal.items.ItemFactory;
-import com.carterz30cal.items.ItemType;
 import com.carterz30cal.quests.Quest;
 
 public class ListenerPlayerInteract implements Listener {
@@ -41,6 +39,14 @@ public class ListenerPlayerInteract implements Listener {
 			Action act = e.getAction();
 			if (act == Action.RIGHT_CLICK_AIR || act == Action.RIGHT_CLICK_BLOCK) 
 			{
+				if (item != null && item instanceof ItemLootbox && e.getItem().getAmount() > 0) {
+					ItemLootbox lootbox = (ItemLootbox)item;
+					for (ItemStack s : lootbox.table.generate(p)) {
+						p.giveItem(s, true);
+					}
+					e.setCancelled(true);
+					e.getItem().setAmount(e.getItem().getAmount() - 1);
+				}
 				p.allowInteract = !p.allowInteract;
 				if (p.allowInteract) for (ItemAbility a : p.abilities) a.onRightClick();
 				
