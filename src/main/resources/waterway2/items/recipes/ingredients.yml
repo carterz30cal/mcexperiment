@@ -1,14 +1,14 @@
 spiced_meat:
   level: 1
-  time: 10m
+  time: 1m
   category: waterway_ingredients
   items:
-    weird_flesh: 32
-    chilli_powder: 2
+    weird_flesh: 24
+    chilli_powder: 1
 
 paper:
   level: 2
-  time: 15m
+  time: 3m
   category: waterway_ingredients
   items:
     wet_paper: 128

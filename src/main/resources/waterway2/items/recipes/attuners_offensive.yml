@@ -1,3 +1,10 @@
+fermented_flesh:
+  level: 2
+  category: waterway_weapons_attuners
+  amount: 4
+  items:
+    spiced_meat: 1
+
 paper_mache:
   level: 3
   time: 2m

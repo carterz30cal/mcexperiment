@@ -2,7 +2,7 @@ titan_1:
   name: LIGHT_PURPLEBOLDTitan
   type: SIMPLE
   coin-multiplier: 5
-  entity-type: DROWNED
+  entity-type: HUSK
   ignore-target-limit: true
   level: 8
   health: 800
@@ -32,6 +32,8 @@ titan_1:
     - TITAN_LOW_RANK
     - MINIBOSS
   drops:
+    titan_lootbox_1:
+      amount: 1/1
     wet_paper:
       amount: 8/64
     chilli_powder:

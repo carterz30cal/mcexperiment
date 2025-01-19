@@ -3,6 +3,9 @@ titan_lootbox_1:
   type: LOOTBOX
   material: BARREL
   rarity: RARE
-  loot:
+  drops:
     spiced_arrow:
       amount: 150/450
+    combination_catalyst_shard:
+      chance: 1/2
+      amount: 1/2

@@ -1,8 +1,19 @@
+fermented_flesh:
+  name: Fermented Flesh
+  type: ATTUNER
+  rarity: UNCOMMON
+  material: FERMENTED_SPIDER_EYE
+  attuner-icon: RED#
+  stats:
+    power: +5
+    health: +3
+
 paper_mache:
   name: Paper Mâché
   type: ATTUNER
   rarity: RARE
   material: BONE_MEAL
+  attuner-icon: WHITE+
   stats:
     damage: +1
     health: -2
