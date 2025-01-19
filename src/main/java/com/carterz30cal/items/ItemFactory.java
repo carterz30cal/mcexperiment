@@ -7,6 +7,7 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.UUID;
 
+import com.carterz30cal.items.sets.ItemSet;
 import org.bukkit.Bukkit;
 import org.bukkit.Color;
 import org.bukkit.Material;
@@ -50,7 +51,8 @@ public class ItemFactory
 			"waterway2/items/weapons/attuners",
 			"waterway2/items/talismans/utility",
 			"waterway2/items/lootboxes",
-			"waterway2/items/armours/uncommon_armours"
+			"waterway2/items/armours/uncommon_armours",
+			"waterway2/items/armours/sets/uncommon_sets"
 	};
 	public static String[] categoryFiles = {
 			"waterway2/items/recipes/categories"
@@ -155,6 +157,7 @@ public class ItemFactory
 			item.glow = i.getBoolean("glow", false);
 			item.description = i.getStringList("description");
 			item.tags = i.getStringList("tags");
+			item.set = i.getString("set");
 			if (item.description == null) item.description = new ArrayList<>();
 			item.abilities = i.getStringList("abilities");
 			if (item.abilities == null) item.abilities = new ArrayList<>();
@@ -199,8 +202,13 @@ public class ItemFactory
 				break;
 			case LOOTBOX:
 				item = new ItemLootbox();
-				((ItemLootbox)item).table = new ItemLootTable(i);
-				lootboxItemCount = ((ItemLootbox)item).table.getDropCount();
+				((ItemLootbox) item).table = new ItemLootTable(i);
+				lootboxItemCount = ((ItemLootbox) item).table.getDropCount();
+				break;
+			case VIRTUAL_SET:
+				ItemSet set = new ItemSet();
+				set.requireCount = i.getInt("requireCount", 4);
+				item = set;
 				break;
 			default:
 				item = new Item();
@@ -210,7 +218,7 @@ public class ItemFactory
 		item.name = i.getString("name", "null");
 		item.id = p;
 		item.type = type;
-		item.material = Material.valueOf(i.getString("material"));
+		item.material = Material.valueOf(i.getString("material", "BARRIER"));
 		item.rarity = ItemRarity.valueOf(i.getString("rarity", "COMMON"));
 		item.stats = new StatContainer();
 		
@@ -218,11 +226,13 @@ public class ItemFactory
 		item.description = i.getStringList("description");
 		item.discovery = i.getString("discovery", null);
 		item.discoveryProgress = i.getInt("discovery-progress", 0);
+		item.set = i.getString("set", "null");
 		
 		if (item.description == null) item.description = new ArrayList<>();
 		if (lootboxItemCount > 0) {
-			item.description.add("");
-			item.description.add("GRAYThis lootbox can contain upto GOLD" + lootboxItemCount + "GRAY unique items!");
+			//item.description.add("");
+			item.description.add("GRAYThis lootbox can contain up");
+			item.description.add("GRAYto GOLD" + lootboxItemCount + "GRAY unique items!");
 		}
 		item.abilities = i.getStringList("abilities");
 		if (item.abilities == null) item.abilities = new ArrayList<>();
@@ -453,8 +463,29 @@ public class ItemFactory
 			lore.add("GRAYtimes on any wieldable item.");
 			lore.add("DARK_GRAYYou may mix and match attuners.");
 		}
-		
-		if (player != null && player.getLevel() < item.stats.getStat(Stat.LEVEL_REQUIREMENT)) lore.add("RED\u00D7 Requires Level " + item.stats.getStat(Stat.LEVEL_REQUIREMENT));
+
+		if (player != null) {
+			if (!item.set.equals("null") && player.hasSet(item.set)) {
+				ItemSet set = (ItemSet) getItem(item.set);
+				lore.add("GOLDBOLDSET BONUS: " + set.name);
+				for (String d : set.description) lore.add(" GRAY" + d);
+				for (Stat stat : set.stats.getStats())
+				{
+					if (stat.display == StatDisplayType.NO_DISPLAY) continue;
+					lore.add(" " + stat.colour + stat.name + ": WHITE" + set.stats.getDisplayed(stat));
+				}
+				for (ItemAbility ability : getItemAbilities(set))
+				{
+					//lore.add(" " + ability.name());
+					for (String d : ability.description()) lore.add(" " + d);
+				}
+			}
+
+			if (player.getLevel() < item.stats.getStat(Stat.LEVEL_REQUIREMENT)) {
+				lore.add("RED\u00D7 Requires Level " + item.stats.getStat(Stat.LEVEL_REQUIREMENT));
+			}
+		}
+
 		
 		while (lore.get(lore.size() - 1).equals("")) lore.remove(lore.size() - 1);
 		meta.setLore(StringUtils.colourList(lore));

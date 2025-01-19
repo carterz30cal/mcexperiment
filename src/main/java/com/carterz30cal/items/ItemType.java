@@ -23,7 +23,8 @@ public enum ItemType
 	HELMET(ItemTypeUse.WEARABLE),
 	CHESTPLATE(ItemTypeUse.WEARABLE),
 	LEGGINGS(ItemTypeUse.WEARABLE),
-	BOOTS(ItemTypeUse.WEARABLE),;
+	BOOTS(ItemTypeUse.WEARABLE),
+	VIRTUAL_SET(ItemTypeUse.VIRTUAL_NON_EXIST);
 	public ItemTypeUse use;
 	public DamageType damageType;
 	public String cute;

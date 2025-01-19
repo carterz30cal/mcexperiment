@@ -97,7 +97,7 @@ zombie_jim_quest_3:
       - chilli_powder,12
   dialog-start:
     - I'm offering more paid work.
-    - I'm looking for a YELLOWWater ChestplateWHITE.
+    - I'm looking for a YELLOWWater ShirtWHITE.
     - Some of the stronger REDLunaticsWHITE keep them as in case they need a spare change of clothes.
     - Can you fetch me one?
   dialog-during:
@@ -135,7 +135,7 @@ scared_steve_quest_1:
     - Oh, you're new around here?
     - I'm Steve, and I run the local butcher's.
     - I see you've met Jim... DARK_GRAYITALIC(I think he's a bit weird)WHITE
-    - Could you fetch me 8x YELLOW Spiced MeatWHITE?
+    - Could you fetch me 8xYELLOW Spiced MeatWHITE?
   dialog-during:
     - Hey friend!
     - Hey buddy!

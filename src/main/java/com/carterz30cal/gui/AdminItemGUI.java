@@ -1,5 +1,6 @@
 package com.carterz30cal.gui;
 
+import com.carterz30cal.items.ItemTypeUse;
 import org.bukkit.inventory.ItemStack;
 
 import com.carterz30cal.entities.GamePlayer;
@@ -39,7 +40,8 @@ public class AdminItemGUI extends AbstractGUI
 				Item current = ItemFactory.getItem(ItemFactory.getItemList(i));
 				
 				i++;
-				if (!showUnobtainable && (current.rarity == ItemRarity.UNOBTAINABLE || current.rarity == ItemRarity.MYSTERIOUS)) continue;
+				if (current.type.use == ItemTypeUse.VIRTUAL_NON_EXIST) continue;
+				else if (!showUnobtainable && (current.rarity == ItemRarity.UNOBTAINABLE || current.rarity == ItemRarity.MYSTERIOUS)) continue;
 				else it++;
 			}
 			pi++;
@@ -59,7 +61,8 @@ public class AdminItemGUI extends AbstractGUI
 			else
 			{
 				Item current = ItemFactory.getItem(ItemFactory.getItemList(i));
-				if (!showUnobtainable && (current.rarity == ItemRarity.UNOBTAINABLE || current.rarity == ItemRarity.MYSTERIOUS)) continue;
+				if (current.type.use == ItemTypeUse.VIRTUAL_NON_EXIST) continue;
+				else if (!showUnobtainable && (current.rarity == ItemRarity.UNOBTAINABLE || current.rarity == ItemRarity.MYSTERIOUS)) continue;
 				else
 				{
 					p++;

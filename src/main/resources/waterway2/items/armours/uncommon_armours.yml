@@ -21,6 +21,7 @@ armour-water:
     - Water Boots
   material: LEATHER
   rarity: UNCOMMON
+  set: set_water
   colour:
     r: 0
     g: 120

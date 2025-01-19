@@ -1,0 +1,9 @@
+set_water:
+  name: Flowing
+  type: VIRTUAL_SET
+  requireCount: 2
+  description:
+    - You feel like an ocean breeze.
+  stats:
+    health: +25
+    vitality: +3

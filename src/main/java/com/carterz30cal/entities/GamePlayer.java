@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
+import com.carterz30cal.items.sets.ItemSet;
 import net.md_5.bungee.api.ChatMessageType;
 import net.md_5.bungee.api.chat.TextComponent;
 import org.bukkit.Bukkit;
@@ -54,6 +55,8 @@ public class GamePlayer extends GameEntity
 	public Player player;
 	public StatContainer stats;
 	public AbstractGUI gui;
+
+	public Map<String, Integer> sets = new HashMap<>();
 	
 	public int coins;
 	
@@ -150,7 +153,7 @@ public class GamePlayer extends GameEntity
 		stats.scheduleOperation(Stat.VITALITY, StatOperationType.CAP_MIN, 0);
 		stats.scheduleOperation(Stat.VISIBILITY, StatOperationType.ADD, 16);
 		stats.scheduleOperation(Stat.VISIBILITY, StatOperationType.CAP_MIN, 1);
-		stats.scheduleOperation(Stat.VISIBILITY, StatOperationType.CAP_MAX, 32);
+		stats.scheduleOperation(Stat.VISIBILITY, StatOperationType.CAP_MAX, 24);
 		stats.scheduleOperation(Stat.FOCUS, StatOperationType.CAP_MIN, 0);
 		
 		// level stats!
@@ -166,12 +169,14 @@ public class GamePlayer extends GameEntity
 		
 		
 		List<ItemStack> items = new ArrayList<>();
+		sets.clear();
 		for (ItemStack armour : player.getInventory().getArmorContents())
 		{
 			Item item = ItemFactory.getItem(armour);
 			if (item == null || item.type.use != ItemTypeUse.WEARABLE) continue;
 			
 			items.add(armour);
+			if (item.set != null) sets.put(item.set, sets.getOrDefault(item.set, 0) + 1);
 		}
 		
 		ItemStack main = player.getInventory().getItemInMainHand();
@@ -191,7 +196,12 @@ public class GamePlayer extends GameEntity
 		}
 		
 		for (String talisman : talismans) items.add(ItemFactory.build(talisman));
-		
+
+
+		for (String s : sets.keySet()) {
+			if (hasSet(s)) items.add(ItemFactory.build(s));
+		}
+
 		for (ItemStack item : items)
 		{
 			ItemFactory.update(item, this);
@@ -253,7 +263,7 @@ public class GamePlayer extends GameEntity
 		}
 		if (quests.size() != 0) {
 			List<AbstractQuestType> qs = new ArrayList<>(quests.values());
-			qs.sort((a,b) -> a.getQuestPriority() > b.getQuestPriority() ? -1 : (a.getQuestPriority() == b.getQuestPriority() ? 0 : 1));
+			qs.sort((a,b) -> Integer.compare(b.getQuestPriority(), a.getQuestPriority()));
 			
 			AbstractQuestType selected = qs.get(0);
 			if (selected != null) {
@@ -316,7 +326,15 @@ public class GamePlayer extends GameEntity
 			
 		}.runTaskLater(Dungeons.instance, 1);
 	}
-	
+
+	public boolean hasSet(String s) {
+		Item i = ItemFactory.getItem(s);
+		if (i != null && i instanceof ItemSet) {
+			ItemSet set = (ItemSet) i;
+			if (set.requireCount <= sets.get(s)) return true;
+		}
+		return false;
+	}
 	
 	public int getDiscoveryLevel(Collection discovery)
 	{
