@@ -1,5 +1,6 @@
 package com.carterz30cal.events;
 
+import org.bukkit.GameMode;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.ClickType;
@@ -19,13 +20,12 @@ public class ListenerInventoryEvents implements Listener
 	public void onInventoryClick(InventoryClickEvent e)
 	{
 		GamePlayer p = (GamePlayer)GameEntity.get(e.getWhoClicked());
-		if (p != null && e.getSlot() == 8) {
+		if (p != null && e.getSlot() == 8 && p.player.getGameMode() == GameMode.SURVIVAL) {
 			p.openGui(new MenuGUI(p));
 			e.setCancelled(true);
 			return;
 		}
-
-		if ((p.gui != null && e.getClick() == ClickType.NUMBER_KEY) || e.getRawSlot() == -999)
+		else if ((p.gui != null && e.getClick() == ClickType.NUMBER_KEY) || e.getRawSlot() == -999)
 		{
 			e.setCancelled(true);
 			return;

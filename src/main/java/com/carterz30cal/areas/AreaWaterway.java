@@ -38,6 +38,19 @@ public class AreaWaterway extends AbstractArea
 		
 		link = new SpawnerModeLink();
 		link.mode = 0;
+
+		EnemySpawner lunatic1_a = EnemySpawner.create(-42, 8, -46, 4, 66, this, link);
+		lunatic1_a.addType("lunatic_1", 0);
+		lunatic1_a.absMax = 3;
+
+		EnemySpawner lunatic2_a = EnemySpawner.create(-37, 21, -42, 24, 66, this, link);
+		lunatic2_a.addType("lunatic_2", 0);
+
+		EnemySpawner lunatic3_a = EnemySpawner.create(-78, 11, -87, 0, 66, this, link);
+		lunatic3_a.addType("lunatic_3", 0);
+		lunatic3_a.maxMult = 0.25;
+
+		/*
 		dripper1 = EnemySpawner.create(-211, 13, -216, -2, 67, this, link);
 		dripper1.addType("dripper_1", 0);
 		dripper1.addType("shocker_dripper_1", 1);
@@ -120,7 +133,7 @@ public class AreaWaterway extends AbstractArea
 		if (killCount >= KILLS_FOR_SPAWN && (titan == null || titan.dead))
 		{
 			String type = isRaining ? "titan_1_rain" : "titan_1";
-			titan = EnemyManager.spawn(type, new Location(Dungeons.w, -248, 68, -22));
+			titan = EnemyManager.spawn(type, new Location(Dungeons.w, -82, 72, -10));
 			
 			killCount = 0;
 			enemy.lastDamager.sendMessage("REDThe titan has appeared somewhere in Waterway...", 20);
@@ -140,7 +153,7 @@ public class AreaWaterway extends AbstractArea
 	
 	public void onTick()
 	{
-		rainTick++;
+		//rainTick++;
 		
 		if (rainTick == RAIN_TIME_ON && isRaining) toggleRain();
 		else if (rainTick == RAIN_TIME_OFF && !isRaining) toggleRain();

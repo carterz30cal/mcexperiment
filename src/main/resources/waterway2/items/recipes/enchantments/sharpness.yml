@@ -1,0 +1,8 @@
+enchanted_book-SHARPNESS:
+  custom-name: REDSharpness DARK_GRAY[Enchantment]
+  enchants: ENCHANT_SHARPNESS-1
+  level: 3
+  time: 5m
+  category: waterway_enchantments
+  items:
+    wet_paper: 50

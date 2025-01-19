@@ -22,6 +22,7 @@ public abstract class AbstractEnemyType implements Cloneable
 	public final String id;
 	public final String name;
 	public int health;
+	public int regen = 0;
 	public final int level;
 	public final int size;
 	public final double speed;
@@ -46,6 +47,7 @@ public abstract class AbstractEnemyType implements Cloneable
 		id = m.getName();
 		name = m.getString("name", "null");
 		health = m.getInt("health", 1);
+		regen = m.getInt("regen", 0);
 		level = m.getInt("level", 1);
 		knockback = m.getInt("knockback", 100);
 		displayHeight = m.getDouble("display-height", 2.1);
@@ -74,20 +76,7 @@ public abstract class AbstractEnemyType implements Cloneable
 		
 		if (m.contains("tags")) tags = m.getStringList("tags");
 		
-		loot = new ItemLootTable();
-		if (m.contains("drops"))
-		{
-			ConfigurationSection d = m.getConfigurationSection("drops");
-			for (String drop : d.getKeys(false))
-			{
-				int[] chance = StringUtils.convertStringToFraction(d.getString(drop + ".chance", "1/1"));
-				int[] amount = StringUtils.convertStringToFraction(d.getString(drop + ".amount", "1/1"));
-				
-				String enchants = d.getString(drop + ".enchants", "");
-				
-				loot.addDrop(drop.split("-")[0], amount, chance, enchants);
-			}
-		}
+		loot = new ItemLootTable(m);
 		
 		types.put(id, this);
 	}

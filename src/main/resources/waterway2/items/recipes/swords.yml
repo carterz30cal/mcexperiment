@@ -1,0 +1,41 @@
+flimsy_sword:
+  item: flimsy_sword
+  level: 0
+  time: 1s
+  category: waterway_weapons
+  items:
+    weird_flesh: 5
+
+ripe_sword:
+  level: 1
+  time: 1s
+  category: waterway_weapons
+  items:
+    flimsy_sword: 1
+    weird_flesh: 24
+
+piranha_dagger_uncommon:
+  item: piranha_dagger
+  level: 1
+  time: 5m
+  category: waterway_weapons
+  items:
+    flimsy_sword: 1
+    chilli_powder: 8
+
+pungent_sword:
+  level: 2
+  category: waterway_weapons
+  coins: 100
+  items:
+    ripe_sword: 1
+    spiced_meat: 4
+
+piranha_dagger_rare:
+  item: piranha_dagger_rare
+  level: 2
+  category: waterway_weapons
+  items:
+    piranha_dagger: 1
+    wet_paper: 10
+    chilli_powder: 24

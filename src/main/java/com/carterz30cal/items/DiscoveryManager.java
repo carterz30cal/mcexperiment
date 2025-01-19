@@ -14,7 +14,7 @@ public class DiscoveryManager {
 	private static Map<String, Collection> discoveries = new HashMap<>();
 	private static List<Collection> list = new ArrayList<>();
 	private static String[] files = {
-			"greenforest/items/collections/weird_flesh",
+            "waterway2/items/collections/weird_flesh",
 			"waterway/items/collections"
 	};
 	

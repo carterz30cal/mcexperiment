@@ -186,6 +186,7 @@ public class ForgeGUI extends AbstractGUI
 		
 		ItemMeta meta = base.getItemMeta();
 		List<String> lore = meta.getLore();
+		if (lore == null) lore = new ArrayList<>();
 		
 		lore.add("");
 		lore.add(rec.time == 0 ? "WHITETime: GREENInstant" : "WHITETime:WHITE" + StringUtils.getPrettyTime(rec.time));
@@ -277,7 +278,7 @@ public class ForgeGUI extends AbstractGUI
 						owner.sendMessage("REDYou haven't unlocked this recipe yet!");
 						owner.playSound(Sound.ENTITY_CREEPER_HURT, 0.4, 0.9);
 					}
-					else if (owner.isForgeFull())
+					else if (owner.isForgeFull() && recipe.time != 0)
 					{
 						owner.sendMessage("REDYou have no free forge slots available!");
 						owner.playSound(Sound.ENTITY_CREEPER_HURT, 0.4, 0.9);

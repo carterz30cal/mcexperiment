@@ -1,0 +1,8 @@
+titan_lootbox_1:
+  name: Titan Box
+  type: LOOTBOX
+  material: BARREL
+  rarity: RARE
+  loot:
+    spiced_arrow:
+      amount: 150/450

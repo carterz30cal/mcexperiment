@@ -8,7 +8,7 @@ supposed_perfume:
     VISIBILITY: -4
 
 steves_bone_sack:
-  name: Steve's Bone Sack
+  name: Steve's Bone Pouch
   type: TALISMAN
   rarity: UNCOMMON
   material: LIGHT_GRAY_BUNDLE

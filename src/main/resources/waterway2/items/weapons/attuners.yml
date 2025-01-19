@@ -1,0 +1,8 @@
+paper_mache:
+  name: Paper Mâché
+  type: ATTUNER
+  rarity: RARE
+  material: BONE_MEAL
+  stats:
+    damage: +1
+    health: -2

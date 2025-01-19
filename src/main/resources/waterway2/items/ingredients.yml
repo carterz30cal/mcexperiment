@@ -1,0 +1,66 @@
+weird_flesh:
+  name: Weird Flesh
+  type: INGREDIENT
+  rarity: COMMON
+  material: ROTTEN_FLESH
+  discovery: weird_flesh_discovery
+  discovery-progress: 1
+  description:
+    - Smells absolutely vile.
+    - Dropped mostly by REDLunaticsGRAY.
+    - Used in most BLUEWaterwayGRAY recipes.
+
+chilli_powder:
+  name: Chilli Powder
+  type: INGREDIENT
+  rarity: UNCOMMON
+  material: REDSTONE
+  description:
+    - A delicate combination of chillis.
+    - A favourite of high rank REDLunaticsGRAY.
+    - Used to ferment flesh and in various other recipes.
+
+spiced_meat:
+  name: Spiced Meat
+  type: INGREDIENT
+  rarity: UNCOMMON
+  material: COOKED_BEEF
+  glow: true
+  description:
+    - It's very chewy.
+    - Used as a leather-substitute and in some consumables.
+
+wet_paper:
+  name: Wet Paper
+  type: INGREDIENT
+  rarity: COMMON
+  material: PAPER
+  glow: true
+  description:
+    - Soggy mush.
+    - Dropped by LIGHT_PURPLETitansGRAY.
+    - Used in REDoffensiveGRAY recipes.
+
+paper:
+  name: Paper
+  type: INGREDIENT
+  rarity: RARE
+  material: PAPER
+  description:
+    - Proper thick parchment, formed by drying and layering
+    - old soggier pieces of paper.
+    - Used in REDoffensiveGRAY recipes.
+
+combination_catalyst_shard:
+  name: Combination Catalyst Shard
+  type: CATALYST
+  rarity: LEGENDARY
+  material: QUARTZ
+  description:
+    - Used to LIGHT_PURPLEenchantGRAY items.
+
+enchanted_book:
+  name: Enchanted Book
+  type: ENCHANTMENT
+  rarity: MYSTERIOUS
+  material: ENCHANTED_BOOK

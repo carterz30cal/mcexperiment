@@ -177,7 +177,7 @@ public class AnvilGUI extends AbstractGUI
 				if (bookItem.type == ItemType.ATTUNER && apply.type.use == ItemTypeUse.WIELDABLE)
 				{
 					List<ItemAttuner> attuners = ItemFactory.getAttuners(applying);
-					if (attuners.size() < 8)
+					if (attuners.size() < 5)
 					{
 						ItemStack preprod = product.clone();
 						String flatAttuners = ItemFactory.getItemData(product).get("attuners");

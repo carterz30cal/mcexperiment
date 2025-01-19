@@ -3,6 +3,8 @@ package com.carterz30cal.items;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.carterz30cal.utils.StringUtils;
+import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.inventory.ItemStack;
 
 import com.carterz30cal.entities.GamePlayer;
@@ -11,7 +13,13 @@ import com.carterz30cal.utils.RandomUtils;
 public class ItemLootTable
 {
 	private List<ItemLoot> loot = new ArrayList<>();
-	
+
+
+	public int getDropCount() {
+		if (loot == null) return 0;
+		else return loot.size();
+	}
+
 	public List<ItemStack> generate(GamePlayer player)
 	{
 		List<ItemStack> drops = new ArrayList<>();
@@ -71,6 +79,25 @@ public class ItemLootTable
 		}
 		
 		loot.add(drop);
+	}
+
+	public ItemLootTable() {
+
+	}
+	public ItemLootTable(ConfigurationSection section) {
+		if (section.contains("drops"))
+		{
+			ConfigurationSection d = section.getConfigurationSection("drops");
+			for (String drop : d.getKeys(false))
+			{
+				int[] chance = StringUtils.convertStringToFraction(d.getString(drop + ".chance", "1/1"));
+				int[] amount = StringUtils.convertStringToFraction(d.getString(drop + ".amount", "1/1"));
+
+				String enchants = d.getString(drop + ".enchants", "");
+
+				addDrop(drop.split("-")[0], amount, chance, enchants);
+			}
+		}
 	}
 	
 	private class ItemLoot

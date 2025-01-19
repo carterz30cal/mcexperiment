@@ -3,6 +3,7 @@ package com.carterz30cal.main;
 import org.bukkit.Bukkit;
 import org.bukkit.World;
 import org.bukkit.command.CommandExecutor;
+import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Listener;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -102,6 +103,11 @@ public class Dungeons extends JavaPlugin
 		registerEvent(new ListenerPlayerInteract());
 		registerEvent(new ListenerFishingEvents());
 		registerEvent(new ListenerBlockEvents());
+
+		for (Entity e : w.getEntities()) {
+			if (e instanceof Player) continue;
+			e.remove();
+		}
 		
 		setCommand("item", new CommandItem());
 		setCommand("spawn", new CommandSpawn());

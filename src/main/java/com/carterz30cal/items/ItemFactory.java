@@ -46,13 +46,21 @@ public class ItemFactory
 	public static NamespacedKey kData = new NamespacedKey(Dungeons.instance, "data");
 	public static NamespacedKey kUUID = new NamespacedKey(Dungeons.instance, "uuid");
 	public static String[] files = {
-			"greenforest/items/ingredients", "greenforest/items/weapons/swords"
+			"waterway2/items/ingredients", "waterway2/items/weapons/swords","waterway2/items/weapons/bows",
+			"waterway2/items/weapons/attuners",
+			"waterway2/items/talismans/utility",
+			"waterway2/items/lootboxes",
+			"waterway2/items/armours/uncommon_armours"
 	};
 	public static String[] categoryFiles = {
-			"greenforest/items/recipes/categories"
+			"waterway2/items/recipes/categories"
 	};
 	public static String[] recipeFiles = {
-			"greenforest/items/recipes/swords"
+			"waterway2/items/recipes/swords","waterway2/items/recipes/bows", "waterway2/items/recipes/ingredients",
+			"waterway2/items/recipes/armours/uncommon_armours",
+			"waterway2/items/recipes/attuners_offensive",
+			"waterway2/items/recipes/enchantments/sharpness",
+			"waterway2/items/recipes/talismans"
 	};
 	
 	private static List<String> itemList;
@@ -62,9 +70,8 @@ public class ItemFactory
 	public ItemFactory()
 	{
 		instance = this;
-		
+
 		menuItem = GooeyInventory.produceElement("EMERALD", "GOLDMenu DARK_GRAY(Click)");
-		
 		itemList = new ArrayList<>();
 		for (String file : files)
 		{
@@ -115,7 +122,6 @@ public class ItemFactory
 				new Recipe(i);
 			}
 		}
-		
 	}
 	private void generateArmour(String p, ConfigurationSection i)
 	{
@@ -186,14 +192,19 @@ public class ItemFactory
 	{
 		Item item;
 		ItemType type = ItemType.valueOf(i.getString("type", "INGREDIENT"));
-		switch (type)
-		{
-		case ATTUNER:
-			item = new ItemAttuner();
-			break;
-		default:
-			item = new Item();
-			break;
+		int lootboxItemCount = -1;
+		switch (type) {
+			case ATTUNER:
+				item = new ItemAttuner();
+				break;
+			case LOOTBOX:
+				item = new ItemLootbox();
+				((ItemLootbox)item).table = new ItemLootTable(i);
+				lootboxItemCount = ((ItemLootbox)item).table.getDropCount();
+				break;
+			default:
+				item = new Item();
+				break;
 		}
 		
 		item.name = i.getString("name", "null");
@@ -209,6 +220,10 @@ public class ItemFactory
 		item.discoveryProgress = i.getInt("discovery-progress", 0);
 		
 		if (item.description == null) item.description = new ArrayList<>();
+		if (lootboxItemCount > 0) {
+			item.description.add("");
+			item.description.add("GRAYThis lootbox can contain upto GOLD" + lootboxItemCount + "GRAY unique items!");
+		}
 		item.abilities = i.getStringList("abilities");
 		if (item.abilities == null) item.abilities = new ArrayList<>();
 		item.tags = i.getStringList("tags");
@@ -605,6 +620,7 @@ public class ItemFactory
 	
 	public static void makeInvalid(ItemStack item)
 	{
+		if (item == null || !item.hasItemMeta()) return;
 		ItemMeta meta = item.getItemMeta();
 		meta.getPersistentDataContainer().remove(kItem);
 		meta.getPersistentDataContainer().set(kData, PersistentDataType.STRING, "");
@@ -621,6 +637,7 @@ public class ItemFactory
 	
 	public static ItemStack buildCustom(ItemStack item, String name, String lore)
 	{
+		if (item == null) return null;
 		makeInvalid(item);
 
 		ItemMeta meta = item.getItemMeta();

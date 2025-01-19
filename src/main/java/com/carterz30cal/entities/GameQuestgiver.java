@@ -29,7 +29,7 @@ public class GameQuestgiver extends GameOwnable {
 				n.refresh();
 			}
 			
-		}.runTaskTimer(Dungeons.instance, 5, 300);
+		}.runTaskTimer(Dungeons.instance, 5, 20);
 		
 		return n;
 	}

@@ -6,7 +6,10 @@ import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
+import net.md_5.bungee.api.ChatMessageType;
+import net.md_5.bungee.api.chat.TextComponent;
 import org.bukkit.Bukkit;
+import org.bukkit.GameMode;
 import org.bukkit.Location;
 import org.bukkit.Sound;
 import org.bukkit.block.Block;
@@ -459,6 +462,7 @@ public class GamePlayer extends GameEntity
 	
 	public void sendActionBar(String message)
 	{
+		player.spigot().sendMessage(ChatMessageType.ACTION_BAR, TextComponent.fromLegacy(StringUtils.colourString(message)));
 		//ActionBarAPI.sendActionBar(player, StringUtils.colourString(message));
 	}
 
@@ -467,8 +471,9 @@ public class GamePlayer extends GameEntity
 		double dist = by.getLocation().distance(getLocation());
 		double yDist = by.getLocation().getY() - getLocation().getY();
 		yDist = Math.abs(yDist);
-		
-		return dist <= stats.getStat(Stat.VISIBILITY) && yDist <= 5;
+
+		if (player.getGameMode() == GameMode.CREATIVE) return false;
+		else return dist <= stats.getStat(Stat.VISIBILITY) && yDist <= 5;
 	}
 	
 	

@@ -1,0 +1,50 @@
+waterway:
+  name: Waterway
+  icon: WATER_BUCKET
+  parent: base
+
+waterway_weapons:
+  name: Weapons
+  icon: WOODEN_SWORD
+  parent: waterway
+
+waterway_weapons_attuners:
+  name: Attuners
+  icon: FLINT
+  parent: waterway_weapons
+
+waterway_weapons_bows:
+  name: Bows
+  icon: BOW
+  parent: waterway_weapons
+waterway_weapons_arrows:
+  name: Arrows
+  icon: ARROW
+  parent: waterway_weapons
+
+waterway_armours:
+  name: Armour Sets
+  icon: water_chestplate
+  parent: waterway
+
+waterway_ingredients:
+  name: Ingredients
+  icon: spiced_meat
+  parent: waterway
+
+
+
+waterway_armours_leather:
+  name: Leather Armour
+  icon: leather_chestplate
+  parent: waterway_armours
+
+waterway_enchantments:
+  name: Enchantments
+  icon: EXPERIENCE_BOTTLE
+  parent: waterway
+
+waterway_talismans:
+  name: Talismans
+  icon: BLUE_BUNDLE
+  parent: waterway

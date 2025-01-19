@@ -398,10 +398,11 @@ public class GameEnemy extends GameEntity
 		health = Math.max(0, health);
 		
 		Entity main = getMain();
-		if (main instanceof LivingEntity && false)
+		if (main instanceof LivingEntity)
 		{
-			((LivingEntity)main).damage(1);
-			((LivingEntity)main).setHealth(((LivingEntity)main).getMaxHealth());
+			((LivingEntity)main).playHurtAnimation(0);
+			//((LivingEntity)main).damage(1);
+			//((LivingEntity)main).setHealth(((LivingEntity)main).getMaxHealth());
 		}
 		
 		hologram.setCustomName(ChatColor.getLastColors(modified.type.name) + modified.damage);

@@ -27,7 +27,9 @@ public class EnemySpawner extends BukkitRunnable
 	
 	//public List<String> types = new ArrayList<>();
 	public int max;
+	public int absMax = -1;
 	public AbstractArea area;
+	public double maxMult = 1;
 	
 	
 	public SpawnerModeLink link;
@@ -82,17 +84,21 @@ public class EnemySpawner extends BukkitRunnable
 		if (types.size() == 0) return;
 		
 		boolean nearby = false;
+		int numPlayers = 0;
 		for (GamePlayer player : PlayerManager.players.values())
 		{
 			if (player.getLocation().distance(corner1) > 30) continue;
-			
+
+			numPlayers++;
 			nearby = true;
 			break;
 		}
 		if (!nearby) return;
 		
 		enemies.removeIf((e) -> e.dead);
-		while (enemies.size() < max)
+		int tempMax = (int)(max * Math.max(2, numPlayers) * maxMult);
+		if (absMax != -1) tempMax = Math.min(Math.max(1, tempMax), absMax);
+		while (enemies.size() < tempMax)
 		{
 			GameEnemy spawned = EnemyManager.spawn(RandomUtils.getChoice(types.get(link == null ? mode : link.mode)), RandomUtils.getRandomInside(corner1, corner2));
 			spawned.spawnedArea = area;

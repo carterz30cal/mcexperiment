@@ -1,0 +1,30 @@
+paper_mache_bow:
+  level: 3
+  time: 5m
+  category: waterway_weapons_bows
+  items:
+    weird_flesh: 32
+    chilli_powder: 2
+
+flimsy_arrow:
+  custom-name: GOLD12xGRAY Flimsy Arrow
+  level: 3
+  category: waterway_weapons_arrows
+  amount: 12
+  items:
+    weird_flesh: 3
+paper_arrow:
+  custom-name: GOLD3xGRAY Paper Arrow
+  level: 3
+  category: waterway_weapons_arrows
+  amount: 3
+  items:
+    wet_paper: 2
+spiced_arrow:
+  custom-name: GOLD72x YELLOWSpiced Arrow
+  level: 4
+  category: waterway_weapons_arrows
+  amount: 72
+  items:
+    spiced_meat: 1
+    chilli_powder: 1

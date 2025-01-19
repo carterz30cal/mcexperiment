@@ -1,0 +1,45 @@
+armour-leather:
+  name:
+    - Leather Helmet
+    - Leather Shirt
+    - Leather Trousers
+    - Leather Boots
+  material: LEATHER
+  rarity: UNCOMMON
+  colour:
+    r: 200
+    g: 100
+    b: 100
+  stats:
+    defence: 15, 25, 20, 10
+
+armour-water:
+  name:
+    - Water Cap
+    - Water Shirt
+    - Water Trousers
+    - Water Boots
+  material: LEATHER
+  rarity: UNCOMMON
+  colour:
+    r: 0
+    g: 120
+    b: 255
+  stats:
+    health: 25, 75, 50, 25
+
+armour-paper:
+  name:
+    - Paper Hat
+    - Paper Shirt
+    - Paper Trousers
+    - Paper Shoes
+  material: LEATHER
+  rarity: UNCOMMON
+  colour:
+    r: 200
+    g: 200
+    b: 225
+  stats:
+    power: 25,25,25,25
+    health: -15, -25, -20, -10

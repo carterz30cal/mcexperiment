@@ -1,0 +1,65 @@
+flimsy_sword:
+  name: Flimsy Sword
+  type: WEAPON
+  rarity: COMMON
+  material: WOODEN_SWORD
+  stats:
+    damage: +5
+    enchant_power: +10
+  description:
+    - You should probably find something better.
+
+# UNCOMMON WEAPONS, SHOULD TOP OUT AT ABOUT ~20-30 DAMAGE.
+ripe_sword:
+  name: Ripe Sword
+  type: WEAPON
+  rarity: UNCOMMON
+  material: WOODEN_SWORD
+  glow: true
+  stats:
+    damage: +10
+    enchant_power: +10
+jims_sword:
+  name: Jim's Sword
+  type: WEAPON
+  rarity: UNCOMMON
+  material: STONE_SWORD
+  stats:
+    damage: +8
+    power: +40
+    enchant_power: +50
+piranha_dagger:
+  name: Piranha Dagger
+  type: WEAPON
+  rarity: UNCOMMON
+  material: IRON_SWORD
+  statuses:
+    BLEED: 10
+  stats:
+    damage: +5
+    savagery: +5
+    enchant_power: +5
+
+
+# RARE WEAPONS, SHOULD TOP OUT AROUND ~50-80
+pungent_sword:
+  name: Pungent Sword
+  type: WEAPON
+  rarity: RARE
+  material: GOLDEN_SWORD
+  stats:
+    damage: +18
+    enchant_power: +12
+piranha_dagger_rare:
+  name: Piranha Dagger
+  type: WEAPON
+  rarity: RARE
+  material: IRON_SWORD
+  statuses:
+    BLEED: 15
+  stats:
+    damage: +8
+    savagery: +15
+    enchant_power: +5
+
+

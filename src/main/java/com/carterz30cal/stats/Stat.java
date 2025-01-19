@@ -25,7 +25,7 @@ public enum Stat
 	
 	ENCHANT_POWER("enchantment power", ChatColor.BLACK, StatType.HIDDEN, StatDisplayType.NO_DISPLAY),
 	LEVEL_REQUIREMENT("level requirement", ChatColor.BLACK, StatType.HIDDEN, StatDisplayType.NO_DISPLAY),
-	SACK_SPACE("sack space", ChatColor.WHITE, StatType.HIDDEN, StatDisplayType.NO_DISPLAY),
+	SACK_SPACE("\uD83D Sack Space", ChatColor.WHITE, StatType.HIDDEN, StatDisplayType.NORMAL),
 	VISIBILITY("\u25CB Visibility", ChatColor.YELLOW, StatType.OFFENSIVE, StatDisplayType.NORMAL)
 	;
 	public String name;

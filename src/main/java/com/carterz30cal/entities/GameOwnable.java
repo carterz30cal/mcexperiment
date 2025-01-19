@@ -56,6 +56,19 @@ public class GameOwnable extends GameEntity {
 	}
 	
 	public void refreshVisibility() {
+
+		for (GamePlayer p : PlayerManager.players.values()) {
+			if (owners.contains(p)) {
+				p.player.showEntity(Dungeons.instance, main);
+				p.player.showEntity(Dungeons.instance, display);
+			} else {
+				p.player.hideEntity(Dungeons.instance, main);
+				p.player.hideEntity(Dungeons.instance, display);
+			}
+		}
+
+
+		/*
 		// BLANK SLATE FOR ALL PLAYERS // 
 		main.remove();
 		display.remove();
@@ -94,6 +107,7 @@ public class GameOwnable extends GameEntity {
 			Dungeons.proto.sendServerPacket(p.player, respawn2);
 		}
 		*/
+
 	}
 	
 	public void addOwner(GamePlayer p, boolean refresh)
@@ -136,43 +150,21 @@ public class GameOwnable extends GameEntity {
 		this.name = name;
 		this.location = location;
 		this.type = type;
-		
-		Entity m = EntityUtils.spawnPart(type, location);
-		if (m instanceof Mob)
-		{
-			Mob mmain = (Mob)m;
-			mmain.setRemoveWhenFarAway(false);
-			mmain.setAI(false);
-			mmain.setSilent(true);
-		}
-		
-		if (m instanceof Slime)
-		{
-			Slime myHomeSlime = (Slime)m;
-			myHomeSlime.setSize(3);
-		}
-		
-		main = m;
-		u = main.getUniqueId();
+
+		u = UUID.randomUUID();
+
+		main = generateMain(location, type);
 		display = generateDisplay(name, location);
-		
-		
+
 		register();
 	}
-	
-	public final void semireg() {
-		for (Entity e : clones)
-		{
-			e.getPersistentDataContainer().set(GameEnemy.keyEnemy, PersistentDataType.STRING, u.toString());
-		}
-	}
-	
+
 	public final void register()
 	{
 		if (main == null) return;
 		
-		UUID uuid = main.getUniqueId();
-		u = uuid;
+		//UUID uuid = main.getUniqueId();
+		//u = uuid;
 		
 		List<Entity> all = new ArrayList<>();
 		if (display != null) all.add(display);

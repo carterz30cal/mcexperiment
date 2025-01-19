@@ -107,6 +107,7 @@ public class MenuGUI extends AbstractGUI
 		else if (clickPos >= LINES * 9) {
 			Item cli = ItemFactory.getItem(clicked);
 			if (owner.talismans.size() >= 5) owner.sendMessage("REDYou have no free accessory slots!");
+			else if (cli == null) return false;
 			else if (cli.type.use != ItemTypeUse.TALISMAN)
 			{
 				owner.sendMessage("REDOnly talismans may go in a talisman slot!");

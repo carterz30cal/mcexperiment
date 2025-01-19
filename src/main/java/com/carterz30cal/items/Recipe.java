@@ -56,7 +56,7 @@ public class Recipe
 		amount = i.getInt("amount", 1);
 		
 		ItemFactory.recipes.put(id, this);
-		ItemFactory.categories.get(i.getString("category", "base")).recipes.add(id);
+		ItemFactory.categories.getOrDefault(i.getString("category", "base"), ItemFactory.baseCategory).recipes.add(id);
 		
 		discoveryReq = i.getString("discovery", null);
 		discoveryReqLevel = i.getInt("discovery-tier", 0);

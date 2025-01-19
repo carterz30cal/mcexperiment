@@ -1,0 +1,34 @@
+paper_mache_bow:
+  name: Paper Mâché Bow
+  type: BOW
+  material: BOW
+  rarity: RARE
+  stats:
+    damage: +10
+    power: +100
+    enchant_power: +4
+
+flimsy_arrow:
+  name: Flimsy Arrow
+  type: ARROW
+  material: STICK
+  rarity: TRASH
+  description: A arrow of the poorest craftdwarfship.
+  stats:
+    damage: -3
+    power: -10
+paper_arrow:
+  name: Paper Arrow
+  type: ARROW
+  material: ARROW
+  rarity: COMMON
+  stats:
+    power: +20
+spiced_arrow:
+  name: Spiced Arrow
+  type: ARROW
+  material: ARROW
+  rarity: UNCOMMON
+  stats:
+    damage: +1
+    might: +20

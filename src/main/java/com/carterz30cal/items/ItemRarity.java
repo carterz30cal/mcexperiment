@@ -12,7 +12,8 @@ public enum ItemRarity
 	INCREDIBLE("Incredible", ChatColor.LIGHT_PURPLE),
 	LEGENDARY("Legendary", ChatColor.GOLD),
 	MYSTERIOUS("Mysterious", ChatColor.DARK_AQUA),
-	UNOBTAINABLE("Unobtainable", ChatColor.DARK_RED);
+	UNOBTAINABLE("Unobtainable", ChatColor.DARK_RED),
+	TRASH("Trash", ChatColor.GRAY);
 	public String name;
 	public ChatColor colour;
 	

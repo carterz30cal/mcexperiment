@@ -1,0 +1,31 @@
+leather_helmet:
+  level: 1
+  time: 1m
+  category: waterway_armours_leather
+  items:
+    spiced_meat: 1
+    weird_flesh: 16
+
+leather_chestplate:
+  level: 1
+  time: 1m
+  category: waterway_armours_leather
+  items:
+    spiced_meat: 1
+    weird_flesh: 32
+
+leather_leggings:
+  level: 1
+  time: 1m
+  category: waterway_armours_leather
+  items:
+    spiced_meat: 1
+    weird_flesh: 24
+
+leather_boots:
+  level: 1
+  time: 1m
+  category: waterway_armours_leather
+  items:
+    spiced_meat: 1
+    weird_flesh: 8

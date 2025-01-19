@@ -13,6 +13,11 @@ import com.carterz30cal.stats.Stat;
 import com.carterz30cal.stats.StatContainer;
 import com.carterz30cal.stats.StatOperationType;
 
+/**
+ * Ready for the revamp, obtained in Waterway at Level 3
+ * @author carterz30cal
+ * @since v1.0.0
+ */
 public class Sharpness extends ItemEnchant {
 
 	public Sharpness(GamePlayer owner) {
@@ -23,7 +28,7 @@ public class Sharpness extends ItemEnchant {
 	@Override
 	public int getMaximumLevel() {
 		// TODO Auto-generated method stub
-		return 2;
+		return 10;
 	}
 
 	@Override
@@ -45,8 +50,8 @@ public class Sharpness extends ItemEnchant {
 		Set<ItemType> types = new HashSet<>();
 		
 		types.add(ItemType.WEAPON);
-		types.add(ItemType.WAND);
-		types.add(ItemType.ROD);
+		//types.add(ItemType.WAND);
+		//types.add(ItemType.ROD);
 		return types;
 	}
 
@@ -60,15 +65,16 @@ public class Sharpness extends ItemEnchant {
 	public List<String> description()
 	{
 		List<String> l = new ArrayList<>();
-		l.add("GRAYGain " + display(Stat.DAMAGE, level) + "GRAY and " + display(Stat.STRENGTH, 5 * level) + "GRAY.");
+		//l.add("GRAYGain " + display(Stat.DAMAGE, level) + "GRAY and " + display(Stat.STRENGTH, 5 * level) + "GRAY.");
+		l.add("GRAYGain " + display(Stat.STRENGTH, 10 * level) + "GRAY.");
 		return l;
 	}
 	
 	@Override
 	public void onItemStats(StatContainer item)
 	{
-		item.scheduleOperation(Stat.DAMAGE, StatOperationType.ADD, level);
-		item.scheduleOperation(Stat.STRENGTH, StatOperationType.ADD, level * 5);
+		//item.scheduleOperation(Stat.DAMAGE, StatOperationType.ADD, level);
+		item.scheduleOperation(Stat.STRENGTH, StatOperationType.ADD, level * 10);
 	}
 
 }
