@@ -178,7 +178,7 @@ public class AnvilGUI extends AbstractGUI
 				
 				appliable = false;
 				Item bookItem = ItemFactory.getItem(book);
-				if (bookItem.type == ItemType.ATTUNER && apply.type.use == ItemTypeUse.WIELDABLE)
+				if (bookItem != null && bookItem.type == ItemType.ATTUNER && apply.type.use == ItemTypeUse.WIELDABLE)
 				{
 					List<ItemAttuner> attuners = ItemFactory.getAttuners(applying);
 					if (attuners.size() < 5)
