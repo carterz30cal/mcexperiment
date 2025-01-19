@@ -77,7 +77,11 @@ public class AnvilGUI extends AbstractGUI
 				
 				inventory.setSlot(null, calc(1, 4));
 				inventory.setSlot(null, calc(4, 1));
-				inventory.setSlot(null, calc(7, 4));
+
+				ItemStack at = inventory.getSlot(calc(7,4));
+				at.setAmount(at.getAmount() - 1);
+
+				inventory.setSlot(at, calc(7, 4));
 				
 				update(false);
 				inventory.update();

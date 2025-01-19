@@ -449,7 +449,7 @@ public class ItemFactory
 		for (String d : item.description) lore.add("GRAY" + d);
 		if (item.type == ItemType.ATTUNER)
 		{
-			lore.add("GRAYAttuners may be applied up to eight");
+			lore.add("GRAYAttuners may be applied up to five");
 			lore.add("GRAYtimes on any wieldable item.");
 			lore.add("DARK_GRAYYou may mix and match attuners.");
 		}
