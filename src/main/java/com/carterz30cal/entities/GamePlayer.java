@@ -146,11 +146,13 @@ public class GamePlayer extends GameEntity
 		if (mining) {
 			Block b = player.getTargetBlockExact(5);
 			Mineable m = Mineable.get(b);
-			EntityUtils.applyPotionEffect(player, PotionEffectType.MINING_FATIGUE, 5, 255, false);
+			EntityUtils.applyPotionEffect(player, PotionEffectType.MINING_FATIGUE, 5, 4, false);
 			if (m != null) m.damage(this);
 		}
-		
-		//EntityUtils.applyPotionEffect(player, PotionEffectType.MINING_FATIGUE, 25, 0, false);
+		else {
+			EntityUtils.applyPotionEffect(player, PotionEffectType.MINING_FATIGUE, 5, 0, false);
+		}
+
 		player.removePotionEffect(PotionEffectType.DARKNESS);
 		
 		
@@ -235,7 +237,8 @@ public class GamePlayer extends GameEntity
 		}
 		
 		abilities.addAll(quests.values());
-		
+
+		stats.executeOperations();
 		for (ItemAbility a : abilities) a.onPlayerStats(stats);
 		stats.executeOperations();
 		

@@ -1,0 +1,6 @@
+basic_harvester:
+  category: waterway_harvesters
+  level: 4
+  items:
+    waterway_sac: 1
+    chilli_powder: 5

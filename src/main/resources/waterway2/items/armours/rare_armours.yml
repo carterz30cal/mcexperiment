@@ -16,3 +16,21 @@ armour-cultist:
     bonus_coins: +10,+10,+10,+10
     level_requirement: 4
     enchant_power: +18
+
+armour-leaf:
+  name:
+    - Leaf Hat
+    - Leaf Shirt
+    - Leaf Trousers
+    - Leaf Shoes
+  material: LEATHER
+  rarity: RARE
+  set: set_leaf
+  colour:
+    r: 0
+    g: 200
+    b: 25
+  stats:
+    health: +40,+60,+50,+30
+    enchant_power: +5
+    level_requirement: 4

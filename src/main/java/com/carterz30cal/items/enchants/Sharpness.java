@@ -28,7 +28,7 @@ public class Sharpness extends ItemEnchant {
 	@Override
 	public int getMaximumLevel() {
 		// TODO Auto-generated method stub
-		return 10;
+		return 5;
 	}
 
 	@Override
@@ -66,7 +66,7 @@ public class Sharpness extends ItemEnchant {
 	{
 		List<String> l = new ArrayList<>();
 		//l.add("GRAYGain " + display(Stat.DAMAGE, level) + "GRAY and " + display(Stat.STRENGTH, 5 * level) + "GRAY.");
-		l.add("GRAYGain " + display(Stat.STRENGTH, 10 * level) + "GRAY.");
+		l.add("GRAYGain " + display(Stat.STRENGTH, 20 * level) + "GRAY.");
 		return l;
 	}
 	
@@ -74,7 +74,7 @@ public class Sharpness extends ItemEnchant {
 	public void onItemStats(StatContainer item)
 	{
 		//item.scheduleOperation(Stat.DAMAGE, StatOperationType.ADD, level);
-		item.scheduleOperation(Stat.STRENGTH, StatOperationType.ADD, level * 10);
+		item.scheduleOperation(Stat.STRENGTH, StatOperationType.ADD, level * 20);
 	}
 
 }

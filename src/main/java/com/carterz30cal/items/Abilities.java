@@ -6,6 +6,7 @@ import com.carterz30cal.entities.GamePlayer;
 import com.carterz30cal.items.abilities.*;
 import com.carterz30cal.items.abilities.talismans.TalismanFishCharm;
 import com.carterz30cal.items.abilities.talismans.TalismanHydra;
+import com.carterz30cal.items.abilities2.waterway.LeafArmourSet;
 import com.carterz30cal.items.enchants.*;
 
 public enum Abilities
@@ -27,46 +28,7 @@ public enum Abilities
 	ENCHANT_FLOWING(Flowing.class),
 	ENCHANT_DEATHPOKE(DeathPoke.class),
 	
-	FLAMING_SWORD(AbilityFlamingSword.class),
-	
-	TOME_WATERBOLT(AbilityTomeWaterBolt.class),
-	
-	// everything below here is new
-	FROSTED(AbilityFrosted.class),
-	WARDEN_WHIP(AbilityWardenWhip.class),
-	TITAN_HAMMER(AbilityTitanHammer.class),
-	FISH_BRAIN(AbilityFishBrain.class),
-	FISH_CHARM(TalismanFishCharm.class),
-	HYDRA_TALISMAN(TalismanHydra.class),
-	BLOOD_MEDALLION(AbilityBloodMedallion.class),
-	
-	// below is old stuff
-	
-	FROST_AXE(AbilityFrostAxe.class),
-	WAND_OF_LESSER_VITALITY(AbilityWandVitality.class),
-	WAND_OF_VITALITY(AbilityWandVitalityGreater.class),
-	WAND_OF_GREATER_VITALITY(AbilityWandVitalityGreaterGreater.class),
-	WAND_OF_LESSER_HEALING(AbilityWandHealingLesser.class),
-	HAMMERHEAD_SWORD(AbilityHammerheadSword.class),
-	ARMOUR_REGROWTH(AbilityRegrowthArmour.class),
-	GREAT_WHITE_SCYTHE(AbilityGreatWhiteScythe.class),
-	WATERWAY_KING(AbilityWaterwayKing.class),
-	
-	HYDRA_SLAYER(AbilityHydraSlayer.class),
-	HYDRA_HELMET(AbilityHydraHelmet.class),
-	HYDRA_CHESTPLATE(AbilityHydraChestplate.class),
-	HYDRA_LEGGINGS(AbilityHydraLeggings.class),
-	HYDRA_BOOTS(AbilityHydraBoots.class),
-	
-	FROST_SWORD(AbilityFrostSword.class),
-	
-	HYDRA_TOTEM(AbilityHydraTotemRegular.class),
-	HYDRA_TOTEM_CORRUPTED(AbilityHydraTotemCorrupted.class),
-	SERAPH_SUMMON(AbilitySeraphSummon.class),
-	SERAPH_SUMMON_CORRUPT(AbilitySeraphSummonCorrupt.class),
-	RAIN_SUMMON(AbilityRainSummon.class),
-	
-	SLAYER_BLIZZARD_SWORD_1(AbilitySlayerBlizzardSword1.class),
+	SET_LEAF(LeafArmourSet.class),
 	;
 	private Class<? extends ItemAbility> abClass;
 	

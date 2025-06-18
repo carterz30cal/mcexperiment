@@ -27,6 +27,11 @@ waterway_armours:
   icon: water_chestplate
   parent: waterway
 
+waterway_harvesters:
+  name: Harvesters
+  icon: IRON_HOE
+  parent: waterway
+
 waterway_ingredients:
   name: Ingredients
   icon: spiced_meat
@@ -42,6 +47,11 @@ waterway_armours_leather:
 waterway_armours_paper:
   name: Paper Armour
   icon: paper_chestplate
+  parent: waterway_armours
+
+waterway_armours_leaf:
+  name: Leaf Armour
+  icon: leaf_chestplate
   parent: waterway_armours
 
 waterway_enchantments:

@@ -1,0 +1,35 @@
+leaf_helmet:
+  level: 5
+  time: 10m
+  category: waterway_armours_leaf
+  items:
+    waterway_sac: 1
+    water_helmet: 2
+    leaf_mush: 128
+
+leaf_chestplate:
+  level: 5
+  time: 10m
+  category: waterway_armours_leaf
+  items:
+    waterway_sac: 1
+    water_chestplate: 2
+    leaf_mush: 256
+
+leaf_leggings:
+  level: 5
+  time: 10m
+  category: waterway_armours_leaf
+  items:
+    waterway_sac: 1
+    water_leggings: 2
+    leaf_mush: 256
+
+leaf_boots:
+  level: 5
+  time: 10m
+  category: waterway_armours_leaf
+  items:
+    waterway_sac: 1
+    water_boots: 2
+    leaf_mush: 128

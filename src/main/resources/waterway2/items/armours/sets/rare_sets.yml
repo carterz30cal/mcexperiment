@@ -1,0 +1,8 @@
+set_leaf:
+  name: Leafy Business
+  type: VIRTUAL_SET
+  requireCount: 4
+  description:
+    - The forest calls you.
+  abilities:
+    - SET_LEAF

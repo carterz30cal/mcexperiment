@@ -53,17 +53,17 @@ public class ItemFactory
 			"waterway2/items/talismans/utility","waterway2/items/talismans/offensive",
 			"waterway2/items/lootboxes",
 			"waterway2/items/armours/uncommon_armours","waterway2/items/armours/rare_armours",
-			"waterway2/items/armours/sets/uncommon_sets"
+			"waterway2/items/armours/sets/uncommon_sets","waterway2/items/armours/sets/rare_sets"
 	};
 	public static String[] categoryFiles = {
 			"waterway2/items/recipes/categories"
 	};
 	public static String[] recipeFiles = {
 			"waterway2/items/recipes/swords","waterway2/items/recipes/bows", "waterway2/items/recipes/ingredients",
-			"waterway2/items/recipes/armours/uncommon_armours",
+			"waterway2/items/recipes/armours/uncommon_armours","waterway2/items/recipes/armours/rare_armours",
 			"waterway2/items/recipes/attuners_offensive",
 			"waterway2/items/recipes/enchantments/sharpness",
-			"waterway2/items/recipes/talismans"
+			"waterway2/items/recipes/talismans","waterway2/items/recipes/harvesters"
 	};
 
 	public static String[] shopFiles = {
