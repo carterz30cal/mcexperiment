@@ -12,6 +12,7 @@ armour-leather:
     b: 100
   stats:
     defence: 15, 25, 20, 10
+    enchant_power: +5
 
 armour-water:
   name:
@@ -22,12 +23,14 @@ armour-water:
   material: LEATHER
   rarity: UNCOMMON
   set: set_water
+  value: 25
   colour:
     r: 0
     g: 120
     b: 255
   stats:
     health: 25, 75, 50, 25
+    enchant_power: +5
 
 armour-paper:
   name:
@@ -37,6 +40,7 @@ armour-paper:
     - Paper Shoes
   material: LEATHER
   rarity: UNCOMMON
+  set: set_paper
   colour:
     r: 200
     g: 200
@@ -44,3 +48,25 @@ armour-paper:
   stats:
     power: 25,25,25,25
     health: -15, -25, -20, -10
+    enchant_power: +8
+
+armour_chainmail_helmet:
+  name: Chainmail Helmet
+  material: CHAINMAIL_HELMET
+  type: HELMET
+  rarity: UNCOMMON
+  set: set_waterway_secret
+  stats:
+    health: +5
+    defence: +5
+    enchant_power: +20
+armour_chainmail_chestplate:
+  name: Chainmail Chestplate
+  material: CHAINMAIL_CHESTPLATE
+  type: CHESTPLATE
+  rarity: UNCOMMON
+  set: set_waterway_secret
+  stats:
+    health: +5
+    defence: +5
+    enchant_power: +20

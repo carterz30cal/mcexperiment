@@ -54,19 +54,30 @@ public class RandomUtils
 			i++;
 			shuffling.remove(ch);
 		}
-		
+
 		return shuffled;
 	}
-	
+
 	public static Location getRandomInside(Location c1, Location c2)
 	{
+		boolean found = false;
+		int attempts = 0;
+		Location choice = null;
 		int sx = Math.min(c1.getBlockX(), c2.getBlockX());
 		int lx = Math.max(c1.getBlockX(), c2.getBlockX());
 		int y = c1.getBlockY();
 		int sz = Math.min(c1.getBlockZ(), c2.getBlockZ());
 		int lz = Math.max(c1.getBlockZ(), c2.getBlockZ());
-		
-		return new Location(c1.getWorld(), sx + getRandom(0, lx-sx), y, sz + getRandom(0, lz-sz));
+		while (!found && attempts < 100) {
+			choice = new Location(c1.getWorld(), sx + getRandom(0, lx-sx), y, sz + getRandom(0, lz-sz));
+			if (!choice.getBlock().isPassable()) {
+				attempts++;
+			}
+			else found = true;
+		}
+
+		if (!found) return c1;
+		else return choice;
 	}
 	
 	public static Location getRandomAroundFlat(Location c, double r)

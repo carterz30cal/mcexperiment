@@ -5,7 +5,7 @@ supposed_perfume:
   material: RED_BUNDLE
   glow: false
   stats:
-    VISIBILITY: -4
+    VISIBILITY: -5
 
 steves_bone_sack:
   name: Steve's Bone Pouch
@@ -14,3 +14,23 @@ steves_bone_sack:
   material: LIGHT_GRAY_BUNDLE
   stats:
     SACK_SPACE: +7500
+
+titans_talisman:
+  name: Titan's Talisman
+  type: TALISMAN
+  rarity: RARE
+  material: IRON_BLOCK
+  tags:
+    - TITANS_TALISMAN
+  stats:
+    defence: +50
+
+titans_talisman_very_rare:
+  name: Titan's Talisman
+  type: TALISMAN
+  rarity: VERY_RARE
+  material: IRON_BLOCK
+  tags:
+    - TITANS_TALISMAN
+  stats:
+    defence: +60

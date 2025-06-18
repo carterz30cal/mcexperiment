@@ -6,14 +6,35 @@ fermented_flesh:
   attuner-icon: RED#
   stats:
     power: +5
-    health: +3
+    health: +4
 
 paper_mache:
   name: Paper Mâché
   type: ATTUNER
   rarity: RARE
   material: BONE_MEAL
-  attuner-icon: WHITE+
+  attuner-icon: WHITE#
   stats:
     damage: +1
-    health: -2
+    health: -10
+
+weak_silk_mass:
+  name: Weak Silk Mass
+  type: ATTUNER
+  rarity: RARE
+  material: BONE_MEAL
+  glow: true
+  attuner-icon: BLUE#
+  stats:
+    might: +7
+
+eye_of_spider:
+  name: Eye of Spider
+  type: ATTUNER
+  rarity: RARE
+  material: SPIDER_EYE
+  attuner-icon: DARK_PURPLE#
+  stats:
+    power: +2
+    strength: +1
+    might: +1

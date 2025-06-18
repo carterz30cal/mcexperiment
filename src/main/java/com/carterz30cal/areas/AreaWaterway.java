@@ -50,6 +50,18 @@ public class AreaWaterway extends AbstractArea
 		lunatic3_a.addType("lunatic_3", 0);
 		lunatic3_a.maxMult = 0.25;
 
+		EnemySpawner spider1_a = EnemySpawner.create(-104, 38, -99, 31, 77, this, link);
+		spider1_a.addType("spider_1", 0);
+		spider1_a.addType("spider_1", 1);
+		spider1_a.absMax = 4;
+
+		EnemySpawner lunatic4_a = EnemySpawner.create(-97, 41, -105, 33, 86, this, link);
+		lunatic4_a.addType("lunatic_4", 0);
+		lunatic4_a.maxMult = 0.3;
+
+		EnemySpawner lunatic5_a = EnemySpawner.create(-119, 6, -146, -16, 78, this, link);
+		lunatic5_a.addType("lunatic_5", 0);
+		lunatic5_a.maxMult = 0.08;
 		/*
 		dripper1 = EnemySpawner.create(-211, 13, -216, -2, 67, this, link);
 		dripper1.addType("dripper_1", 0);

@@ -104,7 +104,7 @@ public class LevelGUI extends AbstractGUI
 		}
 		if (level == 5) lore += " WHITE+1 Forge Slot;";
 		
-		int totXp = LevelUtils.getXpForLevel(level);
+		long totXp = LevelUtils.getXpForLevel(level);
 		
 		if (hasLevel)
 		{
@@ -134,7 +134,7 @@ public class LevelGUI extends AbstractGUI
 			
 			if (nextLevel)
 			{
-				int gotXp = owner.xp;
+				long gotXp = owner.xp;
 				
 				lore += ";AQUA" + gotXp + " / " + totXp + "XP BLUE(AQUA" + (int)(owner.getLevelProgress() * 1000)/10 + "%BLUE)";
 			}

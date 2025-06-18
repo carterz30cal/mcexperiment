@@ -7,6 +7,7 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.UUID;
 
+import com.carterz30cal.entities.Shop;
 import com.carterz30cal.items.sets.ItemSet;
 import org.bukkit.Bukkit;
 import org.bukkit.Color;
@@ -48,10 +49,10 @@ public class ItemFactory
 	public static NamespacedKey kUUID = new NamespacedKey(Dungeons.instance, "uuid");
 	public static String[] files = {
 			"waterway2/items/ingredients", "waterway2/items/weapons/swords","waterway2/items/weapons/bows",
-			"waterway2/items/weapons/attuners",
-			"waterway2/items/talismans/utility",
+			"waterway2/items/weapons/attuners","waterway2/items/weapons/harvesters",
+			"waterway2/items/talismans/utility","waterway2/items/talismans/offensive",
 			"waterway2/items/lootboxes",
-			"waterway2/items/armours/uncommon_armours",
+			"waterway2/items/armours/uncommon_armours","waterway2/items/armours/rare_armours",
 			"waterway2/items/armours/sets/uncommon_sets"
 	};
 	public static String[] categoryFiles = {
@@ -63,6 +64,10 @@ public class ItemFactory
 			"waterway2/items/recipes/attuners_offensive",
 			"waterway2/items/recipes/enchantments/sharpness",
 			"waterway2/items/recipes/talismans"
+	};
+
+	public static String[] shopFiles = {
+			"waterway2/items/shops"
 	};
 	
 	private static List<String> itemList;
@@ -121,7 +126,17 @@ public class ItemFactory
 			{
 				ConfigurationSection i = c.getConfigurationSection(p);
 				
-				new Recipe(i);
+				new Recipe(i, true);
+			}
+		}
+
+		for (String sFile : shopFiles) {
+			FileConfiguration c = FileUtils.getData(sFile);
+			for (String p : c.getKeys(false))
+			{
+				ConfigurationSection i = c.getConfigurationSection(p);
+
+				new Shop(i);
 			}
 		}
 	}
@@ -156,6 +171,7 @@ public class ItemFactory
 			item.stats = new StatContainer();
 			item.glow = i.getBoolean("glow", false);
 			item.description = i.getStringList("description");
+			item.value = i.getLong("value");
 			item.tags = i.getStringList("tags");
 			item.set = i.getString("set", "null");
 			if (item.description == null) item.description = new ArrayList<>();
@@ -221,6 +237,7 @@ public class ItemFactory
 		item.material = Material.valueOf(i.getString("material", "BARRIER"));
 		item.rarity = ItemRarity.valueOf(i.getString("rarity", "COMMON"));
 		item.stats = new StatContainer();
+		item.value = i.getLong("value");
 		
 		item.glow = i.getBoolean("glow", false);
 		item.description = i.getStringList("description");
@@ -364,6 +381,9 @@ public class ItemFactory
 		{
 			descriptor = descriptor + " [AQUA" + usedEnchantPower + "DARK_GRAY]";
 		}
+		if (item.value > 0 && isItemBaseModel(i)) {
+			descriptor = descriptor + " DARK_GREEN$" + item.value + "DARK_GRAY";
+		}
 		lore.add(descriptor);
 		lore.add("");
 		
@@ -459,9 +479,8 @@ public class ItemFactory
 		for (String d : item.description) lore.add("GRAY" + d);
 		if (item.type == ItemType.ATTUNER)
 		{
-			lore.add("GRAYAttuners may be applied up to five");
-			lore.add("GRAYtimes on any wieldable item.");
-			lore.add("DARK_GRAYYou may mix and match attuners.");
+			lore.add("GRAYYou may apply up to five attuners");
+			lore.add("GRAYon any wieldable item.");
 		}
 
 		if (player != null) {
@@ -796,7 +815,11 @@ public class ItemFactory
 		}
 		return data;
 	}
-	
+
+	public static boolean isItemBaseModel(ItemStack item) {
+		return getItemData(item).size() == 0;
+	}
+
 	public static String getFlatItemData(ItemStack item)
 	{
 		if (item == null || !item.hasItemMeta()) return "";

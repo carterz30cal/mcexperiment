@@ -1,5 +1,7 @@
 package com.carterz30cal.events;
 
+import com.carterz30cal.entities.Shop;
+import com.carterz30cal.gui.ShopGUI;
 import com.carterz30cal.items.*;
 import org.bukkit.GameMode;
 import org.bukkit.Material;
@@ -43,6 +45,7 @@ public class ListenerPlayerInteract implements Listener {
 					ItemLootbox lootbox = (ItemLootbox)item;
 					for (ItemStack s : lootbox.table.generate(p)) {
 						p.giveItem(s, true);
+						p.sendMessage("+ " + s.getAmount() + "x " + s.getItemMeta().getDisplayName());
 					}
 					e.setCancelled(true);
 					e.getItem().setAmount(e.getItem().getAmount() - 1);
@@ -105,13 +108,18 @@ public class ListenerPlayerInteract implements Listener {
 	{
 		GamePlayer p = (GamePlayer)GameEntity.get(e.getPlayer());
 		Quest q = Quest.get(e.getRightClicked());
-		
-		
-		if (p != null && q != null && p.questTick == 0)
-		{
-			if (p.completedQuests.contains(q.id)) return;
-			if (p.quests.containsKey(q.id)) q.duringQuest(p);
-			else q.startQuest(p);
+		Shop shop = Shop.getShop(e.getRightClicked());
+
+		if (p != null && p.questTick == 0) {
+			if (q != null) {
+				if (p.completedQuests.contains(q.id)) return;
+				if (p.quests.containsKey(q.id)) q.duringQuest(p);
+				else q.startQuest(p);
+			} else if (shop != null) {
+				p.openGui(new ShopGUI(p, shop));
+			}
 		}
+		
+
 	}
 }

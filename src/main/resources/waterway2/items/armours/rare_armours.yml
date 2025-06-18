@@ -1,0 +1,18 @@
+armour-cultist:
+  name:
+    - Cultist's Hood
+    - Cultist's Shirt
+    - Cultist's Trousers
+    - Cultist's Shoes
+  material: LEATHER
+  rarity: RARE
+  set: set_cultist
+  colour:
+    r: 255
+    g: 222
+    b: 89
+  stats:
+    might: +5,+5,+5,+5
+    bonus_coins: +10,+10,+10,+10
+    level_requirement: 4
+    enchant_power: +18

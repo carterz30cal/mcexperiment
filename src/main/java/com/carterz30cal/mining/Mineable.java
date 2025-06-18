@@ -88,6 +88,10 @@ public class Mineable
 		}
 		
 	}
+
+	public void destroy() {
+		Dungeons.w.getBlockAt(location).setType(Material.AIR);
+	}
 	
 	
 	public void mine(GamePlayer player) {
@@ -153,6 +157,12 @@ public class Mineable
 	public static String getId(Location l) {
 		String s = l.getBlockX() + "/" + l.getBlockY() + "/" + l.getBlockZ();
 		return s;
+	}
+
+	public static void removeAll() {
+		for (Mineable block : mining.values()) {
+			block.destroy();
+		}
 	}
 	
 	

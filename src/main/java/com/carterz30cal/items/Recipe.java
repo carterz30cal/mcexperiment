@@ -29,7 +29,7 @@ public class Recipe
 	
 	public int levelRequirement;
 	
-	public Recipe(ConfigurationSection i)
+	public Recipe(ConfigurationSection i, boolean addToList)
 	{
 		customName = i.getString("custom-name", null);
 		hideInLevelMenu = i.getBoolean("hide", false);
@@ -50,13 +50,15 @@ public class Recipe
 		time = StringUtils.convertPrettyTime(i.getString("time", "0s"));
 		
 		levelRequirement = i.getInt("level", 0);
-		ItemFactory.levelRecipes.putIfAbsent(levelRequirement, new ArrayList<>());
-		ItemFactory.levelRecipes.get(levelRequirement).add(this);
-		
 		amount = i.getInt("amount", 1);
-		
-		ItemFactory.recipes.put(id, this);
-		ItemFactory.categories.getOrDefault(i.getString("category", "base"), ItemFactory.baseCategory).recipes.add(id);
+
+		if (addToList) {
+			ItemFactory.levelRecipes.putIfAbsent(levelRequirement, new ArrayList<>());
+			ItemFactory.levelRecipes.get(levelRequirement).add(this);
+			ItemFactory.recipes.put(id, this);
+			ItemFactory.categories.getOrDefault(i.getString("category", "base"), ItemFactory.baseCategory).recipes.add(id);
+		}
+
 		
 		discoveryReq = i.getString("discovery", null);
 		discoveryReqLevel = i.getInt("discovery-tier", 0);

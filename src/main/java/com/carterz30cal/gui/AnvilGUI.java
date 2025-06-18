@@ -77,11 +77,7 @@ public class AnvilGUI extends AbstractGUI
 				
 				inventory.setSlot(null, calc(1, 4));
 				inventory.setSlot(null, calc(4, 1));
-
-				ItemStack at = inventory.getSlot(calc(7,4));
-				at.setAmount(at.getAmount() - 1);
-
-				inventory.setSlot(at, calc(7, 4));
+				inventory.setSlot(null, calc(7, 4));
 				
 				update(false);
 				inventory.update();
@@ -91,21 +87,25 @@ public class AnvilGUI extends AbstractGUI
 		else if (clickPos >= 54 && clicked != null)
 		{
 			Item click = ItemFactory.getItem(clicked);
+			if (click == null) return false;
+			ItemStack one = clicked.clone();
+			one.setAmount(1);
 			if ((click.type == ItemType.ENCHANTMENT || click.type == ItemType.ATTUNER) && inventory.getSlot(calc(7, 4)) == null)
 			{
-				inventory.setSlot(clicked.clone(), calc(7, 4));
-				clicked.setAmount(0);
+				inventory.setSlot(one, calc(7, 4));
+				clicked.setAmount(clicked.getAmount() - 1);
 				owner.playSound(Sound.BLOCK_DISPENSER_DISPENSE, 0.7, 1);
 			}
 			else if (click.type != ItemType.INGREDIENT && inventory.getSlot(calc(1, 4)) == null)
 			{
-				inventory.setSlot(clicked.clone(), calc(1, 4));
-				clicked.setAmount(0);
+				inventory.setSlot(one, calc(1, 4));
+				clicked.setAmount(clicked.getAmount() - 1);
 				owner.playSound(Sound.BLOCK_DISPENSER_DISPENSE, 0.7, 1);
 			}
+			else return false;
 			
-			boolean useable = inventory.getSlot(calc(7, 4)) != null && inventory.getSlot(calc(1, 4)) != null;
-			if (useable)
+			boolean usable = inventory.getSlot(calc(7, 4)) != null && inventory.getSlot(calc(1, 4)) != null;
+			if (usable)
 			{
 				requirements = new ItemReqs();
 				

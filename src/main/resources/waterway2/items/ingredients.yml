@@ -5,6 +5,7 @@ weird_flesh:
   material: ROTTEN_FLESH
   discovery: weird_flesh_discovery
   discovery-progress: 1
+  value: 1
   description:
     - Smells absolutely vile.
     - Dropped mostly by REDLunaticsGRAY.
@@ -36,10 +37,32 @@ wet_paper:
   rarity: COMMON
   material: PAPER
   glow: true
+  value: 1
   description:
     - Soggy mush.
     - Dropped by LIGHT_PURPLETitansGRAY.
     - Used in REDoffensiveGRAY recipes.
+
+spider_silk:
+  name: Spider Silk
+  type: INGREDIENT
+  rarity: UNCOMMON
+  material: STRING
+  description:
+    - Dull grey threads of silk.
+    - Dropped by REDSpidersGRAY.
+
+leaf_mush:
+  name: Leaf Mush
+  type: INGREDIENT
+  rarity: UNCOMMON
+  material: GREEN_DYE
+  value: 1
+  description:
+    - Squishy.
+    - Found by mining leaves in the
+    - Waterway Cave.
+    - Used in several recipes.
 
 paper:
   name: Paper
@@ -51,6 +74,16 @@ paper:
     - old soggier pieces of paper.
     - Used in REDoffensiveGRAY recipes.
 
+waterway_sac:
+  name: Waterway Sac
+  type: INGREDIENT
+  rarity: EPIC
+  material: GLOW_INK_SAC
+  value: 250
+  description:
+    - Pulses sometimes, in an almost heart-like fashion.
+    - Rarely dropped by REDFanaticsGRAY.
+
 combination_catalyst_shard:
   name: Combination Catalyst Shard
   type: CATALYST
@@ -58,6 +91,8 @@ combination_catalyst_shard:
   material: QUARTZ
   description:
     - Used to LIGHT_PURPLEenchantGRAY items.
+
+
 
 enchanted_book:
   name: Enchanted Book

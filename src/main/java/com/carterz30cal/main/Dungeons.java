@@ -1,5 +1,6 @@
 package com.carterz30cal.main;
 
+import com.carterz30cal.mining.Mineable;
 import org.bukkit.Bukkit;
 import org.bukkit.World;
 import org.bukkit.command.CommandExecutor;
@@ -88,7 +89,7 @@ public class Dungeons extends JavaPlugin
 			            		}
 			            		
 			            	}.runTaskLater(Dungeons.instance, 1);
-			            	
+			            	//System.out.println("ya");
 			            }
 			            else if (digType == PlayerDigType.ABORT_DESTROY_BLOCK || digType == PlayerDigType.STOP_DESTROY_BLOCK) {
 			            	player.mining = false;
@@ -127,6 +128,10 @@ public class Dungeons extends JavaPlugin
 		{
 			enemy.remove();
 		}
+		for (Entity e : w.getEntities()) {
+			if (e instanceof Player) continue;
+			e.remove();
+		}
 		
 		for (GamePlayer player : PlayerManager.players.values())
 		{
@@ -135,6 +140,7 @@ public class Dungeons extends JavaPlugin
 		
 		for (AbstractArea a : AbstractArea.areas.values()) a.onEnd();
 		BlockUtils.removeStructures();
+		Mineable.removeAll();
 		
 		PlayerManager.save();
 	}

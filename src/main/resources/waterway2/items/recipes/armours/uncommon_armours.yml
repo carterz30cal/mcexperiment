@@ -29,3 +29,28 @@ leather_boots:
   items:
     spiced_meat: 1
     weird_flesh: 8
+
+paper_helmet:
+  level: 2
+  time: 20m
+  category: waterway_armours_paper
+  items:
+    paper: 3
+paper_chestplate:
+  level: 2
+  time: 20m
+  category: waterway_armours_paper
+  items:
+    paper: 5
+paper_leggings:
+  level: 2
+  time: 20m
+  category: waterway_armours_paper
+  items:
+    paper: 4
+paper_boots:
+  level: 2
+  time: 20m
+  category: waterway_armours_paper
+  items:
+    paper: 2

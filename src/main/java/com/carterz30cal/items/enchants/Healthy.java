@@ -23,7 +23,7 @@ public class Healthy extends ItemEnchant {
 	@Override
 	public int getMaximumLevel() {
 		// TODO Auto-generated method stub
-		return 10;
+		return 5;
 	}
 
 	@Override
@@ -61,14 +61,14 @@ public class Healthy extends ItemEnchant {
 	public List<String> description()
 	{
 		List<String> l = new ArrayList<>();
-		l.add("GRAYGain " + display(Stat.HEALTH, level * 4) + "GRAY.");
+		l.add("GRAYGain " + display(Stat.HEALTH, level * 8) + "GRAY.");
 		return l;
 	}
 	
 	@Override
 	public void onItemStats(StatContainer item)
 	{
-		item.scheduleOperation(Stat.HEALTH, StatOperationType.ADD, level * 4);
+		item.scheduleOperation(Stat.HEALTH, StatOperationType.ADD, level * 8);
 	}
 
 }

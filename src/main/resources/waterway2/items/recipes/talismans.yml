@@ -3,4 +3,20 @@ supposed_perfume:
   time: 30m
   category: waterway_talismans
   items:
-    chilli_powder: 18
+    chilli_powder: 30
+
+spider_heart:
+  level: 5
+  time: 2h
+  category: waterway_talismans
+  items:
+    chilli_powder: 25
+    spider_silk: 25
+
+titans_talisman_very_rare:
+  level: 5
+  time: 1h
+  category: waterway_talismans
+  items:
+    titans_talisman: 1
+    waterway_sac: 1

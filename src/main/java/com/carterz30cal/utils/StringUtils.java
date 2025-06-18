@@ -1,5 +1,7 @@
 package com.carterz30cal.utils;
 
+import java.time.Duration;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -103,6 +105,27 @@ public class StringUtils
 		}
 		return sentence;
 	}
+
+	public static String getPrettyTime(LocalDateTime finishes)
+	{
+		Duration duration = Duration.between(LocalDateTime.now(), finishes);
+
+		long days = duration.toDays();
+		long hours = duration.toHours() % 24;
+		long minutes = duration.toMinutes() % 60;
+		long seconds = duration.getSeconds() % 60;
+
+		if (seconds < 1) return " Soon!";
+
+		StringBuilder str = new StringBuilder();
+		if (days > 0) str.append(days + "d");
+		if (hours > 0) str.append(hours + "h");
+		if (minutes > 0) str.append(minutes + "m");
+		str.append(seconds + "s");
+
+		return str.toString();
+	}
+
 	
 	public static int convertPrettyTime(String time)
 	{

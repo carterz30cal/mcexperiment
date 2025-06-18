@@ -1,6 +1,5 @@
 spiced_meat:
   level: 1
-  time: 1m
   category: waterway_ingredients
   items:
     weird_flesh: 24
@@ -8,7 +7,6 @@ spiced_meat:
 
 paper:
   level: 2
-  time: 3m
   category: waterway_ingredients
   items:
     wet_paper: 128

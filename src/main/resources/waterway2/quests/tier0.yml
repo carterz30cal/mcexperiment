@@ -144,3 +144,40 @@ scared_steve_quest_1:
   dialog-finishing:
     - Thank you so much!
     - Take this little pouch I made a while ago.
+
+
+# -105.5, 78, -11.7, 53, 0
+ex_fanatic:
+  name: Fanatic Festival
+  prerequisites:
+    - player_joined
+  questgiver:
+    name: Ex-Fanatic
+    mob: SKELETON
+    location: -105.5, 78, -11.7, 53, 0
+    show-before-reqs: false
+    show-after-complete: false
+    sound: ENTITY_SKELETON_HURT
+  config:
+    type: QUEST_TYPE_KILL
+    config:
+      tag: FANATIC
+      pretty: "Fanatics"
+      amount: 60
+  rewards:
+    coins: 3000
+    xp: 1000
+    items:
+      - waterway_sac,4
+  dialog-start:
+    - I used to be a Fanatic..
+    - Before I realised how stupid that cult was!
+    - Who could possibly think tomatoes are disgusting??
+    - Could you maybe perhaps remove a few of my old buddies from the equation?
+  dialog-during:
+    - Got any Flavour-aid?
+    - What a silly place.
+    - Vitality is my favourite stat.
+  dialog-finishing:
+    - Thanks!
+    - Now that I haven't got to worry about them, I think I'll set up shop nearby!

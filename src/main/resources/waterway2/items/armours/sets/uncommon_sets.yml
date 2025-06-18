@@ -7,3 +7,24 @@ set_water:
   stats:
     health: +25
     vitality: +3
+
+set_paper:
+  name: Paper Sharp!
+  type: VIRTUAL_SET
+  requireCount: 4
+  description:
+    - You feel rather flimsy
+  stats:
+    health: -30
+    damage: +2
+    might: +75
+
+set_waterway_secret:
+  name: REDChainmail of Waterway
+  type: VIRTUAL_SET
+  requireCount: 4
+  description:
+    - Wow! A secret!
+  stats:
+    health: +100
+    vitality: +5

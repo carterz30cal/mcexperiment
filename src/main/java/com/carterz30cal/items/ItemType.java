@@ -29,19 +29,19 @@ public enum ItemType
 	public DamageType damageType;
 	public String cute;
 	
-	private ItemType(ItemTypeUse use)
+	ItemType(ItemTypeUse use)
 	{
 		this.use = use;
 		this.damageType = DamageType.PHYSICAL;
 	}
 	
-	private ItemType(ItemTypeUse use, DamageType damageType)
+	ItemType(ItemTypeUse use, DamageType damageType)
 	{
 		this.use = use;
 		this.damageType = damageType;
 	}
 	
-	private ItemType(String cute) {
+	ItemType(String cute) {
 		this.use = ItemTypeUse.NORMAL;
 		this.damageType = DamageType.PHYSICAL;
 		this.cute = cute;

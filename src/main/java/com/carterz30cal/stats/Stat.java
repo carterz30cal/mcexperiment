@@ -22,6 +22,8 @@ public enum Stat
 	MINING_SPEED("\u023E Breaking Speed", ChatColor.YELLOW, StatType.ECONOMY),
 	PICKING("\u0194 Picking", ChatColor.YELLOW, StatType.ECONOMY),
 	CLEARING("\u0190 Clearing", ChatColor.YELLOW, StatType.ECONOMY),
+
+	BONUS_COINS("\u00D7 Extra Coins", ChatColor.GOLD, StatType.ECONOMY, StatDisplayType.PERCENTAGE),
 	
 	ENCHANT_POWER("enchantment power", ChatColor.BLACK, StatType.HIDDEN, StatDisplayType.NO_DISPLAY),
 	LEVEL_REQUIREMENT("level requirement", ChatColor.BLACK, StatType.HIDDEN, StatDisplayType.NO_DISPLAY),

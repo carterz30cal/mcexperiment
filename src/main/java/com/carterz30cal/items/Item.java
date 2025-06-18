@@ -22,6 +22,8 @@ public class Item
 	public ItemRarity rarity;
 	public boolean glow;
 
+	public long value;
+
 	public String set;
 
 	public String discovery;

@@ -3,20 +3,13 @@ package com.carterz30cal.gui;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.carterz30cal.items.*;
 import org.bukkit.ChatColor;
 import org.bukkit.Sound;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
 import com.carterz30cal.entities.GamePlayer;
-import com.carterz30cal.items.Collection;
-import com.carterz30cal.items.DiscoveryManager;
-import com.carterz30cal.items.ForgingItem;
-import com.carterz30cal.items.ItemFactory;
-import com.carterz30cal.items.ItemReq;
-import com.carterz30cal.items.ItemReqs;
-import com.carterz30cal.items.Recipe;
-import com.carterz30cal.items.RecipeCategory;
 import com.carterz30cal.utils.StringUtils;
 
 public class ForgeGUI extends AbstractGUI 
@@ -143,7 +136,7 @@ public class ForgeGUI extends AbstractGUI
 			List<String> lore = m.getLore();
 			
 			lore.add("");
-			lore.add("WHITETime Remaining:" + StringUtils.getPrettyTime(owner.forge.get(f).time));
+			lore.add("WHITETime Remaining: " + StringUtils.getPrettyTime(owner.forge.get(f).finished));
 			
 			m.setLore(StringUtils.colourList(lore));
 			p.setItemMeta(m);
@@ -156,7 +149,7 @@ public class ForgeGUI extends AbstractGUI
 	{
 		Recipe rec = ItemFactory.recipes.get(recipe);
 		
-		int pLevel = owner.getLevel();
+		long pLevel = owner.getLevel();
 		
 		List<String> requirements = new ArrayList<>();
 		if (rec.levelRequirement > pLevel) requirements.add("GRAYThis recipe unlocks at WHITELevel " + rec.levelRequirement + "GRAY.");
@@ -194,7 +187,23 @@ public class ForgeGUI extends AbstractGUI
 		if (rec.coinCost != 0) lore.add("DARK_PURPLE- " + (rec.coinCost == 1 ? "GOLD1 Coin" : "GOLD" + rec.coinCost + " Coins"));
 		for (String item : rec.items.keySet())
 		{
-			lore.add("- " + ItemFactory.getItemTypeName(item) + " DARK_GRAYx" + rec.items.get(item));
+			int amountInSack = owner.sack.getOrDefault(item, 0);
+
+			StringBuilder builder = new StringBuilder();
+			builder.append("- ");
+			builder.append(ItemFactory.getItemTypeName(item));
+			builder.append(" DARK_GRAYx");
+			builder.append(rec.items.get(item));
+			if (ItemFactory.getItem(item).type == ItemType.INGREDIENT) {
+				builder.append("  [Sack has x");
+				if (amountInSack >= rec.items.get(item)) builder.append("GREEN");
+				else builder.append("RED");
+
+				builder.append(amountInSack);
+				builder.append("DARK_GRAY]");
+			}
+
+			lore.add(builder.toString());
 		}
 		
 		if (rec.amount > 1) meta.setDisplayName(meta.getDisplayName() + " " + ChatColor.DARK_GRAY + "x" + rec.amount);
@@ -209,7 +218,7 @@ public class ForgeGUI extends AbstractGUI
 		RecipeCategory cat = ItemFactory.categories.get(category);
 		
 		List<Recipe> categoryRecipes = cat.getRecipes(true);
-		int pLevel = owner.getLevel();
+		long pLevel = owner.getLevel();
 		int unlocked = 0;
 		for (Recipe recipe : categoryRecipes)
 		{

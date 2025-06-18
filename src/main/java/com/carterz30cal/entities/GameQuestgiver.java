@@ -51,12 +51,20 @@ public class GameQuestgiver extends GameOwnable {
 			//System.out.println(p.player.getName());
 			addOwner(p, false);
 		}
-		refreshVisibility();
-		
-		if (main instanceof Mob) {
-			Mob e = (Mob)main;
-			for (EquipmentSlot s : q.questgiverEquipment.keySet()) EntityUtils.setArmourPiece(e, s, q.questgiverEquipment.get(s));
+		if (owners.size() > 0) {
+			refreshVisibility();
+
+			if (main != null && main instanceof Mob) {
+				Mob e = (Mob)main;
+				for (EquipmentSlot s : q.questgiverEquipment.keySet()) EntityUtils.setArmourPiece(e, s, q.questgiverEquipment.get(s));
+			}
 		}
+		else {
+			main.remove();
+			display.remove();
+		}
+		
+
 	}
 
 }

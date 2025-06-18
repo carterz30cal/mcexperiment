@@ -49,7 +49,19 @@ pungent_sword:
   material: GOLDEN_SWORD
   stats:
     damage: +18
-    enchant_power: +12
+    enchant_power: +14
+
+spearfish_scythe_rare:
+  name: Spearfish Scythe
+  type: WEAPON
+  rarity: RARE
+  material: IRON_HOE
+  stats:
+    damage: +12
+    strength: +35
+    vitality: +5
+    enchant_power: +10
+
 piranha_dagger_rare:
   name: Piranha Dagger
   type: WEAPON
@@ -58,8 +70,50 @@ piranha_dagger_rare:
   statuses:
     BLEED: 15
   stats:
-    damage: +8
+    damage: +10
     savagery: +15
     enchant_power: +5
 
+bad_pun_sword_1:
+  name: Legendary Sword of Aldi
+  type: WEAPON
+  rarity: RARE
+  material: WOODEN_SWORD
+  glow: true
+  stats:
+    damage: +34
+    enchant_power: 0
+
+# VERY RARE, SHOULD DEAL AROUND 100 DAMAGE.
+pungent_sword_very_rare:
+  name: Pungent Sword
+  type: WEAPON
+  rarity: VERY_RARE
+  material: GOLDEN_SWORD
+  stats:
+    damage: +24
+    enchant_power: +15
+
+spearfish_scythe_very_rare:
+  name: Spearfish Scythe
+  type: WEAPON
+  rarity: VERY_RARE
+  material: IRON_HOE
+  stats:
+    damage: +15
+    strength: +50
+    vitality: +6
+    enchant_power: +10
+
+piranha_dagger_very_rare:
+  name: Piranha Dagger
+  type: WEAPON
+  rarity: VERY_RARE
+  material: IRON_SWORD
+  statuses:
+    BLEED: 30
+  stats:
+    damage: +12
+    savagery: +20
+    enchant_power: +6
 

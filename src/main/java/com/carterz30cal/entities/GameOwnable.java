@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
+import com.carterz30cal.utils.RandomUtils;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.entity.ArmorStand;
@@ -46,7 +47,10 @@ public class GameOwnable extends GameEntity {
 	@Override
 	public void damage(DamageInfo info) {
 		// TODO Auto-generated method stub
-
+		ArmorStand hologram = EntityUtils.spawnHologram(main.getLocation().add(RandomUtils.getDouble(-0.7F, 0.7F),
+				RandomUtils.getDouble(0.4F, 0.8F),
+				RandomUtils.getDouble(-0.7F, 0.7F)), 30);
+		hologram.setCustomName(Integer.toString(info.damage));
 	}
 
 	@Override
@@ -182,6 +186,8 @@ public class GameOwnable extends GameEntity {
 		{
 			e.getPersistentDataContainer().set(GameEnemy.keyEnemy, PersistentDataType.STRING, u.toString());
 		}
+
+
 		
 		refreshVisibility();
 	}

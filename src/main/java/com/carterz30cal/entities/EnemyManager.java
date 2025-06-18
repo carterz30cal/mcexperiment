@@ -8,7 +8,7 @@ import com.carterz30cal.utils.FileUtils;
 public class EnemyManager 
 {
 	public static String[] files = {
-            "waterway2/mobs/lunatics","waterway2/mobs/titans",
+            "waterway2/mobs/lunatics","waterway2/mobs/spiders","waterway2/mobs/titans",
 			"waterway/mobs/drippers","waterway/mobs/drenched","waterway/mobs/shockers",
 			"waterway/mobs/hydras","waterway/mobs/seraph_fight",
 			"waterway/mobs/lurkers","waterway/mobs/dungeon",

@@ -8,7 +8,6 @@ import java.util.Map.Entry;
 
 import com.carterz30cal.entities.damage.StatusEffects;
 
-import jdk.jfr.Description;
 
 public class StatContainer implements Cloneable
 {
@@ -35,7 +34,7 @@ public class StatContainer implements Cloneable
 	 * 
 	 * 
 	 */
-	@Description("Requires execution of operations")
+	//@Description("Requires execution of operations")
 	public void pushIntoContainer(StatContainer receiver)
 	{
 		executeOperations();

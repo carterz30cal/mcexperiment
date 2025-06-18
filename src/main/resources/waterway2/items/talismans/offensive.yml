@@ -1,0 +1,8 @@
+spider_heart:
+  name: Spider Heart
+  type: TALISMAN
+  rarity: RARE
+  material: LIGHT_GRAY_WOOL
+  stats:
+    damage: +2
+    might: +35

@@ -1,5 +1,6 @@
 package com.carterz30cal.entities;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -58,10 +59,10 @@ public class GamePlayer extends GameEntity
 
 	public Map<String, Integer> sets = new HashMap<>();
 	
-	public int coins;
+	public long coins;
 	
-	public int level;
-	public int xp;
+	public long level;
+	public long xp;
 	
 	public List<ForgingItem> forge = new ArrayList<>();
 	
@@ -85,7 +86,7 @@ public class GamePlayer extends GameEntity
 	public int bowTick;
 	public int questTick;
 	
-	public int lastXpReward;
+	public long lastXpReward;
 	public int lastCoinReward;
 	public int rewardTick;
 	
@@ -124,23 +125,32 @@ public class GamePlayer extends GameEntity
 	{
 		for (ForgingItem item : forge)
 		{
-			item.time--;
-			if (item.time < 1) 
+			//item.time--;
+			if (LocalDateTime.now().isAfter(item.finished))
 			{
-				sendMessage("GREENYour " + ItemFactory.getItemTypeName(item.item) + " GREENis done!");
-				giveItem(item.produce(), false);
+				if (player.getInventory().firstEmpty() == -1) {
+					if (!item.haveNotified) {
+						sendMessage("REDYour " + ItemFactory.getItemTypeName(item.item) + " GREENis done, but you don't have spare room in your inventory.");
+						item.haveNotified = true;
+					}
+				} else {
+					sendMessage("GREENYour " + ItemFactory.getItemTypeName(item.item) + " GREENis done!");
+					giveItem(item.produce(), false);
+					item.isDone = true;
+				}
 			}
 		}
-		forge.removeIf((f) -> f.time < 1);
+		forge.removeIf((f) -> f.isDone);
 		
 		
 		if (mining) {
 			Block b = player.getTargetBlockExact(5);
 			Mineable m = Mineable.get(b);
+			EntityUtils.applyPotionEffect(player, PotionEffectType.MINING_FATIGUE, 5, 255, false);
 			if (m != null) m.damage(this);
 		}
 		
-		EntityUtils.applyPotionEffect(player, PotionEffectType.MINING_FATIGUE, 25, 0, false);
+		//EntityUtils.applyPotionEffect(player, PotionEffectType.MINING_FATIGUE, 25, 0, false);
 		player.removePotionEffect(PotionEffectType.DARKNESS);
 		
 		
@@ -155,10 +165,14 @@ public class GamePlayer extends GameEntity
 		stats.scheduleOperation(Stat.VISIBILITY, StatOperationType.CAP_MIN, 1);
 		stats.scheduleOperation(Stat.VISIBILITY, StatOperationType.CAP_MAX, 24);
 		stats.scheduleOperation(Stat.FOCUS, StatOperationType.CAP_MIN, 0);
+
+		stats.scheduleOperation(Stat.POWER, StatOperationType.CAP_MIN, 0);
+		stats.scheduleOperation(Stat.MIGHT, StatOperationType.CAP_MIN, 0);
+		stats.scheduleOperation(Stat.STRENGTH, StatOperationType.CAP_MIN, 0);
 		
 		// level stats!
 		
-		int levelTens = level / 5;
+		long levelTens = level / 5;
 		
 		stats.scheduleOperation(Stat.HEALTH, StatOperationType.ADD, (level - levelTens) * 8);
 		stats.scheduleOperation(Stat.DEFENCE, StatOperationType.ADD, levelTens * 2);
@@ -255,7 +269,7 @@ public class GamePlayer extends GameEntity
 		refreshHealth();
 		
 		List<String> score = new ArrayList<>();
-		score.add("GOLDCoins: WHITE" + StringUtils.commaify(coins));
+		score.add("GOLDCoins: WHITE" + StringUtils.commaify((int) coins));
 		score.add("");
 		if (BossWaterwayHydra.hasParticipated(this)) {
 			score.add("GREENBOLDHydra - Wave " + BossWaterwayHydra.wave);
@@ -328,10 +342,11 @@ public class GamePlayer extends GameEntity
 	}
 
 	public boolean hasSet(String s) {
+		if (sets.size() == 0) return false;
 		Item i = ItemFactory.getItem(s);
 		if (i != null && i instanceof ItemSet) {
 			ItemSet set = (ItemSet) i;
-			if (set.requireCount <= sets.get(s)) return true;
+			if (set.requireCount <= sets.getOrDefault(s, 0)) return true;
 		}
 		return false;
 	}
@@ -497,10 +512,10 @@ public class GamePlayer extends GameEntity
 	
 	public int getMaxTargets()
 	{
-		return Math.min(5, level + 1);
+		return Math.min(5, (int)level + 1);
 	}
 	
-	public int getLevel()
+	public long getLevel()
 	{
 		return level;
 	}
@@ -510,15 +525,15 @@ public class GamePlayer extends GameEntity
 		return ((double)xp) / LevelUtils.getXpForLevel(level + 1);
 	}
 	
-	public int gainXp(int amount)
+	public long gainXp(long amount)
 	{
-		int mod = amount;
+		long mod = amount;
 		
 		xp += mod;
 		
 		while (xp >= LevelUtils.getXpForLevel(level + 1))
 		{
-			int lvl = getLevel();
+			long lvl = getLevel();
 			playSound(Sound.ENTITY_PLAYER_LEVELUP, 1.4, 1.1);
 			sendMessage("GOLDBOLD-------------------");
 			sendMessage("AQUABOLDLevel Up! RESETAQUA" + lvl + " BLUE->AQUA " + (lvl+1));
@@ -537,10 +552,10 @@ public class GamePlayer extends GameEntity
 		int total = 1 + (killed.type.health / 75);
 		total += killed.type.damage / 25;
 		total += killed.type.level / 2;
+
+		double extraCoinsMultiplier = (100D + stats.getStat(Stat.BONUS_COINS)) / 100;
 		
-		total = (int)(total * killed.type.coinMultiplier);
-		
-		coins += total;
+		coins += Math.round(total * extraCoinsMultiplier * killed.type.coinMultiplier);
 		return total;
 	}
 	

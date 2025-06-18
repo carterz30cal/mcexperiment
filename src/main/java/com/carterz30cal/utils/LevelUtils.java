@@ -3,7 +3,7 @@ package com.carterz30cal.utils;
 public class LevelUtils 
 {
 	public final static int LEVEL_MAX = 1000;
-	public static int getXpForLevel(int level)
+	public static long getXpForLevel(long level)
 	{
 		/*
 		 * level 1 = 100 xp
@@ -38,7 +38,7 @@ public class LevelUtils
 		return level;
 	}
 	
-	public static int getEnemyBaseXpReward(int enemyLevel)
+	public static long getEnemyBaseXpReward(int enemyLevel)
 	{
 		return Math.max(enemyLevel, (getXpForLevel(enemyLevel) - getXpForLevel(enemyLevel - 1)) / 100);
 	}

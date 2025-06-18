@@ -23,7 +23,7 @@ public class Titanic extends ItemEnchant {
 	@Override
 	public int getMaximumLevel() {
 		// TODO Auto-generated method stub
-		return 6;
+		return 5;
 	}
 
 	@Override
@@ -37,7 +37,7 @@ public class Titanic extends ItemEnchant {
 	{
 		List<ItemReq> reqs = new ArrayList<>();
 		reqs.add(new ItemReq("combination_catalyst_shard", 1, 0));
-		reqs.add(new ItemReq("cayenne_powder", 1, 0));
+		reqs.add(new ItemReq("chilli_powder", level, 0));
 		return reqs;
 	}
 
@@ -63,14 +63,14 @@ public class Titanic extends ItemEnchant {
 	public List<String> description()
 	{
 		List<String> l = new ArrayList<>();
-		l.add("GRAYGain " + display(Stat.DEFENCE, level * 4) + "GRAY.");
+		l.add("GRAYGain " + display(Stat.DEFENCE, level * 5) + "GRAY.");
 		return l;
 	}
 	
 	@Override
 	public void onItemStats(StatContainer item)
 	{
-		item.scheduleOperation(Stat.DEFENCE, StatOperationType.ADD, level * 4);
+		item.scheduleOperation(Stat.DEFENCE, StatOperationType.ADD, level * 5);
 	}
 
 }

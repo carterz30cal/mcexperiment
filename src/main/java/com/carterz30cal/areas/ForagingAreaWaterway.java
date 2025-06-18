@@ -1,5 +1,6 @@
 package com.carterz30cal.areas;
 
+import com.carterz30cal.utils.MathsUtils;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
@@ -14,8 +15,8 @@ import com.carterz30cal.utils.RandomUtils;
 
 public class ForagingAreaWaterway extends AbstractArea 
 {
-	public final Location c1 = new Location(Dungeons.w, -232, 68, -52);
-	public final Location c2 = new Location(Dungeons.w, -195, 68, -106);
+	public final Location c1 = new Location(Dungeons.w, -131, 77, 26);
+	public final Location c2 = new Location(Dungeons.w, -142, 87, 50);
 	
 	public int tick = 0;
 	
@@ -31,41 +32,32 @@ public class ForagingAreaWaterway extends AbstractArea
 		
 		ground = BlockUtils.createStructure("foraging_waterway_ground");
 		//forest = BlockUtils.createStructure("foraging_waterway_forest");
-		for (int x = c1.getBlockX(); x <= c2.getBlockX(); x++)
+
+		int minX = Math.min(c1.getBlockX(), c2.getBlockX());
+		int maxX = Math.max(c1.getBlockX(), c2.getBlockX());
+		int minY = Math.min(c1.getBlockY(), c2.getBlockY());
+		int maxY = Math.max(c1.getBlockY(), c2.getBlockY());
+		int minZ = Math.min(c1.getBlockZ(), c2.getBlockZ());
+		int maxZ = Math.max(c1.getBlockZ(), c2.getBlockZ());
+
+		for (int x = minX; x <= maxX; x++)
 		{
-			for (int z = c2.getBlockZ(); z <= c1.getBlockZ(); z++) 
+			for (int z = minZ; z <= maxZ; z++)
 			{
-				Block b = Dungeons.w.getBlockAt(x, 68, z);
-				if (b.getType() == Material.GRAY_CONCRETE) {
-					int rand = RandomUtils.getRandom(1, 5);
-					Material m = rand < 3 ? Material.PODZOL : (rand < 5 ? Material.BROWN_CONCRETE_POWDER : Material.BROWN_WOOL);
-					ground.fill(x, 69, z, m);
-					
-					for (int y = 70; y < 80; y++) Dungeons.w.getBlockAt(x, y, z).setType(Material.AIR);
-					
-					int randb = RandomUtils.getRandom(1, 200);
-					if (randb <= 60) continue;
-					else if (randb <= 184) {
-						Mineable.create(x, 70, z, Material.OAK_LEAVES, 110, "leaf_mush", 2);
+				for (int y = minY; y <= maxY; y++) {
+					Block b = Dungeons.w.getBlockAt(x, y, z);
+					if (b.getType() != Material.AIR) continue;
+
+					int randb = RandomUtils.getRandom(1, 201);
+					if (randb <= 50) {
+
 					}
-					else if (randb <= 199) {
-						Mineable.create(x, 70, z, Material.OAK_WOOD, 800, "woodchip", 1);
+					else if (randb <= 185) {
+						Mineable.create(x, y, z, Material.OAK_LEAVES, 110, "leaf_mush", 1);
 					}
-					else {
-						String[] r = RandomUtils.getChoice(rng).split("-");
-						int am = Integer.parseInt(r[1]);
-						Mineable.create(x, 70, z, Material.CHEST, 2200, r[0], am, false);
-						continue;
+					else if (randb <= 198) {
+						Mineable.create(x, y, z, Material.OAK_WOOD, 200, "leaf_mush", 2);
 					}
-					
-					
-					for (int y = 71; y < 78; y++) {
-						int leaf = RandomUtils.getRandom(1, 100);
-						if (leaf <= 25) continue;
-						else if (leaf <= 27) Mineable.create(x, 71, z, Material.OAK_WOOD, 800, "woodchip", 1);
-						else Mineable.create(x, y, z, Material.OAK_LEAVES, 110, "leaf_mush", 2);
-					}
-					
 				}
 				
 				
@@ -76,7 +68,7 @@ public class ForagingAreaWaterway extends AbstractArea
 	
 	public void onMine(GamePlayer miner, Location loc)
 	{
-		int rand = RandomUtils.getRandom(1, 300);
+		int rand = RandomUtils.getRandom(5, 300);
 		if (rand == 1) {
 			if (miner.getLevel() >= 9) EnemyManager.spawn("lurker_2", loc);
 			else EnemyManager.spawn("lurker_1", loc);

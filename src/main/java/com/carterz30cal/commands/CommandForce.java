@@ -1,5 +1,7 @@
 package com.carterz30cal.commands;
 
+import com.carterz30cal.entities.Shop;
+import com.carterz30cal.gui.ShopGUI;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -23,28 +25,32 @@ public class CommandForce implements CommandExecutor {
 		else
 		{
 			
-			switch (args[0])
-			{
-			case "togglerain":
-				AreaWaterway.instance.toggleRain();
-				break;
-			case "startseraphfight":
-				BossWaterwaySeraph.attemptStartFight();
-				break;
-			case "endseraphfight":
-				BossWaterwaySeraph.endFight();
-				break;
-			case "clearmyquests":
-				GamePlayer p = PlayerManager.players.get(((Player)sender).getUniqueId());
-				p.quests.clear();
-				p.completedQuests.clear();
-				p.completedQuests.add("player_joined");
-				for (Quest q : Quest.quests.values()) q.instance.refresh();
-				break;
-			case "gentest":
-				p = PlayerManager.players.get(((Player)sender).getUniqueId());
-				new TestDungeon(p);
-				break;
+			switch (args[0]) {
+
+				case "togglerain":
+					AreaWaterway.instance.toggleRain();
+					break;
+				case "startseraphfight":
+					BossWaterwaySeraph.attemptStartFight();
+					break;
+				case "endseraphfight":
+					BossWaterwaySeraph.endFight();
+					break;
+				case "clearmyquests":
+					GamePlayer p = PlayerManager.players.get(((Player) sender).getUniqueId());
+					p.quests.clear();
+					p.completedQuests.clear();
+					p.completedQuests.add("player_joined");
+					for (Quest q : Quest.quests.values()) q.instance.refresh();
+					break;
+				case "openshop":
+					p = PlayerManager.players.get(((Player) sender).getUniqueId());
+					p.openGui(new ShopGUI(p, Shop.shops.get(args[1])));
+					break;
+				case "gentest":
+					p = PlayerManager.players.get(((Player) sender).getUniqueId());
+					new TestDungeon(p);
+					break;
 			}
 		}
 		return true;

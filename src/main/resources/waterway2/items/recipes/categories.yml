@@ -39,6 +39,11 @@ waterway_armours_leather:
   icon: leather_chestplate
   parent: waterway_armours
 
+waterway_armours_paper:
+  name: Paper Armour
+  icon: paper_chestplate
+  parent: waterway_armours
+
 waterway_enchantments:
   name: Enchantments
   icon: EXPERIENCE_BOTTLE
