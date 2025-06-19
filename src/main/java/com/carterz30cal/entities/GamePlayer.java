@@ -99,6 +99,7 @@ public class GamePlayer extends GameEntity
 	public Map<String, Integer> quiver = new HashMap<>();
 	public Map<String, Integer> counters = new HashMap<>();
 	public Map<String, Integer> sack = new HashMap<>();
+	public Map<Integer, String> backpack = new HashMap<>();
 	
 	public List<GameEnemy> targeted = new ArrayList<>();
 	
@@ -130,7 +131,7 @@ public class GamePlayer extends GameEntity
 			{
 				if (player.getInventory().firstEmpty() == -1) {
 					if (!item.haveNotified) {
-						sendMessage("REDYour " + ItemFactory.getItemTypeName(item.item) + " GREENis done, but you don't have spare room in your inventory.");
+						sendMessage("REDYour " + ItemFactory.getItemTypeName(item.item) + " REDis done, but you don't have spare room in your inventory.");
 						item.haveNotified = true;
 					}
 				} else {
@@ -241,6 +242,11 @@ public class GamePlayer extends GameEntity
 		stats.executeOperations();
 		for (ItemAbility a : abilities) a.onPlayerStats(stats);
 		stats.executeOperations();
+
+		stats.scheduleOperation(Stat.BACKPACK_PAGES, StatOperationType.ADD, 1);
+		stats.scheduleOperation(Stat.BACKPACK_PAGES, StatOperationType.CAP_MIN, 1);
+
+
 		
 		String actionBar = "RED" + getHealth() + "\u2665";
 		if (stats.getStat(Stat.MANA) > 0) actionBar += " LIGHT_PURPLE" + getMana() + "\u2605";
@@ -593,6 +599,42 @@ public class GamePlayer extends GameEntity
 		if (item.time == 0) giveItem(item.produce(), false);
 		else forge.add(item);
 	}
+
+	public ItemStack getBackpackItem(int slot) {
+		String i = backpack.getOrDefault(slot, null);
+		if (i == null) return null;
+
+		String[] spl = i.split("£");
+		ItemStack item = ItemFactory.build(spl[0]);
+		if (item == null) return null;
+		else {
+			if (spl.length == 1) {
+			}
+			else if (spl.length == 2) {
+				item.setAmount(Integer.parseInt(spl[1]));
+			}
+			else {
+				item.setAmount(Integer.parseInt(spl[1]));
+				ItemFactory.setItemData(item, spl[2]);
+				ItemFactory.update(item, this);
+			}
+			return item;
+		}
+	}
+	public void setBackpackItem(int slot, ItemStack item) {
+		Item itemType = ItemFactory.getItem(item);
+		if (itemType == null) backpack.put(slot, null);
+		else {
+			String data = ItemFactory.getFlatItemData(item);
+			if (data == null || data.equals("")) {
+				backpack.put(slot, itemType.id + "£" + item.getAmount());
+			}
+			else {
+				backpack.put(slot, itemType.id + "£" + item.getAmount() + "£" + data);
+			}
+		}
+	}
+
 	
 	public boolean isForgeFull()
 	{

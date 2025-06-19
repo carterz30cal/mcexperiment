@@ -20,7 +20,7 @@ public class ListenerInventoryEvents implements Listener
 	public void onInventoryClick(InventoryClickEvent e)
 	{
 		GamePlayer p = (GamePlayer)GameEntity.get(e.getWhoClicked());
-		if (p != null && e.getSlot() == 8 && p.player.getGameMode() == GameMode.SURVIVAL
+		if (p != null && e.getSlot() == 8 && p.player.getGameMode() == GameMode.SURVIVAL && e.getClickedInventory() == p.player.getInventory()
 				) {
 			if (e.getClick() == ClickType.LEFT || e.getClick() == ClickType.RIGHT) p.openGui(new MenuGUI(p));
 			e.setCancelled(true);

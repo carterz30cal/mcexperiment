@@ -25,8 +25,9 @@ public class MenuGUI extends AbstractGUI
 	public final int QUIVER_POS = calc(5, 1);
 	public final int TALIS_POS = calc(6, 1);
 	public final int SACK_POS = calc(2, 1);
+	public final int BACKPACK_POS = calc(4, 2);
 	
-	public final int LINES = 5;
+	public final int LINES = 6;
 	
 	public MenuGUI(GamePlayer owner)
 	{
@@ -58,6 +59,8 @@ public class MenuGUI extends AbstractGUI
 		inventory.setSlot(GooeyInventory.produceElement("FURNACE", "AQUAThe Item Forge"), FORGE_POS);
 		inventory.setSlot(GooeyInventory.produceElement("EXPERIENCE_BOTTLE", "DARK_PURPLELevels"), LEVEL_POS);
 		inventory.setSlot(GooeyInventory.produceElement("HOPPER", "BLUEDiscoveries"), DISCOVERY_POS);
+
+		inventory.setSlot(GooeyInventory.produceElement("LEATHER", "AQUABackpack"), BACKPACK_POS);
 		
 		// quiver
 		int arrowCount = 0;
@@ -79,7 +82,7 @@ public class MenuGUI extends AbstractGUI
 		}
 		
 		for (int i = 0; i < 5; i++) {
-			int pos = calc(2 + i, 3);
+			int pos = calc(2 + i, 4);
 			
 			if (i >= owner.talismans.size()) inventory.setSlot(ItemFactory.buildCustom("RED_STAINED_GLASS_PANE", "REDEmpty Talisman Slot", "GRAYYou may place a talisman here!"), pos);
 			else {
@@ -102,6 +105,7 @@ public class MenuGUI extends AbstractGUI
 		else if (clickPos == DISCOVERY_POS) owner.openGui(new DiscoveryGUI(owner));
 		else if (clickPos == calc(4, 0) && owner.player.isOp()) owner.openGui(new AdminItemGUI(owner));
 		else if (clickPos == QUIVER_POS) owner.openGui(new QuiverGUI(owner));
+		else if (clickPos == BACKPACK_POS) owner.openGui(new BackpackGUI(owner));
 		//else if (clickPos == TALIS_POS) owner.openGui(new TalismanGUI(owner));
 		else if (owner.getLevel() > 1 && clickPos == SACK_POS) owner.openGui(new SackGUI(owner));
 		else if (clickPos >= LINES * 9) {
@@ -136,8 +140,8 @@ public class MenuGUI extends AbstractGUI
 			}
 			update();
 		}
-		else if (clickPos >= 29 && clickPos <= 34) {
-			int pos = clickPos - 29;
+		else if (clickPos >= calc(2, 4) && clickPos <= calc(6, 4)) {
+			int pos = clickPos - calc(2, 4);
 			
 			if (pos >= owner.talismans.size()) return false;
 			

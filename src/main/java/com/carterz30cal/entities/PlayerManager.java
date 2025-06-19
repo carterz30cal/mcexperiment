@@ -145,6 +145,16 @@ public class PlayerManager
 				p.sack.put(path, sack.getInt(path, 0));
 			}
 		}
+
+		ConfigurationSection backpack = c.getConfigurationSection("backpack");
+		if (backpack != null)
+		{
+			for (String path : backpack.getKeys(false))
+			{
+				p.backpack.put(Integer.parseInt(path), backpack.getString(path));
+			}
+		}
+
 		
 		
 		p.talismans = c.getStringList("talismans");
@@ -206,6 +216,13 @@ public class PlayerManager
 		{
 			c.set("sack." + arrow, p.sack.get(arrow));
 		}
+
+		c.set("backpack", null);
+		c.createSection("backpack");
+		for (Integer bp : p.backpack.keySet()) {
+			c.set("backpack." + bp, p.backpack.get(bp));
+		}
+
 		
 		c.set("quests", null);
 		c.createSection("quests");

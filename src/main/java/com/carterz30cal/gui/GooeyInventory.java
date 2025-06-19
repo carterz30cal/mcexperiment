@@ -60,7 +60,12 @@ public class GooeyInventory
 	{
 		return contents[slot];
 	}
-	
+
+	public void updateUsingContents() {
+		for (int i = 0; i < size; i++) {
+			contents[i] = underlying.getItem(i);
+		}
+	}
 	
 	public void update()
 	{
