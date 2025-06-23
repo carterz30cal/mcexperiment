@@ -15,6 +15,7 @@ import org.bukkit.GameMode;
 import org.bukkit.Location;
 import org.bukkit.Sound;
 import org.bukkit.block.Block;
+import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.entity.EntityRegainHealthEvent;
 import org.bukkit.event.entity.EntityRegainHealthEvent.RegainReason;
@@ -314,6 +315,7 @@ public class GamePlayer extends GameEntity
 		targeted.removeIf((e) -> e.dead || e.target != this);
 		for (GameEnemy nearby : EntityUtils.getNearbyEnemies(getLocation(), stats.getStat(Stat.VISIBILITY)))
 		{
+			if (nearby instanceof GameSummon) continue;
 			if (targeted.size() >= getMaxTargets() && !nearby.type.ignoreTargetLimit) continue;
 			
 			if (nearby.target == null && isTargetable(nearby))
@@ -508,8 +510,10 @@ public class GamePlayer extends GameEntity
 		//ActionBarAPI.sendActionBar(player, StringUtils.colourString(message));
 	}
 
+	@Override
 	public boolean isTargetable(GameEnemy by)
 	{
+		if (by instanceof GameSummon) return false;
 		double dist = by.getLocation().distance(getLocation());
 		double yDist = by.getLocation().getY() - getLocation().getY();
 		yDist = Math.abs(yDist);
@@ -517,7 +521,11 @@ public class GamePlayer extends GameEntity
 		if (player.getGameMode() == GameMode.CREATIVE) return false;
 		else return dist <= stats.getStat(Stat.VISIBILITY) && yDist <= 5;
 	}
-	
+
+	@Override
+	public LivingEntity getTargetable() {
+		return player;
+	}
 	
 	public int getMaxTargets()
 	{

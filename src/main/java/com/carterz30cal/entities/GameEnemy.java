@@ -14,6 +14,7 @@ import org.bukkit.Sound;
 import org.bukkit.entity.ArmorStand;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.LivingEntity;
+import org.bukkit.entity.Mob;
 import org.bukkit.event.player.PlayerTeleportEvent.TeleportCause;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.persistence.PersistentDataType;
@@ -45,7 +46,7 @@ public class GameEnemy extends GameEntity
 	protected ArmorStand displayHealth;
 	protected ArmorStand displayStatuses;
 	
-	public GamePlayer target;
+	public GameEntity target;
 	
 	public GamePlayer lastDamager;
 	public int timesHit;
@@ -215,12 +216,19 @@ public class GameEnemy extends GameEntity
 			e.getPersistentDataContainer().set(keyEnemy, PersistentDataType.STRING, uuid.toString());
 		}
 	}
+
+	protected String getName() {
+		String name = "RED" + type.onName(this);
+		if (type.level != 0) name = "WHITE[" + type.level + "] " + name;
+
+		return name;
+	}
 	
 	protected void tick()
 	{
 		if (!main.isValid()) destroy();
 		
-		if (displayName == null && lastDamager != null) {
+		if (displayName == null && (lastDamager != null || health < 0.99)) {
 			Location d = main.getLocation().add(0, main.getHeight() + 0.4, 0);
 
 			displayName = EntityUtils.spawnHologram(d, -1);
@@ -230,8 +238,7 @@ public class GameEnemy extends GameEntity
 			displayStatuses = EntityUtils.spawnHologram(d, -1);
 		}
 		if (displayName != null) {
-			String name = "RED" + type.onName(this);
-			if (type.level != 0) name = "WHITE[" + type.level + "] " + name;
+			String name = getName();
 			
 			String healthed = "RED" + getHealth() + "\u2665";
 			
@@ -265,15 +272,36 @@ public class GameEnemy extends GameEntity
 			displayStatuses.teleport(d, TeleportCause.PLUGIN);
 			displayStatuses.setCustomName(StringUtils.colourString(statusText));
 		}
-		
-		if (target != null && !target.isTargetable(this)) target = null;
-		
-		if (target == null)  {
-			type.onTarget(this, null);
-			EntityUtils.applyPotionEffect((LivingEntity)main, PotionEffectType.SLOWNESS, 19, 50, false);
+
+		if (target == null) {
+			target = findTarget();
+			if (target == null)  {
+				type.onTarget(this, null);
+				EntityUtils.applyPotionEffect((LivingEntity)main, PotionEffectType.SLOWNESS, 19, 50, false);
+			}
+			else ((Mob)getMain()).setTarget(target.getTargetable());
 		}
-		else type.onTarget(this, target);
+		else {
+			if (target.isTargetable(this)) target = null;
+			else if (target instanceof GamePlayer) {
+				type.onTarget(this, (GamePlayer)target);
+			}
+		}
 	}
+
+	@Override
+	public LivingEntity getTargetable() {
+		return (LivingEntity) getMain();
+	}
+
+	protected GameEntity findTarget() {
+		//GameEntity en;
+		List<GameEnemy> enemies = EntityUtils.getNearbyEnemies(getLocation(), 10);
+		enemies.removeIf((e) -> !(e instanceof GameSummon));
+		if (enemies.size() > 0) return enemies.get(0);
+		else return null;
+	}
+
 	
 	public void setLocation(Location l)
 	{
@@ -281,7 +309,7 @@ public class GameEnemy extends GameEntity
 	}
 	
 	
-	public final void doTick()
+	public void doTick()
 	{
 		type.onTick(this);
 		tick();
@@ -372,13 +400,15 @@ public class GameEnemy extends GameEntity
 			}
 			else timesHit++;
 			
-			EntityUtils.applyKnockback(lastDamager, this, info.type.knockbackModifier);
-			
-			if (target == null)
-			{
-				target = info.attacker;
-				info.attacker.targeted.add(this);
+			if (!info.indirect) {
+				EntityUtils.applyKnockback(lastDamager, this, info.type.knockbackModifier);
+
+				if (target == null) {
+					target = info.attacker;
+					info.attacker.targeted.add(this);
+				}
 			}
+
 		}
 		
 		DamageInfo modified = new DamageInfo();

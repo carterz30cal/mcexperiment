@@ -140,6 +140,8 @@ lunatic_5:
   display-height: 1.8
   blood-colour: 250,0,50
   speed: 0.8
+  resistances:
+    BLEED: 65
   armour:
     PHYSICAL: 0
     PROJECTILE: 10

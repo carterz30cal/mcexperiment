@@ -12,7 +12,17 @@ enchanted_book-HEALTHY:
   custom-name: GREENHealthy DARK_GRAY[Enchantment]
   enchants: ENCHANT_HEALTHY-1
   level: 5
-  time: 30m
+  time: 20m
+  category: waterway_enchantments
+  items:
+    paper: 3
+    waterway_sac: 1
+
+enchanted_book-PEARLED:
+  custom-name: LIGHT_PURPLEPearled DARK_GRAY[Enchantment]
+  enchants: ENCHANT_PEARLED-1
+  level: 5
+  time: 20m
   category: waterway_enchantments
   items:
     paper: 3

@@ -7,6 +7,7 @@ import java.util.UUID;
 import org.bukkit.Color;
 import org.bukkit.Location;
 import org.bukkit.entity.Entity;
+import org.bukkit.entity.LivingEntity;
 import org.bukkit.persistence.PersistentDataType;
 
 public abstract class GameEntity
@@ -61,5 +62,13 @@ public abstract class GameEntity
 		
 		UUID uuid = UUID.fromString(e.getPersistentDataContainer().get(GameEnemy.keyEnemy, PersistentDataType.STRING));
 		return entities.get(uuid);
+	}
+
+    public boolean isTargetable(GameEnemy gameEnemy) {
+		return true;
+    }
+
+	public LivingEntity getTargetable() {
+		return null;
 	}
 }

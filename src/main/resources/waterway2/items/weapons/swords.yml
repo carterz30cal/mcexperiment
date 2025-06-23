@@ -117,3 +117,34 @@ piranha_dagger_very_rare:
     savagery: +20
     enchant_power: +6
 
+# EPIC WEAPONS, EITHER FULFIL A NICHE OR SOMETHING ELSE
+
+necromancy_sword:
+  name: Sword of Undeath
+  type: WEAPON
+  rarity: EPIC
+  material: NETHERITE_SWORD
+  abilities:
+    - NECROMANCY_SWORD
+  stats:
+    damage: +16
+    mana: +100
+    focus: +2
+    visibility: +5
+    enchant_power: +20
+    level_requirement: 6
+
+healing_wand_waterway:
+  name: Healing Stick
+  type: WEAPON
+  rarity: EPIC
+  material: BREEZE_ROD
+  abilities:
+    - HEALING_WAND_SELF
+  stats:
+    damage: +10
+    mana: +10
+    focus: +1
+    enchant_power: +10
+    level_requirement: 6
+

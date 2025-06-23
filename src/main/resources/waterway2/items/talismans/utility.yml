@@ -20,6 +20,7 @@ titans_talisman:
   type: TALISMAN
   rarity: RARE
   material: IRON_BLOCK
+  value: 1000
   tags:
     - TITANS_TALISMAN
   stats:

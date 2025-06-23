@@ -23,7 +23,7 @@ public class Pearled extends ItemEnchant {
 	@Override
 	public int getMaximumLevel() {
 		// TODO Auto-generated method stub
-		return 10;
+		return 5;
 	}
 
 	@Override
@@ -36,8 +36,8 @@ public class Pearled extends ItemEnchant {
 	public List<ItemReq> getCatalystRequirements(int level)
 	{
 		List<ItemReq> reqs = new ArrayList<>();
-		reqs.add(new ItemReq("combination_catalyst_shard", level, level * 5));
-		reqs.add(new ItemReq("water_pearl", 1, 0));
+		reqs.add(new ItemReq("combination_catalyst_shard", level, 0));
+		//reqs.add(new ItemReq("water_pearl", 1, 0));
 		return reqs;
 	}
 
@@ -63,14 +63,14 @@ public class Pearled extends ItemEnchant {
 	public List<String> description()
 	{
 		List<String> l = new ArrayList<>();
-		l.add("GRAYGain " + display(Stat.MANA, level * 2) + "GRAY.");
+		l.add("GRAYGain " + display(Stat.MANA, level * 5) + "GRAY.");
 		return l;
 	}
 	
 	@Override
 	public void onItemStats(StatContainer item)
 	{
-		item.scheduleOperation(Stat.MANA, StatOperationType.ADD, level * 2);
+		item.scheduleOperation(Stat.MANA, StatOperationType.ADD, level * 5);
 	}
 
 }

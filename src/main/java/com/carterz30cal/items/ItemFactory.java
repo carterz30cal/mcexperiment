@@ -464,6 +464,16 @@ public class ItemFactory
 			{
 				lore.add(enchant.name());
 				for (String d : enchant.description()) lore.add(" " + d);
+				if (item.type == ItemType.ENCHANTMENT) {
+					StringBuilder appl = new StringBuilder();
+					appl.append("DARK_GRAY Used with: ");
+					for (ItemType ty : enchant.getAppliableTypes()) {
+						appl.append(ty.toString());
+						if (appl.charAt(appl.length() - 1) != 's') appl.append("s");
+						appl.append(", ");
+					}
+					lore.add(appl.substring(0, appl.length() - 2));
+				}
 				//lore.addAll(enchant.description());
 			}
 		}

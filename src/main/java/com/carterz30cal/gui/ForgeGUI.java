@@ -246,7 +246,7 @@ public class ForgeGUI extends AbstractGUI
 	
 	public boolean allowClick(int clickPos, ItemStack clicked)
 	{
-		if (clickPos >= 54) return true;
+		if (clickPos >= 54) return false;
 		
 		if (clickPos == calc(3, 5) && category != ItemFactory.baseCategory) moveTo(category.parent);
 		else if (clickPos == calc(1, 5) && page > 1) 

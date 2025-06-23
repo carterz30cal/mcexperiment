@@ -7,28 +7,19 @@ import com.carterz30cal.items.abilities.*;
 import com.carterz30cal.items.abilities.talismans.TalismanFishCharm;
 import com.carterz30cal.items.abilities.talismans.TalismanHydra;
 import com.carterz30cal.items.abilities2.waterway.LeafArmourSet;
+import com.carterz30cal.items.abilities2.waterway.NecromancerAbility;
 import com.carterz30cal.items.enchants.*;
 
 public enum Abilities
 {
 	ENCHANT_SHARPNESS(Sharpness.class),
-	ENCHANT_SHOCKED(Shocked.class),
-	ENCHANT_ELECTRICHEALTH(ElectricHealth.class),
 	ENCHANT_PEARLED(Pearled.class),
 	ENCHANT_TITANIC(Titanic.class),
-	ENCHANT_STEALTH(Stealth.class),
-	ENCHANT_LURE(Lure.class),
-	ENCHANT_SHARKING(Sharking.class),
-	ENCHANT_BLADE(Blade.class),
-	ENCHANT_FIREASPECT(FireAspect.class),
-	ENCHANT_CORRUPTMIGHT(CorruptMight.class),
-	ENCHANT_SNOWSTORM(Snowstorm.class),
-	ENCHANT_SCYTHELIKE(Scythelike.class),
 	ENCHANT_HEALTHY(Healthy.class),
-	ENCHANT_FLOWING(Flowing.class),
-	ENCHANT_DEATHPOKE(DeathPoke.class),
 	
 	SET_LEAF(LeafArmourSet.class),
+	NECROMANCY_SWORD(NecromancerAbility.class),
+	HEALING_WAND_SELF(AbilityWandVitality.class);
 	;
 	private Class<? extends ItemAbility> abClass;
 	

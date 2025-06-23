@@ -72,3 +72,21 @@ piranha_dagger_very_rare:
     piranha_dagger_rare: 1
     chilli_powder: 12
     waterway_sac: 1
+
+healing_wand_waterway:
+  level: 6
+  category: waterway_weapons
+  coins: 2000
+  items:
+    waterway_sac: 3
+    spider_silk: 20
+    leaf_mush: 512
+
+necromancy_sword:
+  level: 6
+  category: waterway_weapons
+  items:
+    waterway_sac: 3
+    chilli_powder: 16
+    spiced_meat: 16
+    paper: 8

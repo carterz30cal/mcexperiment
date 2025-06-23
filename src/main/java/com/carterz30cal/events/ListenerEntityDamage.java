@@ -3,6 +3,7 @@ package com.carterz30cal.events;
 import java.util.List;
 import java.util.ArrayList;
 
+import com.carterz30cal.entities.*;
 import org.bukkit.Location;
 import org.bukkit.Particle;
 import org.bukkit.Sound;
@@ -31,11 +32,6 @@ import org.bukkit.persistence.PersistentDataType;
 import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.util.Vector;
 
-import com.carterz30cal.entities.DamageInfo;
-import com.carterz30cal.entities.DamageType;
-import com.carterz30cal.entities.GameEnemy;
-import com.carterz30cal.entities.GameEntity;
-import com.carterz30cal.entities.GamePlayer;
 import com.carterz30cal.entities.damage.StatusEffect;
 import com.carterz30cal.entities.enemies.EnemyTypeDamageCapped;
 import com.carterz30cal.items.Item;
@@ -185,6 +181,19 @@ public class ListenerEntityDamage implements Listener
 			}.runTaskTimer(Dungeons.instance, 0, 3);
 			
 			
+		}
+		else if (damager instanceof GameSummon) {
+			if (damaged instanceof GamePlayer) {
+				e.setCancelled(true);
+			} else {
+				GameEnemy enemy = (GameEnemy)damager;
+				e.setDamage(0);
+
+				DamageInfo info = enemy.getAttack();
+				info.attacker = ((GameSummon)damager).getOwner();
+				info.indirect = true;
+				damaged.damage(info);
+			}
 		}
 		else if (damager instanceof GameEnemy)
 		{

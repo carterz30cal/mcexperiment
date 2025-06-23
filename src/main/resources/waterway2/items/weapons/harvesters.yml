@@ -4,5 +4,15 @@ basic_harvester:
   rarity: COMMON
   material: IRON_HOE
   stats:
-    mining_speed: +20
-    enchant_power: 10
+    mining_speed: +30
+    enchant_power: +10
+
+better_harvester:
+  name: Better Harvester
+  type: TOOL
+  rarity: RARE
+  material: IRON_HOE
+  stats:
+    mining_speed: +50
+    enchant_power: +10
+    level_requirement: 6

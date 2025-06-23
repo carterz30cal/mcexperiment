@@ -35,6 +35,6 @@ eye_of_spider:
   material: SPIDER_EYE
   attuner-icon: DARK_PURPLE#
   stats:
-    power: +3
+    mana: +6
     strength: +1
     might: +1
