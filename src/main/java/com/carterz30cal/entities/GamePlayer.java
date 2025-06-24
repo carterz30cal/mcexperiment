@@ -49,6 +49,7 @@ import com.carterz30cal.utils.EntityUtils;
 import com.carterz30cal.utils.LevelUtils;
 import com.carterz30cal.utils.ScoreboardWrapper;
 import com.carterz30cal.utils.StringUtils;
+import org.jetbrains.annotations.NotNull;
 
 //import de.ancash.actionbar.ActionBarAPI;
 
@@ -825,21 +826,25 @@ public class GamePlayer extends GameEntity
 	}
 
 	
+	@SuppressWarnings("ReassignedVariable")
 	public void damage(int damage)
 	{
-		for (ItemAbility a : abilities) damage = a.onDamaged(this.lastDamager, damage);
+		int modifiedDamage = (int)Math.max(Math.round(damage * (100D / (100 + stats.getStat(Stat.DEFENCE)))), 0);
+		for (ItemAbility a : abilities) modifiedDamage = a.onDamaged(this.lastDamager, modifiedDamage);
 		
 		
-		takeHealth(damage);
+		takeHealth(modifiedDamage);
 		player.damage(1);
 	}
 	
 	@Override
-	public void damage(DamageInfo info)
+	@SuppressWarnings("ReassignedVariable")
+	public void damage(@NotNull DamageInfo info)
 	{
-		for (ItemAbility a : abilities) info.damage = a.onDamaged(this.lastDamager, info.damage);
-		
-		takeHealth(info.damage);
+		int modifiedDamage = (int)Math.max(Math.round(info.damage * (100D / (100 + stats.getStat(Stat.DEFENCE)))), 0);
+		for (ItemAbility a : abilities) modifiedDamage = a.onDamaged(this.lastDamager, modifiedDamage);
+
+		takeHealth(modifiedDamage);
 		player.damage(1);
 	}
 	
