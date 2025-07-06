@@ -1,6 +1,7 @@
 package com.carterz30cal.events;
 
 import com.carterz30cal.entities.Shop;
+import com.carterz30cal.gui.LootboxGUI;
 import com.carterz30cal.gui.ShopGUI;
 import com.carterz30cal.items.*;
 import org.bukkit.GameMode;
@@ -43,10 +44,9 @@ public class ListenerPlayerInteract implements Listener {
 			{
 				if (item != null && item instanceof ItemLootbox && e.getItem().getAmount() > 0) {
 					ItemLootbox lootbox = (ItemLootbox)item;
-					for (ItemStack s : lootbox.table.generate(p)) {
-						p.giveItem(s, true);
-						p.sendMessage("+ " + s.getAmount() + "x " + s.getItemMeta().getDisplayName());
-					}
+
+					p.openGui(new LootboxGUI(p, lootbox));
+
 					e.setCancelled(true);
 					e.getItem().setAmount(e.getItem().getAmount() - 1);
 				}

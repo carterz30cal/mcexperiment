@@ -2,12 +2,11 @@ spiced_meat:
   level: 1
   category: waterway_ingredients
   items:
-    weird_flesh: 24
+    weird_flesh: 32
     chilli_powder: 1
 
 paper:
   level: 2
   category: waterway_ingredients
   items:
-    wet_paper: 128
-    chilli_powder: 1
+    wet_paper: 150

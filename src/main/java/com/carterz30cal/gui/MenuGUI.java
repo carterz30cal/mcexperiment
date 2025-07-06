@@ -47,7 +47,7 @@ public class MenuGUI extends AbstractGUI
 		statDisplay += "DARK_GRAY" + owner.xp + "/" + LevelUtils.getXpForLevel(owner.getLevel() + 1) + ";";
 		for (Stat stat : owner.stats.getStats())
 		{
-			if (stat.display == StatDisplayType.NO_DISPLAY) continue;
+			if (stat.display == StatDisplayType.NO_DISPLAY || stat.display == StatDisplayType.NO_DISPLAY_IN_PLAYER_STATS) continue;
 			statDisplay += ";" + stat.colour + stat.name + ": WHITE" + owner.stats.getDisplayed(stat);
 		}
 		if (owner.player.isOp()) statDisplay += ";;YELLOWClick to open the secret admin menu!";

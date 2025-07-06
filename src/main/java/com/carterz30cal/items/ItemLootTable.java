@@ -28,7 +28,7 @@ public class ItemLootTable
 			if (l.rollDrop())
 			{
 				ItemStack it = l.generate();
-				if (l.rarity != ItemDropRarity.NORMAL) player.sendMessage(l.rarity.messagePrefix + " " + it.getItemMeta().getDisplayName());
+				if (l.announcementRarity != ItemRarity.COMMON) player.sendMessage(l.announcementRarity.colour + "BOLD" + l.announcementRarity.name.toUpperCase() + " DROP! " + it.getItemMeta().getDisplayName());
 				
 				drops.add(it);
 			}
@@ -36,6 +36,20 @@ public class ItemLootTable
 		
 		return drops;
 	}
+
+	public List<ContextualDrop> generateWithContexts(GamePlayer player) {
+		List<ContextualDrop> drops = new ArrayList<>();
+		for (ItemLoot l : loot)
+		{
+			if (l.rollDrop())
+			{
+				drops.add(new ContextualDrop(l));
+			}
+		}
+
+		return drops;
+	}
+
 	
 	public void addDrop(String item, int[] amount, int[] chance)
 	{
@@ -44,14 +58,24 @@ public class ItemLootTable
 		drop.amount = amount;
 		drop.chance = chance;
 		
-		double percent = ((double)(chance[0]) / chance[1]) * 100;
-		for (int r = ItemDropRarity.values().length - 1; r >= 0; r--)
+		//double percent = ((double)(chance[0]) / chance[1]) * 100;
+		double oddsIn = (double) chance[1] / chance[0];
+		for (int r = ItemRarity.values().length - 1; r >= 0; r--)
 		{
-			ItemDropRarity rarity = ItemDropRarity.values()[r];
-			if (rarity.defaultRarity == -1) continue;
-			if (rarity.defaultRarity >= percent)
+			ItemRarity rarity = ItemRarity.values()[r];
+			if (rarity.lootboxOdds == -1) continue;
+			if (rarity.lootboxOdds <= oddsIn)
 			{
 				drop.rarity = rarity;
+				break;
+			}
+		}
+		for (int r = ItemRarity.values().length - 1; r >= 0; r--)
+		{
+			ItemRarity rarity = ItemRarity.values()[r];
+			if (rarity.lootOdds == -1) continue;
+			if (rarity.lootOdds <= oddsIn) {
+				drop.announcementRarity = rarity;
 				break;
 			}
 		}
@@ -66,14 +90,24 @@ public class ItemLootTable
 		drop.chance = chance;
 		drop.enchant = enchants;
 		
-		double percent = ((double)(chance[0]) / chance[1]) * 100;
-		for (int r = ItemDropRarity.values().length - 1; r >= 0; r--)
+		//double percent = ((double)(chance[0]) / chance[1]) * 100;
+		double oddsIn = (double) chance[1] / chance[0];
+		for (int r = ItemRarity.values().length - 1; r >= 0; r--)
 		{
-			ItemDropRarity rarity = ItemDropRarity.values()[r];
-			if (rarity.defaultRarity == -1) continue;
-			if (rarity.defaultRarity >= percent)
+			ItemRarity rarity = ItemRarity.values()[r];
+			if (rarity.lootboxOdds == -1) continue;
+			if (rarity.lootboxOdds <= oddsIn)
 			{
 				drop.rarity = rarity;
+				break;
+			}
+		}
+		for (int r = ItemRarity.values().length - 1; r >= 0; r--)
+		{
+			ItemRarity rarity = ItemRarity.values()[r];
+			if (rarity.lootOdds == -1) continue;
+			if (rarity.lootOdds <= oddsIn) {
+				drop.announcementRarity = rarity;
 				break;
 			}
 		}
@@ -99,13 +133,32 @@ public class ItemLootTable
 			}
 		}
 	}
+
+	public class ContextualDrop {
+		private ItemStack itemStack;
+		private ItemRarity rarity;
+
+		public ItemStack getItemStack() {
+			return itemStack.clone();
+		}
+		public ItemRarity getItemRarity() {
+			return rarity;
+		}
+
+		protected ContextualDrop(ItemLoot loot) {
+			itemStack = loot.generate();
+			rarity = loot.rarity;
+		}
+	}
+
 	
-	private class ItemLoot
+	private static class ItemLoot
 	{
 		public String item;
 		public int[] amount;
 		public int[] chance;
-		public ItemDropRarity rarity;
+		public ItemRarity rarity;
+		public ItemRarity announcementRarity;
 		public String enchant;
 		
 		public boolean rollDrop()

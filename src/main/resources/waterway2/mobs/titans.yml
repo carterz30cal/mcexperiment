@@ -1,24 +1,39 @@
 titan_1:
   name: LIGHT_PURPLEBOLDTitan
-  type: SIMPLE
+  type: TITAN
   coin-multiplier: 3
   entity-type: HUSK
   ignore-target-limit: true
-  level: 8
-  health: 2600
-  knockback: 50
-  damage: 100
+  level: 20
+  health: 3000
+  knockback: 40
+  damage: 75
   damage-type: PHYSICAL
   display-height: 2.1
   blood-colour: 250,0,50
+  damage-cap-percentage: 4
+  overkill-reward: 5
+  titan-fight:
+    explosion-radius: 5
+    explosion-damage: 325
+    explosion-cooldown: 300
+    slash-damage: 70
+    slash-cooldown: 45
+    slash-time: 17
+    beam-damage: 110
+    beam-min-range: 9
+    beam-cooldown: 30
+    rain-damage: 40
+    rain-min-range: 5
+    rain-max-range: 12
   resistances:
     BLEED: 100
   armour:
     PHYSICAL: 0
-    PROJECTILE: 800
+    PROJECTILE: 500
     MAGICAL: 0
     HOLY: 0
-    BLEED: -25
+    BLEED: -35
     FIRE: 0
     WITHER: 0
   equipment:
@@ -35,6 +50,6 @@ titan_1:
     titan_lootbox_1:
       amount: 1/1
     wet_paper:
-      amount: 8/64
+      amount: 5/20
     chilli_powder:
       amount: 1/2

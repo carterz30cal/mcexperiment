@@ -5,7 +5,7 @@ titan_lootbox_1:
   rarity: RARE
   drops:
     wet_paper:
-      amount: 64/600
+      amount: 20/75
     paper_arrow:
       amount: 25/150
       chance: 1/2
@@ -13,21 +13,22 @@ titan_lootbox_1:
       amount: 2/5
       chance: 1/2
     paper:
-      amount: 1/5
-      chance: 1/4
-    spiced_meat:
-      amount: 1/1
-      chance: 1/4
-    combination_catalyst_shard:
+      amount: 1/4
       chance: 1/5
-      amount: 1/2
+    spiced_meat:
+      amount: 2/4
+      chance: 1/5
+
     weird_flesh:
       chance: 1/8
-      amount: 100/400
+      amount: 80/300
     enchanted_book-SHARPNESS1:
       chance: 1/10
       amount: 1/1
       enchants: ENCHANT_SHARPNESS-1
+    combination_catalyst_shard:
+      chance: 1/12
+      amount: 1/1
     enchanted_book-SHARPNESS2:
       chance: 1/20
       amount: 1/1
@@ -35,7 +36,17 @@ titan_lootbox_1:
     titans_talisman:
       chance: 1/25
       amount: 1/1
+    titan_blade:
+      chance: 1/35
+      amount: 1/1
     enchanted_book-TITANIC1:
-      chance: 1/100
+      chance: 1/80
       amount: 1/1
       enchants: ENCHANT_TITANIC-1
+    enchanted_book-TITANIC2:
+      chance: 1/170
+      amount: 1/1
+      enchants: ENCHANT_TITANIC-2
+    combination_catalyst_shard-ag:
+      chance: 1/300
+      amount: 8/12

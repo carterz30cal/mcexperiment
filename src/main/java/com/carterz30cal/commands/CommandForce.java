@@ -2,6 +2,7 @@ package com.carterz30cal.commands;
 
 import com.carterz30cal.entities.Shop;
 import com.carterz30cal.gui.ShopGUI;
+import com.carterz30cal.utils.LevelUtils;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -24,9 +25,12 @@ public class CommandForce implements CommandExecutor {
 		if (!sender.isOp()) sender.sendMessage(ChatColor.RED + "Insufficient permission!");
 		else
 		{
-			
+			GamePlayer p = PlayerManager.players.get(((Player) sender).getUniqueId());
 			switch (args[0]) {
-
+				case "calcxp":
+					int arg = Integer.parseInt(args[1]);
+					p.sendMessage(Long.toString(LevelUtils.getEnemyBaseXpReward(arg)));
+					break;
 				case "togglerain":
 					AreaWaterway.instance.toggleRain();
 					break;
@@ -37,7 +41,7 @@ public class CommandForce implements CommandExecutor {
 					BossWaterwaySeraph.endFight();
 					break;
 				case "clearmyquests":
-					GamePlayer p = PlayerManager.players.get(((Player) sender).getUniqueId());
+
 					p.quests.clear();
 					p.completedQuests.clear();
 					p.completedQuests.add("player_joined");

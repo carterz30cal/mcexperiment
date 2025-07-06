@@ -60,21 +60,21 @@ public class EnemyTypeTitanDrench extends EnemyTypeDamageCapped
 		super(m);
 		// TODO Auto-generated constructor stub
 		
-		explosionRadius = m.getInt("explosion-radius", 5);
-		explosionDamage = m.getInt("explosion-damage", 500);
-		explosionCooldown = m.getInt("explosion-cooldown", 300);
+		explosionRadius = m.getInt("titan-fight.explosion-radius", 5);
+		explosionDamage = m.getInt("titan-fight.explosion-damage", 500);
+		explosionCooldown = m.getInt("titan-fight.explosion-cooldown", 300);
 		
-		slashDamage = m.getInt("slash-damage", 40);
-		slashCooldown = m.getInt("slash-cooldown", 40);
-		slashTime = m.getInt("slash-time", 17);
+		slashDamage = m.getInt("titan-fight.slash-damage", 40);
+		slashCooldown = m.getInt("titan-fight.slash-cooldown", 40);
+		slashTime = m.getInt("titan-fight.slash-time", 17);
 		
-		beamDamage = m.getInt("beam-damage", 100);
-		beamMinRange = m.getInt("beam-min-range", 8);
-		beamCooldown = m.getInt("beam-cooldown", 30);
+		beamDamage = m.getInt("titan-fight.beam-damage", 100);
+		beamMinRange = m.getInt("titan-fight.beam-min-range", 8);
+		beamCooldown = m.getInt("titan-fight.beam-cooldown", 30);
 		
-		rainDamage = m.getInt("rain-damage", 20);
-		rainMinRange = m.getInt("rain-min-range", 5);
-		rainMaxRange = m.getInt("rain-max-range", 10);
+		rainDamage = m.getInt("titan-fight.rain-damage", 20);
+		rainMinRange = m.getInt("titan-fight.rain-min-range", 5);
+		rainMaxRange = m.getInt("titan-fight.rain-max-range", 10);
 	}
 
 	@Override
@@ -133,12 +133,12 @@ public class EnemyTypeTitanDrench extends EnemyTypeDamageCapped
 							p.damage(explosionDamage);
 						}
 						else if (dist <= explosionRadius + 1) {
-							ArmorStand holo = EntityUtils.spawnHologram(p.getLocation().add(0, 1.1, 0), 15);
+							ArmorStand holo = EntityUtils.spawnHologram(p.getLocation().add(0, 1.1, 0), 40);
 							EntityUtils.setEntityName(holo, "REDBOLDClose!");
 						}
 					}
 					
-					Dungeons.w.createExplosion(enemy.getLocation(), 5F, false, false, enemy.getMain());
+					Dungeons.w.createExplosion(enemy.getLocation(), 4F, false, false, enemy.getMain());
 					enemy.data.put("exploding", false);
 					warning.wipe();
 				}
@@ -289,7 +289,7 @@ public class EnemyTypeTitanDrench extends EnemyTypeDamageCapped
 					Location l2 = l1.clone().add(line.clone().multiply(0.7));
 					Location l3 = l1.clone().add(line.clone().multiply(1.1));
 					new BukkitRunnable() {
-						int time = 15;
+						int time = 25;
 
 						@Override
 						public void run() {

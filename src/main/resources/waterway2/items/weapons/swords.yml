@@ -103,7 +103,7 @@ spearfish_scythe_very_rare:
     damage: +15
     strength: +50
     vitality: +6
-    enchant_power: +10
+    enchant_power: +15
 
 piranha_dagger_very_rare:
   name: Piranha Dagger
@@ -115,7 +115,20 @@ piranha_dagger_very_rare:
   stats:
     damage: +12
     savagery: +20
-    enchant_power: +6
+    enchant_power: +15
+
+titan_blade:
+  name: Titan's Blade
+  type: WEAPON
+  rarity: VERY_RARE
+  material: STONE_SWORD
+  value: 500
+  stats:
+    damage: +20
+    defence: +50
+    enchant_power: +10
+    level_requirement: 4
+
 
 # EPIC WEAPONS, EITHER FULFIL A NICHE OR SOMETHING ELSE
 

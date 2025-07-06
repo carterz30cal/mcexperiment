@@ -56,7 +56,7 @@ lunatic_3:
   level: 3
   health: 60
   knockback: 95
-  damage: 40
+  damage: 30
   damage-type: PHYSICAL
   display-height: 1.8
   blood-colour: 250,0,50
@@ -95,7 +95,7 @@ lunatic_4:
   level: 4
   health: 100
   knockback: 90
-  damage: 50
+  damage: 40
   damage-type: PHYSICAL
   display-height: 1.8
   blood-colour: 250,0,50
@@ -135,7 +135,7 @@ lunatic_5:
   level: 5
   health: 220
   knockback: 80
-  damage: 60
+  damage: 50
   damage-type: PHYSICAL
   display-height: 1.8
   blood-colour: 250,0,50

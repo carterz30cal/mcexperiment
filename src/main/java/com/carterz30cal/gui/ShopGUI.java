@@ -35,7 +35,7 @@ public class ShopGUI extends AbstractGUI {
         int adji = (page - 1) * 7 * 4;
         for (int i = 0; i < 7*4 && i < adji + shop.items.size(); i++) {
             inventory.setSlot(generateShopItem(shop.items.get(adji + i)), calc((i % 7) + 1, (i / 7) + 1));
-            System.out.println((shop.items.get(adji + i)).item);
+            //System.out.println((shop.items.get(adji + i)).item);
 
             recipes[calc((i % 7) + 1, (i / 7) + 1)] = shop.items.get(adji + i);
         }

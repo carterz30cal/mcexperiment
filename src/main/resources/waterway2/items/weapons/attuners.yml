@@ -38,3 +38,13 @@ eye_of_spider:
     mana: +6
     strength: +1
     might: +1
+
+midas_stone:
+  name: Midas Stone
+  type: ATTUNER
+  rarity: LEGENDARY
+  material: GOLD_INGOT
+  attuner-icon: GOLD#
+  stats:
+    bonus_coins: 2
+    might: -2

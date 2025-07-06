@@ -16,6 +16,7 @@ chilli_powder:
   type: INGREDIENT
   rarity: UNCOMMON
   material: REDSTONE
+  value: 25
   description:
     - A delicate combination of chillis.
     - A favourite of high rank REDLunaticsGRAY.
@@ -79,7 +80,7 @@ waterway_sac:
   type: INGREDIENT
   rarity: EPIC
   material: GLOW_INK_SAC
-  value: 250
+  value: 350
   description:
     - Pulses sometimes, in an almost heart-like fashion.
     - Rarely dropped by REDFanaticsGRAY.

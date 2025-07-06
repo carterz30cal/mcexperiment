@@ -41,9 +41,12 @@ public class EnemyTypeDamageCapped extends EnemyTypeSimple
 		{
 			int oks = overkills.get(enemy).get(overkiller);
 			int rew = overkillReward * oks;
-			
-			overkiller.coins += rew;
-			overkiller.sendMessage("REDBOLDOverkill! GOLD+" + rew + " coins!", 2);
+
+			if (rew > 0) {
+				overkiller.coins += rew;
+				overkiller.sendMessage("REDBOLDOverkill! GOLD+" + rew + " coins!", 10);
+			}
+
 		}
 		
 		overkills.remove(enemy);

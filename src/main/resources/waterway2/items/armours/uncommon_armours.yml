@@ -50,7 +50,7 @@ armour-paper:
     health: -15, -25, -20, -10
     enchant_power: +8
 
-armour_chainmail_helmet:
+chainmail_helmet:
   name: Chainmail Helmet
   material: CHAINMAIL_HELMET
   type: HELMET
@@ -60,7 +60,7 @@ armour_chainmail_helmet:
     health: +5
     defence: +5
     enchant_power: +20
-armour_chainmail_chestplate:
+chainmail_chestplate:
   name: Chainmail Chestplate
   material: CHAINMAIL_CHESTPLATE
   type: CHESTPLATE
