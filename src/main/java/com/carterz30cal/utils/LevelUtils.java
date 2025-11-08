@@ -22,7 +22,7 @@ public class LevelUtils
 		 * b = 50
 		 * c = 0
 		 */
-		return (10 * (int)Math.pow(Math.max(0, level - 10), 3)) + (50 * (int)Math.pow(level, 2)) + (50 * level);
+		return Math.round(10D * Math.pow(Math.max(0, level - 10), 3) + (50D * Math.pow(level, 2)) + (50D * level));
 	}
 	
 	public static int getLevel(int experience)

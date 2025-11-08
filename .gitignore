@@ -1,5 +1,15 @@
 # minecraft server, not included on git because it's not necessary
-server/
+server/logs
+server/bundler
+server/banned-ips.json
+server/banned-players.json
+server/commands.yml
+server/*/playerdata
+server/world*/entities
+server/world*/advancements
+server/world*/stats
+server/world*/session.lock
+server/world*/uid.dat
 !server/start-server.bat
 
 
