@@ -314,17 +314,19 @@ public class ItemFactory
 		else stack = new ItemStack(item.material, amount);
 		
 		ItemMeta meta = stack.getItemMeta();
-		
-		if (item != null) 
-		{
-			meta.getPersistentDataContainer().set(kItem, PersistentDataType.STRING, item.id);
-			if (item.type != ItemType.INGREDIENT && item.type.use != ItemTypeUse.CONSUMABLE) meta.getPersistentDataContainer().set(kUUID, PersistentDataType.STRING, UUID.randomUUID().toString());
-			
-		}
-		meta.getPersistentDataContainer().set(kData, PersistentDataType.STRING, "");
-		meta.addItemFlags(ItemFlag.HIDE_ATTRIBUTES, ItemFlag.HIDE_DESTROYS, ItemFlag.HIDE_DYE, 
-				ItemFlag.HIDE_ENCHANTS, ItemFlag.HIDE_PLACED_ON, ItemFlag.HIDE_ADDITIONAL_TOOLTIP, ItemFlag.HIDE_UNBREAKABLE);
-		meta.setUnbreakable(true);
+
+        if (meta != null) {
+            if (item != null)
+            {
+                meta.getPersistentDataContainer().set(kItem, PersistentDataType.STRING, item.id);
+                if (item.type != ItemType.INGREDIENT && item.type.use != ItemTypeUse.CONSUMABLE) meta.getPersistentDataContainer().set(kUUID, PersistentDataType.STRING, UUID.randomUUID().toString());
+
+            }
+            meta.getPersistentDataContainer().set(kData, PersistentDataType.STRING, "");
+            meta.addItemFlags(ItemFlag.values());
+            meta.setUnbreakable(true);
+        }
+
 		stack.setItemMeta(meta);
 		if (item != null) update(stack, null);
 		
