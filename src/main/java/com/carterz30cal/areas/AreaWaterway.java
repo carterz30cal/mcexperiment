@@ -39,29 +39,33 @@ public class AreaWaterway extends AbstractArea
 		link = new SpawnerModeLink();
 		link.mode = 0;
 
-		EnemySpawner lunatic1_a = EnemySpawner.create(-42, 8, -46, 4, 66, this, link);
-		lunatic1_a.addType("lunatic_1", 0);
-		lunatic1_a.absMax = 3;
 
-		EnemySpawner lunatic2_a = EnemySpawner.create(-37, 21, -42, 24, 66, this, link);
-		lunatic2_a.addType("lunatic_2", 0);
 
-		EnemySpawner lunatic3_a = EnemySpawner.create(-78, 11, -87, 0, 66, this, link);
-		lunatic3_a.addType("lunatic_3", 0);
-		lunatic3_a.maxMult = 0.25;
+		EnemySpawner lunatic1_a = createSpawner(-35, -1, -52, 7, 66, "lunatic_1");
+		lunatic1_a.absMax = 6;
 
-		EnemySpawner spider1_a = EnemySpawner.create(-104, 38, -99, 31, 77, this, link);
-		spider1_a.addType("spider_1", 0);
-		spider1_a.addType("spider_1", 1);
-		spider1_a.absMax = 4;
+        EnemySpawner lunatic1_b = createSpawner(6, -28, 47, -45, 70, "lunatic_1");
+        lunatic1_b.maxMult = 0.8;
 
-		EnemySpawner lunatic4_a = EnemySpawner.create(-97, 41, -105, 33, 86, this, link);
-		lunatic4_a.addType("lunatic_4", 0);
-		lunatic4_a.maxMult = 0.3;
-
-		EnemySpawner lunatic5_a = EnemySpawner.create(-119, 6, -146, -16, 78, this, link);
-		lunatic5_a.addType("lunatic_5", 0);
-		lunatic5_a.maxMult = 0.08;
+//		EnemySpawner lunatic2_a = EnemySpawner.create(-37, 21, -42, 24, 66, this, link);
+//		lunatic2_a.addType("lunatic_2", 0);
+//
+//		EnemySpawner lunatic3_a = EnemySpawner.create(-78, 11, -87, 0, 66, this, link);
+//		lunatic3_a.addType("lunatic_3", 0);
+//		lunatic3_a.maxMult = 0.25;
+//
+//		EnemySpawner spider1_a = EnemySpawner.create(-104, 38, -99, 31, 77, this, link);
+//		spider1_a.addType("spider_1", 0);
+//		spider1_a.addType("spider_1", 1);
+//		spider1_a.absMax = 4;
+//
+//		EnemySpawner lunatic4_a = EnemySpawner.create(-97, 41, -105, 33, 86, this, link);
+//		lunatic4_a.addType("lunatic_4", 0);
+//		lunatic4_a.maxMult = 0.3;
+//
+//		EnemySpawner lunatic5_a = EnemySpawner.create(-119, 6, -146, -16, 78, this, link);
+//		lunatic5_a.addType("lunatic_5", 0);
+//		lunatic5_a.maxMult = 0.08;
 		/*
 		dripper1 = EnemySpawner.create(-211, 13, -216, -2, 67, this, link);
 		dripper1.addType("dripper_1", 0);
@@ -126,7 +130,14 @@ public class AreaWaterway extends AbstractArea
 		Dungeons.w.setStorm(false);
 	}
 	
-	
+	private EnemySpawner createSpawner(int x1, int z1, int x2, int z2, int y, String modeZeroEnemy) {
+        EnemySpawner es = EnemySpawner.create(x1, z1, x2, z2, y, this, link);
+        es.addType(modeZeroEnemy, 0, 100);
+        return es;
+    }
+
+
+
 	public static boolean attemptSpawnHydra(String type)
 	{
 		if (instance.hydra == null || instance.hydra.dead)

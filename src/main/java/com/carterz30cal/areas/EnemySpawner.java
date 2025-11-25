@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.carterz30cal.utils.Box;
 import org.bukkit.Location;
 import org.bukkit.scheduler.BukkitRunnable;
 
@@ -33,14 +34,23 @@ public class EnemySpawner extends BukkitRunnable
 	
 	
 	public SpawnerModeLink link;
+
+    private final Box bounds;
+    private final Box triggerBounds;
+
+    private int emptyTicks;
 	
 	public EnemySpawner(int x1, int z1, int x2, int z2, int y, AbstractArea area)
-	{
-		corner1 = new Location(Dungeons.w, x1, y, z1);
-		corner2 = new Location(Dungeons.w, x2, y, z2);
-		
-		max = Math.abs((x2 - x1) * (z2 - z1) / 10);
+    {
 		this.area = area;
+
+        bounds = new Box(x1, y, z1, x2, y, z2);
+        triggerBounds = bounds.Expand(2, 4, 2);
+
+        corner1 = bounds.GetLowerCornerAsLocation();
+        corner2 = bounds.GetUpperCornerAsLocation();
+
+        max = (int) Math.abs(bounds.GetHorizontalCrossSectionalArea() / 95D);
 		
 		runTaskTimer(Dungeons.instance, 200, 200);
 	}
@@ -81,29 +91,43 @@ public class EnemySpawner extends BukkitRunnable
 	
 	@Override
 	public void run() {
-		if (types.size() == 0) return;
+		if (types.isEmpty()) return;
 		
 		boolean nearby = false;
 		int numPlayers = 0;
 		for (GamePlayer player : PlayerManager.players.values())
 		{
-			if (player.getLocation().distance(corner1) > 30) continue;
+            if (!triggerBounds.IsWithin(player.getLocation())) continue;
 
 			numPlayers++;
 			nearby = true;
 			break;
 		}
-		if (!nearby) return;
-		
-		enemies.removeIf((e) -> e.dead);
-		int tempMax = (int)(max * Math.max(2, numPlayers) * maxMult);
-		if (absMax != -1) tempMax = Math.min(Math.max(1, tempMax), absMax);
-		while (enemies.size() < tempMax)
-		{
-			GameEnemy spawned = EnemyManager.spawn(RandomUtils.getChoice(types.get(link == null ? mode : link.mode)), RandomUtils.getRandomInside(corner1, corner2));
-			spawned.spawnedArea = area;
-			enemies.add(spawned);
-		}
+		if (nearby) {
+            enemies.removeIf((e) -> e.dead);
+
+            double logScaler = 5 * Math.log1p(numPlayers);
+
+            int tempMax = (int)(max * logScaler * maxMult);
+            if (absMax != -1) tempMax = Math.min(Math.max(1, tempMax), absMax);
+            while (enemies.size() < tempMax)
+            {
+                GameEnemy spawned = EnemyManager.spawn(RandomUtils.getChoice(types.get(link == null ? mode : link.mode)), RandomUtils.getRandomInside(corner1, corner2));
+                spawned.spawnedArea = area;
+                enemies.add(spawned);
+            }
+        }
+        else if (enemies.isEmpty()) return;
+        else if (emptyTicks >= 20 * 60) {
+            for (GameEnemy enemy : enemies) {
+                enemy.remove();
+            }
+            enemies.clear();
+            emptyTicks = 0;
+        }
+        else {
+            emptyTicks += 200;
+        }
 	}
 	
 }
