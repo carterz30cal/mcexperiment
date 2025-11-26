@@ -1,20 +1,19 @@
 package com.carterz30cal.areas;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
-import com.carterz30cal.utils.Box;
-import org.bukkit.Location;
-import org.bukkit.scheduler.BukkitRunnable;
-
 import com.carterz30cal.entities.EnemyManager;
 import com.carterz30cal.entities.GameEnemy;
 import com.carterz30cal.entities.GamePlayer;
 import com.carterz30cal.entities.PlayerManager;
 import com.carterz30cal.main.Dungeons;
+import com.carterz30cal.utils.Box;
 import com.carterz30cal.utils.RandomUtils;
+import org.bukkit.Location;
+import org.bukkit.scheduler.BukkitRunnable;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class EnemySpawner extends BukkitRunnable
 {
@@ -106,9 +105,9 @@ public class EnemySpawner extends BukkitRunnable
 		if (nearby) {
             enemies.removeIf((e) -> e.dead);
 
-            double logScaler = 5 * Math.log1p(numPlayers);
+            double logScaler = 2.5 * Math.log1p(numPlayers);
 
-            int tempMax = (int)(max * logScaler * maxMult);
+            int tempMax = (int) Math.round(max * logScaler * maxMult);
             if (absMax != -1) tempMax = Math.min(Math.max(1, tempMax), absMax);
             while (enemies.size() < tempMax)
             {

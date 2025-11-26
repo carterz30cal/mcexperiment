@@ -1,10 +1,9 @@
 package com.carterz30cal.areas;
 
-import org.bukkit.Location;
-
 import com.carterz30cal.entities.EnemyManager;
 import com.carterz30cal.entities.GameEnemy;
 import com.carterz30cal.main.Dungeons;
+import org.bukkit.Location;
 
 public class AreaWaterway extends AbstractArea 
 {
@@ -42,10 +41,20 @@ public class AreaWaterway extends AbstractArea
 
 
 		EnemySpawner lunatic1_a = createSpawner(-35, -1, -52, 7, 66, "lunatic_1");
-		lunatic1_a.absMax = 6;
+        lunatic1_a.maxMult = 1.5;
+        lunatic1_a.absMax = 8;
 
         EnemySpawner lunatic1_b = createSpawner(6, -28, 47, -45, 70, "lunatic_1");
-        lunatic1_b.maxMult = 0.8;
+        lunatic1_b.maxMult = 0.5;
+
+        EnemySpawner lunatic2_a = createSpawner(-46, 48, -56, 40, 65, "lunatic_2");
+        EnemySpawner lunatic2_b = createSpawner(-9, 56, 22, 92, 66, "lunatic_2");
+        lunatic2_b.maxMult = 0.6;
+        EnemySpawner lunatic2_c = createSpawner(-37, 76, -28, 90, 65, "lunatic_2");
+
+        EnemySpawner lunaticF_a = createSpawner(-71, 26, -61, 17, 77, "lunatic_fisherman_1");
+
+        EnemySpawner lunatic3_a = createSpawner(-86, 61, -97, 73, 69, "lunatic_3");
 
 //		EnemySpawner lunatic2_a = EnemySpawner.create(-37, 21, -42, 24, 66, this, link);
 //		lunatic2_a.addType("lunatic_2", 0);

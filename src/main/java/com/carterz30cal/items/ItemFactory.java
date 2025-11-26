@@ -45,6 +45,7 @@ public class ItemFactory
 	public static String[] files = {
 			"waterway2/items/ingredients", "waterway2/items/weapons/swords","waterway2/items/weapons/bows",
 			"waterway2/items/weapons/attuners","waterway2/items/weapons/harvesters",
+            "waterway2/items/fishing_rods/rods",
 			"waterway2/items/talismans/utility","waterway2/items/talismans/offensive",
 			"waterway2/items/lootboxes",
 			"waterway2/items/armours/uncommon_armours","waterway2/items/armours/rare_armours",

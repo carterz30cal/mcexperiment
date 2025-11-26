@@ -89,6 +89,48 @@ lunatic_3:
     water_boots:
       chance: 1/50
 
+lunatic_fisherman_1:
+  name: Lunatic Fisherman
+  type: SIMPLE
+  level: 4
+  health: 100
+  knockback: 60
+  damage: 20
+  damage-type: PHYSICAL
+  display-height: 1.8
+  blood-colour: 250,0,50
+  armour:
+    PHYSICAL: 0
+    PROJECTILE: 0
+    MAGICAL: 0
+    HOLY: 0
+    BLEED: -50
+    FIRE: 200
+    WITHER: 0
+  equipment:
+    HAND: WOODEN_SWORD
+    HEAD: water_helmet
+    CHEST: LEATHER_CHESTPLATE
+  tags:
+    - LUNATIC
+    - LUNATIC_HIGH_RANK
+  drops:
+    weird_flesh:
+      amount: 5/18
+    chilli_powder:
+      chance: 1/8
+      amount: 1/1
+    water_helmet:
+      chance: 1/50
+    water_chestplate:
+      chance: 1/50
+    water_leggings:
+      chance: 1/50
+    water_boots:
+      chance: 1/50
+    flimsy_fishing_rod:
+      chance: 1/75
+
 lunatic_4:
   name: Lunatic Warrior
   type: SIMPLE

@@ -1,0 +1,9 @@
+flimsy_fishing_rod:
+  name: Flimsy Fishing Rod
+  type: ROD
+  rarity: COMMON
+  value: 100
+  stats:
+    fishing_power: +10
+    enchant_power: 10
+    focus: +5
