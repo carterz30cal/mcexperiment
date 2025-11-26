@@ -1,14 +1,17 @@
 package com.carterz30cal.items;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Map.Entry;
-import java.util.UUID;
-
+import com.carterz30cal.entities.GamePlayer;
 import com.carterz30cal.entities.Shop;
+import com.carterz30cal.entities.damage.StatusEffect;
+import com.carterz30cal.entities.damage.StatusEffects;
+import com.carterz30cal.gui.GooeyInventory;
 import com.carterz30cal.items.sets.ItemSet;
+import com.carterz30cal.main.Dungeons;
+import com.carterz30cal.stats.Stat;
+import com.carterz30cal.stats.StatContainer;
+import com.carterz30cal.stats.StatDisplayType;
+import com.carterz30cal.utils.FileUtils;
+import com.carterz30cal.utils.StringUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.Color;
 import org.bukkit.Material;
@@ -23,16 +26,8 @@ import org.bukkit.inventory.meta.LeatherArmorMeta;
 import org.bukkit.inventory.meta.SkullMeta;
 import org.bukkit.persistence.PersistentDataType;
 
-import com.carterz30cal.entities.GamePlayer;
-import com.carterz30cal.entities.damage.StatusEffect;
-import com.carterz30cal.entities.damage.StatusEffects;
-import com.carterz30cal.gui.GooeyInventory;
-import com.carterz30cal.main.Dungeons;
-import com.carterz30cal.stats.Stat;
-import com.carterz30cal.stats.StatContainer;
-import com.carterz30cal.stats.StatDisplayType;
-import com.carterz30cal.utils.FileUtils;
-import com.carterz30cal.utils.StringUtils;
+import java.util.*;
+import java.util.Map.Entry;
 
 public class ItemFactory
 {
@@ -296,7 +291,9 @@ public class ItemFactory
 	{
 		return build(i, 1);
 	}
-	public static ItemStack build(String i, int amount)
+
+    @SuppressWarnings("UnstableApiUsage")
+    public static ItemStack build(String i, int amount)
 	{
 		Item item = items.get(i);
 		ItemStack stack;
@@ -324,6 +321,7 @@ public class ItemFactory
             }
             meta.getPersistentDataContainer().set(kData, PersistentDataType.STRING, "");
             meta.addItemFlags(ItemFlag.values());
+            meta.removeItemFlags(ItemFlag.HIDE_LORE);
             meta.setUnbreakable(true);
         }
 
