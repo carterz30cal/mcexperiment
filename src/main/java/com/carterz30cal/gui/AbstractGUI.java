@@ -24,6 +24,13 @@ public class AbstractGUI extends BukkitRunnable
 	{
 		return false;
 	}
+
+	public boolean allowLeftClick(int clickPos, ItemStack current) {
+		return allowClick(clickPos, current);
+	}
+	public boolean allowRightClick(int clickPos, ItemStack current) {
+		return allowClick(clickPos, current);
+	}
 	
 	public void onTick()
 	{

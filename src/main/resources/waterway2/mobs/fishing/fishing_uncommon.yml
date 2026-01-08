@@ -1,0 +1,134 @@
+drenched_UNCOMMON:
+  name: YELLOWDrenched
+  entity-type: DROWNED
+  has-director: true
+  type: FISH
+  fishing-brackets:
+    waterway: UNCOMMON
+  level: 4
+  health: 300
+  knockback: 125
+  damage: 40
+  damage-type: PHYSICAL
+  display-height: 1.8
+  blood-colour: 0,50,100
+  armour:
+    PHYSICAL: 0
+    PROJECTILE: 0
+    MAGICAL: 0
+    HOLY: 0
+    BLEED: -30
+    FIRE: 100
+    WITHER: 0
+  equipment:
+    HAND: COPPER_HOE
+    CHEST: IRON_CHESTPLATE
+    FEET: LEATHER_BOOTS
+  tags:
+    - FISHING
+    - FISHING_WATERWAY
+    - FISHING_UNCOMMON
+  drops:
+    waterway_cod:
+      amount: 3/6
+    meat_scraps:
+      chance: 1/300
+      amount: 2/2
+
+lunatic_fisherman_UNCOMMON:
+  name: YELLOWLunatic Fisherman
+  type: FISH
+  fishing-brackets:
+    waterway: UNCOMMON
+  level: 4
+  health: 145
+  knockback: 95
+  damage: 30
+  speed: 1.6
+  damage-type: PHYSICAL
+  display-height: 1.8
+  blood-colour: 250,0,50
+  armour:
+    PHYSICAL: 0
+    PROJECTILE: 75
+    MAGICAL: 0
+    HOLY: 0
+    BLEED: -50
+    FIRE: 200
+    WITHER: 0
+  equipment:
+    HAND: FISHING_ROD
+    HEAD: water_helmet
+    CHEST: LEATHER_CHESTPLATE
+    LEGS: LEATHER_LEGGINGS
+    FEET: LEATHER_BOOTS
+  tags:
+    - LUNATIC
+    - LUNATIC_HIGH_RANK
+    - FISHING
+    - FISHING_WATERWAY
+    - FISHING_UNCOMMON
+  drops:
+    weird_flesh:
+      amount: 5/26
+    waterway_cod:
+      amount: 3/4
+    water_helmet:
+      chance: 1/75
+    water_chestplate:
+      chance: 1/75
+    water_leggings:
+      chance: 1/75
+    water_boots:
+      chance: 1/75
+    flimsy_fishing_rod:
+      chance: 1/75
+    fishing_berries:
+      chance: 1/250
+
+sea_slug_UNCOMMON:
+  name: YELLOWSea Slug
+  type: FISH
+  entity-type: SILVERFISH
+  has-director: true
+  scale: 1.4
+  fishing-brackets:
+    waterway: UNCOMMON
+  level: 4
+  health: 120
+  knockback: 165
+  damage: 60
+  speed: 1.75
+  damage-type: PHYSICAL
+  display-height: 0.7
+  blood-colour: 250,0,50
+  armour:
+    PHYSICAL: 0
+    PROJECTILE: 75
+    MAGICAL: 0
+    HOLY: 0
+    BLEED: -50
+    FIRE: 200
+    WITHER: 0
+  equipment:
+    HAND: FISHING_ROD
+    HEAD: water_helmet
+    CHEST: LEATHER_CHESTPLATE
+    LEGS: LEATHER_LEGGINGS
+    FEET: LEATHER_BOOTS
+  tags:
+    - FISHING
+    - FISHING_WATERWAY
+    - FISHING_UNCOMMON
+  drops:
+    waterway_cod:
+      amount: 10/20
+    fishing_berries:
+      chance: 1/250
+    cooked_waterway_cod:
+      chance: 1/500
+    sea_slug_ooze:
+      chance: 1/666
+    enchanted_book:
+      chance: 1/750
+      enchants: ENCHANT_SUPERLURE-1

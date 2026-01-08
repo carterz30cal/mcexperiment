@@ -90,3 +90,13 @@ necromancy_sword:
     chilli_powder: 16
     spiced_meat: 16
     paper: 8
+
+zombie_sword:
+  level: 7
+  category: waterway_weapons
+  discovery: weird_flesh_collection
+  discovery-tier: 5
+  items:
+    waterway_sac: 16
+    spiced_meat: 64
+    chilli_powder: 30

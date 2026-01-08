@@ -148,7 +148,11 @@ public class StringUtils
 		return ticks;
 	}
 	
-	
+	public static String truncatedDouble2(double val) {
+		return ((int)val) + "." + ((int)(val * 100) % 100);
+	}
+
+
 	public static Location getLocationFromString(String s) {
 		String[] sp = s.split(",");
 		double x = Double.parseDouble(sp[0]);

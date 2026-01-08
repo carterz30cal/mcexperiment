@@ -1,0 +1,8 @@
+codpiece_leggings:
+  time: 1h30m
+  category: waterway_armours
+  discovery: waterway_cod_collection
+  discovery-tier: 4
+  items:
+    cooked_waterway_cod: 2
+    spiced_meat: 5

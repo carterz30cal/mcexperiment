@@ -1,0 +1,60 @@
+pet_drenched_common:
+  name: Drenched
+  type: PET
+  rarity: COMMON
+  material: PLAYER_HEAD
+  pet-line: drenched
+  active-ability: PET_DRENCHED_ACTIVE
+  value: 2000
+  abilities:
+    - PET_DRENCHED_PASSIVE
+  stats:
+    health: +10
+
+pet_drenched_uncommon:
+  name: Drenched
+  type: PET
+  rarity: UNCOMMON
+  material: PLAYER_HEAD
+  pet-line: drenched
+  active-ability: PET_DRENCHED_ACTIVE
+  abilities:
+    - PET_DRENCHED_PASSIVE
+  stats:
+    health: +10
+
+pet_drenched_rare:
+  name: Drenched
+  type: PET
+  rarity: RARE
+  material: PLAYER_HEAD
+  pet-line: drenched
+  active-ability: PET_DRENCHED_ACTIVE
+  abilities:
+    - PET_DRENCHED_PASSIVE
+  stats:
+    health: +10
+
+pet_drenched_very_rare:
+  name: Drenched
+  type: PET
+  rarity: VERY_RARE
+  material: PLAYER_HEAD
+  pet-line: drenched
+  active-ability: PET_DRENCHED_ACTIVE
+  abilities:
+    - PET_DRENCHED_PASSIVE
+  stats:
+    health: +10
+
+pet_drenched_epic:
+  name: Drenched
+  type: PET
+  rarity: EPIC
+  material: PLAYER_HEAD
+  pet-line: drenched
+  active-ability: PET_DRENCHED_ACTIVE
+  abilities:
+    - PET_DRENCHED_PASSIVE
+  stats:
+    health: +11

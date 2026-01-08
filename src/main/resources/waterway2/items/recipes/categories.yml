@@ -32,6 +32,17 @@ waterway_harvesters:
   icon: IRON_HOE
   parent: waterway
 
+waterway_fishing:
+  name: Fishing
+  icon: flimsy_fishing_rod
+  parent: waterway
+
+waterway_fishing_rods:
+  name: Fishing Rods
+  icon: flimsy_fishing_rod
+  parent: waterway_fishing
+
+
 waterway_ingredients:
   name: Ingredients
   icon: spiced_meat
@@ -52,6 +63,11 @@ waterway_armours_paper:
 waterway_armours_leaf:
   name: Leaf Armour
   icon: leaf_chestplate
+  parent: waterway_armours
+
+waterway_armours_zombie:
+  name: Zombie Armour
+  icon: zombie_chestplate
   parent: waterway_armours
 
 waterway_enchantments:

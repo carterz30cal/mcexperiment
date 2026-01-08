@@ -31,9 +31,11 @@ public class ListenerInventoryEvents implements Listener
 			e.setCancelled(true);
 			return;
 		}
-		if (p == null || p.gui == null || e.isCancelled() || e.getClick() == ClickType.DOUBLE_CLICK) return;
-		
-		e.setCancelled(!p.gui.allowClick(e.getRawSlot(), e.getCurrentItem()));
+		if (p.gui == null || e.isCancelled() || e.getClick() == ClickType.DOUBLE_CLICK) return;
+
+		if (e.isLeftClick()) e.setCancelled(!p.gui.allowLeftClick(e.getRawSlot(), e.getCurrentItem()));
+		else if (e.isRightClick()) e.setCancelled(!p.gui.allowRightClick(e.getRawSlot(), e.getCurrentItem()));
+		else e.setCancelled(!p.gui.allowClick(e.getRawSlot(), e.getCurrentItem()));
 	}
 	
 	@EventHandler

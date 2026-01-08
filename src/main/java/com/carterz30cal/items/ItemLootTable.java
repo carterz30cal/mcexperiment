@@ -3,6 +3,7 @@ package com.carterz30cal.items;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.carterz30cal.stats.Stat;
 import com.carterz30cal.utils.StringUtils;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.inventory.ItemStack;
@@ -25,7 +26,7 @@ public class ItemLootTable
 		List<ItemStack> drops = new ArrayList<>();
 		for (ItemLoot l : loot)
 		{
-			if (l.rollDrop())
+			if (l.rollDrop(player.stats.getStat(Stat.LUCK)))
 			{
 				ItemStack it = l.generate();
 				if (l.announcementRarity != ItemRarity.COMMON) player.sendMessage(l.announcementRarity.colour + "BOLD" + l.announcementRarity.name.toUpperCase() + " DROP! " + it.getItemMeta().getDisplayName());
@@ -41,7 +42,7 @@ public class ItemLootTable
 		List<ContextualDrop> drops = new ArrayList<>();
 		for (ItemLoot l : loot)
 		{
-			if (l.rollDrop())
+			if (l.rollDrop(player.stats.getStat(Stat.LUCK)))
 			{
 				drops.add(new ContextualDrop(l));
 			}
@@ -163,8 +164,12 @@ public class ItemLootTable
 		
 		public boolean rollDrop()
 		{
+			return rollDrop(0);
+		}
+		public boolean rollDrop(int luckStat)
+		{
 			int pick = RandomUtils.getRandom(1, chance[1]);
-			return pick <= chance[0];
+			return pick <= Math.round(chance[0] * ((100D + luckStat) / 100D));
 		}
 		
 		public ItemStack generate()

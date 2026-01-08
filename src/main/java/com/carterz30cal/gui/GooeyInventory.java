@@ -44,6 +44,15 @@ public class GooeyInventory
 				if (i % 9 == 0 || i % 9 == 8 || i / 9 == 0 || i / 9 == (size / 9) - 1) contents[i] = produceElement("WHITE_STAINED_GLASS_PANE", " ");
 				else contents[i] = null;
 			}
+			break;
+			case SHOPPY_DARK:
+				for (int i = 0; i < size; i++)
+				{
+					if (i % 9 == 0 || i % 9 == 8 || i / 9 == 0 || i / 9 == (size / 9) - 1) contents[i] = produceElement("BLACK_STAINED_GLASS_PANE", " ");
+					else contents[i] = null;
+				}
+				break;
+
 		case EMPTY:
 		default:
 			return;

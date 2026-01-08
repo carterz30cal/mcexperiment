@@ -1,0 +1,85 @@
+weird_flesh_collection:
+  name: Weird Flesh
+  display-item: weird_flesh
+  description:
+    - Soggy, mushy, bit smelly.
+    - What's not to like?
+  tier-descriptions:
+    - Novice
+    - Amateur
+    - Weirdo
+    - Lunatic Killer
+    - Lunatic Annihilator
+    - True Weirdo
+  tiers:
+    - 10
+    - 100
+    - 500
+    - 2500
+    - 10000
+    - 100000
+  xp-rewards:
+    - 10
+    - 200
+    - 500
+    - 1000
+    - 5000
+    - 25000
+
+waterway_cod_collection:
+  name: Waterway Cod
+  display-item: waterway_cod
+  description:
+    - Local delicacy. Cheap at fish markets.
+    - Sometimes mistaken for Necropolis Cod.
+  tier-descriptions:
+    - Never heard of it
+    - Novice Fisher
+    - Amateur Fisher
+    - Good Fisher
+    - EfFishenado
+    - Expert
+    - Master of Fish
+    - Fishing Champion
+    - Fishing Grandmaster
+  tiers:
+    - 5
+    - 50
+    - 250
+    - 1000
+    - 5000
+    - 10000
+    - 25000
+    - 100000
+    - 500000
+  xp-rewards:
+    - 10
+    - 25
+    - 50
+    - 75
+    - 100
+    - 500
+    - 1000
+    - 2000
+    - 5000
+
+meat_scraps_collection:
+  name: Meat Scraps
+  display-item: meat_scraps
+  description:
+    - Not very tasty.
+  tier-descriptions:
+    - Vegan
+    - Vegetarian
+    - Omnivore
+    - Carnivore
+  tiers:
+    - 5
+    - 50
+    - 250
+    - 1000
+  xp-rewards:
+    - 10
+    - 100
+    - 5000
+    - 15000

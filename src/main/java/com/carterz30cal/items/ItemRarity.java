@@ -14,8 +14,8 @@ public enum ItemRarity
 	MYSTERIOUS("Mysterious", ChatColor.DARK_AQUA),
 	UNOBTAINABLE("Unobtainable", ChatColor.DARK_RED),
 	TRASH("Trash", ChatColor.GRAY);
-	public String name;
-	public ChatColor colour;
+	public final String name;
+	public final ChatColor colour;
 	public int lootboxOdds = -1;
 	public int lootOdds = -1;
 	

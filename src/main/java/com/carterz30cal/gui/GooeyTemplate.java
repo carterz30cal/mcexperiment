@@ -5,5 +5,6 @@ public enum GooeyTemplate
 	EMPTY,
 	PANED,
 	PANED_DARK,
-	SHOPPY
+	SHOPPY,
+	SHOPPY_DARK
 }

@@ -1,0 +1,38 @@
+flimsy_fishing_rod:
+  level: 1
+  time: 1m
+  category: waterway_fishing_rods
+  items:
+    weird_flesh: 32
+
+reinforced_fishing_rod:
+  level: 2
+  time: 1s
+  category: waterway_fishing_rods
+  discovery: waterway_cod_collection
+  discovery-tier: 2
+  items:
+    flimsy_fishing_rod: 1
+    waterway_cod: 40
+
+better_fishing_rod:
+  level: 3
+  time: 1s
+  category: waterway_fishing_rods
+  discovery: waterway_cod_collection
+  discovery-tier: 3
+  items:
+    reinforced_fishing_rod: 1
+    cooked_waterway_cod: 1
+    chilli_powder: 2
+
+good_fishing_rod:
+  level: 4
+  time: 1s
+  category: waterway_fishing_rods
+  discovery: waterway_cod_collection
+  discovery-tier: 4
+  items:
+    better_fishing_rod: 1
+    cooked_waterway_cod: 2
+    waterway_sac: 2

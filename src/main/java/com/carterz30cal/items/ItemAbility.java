@@ -13,7 +13,7 @@ import com.carterz30cal.stats.StatDisplayType;
 
 public abstract class ItemAbility 
 {
-	public final GamePlayer owner;
+	public GamePlayer owner;
 	
 	public ItemAbility(GamePlayer owner)
 	{

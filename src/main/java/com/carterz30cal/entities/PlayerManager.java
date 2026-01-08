@@ -18,7 +18,6 @@ import org.bukkit.scheduler.BukkitRunnable;
 
 import com.carterz30cal.items.ForgingItem;
 import com.carterz30cal.main.Dungeons;
-import com.carterz30cal.quests.Quest;
 
 public class PlayerManager
 {
@@ -133,7 +132,7 @@ public class PlayerManager
 		{
 			for (String path : discoveries.getKeys(false))
 			{
-				p.discoveries.put(path, discoveries.getInt(path, 0));
+				p.discoveries.put(path, discoveries.getLong(path, 0));
 			}
 		}
 		
@@ -155,26 +154,14 @@ public class PlayerManager
 			}
 		}
 
+		p.activePet = c.getString("active-pet");
+		p.pets = c.getStringList("pets");
 		
 		
 		p.talismans = c.getStringList("talismans");
-		if (p.talismans == null) p.talismans = new ArrayList<>();
-		
-		p.completedQuests = c.getStringList("quests.completed");
-		if (p.completedQuests == null) {
-			p.completedQuests = new ArrayList<>();
-			p.completedQuests.add("player_joined");
-		}
-		
-		ConfigurationSection questing = c.getConfigurationSection("quests.in-progress");
-		if (questing != null)
-		{
-			for (String path : questing.getKeys(false))
-			{
-				Quest q = Quest.ids.get(path);
-				p.quests.put(q.id, q.questType.generate(p, q, questing.getString(path)));
-			}
-		}
+
+        p.completedQuests = c.getStringList("quests.completed");
+
 		
 	}
 	
@@ -223,15 +210,14 @@ public class PlayerManager
 			c.set("backpack." + bp, p.backpack.get(bp));
 		}
 
+		c.set("active-pet", p.activePet);
+		c.set("pets", p.pets);
+
 		
 		c.set("quests", null);
 		c.createSection("quests");
 		c.createSection("quests.in-progress");
 		c.set("quests.completed", p.completedQuests);
-		for (String inp : p.quests.keySet())
-		{
-			c.set("quests.in-progress." + inp, p.quests.get(inp).saveProgress());
-		}
 		
 	}
 	

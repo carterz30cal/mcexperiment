@@ -2,11 +2,14 @@ package com.carterz30cal.events;
 
 import java.util.List;
 import java.util.ArrayList;
+import java.util.Objects;
 
 import com.carterz30cal.entities.*;
+import com.carterz30cal.items.abilities2.implementation.GameAbility;
 import org.bukkit.Location;
 import org.bukkit.Particle;
 import org.bukkit.Sound;
+import org.bukkit.damage.DamageSource;
 import org.bukkit.entity.AbstractArrow;
 import org.bukkit.entity.AbstractArrow.PickupStatus;
 import org.bukkit.entity.Entity;
@@ -16,17 +19,9 @@ import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
-import org.bukkit.event.entity.EntityDamageByEntityEvent;
-import org.bukkit.event.entity.EntityDamageEvent;
-import org.bukkit.event.entity.EntityRegainHealthEvent;
-import org.bukkit.event.entity.ProjectileHitEvent;
-import org.bukkit.event.entity.ProjectileLaunchEvent;
-import org.bukkit.event.entity.SlimeSplitEvent;
+import org.bukkit.event.entity.*;
 import org.bukkit.event.entity.EntityDamageEvent.DamageCause;
-import org.bukkit.event.entity.EntityExplodeEvent;
 import org.bukkit.event.entity.EntityRegainHealthEvent.RegainReason;
-import org.bukkit.event.entity.EntityTeleportEvent;
-import org.bukkit.event.entity.EntityTransformEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.persistence.PersistentDataType;
 import org.bukkit.scheduler.BukkitRunnable;
@@ -46,6 +41,12 @@ import com.carterz30cal.utils.RandomUtils;
 
 public class ListenerEntityDamage implements Listener
 {
+	public static ListenerEntityDamage Instance;
+
+	public ListenerEntityDamage() {
+		Instance = this;
+	}
+
 	@EventHandler
 	public void onEntityDamageEntity(EntityDamageByEntityEvent e)
 	{
@@ -67,7 +68,7 @@ public class ListenerEntityDamage implements Listener
 			
 			
 			
-			List<ItemAbility> abilities = new ArrayList<>(player.abilities);
+			var abilities = new ArrayList<>(player.abilities);
 			if (e.getDamager() instanceof AbstractArrow)
 			{
 				String arrowType = e.getDamager().getPersistentDataContainer().getOrDefault(GameEnemy.keyArrowType, PersistentDataType.STRING, "arrow");
@@ -95,7 +96,7 @@ public class ListenerEntityDamage implements Listener
 				info.type = item.type.damageType;
 				
 				
-				for (ItemAbility a : abilities) a.onPreAttack(info);
+				for (var a : abilities) a.ability.onPreAttack(a, info);
 				player.stats.executeOperations();
 				
 				if (e.getDamager() instanceof Player && info.type == DamageType.PROJECTILE || item.type == ItemType.TOME) info.damage = 1;
@@ -110,10 +111,10 @@ public class ListenerEntityDamage implements Listener
 				}
 			}
 			
-			for (ItemAbility a : abilities) 
+			for (var a : abilities)
 			{
-				a.onAttack(info);
-				a.onLeftClick();
+				a.ability.onAttack(a, info);
+				a.ability.onLeftClick(a);
 			}
 			player.stats.executeOperations();
 			
@@ -137,8 +138,8 @@ public class ListenerEntityDamage implements Listener
 						((GameEnemy)damaged).lastDamager = player;
 						for (StatusEffect effect : player.stats.statuses.effects.keySet()) {
 							int value = player.stats.statuses.getStatus(effect);
-							for (ItemAbility ab : abilities) {
-								value = ab.onStatusBuildup(effect, value);
+							for (var ab : abilities) {
+								value = ab.ability.onStatusBuildup(ab, effect, value);
 							}
 							
 							((GameEnemy) damaged).applyStatusEffect(effect, value);
@@ -207,6 +208,11 @@ public class ListenerEntityDamage implements Listener
 		
 		
 	}
+
+	@EventHandler
+	public void onEntityCombust(EntityCombustEvent e) {
+		e.setCancelled(true);
+	}
 	
 	@EventHandler
 	public void onEntityExplode(EntityExplodeEvent e)
@@ -226,7 +232,13 @@ public class ListenerEntityDamage implements Listener
 			
 			if (e.getHitEntity() != null && e.getHitEntity().getType() == EntityType.ENDERMAN) 
 			{
-				EntityDamageByEntityEvent ev = new EntityDamageByEntityEvent((LivingEntity)ar.getShooter(), e.getHitEntity(), DamageCause.ENTITY_ATTACK, 1);
+				EntityDamageByEntityEvent ev =
+						new EntityDamageByEntityEvent(
+								(LivingEntity) Objects.requireNonNull(ar.getShooter()),
+								e.getHitEntity(),
+								DamageCause.ENTITY_ATTACK,
+								DamageSource.builder(org.bukkit.damage.DamageType.ARROW).build(),
+								1);
 				onEntityDamageEntity(ev);
 				
 				e.getEntity().remove();
@@ -253,9 +265,14 @@ public class ListenerEntityDamage implements Listener
 			if (e.getHitEntity() != null)
 			{
 				GameEntity entity = GameEntity.get(e.getHitEntity());
-				if (entity != null && entity instanceof GameEnemy)
+				if (entity instanceof GameEnemy)
 				{
-					EntityDamageByEntityEvent ev = new EntityDamageByEntityEvent((LivingEntity)hook.getShooter(), e.getHitEntity(), DamageCause.ENTITY_ATTACK, 1);
+					EntityDamageByEntityEvent ev = new EntityDamageByEntityEvent(
+							(LivingEntity)hook.getShooter(),
+							e.getHitEntity(),
+							DamageCause.ENTITY_ATTACK,
+							DamageSource.builder(org.bukkit.damage.DamageType.PLAYER_ATTACK).build(),
+							1);
 					onEntityDamageEntity(ev);
 					
 					e.getEntity().remove();

@@ -13,9 +13,8 @@ import com.carterz30cal.utils.FileUtils;
 public class DiscoveryManager {
 	private static Map<String, Collection> discoveries = new HashMap<>();
 	private static List<Collection> list = new ArrayList<>();
-	private static String[] files = {
-            "waterway2/items/collections/weird_flesh",
-			"waterway/items/collections"
+	private static final String[] files = {
+            "waterway2/items/collections"
 	};
 	
 	public DiscoveryManager() 
@@ -23,11 +22,13 @@ public class DiscoveryManager {
 		for (String file : files)
 		{
 			FileConfiguration c = FileUtils.getData(file);
-			for (String p : c.getKeys(false))
+            assert c != null;
+            for (String p : c.getKeys(false))
 			{
 				ConfigurationSection i = c.getConfigurationSection(p);
-				
-				addNew(new Collection(i));
+
+                assert i != null;
+                addNew(new Collection(i));
 			}
 		}
 	}

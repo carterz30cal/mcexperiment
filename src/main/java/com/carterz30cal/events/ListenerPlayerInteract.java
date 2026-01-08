@@ -21,7 +21,6 @@ import com.carterz30cal.entities.GameEnemy;
 import com.carterz30cal.entities.GameEntity;
 import com.carterz30cal.entities.GamePlayer;
 import com.carterz30cal.gui.MenuGUI;
-import com.carterz30cal.quests.Quest;
 
 public class ListenerPlayerInteract implements Listener {
 	@EventHandler
@@ -51,7 +50,7 @@ public class ListenerPlayerInteract implements Listener {
 					e.getItem().setAmount(e.getItem().getAmount() - 1);
 				}
 				p.allowInteract = !p.allowInteract;
-				if (p.allowInteract) for (ItemAbility a : p.abilities) a.onRightClick();
+				if (p.allowInteract) for (var a : p.abilities) a.ability.onRightClick(a);
 				
 				if (item != null && item.material == Material.FISHING_ROD) e.setCancelled(false);
 				if (act == Action.RIGHT_CLICK_BLOCK && e.getClickedBlock().getType() == Material.BARREL) {
@@ -98,7 +97,7 @@ public class ListenerPlayerInteract implements Listener {
 				}
 				else p.sendMessage("REDYou are out of arrows!");
 			}
-			for (ItemAbility a : p.abilities) a.onLeftClick();
+			for (var a : p.abilities) a.ability.onLeftClick(a);
 		}
 	}
 	
@@ -107,15 +106,15 @@ public class ListenerPlayerInteract implements Listener {
 	public void onPlayerInteractEntity(PlayerInteractEntityEvent e) 
 	{
 		GamePlayer p = (GamePlayer)GameEntity.get(e.getPlayer());
-		Quest q = Quest.get(e.getRightClicked());
+		//Quest q = Quest.get(e.getRightClicked());
 		Shop shop = Shop.getShop(e.getRightClicked());
 
 		if (p != null && p.questTick == 0) {
-			if (q != null) {
+			/*if (q != null) {
 				if (p.completedQuests.contains(q.id)) return;
-				if (p.quests.containsKey(q.id)) q.duringQuest(p);
+				//if (p.quests.containsKey(q.id)) q.duringQuest(p);
 				else q.startQuest(p);
-			} else if (shop != null) {
+			/*} else*/ if (shop != null) {
 				p.openGui(new ShopGUI(p, shop));
 			}
 		}

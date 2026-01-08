@@ -156,9 +156,9 @@ public class ForgeGUI extends AbstractGUI
 		if (rec.discoveryReq != null)
 		{
 			Collection col = DiscoveryManager.get(rec.discoveryReq);
-			if (owner.getDiscoveryLevel(col) < rec.discoveryReqLevel)
+			if (owner.getDiscoveryLevel(col) < rec.discoveryReqLevel + 1)
 			{
-				requirements.add("GRAYThis recipe unlocks at WHITE" + col.name + " " + rec.discoveryReqLevel + "GRAY.");
+				requirements.add("GRAYThis recipe unlocks at WHITE" + col.name + " " + (rec.discoveryReqLevel + 1) + "GRAY.");
 			}
 		}
 		
@@ -226,7 +226,7 @@ public class ForgeGUI extends AbstractGUI
 			if (recipe.discoveryReq != null)
 			{
 				Collection col = DiscoveryManager.get(recipe.discoveryReq);
-				if (owner.getDiscoveryLevel(col) < recipe.discoveryReqLevel)
+				if (owner.getDiscoveryLevel(col) < recipe.discoveryReqLevel + 1)
 				{
 					collectionUnlocked = false;
 				}
@@ -275,7 +275,7 @@ public class ForgeGUI extends AbstractGUI
 					if (recipe.discoveryReq != null)
 					{
 						Collection col = DiscoveryManager.get(recipe.discoveryReq);
-						if (owner.getDiscoveryLevel(col) < recipe.discoveryReqLevel)
+						if (owner.getDiscoveryLevel(col) < recipe.discoveryReqLevel + 1)
 						{
 							collectionUnlocked = false;
 						}

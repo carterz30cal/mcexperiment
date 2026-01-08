@@ -3,7 +3,7 @@ weird_flesh:
   type: INGREDIENT
   rarity: COMMON
   material: ROTTEN_FLESH
-  discovery: weird_flesh_discovery
+  discovery: weird_flesh_collection
   discovery-progress: 1
   value: 1
   description:
@@ -85,6 +85,17 @@ waterway_sac:
     - Pulses sometimes, in an almost heart-like fashion.
     - Rarely dropped by REDFanaticsGRAY.
 
+storm_crystals:
+  name: Storm Crystals
+  type: INGREDIENT
+  rarity: EPIC
+  material: PRISMARINE_CRYSTALS
+  value: 25
+  description:
+    - Crushed bits of rock imbued with
+    - chaotic storm energy!
+    - Usually found when it's raining.
+
 combination_catalyst_shard:
   name: Combination Catalyst Shard
   type: CATALYST
@@ -92,6 +103,55 @@ combination_catalyst_shard:
   material: QUARTZ
   description:
     - Used to LIGHT_PURPLEenchantGRAY items.
+
+
+waterway_cod:
+  name: Waterway Cod
+  type: INGREDIENT
+  rarity: COMMON
+  material: COD
+  value: 1
+  glow: true
+  discovery: waterway_cod_collection
+  discovery-progress: 1
+  description:
+    - An unusually small variety of cod, found
+    - only in the waters of BLUEWaterwayGRAY.
+
+cooked_waterway_cod:
+  name: Cooked Waterway Cod
+  type: INGREDIENT
+  rarity: VERY_RARE
+  material: COOKED_COD
+  value: 240
+  glow: true
+  discovery: waterway_cod_collection
+  discovery-progress: 256
+  description:
+    - A most delicious aroma.
+
+waterway_cod_meal:
+  name: Delish Cod of Waterway
+  type: INGREDIENT
+  rarity: INCREDIBLE
+  material: PLAYER_HEAD
+  value: 30720
+  discovery: waterway_cod_collection
+  discovery-progress: 32768
+  description:
+    - Splendid!
+    - Divine!
+
+meat_scraps:
+  name: Meat Scraps
+  type: INGREDIENT
+  rarity: VERY_RARE
+  material: LEAF_LITTER
+  value: 100
+  discovery: meat_scraps_collection
+  discovery-progress: 1
+  description:
+    - Almost inedible.
 
 
 

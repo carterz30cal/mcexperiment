@@ -2,8 +2,71 @@ flimsy_fishing_rod:
   name: Flimsy Fishing Rod
   type: ROD
   rarity: COMMON
-  value: 100
+  material: FISHING_ROD
   stats:
+    damage: +10
     fishing_power: +10
-    enchant_power: 10
-    focus: +5
+    enchant_power: +15
+
+reinforced_fishing_rod:
+  name: Reinforced Fishing Rod
+  type: ROD
+  rarity: UNCOMMON
+  material: FISHING_ROD
+  stats:
+    damage: +15
+    fishing_power: +65
+    enchant_power: +20
+
+better_fishing_rod:
+  name: Better Fishing Rod
+  type: ROD
+  rarity: RARE
+  material: FISHING_ROD
+  stats:
+    damage: +15
+    fishing_power: +90
+    enchant_power: +20
+
+poisonous_fishing_rod:
+  name: Poisonous Fishing Rod
+  type: ROD
+  rarity: VERY_RARE
+  material: FISHING_ROD
+  glow: true
+  description:
+    - NOT FINISHED
+  stats:
+    damage: +20
+    fishing_power: +95
+    enchant_power: +10
+
+good_fishing_rod:
+  name: Good Fishing Rod
+  type: ROD
+  rarity: VERY_RARE
+  material: FISHING_ROD
+  stats:
+    damage: +15
+    fishing_power: +110
+    enchant_power: +25
+
+barbara_rod:
+  name: Barbara
+  type: ROD
+  rarity: INCREDIBLE
+  material: FISHING_ROD
+  stats:
+    damage: +40
+    strength: -50
+    fishing_power: +20
+    enchant_power: +50
+    level_requirement: 9
+
+super_rod:
+  name: Super Rod
+  type: ROD
+  rarity: MYSTERIOUS
+  material: FISHING_ROD
+  stats:
+    fishing_power: 750

@@ -13,9 +13,10 @@ public class Collection
 	public String id;
 	public String displayItem;
 	public List<String> description;
+	public List<String> tierDescription;
 	
-	public List<Integer> tiers = new ArrayList<>();
-	public List<Integer> xpRewards = new ArrayList<>();
+	public List<Integer> tiers;
+	public List<Integer> xpRewards;
 	public Map<Integer, List<String>> recipes = new HashMap<>();
 	
 	public Collection(ConfigurationSection s)
@@ -25,6 +26,7 @@ public class Collection
 		displayItem = s.getString("display-item");
 		
 		description = s.getStringList("description");
+		tierDescription = s.getStringList("tier-descriptions");
 		
 		List<String> mod = new ArrayList<>();
 		for (String d : description) mod.add("GRAY" + d);
@@ -32,5 +34,9 @@ public class Collection
 		
 		tiers = s.getIntegerList("tiers");
 		xpRewards = s.getIntegerList("xp-rewards");
+	}
+
+	public int getMaxTier() {
+		return tiers.size();
 	}
 }

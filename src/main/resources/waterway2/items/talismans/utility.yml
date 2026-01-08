@@ -35,3 +35,14 @@ titans_talisman_very_rare:
     - TITANS_TALISMAN
   stats:
     defence: +60
+
+zombies_head:
+  name: Zombie's Head
+  type: TALISMAN
+  rarity: INCREDIBLE
+  material: ZOMBIE_HEAD
+  tags:
+    - ZOMBIE_HEAD
+    - VITALITY_TALISMAN
+  stats:
+    vitality: +8

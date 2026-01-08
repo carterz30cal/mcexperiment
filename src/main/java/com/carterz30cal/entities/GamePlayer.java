@@ -1,12 +1,12 @@
 package com.carterz30cal.entities;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.UUID;
+import java.util.*;
 
+import com.carterz30cal.fishing.FishingArea;
+import com.carterz30cal.items.*;
+import com.carterz30cal.items.Collection;
+import com.carterz30cal.items.abilities2.implementation.GameAbility;
 import com.carterz30cal.items.sets.ItemSet;
 import net.md_5.bungee.api.ChatMessageType;
 import net.md_5.bungee.api.chat.TextComponent;
@@ -29,19 +29,8 @@ import com.carterz30cal.areas.BossWaterwayHydra;
 import com.carterz30cal.dungeoneering.DungeonManager;
 import com.carterz30cal.entities.enemies.EnemyTypeFish;
 import com.carterz30cal.gui.AbstractGUI;
-import com.carterz30cal.items.Collection;
-import com.carterz30cal.items.DiscoveryManager;
-import com.carterz30cal.items.ForgingItem;
-import com.carterz30cal.items.Item;
-import com.carterz30cal.items.ItemAbility;
-import com.carterz30cal.items.ItemAttuner;
-import com.carterz30cal.items.ItemFactory;
-import com.carterz30cal.items.ItemType;
-import com.carterz30cal.items.ItemTypeUse;
-import com.carterz30cal.items.Recipe;
 import com.carterz30cal.main.Dungeons;
 import com.carterz30cal.mining.Mineable;
-import com.carterz30cal.quests.AbstractQuestType;
 import com.carterz30cal.stats.Stat;
 import com.carterz30cal.stats.StatContainer;
 import com.carterz30cal.stats.StatOperationType;
@@ -57,6 +46,7 @@ public class GamePlayer extends GameEntity
 {
 	public Player player;
 	public StatContainer stats;
+	public StatContainer lastStats;
 	public AbstractGUI gui;
 
 	public Map<String, Integer> sets = new HashMap<>();
@@ -68,15 +58,16 @@ public class GamePlayer extends GameEntity
 	
 	public List<ForgingItem> forge = new ArrayList<>();
 	
-	public List<ItemAbility> abilities;
+	public List<GameAbility.AbilityContext> abilities;
 	
 	public List<String> talismans = new ArrayList<>();
 	public List<String> completedQuests = new ArrayList<>();
-	public Map<String, AbstractQuestType> quests = new HashMap<>();
+	public List<String> pets = new ArrayList<>();
+	public String activePet;
 	
 	public String dungeonId;
 	
-	
+	public FishingArea.FishingBobber bobber;
 	
 	public boolean flagIgnoreInvClose;
 	
@@ -97,7 +88,7 @@ public class GamePlayer extends GameEntity
 	
 	public GameEnemy lastDamager;
 	
-	public Map<String, Integer> discoveries = new HashMap<>();
+	public Map<String, Long> discoveries = new HashMap<>();
 	public Map<String, Integer> quiver = new HashMap<>();
 	public Map<String, Integer> counters = new HashMap<>();
 	public Map<String, Integer> sack = new HashMap<>();
@@ -153,13 +144,14 @@ public class GamePlayer extends GameEntity
 			if (m != null) m.damage(this);
 		}
 		else {
-			EntityUtils.applyPotionEffect(player, PotionEffectType.MINING_FATIGUE, 5, 0, false);
+			//EntityUtils.applyPotionEffect(player, PotionEffectType.MINING_FATIGUE, 5, 0, false);
 		}
 
 		player.removePotionEffect(PotionEffectType.DARKNESS);
 		
 		
 		abilities = new ArrayList<>();
+		lastStats = stats;
 		stats = new StatContainer();
 		
 		stats.scheduleOperation(Stat.HEALTH, StatOperationType.ADD, 100);
@@ -184,7 +176,7 @@ public class GamePlayer extends GameEntity
 		stats.scheduleOperation(Stat.POWER, StatOperationType.ADD, levelTens);
 		
 		stats.scheduleOperation(Stat.SACK_SPACE, StatOperationType.ADD, Math.max(0, level - 1) * 500);
-		stats.scheduleOperation(Stat.SACK_SPACE, StatOperationType.ADD, (level / 8) * 1500);
+		stats.scheduleOperation(Stat.SACK_SPACE, StatOperationType.ADD, (level >> 3) * 1500);
 		
 		
 		List<ItemStack> items = new ArrayList<>();
@@ -215,7 +207,15 @@ public class GamePlayer extends GameEntity
 		}
 		
 		for (String talisman : talismans) items.add(ItemFactory.build(talisman));
+		for (String pet : pets) items.add(ItemFactory.build(pet));
+		if (activePet != null) {
+			ItemPet itemActivePet = (ItemPet) ItemFactory.getItem(activePet);
+			if (itemActivePet !=null && itemActivePet.activeAbility != null) {
+				abilities.add(itemActivePet.activeAbility.getContext(this, itemActivePet.rarity.ordinal()));
+				items.add(ItemFactory.build(activePet));
+			}
 
+		}
 
 		for (String s : sets.keySet()) {
 			if (hasSet(s)) items.add(ItemFactory.build(s));
@@ -225,27 +225,25 @@ public class GamePlayer extends GameEntity
 		{
 			ItemFactory.update(item, this);
 			Item i = ItemFactory.getItem(item);
-			if (i == null) continue;
+			if (i == null || i.stats.getStat(Stat.LEVEL_REQUIREMENT) > getLevel()) continue;
 			StatContainer itemStats = i.stats.clone();
 			for (ItemAttuner attuner : ItemFactory.getAttuners(item)) attuner.stats.pushIntoContainer(itemStats);
 			//List<ItemEnchant> enchants = ItemFactory.getItemEnchants(item);
 			
-			List<ItemAbility> iAbilities = ItemFactory.getItemAbilities(item, this);
-			for (ItemAbility e : iAbilities) e.onItemStats(itemStats);
+			var iAbilities = ItemFactory.getItemAbilities(item, this);
+			for (var e : iAbilities) e.ability.onItemStats(e, itemStats);
 			itemStats.executeOperations();
-			for (ItemAbility e : iAbilities) e.onItemStatsLate(itemStats);
+			for (var e : iAbilities) e.ability.onItemStatsLate(e, itemStats);
 			
 			itemStats.pushIntoContainer(stats);
 			abilities.addAll(iAbilities);
 		}
-		
-		abilities.addAll(quests.values());
 
 		stats.executeOperations();
-		for (ItemAbility a : abilities) a.onPlayerStats(stats);
+		for (var a : abilities) a.ability.onPlayerStats(a, stats);
 		stats.executeOperations();
 
-		stats.scheduleOperation(Stat.BACKPACK_PAGES, StatOperationType.ADD, 1);
+		stats.scheduleOperation(Stat.BACKPACK_PAGES, StatOperationType.ADD, 2);
 		stats.scheduleOperation(Stat.BACKPACK_PAGES, StatOperationType.CAP_MIN, 1);
 
 
@@ -285,18 +283,6 @@ public class GamePlayer extends GameEntity
 		if (BossWaterwayHydra.hasParticipated(this)) {
 			score.add("GREENBOLDHydra - Wave " + BossWaterwayHydra.wave);
 			score.add("");
-		}
-		if (quests.size() != 0) {
-			List<AbstractQuestType> qs = new ArrayList<>(quests.values());
-			qs.sort((a,b) -> Integer.compare(b.getQuestPriority(), a.getQuestPriority()));
-			
-			AbstractQuestType selected = qs.get(0);
-			if (selected != null) {
-				score.add("GOLDCurrent Quest:");
-				score.addAll(selected.description());
-				score.add("");
-			}
-			
 		}
 		score.add("AQUALevel " + getLevel() + "BLACK [AQUA+" + Math.round(this.getLevelProgress() * 100) + "%BLACK]");
 		
@@ -354,21 +340,21 @@ public class GamePlayer extends GameEntity
 	}
 
 	public boolean hasSet(String s) {
-		if (sets.size() == 0) return false;
+		if (sets.isEmpty()) return false;
 		Item i = ItemFactory.getItem(s);
-		if (i != null && i instanceof ItemSet) {
+		if (i instanceof ItemSet) {
 			ItemSet set = (ItemSet) i;
-			if (set.requireCount <= sets.getOrDefault(s, 0)) return true;
+            return set.requireCount <= sets.getOrDefault(s, 0);
 		}
 		return false;
 	}
 	
 	public int getDiscoveryLevel(Collection discovery)
 	{
-		int count = discoveries.getOrDefault(discovery.id, 0);
+		long count = discoveries.getOrDefault(discovery.id, 0L);
 		int level = 0;
 		
-		while (level < discovery.tiers.size() && discovery.tiers.get(level) < count) level++;
+		while (level < discovery.tiers.size() && discovery.tiers.get(level) <= count) level++;
 		return level;
 	}
 	
@@ -421,15 +407,15 @@ public class GamePlayer extends GameEntity
 				Collection col = DiscoveryManager.get(i.discovery);
 				
 				int currentLevel = getDiscoveryLevel(col);
-				if (currentLevel == 0 && discoveries.getOrDefault(col.id, 0) == 0) sendMessage("GOLDBOLDNew Discovery! " + col.name);
+				if (currentLevel == 0 && discoveries.getOrDefault(col.id, 0L) == 0) sendMessage("GOLDBOLDNew Discovery! " + col.name);
 				
-				discoveries.put(col.id, discoveries.getOrDefault(col.id, 0) + item.getAmount() * i.discoveryProgress);
+				discoveries.put(col.id, discoveries.getOrDefault(col.id, 0L) + item.getAmount() * i.discoveryProgress);
 				
 				int newLevel = getDiscoveryLevel(col);
 				while (newLevel > currentLevel)
 				{
 					sendMessage("YELLOW - - - GOLDDISCOVERY LEVEL UPYELLOW - - -");
-					for (String recipe : col.recipes.getOrDefault(currentLevel + 1, new ArrayList<>())) 
+					for (String recipe : col.recipes.getOrDefault(currentLevel, new ArrayList<>()))
 					{
 						Recipe r = ItemFactory.recipes.get(recipe);
 						
@@ -545,9 +531,7 @@ public class GamePlayer extends GameEntity
 	
 	public long gainXp(long amount)
 	{
-		long mod = amount;
-		
-		xp += mod;
+        xp += amount;
 		
 		while (xp >= LevelUtils.getXpForLevel(level + 1))
 		{
@@ -562,7 +546,7 @@ public class GamePlayer extends GameEntity
 			level++;
 		}
 		
-		return mod;
+		return amount;
 	}
 	
 	public int gainCoins(GameEnemy killed)
@@ -701,7 +685,9 @@ public class GamePlayer extends GameEntity
 		return true;
 	}
 	
-	
+
+
+
 	public void gainHealth(int amount)
 	{
 		int total = getHealth() + amount;
@@ -825,12 +811,25 @@ public class GamePlayer extends GameEntity
 		
 	}
 
+	public Set<String> getPetLines() {
+		var set = new HashSet<String>();
+		if (activePet != null) {
+			ItemPet pet = (ItemPet) ItemFactory.getItem(activePet);
+			set.add(pet.petLine);
+		}
+		for (var p : pets) {
+			ItemPet pet = (ItemPet) ItemFactory.getItem(p);
+			set.add(pet.petLine);
+		}
+		return set;
+	}
+
 	
 	@SuppressWarnings("ReassignedVariable")
 	public void damage(int damage)
 	{
 		int modifiedDamage = (int)Math.max(Math.round(damage * (100D / (100 + stats.getStat(Stat.DEFENCE)))), 0);
-		for (ItemAbility a : abilities) modifiedDamage = a.onDamaged(this.lastDamager, modifiedDamage);
+		for (var a : abilities) modifiedDamage = a.ability.onDamaged(a, this.lastDamager, modifiedDamage);
 		
 		
 		takeHealth(modifiedDamage);
@@ -842,7 +841,7 @@ public class GamePlayer extends GameEntity
 	public void damage(@NotNull DamageInfo info)
 	{
 		int modifiedDamage = (int)Math.max(Math.round(info.damage * (100D / (100 + stats.getStat(Stat.DEFENCE)))), 0);
-		for (ItemAbility a : abilities) modifiedDamage = a.onDamaged(this.lastDamager, modifiedDamage);
+		for (var a : abilities) modifiedDamage = a.ability.onDamaged(a, this.lastDamager, modifiedDamage);
 
 		takeHealth(modifiedDamage);
 		player.damage(1);

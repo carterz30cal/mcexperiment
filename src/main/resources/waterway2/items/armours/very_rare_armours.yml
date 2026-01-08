@@ -1,0 +1,10 @@
+codpiece_leggings:
+  name: CodPiece
+  type: LEGGINGS
+  material: COPPER_LEGGINGS
+  rarity: VERY_RARE
+  stats:
+    defence: +15
+    might: +35
+    enchant_power: +5
+    level_requirement: 6

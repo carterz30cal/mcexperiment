@@ -24,6 +24,7 @@ public enum ItemType
 	CHESTPLATE(ItemTypeUse.WEARABLE),
 	LEGGINGS(ItemTypeUse.WEARABLE),
 	BOOTS(ItemTypeUse.WEARABLE),
+	PET(ItemTypeUse.NORMAL),
 	VIRTUAL_SET(ItemTypeUse.VIRTUAL_NON_EXIST);
 	public ItemTypeUse use;
 	public DamageType damageType;

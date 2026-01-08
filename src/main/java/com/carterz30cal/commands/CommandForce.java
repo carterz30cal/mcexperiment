@@ -15,7 +15,6 @@ import com.carterz30cal.dungeoneering.AbstractDungeon;
 import com.carterz30cal.dungeoneering.TestDungeon;
 import com.carterz30cal.entities.GamePlayer;
 import com.carterz30cal.entities.PlayerManager;
-import com.carterz30cal.quests.Quest;
 
 public class CommandForce implements CommandExecutor {
 
@@ -39,13 +38,6 @@ public class CommandForce implements CommandExecutor {
 					break;
 				case "endseraphfight":
 					BossWaterwaySeraph.endFight();
-					break;
-				case "clearmyquests":
-
-					p.quests.clear();
-					p.completedQuests.clear();
-					p.completedQuests.add("player_joined");
-					for (Quest q : Quest.quests.values()) q.instance.refresh();
 					break;
 				case "openshop":
 					p = PlayerManager.players.get(((Player) sender).getUniqueId());

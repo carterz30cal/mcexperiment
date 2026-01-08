@@ -21,10 +21,12 @@ paper_arrow:
   items:
     wet_paper: 2
 spiced_arrow:
-  custom-name: GOLD72x YELLOWSpiced Arrow
+  custom-name: GOLD85x YELLOWSpiced Arrow
   level: 4
   category: waterway_weapons_arrows
-  amount: 72
+  discovery: weird_flesh_collection
+  discovery-tier: 3
+  amount: 85
   items:
     spiced_meat: 1
     chilli_powder: 1

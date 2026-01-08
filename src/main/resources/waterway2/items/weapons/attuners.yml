@@ -5,7 +5,7 @@ fermented_flesh:
   material: FERMENTED_SPIDER_EYE
   attuner-icon: RED#
   stats:
-    power: +5
+    power: +10
     health: +4
 
 paper_mache:
@@ -16,7 +16,7 @@ paper_mache:
   attuner-icon: WHITE#
   stats:
     damage: +1
-    health: -10
+    health: -15
 
 weak_silk_mass:
   name: Weak Silk Mass
@@ -26,7 +26,7 @@ weak_silk_mass:
   glow: true
   attuner-icon: BLUE#
   stats:
-    might: +8
+    might: +11
 
 eye_of_spider:
   name: Eye of Spider
@@ -36,7 +36,20 @@ eye_of_spider:
   attuner-icon: DARK_PURPLE#
   stats:
     mana: +6
-    strength: +1
+    strength: +2
+    might: +1
+
+
+fishing_berries:
+  name: Fishing Berries
+  type: ATTUNER
+  rarity: VERY_RARE
+  material: GLOW_BERRIES
+  attuner-icon: GOLDo
+  value: 600
+  stats:
+    fishing_power: +10
+    power: +4
     might: +1
 
 midas_stone:

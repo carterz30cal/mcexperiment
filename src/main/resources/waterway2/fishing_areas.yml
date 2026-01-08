@@ -1,0 +1,8 @@
+waterway:
+  power-subtraction: 0
+  power-reduction: 5
+  brackets:
+    COMMON: 200
+    UNCOMMON: 75
+    RARE: 20
+    VERY_RARE: 5

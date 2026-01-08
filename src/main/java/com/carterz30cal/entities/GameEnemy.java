@@ -31,6 +31,8 @@ import com.carterz30cal.utils.LevelUtils;
 import com.carterz30cal.utils.RandomUtils;
 import com.carterz30cal.utils.StringUtils;
 
+import javax.annotation.Nullable;
+
 public class GameEnemy extends GameEntity
 {
 	public static NamespacedKey keyEnemy = new NamespacedKey(Dungeons.instance, "keyEnemy");
@@ -40,6 +42,10 @@ public class GameEnemy extends GameEntity
 	
 	public Entity main;
 	public List<Entity> parts = new ArrayList<>();
+
+
+	public @Nullable Mob director;
+
 	protected ArmorStand display;
 	
 	protected ArmorStand displayName;
@@ -73,7 +79,8 @@ public class GameEnemy extends GameEntity
 		all.add(getMain());
 		for (Entity e : all) 
 		{
-			if (e instanceof LivingEntity) ((LivingEntity)e).setHealth(0);
+			if (e == director) e.remove();
+			else if (e instanceof LivingEntity) ((LivingEntity)e).setHealth(0);
 			else e.remove();
 		}
 		
@@ -166,7 +173,7 @@ public class GameEnemy extends GameEntity
 			resistances.effects.put(effect, resistance);
 			
 			type.onStatusProc(this, effect);
-			for (ItemAbility a : lastDamager.abilities) a.onStatusProc(effect, this);
+			for (var a : lastDamager.abilities) a.ability.onStatusProc(a, effect, this);
 		}
 		else {
 			statuses.effects.put(effect, value);
@@ -227,6 +234,12 @@ public class GameEnemy extends GameEntity
 	protected void tick()
 	{
 		if (!main.isValid()) destroy();
+
+		if (director != null) {
+			main.teleport(director.getLocation(), TeleportCause.PLUGIN);
+			EntityUtils.applyPotionEffect(director, PotionEffectType.INVISIBILITY, 200, 0, false);
+			EntityUtils.applyPotionEffect(director, PotionEffectType.FIRE_RESISTANCE, 200, 0, false);
+		}
 		
 		if (displayName == null && (lastDamager != null || health < 0.99)) {
 			Location d = main.getLocation().add(0, main.getHeight() + 0.4, 0);
@@ -277,9 +290,14 @@ public class GameEnemy extends GameEntity
 			target = findTarget();
 			if (target == null)  {
 				type.onTarget(this, null);
-				EntityUtils.applyPotionEffect((LivingEntity)main, PotionEffectType.SLOWNESS, 19, 50, false);
+
+				LivingEntity applyTo = director == null ? (LivingEntity)main : director;
+				EntityUtils.applyPotionEffect(applyTo, PotionEffectType.SLOWNESS, 19, 50, false);
 			}
-			else ((Mob)getMain()).setTarget(target.getTargetable());
+			else {
+				if (director == null) ((Mob)getMain()).setTarget(target.getTargetable());
+				else director.setTarget(target.getTargetable());
+			}
 		}
 		else {
 			if (target.isTargetable(this)) target = null;
@@ -298,7 +316,7 @@ public class GameEnemy extends GameEntity
 		//GameEntity en;
 		List<GameEnemy> enemies = EntityUtils.getNearbyEnemies(getLocation(), 10);
 		enemies.removeIf((e) -> !(e instanceof GameSummon));
-		if (enemies.size() > 0) return enemies.get(0);
+		if (!enemies.isEmpty()) return enemies.get(0);
 		else return null;
 	}
 
@@ -306,6 +324,7 @@ public class GameEnemy extends GameEntity
 	public void setLocation(Location l)
 	{
 		main.teleport(l);
+		if (director != null) director.teleport(l);
 	}
 	
 	
@@ -339,14 +358,14 @@ public class GameEnemy extends GameEntity
 	@Override
 	public Location getLocation()
 	{
-		return main.getLocation();
+		return director == null ? main.getLocation() : director.getLocation();
 	}
 	
 	public void dropItems(GamePlayer killer)
 	{
 		if (killer == null) return;
 		
-		for (ItemAbility a : killer.abilities) a.onKill(this);
+		for (var a : killer.abilities) a.ability.onKill(a, this);
 		
 		for (ItemStack it : type.loot.generate(killer)) killer.giveItem(it);
 		

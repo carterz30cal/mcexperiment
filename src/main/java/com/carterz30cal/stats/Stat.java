@@ -24,6 +24,7 @@ public enum Stat
 	CLEARING("\u0190 Clearing", ChatColor.YELLOW, StatType.ECONOMY),
 
 	BONUS_COINS("\u00D7 Extra Coins", ChatColor.GOLD, StatType.ECONOMY, StatDisplayType.PERCENTAGE),
+	LUCK("\u00D7 Luck", ChatColor.GOLD, StatType.ECONOMY, StatDisplayType.PERCENTAGE),
 	
 	ENCHANT_POWER("enchantment power", ChatColor.BLACK, StatType.HIDDEN, StatDisplayType.NO_DISPLAY),
 	LEVEL_REQUIREMENT("level requirement", ChatColor.BLACK, StatType.HIDDEN, StatDisplayType.NO_DISPLAY),

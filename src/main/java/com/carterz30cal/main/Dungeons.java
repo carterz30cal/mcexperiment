@@ -1,5 +1,6 @@
 package com.carterz30cal.main;
 
+import com.carterz30cal.fishing.FishingArea;
 import com.carterz30cal.mining.Mineable;
 import org.bukkit.Bukkit;
 import org.bukkit.World;
@@ -35,7 +36,6 @@ import com.carterz30cal.events.ListenerPlayerInteract;
 import com.carterz30cal.events.ListenerPlayerJoinLeave;
 import com.carterz30cal.items.DiscoveryManager;
 import com.carterz30cal.items.ItemFactory;
-import com.carterz30cal.quests.QuestManager;
 import com.carterz30cal.utils.BlockUtils;
 import com.comphenix.protocol.PacketType;
 import com.comphenix.protocol.ProtocolLibrary;
@@ -58,8 +58,7 @@ public class Dungeons extends JavaPlugin
 		w = Bukkit.getWorld("world");
 		GameEntity.allowDeregisters = true;
 		proto = ProtocolLibrary.getProtocolManager();
-		
-		new QuestManager();
+
 		new PlayerManager();
 		new EnemyManager();
 		new DiscoveryManager();
@@ -70,6 +69,8 @@ public class Dungeons extends JavaPlugin
 		//new BossHydra();
 		//new BossWaterwaySeraph();
 		new ForagingAreaWaterway();
+
+		//FishingArea.getFishingArea("waterway");
 		
 		proto.addPacketListener(
 			    new PacketAdapter(this, PacketType.Play.Client.BLOCK_DIG) {

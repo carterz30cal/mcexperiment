@@ -120,7 +120,7 @@ public class EntityUtils
 		if (part instanceof Mob)
 		{
 			Mob mob = (Mob)part;
-			setArmourPiece(mob, EquipmentSlot.HEAD, new ItemStack(Material.STONE_BUTTON));
+			//setArmourPiece(mob, EquipmentSlot.HEAD, new ItemStack(Material.STONE_BUTTON));
 		}
 		
 		return part;
@@ -163,12 +163,19 @@ public class EntityUtils
 		kbv.setY(0.4);
 		kbv.multiply(knockback * 0.6);
 		
-		kbv.add(enemy.getMain().getVelocity());
+
 		try
 		{
-			enemy.getMain().setVelocity(kbv);
+			if (enemy.director != null) {
+				kbv.add(enemy.director.getVelocity());
+				enemy.director.setVelocity(kbv);
+			}
+			else {
+				kbv.add(enemy.getMain().getVelocity());
+				enemy.getMain().setVelocity(kbv);
+			}
 		}
-		catch (IllegalArgumentException e)
+		catch (IllegalArgumentException ignored)
 		{
 			
 		}

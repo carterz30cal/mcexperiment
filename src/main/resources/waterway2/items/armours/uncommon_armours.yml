@@ -58,7 +58,7 @@ chainmail_helmet:
   set: set_waterway_secret
   stats:
     health: +5
-    defence: +5
+    defence: +15
     enchant_power: +20
 chainmail_chestplate:
   name: Chainmail Chestplate
@@ -68,5 +68,5 @@ chainmail_chestplate:
   set: set_waterway_secret
   stats:
     health: +5
-    defence: +5
+    defence: +15
     enchant_power: +20

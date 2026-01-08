@@ -24,7 +24,8 @@ set_waterway_secret:
   type: VIRTUAL_SET
   requireCount: 4
   description:
-    - Wow! A secret!
+    - DARK_GRAYWow! A secret!
   stats:
-    health: +100
-    vitality: +5
+    health: +250
+    damage: +8
+    might: +20

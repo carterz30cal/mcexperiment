@@ -51,7 +51,7 @@ public class Sharpness extends ItemEnchant {
 		
 		types.add(ItemType.WEAPON);
 		//types.add(ItemType.WAND);
-		//types.add(ItemType.ROD);
+		types.add(ItemType.ROD);
 		return types;
 	}
 

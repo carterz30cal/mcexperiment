@@ -1,0 +1,184 @@
+drenched_RARE:
+  name: GREENDrenched
+  entity-type: DROWNED
+  has-director: true
+  type: FISH
+  fishing-brackets:
+    waterway: RARE
+  level: 6
+  health: 600
+  knockback: 125
+  damage: 90
+  damage-type: PHYSICAL
+  display-height: 1.8
+  blood-colour: 0,50,100
+  armour:
+    PHYSICAL: 0
+    PROJECTILE: 0
+    MAGICAL: 0
+    HOLY: 0
+    BLEED: -30
+    FIRE: 100
+    WITHER: 0
+  equipment:
+    HAND: COPPER_HOE
+    CHEST: IRON_CHESTPLATE
+    FEET: LEATHER_BOOTS
+  tags:
+    - FISHING
+    - FISHING_WATERWAY
+    - FISHING_RARE
+  drops:
+    waterway_cod:
+      amount: 10/15
+    meat_scraps:
+      chance: 1/300
+      amount: 3/3
+    pet_drenched_common:
+      chance: 1/350
+
+lunatic_fisherman_RARE:
+  name: GREENLunatic Fisherman
+  type: FISH
+  fishing-brackets:
+    waterway: RARE
+  level: 6
+  coin-multiplier: 8
+  health: 425
+  knockback: 95
+  damage: 100
+  speed: 1.6
+  damage-type: PHYSICAL
+  display-height: 1.8
+  blood-colour: 250,0,50
+  armour:
+    PHYSICAL: 0
+    PROJECTILE: 75
+    MAGICAL: 0
+    HOLY: 0
+    BLEED: -50
+    FIRE: 200
+    WITHER: 0
+  equipment:
+    HAND: FISHING_ROD
+    HEAD: water_helmet
+    CHEST: LEATHER_CHESTPLATE
+    LEGS: LEATHER_LEGGINGS
+    FEET: LEATHER_BOOTS
+  tags:
+    - LUNATIC
+    - LUNATIC_HIGH_RANK
+    - FISHING
+    - FISHING_WATERWAY
+    - FISHING_RARE
+  drops:
+    weird_flesh:
+      amount: 5/26
+    waterway_cod:
+      amount: 8/15
+    water_helmet:
+      chance: 1/75
+    water_chestplate:
+      chance: 1/75
+    water_leggings:
+      chance: 1/75
+    water_boots:
+      chance: 1/75
+    flimsy_fishing_rod:
+      chance: 1/75
+    fishing_berries:
+      chance: 1/250
+
+sea_slug_RARE:
+  name: GREENSea Slug
+  type: FISH
+  entity-type: SILVERFISH
+  has-director: true
+  scale: 1.4
+  fishing-brackets:
+    waterway: RARE
+  level: 6
+  health: 200
+  knockback: 165
+  damage: 110
+  speed: 1.75
+  damage-type: PHYSICAL
+  display-height: 0.7
+  blood-colour: 250,0,50
+  armour:
+    PHYSICAL: 0
+    PROJECTILE: 75
+    MAGICAL: 0
+    HOLY: 0
+    BLEED: -50
+    FIRE: 200
+    WITHER: 0
+  tags:
+    - FISHING
+    - FISHING_WATERWAY
+    - FISHING_RARE
+  drops:
+    waterway_cod:
+      amount: 10/40
+    fishing_berries:
+      chance: 1/250
+    cooked_waterway_cod:
+      chance: 1/500
+    sea_slug_ooze:
+      chance: 1/600
+    enchanted_book-SUPERLURE1:
+      chance: 1/750
+      enchants: ENCHANT_SUPERLURE-1
+    enchanted_book-SUPERLURE2:
+      chance: 1/1750
+      enchants: ENCHANT_SUPERLURE-2
+
+scared_shockreaver_RARE:
+  name: GREENScared Shockreaver
+  type: FISH
+  entity-type: DROWNED
+  has-director: true
+  scale: 1.25
+  fishing-brackets:
+    waterway: RARE
+  level: 6
+  health: 900
+  knockback: 0
+  damage: 60
+  speed: 1.15
+  damage-type: PHYSICAL
+  display-height: 2.3
+  blood-colour: 250,0,50
+  equipment:
+    HAND: DIAMOND_AXE
+    HEAD: DIAMOND_HELMET
+    CHEST: DIAMOND_CHESTPLATE
+    LEGS: DIAMOND_LEGGINGS
+    FEET: DIAMOND_BOOTS
+  armour:
+    PHYSICAL: 200
+    PROJECTILE: 600
+    MAGICAL: 0
+    HOLY: 0
+    BLEED: -70
+    FIRE: -20
+    WITHER: 0
+  tags:
+    - FISHING
+    - FISHING_WATERWAY
+    - FISHING_RARE
+    - WATERWAY_SHOCKER
+  drops:
+    storm_crystals:
+      amount: 1/1
+    waterway_cod:
+      amount: 10/40
+    storm_talisman_rare:
+      chance: 1/6
+    fishing_berries:
+      chance: 1/250
+    cooked_waterway_cod:
+      chance: 1/400
+    enchanted_book-SUPERLURE1:
+      chance: 1/750
+      enchants: ENCHANT_SUPERLURE-1

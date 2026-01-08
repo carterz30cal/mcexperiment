@@ -25,7 +25,9 @@ public class MenuGUI extends AbstractGUI
 	public final int QUIVER_POS = calc(5, 1);
 	public final int TALIS_POS = calc(6, 1);
 	public final int SACK_POS = calc(2, 1);
-	public final int BACKPACK_POS = calc(4, 2);
+	public final int BACKPACK_POS = calc(5, 2);
+	public final int PET_POS = calc(3, 2);
+
 	
 	public final int LINES = 6;
 	
@@ -90,7 +92,8 @@ public class MenuGUI extends AbstractGUI
 				inventory.setSlot(ItemFactory.build(tali), pos);
 			}
 		}
-		
+
+		inventory.setSlot(ItemFactory.buildCustom("BONE", "GOLDPets", "Active Pet: AHHH"), PET_POS);
 		
 		
 		inventory.update();
@@ -106,6 +109,7 @@ public class MenuGUI extends AbstractGUI
 		else if (clickPos == calc(4, 0) && owner.player.isOp()) owner.openGui(new AdminItemGUI(owner));
 		else if (clickPos == QUIVER_POS) owner.openGui(new QuiverGUI(owner));
 		else if (clickPos == BACKPACK_POS) owner.openGui(new BackpackGUI(owner));
+		else if (clickPos == PET_POS) owner.openGui(new PetsGUI(owner));
 		//else if (clickPos == TALIS_POS) owner.openGui(new TalismanGUI(owner));
 		else if (owner.getLevel() > 1 && clickPos == SACK_POS) owner.openGui(new SackGUI(owner));
 		else if (clickPos >= LINES * 9) {

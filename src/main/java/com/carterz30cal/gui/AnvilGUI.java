@@ -4,18 +4,13 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.carterz30cal.items.*;
+import com.carterz30cal.items.abilities2.Abilities;
 import org.bukkit.Material;
 import org.bukkit.Sound;
 import org.bukkit.inventory.ItemStack;
 
 import com.carterz30cal.entities.GamePlayer;
-import com.carterz30cal.items.Item;
-import com.carterz30cal.items.ItemAttuner;
-import com.carterz30cal.items.ItemEnchant;
-import com.carterz30cal.items.ItemFactory;
-import com.carterz30cal.items.ItemReqs;
-import com.carterz30cal.items.ItemType;
-import com.carterz30cal.items.ItemTypeUse;
 import com.carterz30cal.stats.Stat;
 import com.carterz30cal.utils.StringUtils;
 
@@ -116,16 +111,16 @@ public class AnvilGUI extends AbstractGUI
 				
 				ItemStack product = applying.clone();
 				
-				List<ItemEnchant> applyingEnchants = ItemFactory.getItemEnchants(applying);
-				List<ItemEnchant> bookEnchants = ItemFactory.getItemEnchants(book);
+				var applyingEnchants = ItemFactory.getItemEnchants(applying);
+				var bookEnchants = ItemFactory.getItemEnchants(book);
 				
 				
 				boolean changeMade = false;
 				boolean appliable = true;
 				
-				for (ItemEnchant enchant : bookEnchants)
+				for (var enchant : bookEnchants)
 				{
-					if (enchant.getAppliableTypes().contains(apply.type)) continue;
+					if (enchant.ability.getApplicableTypes().contains(apply.type)) continue;
 					
 					appliable = false;
 					break;
@@ -135,23 +130,23 @@ public class AnvilGUI extends AbstractGUI
 				// check if any enchants actually get applied or increased
 				if (appliable || apply.type == ItemType.ENCHANTMENT)
 				{
-					Map<Class<? extends ItemEnchant>, Integer> enchantTypes = new HashMap<>();
-					for (ItemEnchant e : applyingEnchants) enchantTypes.put(e.getClass(), e.level);
+					Map<Abilities, Integer> enchantmentTypes = new HashMap<>();
+					for (var e : applyingEnchants) enchantmentTypes.put(e.ability.source, e.level);
 					
 					boolean modification = false;
-					for (ItemEnchant be : bookEnchants)
+					for (var be : bookEnchants)
 					{
-						Class<? extends ItemEnchant> cl = be.getClass();
-						if (!enchantTypes.containsKey(cl) || enchantTypes.get(cl) < be.level) 
+						Abilities source = be.ability.source;
+						if (!enchantmentTypes.containsKey(source) || enchantmentTypes.get(source) < be.level)
 						{
-							enchantTypes.put(be.getClass(), be.level);
-							requirements.addRequirement(be.getCatalystRequirements(be.level));
+							enchantmentTypes.put(source, be.level);
+							requirements.addRequirement(be.ability.getCatalystRequirements(be, be.level));
 							modification = true;
 						}
-						else if (enchantTypes.get(cl) == be.level && be.level < be.getMaximumLevel())
+						else if (enchantmentTypes.get(source) == be.level && be.level < be.ability.getMaximumLevel())
 						{
-							enchantTypes.put(be.getClass(), be.level + 1);
-							requirements.addRequirement(be.getCatalystRequirements(be.level + 1));
+							enchantmentTypes.put(source, be.level + 1);
+							requirements.addRequirement(be.ability.getCatalystRequirements(be, be.level + 1));
 							modification = true;
 						}
 					}
@@ -164,7 +159,7 @@ public class AnvilGUI extends AbstractGUI
 					else
 					{
 						ItemStack preprod = product.clone();
-						String ench = ItemFactory.flattenEnchMap(enchantTypes);
+						String ench = ItemFactory.flattenEnchMap(enchantmentTypes);
 						ItemFactory.addItemData(product, "enchants", ench);
 						
 						if (ItemFactory.sumEnchantPower(ItemFactory.getItemEnchants(product)) > apply.stats.getStat(Stat.ENCHANT_POWER) && apply.type != ItemType.ENCHANTMENT)
@@ -199,16 +194,16 @@ public class AnvilGUI extends AbstractGUI
 				{
 					ItemFactory.update(product, null);
 					
-					String lore = "GRAYYou need the following in order to;GRAYcombine these two items together!;;GRAYRequires:";
+					StringBuilder lore = new StringBuilder("GRAYYou need the following in order to;GRAYcombine these two items together!;;GRAYRequires:");
 					
-					if (requirements.coins != 0) lore = lore + ";" + StringUtils.getPrettyCoins(requirements.coins);
-					else if (requirements.reqs.size() == 0) lore = "GREENThis interaction has no requirements!";
+					if (requirements.coins != 0) lore.append(";").append(StringUtils.getPrettyCoins(requirements.coins));
+					else if (requirements.reqs.isEmpty()) lore = new StringBuilder("GREENThis interaction has no requirements!");
 					for (String item : requirements.getItems())
 					{
-						lore = lore + ";" + ItemFactory.getItemTypeName(item) + " DARK_GRAYx" + requirements.getAmount(item);
+						lore.append(";").append(ItemFactory.getItemTypeName(item)).append(" DARK_GRAYx").append(requirements.getAmount(item));
 					}
 					
-					ItemStack anvil = ItemFactory.buildCustom("ANVIL", "GREENClick!", lore);
+					ItemStack anvil = ItemFactory.buildCustom("ANVIL", "GREENClick!", lore.toString());
 					
 					update(true);
 					inventory.setSlot(product, calc(4, 1));

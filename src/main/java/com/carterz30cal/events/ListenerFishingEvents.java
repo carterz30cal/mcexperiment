@@ -1,15 +1,17 @@
 package com.carterz30cal.events;
 
+import com.carterz30cal.entities.*;
+import com.carterz30cal.fishing.FishingArea;
+import org.bukkit.damage.DamageSource;
+import org.bukkit.entity.LivingEntity;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
+import org.bukkit.event.entity.EntityDamageByEntityEvent;
+import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.player.PlayerFishEvent;
 import org.bukkit.event.player.PlayerFishEvent.State;
 import org.bukkit.util.Vector;
 
-import com.carterz30cal.entities.EnemyManager;
-import com.carterz30cal.entities.GameEnemy;
-import com.carterz30cal.entities.GamePlayer;
-import com.carterz30cal.entities.PlayerManager;
 import com.carterz30cal.entities.enemies.EnemyTypeFish;
 import com.carterz30cal.utils.RandomUtils;
 
@@ -21,6 +23,20 @@ public class ListenerFishingEvents implements Listener
 	{
 		if (e.getState() == State.CAUGHT_ENTITY)
 		{
+			if (e.getCaught() != null)
+			{
+				GameEntity entity = GameEntity.get(e.getCaught());
+				if (entity instanceof GameEnemy)
+				{
+					EntityDamageByEntityEvent ev = new EntityDamageByEntityEvent(
+							(LivingEntity)e.getHook().getShooter(),
+							e.getCaught(),
+							EntityDamageEvent.DamageCause.ENTITY_ATTACK,
+							DamageSource.builder(org.bukkit.damage.DamageType.PLAYER_ATTACK).build(),
+							1);
+					ListenerEntityDamage.Instance.onEntityDamageEntity(ev);
+				}
+			}
 			e.getHook().remove();
 		}
 		else if (e.getState() == State.FISHING)
@@ -32,22 +48,15 @@ public class ListenerFishingEvents implements Listener
 		{
 			GamePlayer p = PlayerManager.players.get(e.getPlayer().getUniqueId());
 			e.getCaught().remove();
-			
 			e.setExpToDrop(0);
-			int a = RandomUtils.getRandom(1, 5);
-			String fishUp = RandomUtils.getChoice(EnemyTypeFish.brackets.get(p.getFishingBracket()));
-			while (a > 0) {
-				
-				GameEnemy hooked = EnemyManager.spawn(fishUp, e.getHook().getLocation());
-				
-				Vector vel = hooked.getLocation().subtract(p.getLocation()).toVector().normalize();
-				vel.multiply(p.getLocation().distance(hooked.getLocation()) * -0.3);
-				vel.setY(vel.getY() * 1.8);
-				
-				hooked.getMain().setVelocity(vel);
-				a--;
+
+			if (p.bobber != null && !p.bobber.isCancelled()) {
+				p.sendMessage("REDReplacing current bobber!");
+				p.bobber.cancel();
 			}
-			
+			FishingArea.FishingBobber bobber = FishingArea.getFishingArea("waterway").getBobberUsingPower(e.getHook().getLocation(), p);
+			p.bobber = bobber;
+			p.sendMessage("You've fished up a " + p.bobber.rarity.colour + "BOLD" + p.bobber.rarity.name.toUpperCase() + " WHITEBobber!");
 			
 		}
 	}

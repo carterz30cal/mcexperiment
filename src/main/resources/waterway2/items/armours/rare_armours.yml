@@ -31,7 +31,25 @@ armour-leaf:
     g: 200
     b: 25
   stats:
-    health: +20,+60,+30,+15
-    vitality: +1,+3,+2,+1
+    health: +30,+70,+40,+25
     enchant_power: +5
+    level_requirement: 4
+
+armour-zombie:
+  name:
+    - Zombie Helmet
+    - Zombie Chestplate
+    - Zombie Trousers
+    - Zombie Boots
+  material: LEATHER
+  rarity: RARE
+  set: set_zombie
+  colour:
+    r: 150
+    g: 175
+    b: 150
+  stats:
+    health: -15,-25,-20,-10
+    vitality: +7
+    enchant_power: 15
     level_requirement: 4

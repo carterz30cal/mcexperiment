@@ -10,3 +10,34 @@ paper:
   category: waterway_ingredients
   items:
     wet_paper: 150
+
+cooked_waterway_cod:
+  category: waterway_ingredients
+  time: 1h
+  discovery: waterway_cod_collection
+  discovery-tier: 3
+  items:
+    waterway_cod: 256
+
+bulk_cooked_waterway_cod:
+  item: cooked_waterway_cod
+  amount: 64
+  time: 2h
+  custom-name: GOLD64x BLUECooked Waterway Cod
+  category: waterway_ingredients
+  discovery: waterway_cod_collection
+  discovery-tier: 8
+  items:
+    waterway_cod: 16384
+
+waterway_cod_meal:
+  item: waterway_cod_meal
+  amount: 1
+  time: 12h
+  category: waterway_ingredients
+  discovery: waterway_cod_collection
+  discovery-tier: 9
+  items:
+    cooked_waterway_cod: 128
+    meat_scraps: 1
+    chilli_powder: 2

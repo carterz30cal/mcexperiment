@@ -61,7 +61,7 @@ public class Recipe
 
 		
 		discoveryReq = i.getString("discovery", null);
-		discoveryReqLevel = i.getInt("discovery-tier", 0);
+		discoveryReqLevel = i.getInt("discovery-tier", 1) - 1;
 		if (discoveryReq != null) 
 		{
 			Collection col = DiscoveryManager.get(discoveryReq);

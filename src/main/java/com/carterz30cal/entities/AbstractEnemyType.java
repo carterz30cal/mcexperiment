@@ -35,6 +35,7 @@ public abstract class AbstractEnemyType implements Cloneable
 	public final double coinMultiplier;
 	public final Color bloodColour;
 	public final boolean ignoreTargetLimit;
+	public final double scale;
 	
 	public StatusEffects resistances;
 	
@@ -73,6 +74,7 @@ public abstract class AbstractEnemyType implements Cloneable
 		
 		coinMultiplier = m.getDouble("coin-multiplier", 1);
 		ignoreTargetLimit = m.getBoolean("ignore-target-limit", false);
+		scale = m.getDouble("scale", 1);
 		
 		if (m.contains("tags")) tags = m.getStringList("tags");
 		

@@ -33,3 +33,36 @@ leaf_boots:
     waterway_sac: 1
     water_boots: 2
     leaf_mush: 128
+
+zombie_helmet:
+  level: 5
+  time: 1h
+  category: waterway_armours_zombie
+  discovery: weird_flesh_collection
+  discovery-tier: 4
+  items:
+    spiced_meat: 15
+zombie_chestplate:
+  level: 5
+  time: 1h
+  category: waterway_armours_zombie
+  discovery: weird_flesh_collection
+  discovery-tier: 4
+  items:
+    spiced_meat: 24
+zombie_leggings:
+  level: 5
+  time: 1h
+  category: waterway_armours_zombie
+  discovery: weird_flesh_collection
+  discovery-tier: 4
+  items:
+    spiced_meat: 21
+zombie_boots:
+  level: 5
+  time: 1h
+  category: waterway_armours_zombie
+  discovery: weird_flesh_collection
+  discovery-tier: 4
+  items:
+    spiced_meat: 12

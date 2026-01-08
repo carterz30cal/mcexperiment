@@ -3,6 +3,19 @@ set_leaf:
   type: VIRTUAL_SET
   requireCount: 4
   description:
-    - The forest calls you.
+    - DARK_GRAYThe forest calls you.
+    -
   abilities:
     - SET_LEAF
+
+set_zombie:
+  name: Undead Vitality
+  type: VIRTUAL_SET
+  requireCount: 2
+  description:
+    - DARK_GRAYSomehow you feel more alive?
+    -
+  abilities:
+    - SET_ZOMBIE
+  stats:
+    might: +35
