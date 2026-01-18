@@ -1,0 +1,29 @@
+shoddy_pickaxe:
+  name: Shoddy Pickaxe
+  type: PICKAXE
+  rarity: COMMON
+  material: WOODEN_PICKAXE
+  stats:
+    mining_speed: 100
+    breaking_power: 1
+
+leaf_pickaxe:
+  name: Leaf Pickaxe
+  type: PICKAXE
+  rarity: UNCOMMON
+  material: WOODEN_PICKAXE
+  glow: true
+  stats:
+    mining_speed: 140
+    breaking_power: 2
+    mining_fortune: 20
+
+gold_leaf_pickaxe:
+  name: Gold Leaf Pickaxe
+  type: PICKAXE
+  rarity: RARE
+  material: GOLDEN_PICKAXE
+  stats:
+    mining_speed: 175
+    breaking_power: 2
+    mining_fortune: 30

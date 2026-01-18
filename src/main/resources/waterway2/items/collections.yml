@@ -19,12 +19,12 @@ weird_flesh_collection:
     - 10000
     - 100000
   xp-rewards:
+    - 50
+    - 35
+    - 15
     - 10
-    - 200
-    - 500
-    - 1000
-    - 5000
-    - 25000
+    - 5
+    - 1
 
 waterway_cod_collection:
   name: Waterway Cod
@@ -53,15 +53,49 @@ waterway_cod_collection:
     - 100000
     - 500000
   xp-rewards:
-    - 10
-    - 25
     - 50
-    - 75
+    - 25
+    - 25
+    - 15
+    - 10
+    - 5
+    - 2
+    - 1
+    - 1
+
+leaf_mash_collection:
+  name: Leaf Mash
+  display-item: leaf_mash
+  description:
+    - Grows everywhere in Waterway.
+    - Smells about as bad as the fish.
+  tier-descriptions:
+    - Unmashed
+    - Mildly Mashed
+    - Well Mashed
+    - Mash Maniac
+    - Mash Madness
+    - Mashinator
+    - Mash Attack
+    - I can't believe it's not mash!
+  tiers:
+    - 10
     - 100
-    - 500
     - 1000
-    - 2000
     - 5000
+    - 20000
+    - 50000
+    - 100000
+    - 250000
+  xp-rewards:
+    - 25
+    - 20
+    - 15
+    - 10
+    - 5
+    - 4
+    - 3
+    - 2
 
 meat_scraps_collection:
   name: Meat Scraps
@@ -80,6 +114,6 @@ meat_scraps_collection:
     - 1000
   xp-rewards:
     - 10
-    - 100
-    - 5000
-    - 15000
+    - 5
+    - 1
+    - 1

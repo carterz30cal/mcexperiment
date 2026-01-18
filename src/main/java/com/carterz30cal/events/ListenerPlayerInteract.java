@@ -1,11 +1,21 @@
 package com.carterz30cal.events;
 
+import com.carterz30cal.entities.GameEnemy;
+import com.carterz30cal.entities.GameEntity;
+import com.carterz30cal.entities.GamePlayer;
 import com.carterz30cal.entities.Shop;
 import com.carterz30cal.gui.LootboxGUI;
+import com.carterz30cal.gui.MenuGUI;
 import com.carterz30cal.gui.ShopGUI;
-import com.carterz30cal.items.*;
+import com.carterz30cal.items.Item;
+import com.carterz30cal.items.ItemFactory;
+import com.carterz30cal.items.ItemLootbox;
+import com.carterz30cal.items.ItemType;
+import com.carterz30cal.mining.MiningManager;
+import org.bukkit.FluidCollisionMode;
 import org.bukkit.GameMode;
 import org.bukkit.Material;
+import org.bukkit.block.Block;
 import org.bukkit.entity.Arrow;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -14,13 +24,7 @@ import org.bukkit.event.player.PlayerAnimationEvent;
 import org.bukkit.event.player.PlayerAnimationType;
 import org.bukkit.event.player.PlayerInteractEntityEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
-import org.bukkit.inventory.ItemStack;
 import org.bukkit.persistence.PersistentDataType;
-
-import com.carterz30cal.entities.GameEnemy;
-import com.carterz30cal.entities.GameEntity;
-import com.carterz30cal.entities.GamePlayer;
-import com.carterz30cal.gui.MenuGUI;
 
 public class ListenerPlayerInteract implements Listener {
 	@EventHandler
@@ -86,17 +90,29 @@ public class ListenerPlayerInteract implements Listener {
 		GamePlayer p = (GamePlayer)GameEntity.get(e.getPlayer());
 		Item item = ItemFactory.getItem(p.getMainItem());
 		if (e.getAnimationType() == PlayerAnimationType.ARM_SWING) {
-			if (item != null && item.type == ItemType.BOW && p.bowTick < 1)
-			{
-				p.bowTick = 4;
-				if (p.getQuiverCount() > 0)
-				{
-					Arrow arrow = p.player.launchProjectile(Arrow.class);
-					arrow.getPersistentDataContainer().set(GameEnemy.keyEnemy, PersistentDataType.STRING, p.player.getUniqueId().toString());
-					arrow.getPersistentDataContainer().set(GameEnemy.keyArrowType, PersistentDataType.STRING, p.useArrow());
-				}
-				else p.sendMessage("REDYou are out of arrows!");
-			}
+            if (item != null) {
+                if (item.type == ItemType.BOW) {
+                    if (p.bowTick < 1) {
+                        p.bowTick = 4;
+                        if (p.getQuiverCount() > 0) {
+                            Arrow arrow = p.player.launchProjectile(Arrow.class);
+                            arrow.getPersistentDataContainer().set(GameEnemy.keyEnemy, PersistentDataType.STRING, p.player.getUniqueId().toString());
+                            arrow.getPersistentDataContainer().set(GameEnemy.keyArrowType, PersistentDataType.STRING, p.useArrow());
+                        }
+                        else {
+                            p.sendMessage("REDYou are out of arrows!");
+                        }
+                    }
+                }
+                else if (item.type == ItemType.PICKAXE) {
+                    if (p.player.getGameMode() == GameMode.SURVIVAL) {
+                        Block attemptingToMine = p.player.getTargetBlockExact(5, FluidCollisionMode.NEVER);
+                        if (attemptingToMine != null) {
+                            MiningManager.attemptMine(p, attemptingToMine.getLocation());
+                        }
+                    }
+                }
+            }
 			for (var a : p.abilities) a.ability.onLeftClick(a);
 		}
 	}

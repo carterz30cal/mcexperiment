@@ -14,6 +14,7 @@ public enum ItemType
 	TOME(ItemTypeUse.WIELDABLE, DamageType.MAGICAL),
 	WAND(ItemTypeUse.WIELDABLE, DamageType.MAGICAL),
 	TOOL(ItemTypeUse.WIELDABLE, DamageType.PHYSICAL),
+    PICKAXE(ItemTypeUse.WIELDABLE, DamageType.PHYSICAL),
 	ARTEFACT(ItemTypeUse.WIELDABLE_CONSUMABLE),
 	LOOTBOX(ItemTypeUse.CONSUMABLE),
 	TALISMAN(ItemTypeUse.TALISMAN),

@@ -22,7 +22,8 @@ storm_talisman_rare:
   type: TALISMAN
   rarity: RARE
   material: PLAYER_HEAD
-  value: 20
+  value: 500
+  skull-profile-id: storm_talisman_sea_lantern
   stats:
     strength: +50
 storm_talisman_very_rare:
@@ -30,7 +31,7 @@ storm_talisman_very_rare:
   type: TALISMAN
   rarity: VERY_RARE
   material: PLAYER_HEAD
-  value: 20
+  skull-profile-id: storm_talisman_sea_lantern
   stats:
     strength: +60
 storm_talisman_epic:
@@ -38,6 +39,6 @@ storm_talisman_epic:
   type: TALISMAN
   rarity: EPIC
   material: PLAYER_HEAD
-  value: 20
+  skull-profile-id: storm_talisman_sea_lantern
   stats:
     strength: +70

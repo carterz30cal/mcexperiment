@@ -1,18 +1,17 @@
 package com.carterz30cal.gui;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import org.bukkit.ChatColor;
-import org.bukkit.inventory.ItemStack;
-import org.bukkit.inventory.meta.ItemMeta;
-
 import com.carterz30cal.entities.GamePlayer;
 import com.carterz30cal.items.Collection;
 import com.carterz30cal.items.DiscoveryManager;
 import com.carterz30cal.items.ItemFactory;
 import com.carterz30cal.items.Recipe;
 import com.carterz30cal.utils.StringUtils;
+import org.bukkit.ChatColor;
+import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.ItemMeta;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class DiscoveryGUI extends AbstractGUI {
 	public int page = 1;
@@ -158,9 +157,13 @@ public class DiscoveryGUI extends AbstractGUI {
 				inventory.setSlot(display, calc(positions[d][x], y + 2));
 			}
 
-			inventory.setSlot(ItemFactory.buildCustom(
-					discovery.displayItem,
-					"GREEN" + discovery.name + " " + level, "GRAYYou have collected GREEN" + owner.discoveries.getOrDefault(discovery.id, 0L) + "GRAY items."),
+            inventory.setSlot(ItemFactory.buildCustom(discovery.displayItem,
+                            "GREEN" + discovery.name + " " + level,
+                            "GRAYYou have collected GREEN"
+                                    +
+                                    StringUtils.commaify(owner.discoveries.getOrDefault(discovery.id, 0L))
+                                    +
+                                    "GRAY items."),
 					calc(4, 0));
 			inventory.setSlot(ItemFactory.buildCustom("ARROW", "GREENBack", null), calc(4,5));
 		}

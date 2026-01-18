@@ -53,17 +53,26 @@ spider_silk:
     - Dull grey threads of silk.
     - Dropped by REDSpidersGRAY.
 
-leaf_mush:
-  name: Leaf Mush
+leaf_mash:
+  name: Leaf Mash
   type: INGREDIENT
   rarity: UNCOMMON
   material: GREEN_DYE
   value: 1
+  discovery: leaf_mash_collection
+  discovery-progress: 1
   description:
-    - Squishy.
-    - Found by mining leaves in the
-    - Waterway Cave.
-    - Used in several recipes.
+    - Would not recommend consuming.
+    - Can be used to upgrade mining equipment
+    - and defensive armours.
+
+gold_leaf:
+  name: Gold Leaf
+  rarity: VERY_RARE
+  material: GOLDEN_CARROT
+  value: 15
+  description:
+    - Shiny!
 
 paper:
   name: Paper
@@ -136,6 +145,7 @@ waterway_cod_meal:
   rarity: INCREDIBLE
   material: PLAYER_HEAD
   value: 30720
+  skull-profile-id: fish_barrel
   discovery: waterway_cod_collection
   discovery-progress: 32768
   description:

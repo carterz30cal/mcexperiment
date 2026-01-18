@@ -1,12 +1,11 @@
 package com.carterz30cal.items;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import com.carterz30cal.items.abilities2.Abilities;
+import com.carterz30cal.stats.StatContainer;
 import org.bukkit.Material;
 
-import com.carterz30cal.stats.StatContainer;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Item 
 {
@@ -16,6 +15,7 @@ public class Item
 	public List<String> description;
 	public List<Abilities> abilities = new ArrayList<>();
 	public List<String> tags = new ArrayList<>();
+
 	
 	public Material material;
 	public ItemType type;
@@ -25,6 +25,7 @@ public class Item
 	public long value;
 
 	public String set;
+    public String skullProfileId;
 
 	public String discovery;
 	public long discoveryProgress;

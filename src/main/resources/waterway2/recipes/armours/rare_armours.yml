@@ -5,7 +5,7 @@ leaf_helmet:
   items:
     waterway_sac: 1
     water_helmet: 2
-    leaf_mush: 128
+    leaf_mash: 128
 
 leaf_chestplate:
   level: 5
@@ -14,7 +14,7 @@ leaf_chestplate:
   items:
     waterway_sac: 1
     water_chestplate: 2
-    leaf_mush: 256
+    leaf_mash: 256
 
 leaf_leggings:
   level: 5
@@ -23,7 +23,7 @@ leaf_leggings:
   items:
     waterway_sac: 1
     water_leggings: 2
-    leaf_mush: 256
+    leaf_mash: 256
 
 leaf_boots:
   level: 5
@@ -32,7 +32,7 @@ leaf_boots:
   items:
     waterway_sac: 1
     water_boots: 2
-    leaf_mush: 128
+    leaf_mash: 128
 
 zombie_helmet:
   level: 5

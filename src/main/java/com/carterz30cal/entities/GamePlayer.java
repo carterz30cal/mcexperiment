@@ -1,13 +1,25 @@
 package com.carterz30cal.entities;
 
-import java.time.LocalDateTime;
-import java.util.*;
-
+import com.carterz30cal.areas.BossWaterwayHydra;
+import com.carterz30cal.areas2.AreaManager;
+import com.carterz30cal.areas2.Areas;
+import com.carterz30cal.dungeoneering.DungeonManager;
+import com.carterz30cal.entities.enemies.EnemyTypeFish;
 import com.carterz30cal.fishing.FishingArea;
+import com.carterz30cal.gui.AbstractGUI;
 import com.carterz30cal.items.*;
 import com.carterz30cal.items.Collection;
 import com.carterz30cal.items.abilities2.implementation.GameAbility;
 import com.carterz30cal.items.sets.ItemSet;
+import com.carterz30cal.main.Dungeons;
+import com.carterz30cal.mining.Mineable;
+import com.carterz30cal.stats.Stat;
+import com.carterz30cal.stats.StatContainer;
+import com.carterz30cal.stats.StatOperationType;
+import com.carterz30cal.utils.EntityUtils;
+import com.carterz30cal.utils.LevelUtils;
+import com.carterz30cal.utils.ScoreboardWrapper;
+import com.carterz30cal.utils.StringUtils;
 import net.md_5.bungee.api.ChatMessageType;
 import net.md_5.bungee.api.chat.TextComponent;
 import org.bukkit.Bukkit;
@@ -24,21 +36,10 @@ import org.bukkit.persistence.PersistentDataType;
 import org.bukkit.potion.PotionEffectType;
 import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.util.Vector;
-
-import com.carterz30cal.areas.BossWaterwayHydra;
-import com.carterz30cal.dungeoneering.DungeonManager;
-import com.carterz30cal.entities.enemies.EnemyTypeFish;
-import com.carterz30cal.gui.AbstractGUI;
-import com.carterz30cal.main.Dungeons;
-import com.carterz30cal.mining.Mineable;
-import com.carterz30cal.stats.Stat;
-import com.carterz30cal.stats.StatContainer;
-import com.carterz30cal.stats.StatOperationType;
-import com.carterz30cal.utils.EntityUtils;
-import com.carterz30cal.utils.LevelUtils;
-import com.carterz30cal.utils.ScoreboardWrapper;
-import com.carterz30cal.utils.StringUtils;
 import org.jetbrains.annotations.NotNull;
+
+import java.time.LocalDateTime;
+import java.util.*;
 
 //import de.ancash.actionbar.ActionBarAPI;
 
@@ -48,6 +49,7 @@ public class GamePlayer extends GameEntity
 	public StatContainer stats;
 	public StatContainer lastStats;
 	public AbstractGUI gui;
+    public Areas area;
 
 	public Map<String, Integer> sets = new HashMap<>();
 	
@@ -78,6 +80,7 @@ public class GamePlayer extends GameEntity
 	public int attackTick;
 	public int bowTick;
 	public int questTick;
+    private int areaCheckTick;
 	
 	public long lastXpReward;
 	public int lastCoinReward;
@@ -146,6 +149,9 @@ public class GamePlayer extends GameEntity
 		else {
 			//EntityUtils.applyPotionEffect(player, PotionEffectType.MINING_FATIGUE, 5, 0, false);
 		}
+
+        EntityUtils.applyPotionEffect(player, PotionEffectType.MINING_FATIGUE, 5, 3, false);
+        EntityUtils.applyPotionEffect(player, PotionEffectType.HASTE, 5, 0, false);
 
 		player.removePotionEffect(PotionEffectType.DARKNESS);
 		
@@ -259,8 +265,22 @@ public class GamePlayer extends GameEntity
 		} 
 		
 		if (attackTick > 0) attackTick--;
-		if (bowTick > 0) bowTick--;
-		if (questTick > 0) questTick--;
+
+        if (bowTick > 0) {
+            bowTick--;
+        }
+
+        if (questTick > 0) {
+            questTick--;
+        }
+
+        if (areaCheckTick > 0) {
+            areaCheckTick--;
+        }
+        else {
+            area = AreaManager.getPlayerArea(this);
+            areaCheckTick = 100;
+        }
 		
 		sendActionBar(actionBar);
 		player.getInventory().setItem(8, ItemFactory.menuItem);
@@ -278,14 +298,18 @@ public class GamePlayer extends GameEntity
 		refreshHealth();
 		
 		List<String> score = new ArrayList<>();
+        if (area != null) {
+            score.add("DARK_GRAY" + area.getArea().GetSubAreaName(this));
+            score.add("");
+        }
 		score.add("GOLDCoins: WHITE" + StringUtils.commaify((int) coins));
 		score.add("");
 		if (BossWaterwayHydra.hasParticipated(this)) {
 			score.add("GREENBOLDHydra - Wave " + BossWaterwayHydra.wave);
 			score.add("");
 		}
-		score.add("AQUALevel " + getLevel() + "BLACK [AQUA+" + Math.round(this.getLevelProgress() * 100) + "%BLACK]");
-		
+        score.add("AQUALevel " + getLevel() + " DARK_GRAY[AQUA+" + Math.round(this.getLevelProgress() * 100) + "%DARK_GRAY]");
+
 		
 		
 		

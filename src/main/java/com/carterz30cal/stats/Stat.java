@@ -18,8 +18,10 @@ public enum Stat
 	FOCUS("\u25C6 Focus", ChatColor.AQUA, StatType.OFFENSIVE, StatDisplayType.NORMAL),
 	
 	FISHING_POWER("\u03C8 Fishing Power", ChatColor.AQUA, StatType.ECONOMY),
-	
-	MINING_SPEED("\u023E Breaking Speed", ChatColor.YELLOW, StatType.ECONOMY),
+
+    BREAKING_POWER("\u03C8 Mining Power", ChatColor.YELLOW, StatType.ECONOMY),
+    MINING_SPEED("\u023E Mining Speed", ChatColor.YELLOW, StatType.ECONOMY),
+    MINING_FORTUNE("\u2665 Mining Fortune", ChatColor.YELLOW, StatType.ECONOMY),
 	PICKING("\u0194 Picking", ChatColor.YELLOW, StatType.ECONOMY),
 	CLEARING("\u0190 Clearing", ChatColor.YELLOW, StatType.ECONOMY),
 

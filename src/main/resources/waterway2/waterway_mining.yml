@@ -1,0 +1,37 @@
+weak_leaf_mash:
+  name: "Leaf Mash"
+  hardness: 130
+  power-required: 1
+  block-type: GREEN_WOOL
+  item: leaf_mash
+  lower-bound: 1
+  upper-bound: 2
+  conversion-chance: 25
+  converts-into: GOLD_BLOCK
+  mines-into: BEDROCK
+  regen-time: 80
+
+leaf_mash:
+  name: "Leaf Mash"
+  hardness: 300
+  power-required: 1
+  block-type: LIME_WOOL
+  item: leaf_mash
+  lower-bound: 1
+  upper-bound: 4
+  conversion-chance: 35
+  converts-into: GOLD_BLOCK
+  mines-into: BEDROCK
+  regen-time: 80
+
+gold_leaf:
+  name: "Gold Leaf"
+  hardness: 900
+  power-required: 2
+  block-type: GOLD_BLOCK
+  item: gold_leaf
+  lower-bound: 2
+  upper-bound: 5
+  conversion-chance: -1
+  mines-into: BEDROCK
+  regen-time: 80

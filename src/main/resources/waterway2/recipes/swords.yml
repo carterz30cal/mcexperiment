@@ -80,7 +80,7 @@ healing_wand_waterway:
   items:
     waterway_sac: 3
     spider_silk: 20
-    leaf_mush: 512
+    leaf_mash: 512
 
 necromancy_sword:
   level: 6

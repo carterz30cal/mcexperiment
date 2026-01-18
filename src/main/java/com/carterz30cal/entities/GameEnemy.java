@@ -1,16 +1,14 @@
 package com.carterz30cal.entities;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.UUID;
-
-import org.bukkit.ChatColor;
-import org.bukkit.Color;
-import org.bukkit.Location;
-import org.bukkit.NamespacedKey;
-import org.bukkit.Sound;
+import com.carterz30cal.areas2.AbstractGameArea;
+import com.carterz30cal.entities.damage.StatusEffect;
+import com.carterz30cal.entities.damage.StatusEffects;
+import com.carterz30cal.main.Dungeons;
+import com.carterz30cal.utils.EntityUtils;
+import com.carterz30cal.utils.LevelUtils;
+import com.carterz30cal.utils.RandomUtils;
+import com.carterz30cal.utils.StringUtils;
+import org.bukkit.*;
 import org.bukkit.entity.ArmorStand;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.LivingEntity;
@@ -21,17 +19,8 @@ import org.bukkit.persistence.PersistentDataType;
 import org.bukkit.potion.PotionEffectType;
 import org.bukkit.scheduler.BukkitRunnable;
 
-import com.carterz30cal.areas.AbstractArea;
-import com.carterz30cal.entities.damage.StatusEffect;
-import com.carterz30cal.entities.damage.StatusEffects;
-import com.carterz30cal.items.ItemAbility;
-import com.carterz30cal.main.Dungeons;
-import com.carterz30cal.utils.EntityUtils;
-import com.carterz30cal.utils.LevelUtils;
-import com.carterz30cal.utils.RandomUtils;
-import com.carterz30cal.utils.StringUtils;
-
 import javax.annotation.Nullable;
+import java.util.*;
 
 public class GameEnemy extends GameEntity
 {
@@ -61,7 +50,7 @@ public class GameEnemy extends GameEntity
 	public StatusEffects resistances;
 	
 	public Map<String, Object> data = new HashMap<>();
-	public AbstractArea spawnedArea;
+    public AbstractGameArea spawnedArea;
 	
 	private BukkitRunnable ticker;
 	
@@ -83,8 +72,10 @@ public class GameEnemy extends GameEntity
 			else if (e instanceof LivingEntity) ((LivingEntity)e).setHealth(0);
 			else e.remove();
 		}
-		
-		if (spawnedArea != null && lastDamager != null) spawnedArea.onKill(this);
+
+        if (spawnedArea != null && lastDamager != null) {
+            spawnedArea.OnKill(this);
+        }
 		
 		if (lastDamager != null) lastDamager.attackTick = 0;
 		ticker.cancel();

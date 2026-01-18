@@ -37,6 +37,11 @@ waterway_fishing:
   icon: flimsy_fishing_rod
   parent: waterway
 
+waterway_pickaxes:
+  name: Pickaxes
+  icon: leaf_pickaxe
+  parent: waterway
+
 waterway_fishing_rods:
   name: Fishing Rods
   icon: flimsy_fishing_rod

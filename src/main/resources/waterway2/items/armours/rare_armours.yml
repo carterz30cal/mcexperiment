@@ -53,3 +53,14 @@ armour-zombie:
     vitality: +7
     enchant_power: 15
     level_requirement: 4
+
+mining_helmet:
+  name: Mining Helmet
+  material: DIAMOND_HELMET
+  rarity: RARE
+  type: HELMET
+  stats:
+    mining_speed: 40
+    mining_fortune: 30
+    enchant_power: 50
+    level_requirement: 2

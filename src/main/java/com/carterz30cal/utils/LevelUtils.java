@@ -22,7 +22,8 @@ public class LevelUtils
 		 * b = 50
 		 * c = 0
 		 */
-		return Math.round(10D * Math.pow(Math.max(0, level - 10), 3) + (50D * Math.pow(level, 2)) + (50D * level));
+        return ((level + 10) / 10) * 100;
+        //return Math.round(10D * Math.pow(Math.max(0, level - 10), 3) + (50D * Math.pow(level, 2)) + (50D * level));
 	}
 	
 	public static int getLevel(int experience)
@@ -40,6 +41,7 @@ public class LevelUtils
 	
 	public static long getEnemyBaseXpReward(int enemyLevel)
 	{
-		return Math.max(enemyLevel, (getXpForLevel(enemyLevel) - getXpForLevel(enemyLevel - 1)) / 100);
+        return 0;
+        //return Math.max(enemyLevel, (getXpForLevel(enemyLevel) - getXpForLevel(enemyLevel - 1)) / 100);
 	}
 }

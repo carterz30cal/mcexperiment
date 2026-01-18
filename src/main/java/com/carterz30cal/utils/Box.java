@@ -2,6 +2,7 @@ package com.carterz30cal.utils;
 
 import com.carterz30cal.main.Dungeons;
 import org.bukkit.Location;
+import org.bukkit.Material;
 
 public class Box {
     private final int x1;
@@ -28,6 +29,15 @@ public class Box {
         this.z2 = Math.max(z1, z2);
     }
 
+    public Box(int x1, int x2, int z1, int z2, int y) {
+        this.x1 = Math.min(x1, x2);
+        this.x2 = Math.max(x1, x2);
+        this.z1 = Math.min(z1, z2);
+        this.z2 = Math.max(z1, z2);
+        this.y1 = y;
+        this.y2 = y;
+    }
+
     public Box Expand(int by) {
         return new Box(x1 - by, y1 - by, z1 - by, x2 + by, y2 + by, z2 + by);
     }
@@ -47,6 +57,36 @@ public class Box {
     }
     public Location GetUpperCornerAsLocation() {
         return new Location(Dungeons.w, x2, y2, z2);
+    }
+
+    public Location GetRandomMobLocation() {
+        int rx = RandomUtils.getRandom(x1, x2);
+        int ry = RandomUtils.getRandom(y1, y2);
+        int rz = RandomUtils.getRandom(z1, z2);
+
+        Location location = new Location(Dungeons.w, rx, ry, rz);
+        int attempts = 0;
+        while (location.getBlock().getType() != Material.AIR && attempts < 15) {
+            ry++;
+            attempts++;
+            location = new Location(Dungeons.w, rx, ry, rz);
+        }
+        if (location.getBlock().getType() != Material.AIR) {
+            return GetRandomMobLocation();
+        }
+        else {
+            attempts = 0;
+            while (location.clone().subtract(0, 1, 0).getBlock().getType() == Material.AIR && attempts < 15) {
+                ry--;
+                attempts++;
+                location = new Location(Dungeons.w, rx, ry, rz);
+            }
+            if (location.clone().subtract(0, 1, 0).getBlock().getType() == Material.AIR) {
+                return GetRandomMobLocation();
+            }
+        }
+
+        return location;
     }
 
     public int GetHorizontalCrossSectionalArea() {

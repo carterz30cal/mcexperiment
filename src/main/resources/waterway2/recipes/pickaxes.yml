@@ -1,0 +1,31 @@
+leaf_pickaxe:
+  level: 1
+  time: 1s
+  category: waterway_pickaxes
+  discovery: leaf_mash_collection
+  discovery-tier: 1
+  coins: 100
+  items:
+    shoddy_pickaxe: 1
+    leaf_mash: 25
+
+gold_leaf_pickaxe:
+  level: 2
+  time: 1s
+  category: waterway_pickaxes
+  discovery: leaf_mash_collection
+  discovery-tier: 2
+  coins: 500
+  items:
+    leaf_pickaxe: 1
+    leaf_mash: 400
+    gold_leaf: 20
+
+mining_helmet:
+  level: 2
+  time: 1h
+  category: waterway_pickaxes
+  discovery: leaf_mash_collection
+  discovery-tier: 3
+  items:
+    gold_leaf: 100

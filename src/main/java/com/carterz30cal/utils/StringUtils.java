@@ -1,15 +1,14 @@
 package com.carterz30cal.utils;
 
-import java.time.Duration;
-import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
-
+import com.carterz30cal.main.Dungeons;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.configuration.ConfigurationSection;
 
-import com.carterz30cal.main.Dungeons;
+import java.time.Duration;
+import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 public class StringUtils
 {
@@ -85,6 +84,22 @@ public class StringUtils
 		
 		return adj;
 	}
+
+    public static String commaify(long amount) {
+        String am = "" + Math.abs(amount);
+        String adj = "";
+        for (int i = 0; i < am.length(); i++) {
+            int c = am.length() - (i + 1);
+            if (i % 3 == 0 && i != 0) {
+                adj = am.charAt(c) + "," + adj;
+            }
+            else {
+                adj = am.charAt(c) + adj;
+            }
+        }
+
+        return adj;
+    }
 	
 	public static String getPrettyTime(int ticks)
 	{
