@@ -3,17 +3,19 @@ package com.carterz30cal.entities;
 import com.carterz30cal.areas2.AbstractGameArea;
 import com.carterz30cal.entities.damage.StatusEffect;
 import com.carterz30cal.entities.damage.StatusEffects;
+import com.carterz30cal.entities.enemies.EnemyTypeSimple;
 import com.carterz30cal.main.Dungeons;
 import com.carterz30cal.utils.EntityUtils;
 import com.carterz30cal.utils.LevelUtils;
 import com.carterz30cal.utils.RandomUtils;
 import com.carterz30cal.utils.StringUtils;
 import org.bukkit.*;
-import org.bukkit.entity.ArmorStand;
-import org.bukkit.entity.Entity;
-import org.bukkit.entity.LivingEntity;
-import org.bukkit.entity.Mob;
+import org.bukkit.attribute.Attribute;
+import org.bukkit.attribute.AttributeModifier;
+import org.bukkit.entity.*;
 import org.bukkit.event.player.PlayerTeleportEvent.TeleportCause;
+import org.bukkit.inventory.EquipmentSlot;
+import org.bukkit.inventory.EquipmentSlotGroup;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.persistence.PersistentDataType;
 import org.bukkit.potion.PotionEffectType;
@@ -137,6 +139,17 @@ public class GameEnemy extends GameEntity
 	public Entity getMain()
 	{
 		return main;
+	}
+
+	public void SetSpeed(double speed) {
+		if (main instanceof Mob)
+		{
+			var speedAttribute = ((Mob)main).getAttribute(Attribute.MOVEMENT_SPEED);
+			if (speedAttribute != null) {
+				speedAttribute.addModifier(new AttributeModifier(EnemyTypeSimple.KEY_SPEED, speed - 1, AttributeModifier.Operation.MULTIPLY_SCALAR_1, EquipmentSlotGroup.ANY));
+			}
+		}
+
 	}
 	
 	public DamageInfo getAttack()

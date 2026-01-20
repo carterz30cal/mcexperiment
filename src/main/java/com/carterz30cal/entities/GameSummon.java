@@ -68,7 +68,7 @@ public class GameSummon extends GameEnemy {
         //GameEntity en;
         List<GameEnemy> enemies = EntityUtils.getNearbyEnemies(getLocation(), 10);
         enemies.removeIf((e) -> (e instanceof GameSummon));
-        if (enemies.size() > 0) return enemies.get(0);
+        if (!enemies.isEmpty()) return enemies.get(0);
         else if (owner.getLocation().distance(getLocation()) > 5) return owner;
         else return null;
     }
@@ -95,6 +95,7 @@ public class GameSummon extends GameEnemy {
         if (dead.type.level > 15) EntityUtils.setArmourPiece((Mob)summon.main, EquipmentSlot.LEGS, new ItemStack(Material.CHAINMAIL_LEGGINGS));
         if (dead.type.level > 10) EntityUtils.setArmourPiece((Mob)summon.main, EquipmentSlot.FEET, new ItemStack(Material.CHAINMAIL_BOOTS));
         summon.owner = owner;
+        summon.SetSpeed(2);
 
         summon.register();
         return summon;
