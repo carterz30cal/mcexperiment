@@ -1,24 +1,22 @@
 package com.carterz30cal.items;
 
-import java.util.ArrayList;
-import java.util.List;
-
+import com.carterz30cal.entities.GamePlayer;
 import com.carterz30cal.stats.Stat;
+import com.carterz30cal.utils.RandomUtils;
 import com.carterz30cal.utils.StringUtils;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.inventory.ItemStack;
 
-import com.carterz30cal.entities.GamePlayer;
-import com.carterz30cal.utils.RandomUtils;
+import java.util.ArrayList;
+import java.util.List;
 
 public class ItemLootTable
 {
-	private List<ItemLoot> loot = new ArrayList<>();
+    private final List<ItemLoot> loot = new ArrayList<>();
 
 
 	public int getDropCount() {
-		if (loot == null) return 0;
-		else return loot.size();
+        return loot.size();
 	}
 
 	public List<ItemStack> generate(GamePlayer player)
@@ -80,7 +78,7 @@ public class ItemLootTable
 				break;
 			}
 		}
-		
+
 		loot.add(drop);
 	}
 	public void addDrop(String item, int[] amount, int[] chance, String enchants)
@@ -112,7 +110,7 @@ public class ItemLootTable
 				break;
 			}
 		}
-		
+
 		loot.add(drop);
 	}
 
@@ -135,9 +133,9 @@ public class ItemLootTable
 		}
 	}
 
-	public class ContextualDrop {
-		private ItemStack itemStack;
-		private ItemRarity rarity;
+    public static class ContextualDrop {
+        private final ItemStack itemStack;
+        private final ItemRarity rarity;
 
 		public ItemStack getItemStack() {
 			return itemStack.clone();
@@ -152,8 +150,8 @@ public class ItemLootTable
 		}
 	}
 
-	
-	private static class ItemLoot
+
+    public static class ItemLoot
 	{
 		public String item;
 		public int[] amount;
