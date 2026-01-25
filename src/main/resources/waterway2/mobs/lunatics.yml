@@ -8,6 +8,7 @@ lunatic_1:
   damage-type: PHYSICAL
   display-height: 1.8
   blood-colour: 250,0,50
+  bestiary-category: waterway_lunatics
   armour:
     PHYSICAL: 0
     PROJECTILE: 0
@@ -34,6 +35,7 @@ lunatic_2:
   damage-type: PHYSICAL
   display-height: 1.8
   blood-colour: 250,0,50
+  bestiary-category: waterway_lunatics
   armour:
     PHYSICAL: 0
     PROJECTILE: 0
@@ -49,17 +51,27 @@ lunatic_2:
   drops:
     weird_flesh:
       amount: 3/7
+    water_helmet:
+      chance: 1/75
+    water_chestplate:
+      chance: 1/75
+    water_leggings:
+      chance: 1/75
+    water_boots:
+      chance: 1/75
 
 lunatic_3:
   name: Lunatic Warrior
   type: SIMPLE
   level: 3
-  health: 60
+  health: 50
   knockback: 95
+  speed: 1.1
   damage: 30
   damage-type: PHYSICAL
   display-height: 1.8
   blood-colour: 250,0,50
+  bestiary-category: waterway_lunatics
   armour:
     PHYSICAL: 0
     PROJECTILE: 0
@@ -97,10 +109,12 @@ lunatic_4:
   level: 4
   health: 100
   knockback: 90
+  speed: 1.15
   damage: 40
   damage-type: PHYSICAL
   display-height: 1.8
   blood-colour: 250,0,50
+  bestiary-category: waterway_lunatics
   armour:
     PHYSICAL: 0
     PROJECTILE: 0
@@ -131,17 +145,18 @@ lunatic_4:
       chance: 1/50
 
 lunatic_5:
-  name: Fanatic
+  name: Lunatic Fanatic
   type: SIMPLE
-  entity-type: SKELETON
+  entity-type: ZOMBIE
   level: 5
-  health: 220
+  health: 175
   knockback: 80
   damage: 50
   damage-type: PHYSICAL
   display-height: 1.8
   blood-colour: 250,0,50
   speed: 0.8
+  bestiary-category: waterway_lunatics
   resistances:
     BLEED: 65
   armour:
@@ -174,6 +189,51 @@ lunatic_5:
       chance: 1/50
     water_boots:
       chance: 1/50
+    waterway_sac:
+      chance: 1/75
+    enchanted_book:
+      enchants: ENCHANT_SHARPNESS-1
+      chance: 1/200
+
+lunatic_5_lava:
+  name: Lava Lunatic
+  type: SIMPLE
+  entity-type: ZOMBIE
+  level: 5
+  health: 175
+  knockback: 50
+  damage: 65
+  damage-type: PHYSICAL
+  display-height: 1.8
+  blood-colour: 250,0,50
+  speed: 0.9
+  bestiary-category: waterway_lunatics
+  resistances:
+    BLEED: 80
+  armour:
+    PHYSICAL: 0
+    PROJECTILE: 50
+    MAGICAL: 0
+    HOLY: 0
+    BLEED: -40
+    FIRE: 0
+    WITHER: 0
+  equipment:
+    HAND: pungent_sword_rare
+    HEAD: ORANGE_STAINED_GLASS
+    CHEST: leather_chestplate
+    LEGS: CHAINMAIL_LEGGINGS
+    FEET: leather_boots
+  tags:
+    - LUNATIC
+    - LUNATIC_HIGH_RANK
+    - FANATIC
+  drops:
+    weird_flesh:
+      amount: 10/25
+    chilli_powder:
+      chance: 1/8
+      amount: 2/3
     waterway_sac:
       chance: 1/75
     enchanted_book:

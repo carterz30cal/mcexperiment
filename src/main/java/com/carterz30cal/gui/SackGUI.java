@@ -1,17 +1,16 @@
 package com.carterz30cal.gui;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
-import org.bukkit.inventory.ItemStack;
-
 import com.carterz30cal.entities.GamePlayer;
 import com.carterz30cal.items.Item;
 import com.carterz30cal.items.ItemFactory;
 import com.carterz30cal.items.ItemRarity;
 import com.carterz30cal.items.ItemType;
+import org.bukkit.inventory.ItemStack;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class SackGUI extends AbstractGUI
 {
@@ -53,7 +52,7 @@ public class SackGUI extends AbstractGUI
 			int y = b / 7 + 1;
 			
 			String s = cont.get(i);
-			ItemStack disp = ItemFactory.buildCustom(s, ItemFactory.getItemTypeName(s) + " WHITEx" + owner.sack.get(s), null);
+            ItemStack disp = ItemFactory.buildCustom(s, ItemFactory.getItemTypeName(s) + " WHITEx" + owner.sack.get(s));
 			disp.setAmount(Math.min(owner.sack.get(s), 64));
 			arrows[y * 9 + x] = s;
 			

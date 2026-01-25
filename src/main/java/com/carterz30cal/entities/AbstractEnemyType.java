@@ -1,19 +1,19 @@
 package com.carterz30cal.entities;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
+import com.carterz30cal.entities.damage.StatusEffect;
+import com.carterz30cal.entities.damage.StatusEffects;
+import com.carterz30cal.gui.BestiaryGUI;
+import com.carterz30cal.items.ItemLootTable;
+import com.carterz30cal.utils.StringUtils;
 import org.bukkit.Color;
 import org.bukkit.Location;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.entity.Mob;
 
-import com.carterz30cal.entities.damage.StatusEffect;
-import com.carterz30cal.entities.damage.StatusEffects;
-import com.carterz30cal.items.ItemLootTable;
-import com.carterz30cal.utils.StringUtils;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public abstract class AbstractEnemyType implements Cloneable
 {
@@ -21,6 +21,7 @@ public abstract class AbstractEnemyType implements Cloneable
 	
 	public final String id;
 	public final String name;
+    public final String bestiaryCategory;
 	public int health;
 	public int regen = 0;
 	public final int level;
@@ -54,6 +55,8 @@ public abstract class AbstractEnemyType implements Cloneable
 		displayHeight = m.getDouble("display-height", 2.1);
 		size = m.getInt("size", 2);
 		speed = m.getDouble("speed", 1);
+        bestiaryCategory = m.getString("bestiary-category", "base");
+        BestiaryGUI.RegisterTypeIntoCategory(id, bestiaryCategory);
 		
 		resistances = StatusEffects.createWithDefaultResistances();
 		if (m.contains("resistances")) {

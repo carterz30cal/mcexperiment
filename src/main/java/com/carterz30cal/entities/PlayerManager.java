@@ -1,13 +1,7 @@
 package com.carterz30cal.entities;
 
-import java.io.File;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.UUID;
-
+import com.carterz30cal.items.ForgingItem;
+import com.carterz30cal.main.Dungeons;
 import org.bukkit.Bukkit;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.InvalidConfigurationException;
@@ -16,8 +10,9 @@ import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitRunnable;
 
-import com.carterz30cal.items.ForgingItem;
-import com.carterz30cal.main.Dungeons;
+import java.io.File;
+import java.io.IOException;
+import java.util.*;
 
 public class PlayerManager
 {
@@ -126,6 +121,14 @@ public class PlayerManager
 				p.quiver.put(path, quiver.getInt(path, 0));
 			}
 		}
+
+        ConfigurationSection kills = c.getConfigurationSection("kills");
+        if (kills != null) {
+            for (var path : kills.getKeys(false)) {
+                p.kills.put(path, kills.getLong(path, 0));
+            }
+        }
+
 		
 		ConfigurationSection discoveries = c.getConfigurationSection("discoveries");
 		if (discoveries != null)
@@ -189,6 +192,12 @@ public class PlayerManager
 		{
 			c.set("quiver." + arrow, p.quiver.get(arrow));
 		}
+
+        c.set("kills", null);
+        c.createSection("kills");
+        for (var kill : p.kills.keySet()) {
+            c.set("kills." + kill, p.kills.get(kill));
+        }
 		
 		c.set("discoveries", null);
 		c.createSection("discoveries");

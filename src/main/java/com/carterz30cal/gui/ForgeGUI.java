@@ -1,16 +1,15 @@
 package com.carterz30cal.gui;
 
-import java.util.ArrayList;
-import java.util.List;
-
+import com.carterz30cal.entities.GamePlayer;
 import com.carterz30cal.items.*;
+import com.carterz30cal.utils.StringUtils;
 import org.bukkit.ChatColor;
 import org.bukkit.Sound;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
-import com.carterz30cal.entities.GamePlayer;
-import com.carterz30cal.utils.StringUtils;
+import java.util.ArrayList;
+import java.util.List;
 
 public class ForgeGUI extends AbstractGUI 
 {
@@ -164,7 +163,7 @@ public class ForgeGUI extends AbstractGUI
 		
 		if (requirements.size() != 0) 
 		{
-			ItemStack r = ItemFactory.buildCustom("RED_STAINED_GLASS_PANE", "REDRecipe locked!", null);
+            ItemStack r = ItemFactory.buildCustom("RED_STAINED_GLASS_PANE", "REDRecipe locked!");
 			ItemMeta m = r.getItemMeta();
 			
 			m.setLore(StringUtils.colourList(requirements));

@@ -114,6 +114,10 @@ public class ItemLootTable
 		loot.add(drop);
 	}
 
+    public List<ItemLoot> GetLoot() {
+        return loot;
+    }
+
 	public ItemLootTable() {
 
 	}

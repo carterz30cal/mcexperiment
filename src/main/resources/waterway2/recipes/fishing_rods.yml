@@ -5,6 +5,18 @@ flimsy_fishing_rod:
   items:
     weird_flesh: 32
 
+fish_tank:
+  time: 2m
+  category: waterway_talismans
+  discovery: waterway_cod_collection
+  discovery-tier: 2
+  coins: 100
+  items:
+    paper: 1
+    leaf_mash: 64
+    gold_leaf: 6
+    spiced_meat: 1
+
 reinforced_fishing_rod:
   level: 2
   time: 1s

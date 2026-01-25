@@ -11,7 +11,7 @@ armour-leather:
     g: 100
     b: 100
   stats:
-    defence: 15, 25, 20, 10
+    defence: 25, 35, 30, 20
     enchant_power: +5
 
 armour-water:
@@ -29,7 +29,7 @@ armour-water:
     g: 120
     b: 255
   stats:
-    health: 25, 75, 50, 25
+    health: 25, 75, 50, 20
     enchant_power: +5
 
 armour-paper:

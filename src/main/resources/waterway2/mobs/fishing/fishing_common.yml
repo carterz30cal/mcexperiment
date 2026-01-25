@@ -4,7 +4,7 @@ drenched_COMMON:
   has-director: true
   type: FISH
   fishing-brackets:
-    waterway: COMMON
+    WATERWAY: COMMON
   level: 3
   health: 100
   knockback: 125
@@ -12,6 +12,7 @@ drenched_COMMON:
   damage-type: PHYSICAL
   display-height: 1.8
   blood-colour: 0,50,100
+  bestiary-category: waterway_fishing_common
   armour:
     PHYSICAL: 0
     PROJECTILE: 0
@@ -33,12 +34,14 @@ drenched_COMMON:
       amount: 1/3
     meat_scraps:
       chance: 1/300
+    pet_drenched_common:
+      chance: 1/275
 
 lunatic_fisherman_COMMON:
   name: GRAYLunatic Fisherman
   type: FISH
   fishing-brackets:
-    waterway: COMMON
+    WATERWAY: COMMON
   level: 3
   health: 85
   knockback: 95
@@ -47,6 +50,7 @@ lunatic_fisherman_COMMON:
   damage-type: PHYSICAL
   display-height: 1.8
   blood-colour: 250,0,50
+  bestiary-category: waterway_fishing_common
   armour:
     PHYSICAL: 0
     PROJECTILE: 50

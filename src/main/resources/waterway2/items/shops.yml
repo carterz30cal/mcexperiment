@@ -1,30 +1,30 @@
 bobs_simple_supplies:
   shop-name: "Bob's Simple Supplies"
   shopkeeper-name: "Bob"
-  shopkeeper-type: ZOMBIE
-  location: -88.5,75,-22.5,67,4
+  shopkeeper-type: MANNEQUIN
+  location: -53.5, 76, 17.6, 117, 0
   items:
     weird_flesh:
       item: weird_flesh
       coins: 2
-      level: 0
+      level: 1
     bad_pun_sword_1:
       item: bad_pun_sword_1
-      coins: 2500
-      level: 3
+      coins: 1350
+      level: 2
     catalyst:
       item: combination_catalyst_shard
       coins: 800
-      level: 5
+      level: 3
     enchanted_book_titanic:
       item: enchanted_book
       enchants: ENCHANT_TITANIC-1
-      coins: 2750
-      level: 6
+      coins: 1000
+      level: 4
     armour_chainmail_helmet:
       item: chainmail_helmet
-      level: 6
-      coins: 1500
+      level: 4
+      coins: 1250
 
 cultist_shop:
   shop-name: "Dusty Cultist Leftovers"

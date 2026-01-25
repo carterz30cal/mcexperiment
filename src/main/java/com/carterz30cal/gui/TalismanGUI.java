@@ -1,17 +1,16 @@
 package com.carterz30cal.gui;
 
-import java.util.ArrayList;
-import java.util.List;
-
+import com.carterz30cal.entities.GamePlayer;
+import com.carterz30cal.items.Item;
+import com.carterz30cal.items.ItemFactory;
+import com.carterz30cal.items.ItemTypeUse;
+import com.carterz30cal.utils.StringUtils;
 import org.bukkit.Sound;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
-import com.carterz30cal.entities.GamePlayer;
-import com.carterz30cal.items.Item;
-import com.carterz30cal.items.ItemTypeUse;
-import com.carterz30cal.utils.StringUtils;
-import com.carterz30cal.items.ItemFactory;
+import java.util.ArrayList;
+import java.util.List;
 
 public class TalismanGUI extends AbstractGUI 
 {
@@ -55,9 +54,13 @@ public class TalismanGUI extends AbstractGUI
 				inventory.setSlot(talisman, calc(x, y));
 			}
 		}
-		
-		if (page > 1) inventory.setSlot(ItemFactory.buildCustom("ARROW", "REDPrevious Page", null), calc(1, 5));
-		if (owner.talismans.size() >= page * 28) inventory.setSlot(ItemFactory.buildCustom("ARROW", "GREENNext Page", null), calc(7, 5));
+
+        if (page > 1) {
+            inventory.setSlot(ItemFactory.buildCustom("ARROW", "REDPrevious Page"), calc(1, 5));
+        }
+        if (owner.talismans.size() >= page * 28) {
+            inventory.setSlot(ItemFactory.buildCustom("ARROW", "GREENNext Page"), calc(7, 5));
+        }
 		
 		inventory.update();
 	}

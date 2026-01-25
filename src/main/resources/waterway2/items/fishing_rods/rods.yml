@@ -3,6 +3,7 @@ flimsy_fishing_rod:
   type: ROD
   rarity: COMMON
   material: FISHING_ROD
+  value: 5
   stats:
     damage: +10
     fishing_power: +10

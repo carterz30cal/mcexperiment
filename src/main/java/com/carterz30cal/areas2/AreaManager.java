@@ -1,10 +1,14 @@
 package com.carterz30cal.areas2;
 
 import com.carterz30cal.entities.GamePlayer;
+import com.carterz30cal.entities.PlayerManager;
 import com.carterz30cal.main.Dungeons;
 import org.bukkit.scheduler.BukkitRunnable;
+import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.Nullable;
+import java.util.ArrayList;
+import java.util.List;
 
 public class AreaManager extends BukkitRunnable {
     private static final AreaManager instance;
@@ -24,6 +28,16 @@ public class AreaManager extends BukkitRunnable {
             }
         }
         return null;
+    }
+
+    public static @NotNull List<GamePlayer> GetPlayers(Areas area) {
+        List<GamePlayer> players = new ArrayList<>();
+        for (var player : PlayerManager.getOnlinePlayers()) {
+            if (player.area == area) {
+                players.add(player);
+            }
+        }
+        return players;
     }
 
     @Override

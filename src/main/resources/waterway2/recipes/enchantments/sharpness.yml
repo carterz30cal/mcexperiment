@@ -2,10 +2,10 @@ enchanted_book-SHARPNESS:
   custom-name: REDSharpness DARK_GRAY[Enchantment]
   enchants: ENCHANT_SHARPNESS-1
   level: 3
-  time: 15m
+  time: 10m
   category: waterway_enchantments
   items:
-    paper: 2
+    paper: 1
     chilli_powder: 3
 
 enchanted_book-HEALTHY:
@@ -15,7 +15,7 @@ enchanted_book-HEALTHY:
   time: 20m
   category: waterway_enchantments
   items:
-    paper: 3
+    paper: 2
     waterway_sac: 1
 
 enchanted_book-PEARLED:
@@ -25,15 +25,27 @@ enchanted_book-PEARLED:
   time: 20m
   category: waterway_enchantments
   items:
-    paper: 3
-    waterway_sac: 1
+    paper: 1
+    waterway_sac: 2
+
+enchanted_book-BOOST:
+  custom-name: GOLDBoost DARK_GRAY[Enchantment]
+  enchants: ENCHANT_BOOST-1
+  time: 10m
+  category: waterway_enchantments
+  discovery: waterway_cod_collection
+  discovery-tier: 3
+  items:
+    paper: 1
+    cooked_waterway_cod: 1
 
 enchanted_book-SUPERLURE:
   custom-name: GOLDSuper Lure DARK_GRAY[Enchantment]
   enchants: ENCHANT_SUPERLURE-2
-  level: 5
-  time: 45m
+  time: 30m
   category: waterway_enchantments
+  discovery: waterway_cod_collection
+  discovery-tier: 4
   items:
-    paper: 4
+    paper: 2
     cooked_waterway_cod: 3

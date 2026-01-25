@@ -4,7 +4,7 @@ drenched_UNCOMMON:
   has-director: true
   type: FISH
   fishing-brackets:
-    waterway: UNCOMMON
+    WATERWAY: UNCOMMON
   level: 4
   health: 300
   knockback: 125
@@ -12,6 +12,7 @@ drenched_UNCOMMON:
   damage-type: PHYSICAL
   display-height: 1.8
   blood-colour: 0,50,100
+  bestiary-category: waterway_fishing_uncommon
   armour:
     PHYSICAL: 0
     PROJECTILE: 0
@@ -30,16 +31,18 @@ drenched_UNCOMMON:
     - FISHING_UNCOMMON
   drops:
     waterway_cod:
-      amount: 3/6
+      amount: 3/10
     meat_scraps:
       chance: 1/300
       amount: 2/2
+    pet_drenched_common:
+      chance: 1/160
 
 lunatic_fisherman_UNCOMMON:
   name: YELLOWLunatic Fisherman
   type: FISH
   fishing-brackets:
-    waterway: UNCOMMON
+    WATERWAY: UNCOMMON
   level: 4
   health: 145
   knockback: 95
@@ -48,6 +51,7 @@ lunatic_fisherman_UNCOMMON:
   damage-type: PHYSICAL
   display-height: 1.8
   blood-colour: 250,0,50
+  bestiary-category: waterway_fishing_uncommon
   armour:
     PHYSICAL: 0
     PROJECTILE: 75
@@ -72,7 +76,7 @@ lunatic_fisherman_UNCOMMON:
     weird_flesh:
       amount: 5/26
     waterway_cod:
-      amount: 3/4
+      amount: 3/7
     water_helmet:
       chance: 1/75
     water_chestplate:
@@ -84,7 +88,7 @@ lunatic_fisherman_UNCOMMON:
     flimsy_fishing_rod:
       chance: 1/75
     fishing_berries:
-      chance: 1/250
+      chance: 1/80
 
 sea_slug_UNCOMMON:
   name: YELLOWSea Slug
@@ -93,15 +97,16 @@ sea_slug_UNCOMMON:
   has-director: true
   scale: 1.4
   fishing-brackets:
-    waterway: UNCOMMON
+    WATERWAY: UNCOMMON
   level: 4
   health: 120
   knockback: 165
-  damage: 60
+  damage: 40
   speed: 1.75
   damage-type: PHYSICAL
   display-height: 0.7
   blood-colour: 250,0,50
+  bestiary-category: waterway_fishing_uncommon
   armour:
     PHYSICAL: 0
     PROJECTILE: 75
@@ -110,12 +115,6 @@ sea_slug_UNCOMMON:
     BLEED: -50
     FIRE: 200
     WITHER: 0
-  equipment:
-    HAND: FISHING_ROD
-    HEAD: water_helmet
-    CHEST: LEATHER_CHESTPLATE
-    LEGS: LEATHER_LEGGINGS
-    FEET: LEATHER_BOOTS
   tags:
     - FISHING
     - FISHING_WATERWAY
@@ -132,3 +131,41 @@ sea_slug_UNCOMMON:
     enchanted_book:
       chance: 1/750
       enchants: ENCHANT_SUPERLURE-1
+
+sea_slime_UNCOMMON:
+  name: YELLOWSea Slime
+  type: FISH
+  entity-type: SLIME
+  has-director: false
+  scale: 1.4
+  fishing-brackets:
+    WATERWAY: UNCOMMON
+  level: 4
+  health: 550
+  knockback: 30
+  damage: 40
+  speed: 1.1
+  damage-type: PHYSICAL
+  display-height: 0.7
+  blood-colour: 250,0,50
+  bestiary-category: waterway_fishing_uncommon
+  armour:
+    PHYSICAL: 0
+    PROJECTILE: 75
+    MAGICAL: 0
+    HOLY: 0
+    BLEED: 10000
+    FIRE: -50
+    WITHER: 0
+  tags:
+    - FISHING
+    - FISHING_WATERWAY
+    - FISHING_UNCOMMON
+    - SLIME
+  drops:
+    waterway_cod:
+      amount: 10/20
+    green_slime:
+      chance: 1/20
+    cooked_waterway_cod:
+      chance: 1/500

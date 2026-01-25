@@ -21,24 +21,22 @@ piranha_dagger_uncommon:
   category: waterway_weapons
   items:
     flimsy_sword: 1
-    chilli_powder: 8
+    chilli_powder: 5
 
 pungent_sword:
   level: 2
   category: waterway_weapons
-  coins: 200
   items:
     ripe_sword: 1
-    spiced_meat: 3
+    spiced_meat: 2
 
 spearfish_scythe_rare:
   level: 2
   category: waterway_weapons
-  time: 10m
+  time: 5m
   items:
     weird_flesh: 256
-    spiced_meat: 1
-    chilli_powder: 4
+    spiced_meat: 3
 
 piranha_dagger_rare:
   item: piranha_dagger_rare
@@ -47,14 +45,14 @@ piranha_dagger_rare:
   items:
     piranha_dagger: 1
     paper: 1
-    chilli_powder: 12
+    chilli_powder: 8
 
 pungent_sword_very_rare:
   level: 4
   category: waterway_weapons
   items:
     pungent_sword: 1
-    spiced_meat: 3
+    spiced_meat: 5
 
 spearfish_scythe_very_rare:
   level: 4

@@ -3,3 +3,9 @@ fish_barrel:
 
 storm_talisman_sea_lantern:
   skull-url: "http://textures.minecraft.net/texture/6b7dc60a2caaf7e81691cdaaf7aa9afcc51bf94481c94a7e59b14297276cc0b"
+
+fish_tank:
+  skull-url: "http://textures.minecraft.net/texture/8ed52b283b67d8ac6d1b1d29e34b2ef5172144aab979c46d19bb6ac650e66ce0"
+
+green_slime:
+  skull-url: "http://textures.minecraft.net/texture/6061f98aaff1e406e06f6f13ffe06005873f3d1eaddb1b59e19dda0ed9ffb270"

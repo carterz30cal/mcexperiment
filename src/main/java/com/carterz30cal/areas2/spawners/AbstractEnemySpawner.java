@@ -10,7 +10,7 @@ import java.util.Arrays;
 import java.util.List;
 
 public abstract class AbstractEnemySpawner {
-    private AbstractGameArea parent;
+    protected AbstractGameArea parent;
 
     public void tick() {
 
@@ -63,6 +63,7 @@ public abstract class AbstractEnemySpawner {
 
         public GameEnemy Spawn(Location location) {
             GameEnemy enemy = EnemyManager.spawn(this.mob, location);
+            enemy.spawnedArea = parent;
             return enemy;
         }
 

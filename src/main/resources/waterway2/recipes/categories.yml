@@ -27,11 +27,6 @@ waterway_armours:
   icon: water_chestplate
   parent: waterway
 
-waterway_harvesters:
-  name: Harvesters
-  icon: IRON_HOE
-  parent: waterway
-
 waterway_fishing:
   name: Fishing
   icon: flimsy_fishing_rod

@@ -9,9 +9,7 @@ import com.carterz30cal.entities.PlayerManager;
 import com.carterz30cal.events.*;
 import com.carterz30cal.items.DiscoveryManager;
 import com.carterz30cal.items.ItemFactory;
-import com.carterz30cal.mining.Mineable;
 import com.carterz30cal.mining.MiningManager;
-import com.carterz30cal.utils.BlockUtils;
 import com.comphenix.protocol.ProtocolLibrary;
 import com.comphenix.protocol.ProtocolManager;
 import org.bukkit.Bukkit;
@@ -100,6 +98,10 @@ public class Dungeons extends JavaPlugin
 	public void onDisable()
 	{
 		//ChangeUtils.resetState();
+        for (GamePlayer player : PlayerManager.players.values()) {
+            PlayerManager.savePlayer(player);
+        }
+        PlayerManager.save();
 		
 		GameEntity.allowDeregisters = false;
 		for (GameEntity enemy : GameEntity.entities.values())
@@ -111,19 +113,16 @@ public class Dungeons extends JavaPlugin
 			e.remove();
 		}
 		
-		for (GamePlayer player : PlayerManager.players.values())
-		{
-			PlayerManager.savePlayer(player);
-		}
+
 		
 		for (AbstractArea a : AbstractArea.areas.values()) a.onEnd();
-		BlockUtils.removeStructures();
-		Mineable.removeAll();
+        //BlockUtils.removeStructures();
+        //Mineable.removeAll();
 
         MiningManager.onDisable();
-		
-		PlayerManager.save();
-	}
+
+
+    }
 	
 	private void setCommand(String command, CommandExecutor executor)
 	{

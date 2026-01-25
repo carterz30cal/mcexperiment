@@ -13,6 +13,7 @@ titan_1:
   blood-colour: 250,0,50
   damage-cap-percentage: 4
   overkill-reward: 5
+  speed: 1.1
   titan-fight:
     explosion-radius: 5
     explosion-damage: 325
@@ -24,8 +25,8 @@ titan_1:
     beam-min-range: 9
     beam-cooldown: 30
     rain-damage: 40
-    rain-min-range: 5
-    rain-max-range: 12
+    rain-min-range: 4
+    rain-max-range: 11
   resistances:
     BLEED: 100
   armour:
@@ -50,6 +51,6 @@ titan_1:
     titan_lootbox_1:
       amount: 1/1
     wet_paper:
-      amount: 5/20
+      amount: 50/250
     chilli_powder:
-      amount: 1/2
+      amount: 1/4

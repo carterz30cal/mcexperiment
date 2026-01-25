@@ -16,8 +16,8 @@ public enum Stat
 	
 	MANA("\u00D7 Mana", ChatColor.LIGHT_PURPLE, StatType.OFFENSIVE, StatDisplayType.NORMAL),
 	FOCUS("\u25C6 Focus", ChatColor.AQUA, StatType.OFFENSIVE, StatDisplayType.NORMAL),
-	
-	FISHING_POWER("\u03C8 Fishing Power", ChatColor.AQUA, StatType.ECONOMY),
+
+    FISHING_POWER("\u023E Fishing Power", ChatColor.AQUA, StatType.ECONOMY),
 
     BREAKING_POWER("\u03C8 Mining Power", ChatColor.YELLOW, StatType.ECONOMY),
     MINING_SPEED("\u023E Mining Speed", ChatColor.YELLOW, StatType.ECONOMY),
@@ -27,6 +27,8 @@ public enum Stat
 
 	BONUS_COINS("\u00D7 Extra Coins", ChatColor.GOLD, StatType.ECONOMY, StatDisplayType.PERCENTAGE),
 	LUCK("\u00D7 Luck", ChatColor.GOLD, StatType.ECONOMY, StatDisplayType.PERCENTAGE),
+
+    INVULNERABILITY_TICKS("invul ticks", ChatColor.BLACK, StatType.HIDDEN, StatDisplayType.NO_DISPLAY),
 	
 	ENCHANT_POWER("enchantment power", ChatColor.BLACK, StatType.HIDDEN, StatDisplayType.NO_DISPLAY),
 	LEVEL_REQUIREMENT("level requirement", ChatColor.BLACK, StatType.HIDDEN, StatDisplayType.NO_DISPLAY),
@@ -34,10 +36,10 @@ public enum Stat
 	SACK_SPACE("\uD83D Sack Space", ChatColor.WHITE, StatType.HIDDEN, StatDisplayType.NO_DISPLAY_IN_PLAYER_STATS),
 	VISIBILITY("\u25CB Visibility", ChatColor.YELLOW, StatType.OFFENSIVE, StatDisplayType.NORMAL)
 	;
-	public String name;
-	public ChatColor colour;
-	public StatType type;
-	public StatDisplayType display;
+    public final String name;
+    public final ChatColor colour;
+    public final StatType type;
+    public final StatDisplayType display;
 	
 	private Stat(String name, ChatColor colour, StatType type, StatDisplayType display)
 	{

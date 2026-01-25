@@ -24,7 +24,9 @@ public abstract class AbstractGameArea {
     }
 
     public void OnKill(GameEnemy enemy) {
-
+        for (var spawner : registeredSpawners) {
+            spawner.onAreaKill(enemy);
+        }
     }
 
     public void RegisterSpawner(AbstractEnemySpawner spawner) {
@@ -48,7 +50,7 @@ public abstract class AbstractGameArea {
         return context;
     }
 
-    public class SpawnerContext {
+    public static class SpawnerContext {
         public String spawningMode = "NORMAL";
     }
 }

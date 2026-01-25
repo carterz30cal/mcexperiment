@@ -43,6 +43,10 @@ public class StringUtils
 	{
 		return Math.round(percent * 100) + "%";
 	}
+
+    public static String asPercent2DP(double percent) {
+        return truncatedDouble2(percent * 100) + "%";
+    }
 	
 	public static int[] convertStringToFraction(String string)
 	{
@@ -166,6 +170,10 @@ public class StringUtils
 	public static String truncatedDouble2(double val) {
 		return ((int)val) + "." + ((int)(val * 100) % 100);
 	}
+
+    public static String truncatedDouble1(double val) {
+        return ((int) val) + "." + ((int) (val * 10) % 10);
+    }
 
 
 	public static Location getLocationFromString(String s) {

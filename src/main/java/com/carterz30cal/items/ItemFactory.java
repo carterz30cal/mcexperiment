@@ -29,6 +29,7 @@ import org.bukkit.inventory.meta.SkullMeta;
 import org.bukkit.persistence.PersistentDataType;
 import org.bukkit.profile.PlayerProfile;
 import org.bukkit.profile.PlayerTextures;
+import org.jetbrains.annotations.NotNull;
 
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -597,12 +598,23 @@ public class ItemFactory
 		
 		item.setItemMeta(meta);
 	}
-	
+
+    public static ItemStack buildCustom(String base, String name) {
+        ItemStack item = build(base);
+        return buildCustom(item, name, (List<String>) null);
+    }
+
+
 	public static ItemStack buildCustom(String base, String name, String lore)
 	{
 		ItemStack item = build(base);
 		return buildCustom(item, name, lore);
 	}
+
+    public static ItemStack buildCustom(String base, String name, @NotNull List<String> lore) {
+        ItemStack item = build(base);
+        return buildCustom(item, name, lore);
+    }
 	
 	public static ItemStack buildCustom(ItemStack item, String name, String lore)
 	{
@@ -610,7 +622,8 @@ public class ItemFactory
 		makeInvalid(item);
 
 		ItemMeta meta = item.getItemMeta();
-		meta.setDisplayName(StringUtils.colourString(name));
+        assert meta != null;
+        meta.setDisplayName(StringUtils.colourString(name));
 		
 		if (lore != null)
 		{
@@ -627,6 +640,26 @@ public class ItemFactory
 		
 		return item;
 	}
+
+    public static ItemStack buildCustom(ItemStack item, String name, List<String> lore) {
+        if (item == null) {
+            return null;
+        }
+        makeInvalid(item);
+
+        ItemMeta meta = item.getItemMeta();
+        assert meta != null;
+        meta.setDisplayName(StringUtils.colourString(name));
+
+        if (lore != null) {
+            meta.setLore(StringUtils.colourList(lore));
+        }
+
+
+        item.setItemMeta(meta);
+
+        return item;
+    }
 	
     public static void setSkullTexture(ItemStack skull, String profileId) {
         if (skull == null || !skull.hasItemMeta()) {
@@ -875,6 +908,8 @@ public class ItemFactory
 			//item.description.add("");
 			item.description.add("GRAYThis lootbox can contain up");
 			item.description.add("GRAYto GOLD" + lootboxItemCount + "GRAY unique items!");
+            item.description.add("DARK_GRAYItems are automatically added to either");
+            item.description.add("DARK_GRAYyour inventory or your ingredient sack.");
 		}
 		var abilities = i.getStringList("abilities");
 		item.abilities = new ArrayList<>();

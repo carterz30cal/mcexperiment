@@ -1,24 +1,17 @@
 package com.carterz30cal.entities;
 
+import com.carterz30cal.main.Dungeons;
+import com.carterz30cal.utils.EntityUtils;
+import com.carterz30cal.utils.RandomUtils;
+import com.carterz30cal.utils.StringUtils;
+import org.bukkit.ChatColor;
+import org.bukkit.Location;
+import org.bukkit.entity.*;
+import org.bukkit.persistence.PersistentDataType;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
-
-import com.carterz30cal.utils.RandomUtils;
-import org.bukkit.ChatColor;
-import org.bukkit.Location;
-import org.bukkit.entity.ArmorStand;
-import org.bukkit.entity.Entity;
-import org.bukkit.entity.EntityType;
-import org.bukkit.entity.Mob;
-import org.bukkit.entity.Slime;
-import org.bukkit.persistence.PersistentDataType;
-
-import com.carterz30cal.main.Dungeons;
-import com.carterz30cal.utils.EntityUtils;
-import com.carterz30cal.utils.StringUtils;
-import com.comphenix.protocol.PacketType;
-import com.comphenix.protocol.events.PacketContainer;
 
 public class GameOwnable extends GameEntity {
 	public List<GamePlayer> owners = new ArrayList<>();
@@ -137,6 +130,11 @@ public class GameOwnable extends GameEntity {
 			mmain.setAI(false);
 			mmain.setSilent(true);
 		}
+
+        if (m instanceof Mannequin) {
+            Mannequin man = (Mannequin) m;
+            man.setImmovable(true);
+        }
 		
 		if (m instanceof Slime)
 		{

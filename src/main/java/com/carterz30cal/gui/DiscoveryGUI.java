@@ -83,7 +83,7 @@ public class DiscoveryGUI extends AbstractGUI {
 						boolean maxed = level == discovery.tiers.size();
 						
 						String colour = maxed ? "GREEN" : level == 0 ? "RED" : "YELLOW";
-						disp = ItemFactory.buildCustom(discovery.displayItem, colour + discovery.name + " WHITE[" + colour + level + "WHITE]", null);
+                        disp = ItemFactory.buildCustom(discovery.displayItem, colour + discovery.name + " WHITE[" + colour + level + "WHITE]");
 						ItemMeta meta = disp.getItemMeta();
 						
 						List<String> lore = StringUtils.colourList(discovery.description);
@@ -133,7 +133,7 @@ public class DiscoveryGUI extends AbstractGUI {
 				int lvl = i + 1;
 
 				String colour = lvl <= level ? "GREEN" : lvl == level + 1 ? "YELLOW" : "RED";
-				ItemStack display = ItemFactory.buildCustom(colour + "_STAINED_GLASS_PANE", colour + discovery.name + " " + lvl, null);
+                ItemStack display = ItemFactory.buildCustom(colour + "_STAINED_GLASS_PANE", colour + discovery.name + " " + lvl);
 				List<String> lore = new ArrayList<>();
 				double progress = (double)owner.discoveries.getOrDefault(discovery.id, 0L) / discovery.tiers.get(lvl - 1);
 				lore.add("GRAYITALIC" + discovery.tierDescription.get(lvl - 1));
@@ -165,7 +165,7 @@ public class DiscoveryGUI extends AbstractGUI {
                                     +
                                     "GRAY items."),
 					calc(4, 0));
-			inventory.setSlot(ItemFactory.buildCustom("ARROW", "GREENBack", null), calc(4,5));
+            inventory.setSlot(ItemFactory.buildCustom("ARROW", "GREENBack"), calc(4, 5));
 		}
 		
 		inventory.update();

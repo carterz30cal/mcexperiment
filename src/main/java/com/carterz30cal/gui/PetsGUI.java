@@ -64,8 +64,12 @@ public class PetsGUI extends AbstractGUI {
         info.setItemMeta(meta);
         inventory.setSlot(info, calc(4, 5));
 
-        if (page > 1) inventory.setSlot(ItemFactory.buildCustom("ARROW", "Page " + (page - 1), null), calc(1,5));
-        if (owner.pets.size() >= (page * 7 * 4)) inventory.setSlot(ItemFactory.buildCustom("ARROW", "Page " + (page + 1), null), calc(7, 5));
+        if (page > 1) {
+            inventory.setSlot(ItemFactory.buildCustom("ARROW", "Page " + (page - 1)), calc(1, 5));
+        }
+        if (owner.pets.size() >= (page * 7 * 4)) {
+            inventory.setSlot(ItemFactory.buildCustom("ARROW", "Page " + (page + 1)), calc(7, 5));
+        }
         inventory.update();
     }
 

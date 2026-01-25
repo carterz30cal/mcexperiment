@@ -7,13 +7,15 @@ supposed_perfume:
   stats:
     VISIBILITY: -5
 
-steves_bone_sack:
-  name: Steve's Bone Pouch
+fish_tank:
+  name: Fish Tank
   type: TALISMAN
-  rarity: UNCOMMON
-  material: LIGHT_GRAY_BUNDLE
+  rarity: RARE
+  material: PLAYER_HEAD
+  value: 50
+  skull-profile-id: fish_tank
   stats:
-    SACK_SPACE: +7500
+    FISHING_POWER: +25
 
 titans_talisman:
   name: Titan's Talisman

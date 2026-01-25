@@ -9,7 +9,7 @@ paper:
   level: 2
   category: waterway_ingredients
   items:
-    wet_paper: 150
+    wet_paper: 115
 
 cooked_waterway_cod:
   category: waterway_ingredients

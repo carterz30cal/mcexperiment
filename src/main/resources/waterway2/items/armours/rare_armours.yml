@@ -15,7 +15,7 @@ armour-cultist:
     might: +5,+5,+5,+5
     bonus_coins: +10,+10,+10,+10
     level_requirement: 4
-    enchant_power: +18
+    enchant_power: +25
 
 armour-leaf:
   name:
@@ -32,7 +32,7 @@ armour-leaf:
     b: 25
   stats:
     health: +30,+70,+40,+25
-    enchant_power: +5
+    enchant_power: +25
     level_requirement: 4
 
 armour-zombie:
@@ -49,8 +49,7 @@ armour-zombie:
     g: 175
     b: 150
   stats:
-    health: -15,-25,-20,-10
-    vitality: +7
+    vitality: +5
     enchant_power: 15
     level_requirement: 4
 

@@ -1,17 +1,15 @@
 package com.carterz30cal.utils;
 
-import java.util.ArrayList;
-import java.util.List;
-
+import com.carterz30cal.entities.GameEnemy;
+import com.carterz30cal.entities.GameEntity;
+import com.carterz30cal.entities.GamePlayer;
+import com.carterz30cal.entities.PlayerManager;
+import com.carterz30cal.items.ItemFactory;
+import com.carterz30cal.main.Dungeons;
 import org.bukkit.Location;
 import org.bukkit.Material;
-import org.bukkit.entity.Ageable;
-import org.bukkit.entity.ArmorStand;
+import org.bukkit.entity.*;
 import org.bukkit.entity.ArmorStand.LockType;
-import org.bukkit.entity.Entity;
-import org.bukkit.entity.EntityType;
-import org.bukkit.entity.LivingEntity;
-import org.bukkit.entity.Mob;
 import org.bukkit.event.player.PlayerTeleportEvent.TeleportCause;
 import org.bukkit.inventory.EquipmentSlot;
 import org.bukkit.inventory.ItemStack;
@@ -20,12 +18,8 @@ import org.bukkit.potion.PotionEffectType;
 import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.util.Vector;
 
-import com.carterz30cal.entities.GameEnemy;
-import com.carterz30cal.entities.GameEntity;
-import com.carterz30cal.entities.GamePlayer;
-import com.carterz30cal.entities.PlayerManager;
-import com.carterz30cal.items.ItemFactory;
-import com.carterz30cal.main.Dungeons;
+import java.util.ArrayList;
+import java.util.List;
 
 public class EntityUtils
 {
@@ -157,6 +151,10 @@ public class EntityUtils
 	public static void applyKnockback(GamePlayer player, GameEnemy enemy, int mkb)
 	{
 		double knockback = (mkb / 100D) * (enemy.type.knockback / 100D);
+
+        if (enemy.getMain().getLocation().subtract(0, 0.1, 0).getBlock().getType() == Material.AIR) {
+            knockback *= 0.4;
+        }
 		
 		Vector kbv = enemy.getMain().getLocation().subtract(player.getLocation()).toVector().normalize();
 		

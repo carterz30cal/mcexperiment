@@ -12,9 +12,11 @@ import com.carterz30cal.utils.StringUtils;
 import org.bukkit.*;
 import org.bukkit.attribute.Attribute;
 import org.bukkit.attribute.AttributeModifier;
-import org.bukkit.entity.*;
+import org.bukkit.entity.ArmorStand;
+import org.bukkit.entity.Entity;
+import org.bukkit.entity.LivingEntity;
+import org.bukkit.entity.Mob;
 import org.bukkit.event.player.PlayerTeleportEvent.TeleportCause;
-import org.bukkit.inventory.EquipmentSlot;
 import org.bukkit.inventory.EquipmentSlotGroup;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.persistence.PersistentDataType;
@@ -212,20 +214,26 @@ public class GameEnemy extends GameEntity
 		
 		deregister(uuid);
 	}
-	public final void register()
+	public GameEnemy(Location spawn, AbstractEnemyType type)
 	{
-		if (getMain() == null) return;
-		
-		UUID uuid = getMain().getUniqueId();
-		
-		List<Entity> all = new ArrayList<>(getParts());
-		all.add(getMain());
-		
-		super.register(uuid);
-		for (Entity e : all)
+		this.type = type;
+		health = 1;
+        this.uuid = UUID.randomUUID();
+
+		this.statuses = new StatusEffects();
+		this.resistances = type.resistances.clone();
+
+		ticker = new BukkitRunnable()
 		{
-			e.getPersistentDataContainer().set(keyEnemy, PersistentDataType.STRING, uuid.toString());
-		}
+
+			@Override
+			public void run() {
+				doTick();
+			}
+
+		};
+
+		ticker.runTaskTimer(Dungeons.instance, 1, 1);
 	}
 
 	protected String getName() {
@@ -338,25 +346,18 @@ public class GameEnemy extends GameEntity
 		tick();
 	}
 	
-	public GameEnemy(Location spawn, AbstractEnemyType type)
+	public final void register()
 	{
-		this.type = type;
-		health = 1;
-		
-		this.statuses = new StatusEffects();
-		this.resistances = type.resistances.clone();
-		
-		ticker = new BukkitRunnable()
-		{
+		if (getMain() == null) return;
 
-			@Override
-			public void run() {
-				doTick();
-			}
-			
-		};
-		
-		ticker.runTaskTimer(Dungeons.instance, 1, 1);
+		List<Entity> all = new ArrayList<>(getParts());
+		all.add(getMain());
+
+		super.register(uuid);
+		for (Entity e : all)
+		{
+			e.getPersistentDataContainer().set(keyEnemy, PersistentDataType.STRING, uuid.toString());
+		}
 	}
 	
 	@Override
@@ -368,6 +369,8 @@ public class GameEnemy extends GameEntity
 	public void dropItems(GamePlayer killer)
 	{
 		if (killer == null) return;
+
+        killer.IncrementKill(type.id);
 		
 		for (var a : killer.abilities) a.ability.onKill(a, this);
 		

@@ -5,7 +5,7 @@ titan_lootbox_1:
   rarity: RARE
   drops:
     wet_paper:
-      amount: 20/75
+      amount: 20/175
     paper_arrow:
       amount: 25/150
       chance: 1/2
@@ -14,14 +14,14 @@ titan_lootbox_1:
       chance: 1/2
     paper:
       amount: 1/4
-      chance: 1/5
+      chance: 1/3
     spiced_meat:
-      amount: 2/4
+      amount: 2/6
       chance: 1/5
 
     weird_flesh:
       chance: 1/8
-      amount: 80/300
+      amount: 80/700
     enchanted_book-SHARPNESS1:
       chance: 1/10
       amount: 1/1

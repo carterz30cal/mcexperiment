@@ -26,6 +26,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
 import org.bukkit.Location;
 import org.bukkit.Sound;
+import org.bukkit.attribute.Attribute;
 import org.bukkit.block.Block;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
@@ -81,6 +82,7 @@ public class GamePlayer extends GameEntity
 	public int bowTick;
 	public int questTick;
     private int areaCheckTick;
+    public Map<String, Long> kills = new HashMap<>();
 	
 	public long lastXpReward;
 	public int lastCoinReward;
@@ -95,6 +97,7 @@ public class GamePlayer extends GameEntity
 	public Map<String, Integer> quiver = new HashMap<>();
 	public Map<String, Integer> counters = new HashMap<>();
 	public Map<String, Integer> sack = new HashMap<>();
+    private int invulTick;
 	public Map<Integer, String> backpack = new HashMap<>();
 	
 	public List<GameEnemy> targeted = new ArrayList<>();
@@ -152,6 +155,8 @@ public class GamePlayer extends GameEntity
 
         EntityUtils.applyPotionEffect(player, PotionEffectType.MINING_FATIGUE, 5, 3, false);
         EntityUtils.applyPotionEffect(player, PotionEffectType.HASTE, 5, 0, false);
+        player.getAttribute(Attribute.ATTACK_SPEED).setBaseValue(10);
+
 
 		player.removePotionEffect(PotionEffectType.DARKNESS);
 		
@@ -168,6 +173,7 @@ public class GamePlayer extends GameEntity
 		stats.scheduleOperation(Stat.VISIBILITY, StatOperationType.CAP_MIN, 1);
 		stats.scheduleOperation(Stat.VISIBILITY, StatOperationType.CAP_MAX, 24);
 		stats.scheduleOperation(Stat.FOCUS, StatOperationType.CAP_MIN, 0);
+        stats.scheduleOperation(Stat.INVULNERABILITY_TICKS, StatOperationType.ADD, 1);
 
 		stats.scheduleOperation(Stat.POWER, StatOperationType.CAP_MIN, 0);
 		stats.scheduleOperation(Stat.MIGHT, StatOperationType.CAP_MIN, 0);
@@ -247,10 +253,12 @@ public class GamePlayer extends GameEntity
 
 		stats.executeOperations();
 		for (var a : abilities) a.ability.onPlayerStats(a, stats);
-		stats.executeOperations();
+        stats.scheduleOperation(Stat.BACKPACK_PAGES, StatOperationType.ADD, 2);
+        stats.scheduleOperation(Stat.BACKPACK_PAGES, StatOperationType.CAP_MIN, 1);
+        stats.scheduleOperation(Stat.LUCK, StatOperationType.ADD, 15);
+        stats.executeOperations();
 
-		stats.scheduleOperation(Stat.BACKPACK_PAGES, StatOperationType.ADD, 2);
-		stats.scheduleOperation(Stat.BACKPACK_PAGES, StatOperationType.CAP_MIN, 1);
+
 
 
 		
@@ -272,6 +280,10 @@ public class GamePlayer extends GameEntity
 
         if (questTick > 0) {
             questTick--;
+        }
+
+        if (invulTick > 0) {
+            invulTick--;
         }
 
         if (areaCheckTick > 0) {
@@ -303,6 +315,9 @@ public class GamePlayer extends GameEntity
             score.add("");
         }
 		score.add("GOLDCoins: WHITE" + StringUtils.commaify((int) coins));
+        if (getSackSize() > 0) {
+            score.add("GOLDSack: " + getSackSpaceUsed() + "/" + getSackSize());
+        }
 		score.add("");
 		if (BossWaterwayHydra.hasParticipated(this)) {
 			score.add("GREENBOLDHydra - Wave " + BossWaterwayHydra.wave);
@@ -383,7 +398,12 @@ public class GamePlayer extends GameEntity
 	}
 	
 	public int getSackSize() {
-		return stats.getStat(Stat.SACK_SPACE);
+        if (stats == null) {
+            return 0;
+        }
+        else {
+            return stats.getStat(Stat.SACK_SPACE);
+        }
 	}
 
 
@@ -643,7 +663,7 @@ public class GamePlayer extends GameEntity
 		if (itemType == null) backpack.put(slot, null);
 		else {
 			String data = ItemFactory.getFlatItemData(item);
-			if (data == null || data.equals("")) {
+            if (data.isEmpty()) {
 				backpack.put(slot, itemType.id + "£" + item.getAmount());
 			}
 			else {
@@ -829,6 +849,37 @@ public class GamePlayer extends GameEntity
 		return player.getLocation();
 	}
 
+
+    public void IncrementKill(String mobId) {
+        kills.put(mobId, kills.getOrDefault(mobId, 0L) + 1);
+    }
+
+    public long GetKills(String mobId) {
+        return kills.getOrDefault(mobId, 0L);
+    }
+
+    public int GetBestiaryLevel(String mobId) {
+        long kills = GetKills(mobId);
+        if (kills > 999) {
+            return 5;
+        }
+        else if (kills > 499) {
+            return 4;
+        }
+        else if (kills > 99) {
+            return 3;
+        }
+        else if (kills > 24) {
+            return 2;
+        }
+        else if (kills > 4) {
+            return 1;
+        }
+        else {
+            return 0;
+        }
+    }
+
 	@Override
 	public void remove(){
 		// ignore any calls to this method.
@@ -870,5 +921,13 @@ public class GamePlayer extends GameEntity
 		takeHealth(modifiedDamage);
 		player.damage(1);
 	}
-	
+
+
+    public boolean IsOnInvulnerableCooldown() {
+        return invulTick > 0;
+    }
+
+    public void SetOnInvulnerableCooldown() {
+        invulTick = stats.getStat(Stat.INVULNERABILITY_TICKS);
+    }
 }

@@ -19,9 +19,9 @@ weird_flesh_collection:
     - 10000
     - 100000
   xp-rewards:
-    - 50
-    - 35
-    - 15
+    - 110
+    - 65
+    - 30
     - 10
     - 5
     - 1
@@ -53,7 +53,7 @@ waterway_cod_collection:
     - 100000
     - 500000
   xp-rewards:
-    - 50
+    - 75
     - 25
     - 25
     - 15
@@ -88,14 +88,72 @@ leaf_mash_collection:
     - 100000
     - 250000
   xp-rewards:
-    - 25
+    - 75
+    - 30
     - 20
     - 15
     - 10
     - 5
-    - 4
-    - 3
     - 2
+    - 1
+
+chilli_powder_collection:
+  name: Chilli Powders
+  display-item: chilli_powder
+  description:
+    - Spice goes with everything.
+  tier-descriptions:
+    - Extra Mild
+    - Mild
+    - Medium
+    - Medium-Hot
+    - Hot
+    - Super-Hot
+    - Dead-Hot
+  tiers:
+    - 5
+    - 20
+    - 100
+    - 500
+    - 1000
+    - 5000
+    - 20000
+  xp-rewards:
+    - 50
+    - 25
+    - 25
+    - 10
+    - 5
+    - 2
+    - 1
+
+gold_leaf_collection:
+  name: Gold Leaf
+  display-item: gold_leaf
+  description:
+    - Rarely found growing amongst the leaves.
+    - Quite shiny!
+  tier-descriptions:
+    - Dull
+    - Squeaky
+    - Polished
+    - Super-polished
+    - Hyper-polished
+    - Zeiss-worthy
+  tiers:
+    - 5
+    - 25
+    - 100
+    - 500
+    - 1000
+    - 10000
+  xp-rewards:
+    - 50
+    - 25
+    - 15
+    - 10
+    - 5
+    - 1
 
 meat_scraps_collection:
   name: Meat Scraps
@@ -108,12 +166,12 @@ meat_scraps_collection:
     - Omnivore
     - Carnivore
   tiers:
-    - 5
+    - 2
+    - 10
     - 50
     - 250
-    - 1000
   xp-rewards:
+    - 25
     - 10
-    - 5
-    - 1
+    - 2
     - 1

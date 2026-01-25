@@ -59,6 +59,10 @@ public class Box {
         return new Location(Dungeons.w, x2, y2, z2);
     }
 
+    public Location GetMiddleAsLocation() {
+        return new Location(Dungeons.w, (double) (x1 + x2) / 2, (double) (y1 + y2) / 2, (double) (z1 + z2) / 2);
+    }
+
     public Location GetRandomMobLocation() {
         int rx = RandomUtils.getRandom(x1, x2);
         int ry = RandomUtils.getRandom(y1, y2);
@@ -85,11 +89,18 @@ public class Box {
                 return GetRandomMobLocation();
             }
         }
+        if (location.clone().subtract(0, 1, 0).getBlock().isLiquid()) {
+            return GetRandomMobLocation();
+        }
 
         return location;
     }
 
     public int GetHorizontalCrossSectionalArea() {
         return (x2 - x1) * (z2 - z1);
+    }
+
+    public double GetHorizontalLongestSide() {
+        return Math.max(x2 - x1, z2 - z1);
     }
 }

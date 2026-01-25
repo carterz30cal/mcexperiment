@@ -16,7 +16,9 @@ chilli_powder:
   type: INGREDIENT
   rarity: UNCOMMON
   material: REDSTONE
-  value: 25
+  value: 20
+  discovery: chilli_powder_collection
+  discovery-progress: 1
   description:
     - A delicate combination of chillis.
     - A favourite of high rank REDLunaticsGRAY.
@@ -71,6 +73,8 @@ gold_leaf:
   rarity: VERY_RARE
   material: GOLDEN_CARROT
   value: 15
+  discovery: gold_leaf_collection
+  discovery-progress: 1
   description:
     - Shiny!
 
@@ -162,6 +166,17 @@ meat_scraps:
   discovery-progress: 1
   description:
     - Almost inedible.
+
+green_slime:
+  name: Green Slime
+  type: INGREDIENT
+  rarity: EPIC
+  material: PLAYER_HEAD
+  skull-profile-id: green_slime
+  value: 20
+  description:
+    - Lowest grade of slime. Used frequently
+    - in industry, and cakes.
 
 
 

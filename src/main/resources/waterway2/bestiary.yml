@@ -1,0 +1,49 @@
+waterway:
+  icon: WATER_BUCKET
+  name: "Waterway"
+  description:
+    - write summin here
+  parent: base
+
+waterway_lunatics:
+  icon: WOODEN_SWORD
+  name: "Lunatics"
+  description:
+    - Worship the Water Seraph above
+    - all else. They're not huge fans
+    - of the Lava Seraph.
+  parent: waterway
+
+waterway_fishing:
+  icon: fish_tank
+  name: "Fishing"
+  description:
+    - Omega!
+  parent: waterway
+waterway_fishing_common:
+  icon: WHITE_CONCRETE
+  name: "GRAYBOLDCOMMON WHITEBracket"
+  description:
+    - Lowest tier fishing mobs found
+    - exclusively in BLUEWaterway!
+  parent: waterway_fishing
+waterway_fishing_uncommon:
+  icon: YELLOW_CONCRETE
+  name: "YELLOWBOLDUNCOMMON WHITEBracket"
+  description:
+    - Stronger fishing mobs found
+    - by fishing in BLUEWaterway!
+  parent: waterway_fishing
+waterway_fishing_rare:
+  icon: LIME_CONCRETE
+  name: "GREENBOLDRARE WHITEBracket"
+  description:
+    - Difficult fishing beasts!
+  parent: waterway_fishing
+waterway_fishing_very_rare:
+  icon: BLUE_CONCRETE
+  name: "BLUEBOLDVERY RARE WHITEBracket"
+  description:
+    - Only the best fishers can consistently
+    - fish up these beasts!
+  parent: waterway_fishing

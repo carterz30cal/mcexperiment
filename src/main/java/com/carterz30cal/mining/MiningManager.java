@@ -88,7 +88,7 @@ public class MiningManager {
                             public void run() {
                                 if (instance.originalBlock.containsKey(location.getBlock().getLocation())) {
                                     location.getBlock().setType(instance.originalBlock.get(location.getBlock().getLocation()));
-                                    instance.originalBlock.remove(location.getBlock().getLocation());
+                                    //instance.originalBlock.remove(location.getBlock().getLocation());
                                 }
                                 else {
                                     location.getBlock().setType(ore.blockType);

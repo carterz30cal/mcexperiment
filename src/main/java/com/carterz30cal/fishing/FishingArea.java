@@ -47,7 +47,6 @@ public class FishingArea {
                 area.brackets.removeIf((b) -> b.bracketWeight == 0);
                 area.powerSubtraction = pa.getInt("power-subtraction", 0);
                 area.powerReduction = pa.getInt("power-reduction", 2);
-
                 fishingAreas.put(p, area);
             }
         }
@@ -66,7 +65,8 @@ public class FishingArea {
     }
 
     public FishingBobber getBobberUsingPower(Location location, GamePlayer owner) {
-        int fishingPower = owner.stats.getStat(Stat.FISHING_POWER) - powerSubtraction;
+        int fishingPower;
+        fishingPower = owner.stats.getStat(Stat.FISHING_POWER) - powerSubtraction;
 
         int adjustedPower = fishingPower;
         int startPower = 0;
@@ -133,6 +133,12 @@ public class FishingArea {
         public ArmorStand displayBottom;
 
         public int lifetime = 45 * 20;
+
+        public void remove() {
+            cancel();
+            displayTop.remove();
+            displayBottom.remove();
+        }
 
         @Override
         public void run() {

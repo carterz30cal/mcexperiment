@@ -1,6 +1,9 @@
 package com.carterz30cal.events;
 
-import com.carterz30cal.entities.*;
+import com.carterz30cal.entities.GameEnemy;
+import com.carterz30cal.entities.GameEntity;
+import com.carterz30cal.entities.GamePlayer;
+import com.carterz30cal.entities.PlayerManager;
 import com.carterz30cal.fishing.FishingArea;
 import org.bukkit.damage.DamageSource;
 import org.bukkit.entity.LivingEntity;
@@ -10,10 +13,6 @@ import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.player.PlayerFishEvent;
 import org.bukkit.event.player.PlayerFishEvent.State;
-import org.bukkit.util.Vector;
-
-import com.carterz30cal.entities.enemies.EnemyTypeFish;
-import com.carterz30cal.utils.RandomUtils;
 
 
 public class ListenerFishingEvents implements Listener
@@ -50,13 +49,20 @@ public class ListenerFishingEvents implements Listener
 			e.getCaught().remove();
 			e.setExpToDrop(0);
 
-			if (p.bobber != null && !p.bobber.isCancelled()) {
-				p.sendMessage("REDReplacing current bobber!");
-				p.bobber.cancel();
-			}
-			FishingArea.FishingBobber bobber = FishingArea.getFishingArea("waterway").getBobberUsingPower(e.getHook().getLocation(), p);
-			p.bobber = bobber;
-			p.sendMessage("You've fished up a " + p.bobber.rarity.colour + "BOLD" + p.bobber.rarity.name.toUpperCase() + " WHITEBobber!");
+            if (p.area == null) {
+                p.sendMessage("REDThere's no fish to catch!");
+            }
+            else {
+                if (p.bobber != null && !p.bobber.isCancelled()) {
+                    p.sendMessage("REDReplacing current bobber!");
+                    p.bobber.remove();
+                }
+                FishingArea.FishingBobber bobber = FishingArea.getFishingArea(p.area.name()).getBobberUsingPower(e.getHook().getLocation(), p);
+                p.bobber = bobber;
+                p.sendMessage("You've fished up a " + p.bobber.rarity.colour + "BOLD" + p.bobber.rarity.name.toUpperCase() + " WHITEBobber!");
+            }
+
+
 			
 		}
 	}

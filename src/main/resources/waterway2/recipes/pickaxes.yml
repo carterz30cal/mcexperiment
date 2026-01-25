@@ -1,3 +1,11 @@
+shoddy_pickaxe:
+  level: 1
+  time: 1m
+  category: waterway_pickaxes
+  items:
+    weird_flesh: 20
+
+
 leaf_pickaxe:
   level: 1
   time: 1s

@@ -1,22 +1,22 @@
 package com.carterz30cal.events;
 
-import java.util.List;
-import java.util.ArrayList;
-import java.util.Objects;
-
 import com.carterz30cal.entities.*;
-import com.carterz30cal.items.abilities2.implementation.GameAbility;
+import com.carterz30cal.entities.damage.StatusEffect;
+import com.carterz30cal.entities.enemies.EnemyTypeDamageCapped;
+import com.carterz30cal.items.Item;
+import com.carterz30cal.items.ItemFactory;
+import com.carterz30cal.items.ItemType;
+import com.carterz30cal.main.Dungeons;
+import com.carterz30cal.stats.Stat;
+import com.carterz30cal.utils.MathsUtils;
+import com.carterz30cal.utils.ParticleUtils;
+import com.carterz30cal.utils.RandomUtils;
 import org.bukkit.Location;
 import org.bukkit.Particle;
 import org.bukkit.Sound;
 import org.bukkit.damage.DamageSource;
-import org.bukkit.entity.AbstractArrow;
+import org.bukkit.entity.*;
 import org.bukkit.entity.AbstractArrow.PickupStatus;
-import org.bukkit.entity.Entity;
-import org.bukkit.entity.EntityType;
-import org.bukkit.entity.FishHook;
-import org.bukkit.entity.LivingEntity;
-import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.*;
@@ -27,17 +27,8 @@ import org.bukkit.persistence.PersistentDataType;
 import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.util.Vector;
 
-import com.carterz30cal.entities.damage.StatusEffect;
-import com.carterz30cal.entities.enemies.EnemyTypeDamageCapped;
-import com.carterz30cal.items.Item;
-import com.carterz30cal.items.ItemAbility;
-import com.carterz30cal.items.ItemFactory;
-import com.carterz30cal.items.ItemType;
-import com.carterz30cal.main.Dungeons;
-import com.carterz30cal.stats.Stat;
-import com.carterz30cal.utils.MathsUtils;
-import com.carterz30cal.utils.ParticleUtils;
-import com.carterz30cal.utils.RandomUtils;
+import java.util.ArrayList;
+import java.util.Objects;
 
 public class ListenerEntityDamage implements Listener
 {
@@ -199,12 +190,22 @@ public class ListenerEntityDamage implements Listener
 		else if (damager instanceof GameEnemy)
 		{
 			GameEnemy enemy = (GameEnemy)damager;
-			
-			
-			if (damaged instanceof GamePlayer) ((GamePlayer)damaged).lastDamager = enemy;
+
+
+            if (damaged instanceof GamePlayer) {
+                GamePlayer damagedPlayer = (GamePlayer) damaged;
+                damagedPlayer.lastDamager = enemy;
+                if (!damagedPlayer.IsOnInvulnerableCooldown()) {
+                    damaged.damage(enemy.getAttack());
+                    damagedPlayer.SetOnInvulnerableCooldown();
+                }
+            }
+            else {
+                damaged.damage(enemy.getAttack());
+            }
 			e.setDamage(0);
-			damaged.damage(enemy.getAttack());
-		}
+
+        }
 		
 		
 	}

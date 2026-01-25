@@ -1,9 +1,8 @@
 package com.carterz30cal.gui;
 
-import org.bukkit.inventory.ItemStack;
-
 import com.carterz30cal.entities.GamePlayer;
 import com.carterz30cal.items.ItemFactory;
+import org.bukkit.inventory.ItemStack;
 
 public class QuiverGUI extends AbstractGUI
 {
@@ -26,8 +25,8 @@ public class QuiverGUI extends AbstractGUI
 		{
 			int x = a % 7 + 1;
 			int y = a / 7 + 1;
-			
-			ItemStack disp = ItemFactory.buildCustom(arrow, "WHITE" + owner.quiver.get(arrow) + "x " + ItemFactory.getItemTypeName(arrow), null);
+
+            ItemStack disp = ItemFactory.buildCustom(arrow, "WHITE" + owner.quiver.get(arrow) + "x " + ItemFactory.getItemTypeName(arrow));
 			arrows[y * 9 + x] = arrow;
 			
 			inventory.setSlot(disp, calc(x, y));

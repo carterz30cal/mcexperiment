@@ -1,14 +1,14 @@
 package com.carterz30cal.entities;
 
-import java.util.HashMap;
-import java.util.Map;
-import java.util.UUID;
-
 import org.bukkit.Color;
 import org.bukkit.Location;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.persistence.PersistentDataType;
+
+import java.util.HashMap;
+import java.util.Map;
+import java.util.UUID;
 
 public abstract class GameEntity
 {
@@ -17,6 +17,7 @@ public abstract class GameEntity
 	
 	public double health = 1;
 	public boolean dead;
+    protected UUID uuid;
 	
 	public abstract int getHealth();
 	
@@ -45,6 +46,10 @@ public abstract class GameEntity
 	public double getDistance(Location l) {
 		return l.distance(getLocation());
 	}
+
+    public UUID GetUUID() {
+        return uuid;
+    }
 	
 	protected void register(UUID uuid)
 	{
