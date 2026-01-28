@@ -93,7 +93,7 @@ waterway_sac:
   type: INGREDIENT
   rarity: EPIC
   material: GLOW_INK_SAC
-  value: 350
+  value: 75
   description:
     - Pulses sometimes, in an almost heart-like fashion.
     - Rarely dropped by REDFanaticsGRAY.
@@ -166,6 +166,7 @@ meat_scraps:
   discovery-progress: 1
   description:
     - Almost inedible.
+    - Drops exclusively from the Drenched.
 
 green_slime:
   name: Green Slime
@@ -177,6 +178,29 @@ green_slime:
   description:
     - Lowest grade of slime. Used frequently
     - in industry, and cakes.
+
+
+seraphs_eye:
+  name: "Seraph's Eye"
+  type: INGREDIENT
+  rarity: INCREDIBLE
+  material: ENDER_EYE
+  value: 500
+  description:
+    - One of the Seraph's many watchful eyes.
+    - Used to create the best BLUEWaterwayGRAY weapons.
+
+
+waterway_seraph_key:
+  name: Seraph's Key
+  type: KEY
+  rarity: INCREDIBLE
+  material: TRIPWIRE_HOOK
+  value: 500
+  description:
+    - Use to register for the BLUEWater Seraph
+    - fight! REDConsumable!
+    - DARK_GRAYMust be used at the altar in the temple.
 
 
 

@@ -49,3 +49,13 @@ enchanted_book-SUPERLURE:
   items:
     paper: 2
     cooked_waterway_cod: 3
+
+enchanted_book-SLIMED:
+  custom-name: GOLDSlimed DARK_GRAY[Enchantment]
+  enchants: ENCHANT_SLIMED-1
+  time: 30m
+  category: waterway_enchantments
+  level: 4
+  items:
+    paper: 1
+    green_slime: 2

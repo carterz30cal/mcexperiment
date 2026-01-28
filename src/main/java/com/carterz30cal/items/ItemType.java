@@ -16,6 +16,7 @@ public enum ItemType
 	TOOL(ItemTypeUse.WIELDABLE, DamageType.PHYSICAL),
     PICKAXE(ItemTypeUse.WIELDABLE, DamageType.PHYSICAL),
 	ARTEFACT(ItemTypeUse.WIELDABLE_CONSUMABLE),
+    KEY(ItemTypeUse.WIELDABLE_CONSUMABLE),
 	LOOTBOX(ItemTypeUse.CONSUMABLE),
 	TALISMAN(ItemTypeUse.TALISMAN),
 	SHIELD(ItemTypeUse.OFFHAND),
@@ -27,8 +28,8 @@ public enum ItemType
 	BOOTS(ItemTypeUse.WEARABLE),
 	PET(ItemTypeUse.NORMAL),
 	VIRTUAL_SET(ItemTypeUse.VIRTUAL_NON_EXIST);
-	public ItemTypeUse use;
-	public DamageType damageType;
+    public final ItemTypeUse use;
+    public final DamageType damageType;
 	public String cute;
 	
 	ItemType(ItemTypeUse use)

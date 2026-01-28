@@ -110,12 +110,11 @@ public class EntityUtils
 			Ageable ager = (Ageable)part;
 			ager.setAdult();
 		}
-		
-		if (part instanceof Mob)
-		{
-			Mob mob = (Mob)part;
-			//setArmourPiece(mob, EquipmentSlot.HEAD, new ItemStack(Material.STONE_BUTTON));
-		}
+
+        if (part instanceof Slime) {
+            Slime myHomeSlime = (Slime) part;
+            myHomeSlime.setSize(3);
+        }
 		
 		return part;
 	}
@@ -179,7 +178,29 @@ public class EntityUtils
 		}
 		
 	}
-	
+
+    public static void applyKnockback(GamePlayer player, LivingEntity enemy, int mkb) {
+        double knockback = (mkb / 100D);
+
+        if (enemy.getLocation().subtract(0, 0.1, 0).getBlock().getType() == Material.AIR) {
+            knockback *= 0.4;
+        }
+
+        Vector kbv = enemy.getLocation().subtract(player.getLocation()).toVector().normalize();
+
+        kbv.setY(0.4);
+        kbv.multiply(knockback * 0.6);
+
+
+        try {
+            kbv.add(enemy.getVelocity());
+            enemy.setVelocity(kbv);
+        } catch (IllegalArgumentException ignored) {
+
+        }
+
+    }
+
 	public static void applyPotionEffect(LivingEntity e, PotionEffectType type, int ticks, int level, boolean showParticles)
 	{
 		e.addPotionEffect(new PotionEffect(type, ticks, level - 1, false, showParticles));

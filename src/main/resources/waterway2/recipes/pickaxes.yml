@@ -12,10 +12,9 @@ leaf_pickaxe:
   category: waterway_pickaxes
   discovery: leaf_mash_collection
   discovery-tier: 1
-  coins: 100
   items:
     shoddy_pickaxe: 1
-    leaf_mash: 25
+    leaf_mash: 30
 
 gold_leaf_pickaxe:
   level: 2

@@ -1,14 +1,13 @@
 package com.carterz30cal.gui;
 
-import java.util.ArrayList;
-
-import org.bukkit.inventory.ItemStack;
-
 import com.carterz30cal.entities.GamePlayer;
 import com.carterz30cal.items.ItemFactory;
 import com.carterz30cal.items.Recipe;
 import com.carterz30cal.stats.Stat;
 import com.carterz30cal.utils.LevelUtils;
+import org.bukkit.inventory.ItemStack;
+
+import java.util.ArrayList;
 
 public class LevelGUI extends AbstractGUI
 {
@@ -99,10 +98,16 @@ public class LevelGUI extends AbstractGUI
 		}
 		else lore += " RED+8 " + Stat.HEALTH.getReverse() + ";";
 		if (level > 1) {
-			if (level % 8 == 0) lore += " WHITE+2000 Sack Space;";
-			else lore += " WHITE+500 Sack Space;";
+            if (level % 8 == 0) {
+                lore += " WHITE+5000 Sack Space;";
+            }
+            else {
+                lore += " WHITE+1000 Sack Space;";
+            }
 		}
-		if (level == 5) lore += " WHITE+1 Forge Slot;";
+        if (level == 5) {
+            lore += " WHITE+2 Forge Slots;";
+        }
 		
 		long totXp = LevelUtils.getXpForLevel(level);
 		

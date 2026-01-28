@@ -1,0 +1,34 @@
+waterway_seraph:
+  name: BLUEBOLDWater Seraph
+  type: SERAPH
+  has-director: true
+  coin-multiplier: 5
+  entity-type: ENDERMAN
+  ignore-target-limit: true
+  level: 30
+  health: 40000
+  knockback: 0
+  damage: 50
+  damage-type: PHYSICAL
+  display-height: 2.9
+  blood-colour: 250,0,50
+  damage-cap-percentage: 1
+  overkill-reward: 15
+  bestiary-category: waterway_waterway_seraph
+  scale: 1.2
+  speed: 1.5
+  armour:
+    PHYSICAL: 0
+    PROJECTILE: 0
+    MAGICAL: 0
+    HOLY: -50
+    BLEED: -30
+    FIRE: 0
+    WITHER: 0
+  tags:
+    - BOSS
+    - SERAPH
+    - WATERWAY
+  drops:
+    seraphs_eye:
+      amount: 1/1

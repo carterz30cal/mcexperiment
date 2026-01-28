@@ -1,18 +1,17 @@
 package com.carterz30cal.events;
 
-import org.bukkit.GameMode;
-import org.bukkit.event.EventHandler;
-import org.bukkit.event.Listener;
-import org.bukkit.event.inventory.ClickType;
-import org.bukkit.event.inventory.InventoryClickEvent;
-//import org.bukkit.event.inventory.InventoryOpenEvent;
-import org.bukkit.event.inventory.InventoryCloseEvent;
-import org.bukkit.event.inventory.InventoryDragEvent;
-
 import com.carterz30cal.entities.GameEntity;
 import com.carterz30cal.entities.GamePlayer;
 import com.carterz30cal.gui.MenuGUI;
+import com.carterz30cal.items.Item;
 import com.carterz30cal.items.ItemFactory;
+import com.carterz30cal.items.ItemType;
+import org.bukkit.GameMode;
+import org.bukkit.Material;
+import org.bukkit.event.EventHandler;
+import org.bukkit.event.Listener;
+import org.bukkit.event.inventory.*;
+import org.bukkit.inventory.ItemStack;
 
 public class ListenerInventoryEvents implements Listener
 {
@@ -31,6 +30,25 @@ public class ListenerInventoryEvents implements Listener
 			e.setCancelled(true);
 			return;
 		}
+        if (p.gui == null) {
+            if (e.getSlotType() == InventoryType.SlotType.ARMOR && e.getRawSlot() == 5) {
+                ItemStack cursor = e.getCursor();
+                ItemStack place = e.getCurrentItem();
+                if (cursor == null || cursor.getType() == Material.AIR) {
+                    return;
+                }
+                if (e.isShiftClick()) {
+                    return;
+                }
+                Item cursorItem = ItemFactory.getItem(cursor);
+                if (cursorItem == null || cursorItem.type != ItemType.HELMET) {
+                    return;
+                }
+                e.setCancelled(true);
+                e.setCurrentItem(cursor);
+                e.getWhoClicked().setItemOnCursor(place);
+            }
+        }
 		if (p.gui == null || e.isCancelled() || e.getClick() == ClickType.DOUBLE_CLICK) return;
 
 		if (e.isLeftClick()) e.setCancelled(!p.gui.allowLeftClick(e.getRawSlot(), e.getCurrentItem()));

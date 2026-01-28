@@ -134,13 +134,21 @@ public class StringUtils
 		long minutes = duration.toMinutes() % 60;
 		long seconds = duration.getSeconds() % 60;
 
-		if (seconds < 1) return " Soon!";
+        if (days == 0 && hours == 0 && minutes == 0 && seconds < 1) {
+            return " Soon!";
+        }
 
 		StringBuilder str = new StringBuilder();
-		if (days > 0) str.append(days + "d");
-		if (hours > 0) str.append(hours + "h");
-		if (minutes > 0) str.append(minutes + "m");
-		str.append(seconds + "s");
+        if (days > 0) {
+            str.append(days).append("d");
+        }
+        if (hours > 0) {
+            str.append(hours).append("h");
+        }
+        if (minutes > 0) {
+            str.append(minutes).append("m");
+        }
+        str.append(seconds).append("s");
 
 		return str.toString();
 	}

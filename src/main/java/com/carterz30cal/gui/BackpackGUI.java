@@ -1,9 +1,7 @@
 package com.carterz30cal.gui;
 
 import com.carterz30cal.entities.GamePlayer;
-import com.carterz30cal.items.*;
 import com.carterz30cal.stats.Stat;
-import org.bukkit.Sound;
 import org.bukkit.inventory.ItemStack;
 
 public class BackpackGUI extends AbstractGUI {
@@ -26,10 +24,12 @@ public class BackpackGUI extends AbstractGUI {
             inventory.setSlot(GooeyInventory.produceElement("WHITE_STAINED_GLASS_PANE", ""), i + (9*5));
         }
 
-        if (page > 1) inventory.setSlot(GooeyInventory.produceElement("ARROW", "GREENPage " + (page-1)), calc(1, 5));
+        if (page > 1) {
+            inventory.setSlot(GooeyInventory.produceElement("ARROW", "GREENPage " + (page - 1)), calc(2, 5));
+        }
         if (page < owner.stats.getStat(Stat.BACKPACK_PAGES))
         {
-            inventory.setSlot(GooeyInventory.produceElement("ARROW", "GREENPage " + (page+1)), calc(5, 5));
+            inventory.setSlot(GooeyInventory.produceElement("ARROW", "GREENPage " + (page + 1)), calc(6, 5));
             allowNextPage = true;
         }
         else allowNextPage = false;
@@ -52,12 +52,12 @@ public class BackpackGUI extends AbstractGUI {
     public boolean allowClick(int clickPos, ItemStack clicked) {
 
         if (clickPos >= calc(0, 5) && clickPos < 54) {
-            if (clickPos == calc(1, 5) && page > 1) {
+            if (clickPos == calc(2, 5) && page > 1) {
                 savePage();
                 page--;
                 update();
             }
-            else if (clickPos == calc(7, 5) && allowNextPage) {
+            else if (clickPos == calc(6, 5) && allowNextPage) {
                 savePage();
                 page++;
                 update();

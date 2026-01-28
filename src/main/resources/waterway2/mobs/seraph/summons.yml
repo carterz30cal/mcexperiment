@@ -1,0 +1,41 @@
+water_seraph_fanatic:
+  name: Seraph Fanatic
+  type: SIMPLE
+  entity-type: ZOMBIE
+  ignore-target-limit: true
+  level: 8
+  health: 1500
+  coin-multiplier: 0.5
+  knockback: 10
+  damage: 35
+  damage-type: PHYSICAL
+  display-height: 1.8
+  blood-colour: 250,0,50
+  speed: 1.7
+  bestiary-category: waterway_seraph_summons
+  armour:
+    PHYSICAL: 25
+    PROJECTILE: 0
+    MAGICAL: 0
+    HOLY: -25
+    BLEED: -75
+    FIRE: 0
+    WITHER: 0
+  resistances:
+    BLEED: 50
+  equipment:
+    HAND: pungent_sword_rare
+    HEAD: WHITE_STAINED_GLASS
+    CHEST: CHAINMAIL_CHESTPLATE
+    LEGS: CHAINMAIL_LEGGINGS
+    FEET: gold_leaf_boots
+  tags:
+    - LUNATIC
+    - LUNATIC_HIGH_RANK
+    - FANATIC
+  drops:
+    enchanted_book:
+      enchants: ENCHANT_BOOST-2
+      chance: 1/1250
+    waterway_seraph_key:
+      chance: 1/1750

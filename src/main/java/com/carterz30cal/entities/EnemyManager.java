@@ -1,9 +1,8 @@
 package com.carterz30cal.entities;
 
+import com.carterz30cal.utils.FileUtils;
 import org.bukkit.Location;
 import org.bukkit.configuration.file.FileConfiguration;
-
-import com.carterz30cal.utils.FileUtils;
 
 public class EnemyManager 
 {
@@ -12,11 +11,7 @@ public class EnemyManager
 			"waterway2/mobs/fishing/fishing_common",
 			"waterway2/mobs/fishing/fishing_uncommon",
 			"waterway2/mobs/fishing/fishing_rare",
-			"waterway/mobs/drippers","waterway/mobs/drenched","waterway/mobs/shockers",
-			"waterway/mobs/hydras","waterway/mobs/seraph_fight",
-			"waterway/mobs/lurkers","waterway/mobs/dungeon",
-			"verglaspeak/mobs/icer","verglaspeak/mobs/blizzard",
-			"fishing/mobs/bracket0","fishing/mobs/bracket1"
+            "waterway2/mobs/seraph/boss", "waterway2/mobs/seraph/summons"
 	};
 	
 	public static EnemyManager instance;

@@ -8,22 +8,26 @@ bobs_simple_supplies:
       item: weird_flesh
       coins: 2
       level: 1
+    paper_mache:
+      item: paper_mache
+      coins: 175
+      level: 1
     bad_pun_sword_1:
       item: bad_pun_sword_1
       coins: 1350
       level: 2
     catalyst:
       item: combination_catalyst_shard
-      coins: 800
-      level: 3
+      coins: 750
+      level: 2
     enchanted_book_titanic:
       item: enchanted_book
       enchants: ENCHANT_TITANIC-1
       coins: 1000
-      level: 4
+      level: 3
     armour_chainmail_helmet:
       item: chainmail_helmet
-      level: 4
+      level: 3
       coins: 1250
 
 cultist_shop:

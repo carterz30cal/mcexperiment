@@ -8,3 +8,13 @@ codpiece_leggings:
     might: +35
     enchant_power: +5
     level_requirement: 6
+
+lava_glass_helmet:
+  name: Lavaglass Helmet
+  type: HELMET
+  material: ORANGE_STAINED_GLASS
+  rarity: VERY_RARE
+  stats:
+    focus: +5
+    enchant_power: +50
+    level_requirement: 5

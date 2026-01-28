@@ -97,10 +97,14 @@ public class FishingArea {
         bobber.rarity = bracket.bracketRarity;
         bobber.bracketMobs = bracket.bracketMobs;
 
-        Location bobberSpot = location.getBlock().getLocation().add(0, 1.2, 0);
+        Location bobberSpot = location.getBlock().getLocation().add(0, 1, 0);
         bobber.location = bobberSpot;
         bobber.displayTop = EntityUtils.spawnHologram(bobberSpot.clone().add(0, 0.4, 0), -1);
-        bobber.displayBottom = EntityUtils.spawnHologram(bobberSpot.clone().add(0,0.1,0), -1);
+        bobber.displayBottom = EntityUtils.spawnHologram(bobberSpot.clone().add(0, 0.4, 0), -1);
+        bobber.displayBottom.setGravity(true);
+        bobber.displayBottom.setMarker(false);
+        EntityUtils.applyKnockback(owner, bobber.displayBottom, -100);
+        bobber.displayBottom.setVelocity(owner.getLocation().subtract(bobberSpot).toVector().normalize().setY(0.6));
         bobber.lifetime = (int)Math.round(20 * 45 * Math.log(bobber.rarity.ordinal() + 2));
 
         bobber.runTaskTimer(Dungeons.instance, 1, 1);
@@ -143,6 +147,9 @@ public class FishingArea {
         @Override
         public void run() {
             lifetime--;
+
+            location = displayBottom.getLocation();
+            displayTop.teleport(location.clone().add(0, 0.5, 0));
 
             if (lifetime < 1 || bracketMobs.isEmpty()) {
                 displayTop.remove();

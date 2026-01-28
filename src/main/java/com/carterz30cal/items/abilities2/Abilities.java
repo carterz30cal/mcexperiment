@@ -5,13 +5,14 @@ import com.carterz30cal.items.ItemType;
 import com.carterz30cal.items.abilities2.generic.HealingAbility;
 import com.carterz30cal.items.abilities2.generic.StatEnchantment;
 import com.carterz30cal.items.abilities2.implementation.GameAbility;
+import com.carterz30cal.items.abilities2.waterway.NecromancerAbility;
+import com.carterz30cal.items.abilities2.waterway.SuperLureEnchantment;
 import com.carterz30cal.items.abilities2.waterway.pets.PetDrenchedActive;
 import com.carterz30cal.items.abilities2.waterway.pets.PetDrenchedPassive;
 import com.carterz30cal.items.abilities2.waterway.sets.LeafArmourSet;
-import com.carterz30cal.items.abilities2.waterway.NecromancerAbility;
-import com.carterz30cal.items.abilities2.waterway.SuperLureEnchantment;
 import com.carterz30cal.items.abilities2.waterway.sets.ZombieArmourSet;
 import com.carterz30cal.stats.Stat;
+import com.carterz30cal.stats.StatOperationType;
 
 public enum Abilities
 {
@@ -54,6 +55,10 @@ public enum Abilities
 			Stat.POWER, 0, 2, 8, ItemType.BOOTS
 	)),
 	ENCHANT_SUPERLURE(new SuperLureEnchantment()),
+    ENCHANT_SLIMED(new StatEnchantment(
+            "Slimed", 2, Stat.DEFENCE,
+            5, 5, 4, StatOperationType.MULTIPLY, ItemType.CHESTPLATE
+    )),
 
 	NECROMANCY_SWORD(new NecromancerAbility()),
 	HEALING_WAND_WATERWAY(new HealingAbility(8, 25)),

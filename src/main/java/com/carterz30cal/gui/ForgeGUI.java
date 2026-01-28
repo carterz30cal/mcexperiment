@@ -160,8 +160,8 @@ public class ForgeGUI extends AbstractGUI
 				requirements.add("GRAYThis recipe unlocks at WHITE" + col.name + " " + (rec.discoveryReqLevel + 1) + "GRAY.");
 			}
 		}
-		
-		if (requirements.size() != 0) 
+
+        if (!requirements.isEmpty())
 		{
             ItemStack r = ItemFactory.buildCustom("RED_STAINED_GLASS_PANE", "REDRecipe locked!");
 			ItemMeta m = r.getItemMeta();
@@ -173,7 +173,7 @@ public class ForgeGUI extends AbstractGUI
 		
 		ItemStack base = ItemFactory.build(rec.item, rec.amount);
 		ItemFactory.setItemData(base, "enchants:" + rec.enchants);
-		ItemFactory.update(base, null);
+        ItemFactory.update(base, owner);
 		ItemFactory.makeInvalid(base);
 		
 		ItemMeta meta = base.getItemMeta();

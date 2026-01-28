@@ -3,10 +3,9 @@ package com.carterz30cal.events;
 import com.carterz30cal.entities.GameEnemy;
 import com.carterz30cal.entities.GameEntity;
 import com.carterz30cal.entities.GamePlayer;
-import com.carterz30cal.entities.Shop;
+import com.carterz30cal.entities.interactable.GameEntityInteractable;
 import com.carterz30cal.gui.LootboxGUI;
 import com.carterz30cal.gui.MenuGUI;
-import com.carterz30cal.gui.ShopGUI;
 import com.carterz30cal.items.Item;
 import com.carterz30cal.items.ItemFactory;
 import com.carterz30cal.items.ItemLootbox;
@@ -45,7 +44,7 @@ public class ListenerPlayerInteract implements Listener {
 			Action act = e.getAction();
 			if (act == Action.RIGHT_CLICK_AIR || act == Action.RIGHT_CLICK_BLOCK) 
 			{
-				if (item != null && item instanceof ItemLootbox && e.getItem().getAmount() > 0) {
+                if (item instanceof ItemLootbox && e.getItem().getAmount() > 0) {
 					ItemLootbox lootbox = (ItemLootbox)item;
 
 					p.openGui(new LootboxGUI(p, lootbox));
@@ -55,6 +54,10 @@ public class ListenerPlayerInteract implements Listener {
 				}
 				p.allowInteract = !p.allowInteract;
 				if (p.allowInteract) for (var a : p.abilities) a.ability.onRightClick(a);
+                if (act == Action.RIGHT_CLICK_BLOCK && p.area != null) {
+                    assert e.getClickedBlock() != null;
+                    p.area.getArea().OnRightClick(p, e.getClickedBlock().getLocation());
+                }
 				
 				if (item != null && item.material == Material.FISHING_ROD) e.setCancelled(false);
 				if (act == Action.RIGHT_CLICK_BLOCK && e.getClickedBlock().getType() == Material.BARREL) {
@@ -122,19 +125,12 @@ public class ListenerPlayerInteract implements Listener {
 	public void onPlayerInteractEntity(PlayerInteractEntityEvent e) 
 	{
 		GamePlayer p = (GamePlayer)GameEntity.get(e.getPlayer());
-		//Quest q = Quest.get(e.getRightClicked());
-		Shop shop = Shop.getShop(e.getRightClicked());
-
-		if (p != null && p.questTick == 0) {
-			/*if (q != null) {
-				if (p.completedQuests.contains(q.id)) return;
-				//if (p.quests.containsKey(q.id)) q.duringQuest(p);
-				else q.startQuest(p);
-			/*} else*/ if (shop != null) {
-				p.openGui(new ShopGUI(p, shop));
-			}
-		}
-		
-
+        if (p != null && p.questTick == 0) {
+            GameEntityInteractable interactable = GameEntityInteractable.GetEntity(e.getRightClicked());
+            if (interactable != null) {
+                p.questTick = 4;
+                interactable.Interact(p);
+            }
+        }
 	}
 }

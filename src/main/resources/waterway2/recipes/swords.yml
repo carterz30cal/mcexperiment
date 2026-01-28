@@ -21,7 +21,7 @@ piranha_dagger_uncommon:
   category: waterway_weapons
   items:
     flimsy_sword: 1
-    chilli_powder: 5
+    weird_flesh: 50
 
 pungent_sword:
   level: 2
@@ -72,7 +72,7 @@ piranha_dagger_very_rare:
     waterway_sac: 1
 
 healing_wand_waterway:
-  level: 6
+  level: 5
   category: waterway_weapons
   coins: 2000
   items:
@@ -81,7 +81,7 @@ healing_wand_waterway:
     leaf_mash: 512
 
 necromancy_sword:
-  level: 6
+  level: 5
   category: waterway_weapons
   items:
     waterway_sac: 3
@@ -89,12 +89,45 @@ necromancy_sword:
     spiced_meat: 16
     paper: 8
 
+pungent_sword_incredible:
+  level: 6
+  category: waterway_weapons
+  items:
+    pungent_sword_very_rare: 1
+    seraphs_eye: 1
+    spiced_meat: 8
+
+spearfish_scythe_incredible:
+  level: 6
+  category: waterway_weapons
+  items:
+    spearfish_scythe_very_rare: 1
+    seraphs_eye: 1
+    gold_leaf: 8
+
+piranha_dagger_incredible:
+  level: 6
+  category: waterway_weapons
+  items:
+    piranha_dagger_very_rare: 1
+    seraphs_eye: 1
+    chilli_powder: 20
+
+titan_blade_incredible:
+  level: 6
+  category: waterway_weapons
+  items:
+    titan_blade: 1
+    seraphs_eye: 1
+    chilli_powder: 20
+
+
 zombie_sword:
-  level: 7
+  level: 6
   category: waterway_weapons
   discovery: weird_flesh_collection
   discovery-tier: 5
   items:
-    waterway_sac: 16
+    waterway_sac: 8
     spiced_meat: 64
     chilli_powder: 30

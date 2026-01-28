@@ -29,10 +29,10 @@ public class ZombieArmourSet extends GameAbility {
     }
 
     private long getHealingPowerLast(AbilityContext context) {
-        return 10 + Math.round(context.owner.lastStats.getStat(Stat.VITALITY) / 10D);
+        return 4 + Math.round(context.owner.lastStats.getStat(Stat.VITALITY) / 10D);
     }
     private long getHealingPower(AbilityContext context) {
-        return 10 + Math.round(context.owner.stats.getStat(Stat.VITALITY) / 10D);
+        return 4 + Math.round(context.owner.stats.getStat(Stat.VITALITY) / 10D);
     }
 
     @Override

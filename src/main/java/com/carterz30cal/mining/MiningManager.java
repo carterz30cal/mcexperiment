@@ -42,12 +42,28 @@ public class MiningManager {
     private final Map<Material, OreType> ores = new HashMap<>();
     private final Map<Location, Integer> currentlyMining = new HashMap<>();
     private final Map<Location, Material> originalBlock = new HashMap<>();
-    private List<BukkitRunnable> runnables = new ArrayList<>();
+    private final List<BukkitRunnable> runnables = new ArrayList<>();
 
     public static void onDisable() {
         for (var runnable : instance.runnables) {
             runnable.run();
         }
+    }
+
+    public static void SetBlock(Location location, Material material) {
+        if (!instance.originalBlock.containsKey(location)) {
+            instance.originalBlock.put(location, location.getBlock().getType());
+        }
+        location.getBlock().setType(material);
+        BukkitRunnable runnable =
+                new BukkitRunnable() {
+
+                    @Override
+                    public void run() {
+                        location.getBlock().setType(instance.originalBlock.get(location.getBlock().getLocation()));
+                    }
+                };
+        instance.runnables.add(runnable);
     }
 
     public static void attemptMine(GamePlayer player, Location location) {

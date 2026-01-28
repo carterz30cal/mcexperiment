@@ -14,6 +14,20 @@ armour-leather:
     defence: 25, 35, 30, 20
     enchant_power: +5
 
+jims_boots:
+  name: "Jim's Boots"
+  type: BOOTS
+  material: LEATHER_BOOTS
+  rarity: UNCOMMON
+  colour:
+    r: 150
+    g: 0
+    b: 150
+  stats:
+    defence: +10
+    health: +10
+    enchant_power: +15
+
 armour-water:
   name:
     - Water Cap

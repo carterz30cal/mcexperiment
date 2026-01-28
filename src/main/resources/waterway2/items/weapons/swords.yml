@@ -26,7 +26,7 @@ jims_sword:
   material: STONE_SWORD
   stats:
     damage: +8
-    power: +40
+    power: +50
     enchant_power: +50
 piranha_dagger:
   name: Piranha Dagger
@@ -143,7 +143,7 @@ necromancy_sword:
     focus: +3
     visibility: +5
     enchant_power: +25
-    level_requirement: 6
+    level_requirement: 5
 
 healing_wand_waterway:
   name: Healing Stick
@@ -157,7 +157,7 @@ healing_wand_waterway:
     mana: +50
     focus: +2
     enchant_power: +20
-    level_requirement: 6
+    level_requirement: 5
 
 ## INCREDIBLE WEAPONS
 pungent_sword_incredible:
@@ -168,7 +168,7 @@ pungent_sword_incredible:
   stats:
     damage: +45
     enchant_power: +30
-    level_requirement: 7
+    level_requirement: 6
 
 spearfish_scythe_incredible:
   name: Spearfish Scythe
@@ -179,7 +179,7 @@ spearfish_scythe_incredible:
     damage: +30
     strength: +70
     enchant_power: +15
-    level_requirement: 7
+    level_requirement: 6
 
 piranha_dagger_incredible:
   name: Piranha Dagger
@@ -192,7 +192,7 @@ piranha_dagger_incredible:
     damage: +12
     savagery: +25
     enchant_power: +15
-    level_requirement: 7
+    level_requirement: 6
 
 titan_blade_incredible:
   name: Titan's Blade
@@ -203,7 +203,7 @@ titan_blade_incredible:
     damage: +33
     defence: +150
     enchant_power: +20
-    level_requirement: 7
+    level_requirement: 6
 
 zombie_sword:
   name: Zombie Blade
@@ -216,7 +216,7 @@ zombie_sword:
     might: +225
     vitality: +6
     enchant_power: +20
-    level_requirement: 7
+    level_requirement: 6
 
 
 

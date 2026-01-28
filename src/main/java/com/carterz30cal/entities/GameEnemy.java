@@ -245,15 +245,17 @@ public class GameEnemy extends GameEntity
 	
 	protected void tick()
 	{
-		if (!main.isValid()) destroy();
+        if (!main.isValid() || main.isDead()) {
+            destroy();
+        }
 
 		if (director != null) {
 			main.teleport(director.getLocation(), TeleportCause.PLUGIN);
 			EntityUtils.applyPotionEffect(director, PotionEffectType.INVISIBILITY, 200, 0, false);
 			EntityUtils.applyPotionEffect(director, PotionEffectType.FIRE_RESISTANCE, 200, 0, false);
 		}
-		
-		if (displayName == null && (lastDamager != null || health < 0.99)) {
+
+        if (displayName == null && (lastDamager != null || health < 0.99) && !dead) {
 			Location d = main.getLocation().add(0, main.getHeight() + 0.4, 0);
 
 			displayName = EntityUtils.spawnHologram(d, -1);
@@ -373,6 +375,7 @@ public class GameEnemy extends GameEntity
         killer.IncrementKill(type.id);
 		
 		for (var a : killer.abilities) a.ability.onKill(a, this);
+        for (var eh : killer.GetEventHandlers()) eh.OnKill(killer, this, killer.area);
 		
 		for (ItemStack it : type.loot.generate(killer)) killer.giveItem(it);
 		

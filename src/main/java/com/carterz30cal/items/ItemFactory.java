@@ -8,6 +8,8 @@ import com.carterz30cal.gui.GooeyInventory;
 import com.carterz30cal.items.abilities2.Abilities;
 import com.carterz30cal.items.abilities2.implementation.GameAbility;
 import com.carterz30cal.items.sets.ItemSet;
+import com.carterz30cal.items.trims.TrimMaterialWrapper;
+import com.carterz30cal.items.trims.TrimPatternWrapper;
 import com.carterz30cal.main.Dungeons;
 import com.carterz30cal.stats.Stat;
 import com.carterz30cal.stats.StatContainer;
@@ -23,9 +25,11 @@ import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.ArmorMeta;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.inventory.meta.LeatherArmorMeta;
 import org.bukkit.inventory.meta.SkullMeta;
+import org.bukkit.inventory.meta.trim.ArmorTrim;
 import org.bukkit.persistence.PersistentDataType;
 import org.bukkit.profile.PlayerProfile;
 import org.bukkit.profile.PlayerTextures;
@@ -55,7 +59,7 @@ public class ItemFactory
 			"waterway2/items/armours/very_rare_armours",
 			"waterway2/items/armours/sets/uncommon_sets","waterway2/items/armours/sets/rare_sets",
 			"waterway2/items/armours/sets/very_rare_sets",
-			"waterway2/items/pet_items"
+            "waterway2/items/pet_items", "waterway2/items/quest_items"
 	};
 	
 	
@@ -248,6 +252,13 @@ public class ItemFactory
 
 			leather.setColor(Color.fromRGB(item.r, item.g, item.b));
 		}
+        if (meta instanceof ArmorMeta) {
+            ArmorMeta armor = (ArmorMeta) meta;
+            if (item.trimMaterial != TrimMaterialWrapper.NULL && item.trimPattern != TrimPatternWrapper.NULL) {
+                ArmorTrim trim = new ArmorTrim(item.trimMaterial.GetTrimMaterial(), item.trimPattern.GetTrimPattern());
+                armor.setTrim(trim);
+            }
+        }
 
 
 		if (enchantments.size() > 4)
@@ -674,6 +685,10 @@ public class ItemFactory
             skull.setItemMeta(skullMeta);
         }
     }
+
+    public static PlayerProfile GetSkullProfile(String profileId) {
+        return skullProfiles.get(profileId);
+    }
 	
 	public static String getItemTypeName(String type)
 	{
@@ -813,6 +828,10 @@ public class ItemFactory
             if (type == ItemType.HELMET && item.skullProfileId != null) {
                 item.material = Material.PLAYER_HEAD;
             }
+
+            item.trimPattern = TrimPatternWrapper.valueOf(i.getString("trim-pattern", "NULL"));
+            item.trimMaterial = TrimMaterialWrapper.valueOf(i.getString("trim-material", "NULL"));
+
 			item.rarity = ItemRarity.valueOf(i.getString("rarity", "COMMON"));
 			item.stats = new StatContainer();
 			item.glow = i.getBoolean("glow", false);
@@ -895,6 +914,9 @@ public class ItemFactory
 		item.rarity = ItemRarity.valueOf(i.getString("rarity", "COMMON"));
 		item.stats = new StatContainer();
 		item.value = i.getLong("value");
+
+        item.trimPattern = TrimPatternWrapper.valueOf(i.getString("trim-pattern", "NULL"));
+        item.trimMaterial = TrimMaterialWrapper.valueOf(i.getString("trim-material", "NULL"));
 
 		item.glow = i.getBoolean("glow", false);
 		item.description = i.getStringList("description");

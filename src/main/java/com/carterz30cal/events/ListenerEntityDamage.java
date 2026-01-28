@@ -76,10 +76,9 @@ public class ListenerEntityDamage implements Listener
 			info.defender = damaged;
 			info.attacker = player;
 			info.main = true;
-			
-			if (item == null)
-			{
-				info.damage = 1;
+            info.damage = 1;
+
+            if (item == null) {
 				info.type = DamageType.PHYSICAL;
 			}
 			else
@@ -95,10 +94,8 @@ public class ListenerEntityDamage implements Listener
 				{
 					double multiplier = ((100 + player.stats.getStat(Stat.STRENGTH))/100D) * ((100 + player.stats.getStat(Stat.POWER))/100D)
 							* ((100 + player.stats.getStat(Stat.MIGHT))/100D);
-					
-					int damage = (int)Math.round(player.stats.getStat(Stat.DAMAGE) * multiplier);
-					
-					info.damage = damage;
+
+                    info.damage = (int) Math.round(player.stats.getStat(Stat.DAMAGE) * multiplier);
 				}
 			}
 			

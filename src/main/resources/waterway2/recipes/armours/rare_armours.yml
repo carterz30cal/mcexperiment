@@ -1,5 +1,5 @@
 leaf_helmet:
-  level: 5
+  level: 4
   time: 10m
   category: waterway_armours_leaf
   items:
@@ -8,7 +8,7 @@ leaf_helmet:
     leaf_mash: 128
 
 leaf_chestplate:
-  level: 5
+  level: 4
   time: 10m
   category: waterway_armours_leaf
   items:
@@ -17,7 +17,7 @@ leaf_chestplate:
     leaf_mash: 256
 
 leaf_leggings:
-  level: 5
+  level: 4
   time: 10m
   category: waterway_armours_leaf
   items:
@@ -26,13 +26,57 @@ leaf_leggings:
     leaf_mash: 256
 
 leaf_boots:
-  level: 5
+  level: 4
   time: 10m
   category: waterway_armours_leaf
   items:
     waterway_sac: 1
     water_boots: 2
     leaf_mash: 128
+
+gold_leaf_helmet:
+  level: 4
+  category: waterway_armours_gold_leaf
+  discovery: gold_leaf_collection
+  discovery-tier: 2
+  items:
+    leather_helmet: 1
+    waterway_sac: 1
+    gold_leaf: 5
+    spiced_meat: 2
+
+gold_leaf_chestplate:
+  level: 4
+  category: waterway_armours_gold_leaf
+  discovery: gold_leaf_collection
+  discovery-tier: 2
+  items:
+    leather_chestplate: 1
+    waterway_sac: 1
+    gold_leaf: 5
+    spiced_meat: 2
+
+gold_leaf_leggings:
+  level: 4
+  category: waterway_armours_gold_leaf
+  discovery: gold_leaf_collection
+  discovery-tier: 2
+  items:
+    leather_leggings: 1
+    waterway_sac: 1
+    gold_leaf: 5
+    spiced_meat: 2
+
+gold_leaf_boots:
+  level: 4
+  category: waterway_armours_gold_leaf
+  discovery: gold_leaf_collection
+  discovery-tier: 2
+  items:
+    leather_boots: 1
+    waterway_sac: 1
+    gold_leaf: 5
+    spiced_meat: 2
 
 zombie_helmet:
   level: 5

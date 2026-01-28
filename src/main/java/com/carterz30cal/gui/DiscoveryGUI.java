@@ -43,6 +43,9 @@ public class DiscoveryGUI extends AbstractGUI {
 
 	public boolean allowClick(int clickPos, ItemStack clicked)
 	{
+        if (clickPos >= 54) {
+            return false;
+        }
 		if (selected == null) {
 			selected = selectable[clickPos];
 			update();

@@ -1,0 +1,7 @@
+sams_apple:
+  name: "Sam's Apple"
+  type: QUEST_ITEM
+  rarity: VERY_RARE
+  material: APPLE
+  description:
+    - Little cheers Sam up like a juicy apple does.

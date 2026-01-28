@@ -17,6 +17,8 @@ fish_tank:
   stats:
     FISHING_POWER: +25
 
+
+
 titans_talisman:
   name: Titan's Talisman
   type: TALISMAN

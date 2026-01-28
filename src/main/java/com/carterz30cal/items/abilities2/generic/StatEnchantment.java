@@ -20,6 +20,7 @@ public class StatEnchantment extends GameAbility {
     public int statPerLevel;
     public int maxLevel;
     public Set<ItemType> applicable;
+    public StatOperationType statOperation;
 
     public StatEnchantment(String name, int powerPerLevel, Stat granted, int flat, int statPerLevel, int maxLevel, ItemType... types) {
         this.enchantName = name;
@@ -29,6 +30,18 @@ public class StatEnchantment extends GameAbility {
         this.statPerLevel = statPerLevel;
         this.maxLevel = maxLevel;
         this.applicable = new HashSet<>(List.of(types));
+        this.statOperation = StatOperationType.ADD;
+    }
+
+    public StatEnchantment(String name, int powerPerLevel, Stat granted, int flat, int statPerLevel, int maxLevel, StatOperationType statOperation, ItemType... types) {
+        this.enchantName = name;
+        this.powerPerLevel = powerPerLevel;
+        this.statGranted = granted;
+        this.flatStat = flat;
+        this.statPerLevel = statPerLevel;
+        this.maxLevel = maxLevel;
+        this.applicable = new HashSet<>(List.of(types));
+        this.statOperation = statOperation;
     }
 
     @Override
@@ -39,7 +52,12 @@ public class StatEnchantment extends GameAbility {
     @Override
     public List<String> description(AbilityContext context) {
         List<String> lore = new ArrayList<>();
-        lore.add("GRAYGrants " + display(statGranted, getStat(context)) + "GRAY.");
+        if (statOperation == StatOperationType.MULTIPLY) {
+            lore.add("GRAYGrants " + statGranted.colour + (getStat(context) > 0 ? "+" : "-") + getStat(context) + "% " + statGranted.getIcon() + "GRAY.");
+        }
+        else {
+            lore.add("GRAYGrants " + display(statGranted, getStat(context)) + "GRAY.");
+        }
         return lore;
     }
 
@@ -62,7 +80,12 @@ public class StatEnchantment extends GameAbility {
 
     @Override
     public void onItemStats(AbilityContext context, StatContainer item) {
-        item.scheduleOperation(statGranted, StatOperationType.ADD, getStat(context));
+        if (statOperation == StatOperationType.MULTIPLY) {
+            item.scheduleOperation(statGranted, StatOperationType.MULTIPLY, (100 + getStat(context)) / 100D);
+        }
+        else {
+            item.scheduleOperation(statGranted, statOperation, getStat(context));
+        }
     }
 
     @Override

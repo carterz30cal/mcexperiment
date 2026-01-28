@@ -1,10 +1,11 @@
 package com.carterz30cal.entities;
 
-import com.carterz30cal.areas.BossWaterwayHydra;
 import com.carterz30cal.areas2.AreaManager;
 import com.carterz30cal.areas2.Areas;
+import com.carterz30cal.areas2.quests.Quests;
 import com.carterz30cal.dungeoneering.DungeonManager;
 import com.carterz30cal.entities.enemies.EnemyTypeFish;
+import com.carterz30cal.events.GameEventHandler;
 import com.carterz30cal.fishing.FishingArea;
 import com.carterz30cal.gui.AbstractGUI;
 import com.carterz30cal.items.*;
@@ -28,6 +29,7 @@ import org.bukkit.Location;
 import org.bukkit.Sound;
 import org.bukkit.attribute.Attribute;
 import org.bukkit.block.Block;
+import org.bukkit.entity.Entity;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.entity.EntityRegainHealthEvent;
@@ -42,7 +44,6 @@ import org.jetbrains.annotations.NotNull;
 import java.time.LocalDateTime;
 import java.util.*;
 
-//import de.ancash.actionbar.ActionBarAPI;
 
 public class GamePlayer extends GameEntity
 {
@@ -57,12 +58,16 @@ public class GamePlayer extends GameEntity
 	public long coins;
 	
 	public long level;
+    private final Map<Quests, Quests.QuestSave> quests = new EnumMap<>(Quests.class);
 	public long xp;
 	
 	public List<ForgingItem> forge = new ArrayList<>();
 	
 	public List<GameAbility.AbilityContext> abilities;
-	
+    private boolean cachedLevel = false;
+    private Quests selectedQuest;
+    private Map<UUID, GameEventHandler> eventHandlers = new HashMap<>();
+
 	public List<String> talismans = new ArrayList<>();
 	public List<String> completedQuests = new ArrayList<>();
 	public List<String> pets = new ArrayList<>();
@@ -82,6 +87,7 @@ public class GamePlayer extends GameEntity
 	public int bowTick;
 	public int questTick;
     private int areaCheckTick;
+    private int invulTick;
     public Map<String, Long> kills = new HashMap<>();
 	
 	public long lastXpReward;
@@ -97,7 +103,7 @@ public class GamePlayer extends GameEntity
 	public Map<String, Integer> quiver = new HashMap<>();
 	public Map<String, Integer> counters = new HashMap<>();
 	public Map<String, Integer> sack = new HashMap<>();
-    private int invulTick;
+
 	public Map<Integer, String> backpack = new HashMap<>();
 	
 	public List<GameEnemy> targeted = new ArrayList<>();
@@ -173,7 +179,7 @@ public class GamePlayer extends GameEntity
 		stats.scheduleOperation(Stat.VISIBILITY, StatOperationType.CAP_MIN, 1);
 		stats.scheduleOperation(Stat.VISIBILITY, StatOperationType.CAP_MAX, 24);
 		stats.scheduleOperation(Stat.FOCUS, StatOperationType.CAP_MIN, 0);
-        stats.scheduleOperation(Stat.INVULNERABILITY_TICKS, StatOperationType.ADD, 1);
+        stats.scheduleOperation(Stat.INVULNERABILITY_TICKS, StatOperationType.ADD, 2);
 
 		stats.scheduleOperation(Stat.POWER, StatOperationType.CAP_MIN, 0);
 		stats.scheduleOperation(Stat.MIGHT, StatOperationType.CAP_MIN, 0);
@@ -186,9 +192,9 @@ public class GamePlayer extends GameEntity
 		stats.scheduleOperation(Stat.HEALTH, StatOperationType.ADD, (level - levelTens) * 8);
 		stats.scheduleOperation(Stat.DEFENCE, StatOperationType.ADD, levelTens * 2);
 		stats.scheduleOperation(Stat.POWER, StatOperationType.ADD, levelTens);
-		
-		stats.scheduleOperation(Stat.SACK_SPACE, StatOperationType.ADD, Math.max(0, level - 1) * 500);
-		stats.scheduleOperation(Stat.SACK_SPACE, StatOperationType.ADD, (level >> 3) * 1500);
+
+        stats.scheduleOperation(Stat.SACK_SPACE, StatOperationType.ADD, Math.max(0, level - 1) * 1000);
+        stats.scheduleOperation(Stat.SACK_SPACE, StatOperationType.ADD, (level >> 3) * 4000);
 		
 		
 		List<ItemStack> items = new ArrayList<>();
@@ -319,10 +325,18 @@ public class GamePlayer extends GameEntity
             score.add("GOLDSack: " + getSackSpaceUsed() + "/" + getSackSize());
         }
 		score.add("");
-		if (BossWaterwayHydra.hasParticipated(this)) {
-			score.add("GREENBOLDHydra - Wave " + BossWaterwayHydra.wave);
-			score.add("");
-		}
+        if (area != null) {
+            score.addAll(area.getArea().GetScoreboard(this));
+        }
+        Quests chosenQuest = GetSelectedQuest();
+        if (chosenQuest != null) {
+            Quests.QuestSave save = GetQuestSave(chosenQuest);
+            if (save.sectionSave.HasTalkedTo()) {
+                score.add("GOLDQuest: WHITE" + chosenQuest.GetName());
+                score.addAll(save.sectionSave.GetDescription());
+                score.add("");
+            }
+        }
         score.add("AQUALevel " + getLevel() + " DARK_GRAY[AQUA+" + Math.round(this.getLevelProgress() * 100) + "%DARK_GRAY]");
 
 		
@@ -538,7 +552,6 @@ public class GamePlayer extends GameEntity
 	public void sendActionBar(String message)
 	{
 		player.spigot().sendMessage(ChatMessageType.ACTION_BAR, TextComponent.fromLegacy(StringUtils.colourString(message)));
-		//ActionBarAPI.sendActionBar(player, StringUtils.colourString(message));
 	}
 
 	@Override
@@ -549,8 +562,10 @@ public class GamePlayer extends GameEntity
 		double yDist = by.getLocation().getY() - getLocation().getY();
 		yDist = Math.abs(yDist);
 
-		if (player.getGameMode() == GameMode.CREATIVE) return false;
-		else return dist <= stats.getStat(Stat.VISIBILITY) && yDist <= 5;
+        if (player.getGameMode() == GameMode.CREATIVE) return false;
+        else {
+            return dist <= stats.getStat(Stat.VISIBILITY) && yDist <= 7;
+        }
 	}
 
 	@Override
@@ -560,11 +575,17 @@ public class GamePlayer extends GameEntity
 	
 	public int getMaxTargets()
 	{
-		return Math.min(5, (int)level + 1);
+        return Math.min(8, (int) level + 1);
 	}
 	
 	public long getLevel()
 	{
+        if (cachedLevel) {
+            return level;
+        }
+        level = LevelUtils.GetLevelFromTotalXP(LevelUtils.GetTotalXP(this));
+        xp = LevelUtils.GetRemainderXP(LevelUtils.GetTotalXP(this), level);
+        cachedLevel = true;
 		return level;
 	}
 	
@@ -600,16 +621,19 @@ public class GamePlayer extends GameEntity
 		total += killed.type.level / 2;
 
 		double extraCoinsMultiplier = (100D + stats.getStat(Stat.BONUS_COINS)) / 100;
-		
-		coins += Math.round(total * extraCoinsMultiplier * killed.type.coinMultiplier);
-		return total;
+
+        int finalTotal = (int) Math.round(total * extraCoinsMultiplier * killed.type.coinMultiplier);
+        coins += finalTotal;
+        return finalTotal;
 	}
 	
 	
 	public int getForgeSlots()
 	{
 		int slots = 4;
-		if (level >= 5) slots++;
+        if (level >= 5) {
+            slots += 2;
+        }
 		
 		return slots;
 	}
@@ -622,8 +646,7 @@ public class GamePlayer extends GameEntity
 	
 	public void setHealth(int amount)
 	{
-		double percent = amount / (double)stats.getStat(Stat.HEALTH);
-		health = percent;
+        health = amount / (double) stats.getStat(Stat.HEALTH);
 		
 		health = Math.max(0, health);
 		health = Math.min(1, health);
@@ -834,6 +857,9 @@ public class GamePlayer extends GameEntity
 		sendMessage("REDYou were slain..");
 		playSound(Sound.ENTITY_PLAYER_DEATH, 1, 0.9);
 		player.teleport(new Location(Dungeons.w, 0.5, 65, 0.5));
+        if (area != null) {
+            area.getArea().OnPlayerDeath(this);
+        }
 		
 		health = 1;
 	}
@@ -921,6 +947,71 @@ public class GamePlayer extends GameEntity
 		takeHealth(modifiedDamage);
 		player.damage(1);
 	}
+
+    public void hideEntity(Entity entity) {
+        if (entity == null) {
+            return;
+        }
+        player.hideEntity(Dungeons.instance, entity);
+    }
+
+    public void showEntity(Entity entity) {
+        if (entity == null) {
+            return;
+        }
+        player.showEntity(Dungeons.instance, entity);
+    }
+
+    public void RegisterEventHandler(UUID uuid, GameEventHandler handler) {
+        eventHandlers.put(uuid, handler);
+    }
+
+    public void DeregisterEventHandler(UUID uuid) {
+        eventHandlers.remove(uuid);
+    }
+
+    public java.util.Collection<GameEventHandler> GetEventHandlers() {
+        return eventHandlers.values();
+    }
+
+    public Quests GetSelectedQuest() {
+        if (selectedQuest == null) {
+            return null;
+        }
+        else if (GetQuestSave(selectedQuest).completedQuest) {
+            selectedQuest = null;
+            return null;
+        }
+        else {
+            return selectedQuest;
+        }
+    }
+
+    public void SetSelectedQuest(Quests selectedQuest) {
+        this.selectedQuest = selectedQuest;
+    }
+
+    public void ClearQuests() {
+        quests.clear();
+    }
+
+    public Quests.QuestSave GetQuestSave(Quests quest) {
+        Quests.QuestSave save = quests.getOrDefault(quest, null);
+        if (save == null) {
+            // GENERATE QUEST SAVE
+            save = quest.CreateSave(this);
+            quests.put(quest, save);
+        }
+        return save;
+    }
+
+    public void LoadQuestSave(Quests.QuestSave quest) {
+        quests.put(quest.GetQuest(), quest);
+    }
+
+    public java.util.Collection<Quests.QuestSave> GetQuestSaves() {
+        return quests.values();
+    }
 
 
     public boolean IsOnInvulnerableCooldown() {

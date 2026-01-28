@@ -41,3 +41,11 @@ waterway_cod_meal:
     cooked_waterway_cod: 128
     meat_scraps: 1
     chilli_powder: 2
+
+waterway_seraph_key:
+  category: waterway
+  level: 3
+  items:
+    waterway_sac: 1
+    leaf_mash: 128
+    spiced_meat: 2

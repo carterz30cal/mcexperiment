@@ -40,11 +40,11 @@ titan_lootbox_1:
       chance: 1/35
       amount: 1/1
     enchanted_book-TITANIC1:
-      chance: 1/80
+      chance: 1/6
       amount: 1/1
       enchants: ENCHANT_TITANIC-1
     enchanted_book-TITANIC2:
-      chance: 1/170
+      chance: 1/20
       amount: 1/1
       enchants: ENCHANT_TITANIC-2
     combination_catalyst_shard-ag:

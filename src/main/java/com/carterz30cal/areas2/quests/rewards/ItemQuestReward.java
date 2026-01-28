@@ -1,0 +1,30 @@
+package com.carterz30cal.areas2.quests.rewards;
+
+import com.carterz30cal.entities.GamePlayer;
+import com.carterz30cal.items.ItemFactory;
+
+public class ItemQuestReward extends QuestReward {
+
+    protected String item;
+    protected int amount;
+
+    public ItemQuestReward(long xp, String item, int amount) {
+        super(xp);
+
+        this.item = item;
+        this.amount = amount;
+    }
+
+    public ItemQuestReward(long xp, String item) {
+        super(xp);
+        this.item = item;
+        this.amount = 1;
+    }
+
+    @Override
+    public void GrantOneTimeRewards(GamePlayer player) {
+        super.GrantOneTimeRewards(player);
+
+        player.giveItem(ItemFactory.build(item, amount), true);
+    }
+}

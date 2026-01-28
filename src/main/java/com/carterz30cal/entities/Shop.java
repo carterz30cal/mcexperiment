@@ -1,21 +1,18 @@
 package com.carterz30cal.entities;
 
+import com.carterz30cal.entities.interactable.GameShopkeeper;
 import com.carterz30cal.items.Recipe;
-import com.carterz30cal.main.Dungeons;
 import com.carterz30cal.utils.StringUtils;
 import org.bukkit.Location;
 import org.bukkit.configuration.ConfigurationSection;
-import org.bukkit.entity.Entity;
 import org.bukkit.entity.EntityType;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
-import java.util.UUID;
+import java.util.Objects;
 
 public class Shop {
     public static Map<String, Shop> shops = new HashMap<>();
-    private static Map<UUID, Shop> shent = new HashMap<>();
 
     public Map<Integer, Recipe> items = new HashMap<>();
 
@@ -25,6 +22,7 @@ public class Shop {
     public String shopkeeperName;
     public EntityType shopkeeperType;
     public Location shopkeeperLocation;
+    public String skullProfileId;
 
     public String requiredQuest;
     public int requiredLevel;
@@ -36,8 +34,9 @@ public class Shop {
 
         shopkeeperName = section.getString("shopkeeper-name", "null");
         shopkeeperType = EntityType.valueOf(section.getString("shopkeeper-type", "ZOMBIE").toUpperCase());
+        skullProfileId = section.getString("skull-profile-id");
 
-        shopkeeperLocation = StringUtils.getLocationFromString(section.getString("location"));
+        shopkeeperLocation = StringUtils.getLocationFromString(Objects.requireNonNull(section.getString("location")));
 
         requiredQuest = section.getString("required-quest", null);
         requiredLevel = section.getInt("required-level", 0);
@@ -47,14 +46,6 @@ public class Shop {
             items.put(i++, new Recipe(section.getConfigurationSection("items." + item), false));
         }
 
-        GameShopkeeper s = GameShopkeeper.spawn(this);
-        shops.put(shopId, this);
-        shent.put(s.u, this);
-    }
-
-    public static Shop getShop(Entity questgiver) {
-        GameEntity e = GameEntity.get(questgiver);
-        if (e instanceof GameShopkeeper) return shent.getOrDefault(((GameShopkeeper)e).u, null);
-        else return null;
+        new GameShopkeeper(this);
     }
 }

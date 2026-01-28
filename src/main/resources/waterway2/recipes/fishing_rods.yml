@@ -3,7 +3,7 @@ flimsy_fishing_rod:
   time: 1m
   category: waterway_fishing_rods
   items:
-    weird_flesh: 32
+    weird_flesh: 64
 
 fish_tank:
   time: 2m
@@ -19,7 +19,6 @@ fish_tank:
 
 reinforced_fishing_rod:
   level: 2
-  time: 1s
   category: waterway_fishing_rods
   discovery: waterway_cod_collection
   discovery-tier: 2
@@ -29,7 +28,6 @@ reinforced_fishing_rod:
 
 better_fishing_rod:
   level: 3
-  time: 1s
   category: waterway_fishing_rods
   discovery: waterway_cod_collection
   discovery-tier: 3
@@ -40,7 +38,6 @@ better_fishing_rod:
 
 good_fishing_rod:
   level: 4
-  time: 1s
   category: waterway_fishing_rods
   discovery: waterway_cod_collection
   discovery-tier: 4

@@ -1,10 +1,12 @@
 package com.carterz30cal.areas2;
 
+import com.carterz30cal.areas2.bosses.AbstractAreaBoss;
 import com.carterz30cal.areas2.spawners.AbstractEnemySpawner;
 import com.carterz30cal.entities.GameEnemy;
 import com.carterz30cal.entities.GameEntity;
 import com.carterz30cal.entities.GamePlayer;
 import com.carterz30cal.utils.Box;
+import org.bukkit.Location;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -15,6 +17,7 @@ public abstract class AbstractGameArea {
     protected String areaName;
     protected SpawnerContext context;
     protected List<AbstractEnemySpawner> registeredSpawners = new ArrayList<>();
+    protected List<AbstractAreaBoss> registeredBosses = new ArrayList<>();
 
 
     public void Tick() {
@@ -29,9 +32,43 @@ public abstract class AbstractGameArea {
         }
     }
 
+    public void OnPlayerDeath(GamePlayer player) {
+        for (var boss : registeredBosses) {
+            boss.OnPlayerDeath(player);
+        }
+    }
+
     public void RegisterSpawner(AbstractEnemySpawner spawner) {
         registeredSpawners.add(spawner);
         spawner.RegisterParent(this);
+    }
+
+    public void RegisterBoss(AbstractAreaBoss boss) {
+        registeredBosses.add(boss);
+        RegisterSpawner(boss);
+    }
+
+    /**
+     *
+     * @param player   Guaranteed to be from within the area.
+     * @param location Not guaranteed to be within bounds.
+     * @since 1.0.0
+     */
+    public void OnRightClick(GamePlayer player, Location location) {
+        for (var boss : registeredBosses) {
+            boss.OnRightClick(player, location);
+        }
+    }
+
+    public List<String> GetScoreboard(GamePlayer player) {
+        List<String> list = new ArrayList<>();
+        for (var boss : registeredBosses) {
+            if (!boss.IsPlayerInvolved(player)) {
+                continue;
+            }
+            list.addAll(boss.GetScoreboard(player));
+        }
+        return list;
     }
 
     public String GetSubAreaName(GamePlayer player) {

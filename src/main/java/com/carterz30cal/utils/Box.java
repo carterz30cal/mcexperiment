@@ -1,8 +1,16 @@
 package com.carterz30cal.utils;
 
+import com.carterz30cal.entities.GamePlayer;
+import com.carterz30cal.entities.PlayerManager;
 import com.carterz30cal.main.Dungeons;
 import org.bukkit.Location;
 import org.bukkit.Material;
+
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+import java.util.stream.Stream;
 
 public class Box {
     private final int x1;
@@ -38,6 +46,15 @@ public class Box {
         this.y2 = y;
     }
 
+    public Box(int x, int y, int z) {
+        this.x1 = x;
+        this.y1 = y;
+        this.z1 = z;
+        this.x2 = x;
+        this.y2 = y;
+        this.z2 = z;
+    }
+
     public Box Expand(int by) {
         return new Box(x1 - by, y1 - by, z1 - by, x2 + by, y2 + by, z2 + by);
     }
@@ -61,6 +78,28 @@ public class Box {
 
     public Location GetMiddleAsLocation() {
         return new Location(Dungeons.w, (double) (x1 + x2) / 2, (double) (y1 + y2) / 2, (double) (z1 + z2) / 2);
+    }
+
+    public Stream<Location> GetWithin() {
+        List<Location> locations = new ArrayList<>();
+        for (int x = x1; x <= x2; x++) {
+            for (int y = y1; y <= y2; y++) {
+                for (int z = z1; z <= z2; z++) {
+                    locations.add(new Location(Dungeons.w, x, y, z));
+                }
+            }
+        }
+        return locations.stream();
+    }
+
+    public Set<GamePlayer> GetPlayersWithin() {
+        Set<GamePlayer> players = new HashSet<>();
+        for (var player : PlayerManager.getOnlinePlayers()) {
+            if (IsWithin(player.getLocation())) {
+                players.add(player);
+            }
+        }
+        return players;
     }
 
     public Location GetRandomMobLocation() {

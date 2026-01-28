@@ -65,6 +65,11 @@ waterway_armours_leaf:
   icon: leaf_chestplate
   parent: waterway_armours
 
+waterway_armours_gold_leaf:
+  name: Gold Leaf Armour
+  icon: gold_leaf_chestplate
+  parent: waterway_armours
+
 waterway_armours_zombie:
   name: Zombie Armour
   icon: zombie_chestplate

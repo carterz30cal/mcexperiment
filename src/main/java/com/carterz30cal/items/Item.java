@@ -1,6 +1,8 @@
 package com.carterz30cal.items;
 
 import com.carterz30cal.items.abilities2.Abilities;
+import com.carterz30cal.items.trims.TrimMaterialWrapper;
+import com.carterz30cal.items.trims.TrimPatternWrapper;
 import com.carterz30cal.stats.StatContainer;
 import org.bukkit.Material;
 
@@ -21,6 +23,9 @@ public class Item
 	public ItemType type;
 	public ItemRarity rarity;
 	public boolean glow;
+
+    public TrimPatternWrapper trimPattern;
+    public TrimMaterialWrapper trimMaterial;
 
 	public long value;
 

@@ -44,7 +44,7 @@ lunatic_fisherman_RARE:
   fishing-brackets:
     WATERWAY: RARE
   level: 6
-  coin-multiplier: 8
+  coin-multiplier: 3
   health: 425
   knockback: 95
   damage: 100
@@ -174,6 +174,9 @@ sea_slime_RARE:
       chance: 1/20
     cooked_waterway_cod:
       chance: 1/500
+    enchanted_book:
+      chance: 1/600
+      enchants: ENCHANT_SLIMED-2
 
 scared_shockreaver_RARE:
   name: GREENScared Shockreaver

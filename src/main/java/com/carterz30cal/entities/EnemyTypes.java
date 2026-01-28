@@ -1,14 +1,13 @@
 package com.carterz30cal.entities;
 
-import java.lang.reflect.InvocationTargetException;
-
+import com.carterz30cal.entities.enemies.*;
 import org.bukkit.configuration.ConfigurationSection;
 
-import com.carterz30cal.entities.enemies.*;
-
+import java.lang.reflect.InvocationTargetException;
 public enum EnemyTypes 
 {
 	SIMPLE(EnemyTypeSimple.class),
+    CAPPED(EnemyTypeDamageCapped.class),
 	FISH(EnemyTypeFish.class),
 	TITAN(EnemyTypeTitanDrench.class),
 	HYDRA(EnemyTypeHydra.class),

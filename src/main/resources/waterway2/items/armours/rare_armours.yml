@@ -35,6 +35,26 @@ armour-leaf:
     enchant_power: +25
     level_requirement: 4
 
+armour-gold_leaf:
+  name:
+    - Gold Leaf Hat
+    - Gold Leaf Shirt
+    - Gold Leaf Trousers
+    - Gold Leaf Shoes
+  material: LEATHER
+  rarity: RARE
+  colour:
+    r: 200
+    g: 100
+    b: 100
+  trim-pattern: HOST
+  trim-material: GOLD
+  stats:
+    defence: 45, 60, 50, 35
+    mining_speed: +20
+    enchant_power: +20
+    level_requirement: 4
+
 armour-zombie:
   name:
     - Zombie Helmet

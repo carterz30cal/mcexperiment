@@ -1,5 +1,6 @@
 package com.carterz30cal.entities;
 
+import com.carterz30cal.areas2.quests.Quests;
 import com.carterz30cal.items.ForgingItem;
 import com.carterz30cal.main.Dungeons;
 import org.bukkit.Bukkit;
@@ -111,6 +112,21 @@ public class PlayerManager
 				p.forge.add(item);
 			}
 		}
+
+        ConfigurationSection quests = c.getConfigurationSection("quests");
+        if (quests != null) {
+            for (Quests quest : Quests.values()) {
+                ConfigurationSection qs = quests.getConfigurationSection(quest.name());
+                if (qs != null) {
+                    p.LoadQuestSave(quest.LoadSave(p, qs));
+                }
+            }
+        }
+        String selected = c.getString("selected-quest");
+        if (selected != null) {
+            p.SetSelectedQuest(Quests.valueOf(selected));
+        }
+
 		
 		
 		ConfigurationSection quiver = c.getConfigurationSection("quiver");
@@ -162,19 +178,16 @@ public class PlayerManager
 		
 		
 		p.talismans = c.getStringList("talismans");
-
-        p.completedQuests = c.getStringList("quests.completed");
-
-		
 	}
 	
 	public static void savePlayer(GamePlayer p)
 	{
 		if (!f.contains(p.player.getUniqueId().toString())) f.createSection(p.player.getUniqueId().toString());
 		ConfigurationSection c = f.getConfigurationSection(p.player.getUniqueId().toString());
-		
-		
-		c.set("level", p.level);
+
+
+        assert c != null;
+        c.set("level", p.level);
 		c.set("xp", p.xp);
 		c.set("coins", p.coins);
 		c.set("talismans", p.talismans);
@@ -192,6 +205,21 @@ public class PlayerManager
 		{
 			c.set("quiver." + arrow, p.quiver.get(arrow));
 		}
+
+        c.set("quests", null);
+        c.createSection("quests");
+        for (Quests quest : Quests.values()) {
+            ConfigurationSection qs = Objects.requireNonNull(c.getConfigurationSection("quests")).createSection(quest.name());
+            quest.SaveSave(p, qs);
+        }
+        Quests selected = p.GetSelectedQuest();
+        if (selected != null) {
+            c.set("selected-quest", selected.name());
+        }
+        else {
+            c.set("selected-quest", null);
+        }
+
 
         c.set("kills", null);
         c.createSection("kills");
@@ -221,13 +249,6 @@ public class PlayerManager
 
 		c.set("active-pet", p.activePet);
 		c.set("pets", p.pets);
-
-		
-		c.set("quests", null);
-		c.createSection("quests");
-		c.createSection("quests.in-progress");
-		c.set("quests.completed", p.completedQuests);
-		
 	}
 	
 }

@@ -1,15 +1,5 @@
 package com.carterz30cal.entities;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import org.bukkit.Location;
-import org.bukkit.Sound;
-import org.bukkit.entity.ArmorStand;
-import org.bukkit.inventory.ItemStack;
-import org.bukkit.scheduler.BukkitRunnable;
-import org.bukkit.util.Vector;
-
 import com.carterz30cal.items.Item;
 import com.carterz30cal.items.ItemFactory;
 import com.carterz30cal.items.ItemType;
@@ -19,6 +9,15 @@ import com.carterz30cal.utils.MathsUtils;
 import com.carterz30cal.utils.RandomUtils;
 import com.comphenix.protocol.PacketType;
 import com.comphenix.protocol.events.PacketContainer;
+import org.bukkit.Location;
+import org.bukkit.Sound;
+import org.bukkit.entity.ArmorStand;
+import org.bukkit.inventory.ItemStack;
+import org.bukkit.scheduler.BukkitRunnable;
+import org.bukkit.util.Vector;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class GameFloatingItem extends GameEntity {
 	public boolean collected;
@@ -90,8 +89,7 @@ public class GameFloatingItem extends GameEntity {
 			packet.getIntLists().write(0, ids);
 			
 			for (GamePlayer p : PlayerManager.players.values()) if (p != owner) Dungeons.proto.sendServerPacket(p.player, packet);
-		}
-		catch (Exception e) {
+		} catch (Exception ignored) {
 			
 		}
 		

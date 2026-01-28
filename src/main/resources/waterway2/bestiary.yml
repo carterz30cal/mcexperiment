@@ -47,3 +47,18 @@ waterway_fishing_very_rare:
     - Only the best fishers can consistently
     - fish up these beasts!
   parent: waterway_fishing
+
+waterway_waterway_seraph:
+  icon: ENDER_PEARL
+  name: "BLUEWater Seraph"
+  description:
+    - The Seraph hides within their temple, waiting
+    - for bold adventurers to stumble to their demise.
+  parent: waterway
+waterway_seraph_summons:
+  icon: ZOMBIE_SPAWN_EGG
+  name: "Seraph's Summons"
+  description:
+    - The Seraph may summon a variety of beasts
+    - to come to their aid.
+  parent: waterway_waterway_seraph
