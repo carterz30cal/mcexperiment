@@ -1,9 +1,9 @@
 supposed_perfume:
   level: 2
-  time: 3h
+  time: 30m
   category: waterway_talismans
   items:
-    chilli_powder: 25
+    chilli_powder: 20
 
 spider_heart:
   level: 5
@@ -13,39 +13,31 @@ spider_heart:
     chilli_powder: 25
     spider_silk: 25
 
-titans_talisman_rare:
-  item: titans_talisman
-  time: 1m
-  category: waterway_talismans
-  items:
-    chilli_powder: 32
 
 titans_talisman_very_rare:
   level: 5
-  time: 10m
   category: waterway_talismans
   items:
     titans_talisman: 1
+    paper: 8
     waterway_sac: 1
 
 storm_talisman_very_rare:
   level: 5
-  time: 10m
   category: waterway_talismans
   items:
     storm_talisman_rare: 5
 
 storm_talisman_epic:
   level: 6
-  time: 1h
   category: waterway_talismans
   items:
     storm_talisman_very_rare: 6
     storm_crystals: 64
 
 zombies_head:
-  level: 10
-  time: 12h
+  level: 6
+  time: 1h
   category: waterway_talismans
   discovery: weird_flesh_collection
   discovery-tier: 6

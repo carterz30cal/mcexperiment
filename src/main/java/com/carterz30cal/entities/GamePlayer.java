@@ -544,6 +544,10 @@ public class GamePlayer extends GameEntity
 			}.runTaskLater(Dungeons.instance, tickDelay);
 		}
 	}
+
+    public void sendChunkMessage(List<String> chunk, int tickDelay) {
+        for (var ch : chunk) sendMessage(ch, tickDelay);
+    }
 	
 	public void sendTitle(String top, String sub, int in, int stay, int out) {
 		player.sendTitle(StringUtils.colourString(top), StringUtils.colourString(sub), in, stay, out);

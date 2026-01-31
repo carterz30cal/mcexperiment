@@ -107,7 +107,7 @@ lunatic_4:
   name: Lunatic Warrior
   type: SIMPLE
   level: 4
-  health: 100
+  health: 150
   knockback: 90
   speed: 1.15
   damage: 40
@@ -134,7 +134,7 @@ lunatic_4:
       amount: 7/14
     chilli_powder:
       chance: 1/8
-      amount: 1/2
+      amount: 2/2
     water_helmet:
       chance: 1/50
     water_chestplate:
@@ -180,10 +180,10 @@ lunatic_5_sky:
     - FANATIC
   drops:
     weird_flesh:
-      amount: 7/19
+      amount: 15/25
     chilli_powder:
       chance: 1/8
-      amount: 1/2
+      amount: 2/4
     water_helmet:
       chance: 1/50
     water_chestplate:
@@ -198,6 +198,9 @@ lunatic_5_sky:
     enchanted_book:
       enchants: ENCHANT_SHARPNESS-1
       chance: 1/200
+    enchanted_book-SH2:
+      enchants: ENCHANT_SHARPNESS-2
+      chance: 1/500
 
 lunatic_5_lava:
   name: Lava Lunatic
@@ -213,7 +216,7 @@ lunatic_5_lava:
   speed: 1
   bestiary-category: waterway_lunatics
   resistances:
-    BLEED: 80
+    BLEED: 40
   armour:
     PHYSICAL: 0
     PROJECTILE: 50

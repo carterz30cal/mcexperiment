@@ -11,7 +11,7 @@ import java.util.List;
 public enum Quests {
     WATERWAY_TUTORIAL(
             "Tam's Teachings",
-            new StringDescription(),
+            new StringDescription("Tam wants to show you the ropes!"),
             Questgivers.TUTORIAL_TAM_SPOT1,
             Questgivers.TUTORIAL_TAM_SPOT2
     ),
@@ -69,6 +69,10 @@ public enum Quests {
         return quests.get(i).getQuest(r);
     }
 
+    public List<String> GetDescription() {
+        return description.GetList();
+    }
+
     public List<QuestSection> GetCompletedSections(GamePlayer player) {
         QuestSave save = player.GetQuestSave(this);
         return GetCompletedSections(save.currentSection);
@@ -87,6 +91,14 @@ public enum Quests {
             }
         }
         return sections;
+    }
+
+    public int GetTotalSectionCount() {
+        int count = 0;
+        for (Questgivers q : quests) {
+            count += q.getQuestCount();
+        }
+        return count;
     }
 
     public boolean HasCompletedQuestgiver(GamePlayer player, Questgivers questgiver) {

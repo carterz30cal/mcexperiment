@@ -18,7 +18,7 @@ bobs_simple_supplies:
       level: 2
     catalyst:
       item: combination_catalyst_shard
-      coins: 750
+      coins: 500
       level: 2
     enchanted_book_titanic:
       item: enchanted_book

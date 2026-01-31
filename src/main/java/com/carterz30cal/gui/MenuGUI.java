@@ -26,6 +26,7 @@ public class MenuGUI extends AbstractGUI
 	public final int SACK_POS = calc(2, 1);
 	public final int BACKPACK_POS = calc(5, 2);
 	public final int PET_POS = calc(3, 2);
+    public final int QUEST_POS = calc(4, 2);
 
 	
 	public final int LINES = 6;
@@ -93,7 +94,8 @@ public class MenuGUI extends AbstractGUI
 		}
 
 		inventory.setSlot(ItemFactory.buildCustom("BONE", "GOLDPets", "Active Pet: AHHH"), PET_POS);
-		
+
+        inventory.setSlot(ItemFactory.buildCustom("WRITTEN_BOOK", "GOLDQuests"), QUEST_POS);
 		
 		inventory.update();
 	}
@@ -109,6 +111,9 @@ public class MenuGUI extends AbstractGUI
 		else if (clickPos == QUIVER_POS) owner.openGui(new QuiverGUI(owner));
 		else if (clickPos == BACKPACK_POS) owner.openGui(new BackpackGUI(owner));
 		else if (clickPos == PET_POS) owner.openGui(new PetsGUI(owner));
+        else if (clickPos == QUEST_POS) {
+            owner.openGui(new QuestGUI(owner));
+        }
         else if (clickPos == TALIS_POS) {
             owner.openGui(new BestiaryGUI(owner));
         }

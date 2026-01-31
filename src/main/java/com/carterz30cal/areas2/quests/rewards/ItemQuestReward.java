@@ -3,6 +3,8 @@ package com.carterz30cal.areas2.quests.rewards;
 import com.carterz30cal.entities.GamePlayer;
 import com.carterz30cal.items.ItemFactory;
 
+import java.util.List;
+
 public class ItemQuestReward extends QuestReward {
 
     protected String item;
@@ -19,6 +21,13 @@ public class ItemQuestReward extends QuestReward {
         super(xp);
         this.item = item;
         this.amount = 1;
+    }
+
+    @Override
+    public List<String> GetRewardDescription() {
+        var list = super.GetRewardDescription();
+        list.add("AQUA-- " + ItemFactory.getItemTypeName(item) + "DARK_GRAYx" + amount + "AQUA!");
+        return list;
     }
 
     @Override

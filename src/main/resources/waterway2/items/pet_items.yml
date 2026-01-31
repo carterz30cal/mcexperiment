@@ -11,6 +11,18 @@ pet_drenched_common:
   stats:
     health: +10
 
+pet_water_titan_common:
+  name: Water Titan
+  type: PET
+  rarity: COMMON
+  material: PLAYER_HEAD
+  pet-line: water_titan
+  active-ability: PET_WATER_TITAN_ACTIVE
+  value: 250
+  stats:
+    defence: +25
+    might: +10
+
 pet_drenched_uncommon:
   name: Drenched
   type: PET

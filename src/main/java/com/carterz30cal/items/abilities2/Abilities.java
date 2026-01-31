@@ -9,6 +9,7 @@ import com.carterz30cal.items.abilities2.waterway.NecromancerAbility;
 import com.carterz30cal.items.abilities2.waterway.SuperLureEnchantment;
 import com.carterz30cal.items.abilities2.waterway.pets.PetDrenchedActive;
 import com.carterz30cal.items.abilities2.waterway.pets.PetDrenchedPassive;
+import com.carterz30cal.items.abilities2.waterway.pets.PetWaterTitanActive;
 import com.carterz30cal.items.abilities2.waterway.sets.LeafArmourSet;
 import com.carterz30cal.items.abilities2.waterway.sets.ZombieArmourSet;
 import com.carterz30cal.stats.Stat;
@@ -37,7 +38,7 @@ public enum Abilities
 			Stat.STRENGTH, 0, 20, 5, ItemType.WEAPON, ItemType.WAND, ItemType.ROD)),
 	ENCHANT_HEALTHY(new StatEnchantment(
 			"Healthy", 1,
-			Stat.HEALTH, 20, 10, 3,
+            Stat.HEALTH, 30, 10, 3,
 			ItemType.HELMET, ItemType.CHESTPLATE, ItemType.LEGGINGS, ItemType.BOOTS
 	)),
 	ENCHANT_TITANIC(new StatEnchantment(
@@ -66,6 +67,7 @@ public enum Abilities
 	SET_ZOMBIE(new ZombieArmourSet()),
 	PET_DRENCHED_ACTIVE(new PetDrenchedActive()),
 	PET_DRENCHED_PASSIVE(new PetDrenchedPassive()),
+    PET_WATER_TITAN_ACTIVE(new PetWaterTitanActive())
 	;
 	public final GameAbility ability;
 
