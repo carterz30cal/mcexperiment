@@ -1,17 +1,8 @@
 package com.carterz30cal.mining;
 
-import java.util.HashMap;
-import java.util.Map;
-
-import org.bukkit.Location;
-import org.bukkit.Material;
-import org.bukkit.Sound;
-import org.bukkit.block.Block;
-import org.bukkit.util.Vector;
-
 import com.carterz30cal.areas.AbstractArea;
-import com.carterz30cal.entities.GamePlayer;
 import com.carterz30cal.entities.PlayerManager;
+import com.carterz30cal.entities.player.GamePlayer;
 import com.carterz30cal.items.ItemFactory;
 import com.carterz30cal.main.Dungeons;
 import com.carterz30cal.stats.Stat;
@@ -20,6 +11,14 @@ import com.carterz30cal.utils.RandomUtils;
 import com.comphenix.protocol.PacketType;
 import com.comphenix.protocol.events.PacketContainer;
 import com.comphenix.protocol.wrappers.BlockPosition;
+import org.bukkit.Location;
+import org.bukkit.Material;
+import org.bukkit.Sound;
+import org.bukkit.block.Block;
+import org.bukkit.util.Vector;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class Mineable
 {

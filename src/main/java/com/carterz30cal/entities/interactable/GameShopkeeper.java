@@ -1,7 +1,7 @@
 package com.carterz30cal.entities.interactable;
 
-import com.carterz30cal.entities.GamePlayer;
 import com.carterz30cal.entities.Shop;
+import com.carterz30cal.entities.player.GamePlayer;
 import com.carterz30cal.gui.ShopGUI;
 import org.bukkit.entity.EntityType;
 

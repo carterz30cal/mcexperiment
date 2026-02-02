@@ -1,6 +1,10 @@
 package com.carterz30cal.entities.interactable;
 
-import com.carterz30cal.entities.*;
+import com.carterz30cal.entities.DamageInfo;
+import com.carterz30cal.entities.GameEnemy;
+import com.carterz30cal.entities.GameEntity;
+import com.carterz30cal.entities.PlayerManager;
+import com.carterz30cal.entities.player.GamePlayer;
 import com.carterz30cal.items.ItemFactory;
 import com.carterz30cal.main.Dungeons;
 import com.carterz30cal.utils.EntityUtils;
@@ -110,6 +114,9 @@ public class GameOwnable extends GameEntity {
     }
 
     private void ensureValidity() {
+        if (!getLocation().getChunk().isLoaded()) {
+            return;
+        }
         if (!getValidityToSpawn()) {
             if (entityMain != null) {
                 entityMain.remove();
@@ -127,15 +134,17 @@ public class GameOwnable extends GameEntity {
                     entityMain.remove();
                 }
                 entityMain = (LivingEntity) EntityUtils.spawnPart(entityType, location);
-                entityMain.getPersistentDataContainer().set(GameEnemy.keyEnemy, PersistentDataType.STRING, uuid.toString());
-                entityMain.setGravity(false);
-                entityMain.setCollidable(false);
-                Objects.requireNonNull(entityMain.getAttribute(Attribute.MOVEMENT_SPEED)).setBaseValue(0);
+                if (entityMain != null) {
+                    entityMain.getPersistentDataContainer().set(GameEnemy.keyEnemy, PersistentDataType.STRING, uuid.toString());
+                    entityMain.setGravity(false);
+                    entityMain.setCollidable(false);
+                    Objects.requireNonNull(entityMain.getAttribute(Attribute.MOVEMENT_SPEED)).setBaseValue(0);
 
-                if (entityMain instanceof Mannequin) {
-                    Mannequin man = (Mannequin) entityMain;
-                    man.setImmovable(true);
-                    man.setPlayerProfile(ItemFactory.GetSkullProfile(skullProfileId));
+                    if (entityMain instanceof Mannequin) {
+                        Mannequin man = (Mannequin) entityMain;
+                        man.setImmovable(true);
+                        man.setPlayerProfile(ItemFactory.GetSkullProfile(skullProfileId));
+                    }
                 }
             }
             else {
@@ -144,14 +153,18 @@ public class GameOwnable extends GameEntity {
                         entityTitle.remove();
                     }
                     entityTitle = EntityUtils.spawnHologram(entityMain.getEyeLocation().add(0, 0.5, 0), -1);
-                    entityTitle.setCustomName(StringUtils.colourString(title));
+                    if (entityTitle != null) {
+                        entityTitle.setCustomName(StringUtils.colourString(title));
+                    }
                 }
                 if (entitySubtitle == null || !entitySubtitle.isValid()) {
                     if (entitySubtitle != null) {
                         entitySubtitle.remove();
                     }
                     entitySubtitle = EntityUtils.spawnHologram(entityMain.getEyeLocation().add(0, 0.25, 0), -1);
-                    entitySubtitle.setCustomName(StringUtils.colourString(subtitle));
+                    if (entitySubtitle != null) {
+                        entitySubtitle.setCustomName(StringUtils.colourString(subtitle));
+                    }
                 }
             }
         }

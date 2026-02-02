@@ -2,11 +2,12 @@ package com.carterz30cal.items.abilities2.implementation;
 
 import com.carterz30cal.entities.DamageInfo;
 import com.carterz30cal.entities.GameEnemy;
-import com.carterz30cal.entities.GamePlayer;
+import com.carterz30cal.entities.GameEntity;
 import com.carterz30cal.entities.damage.StatusEffect;
-import com.carterz30cal.items.abilities2.Abilities;
+import com.carterz30cal.entities.player.GamePlayer;
 import com.carterz30cal.items.ItemReq;
 import com.carterz30cal.items.ItemType;
+import com.carterz30cal.items.abilities2.Abilities;
 import com.carterz30cal.stats.Stat;
 import com.carterz30cal.stats.StatContainer;
 import com.carterz30cal.stats.StatDisplayType;
@@ -30,7 +31,7 @@ public abstract class GameAbility {
 
     }
 
-    public void onAttack(AbilityContext context, DamageInfo info)
+    public void onAttack(AbilityContext context, DamageInfo info, GameEntity attacked)
     {
 
     }

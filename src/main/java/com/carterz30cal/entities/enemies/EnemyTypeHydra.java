@@ -1,10 +1,10 @@
 package com.carterz30cal.entities.enemies;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
-
+import com.carterz30cal.entities.DamageInfo;
+import com.carterz30cal.entities.EnemyManager;
+import com.carterz30cal.entities.GameEnemy;
+import com.carterz30cal.entities.player.GamePlayer;
+import com.carterz30cal.utils.EntityUtils;
 import org.bukkit.Location;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.entity.EntityType;
@@ -12,11 +12,10 @@ import org.bukkit.entity.Guardian;
 import org.bukkit.entity.Mob;
 import org.bukkit.inventory.EquipmentSlot;
 
-import com.carterz30cal.entities.DamageInfo;
-import com.carterz30cal.entities.EnemyManager;
-import com.carterz30cal.entities.GameEnemy;
-import com.carterz30cal.entities.GamePlayer;
-import com.carterz30cal.utils.EntityUtils;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 public class EnemyTypeHydra extends EnemyTypeDamageCapped
 {

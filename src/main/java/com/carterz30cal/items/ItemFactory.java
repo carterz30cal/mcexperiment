@@ -1,9 +1,9 @@
 package com.carterz30cal.items;
 
-import com.carterz30cal.entities.GamePlayer;
 import com.carterz30cal.entities.Shop;
 import com.carterz30cal.entities.damage.StatusEffect;
 import com.carterz30cal.entities.damage.StatusEffects;
+import com.carterz30cal.entities.player.GamePlayer;
 import com.carterz30cal.gui.GooeyInventory;
 import com.carterz30cal.items.abilities2.Abilities;
 import com.carterz30cal.items.abilities2.implementation.GameAbility;
@@ -976,5 +976,50 @@ public class ItemFactory
 		if (!items.containsKey(item.id)) itemList.add(item.id);
 		items.put(item.id, item);
 	}
-	
+
+    public static ItemStack BuildItemFromString(String string) {
+        return BuildItemFromString(string, null);
+    }
+
+    public static ItemStack BuildItemFromString(String string, GamePlayer owner) {
+        if (string == null) {
+            return null;
+        }
+        String[] spl = string.split("£");
+        ItemStack item = ItemFactory.build(spl[0]);
+        if (item == null) {
+            return null;
+        }
+        else {
+            switch (spl.length) {
+                case 1:
+                    break;
+                case 2:
+                    item.setAmount(Integer.parseInt(spl[1]));
+                    break;
+                default:
+                    item.setAmount(Integer.parseInt(spl[1]));
+                    ItemFactory.setItemData(item, spl[2]);
+                    ItemFactory.update(item, owner);
+                    break;
+            }
+            return item;
+        }
+    }
+
+    public static String BuildStringFromItem(ItemStack item) {
+        Item itemType = getItem(item);
+        if (itemType == null) {
+            return null;
+        }
+        else {
+            String data = ItemFactory.getFlatItemData(item);
+            if (data.isEmpty()) {
+                return itemType.id + "£" + item.getAmount();
+            }
+            else {
+                return itemType.id + "£" + item.getAmount() + "£" + data;
+            }
+        }
+    }
 }

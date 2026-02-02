@@ -1,11 +1,13 @@
-spider_heart:
-  name: Spider Heart
+grey_chunk:
+  name: Grey Chunk
   type: TALISMAN
   rarity: RARE
   material: LIGHT_GRAY_WOOL
+  tags:
+    - GREY_CHUNK
   stats:
     damage: +1
-    might: +40
+    might: +25
 
 sea_slug_ooze:
   name: Sea Slug Ooze
@@ -13,9 +15,35 @@ sea_slug_ooze:
   rarity: RARE
   material: WHITE_DYE
   value: 400
+  tags:
+    - OOZE
+    - SEA_SLUG_OOZE
   stats:
     health: +50
     power: +15
+
+seraph_ooze:
+  name: Seraph Ooze
+  type: TALISMAN
+  rarity: INCREDIBLE
+  material: PURPLE_DYE
+  value: 1000
+  tags:
+    - OOZE
+    - SERAPH_OOZE
+  stats:
+    health: +50
+    might: +15
+
+seraph_eye_cluster:
+  name: "Seraph's Eye Cluster"
+  type: TALISMAN
+  rarity: LEGENDARY
+  material: END_PORTAL_FRAME
+  value: 5000
+  stats:
+    mana: +100
+    focus: +5
 
 storm_talisman_rare:
   name: Storm Talisman
@@ -24,6 +52,8 @@ storm_talisman_rare:
   material: PLAYER_HEAD
   value: 500
   skull-profile-id: storm_talisman_sea_lantern
+  tags:
+    - STORM_TALISMAN
   stats:
     strength: +50
 storm_talisman_very_rare:
@@ -32,6 +62,8 @@ storm_talisman_very_rare:
   rarity: VERY_RARE
   material: PLAYER_HEAD
   skull-profile-id: storm_talisman_sea_lantern
+  tags:
+    - STORM_TALISMAN
   stats:
     strength: +60
 storm_talisman_epic:
@@ -40,5 +72,7 @@ storm_talisman_epic:
   rarity: EPIC
   material: PLAYER_HEAD
   skull-profile-id: storm_talisman_sea_lantern
+  tags:
+    - STORM_TALISMAN
   stats:
     strength: +70

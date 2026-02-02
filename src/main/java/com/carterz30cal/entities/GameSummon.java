@@ -1,12 +1,15 @@
 package com.carterz30cal.entities;
 
-import com.carterz30cal.items.ItemAbility;
+import com.carterz30cal.entities.player.GamePlayer;
 import com.carterz30cal.utils.EntityUtils;
-import com.carterz30cal.utils.LevelUtils;
 import com.carterz30cal.utils.ParticleUtils;
-import com.carterz30cal.utils.RandomUtils;
-import org.bukkit.*;
-import org.bukkit.entity.*;
+import org.bukkit.Color;
+import org.bukkit.Location;
+import org.bukkit.Material;
+import org.bukkit.Particle;
+import org.bukkit.entity.EntityType;
+import org.bukkit.entity.LivingEntity;
+import org.bukkit.entity.Mob;
 import org.bukkit.inventory.EquipmentSlot;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.potion.PotionEffectType;
@@ -57,9 +60,6 @@ public class GameSummon extends GameEnemy {
             ParticleUtils.spawn(getLocation().add(0, type.displayHeight / 2, 0), new Particle.DustOptions(Color.GRAY, 0.5F), 0.6);
         }
 
-        if (target == owner && owner.getLocation().distance(getLocation()) < 5) target = null;
-
-        //type.onTick(this);
         tick();
     }
 
@@ -69,7 +69,7 @@ public class GameSummon extends GameEnemy {
         List<GameEnemy> enemies = EntityUtils.getNearbyEnemies(getLocation(), 10);
         enemies.removeIf((e) -> (e instanceof GameSummon));
         if (!enemies.isEmpty()) return enemies.get(0);
-        else if (owner.getLocation().distance(getLocation()) > 5) return owner;
+            //else if (owner.getLocation().distance(getLocation()) > 5) return owner;
         else return null;
     }
 

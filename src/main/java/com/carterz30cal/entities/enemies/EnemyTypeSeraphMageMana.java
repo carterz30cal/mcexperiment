@@ -1,19 +1,18 @@
 package com.carterz30cal.entities.enemies;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
+import com.carterz30cal.entities.EnemyManager;
+import com.carterz30cal.entities.GameEnemy;
+import com.carterz30cal.entities.player.GamePlayer;
+import com.carterz30cal.utils.EntityUtils;
+import com.carterz30cal.utils.ParticleUtils;
 import org.bukkit.Color;
 import org.bukkit.Particle;
 import org.bukkit.configuration.ConfigurationSection;
 
-import com.carterz30cal.entities.EnemyManager;
-import com.carterz30cal.entities.GameEnemy;
-import com.carterz30cal.entities.GamePlayer;
-import com.carterz30cal.utils.EntityUtils;
-import com.carterz30cal.utils.ParticleUtils;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class EnemyTypeSeraphMageMana extends EnemyTypeSimple
 {

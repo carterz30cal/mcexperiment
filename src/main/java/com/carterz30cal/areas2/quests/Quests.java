@@ -1,6 +1,6 @@
 package com.carterz30cal.areas2.quests;
 
-import com.carterz30cal.entities.GamePlayer;
+import com.carterz30cal.entities.player.GamePlayer;
 import com.carterz30cal.utils.StringDescription;
 import org.bukkit.configuration.ConfigurationSection;
 

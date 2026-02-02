@@ -2,22 +2,21 @@ fermented_flesh:
   level: 2
   category: waterway_weapons_attuners
   amount: 2
-  time: 5m
+  time: 1m
   items:
     spiced_meat: 1
 
 paper_mache:
   level: 3
-  time: 5m
+  time: 1m
   category: waterway_weapons_attuners
   items:
     wet_paper: 32
-    weird_flesh: 32
+    weird_flesh: 100
 
 weak_silk_mass:
-  level: 4
-  time: 5m
+  level: 3
+  time: 1m
   category: waterway_weapons_attuners
   items:
-    spider_silk: 10
-    chilli_powder: 4
+    chilli_powder: 3

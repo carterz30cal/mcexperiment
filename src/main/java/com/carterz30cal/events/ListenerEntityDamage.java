@@ -3,6 +3,7 @@ package com.carterz30cal.events;
 import com.carterz30cal.entities.*;
 import com.carterz30cal.entities.damage.StatusEffect;
 import com.carterz30cal.entities.enemies.EnemyTypeDamageCapped;
+import com.carterz30cal.entities.player.GamePlayer;
 import com.carterz30cal.items.Item;
 import com.carterz30cal.items.ItemFactory;
 import com.carterz30cal.items.ItemType;
@@ -101,7 +102,7 @@ public class ListenerEntityDamage implements Listener
 			
 			for (var a : abilities)
 			{
-				a.ability.onAttack(a, info);
+                a.ability.onAttack(a, info, damaged);
 				a.ability.onLeftClick(a);
 			}
 			player.stats.executeOperations();
@@ -160,7 +161,7 @@ public class ListenerEntityDamage implements Listener
 								.add(rot.getX() * MathsUtils.getCircleX(deg + degOffset), MathsUtils.getCircleZ(deg + degOffset) * 0.9, rot.getZ() * MathsUtils.getCircleX(deg + degOffset));
 						
 						ParticleUtils.spawnLine(p1, p2, new Particle.DustOptions(enemy.getBloodColour(), 0.8F), 11);
-						player.playSound(Sound.ENTITY_PLAYER_ATTACK_CRIT, 0.9, 0.7);
+                        player.playSound(Sound.ENTITY_PLAYER_ATTACK_CRIT, 0.65, 0.7);
 					}
 					
 					h--;
@@ -311,29 +312,33 @@ public class ListenerEntityDamage implements Listener
 		else if (entity instanceof GameEnemy)
 		{
 			GameEnemy enemy = (GameEnemy)entity;
-			switch (e.getCause())
-			{
-			case CUSTOM:
-			case ENTITY_ATTACK:
-				break;
-			case DROWNING:
-				if (RandomUtils.getRandom(1, 5) == 1)
-				{
-					DamageInfo info = new DamageInfo();
-					info.type = DamageType.FROST;
-					info.damage = 25;
-					enemy.damage(info);
-				}
-
-				e.setCancelled(true);
-				break;
-			case VOID:
-				if (enemy.type instanceof EnemyTypeDamageCapped) enemy.remove();
-				else enemy.damage(1000000);
-			case FALL:
-			default:
-				e.setCancelled(true);
-			}
+            switch (e.getCause()) {
+                case CUSTOM:
+                case ENTITY_ATTACK:
+                    break;
+                case DROWNING:
+                    if (RandomUtils.getRandom(1, 5) == 1) {
+                        DamageInfo info = new DamageInfo();
+                        info.type = DamageType.FROST;
+                        info.damage = 25;
+                        enemy.damage(info);
+                    }
+                    e.setCancelled(true);
+                    break;
+                case VOID:
+                case WORLD_BORDER:
+                case SUICIDE:
+                    if (enemy.type instanceof EnemyTypeDamageCapped) {
+                        enemy.remove();
+                    }
+                    else {
+                        enemy.kill();
+                    }
+                    break;
+                case FALL:
+                default:
+                    e.setCancelled(true);
+            }
 		}
 		
 		

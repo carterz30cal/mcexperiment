@@ -3,7 +3,7 @@ package com.carterz30cal.areas2.quests.sections;
 import com.carterz30cal.areas2.Areas;
 import com.carterz30cal.areas2.quests.rewards.QuestReward;
 import com.carterz30cal.entities.GameEnemy;
-import com.carterz30cal.entities.GamePlayer;
+import com.carterz30cal.entities.player.GamePlayer;
 import com.carterz30cal.utils.StringDescription;
 import org.bukkit.configuration.ConfigurationSection;
 

@@ -193,7 +193,7 @@ lunatic_5_sky:
     water_boots:
       chance: 1/50
     waterway_sac:
-      chance: 1/60
+      chance: 1/50
       amount: 1/1
     enchanted_book:
       enchants: ENCHANT_SHARPNESS-1
@@ -242,7 +242,7 @@ lunatic_5_lava:
       chance: 1/8
       amount: 2/3
     waterway_sac:
-      chance: 1/75
+      chance: 1/60
     enchanted_book:
       enchants: ENCHANT_SHARPNESS-1
       chance: 1/200

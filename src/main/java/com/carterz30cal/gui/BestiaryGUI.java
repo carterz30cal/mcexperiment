@@ -2,7 +2,7 @@ package com.carterz30cal.gui;
 
 import com.carterz30cal.entities.AbstractEnemyType;
 import com.carterz30cal.entities.EnemyManager;
-import com.carterz30cal.entities.GamePlayer;
+import com.carterz30cal.entities.player.GamePlayer;
 import com.carterz30cal.items.Item;
 import com.carterz30cal.items.ItemFactory;
 import com.carterz30cal.stats.Stat;

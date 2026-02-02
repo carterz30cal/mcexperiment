@@ -1,5 +1,11 @@
 package com.carterz30cal.entities.enemies;
 
+import com.carterz30cal.entities.GameEnemy;
+import com.carterz30cal.entities.player.GamePlayer;
+import com.carterz30cal.items.ItemFactory;
+import com.carterz30cal.main.Dungeons;
+import com.carterz30cal.utils.EntityUtils;
+import com.carterz30cal.utils.ParticleUtils;
 import org.bukkit.Color;
 import org.bukkit.Location;
 import org.bukkit.Particle;
@@ -7,19 +13,8 @@ import org.bukkit.attribute.Attribute;
 import org.bukkit.attribute.AttributeModifier;
 import org.bukkit.attribute.AttributeModifier.Operation;
 import org.bukkit.configuration.ConfigurationSection;
-import org.bukkit.entity.Entity;
-import org.bukkit.entity.EntityType;
-import org.bukkit.entity.Mob;
-import org.bukkit.entity.Player;
-import org.bukkit.entity.Zombie;
+import org.bukkit.entity.*;
 import org.bukkit.potion.PotionEffectType;
-
-import com.carterz30cal.entities.GameEnemy;
-import com.carterz30cal.entities.GamePlayer;
-import com.carterz30cal.items.ItemFactory;
-import com.carterz30cal.main.Dungeons;
-import com.carterz30cal.utils.EntityUtils;
-import com.carterz30cal.utils.ParticleUtils;
 
 public class EnemyTypeSlayerBlizzard extends EnemyTypeSimple 
 {

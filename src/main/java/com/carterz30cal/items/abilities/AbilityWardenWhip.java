@@ -1,10 +1,10 @@
 package com.carterz30cal.items.abilities;
 
+import com.carterz30cal.entities.player.GamePlayer;
+import com.carterz30cal.items.ItemAbility;
+
 import java.util.ArrayList;
 import java.util.List;
-
-import com.carterz30cal.entities.GamePlayer;
-import com.carterz30cal.items.ItemAbility;
 
 public class AbilityWardenWhip extends ItemAbility {
 

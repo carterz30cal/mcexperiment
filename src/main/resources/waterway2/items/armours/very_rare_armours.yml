@@ -14,7 +14,33 @@ lava_glass_helmet:
   type: HELMET
   material: ORANGE_STAINED_GLASS
   rarity: VERY_RARE
+  value: 800
   stats:
-    focus: +5
+    focus: +10
     enchant_power: +50
     level_requirement: 5
+
+clear_glass_helmet:
+  name: Clearglass Helmet
+  type: HELMET
+  material: WHITE_STAINED_GLASS
+  rarity: VERY_RARE
+  value: 1000
+  stats:
+    mana: +100
+    enchant_power: +50
+    level_requirement: 6
+
+seraphs_pyjamas:
+  name: "Seraph's Pyjamas"
+  type: LEGGINGS
+  rarity: EPIC
+  trim-pattern: EYE
+  trim-material: LAPIS
+  material: GOLDEN_LEGGINGS
+  value: 1000
+  stats:
+    strength: +50
+    health: +15
+    enchant_power: +15
+    level_requirement: 6

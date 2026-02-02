@@ -1,3 +1,35 @@
+water_seraph_golem:
+  name: Golem
+  type: SIMPLE
+  entity-type: IRON_GOLEM
+  ignore-target-limit: true
+  level: 15
+  health: 7500
+  coin-multiplier: 2
+  knockback: 0
+  damage: 100
+  damage-type: PHYSICAL
+  display-height: 3.3
+  blood-colour: 250,0,50
+  speed: 1.1
+  scale: 1.25
+  bestiary-category: waterway_seraph_summons
+  armour:
+    PHYSICAL: 0
+    PROJECTILE: 0
+    MAGICAL: -75
+    HOLY: -30
+    BLEED: -20
+    FIRE: 50
+    WITHER: 0
+  resistances:
+    BLEED: 120
+  tags:
+    - FANATIC
+    - SERAPH_BOSS_SUMMON
+    - IRON_GOLEM
+    - GOLEM
+
 water_seraph_fanatic:
   name: Seraph Fanatic
   type: SIMPLE
@@ -5,21 +37,21 @@ water_seraph_fanatic:
   ignore-target-limit: true
   level: 8
   health: 1500
-  coin-multiplier: 0.5
-  knockback: 10
-  damage: 35
+  coin-multiplier: 0.1
+  knockback: 30
+  damage: 28
   damage-type: PHYSICAL
   display-height: 1.8
   blood-colour: 250,0,50
-  speed: 1.7
+  speed: 1.5
   bestiary-category: waterway_seraph_summons
   armour:
     PHYSICAL: 25
     PROJECTILE: 0
-    MAGICAL: 0
+    MAGICAL: 25
     HOLY: -25
     BLEED: -75
-    FIRE: 0
+    FIRE: 10
     WITHER: 0
   resistances:
     BLEED: 50
@@ -33,9 +65,3 @@ water_seraph_fanatic:
     - LUNATIC
     - LUNATIC_HIGH_RANK
     - FANATIC
-  drops:
-    enchanted_book:
-      enchants: ENCHANT_BOOST-2
-      chance: 1/1250
-    waterway_seraph_key:
-      chance: 1/1750

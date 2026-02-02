@@ -1,7 +1,7 @@
 package com.carterz30cal.events;
 
 import com.carterz30cal.entities.GameEntity;
-import com.carterz30cal.entities.GamePlayer;
+import com.carterz30cal.entities.player.GamePlayer;
 import com.carterz30cal.gui.MenuGUI;
 import com.carterz30cal.items.Item;
 import com.carterz30cal.items.ItemFactory;

@@ -1,7 +1,7 @@
 package com.carterz30cal.gui;
 
-import com.carterz30cal.entities.GamePlayer;
 import com.carterz30cal.entities.Shop;
+import com.carterz30cal.entities.player.GamePlayer;
 import com.carterz30cal.items.*;
 import com.carterz30cal.utils.StringUtils;
 import org.bukkit.Sound;

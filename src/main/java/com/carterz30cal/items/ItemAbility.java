@@ -1,15 +1,15 @@
 package com.carterz30cal.items;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import com.carterz30cal.entities.DamageInfo;
 import com.carterz30cal.entities.GameEnemy;
-import com.carterz30cal.entities.GamePlayer;
 import com.carterz30cal.entities.damage.StatusEffect;
+import com.carterz30cal.entities.player.GamePlayer;
 import com.carterz30cal.stats.Stat;
 import com.carterz30cal.stats.StatContainer;
 import com.carterz30cal.stats.StatDisplayType;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public abstract class ItemAbility 
 {

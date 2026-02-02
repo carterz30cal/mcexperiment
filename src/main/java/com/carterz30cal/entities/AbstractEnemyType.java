@@ -2,6 +2,7 @@ package com.carterz30cal.entities;
 
 import com.carterz30cal.entities.damage.StatusEffect;
 import com.carterz30cal.entities.damage.StatusEffects;
+import com.carterz30cal.entities.player.GamePlayer;
 import com.carterz30cal.gui.BestiaryGUI;
 import com.carterz30cal.items.ItemLootTable;
 import com.carterz30cal.utils.StringUtils;

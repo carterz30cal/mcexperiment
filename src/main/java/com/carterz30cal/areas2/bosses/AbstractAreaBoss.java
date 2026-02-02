@@ -1,7 +1,8 @@
 package com.carterz30cal.areas2.bosses;
 
+import com.carterz30cal.areas2.PlayerTeleport;
 import com.carterz30cal.areas2.spawners.AbstractEnemySpawner;
-import com.carterz30cal.entities.GamePlayer;
+import com.carterz30cal.entities.player.GamePlayer;
 import org.bukkit.Location;
 
 import java.util.ArrayList;
@@ -19,6 +20,10 @@ public class AbstractAreaBoss extends AbstractEnemySpawner {
     }
 
     public void OnPlayerDeath(GamePlayer player) {
+
+    }
+
+    public void OnTeleport(GamePlayer player, PlayerTeleport teleport) {
 
     }
 

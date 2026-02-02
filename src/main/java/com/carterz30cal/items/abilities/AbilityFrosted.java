@@ -1,12 +1,12 @@
 package com.carterz30cal.items.abilities;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import com.carterz30cal.entities.DamageInfo;
 import com.carterz30cal.entities.DamageType;
-import com.carterz30cal.entities.GamePlayer;
+import com.carterz30cal.entities.player.GamePlayer;
 import com.carterz30cal.items.ItemAbility;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class AbilityFrosted extends ItemAbility {
 

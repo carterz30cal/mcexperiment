@@ -1,9 +1,13 @@
-package com.carterz30cal.entities;
+package com.carterz30cal.entities.player;
 
 import com.carterz30cal.areas2.AreaManager;
 import com.carterz30cal.areas2.Areas;
+import com.carterz30cal.areas2.PlayerTeleport;
 import com.carterz30cal.areas2.quests.Quests;
 import com.carterz30cal.dungeoneering.DungeonManager;
+import com.carterz30cal.entities.DamageInfo;
+import com.carterz30cal.entities.GameEnemy;
+import com.carterz30cal.entities.GameEntity;
 import com.carterz30cal.entities.enemies.EnemyTypeFish;
 import com.carterz30cal.events.GameEventHandler;
 import com.carterz30cal.fishing.FishingArea;
@@ -98,6 +102,8 @@ public class GamePlayer extends GameEntity
 	public boolean allowInteract;
 	
 	public GameEnemy lastDamager;
+
+    public PlayerWardrobe wardrobe = new PlayerWardrobe(this);
 	
 	public Map<String, Long> discoveries = new HashMap<>();
 	public Map<String, Integer> quiver = new HashMap<>();
@@ -109,10 +115,9 @@ public class GamePlayer extends GameEntity
 	public List<GameEnemy> targeted = new ArrayList<>();
 	
 	private ScoreboardWrapper scoreboard;
-	
-	
-	
-	protected void register(UUID uuid)
+
+
+    public void register(UUID uuid)
 	{
 		player.getPersistentDataContainer().set(GameEnemy.keyEnemy, PersistentDataType.STRING, uuid.toString());
 		
@@ -180,6 +185,7 @@ public class GamePlayer extends GameEntity
 		stats.scheduleOperation(Stat.VISIBILITY, StatOperationType.CAP_MAX, 24);
 		stats.scheduleOperation(Stat.FOCUS, StatOperationType.CAP_MIN, 0);
         stats.scheduleOperation(Stat.INVULNERABILITY_TICKS, StatOperationType.ADD, 2);
+        stats.scheduleOperation(Stat.WARDROBE_SLOTS, StatOperationType.ADD, PlayerWardrobe.DEFAULT_SLOT_COUNT);
 
 		stats.scheduleOperation(Stat.POWER, StatOperationType.CAP_MIN, 0);
 		stats.scheduleOperation(Stat.MIGHT, StatOperationType.CAP_MIN, 0);
@@ -310,7 +316,7 @@ public class GamePlayer extends GameEntity
 			regenTick = 0;
 			
 			gainHealth(stats.getStat(Stat.VITALITY));
-			gainMana(1 + stats.getStat(Stat.FOCUS));
+            gainMana(stats.getStat(Stat.FOCUS));
 		}
 		
 		refreshHealth();
@@ -353,17 +359,6 @@ public class GamePlayer extends GameEntity
 		
 		// set targets
 		targeted.removeIf((e) -> e.dead || e.target != this);
-		for (GameEnemy nearby : EntityUtils.getNearbyEnemies(getLocation(), stats.getStat(Stat.VISIBILITY)))
-		{
-			if (nearby instanceof GameSummon) continue;
-			if (targeted.size() >= getMaxTargets() && !nearby.type.ignoreTargetLimit) continue;
-			
-			if (nearby.target == null && isTargetable(nearby))
-			{
-				targeted.add(nearby);
-				nearby.target = this;
-			}
-		}
 	}
 	
 	public void openGui(AbstractGUI gui)
@@ -493,7 +488,14 @@ public class GamePlayer extends GameEntity
 				int am = sack.getOrDefault(i.id, 0) + item.getAmount();
 				sack.put(i.id, am);
 			}
-			else player.getInventory().addItem(item);
+            else {
+                if (player.getInventory().firstEmpty() == -1) {
+                    Dungeons.w.dropItemNaturally(player.getLocation(), item);
+                }
+                else {
+                    player.getInventory().addItem(item);
+                }
+            }
 		}
 		else player.getInventory().addItem(item);
 	}
@@ -561,7 +563,6 @@ public class GamePlayer extends GameEntity
 	@Override
 	public boolean isTargetable(GameEnemy by)
 	{
-		if (by instanceof GameSummon) return false;
 		double dist = by.getLocation().distance(getLocation());
 		double yDist = by.getLocation().getY() - getLocation().getY();
 		yDist = Math.abs(yDist);
@@ -665,38 +666,11 @@ public class GamePlayer extends GameEntity
 	}
 
 	public ItemStack getBackpackItem(int slot) {
-		String i = backpack.getOrDefault(slot, null);
-		if (i == null) return null;
-
-		String[] spl = i.split("£");
-		ItemStack item = ItemFactory.build(spl[0]);
-		if (item == null) return null;
-		else {
-			if (spl.length == 1) {
-			}
-			else if (spl.length == 2) {
-				item.setAmount(Integer.parseInt(spl[1]));
-			}
-			else {
-				item.setAmount(Integer.parseInt(spl[1]));
-				ItemFactory.setItemData(item, spl[2]);
-				ItemFactory.update(item, this);
-			}
-			return item;
-		}
+        return ItemFactory.BuildItemFromString(backpack.getOrDefault(slot, null), this);
 	}
 	public void setBackpackItem(int slot, ItemStack item) {
-		Item itemType = ItemFactory.getItem(item);
-		if (itemType == null) backpack.put(slot, null);
-		else {
-			String data = ItemFactory.getFlatItemData(item);
-            if (data.isEmpty()) {
-				backpack.put(slot, itemType.id + "£" + item.getAmount());
-			}
-			else {
-				backpack.put(slot, itemType.id + "£" + item.getAmount() + "£" + data);
-			}
-		}
+        String data = ItemFactory.BuildStringFromItem(item);
+        backpack.put(slot, data);
 	}
 
 	
@@ -726,6 +700,9 @@ public class GamePlayer extends GameEntity
 	
 	public void gainMana(int amount)
 	{
+        if (amount == 0) {
+            return;
+        }
 		int total = getMana() + amount;
 		
 		setMana(total);
@@ -861,12 +838,31 @@ public class GamePlayer extends GameEntity
 		sendMessage("REDYou were slain..");
 		playSound(Sound.ENTITY_PLAYER_DEATH, 1, 0.9);
 		player.teleport(new Location(Dungeons.w, 0.5, 65, 0.5));
+        player.setFallDistance(0);
         if (area != null) {
             area.getArea().OnPlayerDeath(this);
+            Teleport(area.getArea().GetRespawnPoint(this), false);
+        }
+        else {
+            Teleport(PlayerTeleport.WATERWAY_SPAWN, false);
         }
 		
 		health = 1;
 	}
+
+    public void Teleport(PlayerTeleport teleport) {
+        Teleport(teleport, true);
+    }
+
+    public void Teleport(PlayerTeleport teleport, boolean playSound) {
+        if (playSound) {
+            playSound(Sound.ENTITY_ENDERMAN_TELEPORT, 0.8, 1.1);
+        }
+        if (area != null) {
+            area.getArea().OnTeleport(this, teleport);
+        }
+        player.teleport(teleport.GetLocation());
+    }
 	
 	public ItemStack getMainItem()
 	{

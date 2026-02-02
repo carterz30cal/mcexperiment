@@ -138,10 +138,10 @@ necromancy_sword:
   abilities:
     - NECROMANCY_SWORD
   stats:
-    damage: +16
-    mana: +100
-    focus: +3
-    visibility: +5
+    damage: +28
+    mana: +125
+    focus: +5
+    visibility: +6
     enchant_power: +25
     level_requirement: 5
 
@@ -218,6 +218,46 @@ zombie_sword:
     enchant_power: +20
     level_requirement: 6
 
+healing_wand_waterway_incredible:
+  name: Healing Stick
+  type: WEAPON
+  rarity: INCREDIBLE
+  material: BREEZE_ROD
+  abilities:
+    - HEALING_WAND_WATERWAY
+  stats:
+    damage: +10
+    mana: +50
+    focus: +5
+    enchant_power: +20
+    level_requirement: 6
+
+seraph_sword:
+  name: Lance of the Dying Celestial
+  type: WEAPON
+  rarity: LEGENDARY
+  material: DIAMOND_SWORD
+  abilities:
+    - WATERWAY_SERAPH_SWORD
+    - MAGIC_SWORD
+  description:
+    - REDMissing a texture!
+  stats:
+    damage: +38
+    enchant_power: +50
+    level_requirement: 6
+
+
+super_sword:
+  name: Instant Death Sword
+  type: WEAPON
+  rarity: MYSTERIOUS
+  material: DIAMOND_SWORD
+  glow: true
+  abilities:
+    - ADMIN_INSTANT_DEATH_SWORD
+  stats:
+    enchant_power: 1000
 
 
 

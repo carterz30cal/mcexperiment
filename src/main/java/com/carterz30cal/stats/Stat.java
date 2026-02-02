@@ -33,6 +33,7 @@ public enum Stat
 	ENCHANT_POWER("enchantment power", ChatColor.BLACK, StatType.HIDDEN, StatDisplayType.NO_DISPLAY),
 	LEVEL_REQUIREMENT("level requirement", ChatColor.BLACK, StatType.HIDDEN, StatDisplayType.NO_DISPLAY),
 	BACKPACK_PAGES("backpack pages", ChatColor.WHITE, StatType.HIDDEN, StatDisplayType.NO_DISPLAY),
+    WARDROBE_SLOTS("wardrobe slots", ChatColor.WHITE, StatType.HIDDEN, StatDisplayType.NO_DISPLAY),
 	SACK_SPACE("\uD83D Sack Space", ChatColor.WHITE, StatType.HIDDEN, StatDisplayType.NO_DISPLAY_IN_PLAYER_STATS),
 	VISIBILITY("\u25CB Visibility", ChatColor.YELLOW, StatType.OFFENSIVE, StatDisplayType.NORMAL)
 	;

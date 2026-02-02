@@ -2,8 +2,8 @@ package com.carterz30cal.events;
 
 import com.carterz30cal.entities.GameEnemy;
 import com.carterz30cal.entities.GameEntity;
-import com.carterz30cal.entities.GamePlayer;
 import com.carterz30cal.entities.interactable.GameEntityInteractable;
+import com.carterz30cal.entities.player.GamePlayer;
 import com.carterz30cal.gui.LootboxGUI;
 import com.carterz30cal.gui.MenuGUI;
 import com.carterz30cal.items.Item;

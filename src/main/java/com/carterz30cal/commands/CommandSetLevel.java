@@ -1,14 +1,13 @@
 package com.carterz30cal.commands;
 
+import com.carterz30cal.entities.PlayerManager;
+import com.carterz30cal.entities.player.GamePlayer;
+import com.carterz30cal.utils.LevelUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
-
-import com.carterz30cal.entities.GamePlayer;
-import com.carterz30cal.entities.PlayerManager;
-import com.carterz30cal.utils.LevelUtils;
 
 public class CommandSetLevel implements CommandExecutor {
 

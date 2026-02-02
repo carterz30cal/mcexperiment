@@ -1,9 +1,8 @@
 package com.carterz30cal.dungeoneering;
 
-import org.bukkit.scheduler.BukkitRunnable;
-
-import com.carterz30cal.entities.GamePlayer;
+import com.carterz30cal.entities.player.GamePlayer;
 import com.carterz30cal.main.Dungeons;
+import org.bukkit.scheduler.BukkitRunnable;
 
 public class TestDungeon extends AbstractDungeon {
 

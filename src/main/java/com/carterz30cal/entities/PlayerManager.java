@@ -1,6 +1,7 @@
 package com.carterz30cal.entities;
 
 import com.carterz30cal.areas2.quests.Quests;
+import com.carterz30cal.entities.player.GamePlayer;
 import com.carterz30cal.items.ForgingItem;
 import com.carterz30cal.main.Dungeons;
 import org.bukkit.Bukkit;
@@ -127,7 +128,11 @@ public class PlayerManager
             p.SetSelectedQuest(Quests.valueOf(selected));
         }
 
-		
+        ConfigurationSection wardrobe = c.getConfigurationSection("wardrobe");
+        if (wardrobe == null) {
+            wardrobe = c.createSection("wardrobe");
+        }
+        p.wardrobe.Load(wardrobe);
 		
 		ConfigurationSection quiver = c.getConfigurationSection("quiver");
 		if (quiver != null)
@@ -219,6 +224,9 @@ public class PlayerManager
         else {
             c.set("selected-quest", null);
         }
+
+        c.set("wardrobe", null);
+        p.wardrobe.Save(c.createSection("wardrobe"));
 
 
         c.set("kills", null);

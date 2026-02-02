@@ -6,29 +6,27 @@ waterway_seraph:
   entity-type: ENDERMAN
   ignore-target-limit: true
   level: 30
-  health: 40000
+  health: 32500
   knockback: 0
-  damage: 50
+  damage: 115
   damage-type: PHYSICAL
-  display-height: 2.9
+  display-height: 3.2
   blood-colour: 250,0,50
-  damage-cap-percentage: 1
+  damage-cap-percentage: 4
   overkill-reward: 15
   bestiary-category: waterway_waterway_seraph
-  scale: 1.2
+  scale: 1.3
   speed: 1.5
   armour:
     PHYSICAL: 0
     PROJECTILE: 0
-    MAGICAL: 0
+    MAGICAL: 25
     HOLY: -50
     BLEED: -30
-    FIRE: 0
+    FIRE: -80
     WITHER: 0
   tags:
     - BOSS
     - SERAPH
     - WATERWAY
-  drops:
-    seraphs_eye:
-      amount: 1/1
+  drops: { }

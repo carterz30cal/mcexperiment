@@ -1,7 +1,6 @@
 package com.carterz30cal.items.abilities2.waterway;
 
 import com.carterz30cal.entities.GameEnemy;
-import com.carterz30cal.entities.GamePlayer;
 import com.carterz30cal.entities.GameSummon;
 import com.carterz30cal.items.abilities2.implementation.GameAbility;
 import com.carterz30cal.stats.Stat;

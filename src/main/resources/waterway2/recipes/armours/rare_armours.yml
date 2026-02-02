@@ -43,7 +43,7 @@ gold_leaf_helmet:
     leather_helmet: 1
     waterway_sac: 1
     gold_leaf: 5
-    spiced_meat: 2
+    spiced_meat: 5
 
 gold_leaf_chestplate:
   level: 4
@@ -54,7 +54,7 @@ gold_leaf_chestplate:
     leather_chestplate: 1
     waterway_sac: 1
     gold_leaf: 5
-    spiced_meat: 2
+    spiced_meat: 10
 
 gold_leaf_leggings:
   level: 4
@@ -65,7 +65,7 @@ gold_leaf_leggings:
     leather_leggings: 1
     waterway_sac: 1
     gold_leaf: 5
-    spiced_meat: 2
+    spiced_meat: 7
 
 gold_leaf_boots:
   level: 4
@@ -76,7 +76,7 @@ gold_leaf_boots:
     leather_boots: 1
     waterway_sac: 1
     gold_leaf: 5
-    spiced_meat: 2
+    spiced_meat: 3
 
 zombie_helmet:
   level: 5

@@ -14,6 +14,10 @@ commands:
   setlevel:
     description: "Set target's level"
     usage: "Something went wrong"
+  warp:
+    description: "Warp to any unlocked location"
+    usage: "/warp <location>"
+    aliases: [ "w" ]
   force:
     description: "Weird admin command that does stuff not worthy of a unique command"
     usage: "suk"

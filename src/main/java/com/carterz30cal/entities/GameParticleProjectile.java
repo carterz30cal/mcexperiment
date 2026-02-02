@@ -1,17 +1,17 @@
 package com.carterz30cal.entities;
 
-import java.util.ArrayList;
-import java.util.List;
-
+import com.carterz30cal.entities.player.GamePlayer;
+import com.carterz30cal.main.Dungeons;
+import com.carterz30cal.utils.EntityUtils;
+import com.carterz30cal.utils.ParticleUtils;
 import org.bukkit.Color;
 import org.bukkit.Location;
 import org.bukkit.Particle;
 import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.util.Vector;
 
-import com.carterz30cal.main.Dungeons;
-import com.carterz30cal.utils.EntityUtils;
-import com.carterz30cal.utils.ParticleUtils;
+import java.util.ArrayList;
+import java.util.List;
 
 public class GameParticleProjectile extends GameEntity 
 {

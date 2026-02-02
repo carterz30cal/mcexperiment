@@ -2,8 +2,8 @@ package com.carterz30cal.events;
 
 import com.carterz30cal.entities.GameEnemy;
 import com.carterz30cal.entities.GameEntity;
-import com.carterz30cal.entities.GamePlayer;
 import com.carterz30cal.entities.PlayerManager;
+import com.carterz30cal.entities.player.GamePlayer;
 import com.carterz30cal.fishing.FishingArea;
 import org.bukkit.damage.DamageSource;
 import org.bukkit.entity.LivingEntity;
@@ -53,10 +53,10 @@ public class ListenerFishingEvents implements Listener
                 p.sendMessage("REDThere's no fish to catch!");
             }
             else {
-                if (p.bobber != null && !p.bobber.isCancelled()) {
-                    p.sendMessage("REDReplacing current bobber!");
-                    p.bobber.remove();
-                }
+//                if (p.bobber != null && !p.bobber.isCancelled()) {
+//                    p.sendMessage("REDReplacing current bobber!");
+//                    p.bobber.remove();
+//                }
                 FishingArea.FishingBobber bobber = FishingArea.getFishingArea(p.area.name()).getBobberUsingPower(e.getHook().getLocation(), p);
                 p.bobber = bobber;
                 p.sendMessage("You've fished up a " + p.bobber.rarity.colour + "BOLD" + p.bobber.rarity.name.toUpperCase() + " WHITEBobber!");

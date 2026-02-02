@@ -1,5 +1,6 @@
 package com.carterz30cal.entities;
 
+import com.carterz30cal.entities.player.GamePlayer;
 import com.carterz30cal.items.Item;
 import com.carterz30cal.items.ItemFactory;
 import com.carterz30cal.items.ItemType;
@@ -61,6 +62,9 @@ public class GameFloatingItem extends GameEntity {
 		GameFloatingItem item = new GameFloatingItem();
 		
 		ArmorStand a = EntityUtils.spawnHologram(loc.add(0, 0.5, 0), -1);
+        if (a == null) {
+            return null;
+        }
 		a.setSmall(false);
 		a.setMarker(false);
 		

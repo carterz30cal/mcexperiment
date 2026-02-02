@@ -1,6 +1,6 @@
 package com.carterz30cal.areas2.quests.rewards;
 
-import com.carterz30cal.entities.GamePlayer;
+import com.carterz30cal.entities.player.GamePlayer;
 
 import java.util.ArrayList;
 import java.util.List;

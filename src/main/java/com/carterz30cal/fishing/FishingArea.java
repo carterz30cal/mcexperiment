@@ -2,15 +2,13 @@ package com.carterz30cal.fishing;
 
 import com.carterz30cal.entities.EnemyManager;
 import com.carterz30cal.entities.GameEnemy;
-import com.carterz30cal.entities.GamePlayer;
+import com.carterz30cal.entities.player.GamePlayer;
 import com.carterz30cal.items.ItemRarity;
 import com.carterz30cal.main.Dungeons;
 import com.carterz30cal.stats.Stat;
-import com.carterz30cal.utils.EntityUtils;
-import com.carterz30cal.utils.FileUtils;
-import com.carterz30cal.utils.RandomUtils;
-import com.carterz30cal.utils.StringUtils;
+import com.carterz30cal.utils.*;
 import org.bukkit.Location;
+import org.bukkit.Material;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.ArmorStand;
@@ -107,6 +105,7 @@ public class FishingArea {
         bobber.displayBottom.setVelocity(owner.getLocation().subtract(bobberSpot).toVector().normalize().setY(0.6));
         bobber.lifetime = (int)Math.round(20 * 45 * Math.log(bobber.rarity.ordinal() + 2));
 
+
         bobber.runTaskTimer(Dungeons.instance, 1, 1);
         return bobber;
     }
@@ -150,6 +149,7 @@ public class FishingArea {
 
             location = displayBottom.getLocation();
             displayTop.teleport(location.clone().add(0, 0.5, 0));
+            Box attemptBox = new Box(location.clone().add(0, 0, 0)).Expand(1, 0, 1);
 
             if (lifetime < 1 || bracketMobs.isEmpty()) {
                 displayTop.remove();
@@ -168,8 +168,12 @@ public class FishingArea {
                 );
                 if (lifetime % 20 == 0) enemies.removeIf((e) -> e.dead);
                 if (lifetime % (20 * 4) == 1 && enemies.size() < 4) {
-                    Location spawnLocation = location.clone().add(0,1.25,0);
-                    enemies.add(EnemyManager.spawn(RandomUtils.getChoice(bracketMobs), spawnLocation));
+                    if (attemptBox.GetMiddleAsLocation().subtract(0, 1, 0).getBlock().getType() == Material.AIR) {
+                        return;
+                    }
+                    //Location spawnLocation = location.clone().add(0,1.25,0);
+                    Location attempt = attemptBox.GetRandomMobLocation();
+                    enemies.add(EnemyManager.spawn(RandomUtils.getChoice(bracketMobs), attempt.add(0, 0.25, 0)));
                 }
             }
         }

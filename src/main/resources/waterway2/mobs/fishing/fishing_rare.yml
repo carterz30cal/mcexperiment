@@ -128,7 +128,7 @@ sea_slug_RARE:
     cooked_waterway_cod:
       chance: 1/500
     sea_slug_ooze:
-      chance: 1/600
+      chance: 1/300
     enchanted_book-SUPERLURE1:
       chance: 1/750
       enchants: ENCHANT_SUPERLURE-1

@@ -1,14 +1,13 @@
 package com.carterz30cal.commands;
 
+import com.carterz30cal.entities.PlayerManager;
+import com.carterz30cal.entities.player.GamePlayer;
+import com.carterz30cal.items.ItemFactory;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
-
-import com.carterz30cal.entities.GamePlayer;
-import com.carterz30cal.entities.PlayerManager;
-import com.carterz30cal.items.ItemFactory;
 
 public class CommandMax implements CommandExecutor {
 

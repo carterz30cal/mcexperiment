@@ -1,12 +1,11 @@
 package com.carterz30cal.gui;
 
-import com.carterz30cal.items.ItemTypeUse;
-import org.bukkit.inventory.ItemStack;
-
-import com.carterz30cal.entities.GamePlayer;
+import com.carterz30cal.entities.player.GamePlayer;
 import com.carterz30cal.items.Item;
 import com.carterz30cal.items.ItemFactory;
 import com.carterz30cal.items.ItemRarity;
+import com.carterz30cal.items.ItemTypeUse;
+import org.bukkit.inventory.ItemStack;
 
 public class AdminItemGUI extends AbstractGUI 
 {

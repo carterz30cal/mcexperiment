@@ -1,14 +1,13 @@
 package com.carterz30cal.areas;
 
-import java.util.HashMap;
-import java.util.Map;
-
+import com.carterz30cal.entities.GameEnemy;
+import com.carterz30cal.entities.player.GamePlayer;
+import com.carterz30cal.main.Dungeons;
 import org.bukkit.Location;
 import org.bukkit.scheduler.BukkitRunnable;
 
-import com.carterz30cal.entities.GameEnemy;
-import com.carterz30cal.entities.GamePlayer;
-import com.carterz30cal.main.Dungeons;
+import java.util.HashMap;
+import java.util.Map;
 
 public abstract class AbstractArea extends BukkitRunnable
 {

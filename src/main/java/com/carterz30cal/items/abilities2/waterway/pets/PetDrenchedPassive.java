@@ -2,8 +2,7 @@ package com.carterz30cal.items.abilities2.waterway.pets;
 
 import com.carterz30cal.entities.DamageInfo;
 import com.carterz30cal.entities.GameEnemy;
-import com.carterz30cal.entities.GamePlayer;
-import com.carterz30cal.items.ItemAbility;
+import com.carterz30cal.entities.GameEntity;
 import com.carterz30cal.items.abilities2.implementation.GameAbility;
 import com.carterz30cal.utils.StringUtils;
 
@@ -32,7 +31,7 @@ public class PetDrenchedPassive extends GameAbility {
     }
 
     @Override
-    public void onAttack(GameAbility.AbilityContext context, DamageInfo info) {
+    public void onAttack(AbilityContext context, DamageInfo info, GameEntity attacked) {
         if (info.defender instanceof GameEnemy) {
             GameEnemy enemy = (GameEnemy) info.defender;
             if (enemy.hasTag("FISHING")) info.damage = (int) (info.damage * getDamageBonus(context));

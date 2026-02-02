@@ -1,13 +1,13 @@
 package com.carterz30cal.items.abilities;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import com.carterz30cal.areas.AreaWaterway;
-import com.carterz30cal.entities.GamePlayer;
+import com.carterz30cal.entities.player.GamePlayer;
 import com.carterz30cal.items.ItemAbility;
 import com.carterz30cal.items.ItemReq;
 import com.carterz30cal.items.ItemReqs;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class AbilityHydraTotemCorrupted extends ItemAbility {
 

@@ -1,14 +1,14 @@
 package com.carterz30cal.items.abilities;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import com.carterz30cal.areas.AreaWaterway;
-import com.carterz30cal.entities.GamePlayer;
+import com.carterz30cal.entities.player.GamePlayer;
 import com.carterz30cal.items.ItemAbility;
 import com.carterz30cal.items.ItemReq;
 import com.carterz30cal.items.ItemReqs;
 import com.carterz30cal.main.Dungeons;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class AbilityRainSummon extends ItemAbility {
 

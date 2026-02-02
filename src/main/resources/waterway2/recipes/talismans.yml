@@ -1,17 +1,17 @@
 supposed_perfume:
   level: 2
-  time: 30m
+  time: 1h
   category: waterway_talismans
   items:
     chilli_powder: 20
 
-spider_heart:
-  level: 5
-  time: 30m
+grey_chunk:
+  level: 3
+  time: 1m
   category: waterway_talismans
   items:
-    chilli_powder: 25
-    spider_silk: 25
+    chilli_powder: 20
+    spiced_meat: 4
 
 
 titans_talisman_very_rare:
@@ -43,3 +43,19 @@ zombies_head:
   discovery-tier: 6
   items:
     weird_flesh: 12000
+
+seraph_ooze:
+  level: 6
+  category: waterway_talismans
+  items:
+    sea_slug_ooze: 1
+    seraphs_eye: 3
+
+seraph_eye_cluster:
+  level: 7
+  time: 2h
+  category: waterway_talismans
+  items:
+    seraphs_eye: 10
+    cooked_waterway_cod: 10
+    green_slime: 10

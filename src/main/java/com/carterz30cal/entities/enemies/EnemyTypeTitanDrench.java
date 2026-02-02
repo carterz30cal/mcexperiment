@@ -1,10 +1,13 @@
 package com.carterz30cal.entities.enemies;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
-
+import com.carterz30cal.entities.DamageInfo;
+import com.carterz30cal.entities.GameEnemy;
+import com.carterz30cal.entities.GameParticleProjectile;
+import com.carterz30cal.entities.PlayerManager;
+import com.carterz30cal.entities.player.GamePlayer;
+import com.carterz30cal.main.Dungeons;
+import com.carterz30cal.utils.*;
+import com.carterz30cal.utils.BlockUtils.BlockStructure;
 import org.bukkit.Color;
 import org.bukkit.Location;
 import org.bukkit.Material;
@@ -19,18 +22,10 @@ import org.bukkit.potion.PotionEffectType;
 import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.util.Vector;
 
-import com.carterz30cal.entities.DamageInfo;
-import com.carterz30cal.entities.GameEnemy;
-import com.carterz30cal.entities.GameParticleProjectile;
-import com.carterz30cal.entities.GamePlayer;
-import com.carterz30cal.entities.PlayerManager;
-import com.carterz30cal.main.Dungeons;
-import com.carterz30cal.utils.BlockUtils;
-import com.carterz30cal.utils.BlockUtils.BlockStructure;
-import com.carterz30cal.utils.EntityUtils;
-import com.carterz30cal.utils.MathsUtils;
-import com.carterz30cal.utils.ParticleUtils;
-import com.carterz30cal.utils.RandomUtils;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 public class EnemyTypeTitanDrench extends EnemyTypeDamageCapped
 {
@@ -132,7 +127,7 @@ public class EnemyTypeTitanDrench extends EnemyTypeDamageCapped
 						{
 							p.damage(explosionDamage);
 						}
-						else if (dist <= explosionRadius + 1) {
+                        else if (dist <= explosionRadius + 2) {
 							ArmorStand holo = EntityUtils.spawnHologram(p.getLocation().add(0, 1.1, 0), 40);
 							EntityUtils.setEntityName(holo, "REDBOLDClose!");
 						}

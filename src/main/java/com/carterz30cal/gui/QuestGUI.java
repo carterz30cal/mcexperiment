@@ -1,7 +1,7 @@
 package com.carterz30cal.gui;
 
 import com.carterz30cal.areas2.quests.Quests;
-import com.carterz30cal.entities.GamePlayer;
+import com.carterz30cal.entities.player.GamePlayer;
 import com.carterz30cal.items.ItemFactory;
 import org.bukkit.inventory.ItemStack;
 

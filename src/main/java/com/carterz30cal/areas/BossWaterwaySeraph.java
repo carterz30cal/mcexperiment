@@ -1,8 +1,15 @@
 package com.carterz30cal.areas;
 
-import java.util.ArrayList;
-import java.util.List;
-
+import com.carterz30cal.entities.EnemyManager;
+import com.carterz30cal.entities.GameEnemy;
+import com.carterz30cal.entities.GameFloatingItem;
+import com.carterz30cal.entities.player.GamePlayer;
+import com.carterz30cal.items.ItemFactory;
+import com.carterz30cal.main.Dungeons;
+import com.carterz30cal.utils.BlockUtils;
+import com.carterz30cal.utils.EntityUtils;
+import com.carterz30cal.utils.ParticleUtils;
+import com.carterz30cal.utils.RandomUtils;
 import org.bukkit.Color;
 import org.bukkit.Location;
 import org.bukkit.Material;
@@ -13,16 +20,8 @@ import org.bukkit.entity.TNTPrimed;
 import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.util.Vector;
 
-import com.carterz30cal.entities.EnemyManager;
-import com.carterz30cal.entities.GameEnemy;
-import com.carterz30cal.entities.GameFloatingItem;
-import com.carterz30cal.entities.GamePlayer;
-import com.carterz30cal.items.ItemFactory;
-import com.carterz30cal.main.Dungeons;
-import com.carterz30cal.utils.BlockUtils;
-import com.carterz30cal.utils.EntityUtils;
-import com.carterz30cal.utils.ParticleUtils;
-import com.carterz30cal.utils.RandomUtils;
+import java.util.ArrayList;
+import java.util.List;
 
 public class BossWaterwaySeraph extends AbstractArea
 {

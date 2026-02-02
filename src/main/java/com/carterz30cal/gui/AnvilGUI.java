@@ -1,18 +1,17 @@
 package com.carterz30cal.gui;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
+import com.carterz30cal.entities.player.GamePlayer;
 import com.carterz30cal.items.*;
 import com.carterz30cal.items.abilities2.Abilities;
+import com.carterz30cal.stats.Stat;
+import com.carterz30cal.utils.StringUtils;
 import org.bukkit.Material;
 import org.bukkit.Sound;
 import org.bukkit.inventory.ItemStack;
 
-import com.carterz30cal.entities.GamePlayer;
-import com.carterz30cal.stats.Stat;
-import com.carterz30cal.utils.StringUtils;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class AnvilGUI extends AbstractGUI 
 {

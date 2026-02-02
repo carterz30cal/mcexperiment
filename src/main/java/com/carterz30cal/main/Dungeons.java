@@ -4,8 +4,8 @@ import com.carterz30cal.areas.AbstractArea;
 import com.carterz30cal.commands.*;
 import com.carterz30cal.entities.EnemyManager;
 import com.carterz30cal.entities.GameEntity;
-import com.carterz30cal.entities.GamePlayer;
 import com.carterz30cal.entities.PlayerManager;
+import com.carterz30cal.entities.player.GamePlayer;
 import com.carterz30cal.events.*;
 import com.carterz30cal.items.DiscoveryManager;
 import com.carterz30cal.items.ItemFactory;
@@ -34,10 +34,12 @@ public class Dungeons extends JavaPlugin
 		GameEntity.allowDeregisters = true;
 		proto = ProtocolLibrary.getProtocolManager();
 
-		new PlayerManager();
-		new EnemyManager();
-		new DiscoveryManager();
-		new ItemFactory();
+        new DiscoveryManager();
+        new ItemFactory();
+        new PlayerManager();
+        new EnemyManager();
+
+
 
         //new AreaWaterway();
 		//new BossWaterwayHydra();
@@ -79,6 +81,7 @@ public class Dungeons extends JavaPlugin
 		registerEvent(new ListenerInventoryEvents());
 		registerEvent(new ListenerPlayerInteract());
 		registerEvent(new ListenerFishingEvents());
+        registerEvent(new ListenerTarget());
         //registerEvent(new ListenerBlockEvents());
 
 		for (Entity e : w.getEntities()) {
@@ -92,6 +95,8 @@ public class Dungeons extends JavaPlugin
 		setCommand("force", new CommandForce());
 		setCommand("kit", new CommandKit());
 		setCommand("max", new CommandMax());
+        setCommand("warp", new CommandWarp());
+        getCommand("warp").setTabCompleter(new CommandWarp.WarpTabCompleter());
 	}
 	
 	@Override

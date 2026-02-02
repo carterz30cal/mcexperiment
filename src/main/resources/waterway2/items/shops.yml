@@ -33,31 +33,36 @@ bobs_simple_supplies:
 cultist_shop:
   shop-name: "Dusty Cultist Leftovers"
   shopkeeper-name: "Ex-Fanatic"
-  shopkeeper-type: SKELETON
-  location: -103.5, 78, -19.5, 140, 1
+  shopkeeper-type: MANNEQUIN
+  location: 51.7, 96, 159.4, 129, 3
   required_quest: ex_fanatic
   items:
     eye_of_spider:
       item: eye_of_spider
-      coins: 1250
+      coins: 2250
       level: 5
     armour_chainmail:
       item: chainmail_chestplate
       level: 6
       coins: 2500
+    enchanted_book_luck:
+      item: enchanted_book
+      enchants: ENCHANT_LUCK-1
+      coins: 5000
+      level: 6
     armour_cultist_het:
       item: cultist_helmet
-      coins: 4000
+      coins: 5000
       level: 7
     armour_cultist_c:
       item: cultist_chestplate
-      coins: 4000
+      coins: 5000
       level: 7
     armour_cultist_l:
       item: cultist_leggings
-      coins: 4000
+      coins: 5000
       level: 7
     armour_cultist_b:
       item: cultist_boots
-      coins: 4000
+      coins: 5000
       level: 7

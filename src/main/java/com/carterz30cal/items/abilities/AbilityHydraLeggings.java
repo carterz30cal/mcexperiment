@@ -1,15 +1,15 @@
 package com.carterz30cal.items.abilities;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import com.carterz30cal.areas.BossWaterwayHydra;
 import com.carterz30cal.entities.GameEnemy;
-import com.carterz30cal.entities.GamePlayer;
+import com.carterz30cal.entities.player.GamePlayer;
 import com.carterz30cal.items.ItemAbility;
 import com.carterz30cal.stats.Stat;
 import com.carterz30cal.stats.StatContainer;
 import com.carterz30cal.stats.StatOperationType;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class AbilityHydraLeggings extends ItemAbility
 {

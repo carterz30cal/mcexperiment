@@ -2,8 +2,8 @@ package com.carterz30cal.utils;
 
 import com.carterz30cal.entities.GameEnemy;
 import com.carterz30cal.entities.GameEntity;
-import com.carterz30cal.entities.GamePlayer;
 import com.carterz30cal.entities.PlayerManager;
+import com.carterz30cal.entities.player.GamePlayer;
 import com.carterz30cal.items.ItemFactory;
 import com.carterz30cal.main.Dungeons;
 import org.bukkit.Location;
@@ -25,9 +25,12 @@ public class EntityUtils
 {
 	public static ArmorStand spawnHologram(Location location, int lifetime)
 	{
+        if (!location.getChunk().isLoaded()) {
+            return null;
+        }
 		ArmorStand armour = (ArmorStand) location.getWorld().spawnEntity(location, EntityType.ARMOR_STAND);
-		
-		armour.setVisible(false);
+
+        armour.setVisible(false);
 		armour.setGravity(false);
 		armour.setCustomNameVisible(true);
 		armour.setSmall(true);
@@ -69,6 +72,9 @@ public class EntityUtils
 		List<GameEnemy> enemies = new ArrayList<>();
 		for (GameEntity e : GameEntity.entities.values())
 		{
+            if (e.dead) {
+                continue;
+            }
 			if (e instanceof GameEnemy)
 			{
 				if (e.getLocation().distance(l) <= radius) enemies.add((GameEnemy)e);
@@ -93,6 +99,9 @@ public class EntityUtils
 	 
 	public static Entity spawnPart(EntityType type, Location location)
 	{
+        if (!location.getChunk().isLoaded()) {
+            return null;
+        }
 		Entity part = location.getWorld().spawnEntity(new Location(location.getWorld(), 0, 0, 0), type);
 		part.teleport(location, TeleportCause.PLUGIN);
 		part.setSilent(true);

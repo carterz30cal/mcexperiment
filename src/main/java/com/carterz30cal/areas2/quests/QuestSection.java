@@ -1,12 +1,11 @@
 package com.carterz30cal.areas2.quests;
 
 import com.carterz30cal.areas2.quests.rewards.QuestReward;
-import com.carterz30cal.entities.GamePlayer;
+import com.carterz30cal.entities.player.GamePlayer;
 import com.carterz30cal.events.GameEventHandler;
 import com.carterz30cal.utils.StringDescription;
 import org.bukkit.configuration.ConfigurationSection;
 
-import javax.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
@@ -38,7 +37,6 @@ public abstract class QuestSection {
      * @author carterz30cal
      * @since 1.0.0
      */
-    @Nullable
     public QuestReward GetQuestReward() {
         return null;
     }

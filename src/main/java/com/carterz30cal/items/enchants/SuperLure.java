@@ -1,6 +1,6 @@
 package com.carterz30cal.items.enchants;
 
-import com.carterz30cal.entities.GamePlayer;
+import com.carterz30cal.entities.player.GamePlayer;
 import com.carterz30cal.items.ItemEnchant;
 import com.carterz30cal.items.ItemReq;
 import com.carterz30cal.items.ItemType;

@@ -1,9 +1,9 @@
 package com.carterz30cal.items;
 
+import com.carterz30cal.entities.player.GamePlayer;
+
 import java.util.List;
 import java.util.Set;
-
-import com.carterz30cal.entities.GamePlayer;
 
 public abstract class ItemEnchant extends ItemAbility
 {

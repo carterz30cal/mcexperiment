@@ -19,10 +19,10 @@ paper_mache:
     health: -15
 
 weak_silk_mass:
-  name: Weak Silk Mass
+  name: Stale Chilli Powder
   type: ATTUNER
   rarity: RARE
-  material: BONE_MEAL
+  material: GUNPOWDER
   glow: true
   attuner-icon: BLUE#
   stats:
@@ -31,13 +31,13 @@ weak_silk_mass:
 eye_of_spider:
   name: Eye of Spider
   type: ATTUNER
-  rarity: RARE
+  rarity: VERY_RARE
   material: SPIDER_EYE
   attuner-icon: DARK_PURPLE#
   stats:
-    mana: +6
-    strength: +2
-    might: +1
+    mana: +5
+    strength: +3
+    might: +3
 
 
 fishing_berries:

@@ -1,13 +1,12 @@
 package com.carterz30cal.gui;
 
+import com.carterz30cal.entities.player.GamePlayer;
+import com.carterz30cal.items.ItemFactory;
+import com.carterz30cal.utils.StringUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
-
-import com.carterz30cal.entities.GamePlayer;
-import com.carterz30cal.items.ItemFactory;
-import com.carterz30cal.utils.StringUtils;
 
 public class GooeyInventory
 {

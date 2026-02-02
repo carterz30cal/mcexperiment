@@ -1,11 +1,14 @@
 package com.carterz30cal.items.abilities2;
 
-import com.carterz30cal.entities.GamePlayer;
+import com.carterz30cal.entities.player.GamePlayer;
 import com.carterz30cal.items.ItemType;
+import com.carterz30cal.items.abilities2.generic.DeadAbility;
 import com.carterz30cal.items.abilities2.generic.HealingAbility;
+import com.carterz30cal.items.abilities2.generic.MagicSwordAbility;
 import com.carterz30cal.items.abilities2.generic.StatEnchantment;
 import com.carterz30cal.items.abilities2.implementation.GameAbility;
 import com.carterz30cal.items.abilities2.waterway.NecromancerAbility;
+import com.carterz30cal.items.abilities2.waterway.SeraphSwordAbility;
 import com.carterz30cal.items.abilities2.waterway.SuperLureEnchantment;
 import com.carterz30cal.items.abilities2.waterway.pets.PetDrenchedActive;
 import com.carterz30cal.items.abilities2.waterway.pets.PetDrenchedPassive;
@@ -60,14 +63,23 @@ public enum Abilities
             "Slimed", 2, Stat.DEFENCE,
             5, 5, 4, StatOperationType.MULTIPLY, ItemType.CHESTPLATE
     )),
+    ENCHANT_LUCK(new StatEnchantment(
+            "Luck", 1, Stat.LUCK, 0, 1, 5, ItemType.WEAPON, ItemType.ROD, ItemType.WAND, ItemType.BOW
+    )),
+    ENCHANT_CONCENTRATION(new StatEnchantment(
+            "Concentration", 3, Stat.FOCUS, 2, 1, 3, ItemType.HELMET, ItemType.WEAPON
+    )),
 
 	NECROMANCY_SWORD(new NecromancerAbility()),
-	HEALING_WAND_WATERWAY(new HealingAbility(8, 25)),
+    HEALING_WAND_WATERWAY(new HealingAbility(12, 30)),
 	SET_LEAF(new LeafArmourSet()),
 	SET_ZOMBIE(new ZombieArmourSet()),
 	PET_DRENCHED_ACTIVE(new PetDrenchedActive()),
 	PET_DRENCHED_PASSIVE(new PetDrenchedPassive()),
-    PET_WATER_TITAN_ACTIVE(new PetWaterTitanActive())
+    PET_WATER_TITAN_ACTIVE(new PetWaterTitanActive()),
+    WATERWAY_SERAPH_SWORD(new SeraphSwordAbility()),
+    MAGIC_SWORD(new MagicSwordAbility()),
+    ADMIN_INSTANT_DEATH_SWORD(new DeadAbility()),
 	;
 	public final GameAbility ability;
 

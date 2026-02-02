@@ -1,13 +1,12 @@
 package com.carterz30cal.items;
 
+import com.carterz30cal.entities.player.GamePlayer;
+import org.bukkit.inventory.ItemStack;
+
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-
-import org.bukkit.inventory.ItemStack;
-
-import com.carterz30cal.entities.GamePlayer;
 
 public class ItemReqs 
 {

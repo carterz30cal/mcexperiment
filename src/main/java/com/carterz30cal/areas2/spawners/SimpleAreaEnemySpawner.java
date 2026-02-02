@@ -1,7 +1,7 @@
 package com.carterz30cal.areas2.spawners;
 
 import com.carterz30cal.entities.GameEnemy;
-import com.carterz30cal.entities.GamePlayer;
+import com.carterz30cal.entities.player.GamePlayer;
 import com.carterz30cal.utils.Box;
 import com.carterz30cal.utils.EntityUtils;
 import com.carterz30cal.utils.RandomUtils;

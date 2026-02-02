@@ -1,5 +1,7 @@
 package com.carterz30cal.entities;
 
+import com.carterz30cal.entities.player.GamePlayer;
+
 public class DamageInfo
 {
 	public int damage;

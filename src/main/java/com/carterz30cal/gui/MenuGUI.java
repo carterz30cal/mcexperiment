@@ -1,6 +1,6 @@
 package com.carterz30cal.gui;
 
-import com.carterz30cal.entities.GamePlayer;
+import com.carterz30cal.entities.player.GamePlayer;
 import com.carterz30cal.items.Item;
 import com.carterz30cal.items.ItemFactory;
 import com.carterz30cal.items.ItemTypeUse;
@@ -21,12 +21,13 @@ public class MenuGUI extends AbstractGUI
 	public final int FORGE_POS = calc(1, 1);
 	public final int LEVEL_POS = calc(3, 1);
 	public final int DISCOVERY_POS = calc(4, 1);
-	public final int QUIVER_POS = calc(5, 1);
-	public final int TALIS_POS = calc(6, 1);
+    public final int QUIVER_POS = calc(6, 2);
+    public final int BESTIARY_POS = calc(6, 1);
 	public final int SACK_POS = calc(2, 1);
 	public final int BACKPACK_POS = calc(5, 2);
 	public final int PET_POS = calc(3, 2);
     public final int QUEST_POS = calc(4, 2);
+    public final int WARDROBE_POS = calc(5, 1);
 
 	
 	public final int LINES = 6;
@@ -63,6 +64,7 @@ public class MenuGUI extends AbstractGUI
 		inventory.setSlot(GooeyInventory.produceElement("HOPPER", "BLUEDiscoveries"), DISCOVERY_POS);
 
 		inventory.setSlot(GooeyInventory.produceElement("LEATHER", "AQUABackpack"), BACKPACK_POS);
+        inventory.setSlot(ItemFactory.buildCustom("gold_leaf_chestplate", "YELLOWWardrobe", ""), WARDROBE_POS);
 		
 		// quiver
 		int arrowCount = 0;
@@ -72,7 +74,7 @@ public class MenuGUI extends AbstractGUI
 		//if (owner.talismans.size() == 0) inventory.setSlot(ItemFactory.buildCustom("MINECART", "GOLDTalisman Bag", "REDCurrently holding no talismans, go find some!"), TALIS_POS);
 		//else if (owner.talismans.size() == 1) inventory.setSlot(ItemFactory.buildCustom("MINECART", "GOLDTalisman Bag", "GRAYHolding WHITE1GRAY talisman."), TALIS_POS);
 		//else inventory.setSlot(ItemFactory.buildCustom("MINECART", "GOLDTalisman Bag", "GRAYHolding WHITE" + owner.talismans.size() + "GRAY talismans."), TALIS_POS);
-        inventory.setSlot(ItemFactory.buildCustom("LEAD", "REDBestiary"), TALIS_POS);
+        inventory.setSlot(ItemFactory.buildCustom("LEAD", "REDBestiary"), BESTIARY_POS);
 		
 		if (owner.getLevel() < 2) {
 			inventory.setSlot(GooeyInventory.produceElement("RED_STAINED_GLASS_PANE", "REDLocked for now!"), SACK_POS);
@@ -93,7 +95,7 @@ public class MenuGUI extends AbstractGUI
 			}
 		}
 
-		inventory.setSlot(ItemFactory.buildCustom("BONE", "GOLDPets", "Active Pet: AHHH"), PET_POS);
+        inventory.setSlot(ItemFactory.buildCustom("BONE", "GOLDPets", "YELLOWActive Pet: " + (owner.activePet != null ? ItemFactory.getItemTypeName(owner.activePet) : "REDNone!")), PET_POS);
 
         inventory.setSlot(ItemFactory.buildCustom("WRITTEN_BOOK", "GOLDQuests"), QUEST_POS);
 		
@@ -111,10 +113,13 @@ public class MenuGUI extends AbstractGUI
 		else if (clickPos == QUIVER_POS) owner.openGui(new QuiverGUI(owner));
 		else if (clickPos == BACKPACK_POS) owner.openGui(new BackpackGUI(owner));
 		else if (clickPos == PET_POS) owner.openGui(new PetsGUI(owner));
+        else if (clickPos == WARDROBE_POS) {
+            owner.openGui(new WardrobeGUI(owner));
+        }
         else if (clickPos == QUEST_POS) {
             owner.openGui(new QuestGUI(owner));
         }
-        else if (clickPos == TALIS_POS) {
+        else if (clickPos == BESTIARY_POS) {
             owner.openGui(new BestiaryGUI(owner));
         }
         else if (owner.getLevel() > 1 && clickPos == SACK_POS) owner.openGui(new SackGUI(owner));
@@ -134,7 +139,7 @@ public class MenuGUI extends AbstractGUI
                 List<String> check = new ArrayList<>(cli.tags);
                 check.removeIf((t) -> !taliTags.contains(t));
 
-                if (check.size() != 0 || owner.talismans.contains(cli.id)) {
+                if (!check.isEmpty() || owner.talismans.contains(cli.id)) {
                     owner.sendMessage("REDYou already have an incompatible talisman equipped!");
                 }
                 else {

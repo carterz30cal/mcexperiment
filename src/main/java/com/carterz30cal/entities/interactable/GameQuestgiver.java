@@ -3,7 +3,7 @@ package com.carterz30cal.entities.interactable;
 import com.carterz30cal.areas2.quests.Questgivers;
 import com.carterz30cal.areas2.quests.Quests;
 import com.carterz30cal.areas2.quests.rewards.QuestReward;
-import com.carterz30cal.entities.GamePlayer;
+import com.carterz30cal.entities.player.GamePlayer;
 import com.carterz30cal.main.Dungeons;
 import org.bukkit.Sound;
 import org.bukkit.scheduler.BukkitRunnable;

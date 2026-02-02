@@ -1,6 +1,6 @@
 package com.carterz30cal.dungeoneering;
 
-import com.carterz30cal.entities.GamePlayer;
+import com.carterz30cal.entities.player.GamePlayer;
 
 public class AbstractDungeon {
 	

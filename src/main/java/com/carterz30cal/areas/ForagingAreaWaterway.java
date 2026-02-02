@@ -1,17 +1,15 @@
 package com.carterz30cal.areas;
 
-import com.carterz30cal.utils.MathsUtils;
-import org.bukkit.Location;
-import org.bukkit.Material;
-import org.bukkit.block.Block;
-
 import com.carterz30cal.entities.EnemyManager;
-import com.carterz30cal.entities.GamePlayer;
+import com.carterz30cal.entities.player.GamePlayer;
 import com.carterz30cal.main.Dungeons;
 import com.carterz30cal.mining.Mineable;
 import com.carterz30cal.utils.BlockUtils;
 import com.carterz30cal.utils.BlockUtils.BlockStructure;
 import com.carterz30cal.utils.RandomUtils;
+import org.bukkit.Location;
+import org.bukkit.Material;
+import org.bukkit.block.Block;
 
 public class ForagingAreaWaterway extends AbstractArea 
 {

@@ -4,7 +4,7 @@ import com.carterz30cal.areas2.bosses.AbstractAreaBoss;
 import com.carterz30cal.areas2.spawners.AbstractEnemySpawner;
 import com.carterz30cal.entities.GameEnemy;
 import com.carterz30cal.entities.GameEntity;
-import com.carterz30cal.entities.GamePlayer;
+import com.carterz30cal.entities.player.GamePlayer;
 import com.carterz30cal.utils.Box;
 import org.bukkit.Location;
 
@@ -60,6 +60,12 @@ public abstract class AbstractGameArea {
         }
     }
 
+    public void OnTeleport(GamePlayer player, PlayerTeleport teleport) {
+        for (var boss : registeredBosses) {
+            boss.OnTeleport(player, teleport);
+        }
+    }
+
     public List<String> GetScoreboard(GamePlayer player) {
         List<String> list = new ArrayList<>();
         for (var boss : registeredBosses) {
@@ -71,9 +77,12 @@ public abstract class AbstractGameArea {
         return list;
     }
 
+
     public String GetSubAreaName(GamePlayer player) {
         return areaName;
     }
+
+    public abstract PlayerTeleport GetRespawnPoint(GamePlayer died);
 
     public boolean IsInBounds(GameEntity entity) {
         return boundingBox.IsWithin(entity.getLocation());

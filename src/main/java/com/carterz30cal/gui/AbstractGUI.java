@@ -1,9 +1,8 @@
 package com.carterz30cal.gui;
 
+import com.carterz30cal.entities.player.GamePlayer;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.scheduler.BukkitRunnable;
-
-import com.carterz30cal.entities.GamePlayer;
 
 public class AbstractGUI extends BukkitRunnable
 {
@@ -62,8 +61,8 @@ public class AbstractGUI extends BukkitRunnable
 		}
 		else onTick();
 	}
-	
-	protected final int calc(int x, int y)
+
+    protected static final int calc(int x, int y)
 	{
 		return y * 9 + x;
 	}

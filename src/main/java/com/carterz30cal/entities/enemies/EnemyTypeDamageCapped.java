@@ -1,13 +1,12 @@
 package com.carterz30cal.entities.enemies;
 
-import java.util.HashMap;
-import java.util.Map;
-
-import org.bukkit.configuration.ConfigurationSection;
-
 import com.carterz30cal.entities.DamageInfo;
 import com.carterz30cal.entities.GameEnemy;
-import com.carterz30cal.entities.GamePlayer;
+import com.carterz30cal.entities.player.GamePlayer;
+import org.bukkit.configuration.ConfigurationSection;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class EnemyTypeDamageCapped extends EnemyTypeSimple 
 {
@@ -25,9 +24,12 @@ public class EnemyTypeDamageCapped extends EnemyTypeSimple
 	
 	public void onDamaged(GameEnemy enemy, DamageInfo info)
 	{
-		int damageCap = (int)(health * capPercent);
+        int damageCap = (int) (getMaxHealth() * capPercent);
 		if (info.damage > damageCap)
 		{
+            if (damageCap < 1) {
+                damageCap = 1;
+            }
 			info.damage = damageCap;
 			
 			overkills.putIfAbsent(enemy, new HashMap<>());
@@ -39,6 +41,9 @@ public class EnemyTypeDamageCapped extends EnemyTypeSimple
 	{
 		for (GamePlayer overkiller : overkills.getOrDefault(enemy, new HashMap<>()).keySet())
 		{
+            if (overkiller == null) {
+                continue;
+            }
 			int oks = overkills.get(enemy).get(overkiller);
 			int rew = overkillReward * oks;
 

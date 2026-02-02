@@ -1,8 +1,12 @@
 package com.carterz30cal.items.abilities;
 
-import java.util.ArrayList;
-import java.util.List;
-
+import com.carterz30cal.entities.player.GamePlayer;
+import com.carterz30cal.items.ItemAbility;
+import com.carterz30cal.main.Dungeons;
+import com.carterz30cal.utils.EntityUtils;
+import com.carterz30cal.utils.MathsUtils;
+import com.carterz30cal.utils.ParticleUtils;
+import com.carterz30cal.utils.RandomUtils;
 import org.bukkit.Color;
 import org.bukkit.Location;
 import org.bukkit.Particle;
@@ -10,13 +14,8 @@ import org.bukkit.potion.PotionEffectType;
 import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.util.Vector;
 
-import com.carterz30cal.entities.GamePlayer;
-import com.carterz30cal.items.ItemAbility;
-import com.carterz30cal.main.Dungeons;
-import com.carterz30cal.utils.EntityUtils;
-import com.carterz30cal.utils.MathsUtils;
-import com.carterz30cal.utils.ParticleUtils;
-import com.carterz30cal.utils.RandomUtils;
+import java.util.ArrayList;
+import java.util.List;
 
 public class AbilityBloodMedallion extends ItemAbility {
 	public final Particle.DustOptions DUST_CIRCLE = new Particle.DustOptions(Color.RED, 1.1F);

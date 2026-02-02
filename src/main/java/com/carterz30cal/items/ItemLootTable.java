@@ -1,6 +1,6 @@
 package com.carterz30cal.items;
 
-import com.carterz30cal.entities.GamePlayer;
+import com.carterz30cal.entities.player.GamePlayer;
 import com.carterz30cal.stats.Stat;
 import com.carterz30cal.utils.RandomUtils;
 import com.carterz30cal.utils.StringUtils;

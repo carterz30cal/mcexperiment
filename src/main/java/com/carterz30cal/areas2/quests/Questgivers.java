@@ -7,14 +7,13 @@ import com.carterz30cal.areas2.quests.rewards.QuestReward;
 import com.carterz30cal.areas2.quests.sections.QuestSectionBringItem;
 import com.carterz30cal.areas2.quests.sections.QuestSectionBringItemCustomDescription;
 import com.carterz30cal.areas2.quests.sections.QuestSectionKill;
-import com.carterz30cal.entities.GamePlayer;
 import com.carterz30cal.entities.interactable.GameQuestgiver;
+import com.carterz30cal.entities.player.GamePlayer;
 import com.carterz30cal.main.Dungeons;
 import com.carterz30cal.utils.StringDescription;
 import org.bukkit.Location;
 import org.bukkit.entity.EntityType;
 
-import javax.annotation.Nullable;
 import java.util.Arrays;
 import java.util.List;
 
@@ -130,7 +129,7 @@ public enum Questgivers {
 
     //TODO ADD REWARDS & TALLY UP XP REWARDS
 
-    Questgivers(String name, EntityType entityType, Location location, @Nullable QuestRequirement requirement, QuestSection... quests) {
+    Questgivers(String name, EntityType entityType, Location location, QuestRequirement requirement, QuestSection... quests) {
         this.name = name;
         this.entityType = entityType;
         this.location = location;
@@ -142,7 +141,7 @@ public enum Questgivers {
         new GameQuestgiver(this);
     }
 
-    Questgivers(String name, String skullProfileId, Location location, @Nullable QuestRequirement requirement, QuestSection... quests) {
+    Questgivers(String name, String skullProfileId, Location location, QuestRequirement requirement, QuestSection... quests) {
         this.name = name;
         this.entityType = EntityType.MANNEQUIN;
         this.location = location;

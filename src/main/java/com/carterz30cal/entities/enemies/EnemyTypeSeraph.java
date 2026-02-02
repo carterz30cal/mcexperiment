@@ -1,8 +1,9 @@
 package com.carterz30cal.entities.enemies;
 
+import com.carterz30cal.areas2.bosses.waterway.AreaBossWaterwaySeraph;
 import com.carterz30cal.entities.DamageInfo;
 import com.carterz30cal.entities.GameEnemy;
-import com.carterz30cal.entities.GamePlayer;
+import com.carterz30cal.entities.player.GamePlayer;
 import org.bukkit.configuration.ConfigurationSection;
 
 import java.util.HashSet;
@@ -10,15 +11,21 @@ import java.util.Set;
 
 public class EnemyTypeSeraph extends EnemyTypeDamageCapped
 {
+    public int bonusHealthPerPlayer;
 	public EnemyTypeSeraph(ConfigurationSection m) {
 		super(m);
-	}
+
+        bonusHealthPerPlayer = m.getInt("bonus-health-per-player", 5000);
+    }
+
+    @Override
+    public int getMaxHealth() {
+        return health + (AreaBossWaterwaySeraph.GetParticipatingCount() * bonusHealthPerPlayer);
+    }
 
     @SuppressWarnings("unchecked")
 	public void onDamaged(GameEnemy enemy, DamageInfo info)
 	{
-		//if (info.type == DamageType.PROJECTILE) info.damage = 0;
-		
 		enemy.data.putIfAbsent("damagers", new HashSet<GamePlayer>());
 		((HashSet<GamePlayer>)enemy.data.get("damagers")).add(info.attacker);
 		

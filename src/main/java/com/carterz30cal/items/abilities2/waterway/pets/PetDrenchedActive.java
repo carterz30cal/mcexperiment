@@ -1,6 +1,5 @@
 package com.carterz30cal.items.abilities2.waterway.pets;
 
-import com.carterz30cal.entities.GamePlayer;
 import com.carterz30cal.items.abilities2.implementation.GameAbility;
 import com.carterz30cal.stats.Stat;
 import com.carterz30cal.stats.StatContainer;

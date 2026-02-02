@@ -4,7 +4,9 @@ import com.carterz30cal.areas2.AbstractGameArea;
 import com.carterz30cal.entities.damage.StatusEffect;
 import com.carterz30cal.entities.damage.StatusEffects;
 import com.carterz30cal.entities.enemies.EnemyTypeSimple;
+import com.carterz30cal.entities.player.GamePlayer;
 import com.carterz30cal.main.Dungeons;
+import com.carterz30cal.stats.Stat;
 import com.carterz30cal.utils.EntityUtils;
 import com.carterz30cal.utils.LevelUtils;
 import com.carterz30cal.utils.RandomUtils;
@@ -23,7 +25,6 @@ import org.bukkit.persistence.PersistentDataType;
 import org.bukkit.potion.PotionEffectType;
 import org.bukkit.scheduler.BukkitRunnable;
 
-import javax.annotation.Nullable;
 import java.util.*;
 
 public class GameEnemy extends GameEntity
@@ -37,7 +38,7 @@ public class GameEnemy extends GameEntity
 	public List<Entity> parts = new ArrayList<>();
 
 
-	public @Nullable Mob director;
+    public Mob director;
 
 	protected ArmorStand display;
 	
@@ -148,9 +149,17 @@ public class GameEnemy extends GameEntity
 		{
 			var speedAttribute = ((Mob)main).getAttribute(Attribute.MOVEMENT_SPEED);
 			if (speedAttribute != null) {
-				speedAttribute.addModifier(new AttributeModifier(EnemyTypeSimple.KEY_SPEED, speed - 1, AttributeModifier.Operation.MULTIPLY_SCALAR_1, EquipmentSlotGroup.ANY));
-			}
-		}
+                speedAttribute.getModifiers().forEach(speedAttribute::removeModifier);
+                speedAttribute.addModifier(new AttributeModifier(EnemyTypeSimple.KEY_SPEED, speed - 1, AttributeModifier.Operation.MULTIPLY_SCALAR_1, EquipmentSlotGroup.ANY));
+            }
+        }
+        if (director != null) {
+            var speedAttribute = (director).getAttribute(Attribute.MOVEMENT_SPEED);
+            if (speedAttribute != null) {
+                speedAttribute.getModifiers().forEach(speedAttribute::removeModifier);
+                speedAttribute.addModifier(new AttributeModifier(EnemyTypeSimple.KEY_SPEED, speed - 1, AttributeModifier.Operation.MULTIPLY_SCALAR_1, EquipmentSlotGroup.ANY));
+            }
+        }
 
 	}
 	
@@ -169,8 +178,7 @@ public class GameEnemy extends GameEntity
 		
 		int value = statuses.getStatus(effect) + amount;
 		if (value >= resistances.getStatus(effect)) {
-			lastDamager.playSound(Sound.BLOCK_FIRE_EXTINGUISH, 0.6, 1.3, 1);
-			lastDamager.playSound(Sound.BLOCK_FIRE_EXTINGUISH, 0.7, 1.1, 4);
+            lastDamager.playSound(Sound.BLOCK_NOTE_BLOCK_SNARE, 0.3, 0.8);
 			
 			effect.effect.onProc(this);
 			statuses.effects.put(effect, 0);
@@ -250,19 +258,26 @@ public class GameEnemy extends GameEntity
         }
 
 		if (director != null) {
-			main.teleport(director.getLocation(), TeleportCause.PLUGIN);
-			EntityUtils.applyPotionEffect(director, PotionEffectType.INVISIBILITY, 200, 0, false);
-			EntityUtils.applyPotionEffect(director, PotionEffectType.FIRE_RESISTANCE, 200, 0, false);
+            if (director.isDead() || !director.isValid() || !getLocation().getChunk().isLoaded()) {
+                destroy();
+            }
+            else {
+                main.teleport(director.getLocation(), TeleportCause.PLUGIN);
+                EntityUtils.applyPotionEffect(director, PotionEffectType.INVISIBILITY, 200, 0, false);
+                EntityUtils.applyPotionEffect(director, PotionEffectType.FIRE_RESISTANCE, 200, 0, false);
+            }
 		}
 
         if (displayName == null && (lastDamager != null || health < 0.99) && !dead) {
 			Location d = main.getLocation().add(0, main.getHeight() + 0.4, 0);
 
 			displayName = EntityUtils.spawnHologram(d, -1);
-			d.subtract(0, 0.25, 0);
-			displayHealth = EntityUtils.spawnHologram(d, -1);
-			d.subtract(0, 0.25, 0);
-			displayStatuses = EntityUtils.spawnHologram(d, -1);
+            if (displayHealth == null) {
+                displayHealth = EntityUtils.spawnHologram(d.clone().subtract(0, 0.25, 0), -1);
+            }
+            if (displayStatuses == null) {
+                displayStatuses = EntityUtils.spawnHologram(d.clone().subtract(0, 0.5, 0), -1);
+            }
 		}
 		if (displayName != null) {
 			String name = getName();
@@ -300,7 +315,7 @@ public class GameEnemy extends GameEntity
 			displayStatuses.setCustomName(StringUtils.colourString(statusText));
 		}
 
-		if (target == null) {
+        if (target == null || target.dead) {
 			target = findTarget();
 			if (target == null)  {
 				type.onTarget(this, null);
@@ -314,10 +329,20 @@ public class GameEnemy extends GameEntity
 			}
 		}
 		else {
-			if (target.isTargetable(this)) target = null;
-			else if (target instanceof GamePlayer) {
-				type.onTarget(this, (GamePlayer)target);
-			}
+            if (!target.isTargetable(this)) {
+                target = null;
+            }
+            else {
+                if (director == null) {
+                    ((Mob) getMain()).setTarget(target.getTargetable());
+                }
+                else {
+                    director.setTarget(target.getTargetable());
+                }
+                if (target instanceof GamePlayer) {
+                    type.onTarget(this, (GamePlayer) target);
+                }
+            }
 		}
 	}
 
@@ -328,10 +353,22 @@ public class GameEnemy extends GameEntity
 
 	protected GameEntity findTarget() {
 		//GameEntity en;
-		List<GameEnemy> enemies = EntityUtils.getNearbyEnemies(getLocation(), 10);
+        List<GameEnemy> enemies = EntityUtils.getNearbyEnemies(getLocation(), 14);
 		enemies.removeIf((e) -> !(e instanceof GameSummon));
 		if (!enemies.isEmpty()) return enemies.get(0);
-		else return null;
+        else {
+            for (var player : PlayerManager.getOnlinePlayers()) {
+                if (player.getLocation().distance(getLocation()) > player.stats.getStat(Stat.VISIBILITY)) {
+                    continue;
+                }
+                if (player.targeted.size() >= player.getMaxTargets() && !type.ignoreTargetLimit) {
+                    continue;
+                }
+                player.targeted.add(this);
+                return player;
+            }
+            return null;
+        }
 	}
 
 	
@@ -432,10 +469,8 @@ public class GameEnemy extends GameEntity
 			if (!info.indirect) {
 				EntityUtils.applyKnockback(lastDamager, this, info.type.knockbackModifier);
 
-				if (target == null) {
-					target = info.attacker;
-					info.attacker.targeted.add(this);
-				}
+                target = info.attacker;
+                info.attacker.targeted.add(this);
 			}
 
 		}
@@ -467,7 +502,9 @@ public class GameEnemy extends GameEntity
 		hologram.setCustomName(ChatColor.getLastColors(modified.type.name) + modified.damage);
 
 		if (getHealth() == 0) destroy();
-		else if (lastDamager != null) lastDamager.playSound(Sound.ENTITY_PLAYER_HURT, 0.7, 0.9);
+        else if (lastDamager != null && !info.indirect) {
+            lastDamager.playSound(Sound.ENTITY_PLAYER_HURT, 0.7, 0.9);
+        }
 		
 	}
 }

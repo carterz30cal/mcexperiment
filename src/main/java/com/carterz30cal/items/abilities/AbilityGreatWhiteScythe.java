@@ -1,18 +1,17 @@
 package com.carterz30cal.items.abilities;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import org.bukkit.scheduler.BukkitRunnable;
-
 import com.carterz30cal.entities.DamageInfo;
 import com.carterz30cal.entities.GameEnemy;
-import com.carterz30cal.entities.GamePlayer;
+import com.carterz30cal.entities.player.GamePlayer;
 import com.carterz30cal.items.ItemAbility;
 import com.carterz30cal.main.Dungeons;
 import com.carterz30cal.stats.Stat;
 import com.carterz30cal.stats.StatContainer;
 import com.carterz30cal.stats.StatOperationType;
+import org.bukkit.scheduler.BukkitRunnable;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class AbilityGreatWhiteScythe extends ItemAbility
 {

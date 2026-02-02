@@ -1,9 +1,11 @@
 package com.carterz30cal.areas2.areas;
 
 import com.carterz30cal.areas2.AbstractGameArea;
+import com.carterz30cal.areas2.PlayerTeleport;
 import com.carterz30cal.areas2.bosses.waterway.AreaBossWaterwaySeraph;
 import com.carterz30cal.areas2.spawners.KillEnemySpawner;
 import com.carterz30cal.areas2.spawners.SimpleAreaEnemySpawner;
+import com.carterz30cal.entities.player.GamePlayer;
 import com.carterz30cal.main.Dungeons;
 import com.carterz30cal.utils.Box;
 import org.bukkit.Location;
@@ -29,12 +31,17 @@ public class GameAreaWaterway extends AbstractGameArea {
 
         RegisterSpawner(new KillEnemySpawner("titan_1", 10, -85, 65, -2));
 
-        RegisterSpawner(new SimpleAreaEnemySpawner(-86, 61, -97, 73, 69, "lunatic_3"));
+        RegisterSpawner(new SimpleAreaEnemySpawner(-86, 61, -97, 73, 69, 2.5, "lunatic_3"));
 
         // LAVA AREA BELOW MAIN AREA
         RegisterSpawner(new SimpleAreaEnemySpawner(-20, -51, -41, -27, 38, 0.5, "lunatic_5_lava"));
 
         // SKY AREA
         RegisterSpawner(new SimpleAreaEnemySpawner(-27, 75, -4, 106, 125, 0.75, "lunatic_5_sky"));
+    }
+
+    @Override
+    public PlayerTeleport GetRespawnPoint(GamePlayer died) {
+        return PlayerTeleport.WATERWAY_SPAWN;
     }
 }

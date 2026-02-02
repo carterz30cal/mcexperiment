@@ -1,7 +1,7 @@
 package com.carterz30cal.areas2.quests.requirements;
 
 import com.carterz30cal.areas2.quests.Questgivers;
-import com.carterz30cal.entities.GamePlayer;
+import com.carterz30cal.entities.player.GamePlayer;
 
 public class PreviousQuestRequirement implements QuestRequirement {
     private final Questgivers questgiver;

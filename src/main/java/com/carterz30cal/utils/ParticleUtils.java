@@ -1,15 +1,14 @@
 package com.carterz30cal.utils;
 
-import java.util.HashSet;
-import java.util.Set;
-
+import com.carterz30cal.entities.PlayerManager;
+import com.carterz30cal.entities.player.GamePlayer;
 import org.bukkit.Location;
 import org.bukkit.Particle;
 import org.bukkit.entity.Entity;
 import org.bukkit.util.Vector;
 
-import com.carterz30cal.entities.GamePlayer;
-import com.carterz30cal.entities.PlayerManager;
+import java.util.HashSet;
+import java.util.Set;
 
 public class ParticleUtils {
 	public static void spawnAround(Entity p, Particle.DustOptions t, int a)

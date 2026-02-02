@@ -1,7 +1,7 @@
 package com.carterz30cal.utils;
 
-import com.carterz30cal.entities.GamePlayer;
 import com.carterz30cal.entities.PlayerManager;
+import com.carterz30cal.entities.player.GamePlayer;
 import com.carterz30cal.main.Dungeons;
 import org.bukkit.Location;
 import org.bukkit.Material;
@@ -53,6 +53,10 @@ public class Box {
         this.x2 = x;
         this.y2 = y;
         this.z2 = z;
+    }
+
+    public Box(Location location) {
+        this(location.getBlockX(), location.getBlockY(), location.getBlockZ());
     }
 
     public Box Expand(int by) {

@@ -1,28 +1,22 @@
 package com.carterz30cal.areas;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
-
-import org.bukkit.Color;
-import org.bukkit.Location;
-import org.bukkit.Material;
-import org.bukkit.Particle;
-import org.bukkit.Sound;
-import org.bukkit.Particle.DustOptions;
-import org.bukkit.scheduler.BukkitRunnable;
-import org.bukkit.util.Vector;
-
 import com.carterz30cal.entities.EnemyManager;
 import com.carterz30cal.entities.GameEnemy;
 import com.carterz30cal.entities.GameParticleProjectile;
-import com.carterz30cal.entities.GamePlayer;
 import com.carterz30cal.entities.PlayerManager;
+import com.carterz30cal.entities.player.GamePlayer;
 import com.carterz30cal.main.Dungeons;
 import com.carterz30cal.utils.BlockUtils;
 import com.carterz30cal.utils.BlockUtils.BlockStructure;
 import com.carterz30cal.utils.RandomUtils;
+import org.bukkit.*;
+import org.bukkit.scheduler.BukkitRunnable;
+import org.bukkit.util.Vector;
+
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 public class BossHydra extends AbstractArea {
 	

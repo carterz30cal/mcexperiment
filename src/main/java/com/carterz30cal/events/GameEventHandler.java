@@ -2,7 +2,7 @@ package com.carterz30cal.events;
 
 import com.carterz30cal.areas2.Areas;
 import com.carterz30cal.entities.GameEnemy;
-import com.carterz30cal.entities.GamePlayer;
+import com.carterz30cal.entities.player.GamePlayer;
 import org.bukkit.Location;
 
 public interface GameEventHandler {

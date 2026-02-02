@@ -1,19 +1,19 @@
 package com.carterz30cal.items.enchants;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
-
 import com.carterz30cal.entities.DamageInfo;
 import com.carterz30cal.entities.GameEnemy;
-import com.carterz30cal.entities.GamePlayer;
+import com.carterz30cal.entities.player.GamePlayer;
 import com.carterz30cal.items.ItemEnchant;
 import com.carterz30cal.items.ItemReq;
 import com.carterz30cal.items.ItemType;
 import com.carterz30cal.stats.Stat;
 import com.carterz30cal.stats.StatContainer;
 import com.carterz30cal.stats.StatOperationType;
+
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 public class Snowstorm extends ItemEnchant {
 

@@ -1,25 +1,17 @@
 package com.carterz30cal.dungeoneering;
 
-import java.util.ArrayDeque;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Deque;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.UUID;
-
+import com.carterz30cal.entities.player.GamePlayer;
+import com.carterz30cal.main.Dungeons;
+import com.carterz30cal.utils.BlockUtils;
+import com.carterz30cal.utils.BlockUtils.BlockStructure;
+import com.carterz30cal.utils.RandomUtils;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.block.Barrel;
 import org.bukkit.block.Block;
 import org.bukkit.scheduler.BukkitRunnable;
 
-import com.carterz30cal.entities.GamePlayer;
-import com.carterz30cal.main.Dungeons;
-import com.carterz30cal.utils.BlockUtils;
-import com.carterz30cal.utils.BlockUtils.BlockStructure;
-import com.carterz30cal.utils.RandomUtils;
+import java.util.*;
 
 public class DungeonFloor 
 {

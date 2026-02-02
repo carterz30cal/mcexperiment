@@ -1,7 +1,7 @@
 package com.carterz30cal.utils;
 
 import com.carterz30cal.areas2.quests.rewards.QuestReward;
-import com.carterz30cal.entities.GamePlayer;
+import com.carterz30cal.entities.player.GamePlayer;
 import com.carterz30cal.items.Collection;
 import com.carterz30cal.items.DiscoveryManager;
 

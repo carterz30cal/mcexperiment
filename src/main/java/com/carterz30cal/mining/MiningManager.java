@@ -1,6 +1,6 @@
 package com.carterz30cal.mining;
 
-import com.carterz30cal.entities.GamePlayer;
+import com.carterz30cal.entities.player.GamePlayer;
 import com.carterz30cal.items.ItemFactory;
 import com.carterz30cal.main.Dungeons;
 import com.carterz30cal.stats.Stat;
@@ -60,10 +60,17 @@ public class MiningManager {
 
                     @Override
                     public void run() {
-                        location.getBlock().setType(instance.originalBlock.get(location.getBlock().getLocation()));
+                        location.getBlock().setType(instance.originalBlock.get(location));
                     }
                 };
         instance.runnables.add(runnable);
+    }
+
+    public static void UnsetBlock(Location location) {
+        if (!instance.originalBlock.containsKey(location)) {
+            return;
+        }
+        location.getBlock().setType(instance.originalBlock.get(location));
     }
 
     public static void attemptMine(GamePlayer player, Location location) {
