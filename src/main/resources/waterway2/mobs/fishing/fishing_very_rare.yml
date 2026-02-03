@@ -1,0 +1,327 @@
+drenched_VERY_RARE:
+  name: BLUEDrenched
+  entity-type: DROWNED
+  has-director: true
+  type: FISH
+  fishing-brackets:
+    WATERWAY: VERY_RARE
+  level: 7
+  health: 1000
+  knockback: 125
+  damage: 120
+  damage-type: PHYSICAL
+  display-height: 1.8
+  blood-colour: 0,50,100
+  bestiary-category: waterway_fishing_very_rare
+  armour:
+    PHYSICAL: 0
+    PROJECTILE: 0
+    MAGICAL: 0
+    HOLY: 0
+    BLEED: -30
+    FIRE: 100
+    WITHER: 0
+  equipment:
+    HAND: COPPER_HOE
+    CHEST: IRON_CHESTPLATE
+    FEET: LEATHER_BOOTS
+  tags:
+    - FISHING
+    - FISHING_WATERWAY
+    - FISHING_VERY_RARE
+  drops:
+    waterway_cod:
+      amount: 10/25
+    meat_scraps:
+      chance: 1/300
+      amount: 4/4
+    pet_drenched_common:
+      chance: 1/140
+    fishing_berries:
+      chance: 1/150
+
+lunatic_fisherman_VERY_RARE:
+  name: BLUELunatic Fisherman
+  type: FISH
+  fishing-brackets:
+    WATERWAY: VERY_RARE
+  level: 7
+  coin-multiplier: 3
+  health: 800
+  knockback: 95
+  damage: 140
+  speed: 1.6
+  damage-type: PHYSICAL
+  display-height: 1.8
+  blood-colour: 250,0,50
+  bestiary-category: waterway_fishing_very_rare
+  armour:
+    PHYSICAL: 0
+    PROJECTILE: 75
+    MAGICAL: 0
+    HOLY: 0
+    BLEED: -50
+    FIRE: 200
+    WITHER: 0
+  equipment:
+    HAND: FISHING_ROD
+    HEAD: water_helmet
+    CHEST: LEATHER_CHESTPLATE
+    LEGS: LEATHER_LEGGINGS
+    FEET: LEATHER_BOOTS
+  tags:
+    - LUNATIC
+    - LUNATIC_HIGH_RANK
+    - FISHING
+    - FISHING_WATERWAY
+    - FISHING_VERY_RARE
+  drops:
+    weird_flesh:
+      amount: 10/26
+    waterway_cod:
+      amount: 12/20
+    water_helmet:
+      chance: 1/75
+    water_chestplate:
+      chance: 1/75
+    water_leggings:
+      chance: 1/75
+    water_boots:
+      chance: 1/75
+    flimsy_fishing_rod:
+      chance: 1/75
+    fishing_berries:
+      chance: 1/70
+
+sea_slug_VERY_RARE:
+  name: BLUESea Slug
+  type: FISH
+  entity-type: SILVERFISH
+  has-director: true
+  scale: 1.4
+  fishing-brackets:
+    WATERWAY: VERY_RARE
+  level: 7
+  health: 500
+  knockback: 165
+  damage: 160
+  speed: 1.8
+  damage-type: PHYSICAL
+  display-height: 0.7
+  blood-colour: 250,0,50
+  bestiary-category: waterway_fishing_very_rare
+  armour:
+    PHYSICAL: 0
+    PROJECTILE: 75
+    MAGICAL: 0
+    HOLY: 0
+    BLEED: -50
+    FIRE: 200
+    WITHER: 0
+  tags:
+    - FISHING
+    - FISHING_WATERWAY
+    - FISHING_VERY_RARE
+  drops:
+    waterway_cod:
+      amount: 20/40
+    fishing_berries:
+      chance: 1/200
+    cooked_waterway_cod:
+      chance: 1/400
+    sea_slug_ooze:
+      chance: 1/300
+    enchanted_book-SUPERLURE1:
+      chance: 1/500
+      enchants: ENCHANT_SUPERLURE-1
+    enchanted_book-SUPERLURE2:
+      chance: 1/1250
+      enchants: ENCHANT_SUPERLURE-2
+
+sea_slime_VERY_RARE:
+  name: BLUESea Slime
+  type: FISH
+  entity-type: SLIME
+  has-director: false
+  scale: 1.5
+  fishing-brackets:
+    WATERWAY: VERY_RARE
+  level: 7
+  health: 1400
+  knockback: 20
+  damage: 85
+  speed: 1.1
+  damage-type: PHYSICAL
+  display-height: 0.8
+  blood-colour: 250,0,50
+  bestiary-category: waterway_fishing_very_rare
+  armour:
+    PHYSICAL: 0
+    PROJECTILE: 75
+    MAGICAL: 0
+    HOLY: 0
+    BLEED: 10000
+    FIRE: -50
+    WITHER: 0
+  tags:
+    - FISHING
+    - FISHING_WATERWAY
+    - FISHING_VERY_RARE
+    - SLIME
+  drops:
+    waterway_cod:
+      amount: 10/65
+    green_slime:
+      amount: 3/3
+      chance: 1/19
+    cooked_waterway_cod:
+      chance: 1/400
+    enchanted_book:
+      chance: 1/600
+      enchants: ENCHANT_SLIMED-2
+
+scared_shockreaver_VERY_RARE:
+  name: BLUEScared Shockreaver
+  type: FISH
+  entity-type: DROWNED
+  has-director: true
+  scale: 1.25
+  fishing-brackets:
+    WATERWAY: VERY_RARE
+  level: 7
+  health: 1000
+  knockback: 0
+  damage: 100
+  speed: 1.15
+  damage-type: PHYSICAL
+  display-height: 2.3
+  blood-colour: 250,0,50
+  bestiary-category: waterway_fishing_very_rare
+  equipment:
+    HAND: DIAMOND_AXE
+    HEAD: DIAMOND_HELMET
+    CHEST: DIAMOND_CHESTPLATE
+    LEGS: DIAMOND_LEGGINGS
+    FEET: DIAMOND_BOOTS
+  armour:
+    PHYSICAL: 300
+    PROJECTILE: 600
+    MAGICAL: 0
+    HOLY: 0
+    BLEED: -70
+    FIRE: -20
+    WITHER: 0
+  tags:
+    - FISHING
+    - FISHING_WATERWAY
+    - FISHING_VERY_RARE
+    - WATERWAY_SHOCKER
+  drops:
+    storm_crystals:
+      amount: 2/2
+    waterway_cod:
+      amount: 20/50
+    storm_talisman_VERY_RARE:
+      chance: 1/5
+    fishing_berries:
+      chance: 1/250
+    cooked_waterway_cod:
+      chance: 1/350
+    enchanted_book-SUPERLURE1:
+      chance: 1/750
+      enchants: ENCHANT_SUPERLURE-1
+
+water_spirit_VERY_RARE:
+  name: BLUEBOLDWater Spirit
+  type: FISH
+  entity-type: BREEZE
+  fishing-brackets:
+    WATERWAY: VERY_RARE
+  ignore-target-limit: true
+  level: 10
+  health: 3000
+  knockback: 0
+  damage: 190
+  damage-type: MAGICAL
+  display-height: 1.9
+  blood-colour: 0,75,150
+  speed: 1.4
+  resistances:
+    BLEED: -1
+  armour:
+    PHYSICAL: 25
+    PROJECTILE: -25
+    MAGICAL: 1000
+    HOLY: -25
+    FIRE: -25
+    WITHER: 0
+  tags:
+    - FISHING
+    - FISHING_WATERWAY
+    - FISHING_VERY_RARE
+    - FISHING_MINIBOSS
+  drops:
+    waterway_cod:
+      amount: 70/100
+    water_spirit_soul:
+      chance: 1/100
+
+
+titan_fishing_VERY_RARE:
+  name: BLUEBOLDMinor Titan
+  type: TITAN_FISH
+  coin-multiplier: 3
+  entity-type: HUSK
+  fishing-brackets:
+    WATERWAY: VERY_RARE
+  ignore-target-limit: true
+  level: 21
+  health: 4500
+  knockback: 40
+  damage: 100
+  damage-type: PHYSICAL
+  display-height: 2.1
+  blood-colour: 250,0,50
+  damage-cap-percentage: 3
+  overkill-reward: 4
+  speed: 1.3
+  titan-fight:
+    explosion-radius: 5
+    explosion-damage: 400
+    explosion-cooldown: 300
+    slash-damage: 90
+    slash-cooldown: 30
+    slash-time: 15
+    beam-damage: 110
+    beam-min-range: 9
+    beam-cooldown: 30
+    rain-damage: 40
+    rain-min-range: 2
+    rain-max-range: 9
+  resistances:
+    BLEED: 150
+  armour:
+    PHYSICAL: 0
+    PROJECTILE: 500
+    MAGICAL: 0
+    HOLY: 0
+    BLEED: -35
+    FIRE: 0
+    WITHER: 0
+  equipment:
+    HAND: ripe_sword
+    HEAD: WITHER_SKELETON_SKULL
+    CHEST: LEATHER_CHESTPLATE
+    LEGS: leather_leggings
+    FEET: GOLDEN_BOOTS
+  tags:
+    - TITAN
+    - TITAN_LOW_RANK
+    - MINIBOSS
+    - FISHING
+    - FISHING_WATERWAY
+    - FISHING_VERY_RARE
+    - FISHING_MINIBOSS
+  drops:
+    titan_lootbox_1:
+      amount: 2/2

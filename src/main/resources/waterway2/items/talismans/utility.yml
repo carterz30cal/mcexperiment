@@ -50,3 +50,12 @@ zombies_head:
     - VITALITY_TALISMAN
   stats:
     vitality: +8
+
+water_spirit_soul:
+  name: Water Spirit Soul
+  type: TALISMAN
+  rarity: RARE
+  material: PLAYER_HEAD
+  value: 1000
+  stats:
+    FISHING_POWER: +35

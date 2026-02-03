@@ -10,6 +10,7 @@ public enum EnemyTypes
     CAPPED(EnemyTypeDamageCapped.class),
 	FISH(EnemyTypeFish.class),
 	TITAN(EnemyTypeTitanDrench.class),
+	TITAN_FISH(EnemyTypeTitanDrenchFish.class),
 	HYDRA(EnemyTypeHydra.class),
 	HYDRA_HEAD(EnemyTypeHydraHead.class),
 	WRAITHLIKE(EnemyTypeWraithlike.class),
