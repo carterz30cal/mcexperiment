@@ -9,6 +9,7 @@ import com.carterz30cal.items.ItemFactory;
 import com.carterz30cal.items.ItemType;
 import com.carterz30cal.main.Dungeons;
 import com.carterz30cal.stats.Stat;
+import com.carterz30cal.utils.EntityUtils;
 import com.carterz30cal.utils.MathsUtils;
 import com.carterz30cal.utils.ParticleUtils;
 import com.carterz30cal.utils.RandomUtils;
@@ -29,6 +30,7 @@ import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.util.Vector;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 public class ListenerEntityDamage implements Listener
@@ -98,6 +100,9 @@ public class ListenerEntityDamage implements Listener
 
                     info.damage = (int) Math.round(player.stats.getStat(Stat.DAMAGE) * multiplier);
 				}
+                if (info.damage < 1) {
+                    info.damage = 1;
+                }
 			}
 			
 			for (var a : abilities)
@@ -216,8 +221,22 @@ public class ListenerEntityDamage implements Listener
 	@EventHandler
 	public void onEntityExplode(EntityExplodeEvent e)
 	{
-		e.setCancelled(true);
-		Dungeons.w.createExplosion(e.getEntity().getLocation(), 5, false, false);
+        if (e.getEntity() instanceof BreezeWindCharge) {
+            GameEnemy owner = (GameEnemy) GameEntity.get(e.getEntity());
+            if (owner == null) {
+                return;
+            }
+            List<GameEntity> entities = new ArrayList<>();
+            entities.addAll(EntityUtils.getNearbyEnemies(e.getLocation(), 2.5));
+            entities.addAll(EntityUtils.getNearbyPlayers(e.getLocation(), 2.5));
+            for (var entity : entities) {
+                entity.damage(owner.type.damage);
+            }
+        }
+        else {
+            e.setCancelled(true);
+            Dungeons.w.createExplosion(e.getEntity().getLocation(), 5, false, false);
+        }
 	}
 	
 	
@@ -362,13 +381,13 @@ public class ListenerEntityDamage implements Listener
 		if (shooter instanceof Player) return;
 		
 		GameEnemy enemy = (GameEnemy)GameEnemy.get(shooter);
-		if (!enemy.type.onLaunch(enemy))
+        if (enemy == null || !enemy.type.onLaunch(enemy))
 		{
 			e.setCancelled(true);
 			e.getEntity().remove();
 		}
 		else {
-			e.getEntity().getPersistentDataContainer().set(GameEnemy.keyEnemy, PersistentDataType.STRING, enemy.main.getUniqueId().toString());
+            e.getEntity().getPersistentDataContainer().set(GameEnemy.keyEnemy, PersistentDataType.STRING, enemy.GetUUID().toString());
 		}
 	}
 	

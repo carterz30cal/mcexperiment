@@ -246,6 +246,7 @@ water_spirit_VERY_RARE:
   display-height: 1.9
   blood-colour: 0,75,150
   speed: 1.4
+  bestiary-category: waterway_fishing_very_rare
   resistances:
     BLEED: -1
   armour:
@@ -285,6 +286,7 @@ titan_fishing_VERY_RARE:
   damage-cap-percentage: 3
   overkill-reward: 4
   speed: 1.3
+  bestiary-category: waterway_fishing_very_rare
   titan-fight:
     explosion-radius: 5
     explosion-damage: 400
