@@ -8,6 +8,7 @@ import com.carterz30cal.items.abilities2.generic.MagicSwordAbility;
 import com.carterz30cal.items.abilities2.generic.StatEnchantment;
 import com.carterz30cal.items.abilities2.implementation.GameAbility;
 import com.carterz30cal.items.abilities2.waterway.NecromancerAbility;
+import com.carterz30cal.items.abilities2.waterway.SeraphSummonGuideAbility;
 import com.carterz30cal.items.abilities2.waterway.SeraphSwordAbility;
 import com.carterz30cal.items.abilities2.waterway.SuperLureEnchantment;
 import com.carterz30cal.items.abilities2.waterway.pets.PetDrenchedActive;
@@ -79,6 +80,7 @@ public enum Abilities
     PET_WATER_TITAN_ACTIVE(new PetWaterTitanActive()),
     WATERWAY_SERAPH_SWORD(new SeraphSwordAbility()),
     MAGIC_SWORD(new MagicSwordAbility()),
+    SERAPH_SUMMON_GUIDE(new SeraphSummonGuideAbility("water_seraph_spirit")),
     ADMIN_INSTANT_DEATH_SWORD(new DeadAbility()),
 	;
 	public final GameAbility ability;

@@ -87,13 +87,21 @@ public class GameSummon extends GameEnemy {
 
     }
 
-    public static GameSummon spawnSummonFromEnemy(GamePlayer owner, GameEnemy dead) {
-        GameSummon summon = new GameSummon(dead.getLocation(), dead.type);
-        summon.main = EntityUtils.spawnPart(EntityType.ZOMBIE, dead.getLocation());
+    public static GameSummon SpawnSummonFromEnemy(GamePlayer owner, GameEnemy dead) {
+        return SpawnSummonFromEnemy(owner, dead.getLocation(), dead.type);
+    }
+
+    public static GameSummon SpawnSummonFromEnemy(GamePlayer owner, Location location, AbstractEnemyType dead) {
+        GameSummon summon = new GameSummon(location, dead);
+        summon.main = EntityUtils.spawnPart(EntityType.ZOMBIE, location);
         EntityUtils.setArmourPiece((Mob)summon.main, EquipmentSlot.HEAD, new ItemStack(Material.CHAINMAIL_HELMET));
         EntityUtils.setArmourPiece((Mob)summon.main, EquipmentSlot.CHEST, new ItemStack(Material.CHAINMAIL_CHESTPLATE));
-        if (dead.type.level > 15) EntityUtils.setArmourPiece((Mob)summon.main, EquipmentSlot.LEGS, new ItemStack(Material.CHAINMAIL_LEGGINGS));
-        if (dead.type.level > 10) EntityUtils.setArmourPiece((Mob)summon.main, EquipmentSlot.FEET, new ItemStack(Material.CHAINMAIL_BOOTS));
+        if (dead.level > 15) {
+            EntityUtils.setArmourPiece((Mob) summon.main, EquipmentSlot.LEGS, new ItemStack(Material.CHAINMAIL_LEGGINGS));
+        }
+        if (dead.level > 10) {
+            EntityUtils.setArmourPiece((Mob) summon.main, EquipmentSlot.FEET, new ItemStack(Material.CHAINMAIL_BOOTS));
+        }
         summon.owner = owner;
         summon.SetSpeed(2);
 

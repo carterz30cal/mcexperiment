@@ -76,3 +76,14 @@ storm_talisman_epic:
     - STORM_TALISMAN
   stats:
     strength: +70
+
+seraphs_guide_to_summoning_spirits:
+  name: "A Seraph's Guide to Summoning Spirits"
+  type: TALISMAN
+  rarity: LEGENDARY
+  material: BOOK
+  value: 3000
+  tags:
+    - SERAPH_SUMMON_GUIDE
+  abilities:
+    - SERAPH_SUMMON_GUIDE

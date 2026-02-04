@@ -29,6 +29,8 @@ public class NecromancerAbility extends GameAbility {
 
     public void onKill(AbilityContext context, GameEnemy killed)
     {
-        if (!(killed instanceof GameSummon)) GameSummon.spawnSummonFromEnemy(context.owner, killed);
+        if (!(killed instanceof GameSummon)) {
+            GameSummon.SpawnSummonFromEnemy(context.owner, killed);
+        }
     }
 }

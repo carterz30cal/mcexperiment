@@ -65,3 +65,29 @@ water_seraph_fanatic:
     - LUNATIC
     - LUNATIC_HIGH_RANK
     - FANATIC
+
+water_seraph_spirit:
+  name: Spirit
+  type: SIMPLE
+  entity-type: ZOMBIE
+  ignore-target-limit: true
+  level: 6
+  health: 900
+  coin-multiplier: 0
+  knockback: 0
+  damage: 50
+  damage-type: MAGICAL
+  display-height: 1.8
+  blood-colour: 250,0,50
+  speed: 1.5
+  bestiary-category: NO_REGISTER
+  armour:
+    PHYSICAL: 25
+    PROJECTILE: 0
+    MAGICAL: 25
+    HOLY: -25
+    BLEED: -75
+    FIRE: 10
+    WITHER: 0
+  resistances:
+    BLEED: 50

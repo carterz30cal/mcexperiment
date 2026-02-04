@@ -51,6 +51,9 @@ public class BestiaryGUI extends AbstractGUI {
     }
 
     public static void RegisterTypeIntoCategory(String eid, String cid) {
+        if (cid.equals("NO_REGISTER")) {
+            return;
+        }
         categories.getOrDefault(cid, categories.get("base")).types.add(eid);
     }
 
