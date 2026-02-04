@@ -1,14 +1,13 @@
 package com.carterz30cal.entities;
 
+import com.carterz30cal.utils.FileUtils;
 import org.bukkit.Location;
 import org.bukkit.configuration.file.FileConfiguration;
-
-import com.carterz30cal.utils.FileUtils;
 
 public class EnemyManager 
 {
 	public static String[] files = {
-            "waterway2/mobs/lunatics","waterway2/mobs/spiders","waterway2/mobs/titans",
+            "waterway2/mobs/lunatics", "waterway2/mobs/titans",
 			"waterway2/mobs/fishing/fishing_common",
 			"waterway2/mobs/fishing/fishing_uncommon",
 			"waterway2/mobs/fishing/fishing_rare",
