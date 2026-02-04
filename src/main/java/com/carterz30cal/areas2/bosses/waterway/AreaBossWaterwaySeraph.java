@@ -42,6 +42,7 @@ public final class AreaBossWaterwaySeraph extends AbstractAreaBoss {
         drops.add(new WeightedDrop("clear_glass_helmet£1", 5));
         drops.add(new WeightedDrop("seraphs_pyjamas£1", 5));
         drops.add(new WeightedDrop("seraph_ooze", 2));
+        drops.add(new WeightedDrop("seraphs_guide_to_summoning_spirits", 2));
     }
 
     public final int BOMB_DAMAGE = 230;
