@@ -12,10 +12,11 @@ public enum DamageType
 	FIRE("GOLDFire", 10),
 	FROST("BLUEFrost", 0),
 	WITHER("BLACKWither", 0);
-	
-	public String name;
+
+    public final String name;
 	public final int knockbackModifier;
-	private DamageType(String name, int kb)
+
+    DamageType(String name, int kb)
 	{
 		this.name = StringUtils.colourString(name);
 		this.knockbackModifier = kb;

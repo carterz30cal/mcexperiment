@@ -217,6 +217,23 @@ public class ListenerEntityDamage implements Listener
 	public void onEntityCombust(EntityCombustEvent e) {
 		e.setCancelled(true);
 	}
+
+    @EventHandler
+    public void onEntityPrime(ExplosionPrimeEvent e) {
+        GameEntity entity = GameEntity.get(e.getEntity());
+        if (entity instanceof GameEnemy) {
+            List<GameEntity> entities = new ArrayList<>(EntityUtils.getNearbyEnemies(entity.getLocation(), 4.5));
+            entities.removeIf((b) -> !(b instanceof GameSummon));
+            entities.addAll(EntityUtils.getNearbyPlayers(entity.getLocation(), 4.5));
+            for (var ent : entities) {
+                ent.damage(((GameEnemy) entity).getAttack());
+            }
+            ((GameEnemy) entity).kill();
+            ((GameEnemy) entity).getMain().remove();
+            Dungeons.w.createExplosion(entity.getLocation(), 4.5F, false, false);
+        }
+        e.setCancelled(true);
+    }
 	
 	@EventHandler
 	public void onEntityExplode(EntityExplodeEvent e)
@@ -230,7 +247,7 @@ public class ListenerEntityDamage implements Listener
             entities.addAll(EntityUtils.getNearbyEnemies(e.getLocation(), 2.5));
             entities.addAll(EntityUtils.getNearbyPlayers(e.getLocation(), 2.5));
             for (var entity : entities) {
-                entity.damage(owner.type.damage);
+                entity.damage(owner.getAttack());
             }
         }
         else {

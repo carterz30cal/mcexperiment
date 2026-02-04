@@ -86,3 +86,41 @@ lunatic_fisherman_COMMON:
       chance: 1/75
     flimsy_fishing_rod:
       chance: 1/75
+
+angry_creeper_COMMON:
+  name: GRAYAngry Creeper
+  type: FISH
+  fishing-brackets:
+    WATERWAY: COMMON
+  level: 3
+  entity-type: CREEPER
+  health: 50
+  knockback: 200
+  damage: 100
+  speed: 1.3
+  damage-type: PHYSICAL
+  display-height: 1.8
+  blood-colour: 0,170,50
+  bestiary-category: waterway_fishing_common
+  resistances:
+    BLEED: -1
+    BURN: 10
+    POISON: -1
+  armour:
+    PHYSICAL: 0
+    PROJECTILE: -10
+    MAGICAL: 0
+    HOLY: 0
+    BLEED: 0
+    FIRE: -95
+    WITHER: 0
+  tags:
+    - FISHING
+    - FISHING_WATERWAY
+    - FISHING_COMMON
+  drops:
+    waterway_cod:
+      amount: 2/4
+    enchanted_book:
+      chance: 1/150
+      enchants: ENCHANT_LAST_CHANCE-1

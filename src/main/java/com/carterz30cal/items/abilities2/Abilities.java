@@ -7,10 +7,7 @@ import com.carterz30cal.items.abilities2.generic.HealingAbility;
 import com.carterz30cal.items.abilities2.generic.MagicSwordAbility;
 import com.carterz30cal.items.abilities2.generic.StatEnchantment;
 import com.carterz30cal.items.abilities2.implementation.GameAbility;
-import com.carterz30cal.items.abilities2.waterway.NecromancerAbility;
-import com.carterz30cal.items.abilities2.waterway.SeraphSummonGuideAbility;
-import com.carterz30cal.items.abilities2.waterway.SeraphSwordAbility;
-import com.carterz30cal.items.abilities2.waterway.SuperLureEnchantment;
+import com.carterz30cal.items.abilities2.waterway.*;
 import com.carterz30cal.items.abilities2.waterway.pets.PetDrenchedActive;
 import com.carterz30cal.items.abilities2.waterway.pets.PetDrenchedPassive;
 import com.carterz30cal.items.abilities2.waterway.pets.PetWaterTitanActive;
@@ -70,6 +67,7 @@ public enum Abilities
     ENCHANT_CONCENTRATION(new StatEnchantment(
             "Concentration", 3, Stat.FOCUS, 2, 1, 3, ItemType.HELMET, ItemType.WEAPON
     )),
+    ENCHANT_LAST_CHANCE(new LastChanceEnchantment()),
 
 	NECROMANCY_SWORD(new NecromancerAbility()),
     HEALING_WAND_WATERWAY(new HealingAbility(12, 30)),

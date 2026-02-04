@@ -169,3 +169,41 @@ sea_slime_UNCOMMON:
       chance: 1/20
     cooked_waterway_cod:
       chance: 1/500
+
+angry_creeper_UNCOMMON:
+  name: YELLOWAngry Creeper
+  type: FISH
+  fishing-brackets:
+    WATERWAY: UNCOMMON
+  level: 4
+  health: 150
+  entity-type: CREEPER
+  knockback: 200
+  damage: 200
+  speed: 1.3
+  damage-type: PHYSICAL
+  display-height: 1.8
+  blood-colour: 0,170,50
+  bestiary-category: waterway_fishing_uncommon
+  resistances:
+    BLEED: -1
+    BURN: 10
+    POISON: -1
+  armour:
+    PHYSICAL: 0
+    PROJECTILE: -10
+    MAGICAL: 0
+    HOLY: 0
+    BLEED: 0
+    FIRE: -95
+    WITHER: 0
+  tags:
+    - FISHING
+    - FISHING_WATERWAY
+    - FISHING_COMMON
+  drops:
+    waterway_cod:
+      amount: 10/25
+    enchanted_book:
+      chance: 1/125
+      enchants: ENCHANT_LAST_CHANCE-1
