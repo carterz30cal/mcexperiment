@@ -61,6 +61,9 @@ public class GameSummon extends GameEnemy {
         }
 
         tick();
+        if (target == owner && owner.getLocation().distance(getLocation()) < 5) {
+            target = null;
+        }
     }
 
     @Override
@@ -69,7 +72,9 @@ public class GameSummon extends GameEnemy {
         List<GameEnemy> enemies = EntityUtils.getNearbyEnemies(getLocation(), 10);
         enemies.removeIf((e) -> (e instanceof GameSummon));
         if (!enemies.isEmpty()) return enemies.get(0);
-            //else if (owner.getLocation().distance(getLocation()) > 5) return owner;
+        else if (owner.getLocation().distance(getLocation()) > 10) {
+            return owner;
+        }
         else return null;
     }
 

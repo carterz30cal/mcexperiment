@@ -322,11 +322,21 @@ public class GameEnemy extends GameEntity
 
 				LivingEntity applyTo = director == null ? (LivingEntity)main : director;
 				EntityUtils.applyPotionEffect(applyTo, PotionEffectType.SLOWNESS, 19, 50, false);
+                if (director == null) {
+                    ((Mob) getMain()).setTarget(null);
+                }
+                else {
+                    director.setTarget(null);
+                }
 			}
-			else {
-				if (director == null) ((Mob)getMain()).setTarget(target.getTargetable());
-				else director.setTarget(target.getTargetable());
-			}
+            else {
+                if (director == null) {
+                    ((Mob) getMain()).setTarget(target.getTargetable());
+                }
+                else {
+                    director.setTarget(target.getTargetable());
+                }
+            }
 		}
 		else {
             if (!target.isTargetable(this)) {
