@@ -8,7 +8,6 @@ import com.carterz30cal.dungeoneering.DungeonManager;
 import com.carterz30cal.entities.DamageInfo;
 import com.carterz30cal.entities.GameEnemy;
 import com.carterz30cal.entities.GameEntity;
-import com.carterz30cal.entities.enemies.EnemyTypeFish;
 import com.carterz30cal.events.GameEventHandler;
 import com.carterz30cal.fishing.FishingArea;
 import com.carterz30cal.gui.AbstractGUI;
@@ -790,11 +789,6 @@ public class GamePlayer extends GameEntity
 			return least;
 		}
 		
-	}
-	
-	public int getFishingBracket()
-	{
-		return Math.min(stats.getStat(Stat.FISHING_POWER) / 100, EnemyTypeFish.maxBracket);
 	}
 	
 	

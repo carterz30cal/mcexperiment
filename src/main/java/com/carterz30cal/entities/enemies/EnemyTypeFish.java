@@ -1,24 +1,17 @@
 package com.carterz30cal.entities.enemies;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
+import com.carterz30cal.entities.GameEnemy;
 import com.carterz30cal.fishing.FishingArea;
 import com.carterz30cal.items.ItemRarity;
 import org.bukkit.configuration.ConfigurationSection;
-import org.bukkit.entity.EntityType;
 import org.bukkit.inventory.EquipmentSlot;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class EnemyTypeFish extends EnemyTypeSimple
 {
-	public static Map<Integer, List<String>> brackets = new HashMap<>();
-	public static int maxBracket = 0;
-	
 	public Map<EquipmentSlot, String> equipment = new HashMap<>();
-	
-	public int fishingBracket;
 	
 	public EnemyTypeFish(ConfigurationSection m) 
 	{
@@ -31,13 +24,18 @@ public class EnemyTypeFish extends EnemyTypeSimple
 				FishingArea.getFishingArea(area).addToBracket(rarity, id);
 			}
 		}
-
-
-
-		fishingBracket = m.getInt("fishing-bracket", 0);
-		if (fishingBracket > maxBracket) maxBracket = fishingBracket;
-		
-		brackets.putIfAbsent(fishingBracket, new ArrayList<>());
-		brackets.get(fishingBracket).add(id);
 	}
+
+    @Override
+    public void onTick(GameEnemy enemy) {
+        super.onTick(enemy);
+
+        int lifetime = (int) enemy.data.getOrDefault("lifetime", 20 * 60 * 5);
+        if (lifetime <= 0) {
+            enemy.remove();
+        }
+        else {
+            enemy.data.put("lifetime", --lifetime);
+        }
+    }
 }
