@@ -7,12 +7,12 @@ import org.bukkit.configuration.file.FileConfiguration;
 public class EnemyManager 
 {
 	public static String[] files = {
-            "waterway2/mobs/lunatics", "waterway2/mobs/titans",
-            "waterway2/mobs/seraph/boss", "waterway2/mobs/seraph/summons",
-			"waterway2/mobs/fishing/fishing_common",
-			"waterway2/mobs/fishing/fishing_uncommon",
-			"waterway2/mobs/fishing/fishing_rare",
-			"waterway2/mobs/fishing/fishing_very_rare",
+            "waterway/mobs/lunatics", "waterway/mobs/titans",
+            "waterway/mobs/seraph/boss", "waterway/mobs/seraph/summons",
+            "waterway/mobs/fishing/fishing_common",
+            "waterway/mobs/fishing/fishing_uncommon",
+            "waterway/mobs/fishing/fishing_rare",
+            "waterway/mobs/fishing/fishing_very_rare",
 	};
 	
 	public static EnemyManager instance;

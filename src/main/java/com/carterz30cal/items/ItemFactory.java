@@ -50,16 +50,16 @@ public class ItemFactory
 	public static Map<Integer, List<Recipe>> levelRecipes = new HashMap<>();
 
 	public static String[] files = {
-			"waterway2/items/ingredients", "waterway2/items/weapons/swords","waterway2/items/weapons/bows",
-            "waterway2/items/weapons/attuners", "waterway2/items/pickaxes/pickaxes",
-            "waterway2/items/fishing_rods/rods",
-			"waterway2/items/talismans/utility","waterway2/items/talismans/offensive",
-			"waterway2/items/lootboxes",
-			"waterway2/items/armours/uncommon_armours","waterway2/items/armours/rare_armours",
-			"waterway2/items/armours/very_rare_armours",
-			"waterway2/items/armours/sets/uncommon_sets","waterway2/items/armours/sets/rare_sets",
-			"waterway2/items/armours/sets/very_rare_sets",
-            "waterway2/items/pet_items", "waterway2/items/quest_items"
+            "waterway/items/ingredients", "waterway/items/weapons/swords", "waterway/items/weapons/bows",
+            "waterway/items/weapons/attuners", "waterway/items/pickaxes/pickaxes",
+            "waterway/items/fishing_rods/rods",
+            "waterway/items/talismans/utility", "waterway/items/talismans/offensive",
+            "waterway/items/lootboxes",
+            "waterway/items/armours/uncommon_armours", "waterway/items/armours/rare_armours",
+            "waterway/items/armours/very_rare_armours",
+            "waterway/items/armours/sets/uncommon_sets", "waterway/items/armours/sets/rare_sets",
+            "waterway/items/armours/sets/very_rare_sets",
+            "waterway/items/pet_items", "waterway/items/quest_items"
 	};
 	
 	
@@ -67,22 +67,22 @@ public class ItemFactory
 	public static NamespacedKey kData = new NamespacedKey(Dungeons.instance, "data");
 	public static NamespacedKey kUUID = new NamespacedKey(Dungeons.instance, "uuid");
 	public static String[] categoryFiles = {
-            "waterway2/recipes/categories"
+            "waterway/recipes/categories"
 	};
 	public static String[] recipeFiles = {
-            "waterway2/recipes/swords", "waterway2/recipes/bows", "waterway2/recipes/ingredients",
-            "waterway2/recipes/armours/uncommon_armours", "waterway2/recipes/armours/rare_armours",
-            "waterway2/recipes/armours/very_rare_armours",
-            "waterway2/recipes/attuners_offensive",
-            "waterway2/recipes/enchantments/sharpness",
-            "waterway2/recipes/talismans", "waterway2/recipes/harvesters", "waterway2/recipes/fishing_rods", "waterway2/recipes/pickaxes"
+            "waterway/recipes/swords", "waterway/recipes/bows", "waterway/recipes/ingredients",
+            "waterway/recipes/armours/uncommon_armours", "waterway/recipes/armours/rare_armours",
+            "waterway/recipes/armours/very_rare_armours",
+            "waterway/recipes/attuners_offensive",
+            "waterway/recipes/enchantments/sharpness",
+            "waterway/recipes/talismans", "waterway/recipes/harvesters", "waterway/recipes/fishing_rods", "waterway/recipes/pickaxes"
 	};
     public static String[] skullFiles = {
-            "waterway2/skulls"
+            "waterway/skulls"
     };
 
 	public static String[] shopFiles = {
-			"waterway2/items/shops"
+            "waterway/items/shops"
 	};
     private static Map<String, PlayerProfile> skullProfiles = new HashMap<>();
 	

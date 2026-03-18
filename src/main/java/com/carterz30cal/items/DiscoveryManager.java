@@ -1,20 +1,19 @@
 package com.carterz30cal.items;
 
+import com.carterz30cal.utils.FileUtils;
+import org.bukkit.configuration.ConfigurationSection;
+import org.bukkit.configuration.file.FileConfiguration;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.bukkit.configuration.ConfigurationSection;
-import org.bukkit.configuration.file.FileConfiguration;
-
-import com.carterz30cal.utils.FileUtils;
-
 public class DiscoveryManager {
 	private static Map<String, Collection> discoveries = new HashMap<>();
 	private static List<Collection> list = new ArrayList<>();
 	private static final String[] files = {
-            "waterway2/items/collections"
+			"waterway/items/collections"
 	};
 	
 	public DiscoveryManager() 

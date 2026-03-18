@@ -25,7 +25,7 @@ public class MiningManager {
     static {
         instance = new MiningManager();
         String[] areaFiles = {
-                "waterway2/waterway_mining"
+                "waterway/waterway_mining"
         };
         for (String file : areaFiles) {
             FileConfiguration c = FileUtils.getData(file);
