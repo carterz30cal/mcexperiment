@@ -1,9 +1,9 @@
 package com.carterz30cal.entities.player;
 
-import com.carterz30cal.areas2.AreaManager;
-import com.carterz30cal.areas2.Areas;
-import com.carterz30cal.areas2.PlayerTeleport;
-import com.carterz30cal.areas2.quests.Quests;
+import com.carterz30cal.areas.AreaManager;
+import com.carterz30cal.areas.Areas;
+import com.carterz30cal.areas.PlayerTeleport;
+import com.carterz30cal.areas.quests.Quests;
 import com.carterz30cal.dungeoneering.DungeonManager;
 import com.carterz30cal.entities.DamageInfo;
 import com.carterz30cal.entities.GameEnemy;

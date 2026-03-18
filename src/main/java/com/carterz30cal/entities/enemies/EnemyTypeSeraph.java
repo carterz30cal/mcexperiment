@@ -1,6 +1,6 @@
 package com.carterz30cal.entities.enemies;
 
-import com.carterz30cal.areas2.bosses.waterway.AreaBossWaterwaySeraph;
+import com.carterz30cal.areas.bosses.waterway.AreaBossWaterwaySeraph;
 import com.carterz30cal.entities.DamageInfo;
 import com.carterz30cal.entities.GameEnemy;
 import com.carterz30cal.entities.player.GamePlayer;

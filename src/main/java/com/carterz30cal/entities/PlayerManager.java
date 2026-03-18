@@ -1,6 +1,6 @@
 package com.carterz30cal.entities;
 
-import com.carterz30cal.areas2.quests.Quests;
+import com.carterz30cal.areas.quests.Quests;
 import com.carterz30cal.entities.player.GamePlayer;
 import com.carterz30cal.items.ForgingItem;
 import com.carterz30cal.main.Dungeons;

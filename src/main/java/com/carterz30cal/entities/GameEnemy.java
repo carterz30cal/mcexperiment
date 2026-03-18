@@ -1,6 +1,6 @@
 package com.carterz30cal.entities;
 
-import com.carterz30cal.areas2.AbstractGameArea;
+import com.carterz30cal.areas.AbstractGameArea;
 import com.carterz30cal.entities.damage.StatusEffect;
 import com.carterz30cal.entities.damage.StatusEffects;
 import com.carterz30cal.entities.enemies.EnemyTypeSimple;
