@@ -1,7 +1,5 @@
 package com.carterz30cal.commands;
 
-import com.carterz30cal.areas.AreaWaterway;
-import com.carterz30cal.areas.BossWaterwaySeraph;
 import com.carterz30cal.dungeoneering.TestDungeon;
 import com.carterz30cal.entities.PlayerManager;
 import com.carterz30cal.entities.Shop;
@@ -27,15 +25,6 @@ public class CommandForce implements CommandExecutor {
 				case "calcxp":
 					int arg = Integer.parseInt(args[1]);
 					p.sendMessage(Long.toString(LevelUtils.getEnemyBaseXpReward(arg)));
-					break;
-				case "togglerain":
-					AreaWaterway.instance.toggleRain();
-					break;
-				case "startseraphfight":
-					BossWaterwaySeraph.attemptStartFight();
-					break;
-				case "endseraphfight":
-					BossWaterwaySeraph.endFight();
 					break;
                 case "clearquests":
                     p.ClearQuests();

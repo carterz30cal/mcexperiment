@@ -1,6 +1,5 @@
 package com.carterz30cal.mining;
 
-import com.carterz30cal.areas.AbstractArea;
 import com.carterz30cal.entities.PlayerManager;
 import com.carterz30cal.entities.player.GamePlayer;
 import com.carterz30cal.items.ItemFactory;
@@ -110,11 +109,6 @@ public class Mineable
 		player.playSound(Sound.BLOCK_WOOL_BREAK, 1, 1.2);
 		
 		doBreakAnim(0);
-		
-		for (AbstractArea a : AbstractArea.areas.values()) 
-		{
-			a.onMine(player, location);
-		}
 		
 		if (clearing > 0) {
 			

@@ -1,6 +1,5 @@
 package com.carterz30cal.main;
 
-import com.carterz30cal.areas.AbstractArea;
 import com.carterz30cal.commands.*;
 import com.carterz30cal.entities.EnemyManager;
 import com.carterz30cal.entities.GameEntity;
@@ -117,16 +116,8 @@ public class Dungeons extends JavaPlugin
 			if (e instanceof Player) continue;
 			e.remove();
 		}
-		
-
-		
-		for (AbstractArea a : AbstractArea.areas.values()) a.onEnd();
-        //BlockUtils.removeStructures();
-        //Mineable.removeAll();
 
         MiningManager.onDisable();
-
-
     }
 	
 	private void setCommand(String command, CommandExecutor executor)

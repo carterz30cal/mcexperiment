@@ -12,7 +12,6 @@ public enum EnemyTypes
 	TITAN(EnemyTypeTitanDrench.class),
 	TITAN_FISH(EnemyTypeTitanDrenchFish.class),
 	HYDRA(EnemyTypeHydra.class),
-	HYDRA_HEAD(EnemyTypeHydraHead.class),
 	WRAITHLIKE(EnemyTypeWraithlike.class),
 	SERAPH(EnemyTypeSeraph.class),
 	SERAPH_MAGE_HEALTH(EnemyTypeSeraphMageHealth.class),
