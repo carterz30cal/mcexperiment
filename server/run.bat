@@ -1,0 +1,1 @@
+java -jar -Xmx2G spigot-1.21.11.jar  --nogui
