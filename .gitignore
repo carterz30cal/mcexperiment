@@ -127,3 +127,20 @@ buildNumber.properties
 # Common working directory
 run/
 /.idea/
+/server/plugins/WorldEdit/.archive-unpack/
+/server/plugins/WorldEdit/sessions/
+/server/debug/
+
+/server/eula.txt
+/server/plugins/ProtocolLib/
+/server/ops.json
+/server/world/datapacks/
+/server/plugins/Dungeons/players.yml
+/server/world/data/
+!/server/world/data/chunks.dat
+!/server/world/data/world_border.dat
+/server/usercache.json
+/server/waterway progression diagram.drawio
+/server/wepif.yml
+/server/whitelist.json
+
