@@ -82,18 +82,24 @@ public final class AreaBossWaterwaySeraph extends AbstractAreaBoss {
     public void tick() {
         super.tick();
 
+
         if (hologramAltar == null || !hologramAltar.isValid()) {
             if (hologramAltar != null) {
                 hologramAltar.remove();
             }
-            hologramAltar = EntityUtils.spawnHologram(altarLocation.clone().add(0.5, 1.3, 0.5), -1);
+            if (!EntityUtils.getNearbyPlayers(altarLocation, 30).isEmpty()) {
+                hologramAltar = EntityUtils.spawnHologram(altarLocation.clone().add(0.5, 1.3, 0.5), -1);
+            }
         }
-        if (started) {
-            hologramAltar.setCustomName(StringUtils.colourString("REDBoss alive!"));
+        if (hologramAltar != null) {
+            if (started) {
+                hologramAltar.setCustomName(StringUtils.colourString("REDBoss alive!"));
+            }
+            else {
+                hologramAltar.setCustomName(StringUtils.colourString("LIGHT_PURPLESeraph Altar"));
+            }
         }
-        else {
-            hologramAltar.setCustomName(StringUtils.colourString("LIGHT_PURPLESeraph Altar"));
-        }
+
 
         if (!active) {
             return;
@@ -343,7 +349,13 @@ public final class AreaBossWaterwaySeraph extends AbstractAreaBoss {
             else {
                 if (!active) {
                     active = true;
-                    openDoor();
+                    new BukkitRunnable() {
+                        @Override
+                        public void run() {
+                            openDoor();
+                        }
+                    }.runTaskLater(Dungeons.instance, 20 * 15);
+                    player.sendMessage("DARK_GRAYWaiting 15 seconds for other players to sign up...", 1);
                 }
                 player.sendMessage("GOLDSigned up!");
                 player.playSound(Sound.BLOCK_NOTE_BLOCK_CHIME, 0.7, 1);

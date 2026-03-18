@@ -26,7 +26,7 @@ public class ItemQuestReward extends QuestReward {
     @Override
     public List<String> GetRewardDescription() {
         var list = super.GetRewardDescription();
-        list.add("AQUA-- " + ItemFactory.getItemTypeName(item) + "DARK_GRAYx" + amount + "AQUA!");
+        list.add("AQUA-- " + ItemFactory.getItemTypeName(item) + "DARK_GRAY x" + amount + "AQUA!");
         return list;
     }
 

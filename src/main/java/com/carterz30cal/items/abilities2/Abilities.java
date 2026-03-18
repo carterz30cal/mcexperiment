@@ -68,6 +68,7 @@ public enum Abilities
             "Concentration", 3, Stat.FOCUS, 2, 1, 3, ItemType.HELMET, ItemType.WEAPON
     )),
     ENCHANT_LAST_CHANCE(new LastChanceEnchantment()),
+    ENCHANT_POWER(new StatEnchantment("Power", 2, Stat.DAMAGE, 0, 1, 5, ItemType.BOW)),
 
 	NECROMANCY_SWORD(new NecromancerAbility()),
     HEALING_WAND_WATERWAY(new HealingAbility(12, 30)),

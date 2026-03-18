@@ -16,6 +16,9 @@ public class PlayerWardrobe {
 
     public PlayerWardrobe(GamePlayer owner) {
         this.owner = owner;
+        for (int i = 0; i < DEFAULT_SLOT_COUNT; i++) {
+            slots.add(new WardrobeSlot());
+        }
     }
 
     public void Save(ConfigurationSection section) {
@@ -31,6 +34,7 @@ public class PlayerWardrobe {
     public void Load(ConfigurationSection section) {
         int slotCount = Math.max(section.getInt("slot-count", DEFAULT_SLOT_COUNT), DEFAULT_SLOT_COUNT);
         this.selectedSlot = section.getInt("selected-slot", 0);
+        slots.clear();
         for (int i = 0; i < slotCount; i++) {
             if (section.contains("slots." + i)) {
                 slots.add(new WardrobeSlot(Objects.requireNonNull(section.getConfigurationSection("slots." + i))));

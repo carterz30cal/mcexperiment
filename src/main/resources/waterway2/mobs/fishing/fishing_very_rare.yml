@@ -261,7 +261,7 @@ angry_creeper_VERY_RARE:
   tags:
     - FISHING
     - FISHING_WATERWAY
-    - FISHING_COMMON
+    - FISHING_VERY_RARE
   drops:
     waterway_cod:
       amount: 25/100
@@ -273,6 +273,74 @@ angry_creeper_VERY_RARE:
     enchanted_book-LC2:
       chance: 1/1000
       enchants: ENCHANT_LAST_CHANCE-2
+
+hydro_stray_VERY_RARE:
+  name: BLUEHydrostray
+  type: FISH
+  fishing-brackets:
+    WATERWAY: VERY_RARE
+  level: 7
+  health: 900
+  entity-type: STRAY
+  knockback: 100
+  damage: 110
+  damage-type: PROJECTILE
+  speed: 1.2
+  display-height: 1.8
+  bestiary-category: waterway_fishing_very_rare
+  blood-colour: 250,0,50
+  tags:
+    - FISHING
+    - FISHING_WATERWAY
+    - FISHING_VERY_RARE
+  equipment:
+    HAND: BOW
+  drops:
+    waterway_cod:
+      amount: 30/70
+    enchanted_book:
+      chance: 1/80
+      enchants: ENCHANT_POWER-1
+    hydrostray_skin: # chase drop from this mob
+      chance: 1/150
+    enchanted_book-2:
+      chance: 1/200
+      enchants: ENCHANT_POWER-2
+    fishing_berries:
+      chance: 1/250
+    enchanted_book-3:
+      chance: 1/450
+      enchants: ENCHANT_POWER-3
+    cooked_waterway_cod:
+      chance: 1/700
+
+lonely_seahorse_VERY_RARE:
+  name: BLUELonely Sea-horse
+  type: FISH
+  fishing-brackets:
+    WATERWAY: VERY_RARE
+  level: 7
+  has-director: true
+  health: 1950
+  entity-type: ZOMBIE_HORSE
+  scale: 0.75
+  knockback: 50
+  damage: 70
+  damage-type: PHYSICAL
+  speed: 1.35
+  display-height: 1.4
+  bestiary-category: waterway_fishing_very_rare
+  blood-colour: 250,0,50
+  tags:
+    - FISHING
+    - FISHING_WATERWAY
+    - FISHING_VERY_RARE
+  drops:
+    waterway_cod:
+      amount: 80/90
+    fishing_berries:
+      chance: 1/100
+      amount: 1/2
 
 water_spirit_VERY_RARE:
   name: BLUEBOLDWater Spirit
@@ -356,7 +424,7 @@ titan_fishing_VERY_RARE:
   equipment:
     HAND: ripe_sword
     HEAD: WITHER_SKELETON_SKULL
-    CHEST: LEATHER_CHESTPLATE
+    CHEST: water_chestplate
     LEGS: leather_leggings
     FEET: GOLDEN_BOOTS
   tags:

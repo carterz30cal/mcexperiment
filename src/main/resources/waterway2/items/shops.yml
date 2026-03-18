@@ -14,7 +14,7 @@ bobs_simple_supplies:
       level: 1
     bad_pun_sword_1:
       item: bad_pun_sword_1
-      coins: 1350
+      coins: 600
       level: 2
     catalyst:
       item: combination_catalyst_shard

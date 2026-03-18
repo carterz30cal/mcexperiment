@@ -19,6 +19,7 @@ public class KillEnemySpawner extends SimpleAreaEnemySpawner {
 
     @Override
     public void tick() {
+
         if (killCount >= killsToSpawn && GetCurrentlyValidToSpawn() && mobs.isEmpty()) {
             killCount = 0;
             GameEnemy enemy = GetValidSpawningOption().Spawn(spawnBox.GetRandomMobLocation());

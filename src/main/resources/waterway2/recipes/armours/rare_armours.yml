@@ -80,7 +80,7 @@ gold_leaf_boots:
 
 zombie_helmet:
   level: 5
-  time: 1h
+  time: 15m
   category: waterway_armours_zombie
   discovery: weird_flesh_collection
   discovery-tier: 4
@@ -88,7 +88,7 @@ zombie_helmet:
     spiced_meat: 15
 zombie_chestplate:
   level: 5
-  time: 1h
+  time: 15m
   category: waterway_armours_zombie
   discovery: weird_flesh_collection
   discovery-tier: 4
@@ -96,7 +96,7 @@ zombie_chestplate:
     spiced_meat: 24
 zombie_leggings:
   level: 5
-  time: 1h
+  time: 15m
   category: waterway_armours_zombie
   discovery: weird_flesh_collection
   discovery-tier: 4
@@ -104,7 +104,7 @@ zombie_leggings:
     spiced_meat: 21
 zombie_boots:
   level: 5
-  time: 1h
+  time: 15m
   category: waterway_armours_zombie
   discovery: weird_flesh_collection
   discovery-tier: 4

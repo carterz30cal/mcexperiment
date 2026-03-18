@@ -17,6 +17,8 @@ lunatic_1:
     BLEED: 0
     FIRE: 0
     WITHER: 0
+  resistances:
+    BLEED: 15
   equipment:
     HAND: WOODEN_SWORD
   tags:
@@ -46,6 +48,8 @@ lunatic_2:
     WITHER: 0
   equipment:
     HAND: WOODEN_SWORD
+  resistances:
+    BLEED: 20
   tags:
     - LUNATIC
   drops:
@@ -72,6 +76,8 @@ lunatic_3:
   display-height: 1.8
   blood-colour: 250,0,50
   bestiary-category: waterway_lunatics
+  resistances:
+    BLEED: 25
   armour:
     PHYSICAL: 0
     PROJECTILE: 0
@@ -107,7 +113,7 @@ lunatic_4:
   name: Lunatic Warrior
   type: SIMPLE
   level: 4
-  health: 150
+  health: 125
   knockback: 90
   speed: 1.15
   damage: 40
@@ -129,6 +135,8 @@ lunatic_4:
   tags:
     - LUNATIC
     - LUNATIC_HIGH_RANK
+  resistances:
+    BLEED: 55
   drops:
     weird_flesh:
       amount: 7/14
@@ -158,7 +166,7 @@ lunatic_5_sky:
   speed: 1.1
   bestiary-category: waterway_lunatics
   resistances:
-    BLEED: 20
+    BLEED: 35
   armour:
     PHYSICAL: 0
     PROJECTILE: 20
@@ -234,6 +242,7 @@ lunatic_5_lava:
   tags:
     - LUNATIC
     - LUNATIC_HIGH_RANK
+    - LUNATIC_LAVA
     - FANATIC
   drops:
     weird_flesh:

@@ -24,6 +24,8 @@ public class EnemyTypeFish extends EnemyTypeSimple
 				FishingArea.getFishingArea(area).addToBracket(rarity, id);
 			}
 		}
+
+        ignoreTargetLimit = true;
 	}
 
     @Override
@@ -38,4 +40,5 @@ public class EnemyTypeFish extends EnemyTypeSimple
             enemy.data.put("lifetime", --lifetime);
         }
     }
+
 }

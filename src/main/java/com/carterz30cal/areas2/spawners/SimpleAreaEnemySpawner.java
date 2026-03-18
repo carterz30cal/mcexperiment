@@ -1,6 +1,7 @@
 package com.carterz30cal.areas2.spawners;
 
 import com.carterz30cal.entities.GameEnemy;
+import com.carterz30cal.entities.GameEntity;
 import com.carterz30cal.entities.player.GamePlayer;
 import com.carterz30cal.utils.Box;
 import com.carterz30cal.utils.EntityUtils;
@@ -86,6 +87,7 @@ public class SimpleAreaEnemySpawner extends AbstractEnemySpawner {
             }
             spawnTick = 0;
         }
+        mobs.removeIf((e) -> GameEntity.entities.get(e).dead);
         super.tick();
     }
 

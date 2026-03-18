@@ -36,7 +36,7 @@ public abstract class AbstractEnemyType implements Cloneable
 	public final double displayHeight;
 	public final double coinMultiplier;
 	public final Color bloodColour;
-	public final boolean ignoreTargetLimit;
+    public boolean ignoreTargetLimit;
 	public final double scale;
 	
 	public StatusEffects resistances;

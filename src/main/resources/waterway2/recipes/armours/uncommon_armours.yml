@@ -32,25 +32,25 @@ leather_boots:
 
 paper_helmet:
   level: 2
-  time: 20m
+  time: 2m
   category: waterway_armours_paper
   items:
     paper: 3
 paper_chestplate:
   level: 2
-  time: 20m
+  time: 2m
   category: waterway_armours_paper
   items:
     paper: 5
 paper_leggings:
   level: 2
-  time: 20m
+  time: 2m
   category: waterway_armours_paper
   items:
     paper: 4
 paper_boots:
   level: 2
-  time: 20m
+  time: 2m
   category: waterway_armours_paper
   items:
     paper: 2

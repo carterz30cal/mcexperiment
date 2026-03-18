@@ -35,7 +35,8 @@ public enum Stat
 	BACKPACK_PAGES("backpack pages", ChatColor.WHITE, StatType.HIDDEN, StatDisplayType.NO_DISPLAY),
     WARDROBE_SLOTS("wardrobe slots", ChatColor.WHITE, StatType.HIDDEN, StatDisplayType.NO_DISPLAY),
 	SACK_SPACE("\uD83D Sack Space", ChatColor.WHITE, StatType.HIDDEN, StatDisplayType.NO_DISPLAY_IN_PLAYER_STATS),
-	VISIBILITY("\u25CB Visibility", ChatColor.YELLOW, StatType.OFFENSIVE, StatDisplayType.NORMAL)
+    VISIBILITY("\u25CB Visibility", ChatColor.YELLOW, StatType.OFFENSIVE, StatDisplayType.NORMAL),
+    SKILL_TREE_TOKENS("skill tree tokens", ChatColor.WHITE, StatType.HIDDEN, StatDisplayType.NO_DISPLAY),
 	;
     public final String name;
     public final ChatColor colour;

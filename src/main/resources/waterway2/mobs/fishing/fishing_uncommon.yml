@@ -200,10 +200,42 @@ angry_creeper_UNCOMMON:
   tags:
     - FISHING
     - FISHING_WATERWAY
-    - FISHING_COMMON
+    - FISHING_UNCOMMON
   drops:
     waterway_cod:
       amount: 10/25
     enchanted_book:
       chance: 1/125
       enchants: ENCHANT_LAST_CHANCE-1
+
+hydro_stray_UNCOMMON:
+  name: YELLOWHydrostray
+  type: FISH
+  fishing-brackets:
+    WATERWAY: UNCOMMON
+  level: 4
+  health: 300
+  entity-type: STRAY
+  knockback: 100
+  damage: 50
+  damage-type: PROJECTILE
+  speed: 1.2
+  display-height: 1.8
+  bestiary-category: waterway_fishing_uncommon
+  blood-colour: 250,0,50
+  tags:
+    - FISHING
+    - FISHING_WATERWAY
+    - FISHING_UNCOMMON
+  equipment:
+    HAND: BOW
+  drops:
+    waterway_cod:
+      amount: 5/20
+    enchanted_book:
+      chance: 1/80
+      enchants: ENCHANT_POWER-1
+    fishing_berries:
+      chance: 1/250
+    cooked_waterway_cod:
+      chance: 1/1000

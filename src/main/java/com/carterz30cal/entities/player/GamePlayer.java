@@ -103,6 +103,7 @@ public class GamePlayer extends GameEntity
 	public GameEnemy lastDamager;
 
     public PlayerWardrobe wardrobe = new PlayerWardrobe(this);
+    public PlayerSkillTree skillTree = new PlayerSkillTree(this);
 	
 	public Map<String, Long> discoveries = new HashMap<>();
 	public Map<String, Integer> quiver = new HashMap<>();
@@ -608,7 +609,11 @@ public class GamePlayer extends GameEntity
 			playSound(Sound.ENTITY_PLAYER_LEVELUP, 1.4, 1.1);
 			sendMessage("GOLDBOLD-------------------");
 			sendMessage("AQUABOLDLevel Up! RESETAQUA" + lvl + " BLUE->AQUA " + (lvl+1));
-			if (level == 1) sendMessage("REDBOLDIngredient Sack Unlocked!");
+            if (level == 1) {
+                sendMessage("REDBOLDIngredient Sack Unlocked!");
+                sendMessage("REDIngredients will now automatically");
+                sendMessage("REDgo into your sack!");
+            }
 			sendMessage("GOLDBOLD-------------------");
 			
 			xp -= LevelUtils.getXpForLevel(level + 1);

@@ -32,6 +32,7 @@ public class GameAreaWaterway extends AbstractGameArea {
         RegisterSpawner(new KillEnemySpawner("titan_1", 10, -85, 65, -2));
 
         RegisterSpawner(new SimpleAreaEnemySpawner(-86, 61, -97, 73, 69, 2.5, "lunatic_3"));
+        RegisterSpawner(new SimpleAreaEnemySpawner(-107, 42, -121, 57, 64, 1.5, "lunatic_4"));
 
         // LAVA AREA BELOW MAIN AREA
         RegisterSpawner(new SimpleAreaEnemySpawner(-20, -51, -41, -27, 38, 0.5, "lunatic_5_lava"));

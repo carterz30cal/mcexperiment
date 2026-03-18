@@ -37,7 +37,7 @@ public enum Questgivers {
                     new StringDescription("Nice work!",
                             "By now you should have realised that collecting Weird Flesh adds to your discoveries!",
                             "These grant you XP, and unique forge recipes.",
-                            "Find me deeper in BLUEWaterwayWHITE and I'll teach you how to fight a Titan!"),
+                            "Find me deeper within BLUEWaterwayWHITE and I'll teach you how to fight a Titan!"),
                     new StringDescription(
                             "Craft a Flimsy Sword and whack some lunatics!", "You can probably already GOLDupgradeWHITE your Flimsy Sword.",
                             "Kill them dead!"),
@@ -72,6 +72,13 @@ public enum Questgivers {
                     new StringDescription("I'd like 10 weird flesh for my fishing rod."),
                     new ItemQuestReward(5, "flimsy_fishing_rod", 1),
                     "weird_flesh", 10
+            ),
+            new QuestSectionBringItem(
+                    new StringDescription("Say, I'm pretty hungry,,", "You wouldn't happen to have any cooked cod?", "Please?"),
+                    new StringDescription("You're too kind.", "Take some Fishing Berries for your troubles."),
+                    new StringDescription("Please, bring me a cooked waterway cod.", "Cooking takes time."),
+                    new ItemQuestReward(5, "fishing_berries", 2),
+                    "cooked_waterway_cod", 1
             )
     ),
     CREEPY_JIM_SPOT1(
@@ -98,7 +105,7 @@ public enum Questgivers {
                     new StringDescription("I hate it here...", "I miss my home..", "Why can't I go back?"),
                     new StringDescription("You're the best!", "I'm Sam, but you can call me Sam!", "Maybe I'll see you around?"),
                     new StringDescription("I always feel better after food.", "I feel like I'm missing something..", "I hate cod.", "Have you heard much about the Seraph?"),
-                    new StringDescription("Find something to cheer Sam up."),
+                    new StringDescription("WHITEFind something to cheer Sam up."),
                     new QuestReward(25),
                     "sams_apple", 1
             )
@@ -118,6 +125,25 @@ public enum Questgivers {
                             "Get them away from my tree!", "Honestly, I just want a quiet moment! REDGo away!"),
                     new ItemQuestReward(10, "sams_apple"),
                     "LUNATIC_SKY", "Sky Lunatics", 40
+            )
+    ),
+
+    WATERWAY_CHARLOTTE_1(
+            "Charlotte", EntityType.CAVE_SPIDER, new Location(Dungeons.w, -40.5, 64, -24.5, 9, 4),
+            null,
+            new QuestSectionKill(
+                    new StringDescription(
+                            "I heard that in the cave behind me, you can find REDLava LunaticsWHITE.",
+                            "They sometimes drop Waterway Sacs!", "If you kill a few, maybe you'll get one?"
+                    ),
+                    new StringDescription(
+                            "Did you get one?", "Here's one I farmed earlier!"
+                    ),
+                    new StringDescription(
+                            "Head into that cave below!", "You can warp out of the cave using /warp"
+                    ),
+                    new ItemQuestReward(10, "waterway_sac"),
+                    "LUNATIC_LAVA", "Lava Lunatics", 20
             )
     );
     private final String name;

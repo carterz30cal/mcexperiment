@@ -30,7 +30,7 @@ public class LastChanceEnchantment extends GameAbility {
     @Override
     public List<String> description(AbilityContext context) {
         var l = super.description(context);
-        l.add("GRAYGrants " + display(Stat.DEFENCE, 10 * context.level) + " GRAY if you're below RED15% " + Stat.HEALTH.getIcon());
+        l.add("GRAYGrants " + display(Stat.DEFENCE, 10 * context.level) + " GRAYif you're below RED15% " + Stat.HEALTH.getIcon());
         return l;
     }
 

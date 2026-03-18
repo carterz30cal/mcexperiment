@@ -25,7 +25,7 @@ jims_boots:
     b: 150
   stats:
     defence: +10
-    health: +10
+    health: +20
     enchant_power: +15
 
 armour-water:

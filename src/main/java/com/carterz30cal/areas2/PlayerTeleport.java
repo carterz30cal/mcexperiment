@@ -11,6 +11,7 @@ public enum PlayerTeleport {
     WATERWAY_SPAWN("waterway", new Location(Dungeons.w, 0.5, 65, 0.5)),
     WATERWAY_LEAF_CAVE("leaf", new Location(Dungeons.w, -55, 84, 92, -170, 0), new PreviousQuestRequirement(Questgivers.SCARED_SAM_SPOT1)),
     WATERWAY_TOP("andyapple", new Location(Dungeons.w, 23, 125, 97.5, 90, 0), new PreviousQuestRequirement(Questgivers.ANDY_APPLE)),
+    WATERWAY_PONDS("wwponds", new Location(Dungeons.w, -124, 78, 6)),
     WATERWAY_SERAPH("seraph", new Location(Dungeons.w, 47, 96, 167.5, -90, 20));
     private final String commandShorthand;
     private final Location location;

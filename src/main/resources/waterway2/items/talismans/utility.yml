@@ -15,7 +15,7 @@ fish_tank:
   value: 50
   skull-profile-id: fish_tank
   stats:
-    FISHING_POWER: +25
+    FISHING_POWER: +40
 
 
 
@@ -51,6 +51,21 @@ zombies_head:
   stats:
     vitality: +8
 
+hydrostray_skin:
+  name: Hydrostray Skin
+  type: TALISMAN
+  rarity: EPIC
+  material: LEATHER
+  glow: true
+  value: 800
+  tags:
+    - HYDROSTRAY_SKIN
+  stats:
+    vitality: +2
+    focus: +1
+    fishing_power: +25
+    mining_speed: +15
+
 water_spirit_soul:
   name: Water Spirit Soul
   type: TALISMAN
@@ -58,4 +73,4 @@ water_spirit_soul:
   material: PLAYER_HEAD
   value: 1000
   stats:
-    FISHING_POWER: +35
+    FISHING_POWER: +70

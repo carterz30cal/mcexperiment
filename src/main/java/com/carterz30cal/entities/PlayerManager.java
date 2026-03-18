@@ -133,6 +133,7 @@ public class PlayerManager
             wardrobe = c.createSection("wardrobe");
         }
         p.wardrobe.Load(wardrobe);
+        p.skillTree.load(c);
 		
 		ConfigurationSection quiver = c.getConfigurationSection("quiver");
 		if (quiver != null)
@@ -227,6 +228,7 @@ public class PlayerManager
 
         c.set("wardrobe", null);
         p.wardrobe.Save(c.createSection("wardrobe"));
+        p.skillTree.save(c);
 
 
         c.set("kills", null);

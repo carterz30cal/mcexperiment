@@ -28,10 +28,16 @@ public class QuestGUI extends AbstractGUI {
             quests.add(owner.GetQuestSave(owner.GetSelectedQuest()));
         }
         for (var q : owner.GetQuestSaves()) {
+            if (owner.GetSelectedQuest() == q.GetQuest()) {
+                continue;
+            }
             if (q.completedQuest) {
                 complete.add(q);
             }
             else {
+                if (q.currentSection == 0 && !q.sectionSave.HasTalkedTo()) {
+                    continue;
+                }
                 quests.add(q);
             }
         }

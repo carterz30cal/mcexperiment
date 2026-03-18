@@ -35,7 +35,13 @@ public enum Quests {
             "Andy Apple",
             new StringDescription(),
             Questgivers.ANDY_APPLE
-    );
+    ),
+    WATERWAY_CHARLOTTE(
+            "Charlotte",
+            new StringDescription(),
+            Questgivers.WATERWAY_CHARLOTTE_1
+    ),
+    ;
     private final List<Questgivers> quests;
     private final String name;
     private final StringDescription description;

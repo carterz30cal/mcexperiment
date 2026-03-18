@@ -13,7 +13,7 @@ paper:
 
 cooked_waterway_cod:
   category: waterway_ingredients
-  time: 1h
+  time: 20m
   discovery: waterway_cod_collection
   discovery-tier: 3
   items:
@@ -22,7 +22,7 @@ cooked_waterway_cod:
 bulk_cooked_waterway_cod:
   item: cooked_waterway_cod
   amount: 64
-  time: 2h
+  time: 1h
   custom-name: GOLD64x BLUECooked Waterway Cod
   category: waterway_ingredients
   discovery: waterway_cod_collection

@@ -17,7 +17,7 @@ ripe_sword:
 piranha_dagger_uncommon:
   item: piranha_dagger
   level: 1
-  time: 5m
+  time: 1s
   category: waterway_weapons
   items:
     flimsy_sword: 1

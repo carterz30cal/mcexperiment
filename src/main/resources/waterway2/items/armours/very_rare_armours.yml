@@ -6,6 +6,7 @@ codpiece_leggings:
   stats:
     defence: +15
     might: +35
+    fishing_power: +20
     enchant_power: +5
     level_requirement: 6
 

@@ -107,8 +107,9 @@ public class GameEnemy extends GameEntity
 		List<Entity> all = new ArrayList<>(getParts());
 		all.add(getMain());
 		for (Entity e : all) e.remove();
-		
-		ticker.cancel();
+
+
+        ticker.cancel();
 		deregister();
 	}
 	

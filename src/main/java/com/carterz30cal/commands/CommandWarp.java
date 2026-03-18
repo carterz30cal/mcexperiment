@@ -28,11 +28,11 @@ public class CommandWarp implements CommandExecutor {
             }
 
             PlayerTeleport teleport = PlayerTeleport.GetTeleport(args[0]);
-            if (teleport == null) {
+            GamePlayer player = PlayerManager.players.get(((Player) commandSender).getUniqueId());
+            if (teleport == null || !teleport.HasRequirements(player)) {
                 return false;
             }
             else {
-                GamePlayer player = PlayerManager.players.get(((Player) commandSender).getUniqueId());
                 player.Teleport(teleport);
                 return true;
             }
