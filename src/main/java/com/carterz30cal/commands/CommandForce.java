@@ -1,6 +1,5 @@
 package com.carterz30cal.commands;
 
-import com.carterz30cal.dungeoneering.TestDungeon;
 import com.carterz30cal.entities.PlayerManager;
 import com.carterz30cal.entities.Shop;
 import com.carterz30cal.entities.player.GamePlayer;
@@ -32,9 +31,6 @@ public class CommandForce implements CommandExecutor {
                     break;
 				case "openshop":
 					p.openGui(new ShopGUI(p, Shop.shops.get(args[1])));
-					break;
-				case "gentest":
-					new TestDungeon(p);
 					break;
 			}
 		}

@@ -37,42 +37,6 @@ public class Dungeons extends JavaPlugin
         new ItemFactory();
         new PlayerManager();
         new EnemyManager();
-
-
-
-        //new AreaWaterway();
-		//new BossWaterwayHydra();
-		//new BossHydra();
-		//new BossWaterwaySeraph();
-        //new ForagingAreaWaterway();
-
-		//FishingArea.getFishingArea("waterway");
-		
-		/*proto.addPacketListener(
-			    new PacketAdapter(this, PacketType.Play.Client.BLOCK_DIG) {
-			        @Override
-			        public void onPacketReceiving(PacketEvent event) {
-			            // Called when receiving a packet (client -> server)
-			            Player targetPlayer = event.getPlayer();
-			            PacketContainer packet = event.getPacket();
-
-			            GamePlayer player = PlayerManager.players.get(targetPlayer.getUniqueId());
-
-			            PlayerDigType digType = packet.getPlayerDigTypes().getValues().get(0);
-			            if (digType == PlayerDigType.START_DESTROY_BLOCK) {
-			            	new BukkitRunnable() {
-			            		public void run() {
-			            			player.mining = true;
-			            		}
-
-			            	}.runTaskLater(Dungeons.instance, 1);
-			            	//System.out.println("ya");
-			            }
-			            else if (digType == PlayerDigType.ABORT_DESTROY_BLOCK || digType == PlayerDigType.STOP_DESTROY_BLOCK) {
-			            	player.mining = false;
-			            }
-			        }
-			});*/
 		
 		registerEvent(new ListenerPlayerJoinLeave());
 		registerEvent(new ListenerEntityDamage());
@@ -81,7 +45,6 @@ public class Dungeons extends JavaPlugin
 		registerEvent(new ListenerPlayerInteract());
 		registerEvent(new ListenerFishingEvents());
         registerEvent(new ListenerTarget());
-        //registerEvent(new ListenerBlockEvents());
 
 		for (Entity e : w.getEntities()) {
 			if (e instanceof Player) continue;
@@ -92,8 +55,6 @@ public class Dungeons extends JavaPlugin
 		setCommand("spawn", new CommandSpawn());
 		setCommand("setlevel", new CommandSetLevel());
 		setCommand("force", new CommandForce());
-		setCommand("kit", new CommandKit());
-		setCommand("max", new CommandMax());
         setCommand("warp", new CommandWarp());
         getCommand("warp").setTabCompleter(new CommandWarp.WarpTabCompleter());
 	}
