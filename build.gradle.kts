@@ -24,18 +24,23 @@ repositories {
     maven {
         url = uri("https://repo.maven.apache.org/maven2/")
     }
+
+    maven {
+        name = "papermc"
+        url = uri("https://repo.papermc.io/repository/maven-public/")
+    }
 }
 
 dependencies {
     api(libs.org.jetbrains.annotations)
     compileOnly(libs.net.dmulloy2.protocollib)
-    compileOnly(libs.org.spigotmc.spigot.api)
+    //compileOnly(libs.org.spigotmc.spigot.api)
+    compileOnly(libs.paper.api)
 }
 
 group = "com.carterz30cal"
 version = "1.0.0"
 description = "mcexperiment"
-java.sourceCompatibility = JavaVersion.VERSION_11
 
 publishing {
     publications.create<MavenPublication>("maven") {
@@ -49,4 +54,18 @@ tasks.withType<JavaCompile>() {
 
 tasks.withType<Javadoc>() {
     options.encoding = "UTF-8"
+}
+
+java {
+    toolchain.languageVersion.set(JavaLanguageVersion.of(21))
+}
+
+tasks.register<Copy>("copyJar") {
+    dependsOn(tasks.jar)
+    from(tasks.jar.get().archiveFile)
+    into(layout.buildDirectory.dir("../server/plugins")) // Change to your desired folder
+}
+
+tasks.build {
+    finalizedBy("copyJar")
 }

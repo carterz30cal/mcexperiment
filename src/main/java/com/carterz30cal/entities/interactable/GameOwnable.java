@@ -143,7 +143,7 @@ public class GameOwnable extends GameEntity {
                     if (entityMain instanceof Mannequin) {
                         Mannequin man = (Mannequin) entityMain;
                         man.setImmovable(true);
-                        man.setPlayerProfile(ItemFactory.GetSkullProfile(skullProfileId));
+                        man.setProfile(ItemFactory.GetSkullProfile(skullProfileId));
                     }
                 }
             }

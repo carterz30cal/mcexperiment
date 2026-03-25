@@ -1,14 +1,14 @@
-# This is the main configuration file for Spigot.
+# This is the Spigot configuration file for Paper.
 # As you can see, there's tons to configure. Some options may impact gameplay, so use
 # with caution, and make sure you know what each option does before configuring.
-# For a reference for any variable inside this file, check out the Spigot wiki at
-# http://www.spigotmc.org/wiki/spigot-configuration/
 #
-# If you need help with the configuration or have any questions related to Spigot,
-# join us at the Discord or drop by our forums and leave a post.
+# If you need help with the configuration or have any questions related to Paper,
+# join us in our Discord or check the docs page.
 #
-# Discord: https://www.spigotmc.org/go/discord
-# Forums: http://www.spigotmc.org/
+# File Reference: https://docs.papermc.io/paper/reference/spigot-configuration/
+# Docs: https://docs.papermc.io/
+# Discord: https://discord.gg/papermc
+# Website: https://papermc.io/
 
 settings:
   debug: false
@@ -36,6 +36,12 @@ settings:
   bungeecord: false
 world-settings:
   default:
+    seed-ancientcity: 20083232
+    seed-trailruins: 83469867
+    seed-trialchambers: 94251327
+    seed-buriedtreasure: 10387320
+    seed-mineshaft: default
+    seed-stronghold: default
     below-zero-generation-in-existing-chunks: true
     verbose: true
     ticks-per:
@@ -86,6 +92,9 @@ world-settings:
       display: 128
       other: 64
     growth:
+      torchflower-modifier: 100
+      glowberry-modifier: 100
+      pitcherplant-modifier: 100
       cactus-modifier: 100
       cane-modifier: 100
       melon-modifier: 100
@@ -106,6 +115,25 @@ world-settings:
       weepingvines-modifier: 100
       cavevines-modifier: 100
     entity-activation-range:
+      water: 16
+      villagers: 32
+      flying-monsters: 32
+      wake-up-inactive:
+        animals-max-per-tick: 4
+        animals-every: 1200
+        animals-for: 100
+        monsters-max-per-tick: 8
+        monsters-every: 400
+        monsters-for: 100
+        villagers-max-per-tick: 4
+        villagers-every: 600
+        villagers-for: 100
+        flying-monsters-max-per-tick: 8
+        flying-monsters-every: 200
+        flying-monsters-for: 100
+      villagers-work-immunity-after: 100
+      villagers-work-immunity-for: 20
+      villagers-active-for-panic: true
       animals: 32
       monsters: 32
       raiders: 48
@@ -138,6 +166,7 @@ commands:
     - tellraw
   spam-exclusions:
     - /skill
+  enable-spam-exclusions: false
 advancements:
   disable-saving: false
   disabled:

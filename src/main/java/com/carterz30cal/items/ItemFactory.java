@@ -16,6 +16,7 @@ import com.carterz30cal.stats.StatContainer;
 import com.carterz30cal.stats.StatDisplayType;
 import com.carterz30cal.utils.FileUtils;
 import com.carterz30cal.utils.StringUtils;
+import io.papermc.paper.datacomponent.item.ResolvableProfile;
 import org.bukkit.Bukkit;
 import org.bukkit.Color;
 import org.bukkit.Material;
@@ -84,7 +85,7 @@ public class ItemFactory
 	public static String[] shopFiles = {
             "waterway/items/shops"
 	};
-    private static Map<String, PlayerProfile> skullProfiles = new HashMap<>();
+    private static Map<String, ResolvableProfile> skullProfiles = new HashMap<>();
 	
 	private static List<String> itemList;
 	
@@ -372,7 +373,7 @@ public class ItemFactory
         if (meta == null) {
             return skull;
         }
-        meta.addItemFlags(ItemFlag.HIDE_PROFILE);
+        //meta.addItemFlags(ItemFlag.HIDE_PROFILE);
 
 		try
 		{
@@ -426,7 +427,7 @@ public class ItemFactory
             }
             meta.getPersistentDataContainer().set(kData, PersistentDataType.STRING, "");
             meta.addItemFlags(ItemFlag.values());
-            meta.removeItemFlags(ItemFlag.HIDE_LORE);
+            //meta.removeItemFlags(ItemFlag.HIDE_LORE);
             meta.setUnbreakable(true);
         }
 
@@ -679,14 +680,13 @@ public class ItemFactory
         ItemMeta meta = skull.getItemMeta();
         if (meta instanceof SkullMeta) {
             SkullMeta skullMeta = (SkullMeta) meta;
-            PlayerProfile profile = skullProfiles.get(profileId);
+            ResolvableProfile profile = skullProfiles.get(profileId);
             //System.out.println(profile.getTextures().getSkin());
-            skullMeta.setOwnerProfile(profile);
             skull.setItemMeta(skullMeta);
         }
     }
 
-    public static PlayerProfile GetSkullProfile(String profileId) {
+    public static ResolvableProfile GetSkullProfile(String profileId) {
         return skullProfiles.get(profileId);
     }
 	
@@ -784,10 +784,12 @@ public class ItemFactory
             throw new RuntimeException(e);
         }
         profile.setTextures(textures);
-
+        /*
         profile.update().thenAcceptAsync(updatedProfile -> {
             skullProfiles.put(id, updatedProfile);
         }, runnable -> Bukkit.getScheduler().runTask(Dungeons.instance, runnable));
+
+         */
     }
 
 	public static String getFlatItemData(ItemStack item)

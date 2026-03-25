@@ -1,1 +1,1 @@
-java -jar -Xmx2G spigot-1.21.11.jar  --nogui
+java -jar -Xmx2G paper-1.21.11-127.jar --nogui
