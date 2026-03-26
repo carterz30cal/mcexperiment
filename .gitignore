@@ -160,3 +160,5 @@ gradle-app.setting
 # Cache of project
 .gradletasknamecache
 
+# ignore paper remappings
+**/server/plugins/.paper-remapped
