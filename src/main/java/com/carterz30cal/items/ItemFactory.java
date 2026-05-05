@@ -364,7 +364,7 @@ public class ItemFactory
 
 	public static ItemStack ripPlayerSkull(GamePlayer player)
 	{
-		ItemStack skull = new ItemStack(Material.PLAYER_HEAD, 1);
+        var skull = ItemStack.of(Material.PLAYER_HEAD);
 
 		if (!Bukkit.getServer().getOnlineMode()) return skull;
 
@@ -372,16 +372,12 @@ public class ItemFactory
         if (meta == null) {
             return skull;
         }
-        //meta.addItemFlags(ItemFlag.HIDE_PROFILE);
 
 		try
 		{
-			meta.setOwnerProfile(player.player.getPlayerProfile());
-		}
-		catch (Exception e)
-		{
-
-		}
+            meta.setPlayerProfile(player.player.getPlayerProfile());
+		} catch (Exception ignored) {
+        }
 
 		skull.setItemMeta(meta);
 
@@ -397,7 +393,6 @@ public class ItemFactory
 		return build(i, 1);
 	}
 
-    @SuppressWarnings("UnstableApiUsage")
     public static ItemStack build(String i, int amount)
 	{
 		Item item = items.get(i);
