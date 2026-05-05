@@ -10,6 +10,7 @@ import com.carterz30cal.main.Dungeons;
 import com.carterz30cal.utils.EntityUtils;
 import com.carterz30cal.utils.RandomUtils;
 import com.carterz30cal.utils.StringUtils;
+import io.papermc.paper.datacomponent.item.ResolvableProfile;
 import org.bukkit.Location;
 import org.bukkit.attribute.Attribute;
 import org.bukkit.entity.ArmorStand;
@@ -143,7 +144,10 @@ public class GameOwnable extends GameEntity {
                     if (entityMain instanceof Mannequin) {
                         Mannequin man = (Mannequin) entityMain;
                         man.setImmovable(true);
-                        man.setProfile(ItemFactory.GetSkullProfile(skullProfileId));
+                        var prof = ItemFactory.GetSkullProfile(skullProfileId);
+                        if (prof != null) {
+                            man.setProfile(ResolvableProfile.resolvableProfile(prof));
+                        }
                     }
                 }
             }

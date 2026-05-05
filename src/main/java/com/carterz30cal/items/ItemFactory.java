@@ -16,7 +16,7 @@ import com.carterz30cal.stats.StatContainer;
 import com.carterz30cal.stats.StatDisplayType;
 import com.carterz30cal.utils.FileUtils;
 import com.carterz30cal.utils.StringUtils;
-import io.papermc.paper.datacomponent.item.ResolvableProfile;
+import com.destroystokyo.paper.profile.PlayerProfile;
 import org.bukkit.Bukkit;
 import org.bukkit.Color;
 import org.bukkit.Material;
@@ -32,7 +32,6 @@ import org.bukkit.inventory.meta.LeatherArmorMeta;
 import org.bukkit.inventory.meta.SkullMeta;
 import org.bukkit.inventory.meta.trim.ArmorTrim;
 import org.bukkit.persistence.PersistentDataType;
-import org.bukkit.profile.PlayerProfile;
 import org.bukkit.profile.PlayerTextures;
 import org.jetbrains.annotations.NotNull;
 
@@ -85,7 +84,7 @@ public class ItemFactory
 	public static String[] shopFiles = {
             "waterway/items/shops"
 	};
-    private static Map<String, ResolvableProfile> skullProfiles = new HashMap<>();
+    private static Map<String, PlayerProfile> skullProfiles = new HashMap<>();
 	
 	private static List<String> itemList;
 	
@@ -680,13 +679,14 @@ public class ItemFactory
         ItemMeta meta = skull.getItemMeta();
         if (meta instanceof SkullMeta) {
             SkullMeta skullMeta = (SkullMeta) meta;
-            ResolvableProfile profile = skullProfiles.get(profileId);
+            var profile = skullProfiles.get(profileId);
+            ((SkullMeta) meta).setPlayerProfile(profile);
             //System.out.println(profile.getTextures().getSkin());
             skull.setItemMeta(skullMeta);
         }
     }
 
-    public static ResolvableProfile GetSkullProfile(String profileId) {
+    public static PlayerProfile GetSkullProfile(String profileId) {
         return skullProfiles.get(profileId);
     }
 	
@@ -775,7 +775,7 @@ public class ItemFactory
 	}
 
     public static void generateSkullProfile(String id, String url) {
-        PlayerProfile profile = Dungeons.instance.getServer().createPlayerProfile(UUID.randomUUID());
+        PlayerProfile profile = Dungeons.instance.getServer().createProfile(UUID.randomUUID());
         PlayerTextures textures = profile.getTextures();
 
         try {
@@ -784,12 +784,10 @@ public class ItemFactory
             throw new RuntimeException(e);
         }
         profile.setTextures(textures);
-        /*
+
         profile.update().thenAcceptAsync(updatedProfile -> {
             skullProfiles.put(id, updatedProfile);
         }, runnable -> Bukkit.getScheduler().runTask(Dungeons.instance, runnable));
-
-         */
     }
 
 	public static String getFlatItemData(ItemStack item)
