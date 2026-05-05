@@ -211,7 +211,8 @@ public class StringUtils
 		if (l.length == 1) return Integer.parseInt(l[0]);
 		else return Integer.parseInt(l[i].strip());
 	}
-	
+
+    @Deprecated
 	public static String colourString(String string)
 	{
 		String coloured = string;
@@ -219,7 +220,8 @@ public class StringUtils
 		for (ChatColor c : ChatColor.values()) coloured = coloured.replaceAll(c.name(), c.toString());
 		return coloured;
 	}
-	
+
+    @Deprecated
 	public static List<String> colourList(List<String> uncoloured)
 	{
 		List<String> coloured = new ArrayList<>();

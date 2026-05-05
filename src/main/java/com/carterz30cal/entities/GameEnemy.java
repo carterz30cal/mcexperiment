@@ -11,6 +11,7 @@ import com.carterz30cal.utils.EntityUtils;
 import com.carterz30cal.utils.LevelUtils;
 import com.carterz30cal.utils.RandomUtils;
 import com.carterz30cal.utils.StringUtils;
+import net.kyori.adventure.text.Component;
 import org.bukkit.*;
 import org.bukkit.attribute.Attribute;
 import org.bukkit.attribute.AttributeModifier;
@@ -494,23 +495,25 @@ public class GameEnemy extends GameEntity
 		modified.defender = this;
 		type.onDamaged(this, modified);
 		
-		ArmorStand hologram = EntityUtils.spawnHologram(main.getLocation().add(RandomUtils.getDouble(-0.7F, 0.7F),
-				RandomUtils.getDouble(0.4F, 0.8F),
-				RandomUtils.getDouble(-0.7F, 0.7F)), 30);
-		
 		health -= (double)(modified.damage)/type.getMaxHealth();
 		
 		health = Math.max(0, health);
+
+        var damageHologram = EntityUtils.spawnTextHologram(
+                main.getLocation().add(RandomUtils.getDouble(-0.7F, 0.7F),
+                        RandomUtils.getDouble(0.4F, 0.8F),
+                        RandomUtils.getDouble(-0.7F, 0.7F)),
+                30
+        );
+        if (damageHologram != null) {
+            damageHologram.customName(Component.text(modified.damage));
+        }
 		
 		Entity main = getMain();
 		if (main instanceof LivingEntity)
 		{
 			((LivingEntity)main).playHurtAnimation(0);
-			//((LivingEntity)main).damage(1);
-			//((LivingEntity)main).setHealth(((LivingEntity)main).getMaxHealth());
 		}
-		
-		hologram.setCustomName(ChatColor.getLastColors(modified.type.name) + modified.damage);
 
 		if (getHealth() == 0) destroy();
         else if (lastDamager != null && !info.indirect) {
