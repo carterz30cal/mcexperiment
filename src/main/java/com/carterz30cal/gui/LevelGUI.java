@@ -2,7 +2,7 @@ package com.carterz30cal.gui;
 
 import com.carterz30cal.entities.player.GamePlayer;
 import com.carterz30cal.items.ItemFactory;
-import com.carterz30cal.items.Recipe;
+import com.carterz30cal.items.recipes.Recipe;
 import com.carterz30cal.stats.Stat;
 import com.carterz30cal.utils.LevelUtils;
 import org.bukkit.inventory.ItemStack;

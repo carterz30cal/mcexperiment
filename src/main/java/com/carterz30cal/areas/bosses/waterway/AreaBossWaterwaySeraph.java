@@ -178,7 +178,7 @@ public final class AreaBossWaterwaySeraph extends AbstractAreaBoss {
                         int pick = RandomUtils.getRandom(1, pool);
                         for (var item : drops) {
                             if (item.weight >= pick) {
-                                GameFloatingItem.spawn(seraphEyeItemLocation.clone().subtract(0, 0, 2), ItemFactory.BuildItemFromString(item.data), p);
+                                GameFloatingItem.spawn(seraphEyeItemLocation.clone().subtract(0, 0, 2), ItemFactory.buildItemFromString(item.data), p);
                                 break;
                             }
                             else {
@@ -188,7 +188,7 @@ public final class AreaBossWaterwaySeraph extends AbstractAreaBoss {
                         pick = RandomUtils.getRandom(1, pool);
                         for (var item : drops) {
                             if (item.weight >= pick) {
-                                GameFloatingItem.spawn(seraphEyeItemLocation.clone().add(0, 0, 2), ItemFactory.BuildItemFromString(item.data), p);
+                                GameFloatingItem.spawn(seraphEyeItemLocation.clone().add(0, 0, 2), ItemFactory.buildItemFromString(item.data), p);
                                 break;
                             }
                             else {

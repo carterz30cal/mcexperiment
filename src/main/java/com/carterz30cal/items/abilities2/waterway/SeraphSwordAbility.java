@@ -5,20 +5,42 @@ import com.carterz30cal.items.abilities2.implementation.GameAbility;
 import com.carterz30cal.stats.Stat;
 import com.carterz30cal.stats.StatContainer;
 import com.carterz30cal.stats.StatOperationType;
+import net.kyori.adventure.text.TextComponent;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
+
+import static net.kyori.adventure.text.Component.text;
+import static net.kyori.adventure.text.format.NamedTextColor.GRAY;
 
 public class SeraphSwordAbility extends GameAbility {
     @Override
     public String name(AbilityContext context) {
-        return "AQUAStarlight-Imbued";
+        return "Starlight-Imbued";
     }
 
+    @Deprecated
     @Override
     public List<String> description(AbilityContext context) {
         var l = super.description(context);
         l.add("GRAYGains " + Stat.POWER.colour + "+5" + Stat.POWER.getIcon() + " GRAYfor every " + Stat.FOCUS.colour + "1" + Stat.FOCUS.getIcon() + " GRAYthat");
         l.add("GRAYyou have in total. ");
+        return l;
+    }
+
+    @Override
+    public List<TextComponent.Builder> componentDescription(@NotNull AbilityContext context) {
+        var l = super.componentDescription(context);
+        var l1 = text();
+        l1.append(text("Gains", GRAY))
+                .append(text(" +5" + Stat.POWER.getIcon(), Stat.POWER.textColour))
+                .append(text(" for every", GRAY))
+                .append(text(" 1" + Stat.FOCUS.getIcon(), Stat.FOCUS.textColour))
+                .append(text(" that", GRAY));
+        var l2 = text();
+        l2.append(text("you have in total.", GRAY));
+        l.add(l1);
+        l.add(l2);
         return l;
     }
 

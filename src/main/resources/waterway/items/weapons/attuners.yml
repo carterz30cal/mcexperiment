@@ -3,7 +3,8 @@ fermented_flesh:
   type: ATTUNER
   rarity: UNCOMMON
   material: FERMENTED_SPIDER_EYE
-  attuner-icon: RED#
+  attuner-icon: '#'
+  attuner-colour: RED
   stats:
     power: +10
     health: +4
@@ -13,7 +14,8 @@ paper_mache:
   type: ATTUNER
   rarity: RARE
   material: BONE_MEAL
-  attuner-icon: WHITE#
+  attuner-colour: WHITE
+  attuner-icon: '#'
   stats:
     damage: +1
     health: -15
@@ -24,7 +26,8 @@ weak_silk_mass:
   rarity: RARE
   material: GUNPOWDER
   glow: true
-  attuner-icon: BLUE#
+  attuner-colour: BLUE
+  attuner-icon: '#'
   stats:
     might: +11
 
@@ -33,7 +36,8 @@ eye_of_spider:
   type: ATTUNER
   rarity: VERY_RARE
   material: SPIDER_EYE
-  attuner-icon: DARK_PURPLE#
+  attuner-colour: DARK_PURPLE
+  attuner-icon: '#'
   stats:
     mana: +5
     strength: +3
@@ -45,7 +49,8 @@ fishing_berries:
   type: ATTUNER
   rarity: VERY_RARE
   material: GLOW_BERRIES
-  attuner-icon: GOLDo
+  attuner-colour: GOLD
+  attuner-icon: b
   value: 600
   stats:
     fishing_power: +10
@@ -57,7 +62,8 @@ midas_stone:
   type: ATTUNER
   rarity: LEGENDARY
   material: GOLD_INGOT
-  attuner-icon: GOLD#
+  attuner-colour: GOLD
+  attuner-icon: '#'
   stats:
     bonus_coins: 2
     might: -2

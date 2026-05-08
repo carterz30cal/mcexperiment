@@ -1,4 +1,4 @@
-package com.carterz30cal.items;
+package com.carterz30cal.items.discoveries;
 
 import com.carterz30cal.utils.FileUtils;
 import org.bukkit.configuration.ConfigurationSection;

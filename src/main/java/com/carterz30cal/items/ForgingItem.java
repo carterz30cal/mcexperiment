@@ -1,5 +1,7 @@
 package com.carterz30cal.items;
 
+import com.carterz30cal.entities.player.GamePlayer;
+import com.carterz30cal.items.recipes.Recipe;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.inventory.ItemStack;
 
@@ -59,7 +61,7 @@ public class ForgingItem
 		ItemStack i = ItemFactory.build(item, amount);
 		
 		ItemFactory.setItemData(i, data);
-		ItemFactory.update(i, null);
+        ItemFactory.update(i, (GamePlayer) null);
 		
 		return i;
 	}

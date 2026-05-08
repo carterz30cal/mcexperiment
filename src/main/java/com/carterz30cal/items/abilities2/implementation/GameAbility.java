@@ -11,6 +11,10 @@ import com.carterz30cal.items.abilities2.Abilities;
 import com.carterz30cal.stats.Stat;
 import com.carterz30cal.stats.StatContainer;
 import com.carterz30cal.stats.StatDisplayType;
+import net.kyori.adventure.text.TextComponent;
+import net.kyori.adventure.text.format.NamedTextColor;
+import net.kyori.adventure.text.format.TextColor;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -22,7 +26,25 @@ public abstract class GameAbility {
     public Abilities source;
 
     public abstract String name(AbilityContext context);
+
+    @Deprecated
     public List<String> description(AbilityContext context) {
+        return new ArrayList<>();
+    }
+
+    public TextColor colour(AbilityContext context) {
+        return TextColor.color(NamedTextColor.LIGHT_PURPLE);
+    }
+
+    /**
+     * Generate a list of component builders that provide descriptions on items.
+     * Typically uncoloured, possibly decorated.
+     *
+     * @param context required ability context for parametric descriptions.
+     * @return a list of component builders
+     * @since 1.0.0
+     */
+    public List<TextComponent.Builder> componentDescription(@NotNull AbilityContext context) {
         return new ArrayList<>();
     }
 
@@ -99,7 +121,7 @@ public abstract class GameAbility {
         return new ArrayList<>();
     }
 
-
+    @Deprecated
     protected String display(Stat stat, int val)
     {
         String prefix = val >= 0 ? "+" : "";
@@ -107,6 +129,8 @@ public abstract class GameAbility {
 
         return stat.colour + prefix + val + suffix + stat.getIcon();
     }
+
+    @Deprecated
     protected String display(Stat stat, long val)
     {
         String prefix = val >= 0 ? "+" : "";
@@ -131,6 +155,14 @@ public abstract class GameAbility {
         }
         public List<String> description() {
             return ability.description(this);
+        }
+
+        public List<TextComponent.Builder> componentDescription() {
+            return ability.componentDescription(this);
+        }
+
+        public TextColor colour() {
+            return ability.colour(this);
         }
         public int getEnchantPower() {
             return ability.getEnchantPower(this);

@@ -2,17 +2,22 @@ package com.carterz30cal.items.abilities2.generic;
 
 import com.carterz30cal.items.ItemReq;
 import com.carterz30cal.items.ItemType;
-import com.carterz30cal.items.abilities2.implementation.GameAbility;
+import com.carterz30cal.items.abilities2.implementation.GameAbstractEnchant;
 import com.carterz30cal.stats.Stat;
 import com.carterz30cal.stats.StatContainer;
 import com.carterz30cal.stats.StatOperationType;
+import net.kyori.adventure.text.TextComponent;
+import net.kyori.adventure.text.format.NamedTextColor;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-public class StatEnchantment extends GameAbility {
+import static net.kyori.adventure.text.Component.text;
+
+public class StatEnchantment extends GameAbstractEnchant {
     public String enchantName;
     public int powerPerLevel;
     public Stat statGranted;
@@ -59,6 +64,22 @@ public class StatEnchantment extends GameAbility {
             lore.add("GRAYGrants " + display(statGranted, getStat(context)) + "GRAY.");
         }
         return lore;
+    }
+
+    @Override
+    public List<TextComponent.Builder> componentDescription(@NotNull AbilityContext context) {
+        var description = text();
+
+        description.append(text("Grants ", NamedTextColor.GRAY));
+        description.append(text(getStat(context) > 0 ? "+" : "-").append(text(getStat(context))).color(statGranted.textColour));
+        if (statOperation == StatOperationType.MULTIPLY) {
+            description.append(text("% ", statGranted.textColour));
+        }
+        description.append(text(statGranted.getIcon(), statGranted.textColour)).append(text(".", NamedTextColor.GRAY));
+
+        var d = super.componentDescription(context);
+        d.add(description);
+        return d;
     }
 
     @Override

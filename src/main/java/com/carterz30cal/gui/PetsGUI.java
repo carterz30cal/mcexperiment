@@ -3,7 +3,7 @@ package com.carterz30cal.gui;
 import com.carterz30cal.entities.player.GamePlayer;
 import com.carterz30cal.items.Item;
 import com.carterz30cal.items.ItemFactory;
-import com.carterz30cal.items.ItemPet;
+import com.carterz30cal.items.types.ItemPet;
 import com.carterz30cal.utils.StringUtils;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;

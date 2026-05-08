@@ -181,8 +181,8 @@ public class ItemLootTable
 			{
 				ItemFactory.addItemData(gen, "enchants", enchant);
 			}
-			
-			ItemFactory.update(gen, null);
+
+            ItemFactory.update(gen, (GamePlayer) null);
 			return gen;
 		}
 	}

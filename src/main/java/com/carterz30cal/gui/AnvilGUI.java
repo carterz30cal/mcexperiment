@@ -3,6 +3,7 @@ package com.carterz30cal.gui;
 import com.carterz30cal.entities.player.GamePlayer;
 import com.carterz30cal.items.*;
 import com.carterz30cal.items.abilities2.Abilities;
+import com.carterz30cal.items.types.ItemAttuner;
 import com.carterz30cal.stats.Stat;
 import com.carterz30cal.utils.StringUtils;
 import org.bukkit.Material;
@@ -191,7 +192,7 @@ public class AnvilGUI extends AbstractGUI
 				// final production thing after all checks.
 				if (changeMade)
 				{
-					ItemFactory.update(product, null);
+                    ItemFactory.update(product, (GamePlayer) null);
 					
 					StringBuilder lore = new StringBuilder("GRAYYou need the following in order to;GRAYcombine these two items together!;;GRAYRequires:");
 					

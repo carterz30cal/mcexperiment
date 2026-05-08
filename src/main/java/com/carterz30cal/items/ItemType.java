@@ -56,4 +56,14 @@ public enum ItemType
 		if (cute != null) return cute;
 		return name().substring(0, 1).toUpperCase() + name().substring(1).toLowerCase();
 	}
+
+    public String toPlural() {
+        String name = toString();
+        if (name.charAt(name().length() - 1) == 's') {
+            return name;
+        }
+        else {
+            return name + 's';
+        }
+    }
 }

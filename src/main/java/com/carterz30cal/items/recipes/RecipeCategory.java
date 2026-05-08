@@ -1,9 +1,10 @@
-package com.carterz30cal.items;
+package com.carterz30cal.items.recipes;
+
+import com.carterz30cal.items.ItemFactory;
+import org.bukkit.configuration.ConfigurationSection;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import org.bukkit.configuration.ConfigurationSection;
 
 public class RecipeCategory 
 {

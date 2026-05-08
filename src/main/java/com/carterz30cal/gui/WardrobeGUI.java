@@ -7,6 +7,8 @@ import com.carterz30cal.stats.Stat;
 import org.bukkit.Sound;
 import org.bukkit.inventory.ItemStack;
 
+import static net.kyori.adventure.text.format.NamedTextColor.*;
+
 public class WardrobeGUI extends AbstractGUI {
     private static final int EQUIP_BUTTON_POS = calc(5, 4);
     private static final int BACK_BUTTON_POS = calc(4, 4);
@@ -57,24 +59,39 @@ public class WardrobeGUI extends AbstractGUI {
                 inventory.setSlot(original.clone(), calc(1, 1 + i));
             }
             else {
-                inventory.setSlot(ItemFactory.buildCustom("RED_STAINED_GLASS_PANE", "REDEmpty Armour Slot"), calc(1, 1 + i));
+                inventory.setSlot(
+                        ItemFactory.customItem(
+                                "RED_STAINED_GLASS_PANE",
+                                "Empty Armour Slot",
+                                RED),
+                        calc(1, 1 + i));
             }
         }
         for (int i = 0; i < 5; i++) {
             if (wardrobe.GetTalismans().size() <= i) {
-                inventory.setSlot(ItemFactory.buildCustom("RED_STAINED_GLASS_PANE", "REDEmpty Talisman Slot"), calc(3 + i, 1));
+                inventory.setSlot(
+                        ItemFactory.customItem(
+                                "RED_STAINED_GLASS_PANE",
+                                "Empty Talisman Slot",
+                                RED),
+                        calc(3 + i, 1));
             }
             else {
                 inventory.setSlot(ItemFactory.build(wardrobe.GetTalismans().get(i)), calc(3 + i, 1));
             }
         }
         if (page > 1) {
-            inventory.setSlot(ItemFactory.buildCustom("ARROW", "GREENBack"), BACK_BUTTON_POS);
+            inventory.setSlot(ItemFactory.customItem("ARROW", "Back", GREEN), BACK_BUTTON_POS);
         }
         boolean current = page - 1 == owner.wardrobe.GetSelectedSlot();
-        inventory.setSlot(ItemFactory.buildCustom(current ? "GREEN_CONCRETE" : "YELLOW_CONCRETE", current ? "GREENEquipped!" : "YELLOWClick to equip!"), EQUIP_BUTTON_POS);
+        inventory.setSlot(
+                ItemFactory.customItem(
+                        current ? "GREEN_CONCRETE" : "YELLOW_CONCRETE",
+                        current ? "GREENEquipped!" : "YELLOWClick to equip!",
+                        current ? GREEN : YELLOW)
+                , EQUIP_BUTTON_POS);
         if (page < owner.stats.getStat(Stat.WARDROBE_SLOTS)) {
-            inventory.setSlot(ItemFactory.buildCustom("ARROW", "GREENNext"), NEXT_BUTTON_POS);
+            inventory.setSlot(ItemFactory.customItem("ARROW", "Next", GREEN), NEXT_BUTTON_POS);
         }
         inventory.update();
     }

@@ -4,13 +4,15 @@ import com.carterz30cal.entities.player.GamePlayer;
 import com.carterz30cal.items.Item;
 import com.carterz30cal.items.ItemFactory;
 import com.carterz30cal.items.ItemTypeUse;
-import com.carterz30cal.utils.StringUtils;
+import net.kyori.adventure.text.format.NamedTextColor;
 import org.bukkit.Sound;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import static net.kyori.adventure.text.Component.text;
 
 public class TalismanGUI extends AbstractGUI 
 {
@@ -43,11 +45,15 @@ public class TalismanGUI extends AbstractGUI
 				String tali = owner.talismans.get((page - 1) * 28 + i);
 				ItemStack talisman = ItemFactory.build(tali);
 				ItemMeta meta = talisman.getItemMeta();
-				List<String> lore = meta.getLore();
-				lore.add("");
-				lore.add("GOLDClick to remove from bag!");
-				
-				meta.setLore(StringUtils.colourList(lore));
+                if (!meta.hasLore()) {
+                    continue;
+                }
+                var lore = meta.lore();
+                assert lore != null;
+                lore.add(text(""));
+                lore.add(text("Click to remove from the bag!", NamedTextColor.GOLD));
+
+                meta.lore(lore);
 				talisman.setItemMeta(meta);
 				
 				talismans[y * 9 + x] = tali;

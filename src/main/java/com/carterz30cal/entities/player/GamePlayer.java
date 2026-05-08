@@ -12,9 +12,13 @@ import com.carterz30cal.events.GameEventHandler;
 import com.carterz30cal.fishing.FishingArea;
 import com.carterz30cal.gui.AbstractGUI;
 import com.carterz30cal.items.*;
-import com.carterz30cal.items.Collection;
 import com.carterz30cal.items.abilities2.implementation.GameAbility;
+import com.carterz30cal.items.discoveries.Collection;
+import com.carterz30cal.items.discoveries.DiscoveryManager;
+import com.carterz30cal.items.recipes.Recipe;
 import com.carterz30cal.items.sets.ItemSet;
+import com.carterz30cal.items.types.ItemAttuner;
+import com.carterz30cal.items.types.ItemPet;
 import com.carterz30cal.main.Dungeons;
 import com.carterz30cal.mining.Mineable;
 import com.carterz30cal.stats.Stat;
@@ -24,8 +28,10 @@ import com.carterz30cal.utils.EntityUtils;
 import com.carterz30cal.utils.LevelUtils;
 import com.carterz30cal.utils.ScoreboardWrapper;
 import com.carterz30cal.utils.StringUtils;
-import net.md_5.bungee.api.ChatMessageType;
-import net.md_5.bungee.api.chat.TextComponent;
+import net.kyori.adventure.audience.Audience;
+import net.kyori.adventure.text.TextComponent;
+import net.kyori.adventure.text.format.NamedTextColor;
+import net.kyori.adventure.text.format.TextColor;
 import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
 import org.bukkit.Location;
@@ -43,11 +49,14 @@ import org.bukkit.potion.PotionEffectType;
 import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.util.Vector;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import java.time.LocalDateTime;
 import java.util.*;
 
+import static net.kyori.adventure.text.Component.text;
 
+@SuppressWarnings("UnnecessaryUnicodeEscape")
 public class GamePlayer extends GameEntity
 {
 	public Player player;
@@ -69,7 +78,7 @@ public class GamePlayer extends GameEntity
 	public List<GameAbility.AbilityContext> abilities;
     private boolean cachedLevel = false;
     private Quests selectedQuest;
-    private Map<UUID, GameEventHandler> eventHandlers = new HashMap<>();
+    private final Map<UUID, GameEventHandler> eventHandlers = new HashMap<>();
 
 	public List<String> talismans = new ArrayList<>();
 	public List<String> completedQuests = new ArrayList<>();
@@ -271,18 +280,25 @@ public class GamePlayer extends GameEntity
         stats.executeOperations();
 
 
+        var actionStatBar = text();
+        actionStatBar.append(text(getHealth() + "\u2665", NamedTextColor.RED));
+        if (stats.getStat(Stat.MANA) > 0) {
+            actionStatBar.append(text(getMana() + "/" + stats.getStat(Stat.MANA) + "\u2605", NamedTextColor.LIGHT_PURPLE));
+        }
+        if (lastXpReward > 0) {
+            actionStatBar.append(text(" +" + lastXpReward + " XP", NamedTextColor.AQUA));
+        }
+        if (lastCoinReward > 0) {
+            actionStatBar.append(text(" +" + lastCoinReward + " coins", NamedTextColor.GOLD));
+        }
 
-
-		
-		String actionBar = "RED" + getHealth() + "\u2665";
-		if (stats.getStat(Stat.MANA) > 0) actionBar += " LIGHT_PURPLE" + getMana() + "\u2605";
-		//actionBar += mana;
-		if (rewardTick > 0) 
-		{
-			rewardTick--;
-			if (lastXpReward > 0) actionBar += "  AQUA+" + lastXpReward + " XP";
-			if (lastCoinReward > 0) actionBar += "  GOLD+" + lastCoinReward + " coins";
-		} 
+        if (rewardTick > 0) {
+            rewardTick--;
+        }
+        else {
+            lastCoinReward = 0;
+            lastXpReward = 0;
+        }
 		
 		if (attackTick > 0) attackTick--;
 
@@ -305,8 +321,8 @@ public class GamePlayer extends GameEntity
             area = AreaManager.getPlayerArea(this);
             areaCheckTick = 100;
         }
-		
-		sendActionBar(actionBar);
+
+        sendActionBar(actionStatBar);
 		player.getInventory().setItem(8, ItemFactory.menuItem);
 		player.setPlayerListName(StringUtils.colourString("GRAY[WHITE" + level + "GRAY] " + player.getDisplayName()));
 		
@@ -421,10 +437,7 @@ public class GamePlayer extends GameEntity
 	 */
 	@Deprecated
 	public int getSackUsed() {
-		int used = 0;
-		for (int i : sack.values()) used += i;
-		
-		return used;
+        return getSackSpaceUsed();
 	}
 
 	public int getSackSpaceUsed() {
@@ -499,66 +512,91 @@ public class GamePlayer extends GameEntity
 		}
 		else player.getInventory().addItem(item);
 	}
-	
+
 	public void sendMessage(String message)
 	{
 		sendMessage(message, 0);
 	}
 	public void sendMessage(String message, int tickDelay)
 	{
-		String edited = StringUtils.colourString(message);
-		if (tickDelay == 0) player.sendMessage(edited);
-		else
-		{
-			new BukkitRunnable()
-			{
+        sendMessage(text().content(message), null, 0, 0, tickDelay);
+    }
 
-				@Override
-				public void run() {
-					player.sendMessage(edited);
-				}
-				
-			}.runTaskLater(Dungeons.instance, tickDelay);
-		}
-	}
+    public void sendMessage(String message, TextColor colour, int tickDelay) {
+        sendMessage(text().content(message).color(colour), null, 0, 0, tickDelay);
+    }
+
+    public void sendMessage(String message, NamedTextColor colour, int tickDelay) {
+        sendMessage(text().content(message).color(colour), null, 0, 0, tickDelay);
+    }
 	public void sendMessage(String message, Sound sound)
 	{
-		sendMessage(message, sound, 0);
+        sendMessage(text().content(message), sound, 0, 0, 0);
 	}
 	public void sendMessage(String message, Sound sound, int tickDelay)
 	{
-		String edited = StringUtils.colourString(message);
-		if (tickDelay == 0) {
-			player.sendMessage(edited);
-			playSound(sound, 0.6, 0.8);
-		}
-		else
-		{
-			new BukkitRunnable()
-			{
+        sendMessage(text().content(message), sound, 0, 0, tickDelay);
+    }
 
-				@Override
-				public void run() {
-					player.sendMessage(edited);
-					playSound(sound, 0.6, 0.8);
-				}
-				
-			}.runTaskLater(Dungeons.instance, tickDelay);
-		}
-	}
+    public void sendMessage(TextComponent.Builder message, int tickDelay) {
+        sendMessage(message, null, 0, 0, tickDelay);
+    }
+
+    public void sendMessage(TextComponent.Builder message, Sound sound, double volume, double pitch) {
+        sendMessage(message, sound, 1, 1, 0);
+    }
+
+    public void sendMessage(TextComponent.Builder message, Sound sound, int tickDelay) {
+        sendMessage(message, sound, 1, 1, tickDelay);
+    }
+
+    public void sendMessage(
+            TextComponent.Builder message,
+            @Nullable Sound sound,
+            double volume,
+            double pitch,
+            int tickDelay) {
+        Audience audience = player;
+        if (tickDelay == 0) {
+            audience.sendMessage(message.build());
+            if (sound != null) {
+                playSound(sound, volume, pitch);
+            }
+        }
+        else {
+            new BukkitRunnable() {
+                @Override
+                public void run() {
+                    audience.sendMessage(message.build());
+                    if (sound != null) {
+                        playSound(sound, volume, pitch);
+                    }
+                }
+            }.runTaskLater(Dungeons.instance, tickDelay);
+        }
+    }
+
 
     public void sendChunkMessage(List<String> chunk, int tickDelay) {
         for (var ch : chunk) sendMessage(ch, tickDelay);
     }
-	
-	public void sendTitle(String top, String sub, int in, int stay, int out) {
-		player.sendTitle(StringUtils.colourString(top), StringUtils.colourString(sub), in, stay, out);
-	}
-	
+
+    /**
+     * @param message whatever you want to send to the player client.
+     * @deprecated in favour of sendActionBar with a TextComponent.Builder instead.
+     */
+    @Deprecated
 	public void sendActionBar(String message)
 	{
-		player.spigot().sendMessage(ChatMessageType.ACTION_BAR, TextComponent.fromLegacy(StringUtils.colourString(message)));
+        Audience audience = player;
+        audience.sendActionBar(text(message));
 	}
+
+    public void sendActionBar(TextComponent.Builder message) {
+        Audience audience = player;
+        audience.sendActionBar(message.build());
+    }
+
 
 	@Override
 	public boolean isTargetable(GameEnemy by)
@@ -670,10 +708,10 @@ public class GamePlayer extends GameEntity
 	}
 
 	public ItemStack getBackpackItem(int slot) {
-        return ItemFactory.BuildItemFromString(backpack.getOrDefault(slot, null), this);
+        return ItemFactory.buildItemFromString(backpack.getOrDefault(slot, null), this);
 	}
 	public void setBackpackItem(int slot, ItemStack item) {
-        String data = ItemFactory.BuildStringFromItem(item);
+        String data = ItemFactory.buildStringFromItem(item);
         backpack.put(slot, data);
 	}
 
@@ -1019,5 +1057,10 @@ public class GamePlayer extends GameEntity
 
     public void SetOnInvulnerableCooldown() {
         invulTick = stats.getStat(Stat.INVULNERABILITY_TICKS);
+    }
+
+
+    public ItemFactory.FactoryBuildContext getItemContext() {
+        return new ItemFactory.FactoryBuildContext(this);
     }
 }

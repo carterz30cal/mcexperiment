@@ -1,12 +1,14 @@
-package com.carterz30cal.items;
+package com.carterz30cal.items.recipes;
+
+import com.carterz30cal.items.ItemFactory;
+import com.carterz30cal.items.discoveries.Collection;
+import com.carterz30cal.items.discoveries.DiscoveryManager;
+import com.carterz30cal.utils.StringUtils;
+import org.bukkit.configuration.ConfigurationSection;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
-
-import org.bukkit.configuration.ConfigurationSection;
-
-import com.carterz30cal.utils.StringUtils;
 
 public class Recipe 
 {

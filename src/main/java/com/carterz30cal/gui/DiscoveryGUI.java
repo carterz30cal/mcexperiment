@@ -1,10 +1,10 @@
 package com.carterz30cal.gui;
 
 import com.carterz30cal.entities.player.GamePlayer;
-import com.carterz30cal.items.Collection;
-import com.carterz30cal.items.DiscoveryManager;
 import com.carterz30cal.items.ItemFactory;
-import com.carterz30cal.items.Recipe;
+import com.carterz30cal.items.discoveries.Collection;
+import com.carterz30cal.items.discoveries.DiscoveryManager;
+import com.carterz30cal.items.recipes.Recipe;
 import com.carterz30cal.utils.StringUtils;
 import org.bukkit.ChatColor;
 import org.bukkit.inventory.ItemStack;
