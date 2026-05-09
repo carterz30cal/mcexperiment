@@ -27,6 +27,7 @@ import net.kyori.adventure.text.TextComponent;
 import net.kyori.adventure.text.format.NamedTextColor;
 import net.kyori.adventure.text.format.TextColor;
 import net.kyori.adventure.text.format.TextDecoration;
+import net.kyori.adventure.text.minimessage.MiniMessage;
 import org.bukkit.Bukkit;
 import org.bukkit.Color;
 import org.bukkit.Material;
@@ -425,6 +426,16 @@ public class ItemFactory
             Section descriptionSection = new Section(new ArrayList<>());
             for (String d : item.description) descriptionSection.section.add(text().append(text(d, DARK_GRAY)));
             sections.add(descriptionSection);
+        }
+        if (!item.lore.isEmpty()) {
+            Section loreSection = new Section(new ArrayList<>());
+            for (var l : item.lore) {
+                var miniMessage = MiniMessage.miniMessage().deserialize("<dark_grey>" + l + "</dark_grey>");
+                loreSection.section.add(text().append(miniMessage));
+            }
+            if (!loreSection.section.isEmpty()) {
+                sections.add(loreSection);
+            }
         }
 
         if (!sections.isEmpty()) {
@@ -888,6 +899,11 @@ public class ItemFactory
         return buildCustom(stack, name, colour);
     }
 
+    public static ItemStack customItem(String base, TextComponent.Builder name, TextComponent.Builder... lore) {
+        ItemStack stack = build(base);
+        return customItem(stack, name, lore);
+    }
+
 
     /**
      *
@@ -1020,9 +1036,28 @@ public class ItemFactory
             }
         }
         final TextColor nameColour = colour;
+        return customItem(stack, text().content(name).color(nameColour), lore);
+    }
+
+    /**
+     *
+     * @param stack The template ItemStack that we want to turn into a display item.
+     * @param name  Whatever you want the ItemStack's custom name to be, in plaintext.
+     * @param lore  List of Builders that determines the item lore. If null it sets the lore to empty.
+     * @return ItemStack that has been made 'invalid' (isn't recognized by the game as a custom item) with specified name and lore.
+     * @implNote This isn't safe to run on players' items, make sure you clone the ItemStack first.
+     * @since 1.0.0
+     */
+    public static ItemStack customItem(
+            @NotNull ItemStack stack,
+            @Nullable TextComponent.Builder name,
+            @Nullable TextComponent.Builder... lore
+    ) {
         makeInvalid(stack);
         stack.editMeta(meta -> {
-            meta.customName(text(name, nameColour));
+            if (name != null) {
+                meta.customName(name.build());
+            }
             var llist = new ArrayList<Component>();
             if (lore != null) {
                 for (var l : lore) {
