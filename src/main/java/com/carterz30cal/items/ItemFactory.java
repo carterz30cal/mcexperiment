@@ -427,7 +427,7 @@ public class ItemFactory
             for (String d : item.description) descriptionSection.section.add(text().append(text(d, DARK_GRAY)));
             sections.add(descriptionSection);
         }
-        if (!item.lore.isEmpty()) {
+        if (item.lore != null && !item.lore.isEmpty()) {
             Section loreSection = new Section(new ArrayList<>());
             for (var l : item.lore) {
                 var miniMessage = MiniMessage.miniMessage().deserialize("<dark_grey>" + l + "</dark_grey>");
