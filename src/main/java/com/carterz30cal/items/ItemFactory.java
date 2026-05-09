@@ -904,6 +904,18 @@ public class ItemFactory
         return customItem(stack, name, lore);
     }
 
+    public static ItemStack customItem(String base, String name, String lore) {
+        ItemStack stack = build(base);
+        List<String> loreList = new ArrayList<>();
+        loreList.add(lore);
+        return customItem(stack, name, loreList);
+    }
+
+    public static ItemStack customItem(String base, String name, List<String> lore) {
+        ItemStack stack = build(base);
+        return customItem(stack, name, lore);
+    }
+
 
     /**
      *
@@ -1065,6 +1077,43 @@ public class ItemFactory
                         continue;
                     }
                     llist.add(l.build());
+                }
+            }
+            meta.lore(llist);
+        });
+        return stack;
+    }
+
+
+    /**
+     * MiniMessage format customItem generator.
+     *
+     * @param stack The template ItemStack that we want to turn into a display item.
+     * @param name  Whatever you want the ItemStack's custom name to be, in MiniMessage format.
+     * @param lore  List of Strings in MiniMessage format.
+     * @return ItemStack that has been made 'invalid' (isn't recognized by the game as a custom item) with specified name and lore.
+     * @implNote This isn't safe to run on players' items, make sure you clone the ItemStack first.
+     * @since 1.0.0
+     */
+    public static ItemStack customItem(
+            @NotNull ItemStack stack,
+            @Nullable String name,
+            @Nullable List<String> lore
+    ) {
+        makeInvalid(stack);
+        stack.editMeta(meta -> {
+            if (name != null) {
+                var miniName = MiniMessage.miniMessage().deserialize(name);
+                meta.customName(miniName);
+            }
+            var llist = new ArrayList<Component>();
+            if (lore != null) {
+                for (var l : lore) {
+                    if (l == null) {
+                        continue;
+                    }
+                    var miniL = MiniMessage.miniMessage().deserialize(l);
+                    llist.add(miniL);
                 }
             }
             meta.lore(llist);

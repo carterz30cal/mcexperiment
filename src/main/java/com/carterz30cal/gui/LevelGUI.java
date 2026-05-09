@@ -47,12 +47,13 @@ public class LevelGUI extends AbstractGUI
 					for (int r = 4; r >= 0; r--)
 					{
 						int pos = r * 9 + (c - offset);
-						if (pattern[c % pattern.length][r])
-						{
-							level++;
-							inventory.setSlot(getLevelPane(level), pos);
-						}
-						else inventory.setSlot(GooeyInventory.produceElement("BLACK_STAINED_GLASS_PANE", " "), pos);
+                        if (pattern[c % pattern.length][r]) {
+                            level++;
+                            inventory.setSlot(getLevelPane(level), pos);
+                        }
+                        else {
+                            inventory.setSlot(GooeyInventory.produceElement("BLACK_STAINED_GLASS_PANE", " "), pos);
+                        }
 					}
 				}
 				else

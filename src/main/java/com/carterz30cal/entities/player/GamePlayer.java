@@ -513,7 +513,8 @@ public class GamePlayer extends GameEntity
 		else player.getInventory().addItem(item);
 	}
 
-	public void sendMessage(String message)
+
+    public void sendMessage(String message)
 	{
 		sendMessage(message, 0);
 	}

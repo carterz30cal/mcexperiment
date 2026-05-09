@@ -95,7 +95,7 @@ public class ShopGUI extends AbstractGUI {
         var lore = meta.lore();
         assert lore != null;
 
-        lore.add(text(""));
+        lore.add(text().content("").build());
         lore.add(text("This shopkeeper wants:", GOLD).decorate(TextDecoration.BOLD));
         if (recipe.coinCost != 0) {
             lore.add(text().append(text("- ", DARK_GRAY))
@@ -127,10 +127,6 @@ public class ShopGUI extends AbstractGUI {
 
     private TextComponent.Builder text() {
         return Component.text().decorationIfAbsent(TextDecoration.ITALIC, TextDecoration.State.FALSE);
-    }
-
-    private TextComponent text(String msg) {
-        return text().content(msg).build();
     }
 
     private TextComponent text(String msg, NamedTextColor colour) {

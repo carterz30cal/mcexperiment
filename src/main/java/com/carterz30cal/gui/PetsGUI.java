@@ -4,9 +4,9 @@ import com.carterz30cal.entities.player.GamePlayer;
 import com.carterz30cal.items.Item;
 import com.carterz30cal.items.ItemFactory;
 import com.carterz30cal.items.types.ItemPet;
-import com.carterz30cal.utils.StringUtils;
+import net.kyori.adventure.text.format.NamedTextColor;
 import org.bukkit.inventory.ItemStack;
-import org.bukkit.inventory.meta.ItemMeta;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -46,31 +46,44 @@ public class PetsGUI extends AbstractGUI {
             inventory.setSlot(ItemFactory.build(owner.pets.get(pi)), c);
         }
 
-        ItemStack info = ItemFactory.buildCustom("REDSTONE_TORCH", "REDInformation!", "");
-        ItemMeta meta = info.getItemMeta();
-        List<String> lore = new ArrayList<>();
-        lore.add("GRAYAll pets in your pets menu grant their");
-        lore.add("GRAYLIGHT_PURPLEpassiveGRAY abilities and BLUEstatsGRAY, but");
-        lore.add("GRAYyou may activate one pet to take");
-        lore.add("GRAYadvantage of their GOLDactiveGRAY ability!");
-
-        int petCount = owner.pets.size() + (owner.activePet == null ? 0 : 1);
-        if (petCount == 0) lore.add("GRAYYou don't have any pets.");
-        else if (petCount == 1) lore.add("GRAYYou have GREEN1GRAY pet.");
-        else lore.add("GRAYYou have GREEN" + petCount + " GRAYpets.");
-
-        assert meta != null;
-        meta.setLore(StringUtils.colourList(lore));
-        info.setItemMeta(meta);
-        inventory.setSlot(info, calc(4, 5));
+        List<String> lore = getLore();
+        inventory.setSlot(
+                ItemFactory.customItem("REDSTONE_TORCH", "<red>Information!</red>", lore)
+                , calc(4, 5));
 
         if (page > 1) {
-            inventory.setSlot(ItemFactory.buildCustom("ARROW", "Page " + (page - 1)), calc(1, 5));
+            inventory.setSlot(
+                    ItemFactory.customItem("ARROW", "Page " + (page - 1), NamedTextColor.RED),
+                    calc(1, 5));
         }
+
         if (owner.pets.size() >= (page * 7 * 4)) {
-            inventory.setSlot(ItemFactory.buildCustom("ARROW", "Page " + (page + 1)), calc(7, 5));
+            inventory.setSlot(
+                    ItemFactory.customItem("ARROW", "Page " + (page + 1), NamedTextColor.GREEN),
+                    calc(7, 5));
         }
+
         inventory.update();
+    }
+
+    private @NotNull List<String> getLore() {
+        List<String> lore = new ArrayList<>();
+        lore.add("<grey>All pets in your pets menu grant their</grey>");
+        lore.add("<grey><light_purple>passive</light_purple> abilities and <blue>stats</blue>, but</grey>");
+        lore.add("<grey>you may activate one pet to take</grey>");
+        lore.add("<grey>advantage of their <gold>active</gold> ability!</grey>");
+
+        int petCount = owner.pets.size() + (owner.activePet == null ? 0 : 1);
+        if (petCount == 0) {
+            lore.add("<grey>You don't have any pets.</grey>");
+        }
+        else if (petCount == 1) {
+            lore.add("<grey>You have GREEN1GRAY pet.</grey>");
+        }
+        else {
+            lore.add("<grey>You have <green>" + petCount + "</green> pets.</grey>");
+        }
+        return lore;
     }
 
     @Override
@@ -80,7 +93,7 @@ public class PetsGUI extends AbstractGUI {
             if (cli instanceof ItemPet) {
                 Set<String> lines = owner.getPetLines();
                 if (lines.contains(((ItemPet) cli).petLine)) {
-                    owner.sendMessage("REDYou can't add this pet!");
+                    owner.sendMessage("You can't add this pet!", NamedTextColor.RED, 0);
                 }
                 else {
                     clicked.setAmount(clicked.getAmount() - 1);

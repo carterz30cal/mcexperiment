@@ -3,10 +3,14 @@ package com.carterz30cal.gui;
 import com.carterz30cal.areas.quests.Quests;
 import com.carterz30cal.entities.player.GamePlayer;
 import com.carterz30cal.items.ItemFactory;
+import net.kyori.adventure.text.TextComponent;
+import net.kyori.adventure.text.format.NamedTextColor;
 import org.bukkit.inventory.ItemStack;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import static net.kyori.adventure.text.Component.text;
 
 public class QuestGUI extends AbstractGUI {
     private Quests.QuestSave[] saves;
@@ -56,10 +60,16 @@ public class QuestGUI extends AbstractGUI {
             j++;
         }
         if (page > 1) {
-            inventory.setSlot(ItemFactory.buildCustom("ARROW", "GREENPrevious Page"), calc(1, 5));
+            inventory.setSlot(
+                    ItemFactory.customItem("ARROW", "Previous Page", NamedTextColor.RED),
+                    calc(1, 5)
+            );
         }
         if (j + 28 < quests.size()) {
-            inventory.setSlot(ItemFactory.buildCustom("ARROW", "GREENNext Page"), calc(7, 5));
+            inventory.setSlot(
+                    ItemFactory.customItem("ARROW", "Previous Page", NamedTextColor.GREEN),
+                    calc(7, 5)
+            );
         }
         inventory.update();
     }
@@ -74,31 +84,60 @@ public class QuestGUI extends AbstractGUI {
             owner.SetSelectedQuest(save.GetQuest());
             update();
         }
+        else if (clickPos == calc(1, 5) && page > 1) {
+            page--;
+            update();
+        }
+        else if (clickPos == calc(7, 5)) { // TODO: Maybe put in a bounds check?
+            page++;
+            update();
+        }
 
         return false;
     }
 
     private ItemStack getQuestDisplay(Quests.QuestSave q) {
-        List<String> lore = new ArrayList<>();
+        var loreList = new ArrayList<TextComponent.Builder>();
+        var lore = text();
         int completedCount = q.GetQuest().GetCompletedSections(q.currentSection).size();
-        String colour = q.completedQuest ? "GREEN" : (completedCount == 0 ? "RED" : "YELLOW");
-        lore.add("GRAYYou've completed " + colour + completedCount + "GRAY/GREEN" + q.GetQuest().GetTotalSectionCount() + " GRAYquests!");
-        lore.add("");
-        lore.addAll(q.GetQuest().GetDescription());
-        if (!q.completedQuest) {
-            lore.add("");
-            lore.add("GOLDCurrent goal:");
-            lore.addAll(q.GetQuest().GetQuestSection(q.currentSection).GetDescription(q.sectionSave));
-            lore.add("");
+
+        lore.append(
+                text("You've completed ", NamedTextColor.GRAY)
+        ).append(
+                text(completedCount, q.completedQuest ? NamedTextColor.GREEN : (completedCount == 0 ? NamedTextColor.RED : NamedTextColor.YELLOW))
+        ).append(
+                text("/", NamedTextColor.GRAY)
+        ).append(
+                text(q.GetQuest().GetTotalSectionCount(), NamedTextColor.GREEN)
+        ).append(
+                text(" quests!", NamedTextColor.GRAY)
+        );
+        loreList.add(lore);
+        if (!q.GetQuest().GetDescription().isEmpty()) {
+            loreList.add(text());
+            for (var description : q.GetQuest().GetDescription())
+                loreList.add(text().append(text(description, NamedTextColor.GRAY)));
+        }
+        var section = q.GetQuest().GetQuestSection(q.currentSection);
+        if (!q.completedQuest && section != null && !section.GetDescription(q.sectionSave).isEmpty()) {
+            loreList.add(text());
+            loreList.add(text().content("Current goal:").color(NamedTextColor.GOLD));
+            for (var description : section.GetDescription(q.sectionSave)) {
+                loreList.add(text().append(text(description, NamedTextColor.GRAY)));
+            }
+            loreList.add(text());
             if (q.GetQuest() != owner.GetSelectedQuest()) {
-                lore.add("GOLDClick to select quest!");
+                loreList.add(text().content("Click to select this quest!").color(NamedTextColor.GOLD));
             }
             else {
-                lore.add("GOLDSelected!");
+                loreList.add(text().content("This is your active quest!").color(NamedTextColor.GOLD));
             }
         }
 
-        ItemStack quest = ItemFactory.buildCustom(q.completedQuest ? "BOOK" : "WRITTEN_BOOK", "GREENQuest: " + q.GetQuest().GetName(), lore);
-        return quest;
+        return ItemFactory.customItem(
+                q.completedQuest ? "BOOK" : "WRITTEN_BOOK",
+                text().content("Quest: " + q.GetQuest().GetName()).color(NamedTextColor.GREEN),
+                loreList.toArray(new TextComponent.Builder[0])
+        );
     }
 }
