@@ -1295,6 +1295,7 @@ public class ItemFactory
 			item.stats = new StatContainer();
 			item.glow = i.getBoolean("glow", false);
 			item.description = i.getStringList("description");
+            item.lore = i.getStringList("lore");
 			item.value = i.getLong("value");
 			item.tags = i.getStringList("tags");
 			item.set = i.getString("set", "null");
