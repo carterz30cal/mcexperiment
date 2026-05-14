@@ -164,7 +164,7 @@ public class DiscoveryGUI extends AbstractGUI {
                             "GREEN" + discovery.name + " " + level,
                             "GRAYYou have collected GREEN"
                                     +
-                                    StringUtils.commaify(owner.discoveries.getOrDefault(discovery.id, 0L))
+                                    StringUtils.addCommas(owner.discoveries.getOrDefault(discovery.id, 0L))
                                     +
                                     "GRAY items."),
 					calc(4, 0));

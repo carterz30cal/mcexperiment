@@ -323,7 +323,7 @@ public class ItemFactory
                     for (var enchant : enchantments) {
                         in++;
                         i++;
-                        l.append(text(enchant.name(), enchant.colour()));
+                        l.append(text(enchant.name() + " " + enchant.level, enchant.colour()));
                         if (in < 3) {
                             if (i != enchantments.size()) {
                                 l.append(text(", ", DARK_GRAY));
@@ -338,7 +338,7 @@ public class ItemFactory
                 }
                 else {
                     for (var enchant : enchantments) {
-                        var l = text().append(text(enchant.name(), enchant.colour()));
+                        var l = text().append(text(enchant.name() + " " + enchant.level, enchant.colour()));
                         var desc = enchant.componentDescription();
                         enchantSection.section.add(l);
                         if (!desc.isEmpty()) {
@@ -431,7 +431,7 @@ public class ItemFactory
             Section loreSection = new Section(new ArrayList<>());
             for (var l : item.lore) {
                 var miniMessage = MiniMessage.miniMessage().deserialize("<dark_grey>" + l + "</dark_grey>");
-                loreSection.section.add(text().append(miniMessage));
+                loreSection.section.add(text().decoration(TextDecoration.ITALIC, TextDecoration.State.FALSE).append(miniMessage));
             }
             if (!loreSection.section.isEmpty()) {
                 sections.add(loreSection);
@@ -890,16 +890,20 @@ public class ItemFactory
 
     public static ItemStack customItem(String base, String name) {
         ItemStack stack = build(base);
-        Item item = getItem(base);
-        return buildCustom(stack, name, item == null ? NamedTextColor.WHITE : item.rarity.textColor);
+        return customItem(stack, name, new ArrayList<>());
     }
 
     public static ItemStack customItem(String base, String name, NamedTextColor colour) {
         ItemStack stack = build(base);
-        return buildCustom(stack, name, colour);
+        return customItem(stack, text().content(name).color(colour));
     }
 
     public static ItemStack customItem(String base, TextComponent.Builder name, TextComponent.Builder... lore) {
+        ItemStack stack = build(base);
+        return customItem(stack, name, lore);
+    }
+
+    public static ItemStack customItem(String base, TextComponent.Builder name, List<TextComponent.Builder> lore) {
         ItemStack stack = build(base);
         return customItem(stack, name, lore);
     }
@@ -1065,10 +1069,32 @@ public class ItemFactory
             @Nullable TextComponent.Builder name,
             @Nullable TextComponent.Builder... lore
     ) {
+        if (lore == null) {
+            return customItem(stack, name, new ArrayList<>());
+        }
+        else {
+            return customItem(stack, name, List.of(lore));
+        }
+    }
+
+    /**
+     *
+     * @param stack The template ItemStack that we want to turn into a display item.
+     * @param name  Whatever you want the ItemStack's custom name to be, in plaintext.
+     * @param lore  List of Builders that determines the item lore. If null it sets the lore to empty.
+     * @return ItemStack that has been made 'invalid' (isn't recognized by the game as a custom item) with specified name and lore.
+     * @implNote This isn't safe to run on players' items, make sure you clone the ItemStack first.
+     * @since 1.0.0
+     */
+    public static ItemStack customItem(
+            @NotNull ItemStack stack,
+            @Nullable TextComponent.Builder name,
+            @Nullable List<TextComponent.Builder> lore
+    ) {
         makeInvalid(stack);
         stack.editMeta(meta -> {
             if (name != null) {
-                meta.customName(name.build());
+                meta.customName(name.decoration(TextDecoration.ITALIC, TextDecoration.State.FALSE).build());
             }
             var llist = new ArrayList<Component>();
             if (lore != null) {
@@ -1076,7 +1102,7 @@ public class ItemFactory
                     if (l == null) {
                         continue;
                     }
-                    llist.add(l.build());
+                    llist.add(l.decoration(TextDecoration.ITALIC, TextDecoration.State.FALSE).build());
                 }
             }
             meta.lore(llist);
@@ -1103,7 +1129,7 @@ public class ItemFactory
         makeInvalid(stack);
         stack.editMeta(meta -> {
             if (name != null) {
-                var miniName = MiniMessage.miniMessage().deserialize(name);
+                var miniName = MiniMessage.miniMessage().deserialize(name).decoration(TextDecoration.ITALIC, TextDecoration.State.FALSE);
                 meta.customName(miniName);
             }
             var llist = new ArrayList<Component>();
@@ -1113,7 +1139,7 @@ public class ItemFactory
                         continue;
                     }
                     var miniL = MiniMessage.miniMessage().deserialize(l);
-                    llist.add(miniL);
+                    llist.add(miniL.decoration(TextDecoration.ITALIC, TextDecoration.State.FALSE));
                 }
             }
             meta.lore(llist);
@@ -1358,9 +1384,9 @@ public class ItemFactory
                 default:
                     item.setAmount(Integer.parseInt(spl[1]));
                     ItemFactory.setItemData(item, spl[2]);
-                    ItemFactory.update(item, owner == null ? null : owner.getItemContext());
                     break;
             }
+            ItemFactory.update(item, owner == null ? null : owner.getItemContext());
             return item;
         }
     }
@@ -1450,12 +1476,16 @@ public class ItemFactory
 
 		item.glow = i.getBoolean("glow", false);
 		item.description = i.getStringList("description");
+        item.lore = i.getStringList("lore");
 		item.discovery = i.getString("discovery", null);
 		item.discoveryProgress = i.getInt("discovery-progress", 0);
 		item.set = i.getString("set", "null");
         item.skullProfileId = i.getString("skull-profile-id", null);
 
 		if (item.description == null) item.description = new ArrayList<>();
+        if (item.lore == null) {
+            item.lore = new ArrayList<>();
+        }
 		if (lootboxItemCount > 0) {
 			//item.description.add("");
 			item.description.add("GRAYThis lootbox can contain up");

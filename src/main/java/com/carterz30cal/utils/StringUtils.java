@@ -1,6 +1,9 @@
 package com.carterz30cal.utils;
 
 import com.carterz30cal.main.Dungeons;
+import net.kyori.adventure.text.TextComponent;
+import net.kyori.adventure.text.format.NamedTextColor;
+import net.kyori.adventure.text.format.TextColor;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.configuration.ConfigurationSection;
@@ -10,13 +13,17 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
+import static net.kyori.adventure.text.Component.text;
+
 public class StringUtils
 {
+    @Deprecated
 	public static String progressBar(double percent, int length)
 	{
 		return progressBar(percent, length, ChatColor.BLUE, ChatColor.RED);
 	}
-	
+
+    @Deprecated
 	public static String progressBar(double percent, int length, ChatColor yes, ChatColor no)
 	{
 		int pLength = (int)Math.round(percent * length);
@@ -27,7 +34,8 @@ public class StringUtils
 		for (int i = 0; i <= length - pLength; i++) bar += "|";
 		return bar;
 	}
-	
+
+    @Deprecated
 	public static String progressBar(double percent, int length, String colour)
 	{
 		int pLength = (int)Math.round(percent * length);
@@ -38,6 +46,40 @@ public class StringUtils
 		for (int i = 0; i <= length - pLength; i++) bar += "|";
 		return colourString(bar);
 	}
+
+    /**
+     * @param length         character length of the bar
+     * @param percentFilled  this will be rounded, based on the length.
+     * @param filledColour   what colour do we want in the filled portion of the bar?
+     * @param unfilledColour what colour do we want in the unfilled portion of the bar?
+     * @return a progress bar of the specified length, filled in to a rounded percent.
+     * @since 1.0.0
+     */
+    public static TextComponent.Builder progressBar(int length, double percentFilled, NamedTextColor filledColour, NamedTextColor unfilledColour) {
+        return progressBar(length, percentFilled, TextColor.color(filledColour), TextColor.color(unfilledColour));
+    }
+
+
+    /**
+     * @param length         character length of the bar
+     * @param percentFilled  this will be rounded, based on the length.
+     * @param filledColour   what colour do we want in the filled portion of the bar?
+     * @param unfilledColour what colour do we want in the unfilled portion of the bar?
+     * @return a progress bar of the specified length, filled in to a rounded percent.
+     * @since 1.0.0
+     */
+    public static TextComponent.Builder progressBar(int length, double percentFilled, TextColor filledColour, TextColor unfilledColour) {
+        int filledLength = (int) Math.round(percentFilled * length);
+        return text()
+                .append(
+                        text()
+                                .content(new StringBuilder().repeat('|', filledLength).toString())
+                                .color(filledColour))
+                .append(
+                        text()
+                                .content(new StringBuilder().repeat('|', length - filledLength).toString())
+                                .color(unfilledColour));
+    }
 	
 	public static String asPercent(double percent)
 	{
@@ -66,43 +108,28 @@ public class StringUtils
 		{
 			fin[i] = Integer.parseInt(split[i]);
 		}
-		
-		return fin;
-	}
-	
-	public static String getPrettyCoins(int amount)
-	{
-		String adj = commaify(amount);
-		return amount < 0 ? "GOLD-" + adj + " Coins" : "GOLD" + adj + " Coins";
-	}
-	
-	public static String commaify(int amount) {
-		String am = "" + Math.abs(amount);
-		String adj = "";
-		for (int i = 0; i < am.length(); i++)
-		{
-			int c = am.length() - (i + 1);
-			if (i % 3 == 0 && i != 0) adj = am.charAt(c) + "," + adj;
-			else adj = am.charAt(c) + adj;
-		}
-		
-		return adj;
-	}
 
-    public static String commaify(long amount) {
+        return fin;
+    }
+
+    public static String addCommas(int amount) {
+        return addCommas((long) amount);
+    }
+
+    public static String addCommas(long amount) {
         String am = "" + Math.abs(amount);
-        String adj = "";
+        StringBuilder adj = new StringBuilder();
         for (int i = 0; i < am.length(); i++) {
             int c = am.length() - (i + 1);
             if (i % 3 == 0 && i != 0) {
-                adj = am.charAt(c) + "," + adj;
+                adj.insert(0, am.charAt(c) + ",");
             }
             else {
-                adj = am.charAt(c) + adj;
+                adj.insert(0, am.charAt(c));
             }
         }
 
-        return adj;
+        return adj.toString();
     }
 	
 	public static String getPrettyTime(int ticks)
@@ -111,8 +138,8 @@ public class StringUtils
 		
 		int[] divs = {20*60*60, 20*60, 20};
 		String[] suffix = {"h", "m", "s"};
-		
-		String sentence = "";
+
+        StringBuilder sentence = new StringBuilder();
 		int remaining = ticks;
 		for (int d = 0; d < divs.length; d++)
 		{
@@ -120,9 +147,9 @@ public class StringUtils
 			remaining = remaining % divs[d];
 			
 			if (rounded == 0) continue;
-			sentence += " " + rounded + suffix[d];
-		}
-		return sentence;
+            sentence.append(" ").append(rounded).append(suffix[d]);
+        }
+        return sentence.toString();
 	}
 
 	public static String getPrettyTime(LocalDateTime finishes)

@@ -6,7 +6,10 @@ import com.carterz30cal.items.ItemFactory;
 import com.carterz30cal.items.ItemRarity;
 import com.carterz30cal.items.ItemType;
 import com.carterz30cal.main.Dungeons;
+import net.kyori.adventure.text.TextComponent;
 import net.kyori.adventure.text.format.NamedTextColor;
+import net.kyori.adventure.text.format.TextDecoration;
+import net.kyori.adventure.text.minimessage.MiniMessage;
 import org.bukkit.inventory.ItemStack;
 
 import java.util.ArrayList;
@@ -54,12 +57,21 @@ public class SackGUI extends AbstractGUI
 			int b = i % 28;
 			int x = b % 7 + 1;
 			int y = b / 7 + 1;
-			
-			String s = cont.get(i);
+
+            String s = cont.get(i);
+            var item = ItemFactory.getItem(s);
+            var lore = new ArrayList<TextComponent.Builder>();
+
+            for (var l : item.lore) {
+                var miniMessage = MiniMessage.miniMessage().deserialize("<dark_grey>" + l + "</dark_grey>");
+                lore.add(text().decoration(TextDecoration.ITALIC, TextDecoration.State.FALSE).append(miniMessage));
+            }
+
             var display = ItemFactory.customItem(
                     s,
                     text().append(ItemFactory.getItemNameBuilder(s))
-                            .append(text(" x" + owner.sack.get(s), NamedTextColor.WHITE))
+                            .append(text(" x" + owner.sack.get(s), NamedTextColor.WHITE)),
+                    lore
             );
             display.setAmount(Math.min(owner.sack.get(s), 64));
 			arrows[y * 9 + x] = s;

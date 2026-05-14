@@ -4,16 +4,19 @@ import com.carterz30cal.entities.player.GamePlayer;
 import com.carterz30cal.items.Item;
 import com.carterz30cal.items.ItemFactory;
 import com.carterz30cal.items.ItemTypeUse;
-import com.carterz30cal.stats.Stat;
 import com.carterz30cal.stats.StatDisplayType;
 import com.carterz30cal.utils.LevelUtils;
 import com.carterz30cal.utils.StringUtils;
-import org.bukkit.ChatColor;
+import net.kyori.adventure.text.TextComponent;
+import net.kyori.adventure.text.format.NamedTextColor;
 import org.bukkit.Sound;
 import org.bukkit.inventory.ItemStack;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
+
+import static net.kyori.adventure.text.Component.text;
 
 public class MenuGUI extends AbstractGUI 
 {
@@ -41,63 +44,122 @@ public class MenuGUI extends AbstractGUI
 		
 		update();
 	}
+
+    /**
+     * @return an ItemStack with all the player's information, including XP progress and stats
+     * @since 1.0.0
+     */
+    private ItemStack playerHead() {
+        var lore = new ArrayList<TextComponent.Builder>();
+        lore.add(
+                StringUtils.progressBar(40, owner.getLevelProgress(), NamedTextColor.AQUA, NamedTextColor.DARK_GRAY)
+                        .append(
+                                text(((int) (owner.getLevelProgress() * 1000) / 10) +
+                                        "% to Level " +
+                                        (owner.getLevel() + 1))
+                                        .color(NamedTextColor.AQUA)
+                        )
+        );
+        lore.add(
+                text().content(owner.xp + "/" + LevelUtils.getXpForLevel(owner.getLevel() + 1)).color(NamedTextColor.DARK_GRAY)
+        );
+
+        for (var stat : owner.stats.getStats()) {
+            if (stat.display == StatDisplayType.NO_DISPLAY || stat.display == StatDisplayType.NO_DISPLAY_IN_PLAYER_STATS) {
+                continue;
+            }
+            lore.add(
+                    text().append(text().content(stat.name + ": ").color(stat.textColour))
+                            .append(text().content(" " + owner.stats.getDisplayed(stat)).color(NamedTextColor.WHITE))
+            );
+        }
+        if (owner.player.isOp()) {
+            lore.add(text());
+            lore.add(text().content("Click to open the super-secret admin menu!").color(NamedTextColor.YELLOW));
+        }
+
+        return ItemFactory.customItem(
+                ItemFactory.ripPlayerSkull(owner),
+                text().append(owner.player.playerListName()),
+                lore
+        );
+    }
+
 	
 	public void update() {
-		ItemStack player = ItemFactory.ripPlayerSkull(owner);
-		
-		String statDisplay = StringUtils.progressBar(owner.getLevelProgress(), 40, ChatColor.AQUA, ChatColor.DARK_GRAY);
-		statDisplay += " AQUA" + ((int)(owner.getLevelProgress() * 1000) / 10) + "% to Level " + (owner.getLevel() + 1) + ";";
-		statDisplay += "DARK_GRAY" + owner.xp + "/" + LevelUtils.getXpForLevel(owner.getLevel() + 1) + ";";
-		for (Stat stat : owner.stats.getStats())
-		{
-			if (stat.display == StatDisplayType.NO_DISPLAY || stat.display == StatDisplayType.NO_DISPLAY_IN_PLAYER_STATS) continue;
-			statDisplay += ";" + stat.colour + stat.name + ": WHITE" + owner.stats.getDisplayed(stat);
-		}
-		if (owner.player.isOp()) statDisplay += ";;YELLOWClick to open the secret admin menu!";
-		
-		player = ItemFactory.buildCustom(player, owner.player.getPlayerListName(), statDisplay);
-		inventory.setSlot(player, calc(4, 0));
-		
-		inventory.setSlot(GooeyInventory.produceElement("ANVIL", "LIGHT_PURPLEMagic Anvil"), ANVIL_POS);
-		inventory.setSlot(GooeyInventory.produceElement("FURNACE", "AQUAThe Item Forge"), FORGE_POS);
-		inventory.setSlot(GooeyInventory.produceElement("EXPERIENCE_BOTTLE", "DARK_PURPLELevels"), LEVEL_POS);
-		inventory.setSlot(GooeyInventory.produceElement("HOPPER", "BLUEDiscoveries"), DISCOVERY_POS);
+        inventory.setSlot(playerHead(), calc(4, 0));
 
-		inventory.setSlot(GooeyInventory.produceElement("LEATHER", "AQUABackpack"), BACKPACK_POS);
-        inventory.setSlot(ItemFactory.buildCustom("gold_leaf_chestplate", "YELLOWWardrobe", ""), WARDROBE_POS);
-		
-		// quiver
+        inventory.setSlot(ItemFactory.customItem("ANVIL", "<light_purple>Magic Anvil</light_purple>"), ANVIL_POS);
+        inventory.setSlot(ItemFactory.customItem("FURNACE", "<aqua>The Item Forge</aqua>"), FORGE_POS);
+        inventory.setSlot(ItemFactory.customItem("EXPERIENCE_BOTTLE", "<dark_purple>Levels</dark_purple>"), LEVEL_POS);
+        inventory.setSlot(ItemFactory.customItem("HOPPER", "<blue>Discoveries</blue>"), DISCOVERY_POS);
+
+        inventory.setSlot(ItemFactory.customItem("LEATHER", "<aqua>Backpack</aqua>"), BACKPACK_POS);
+        inventory.setSlot(ItemFactory.customItem("gold_leaf_chestplate", "<yellow>Wardrobe</yellow>"), WARDROBE_POS);
+
 		int arrowCount = 0;
 		for (String a : owner.quiver.keySet()) arrowCount += owner.quiver.get(a);
-		inventory.setSlot(ItemFactory.buildCustom("ARROW", "WHITEQuiver", "GRAYHolding WHITE" + arrowCount + "GRAY arrows."), QUIVER_POS);
+        inventory.setSlot(
+                ItemFactory.customItem("ARROW",
+                        "<white>Quiver</white>",
+                        "<grey>Holding " + StringUtils.addCommas(arrowCount) + " arrows.</grey>"),
+                QUIVER_POS);
 		
 		//if (owner.talismans.size() == 0) inventory.setSlot(ItemFactory.buildCustom("MINECART", "GOLDTalisman Bag", "REDCurrently holding no talismans, go find some!"), TALIS_POS);
 		//else if (owner.talismans.size() == 1) inventory.setSlot(ItemFactory.buildCustom("MINECART", "GOLDTalisman Bag", "GRAYHolding WHITE1GRAY talisman."), TALIS_POS);
 		//else inventory.setSlot(ItemFactory.buildCustom("MINECART", "GOLDTalisman Bag", "GRAYHolding WHITE" + owner.talismans.size() + "GRAY talismans."), TALIS_POS);
-        inventory.setSlot(ItemFactory.buildCustom("LEAD", "REDBestiary"), BESTIARY_POS);
+        inventory.setSlot(ItemFactory.customItem("LEAD", "<red>Bestiary</red>"), BESTIARY_POS);
 		
 		if (owner.getLevel() < 2) {
-			inventory.setSlot(GooeyInventory.produceElement("RED_STAINED_GLASS_PANE", "REDLocked for now!"), SACK_POS);
+            inventory.setSlot(ItemFactory.customItem("RED_STAINED_GLASS_PANE", "<red>Locked for now!</red>"), SACK_POS);
 		}
 		else {
-			inventory.setSlot(ItemFactory.buildCustom("CHEST", "AQUAIngredient Sack", "GRAYContains GOLD" +
-                            owner.getSackSpaceUsed() + "WHITE/GOLD" + owner.getSackSize() + "GRAY items."),
+            inventory.setSlot(
+                    ItemFactory.customItem("CHEST",
+                            "<aqua>Ingredient Sack</aqua>",
+                            "<grey>Contains <gold>" + owner.getSackSpaceUsed() + "<dark_grey>/</dark_grey>" + owner.getSackSize() + "</gold> items.</grey>"),
 					SACK_POS);
 		}
 		
 		for (int i = 0; i < 5; i++) {
 			int pos = calc(2 + i, 4);
-			
-			if (i >= owner.talismans.size()) inventory.setSlot(ItemFactory.buildCustom("RED_STAINED_GLASS_PANE", "REDEmpty Talisman Slot", "GRAYYou may place a talisman here!"), pos);
-			else {
-				String tali = owner.talismans.get(i);
-				inventory.setSlot(ItemFactory.build(tali), pos);
-			}
+
+            if (i >= owner.talismans.size()) {
+                inventory.setSlot(
+                        ItemFactory.customItem("RED_STAINED_GLASS_PANE",
+                                "<red>Empty Talisman Slot</red>",
+                                "<grey>Click a talisman in your inventory to populate this spot!</grey>"), pos);
+            }
+            else {
+                String tali = owner.talismans.get(i);
+                inventory.setSlot(ItemFactory.build(tali), pos);
+            }
 		}
 
-        inventory.setSlot(ItemFactory.buildCustom("BONE", "GOLDPets", "YELLOWActive Pet: " + (owner.activePet != null ? ItemFactory.getItemTypeName(owner.activePet) : "REDNone!")), PET_POS);
+        List<String> petsLore = new ArrayList<>();
+        if (!owner.pets.isEmpty() || owner.activePet != null) {
+            int petCount = owner.pets.size();
+            if (owner.activePet != null) {
+                petCount++;
+            }
+            if (petCount == 1) {
+                petsLore.add("<grey>You have 1 pet</grey>");
+            }
+            else {
+                petsLore.add("<grey>You have " + petCount + " pets</grey>");
+            }
+        }
+        else {
+            petsLore.add("<grey>You have no pets!</grey>");
+        }
+        petsLore.add("<grey>Your active pet is " + Objects.requireNonNull(ItemFactory.getItem(owner.activePet)).name + "</grey>");
+        inventory.setSlot(
+                ItemFactory.customItem("BONE",
+                        "GOLDPets",
+                        petsLore),
+                PET_POS);
 
-        inventory.setSlot(ItemFactory.buildCustom("WRITTEN_BOOK", "GOLDQuests"), QUEST_POS);
+        inventory.setSlot(ItemFactory.customItem("WRITTEN_BOOK", "<gold>Quests</gold>"), QUEST_POS);
 		
 		inventory.update();
 	}
@@ -159,7 +221,7 @@ public class MenuGUI extends AbstractGUI
             owner.talismans.remove(tali);
 
             ItemStack click = clicked.clone();
-            ItemFactory.update(click, owner);
+            ItemFactory.update(click, owner.getItemContext());
             owner.giveItem(click);
             owner.playSound(Sound.BLOCK_DISPENSER_DISPENSE, 0.7, 1);
 

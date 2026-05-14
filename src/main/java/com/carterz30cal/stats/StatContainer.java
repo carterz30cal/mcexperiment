@@ -70,14 +70,11 @@ public class StatContainer implements Cloneable
 	
 	public String getDisplayed(Stat stat)
 	{
-		switch (stat.display)
-		{
-		case PERCENTAGE:
-			return getStat(stat) + "%";
-		default:
-			return "" + getStat(stat);
-		}
-	}
+        if (Objects.requireNonNull(stat.display) == StatDisplayType.PERCENTAGE) {
+            return getStat(stat) + "%";
+        }
+        return "" + getStat(stat);
+    }
 	
 	public void setStat(Stat stat, double value)
 	{

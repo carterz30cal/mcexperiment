@@ -6,6 +6,7 @@ import com.carterz30cal.items.abilities2.implementation.GameAbstractEnchant;
 import com.carterz30cal.stats.Stat;
 import com.carterz30cal.stats.StatContainer;
 import com.carterz30cal.stats.StatOperationType;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.HashSet;
 import java.util.List;
@@ -28,10 +29,10 @@ public class LastChanceEnchantment extends GameAbstractEnchant {
     }
 
     @Override
-    public List<String> description(AbilityContext context) {
-        var l = super.description(context);
-        l.add("GRAYGrants " + display(Stat.DEFENCE, 10 * context.level) + " GRAYif you're below RED15% " + Stat.HEALTH.getIcon());
-        return l;
+    public List<String> miniMessageDescription(@NotNull AbilityContext context) {
+        var description = super.miniMessageDescription(context);
+        description.add("<grey>Grants " + formattedDisplay(Stat.DEFENCE, 10L * context.level) + " if you're below <red>15% " + Stat.HEALTH.getIcon() + "</red>");
+        return description;
     }
 
     @Override

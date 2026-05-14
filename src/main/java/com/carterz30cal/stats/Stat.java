@@ -1,5 +1,6 @@
 package com.carterz30cal.stats;
 
+import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
 import net.kyori.adventure.text.format.TextColor;
 import org.bukkit.ChatColor;
@@ -70,6 +71,10 @@ public enum Stat
 	{
 		return colour + name.substring(2) + " " + name.charAt(0);
 	}
+
+    public Component getReversed() {
+        return Component.text(name.substring(2) + " " + getIcon()).color(textColour);
+    }
 	
 	public String getIcon()
 	{

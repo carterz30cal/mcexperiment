@@ -78,7 +78,7 @@ public class PetsGUI extends AbstractGUI {
             lore.add("<grey>You don't have any pets.</grey>");
         }
         else if (petCount == 1) {
-            lore.add("<grey>You have GREEN1GRAY pet.</grey>");
+            lore.add("<grey>You have <green>1</green> pet.</grey>");
         }
         else {
             lore.add("<grey>You have <green>" + petCount + "</green> pets.</grey>");

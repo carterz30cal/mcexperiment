@@ -4,6 +4,7 @@ import com.carterz30cal.entities.player.GamePlayer;
 import com.carterz30cal.entities.player.PlayerWardrobe;
 import com.carterz30cal.items.ItemFactory;
 import com.carterz30cal.stats.Stat;
+import net.kyori.adventure.text.format.NamedTextColor;
 import org.bukkit.Sound;
 import org.bukkit.inventory.ItemStack;
 
@@ -34,7 +35,7 @@ public class WardrobeGUI extends AbstractGUI {
                 owner.playSound(Sound.ITEM_ARMOR_EQUIP_IRON, 0.5, 1);
             }
             else {
-                owner.sendMessage("REDYou're already wearing this!");
+                owner.sendMessage("You're already wearing this!", NamedTextColor.RED, 0);
             }
         }
         else if (clickPos == BACK_BUTTON_POS && page > 1) {
@@ -87,7 +88,7 @@ public class WardrobeGUI extends AbstractGUI {
         inventory.setSlot(
                 ItemFactory.customItem(
                         current ? "GREEN_CONCRETE" : "YELLOW_CONCRETE",
-                        current ? "GREENEquipped!" : "YELLOWClick to equip!",
+                        current ? "Equipped!" : "Click to equip!",
                         current ? GREEN : YELLOW)
                 , EQUIP_BUTTON_POS);
         if (page < owner.stats.getStat(Stat.WARDROBE_SLOTS)) {

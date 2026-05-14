@@ -6,10 +6,9 @@ weird_flesh:
   discovery: weird_flesh_collection
   discovery-progress: 1
   value: 1
-  description:
-    - Smells absolutely vile.
-    - Dropped mostly by REDLunaticsGRAY.
-    - Used in most BLUEWaterwayGRAY recipes.
+  lore:
+    - Smells absolutely <em>horrendous!</em>
+    - Found on the corpses of <shadow:red:0.25>lunatics</shadow>.
 
 chilli_powder:
   name: Chilli Powder
@@ -19,10 +18,10 @@ chilli_powder:
   value: 20
   discovery: chilli_powder_collection
   discovery-progress: 1
-  description:
-    - A delicate combination of chillis.
-    - A favourite of high rank REDLunaticsGRAY.
-    - Used to ferment flesh and in various other recipes.
+  lore:
+    - A delicate blend of <em><red>red-hot</red></em> chillis.
+    - A staple of Waterway culture, it is used in
+    - flesh fermentation, amongst other things.
 
 spiced_meat:
   name: Spiced Meat
@@ -30,9 +29,10 @@ spiced_meat:
   rarity: UNCOMMON
   material: COOKED_BEEF
   glow: true
-  description:
-    - It's very chewy.
-    - Used as a leather-substitute and in some consumables.
+  lore:
+    - Chewy, but very flavourful.
+    - A common ingredient in Waterway recipes, especially
+    - in consumables, owing to it's protein content.
 
 wet_paper:
   name: Wet Paper
@@ -41,10 +41,9 @@ wet_paper:
   material: PAPER
   glow: true
   value: 1
-  description:
-    - Soggy mush.
-    - Dropped by LIGHT_PURPLETitansGRAY.
-    - Used in REDoffensiveGRAY recipes.
+  lore:
+    - A heap of soggy mush.
+    - Dropped by <shadow:light_purple:0.25>titans</shadow>
 
 spider_silk:
   name: Spider Silk
@@ -63,10 +62,10 @@ leaf_mash:
   value: 1
   discovery: leaf_mash_collection
   discovery-progress: 1
-  description:
-    - Would not recommend consuming.
-    - Can be used to upgrade mining equipment
-    - and defensive armours.
+  lore:
+    - Blend of mushed-up leaves, devoid
+    - of any nutritional content. Can be
+    - mined throughout Waterway.
 
 gold_leaf:
   name: Gold Leaf
@@ -75,18 +74,20 @@ gold_leaf:
   value: 15
   discovery: gold_leaf_collection
   discovery-progress: 1
-  description:
-    - Shiny!
+  lore:
+    - Rarely found in clumps of leaf mash.
+    - A valuable upgrade material. <em><gold>Shiny!</gold></em>
 
 paper:
   name: Paper
   type: INGREDIENT
   rarity: RARE
   material: PAPER
-  description:
-    - Proper thick parchment, formed by drying and layering
-    - old soggier pieces of paper.
-    - Used in REDoffensiveGRAY recipes.
+  lore:
+    - Reconstituted parchment, formed by layering
+    - old soggy bits of paper together and then
+    - drying them into this. There's a bit of
+    - a smell lingering. Used to upgrade weaponry.
 
 waterway_sac:
   name: Waterway Sac
@@ -94,9 +95,10 @@ waterway_sac:
   rarity: EPIC
   material: GLOW_INK_SAC
   value: 75
-  description:
-    - Pulses sometimes, in an almost heart-like fashion.
-    - Rarely dropped by REDFanaticsGRAY.
+  lore:
+    - Undulates in a strange fashion. It's probably
+    - for the best that you don't know what this
+    - is exactly. Usable as an upgrade material.
 
 storm_crystals:
   name: Storm Crystals
@@ -104,18 +106,23 @@ storm_crystals:
   rarity: EPIC
   material: PRISMARINE_CRYSTALS
   value: 25
-  description:
-    - Crushed bits of rock imbued with
-    - chaotic storm energy!
-    - Usually found when it's raining.
+  glow: true
+  lore:
+    - Crushed pieces of a delicate blue crystal
+    - that crackle and pulse with chaotic
+    - storm energy. They seem to form during
+    - the rainy period of Waterway's weather cycle.
 
 combination_catalyst_shard:
   name: Combination Catalyst Shard
   type: CATALYST
   rarity: LEGENDARY
   material: QUARTZ
-  description:
-    - Used to LIGHT_PURPLEenchantGRAY items.
+  lore:
+    - This is a small sample of a shard
+    - of a <red>Combination Catalyst</red>. Luckily,
+    - this shard can still be used to apply many
+    - low-power <light_purple>enchantments</light_purple> to items, using your anvil.
 
 
 waterway_cod:
@@ -127,9 +134,10 @@ waterway_cod:
   glow: true
   discovery: waterway_cod_collection
   discovery-progress: 1
-  description:
-    - An unusually small variety of cod, found
-    - only in the waters of BLUEWaterwayGRAY.
+  lore:
+    - Mild and flaky, this unusually small
+    - variety of cod is found only in
+    - the calm waters of Waterway.
 
 cooked_waterway_cod:
   name: Cooked Waterway Cod
@@ -140,8 +148,12 @@ cooked_waterway_cod:
   glow: true
   discovery: waterway_cod_collection
   discovery-progress: 256
-  description:
-    - A most delicious aroma.
+  lore:
+    - Mild and flaky, this unusually small
+    - variety of cod is found only in
+    - the calm waters of Waterway.
+    - There's a most delicious aroma coming
+    - from this particular sample.
 
 waterway_cod_meal:
   name: Delish Cod of Waterway
@@ -152,9 +164,11 @@ waterway_cod_meal:
   skull-profile-id: fish_barrel
   discovery: waterway_cod_collection
   discovery-progress: 32768
-  description:
-    - Splendid!
-    - Divine!
+  lore:
+    - This is the pinnacle of Waterway
+    - cuisine. This valuable meal can
+    - be transformed into various upgrades.
+    - <em>Truly divine!</em>
 
 meat_scraps:
   name: Meat Scraps
@@ -175,9 +189,11 @@ green_slime:
   material: PLAYER_HEAD
   skull-profile-id: green_slime
   value: 20
-  description:
-    - Lowest grade of slime. Used frequently
-    - in industry, and cakes.
+  lore:
+    - The lowest grade of slime. Is frequently
+    - used as an industrial lubricant, but can
+    - also be combined with fruits to make a
+    - rather pleasant jam.
 
 
 seraphs_eye:
@@ -186,9 +202,11 @@ seraphs_eye:
   rarity: INCREDIBLE
   material: ENDER_EYE
   value: 500
-  description:
-    - One of the Seraph's many watchful eyes.
-    - Used to create the best BLUEWaterwayGRAY weapons.
+  lore:
+    - A rather delicate example of one
+    - of the Seraph's many watchful eyes.
+    - You imagine that slapping this onto a weapon
+    - might just improve it, for some reason.
 
 
 waterway_seraph_key:

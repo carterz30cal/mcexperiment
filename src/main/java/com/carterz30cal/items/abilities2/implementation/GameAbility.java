@@ -14,12 +14,16 @@ import com.carterz30cal.stats.StatDisplayType;
 import net.kyori.adventure.text.TextComponent;
 import net.kyori.adventure.text.format.NamedTextColor;
 import net.kyori.adventure.text.format.TextColor;
+import net.kyori.adventure.text.format.TextDecoration;
+import net.kyori.adventure.text.minimessage.MiniMessage;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+
+import static net.kyori.adventure.text.Component.text;
 
 public abstract class GameAbility {
 
@@ -39,12 +43,17 @@ public abstract class GameAbility {
     /**
      * Generate a list of component builders that provide descriptions on items.
      * Typically uncoloured, possibly decorated.
+     * If this returns an empty list, then that means we want to use the miniMessageDescription method instead
      *
      * @param context required ability context for parametric descriptions.
      * @return a list of component builders
      * @since 1.0.0
      */
     public List<TextComponent.Builder> componentDescription(@NotNull AbilityContext context) {
+        return new ArrayList<>();
+    }
+
+    public List<String> miniMessageDescription(@NotNull AbilityContext context) {
         return new ArrayList<>();
     }
 
@@ -121,6 +130,9 @@ public abstract class GameAbility {
         return new ArrayList<>();
     }
 
+    /**
+     * @deprecated in favour of formattedDisplay(Stat stat, long val)
+     */
     @Deprecated
     protected String display(Stat stat, int val)
     {
@@ -130,6 +142,9 @@ public abstract class GameAbility {
         return stat.colour + prefix + val + suffix + stat.getIcon();
     }
 
+    /**
+     * @deprecated in favour of formattedDisplay(Stat stat, long val)
+     */
     @Deprecated
     protected String display(Stat stat, long val)
     {
@@ -137,6 +152,13 @@ public abstract class GameAbility {
         String suffix = stat.display == StatDisplayType.PERCENTAGE ? "%" : "";
 
         return stat.colour + prefix + val + suffix + stat.getIcon();
+    }
+
+    protected String formattedDisplay(Stat stat, long val) {
+        String prefix = val >= 0 ? "+" : "";
+        String suffix = stat.display == StatDisplayType.PERCENTAGE ? "%" : "";
+
+        return "<" + stat.textColour.asHexString() + ">" + prefix + val + suffix + stat.getIcon() + "</" + stat.textColour.asHexString() + ">";
     }
 
     public static class AbilityContext {
@@ -157,8 +179,20 @@ public abstract class GameAbility {
             return ability.description(this);
         }
 
+
         public List<TextComponent.Builder> componentDescription() {
-            return ability.componentDescription(this);
+            var components = ability.componentDescription(this);
+            if (components == null || components.isEmpty()) {
+                var messages = ability.miniMessageDescription(this);
+                var built = new ArrayList<TextComponent.Builder>();
+                for (var message : messages) {
+                    built.add(text().append(MiniMessage.miniMessage().deserialize(message).decoration(TextDecoration.ITALIC, TextDecoration.State.FALSE)));
+                }
+                return built;
+            }
+            else {
+                return components;
+            }
         }
 
         public TextColor colour() {

@@ -122,7 +122,7 @@ public class BestiaryGUI extends AbstractGUI {
             lore.add("DARK_GRAY1 kill");
         }
         else {
-            lore.add("DARK_GRAY" + StringUtils.commaify(kills) + " kills");
+            lore.add("DARK_GRAY" + StringUtils.addCommas(kills) + " kills");
         }
         lore.add("");
         lore.add("GRAYHealth: RED" + type.health + Stat.HEALTH.getIcon());

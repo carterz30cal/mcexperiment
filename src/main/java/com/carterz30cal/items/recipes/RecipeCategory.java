@@ -28,7 +28,7 @@ public class RecipeCategory
 	public RecipeCategory(ConfigurationSection i)
 	{
 		id = i.getCurrentPath();
-		name = "WHITE" + i.getString("name");
+        name = i.getString("name");
 		icon = i.getString("icon", "BARRIER");
 		description = i.getStringList("description");
 		

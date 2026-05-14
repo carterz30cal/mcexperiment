@@ -62,7 +62,7 @@ public class AbstractGUI extends BukkitRunnable
 		else onTick();
 	}
 
-    protected static final int calc(int x, int y)
+    protected static int calc(int x, int y)
 	{
 		return y * 9 + x;
 	}

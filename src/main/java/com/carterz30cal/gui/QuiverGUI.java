@@ -5,6 +5,13 @@ import com.carterz30cal.items.ItemFactory;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
 
+/**
+ * TODO Improve quiver! See related issue on GitHub
+ *
+ * @author carterz30cal
+ * @version 1
+ * @since 1.0.0
+ */
 public class QuiverGUI extends AbstractGUI
 {
 	public String[] arrows;

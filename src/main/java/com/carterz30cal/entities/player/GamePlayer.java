@@ -32,6 +32,7 @@ import net.kyori.adventure.audience.Audience;
 import net.kyori.adventure.text.TextComponent;
 import net.kyori.adventure.text.format.NamedTextColor;
 import net.kyori.adventure.text.format.TextColor;
+import net.kyori.adventure.text.minimessage.MiniMessage;
 import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
 import org.bukkit.Location;
@@ -150,11 +151,18 @@ public class GamePlayer extends GameEntity
 			{
 				if (player.getInventory().firstEmpty() == -1) {
 					if (!item.haveNotified) {
-						sendMessage("REDYour " + ItemFactory.getItemTypeName(item.item) + " REDis done, but you don't have spare room in your inventory.");
+                        sendMessage(
+                                "<red>Your " + ItemFactory.getItem(item.item).name + " is done, but you don't have enough spare room in your inventory."
+                        );
 						item.haveNotified = true;
 					}
 				} else {
-					sendMessage("GREENYour " + ItemFactory.getItemTypeName(item.item) + " GREENis done!");
+                    var rep = ItemFactory.getItem(item.item);
+                    sendMessage(
+                            "<green>Your " + rep.name + " is done! Find it in your " +
+                                    (rep.type == ItemType.INGREDIENT ? "Ingredient Sack!" : "Inventory!") +
+                                    "</green"
+                    );
 					giveItem(item.produce(), false);
 					item.isDone = true;
 				}
@@ -169,13 +177,10 @@ public class GamePlayer extends GameEntity
 			EntityUtils.applyPotionEffect(player, PotionEffectType.MINING_FATIGUE, 5, 4, false);
 			if (m != null) m.damage(this);
 		}
-		else {
-			//EntityUtils.applyPotionEffect(player, PotionEffectType.MINING_FATIGUE, 5, 0, false);
-		}
 
         EntityUtils.applyPotionEffect(player, PotionEffectType.MINING_FATIGUE, 5, 3, false);
         EntityUtils.applyPotionEffect(player, PotionEffectType.HASTE, 5, 0, false);
-        player.getAttribute(Attribute.ATTACK_SPEED).setBaseValue(10);
+        Objects.requireNonNull(player.getAttribute(Attribute.ATTACK_SPEED)).setBaseValue(10);
 
 
 		player.removePotionEffect(PotionEffectType.DARKNESS);
@@ -230,13 +235,18 @@ public class GamePlayer extends GameEntity
 		
 		if (mainItem != null)
 		{
-			if (mainItem.type.use == ItemTypeUse.WIELDABLE || mainItem.type.use == ItemTypeUse.WIELDABLE_CONSUMABLE) items.add(main);
-			else ItemFactory.update(main, this);
+            if (mainItem.type.use == ItemTypeUse.WIELDABLE || mainItem.type.use == ItemTypeUse.WIELDABLE_CONSUMABLE)
+                items.add(main);
+            else {
+                ItemFactory.update(main, getItemContext());
+            }
 		}
 		if (offItem != null)
 		{
-			if (offItem.type.use == ItemTypeUse.OFFHAND) items.add(off);
-			else ItemFactory.update(off, this);
+            if (offItem.type.use == ItemTypeUse.OFFHAND) items.add(off);
+            else {
+                ItemFactory.update(off, getItemContext());
+            }
 		}
 		
 		for (String talisman : talismans) items.add(ItemFactory.build(talisman));
@@ -256,7 +266,7 @@ public class GamePlayer extends GameEntity
 
 		for (ItemStack item : items)
 		{
-			ItemFactory.update(item, this);
+            ItemFactory.update(item, getItemContext());
 			Item i = ItemFactory.getItem(item);
 			if (i == null || i.stats.getStat(Stat.LEVEL_REQUIREMENT) > getLevel()) continue;
 			StatContainer itemStats = i.stats.clone();
@@ -324,7 +334,11 @@ public class GamePlayer extends GameEntity
 
         sendActionBar(actionStatBar);
 		player.getInventory().setItem(8, ItemFactory.menuItem);
-		player.setPlayerListName(StringUtils.colourString("GRAY[WHITE" + level + "GRAY] " + player.getDisplayName()));
+        player.playerListName(
+                text().color(NamedTextColor.GRAY).content("[")
+                        .append(text(level, NamedTextColor.WHITE))
+                        .append(text("] " + player.getName())).build()
+        );
 		
 		regenTick++;
 		if (regenTick >= 40)
@@ -342,7 +356,7 @@ public class GamePlayer extends GameEntity
             score.add("DARK_GRAY" + area.getArea().GetSubAreaName(this));
             score.add("");
         }
-		score.add("GOLDCoins: WHITE" + StringUtils.commaify((int) coins));
+        score.add("GOLDCoins: WHITE" + StringUtils.addCommas((int) coins));
         if (getSackSize() > 0) {
             score.add("GOLDSack: " + getSackSpaceUsed() + "/" + getSackSize());
         }
@@ -520,7 +534,8 @@ public class GamePlayer extends GameEntity
 	}
 	public void sendMessage(String message, int tickDelay)
 	{
-        sendMessage(text().content(message), null, 0, 0, tickDelay);
+        var minified = MiniMessage.miniMessage().deserialize(message);
+        sendMessage(text().append(minified), null, 0, 0, tickDelay);
     }
 
     public void sendMessage(String message, TextColor colour, int tickDelay) {
