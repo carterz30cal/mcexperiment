@@ -372,12 +372,12 @@ public class ForgeGUI extends AbstractGUI
 					
 					if (recipe.levelRequirement > owner.getLevel() || !collectionUnlocked)
 					{
-						owner.sendMessage("REDYou haven't unlocked this recipe yet!");
+                        owner.sendMessage("<red>You haven't unlocked this recipe yet!</red>");
 						owner.playSound(Sound.ENTITY_CREEPER_HURT, 0.4, 0.9);
 					}
 					else if (owner.isForgeFull() && recipe.time != 0)
 					{
-						owner.sendMessage("REDYou have no free forge slots available!");
+                        owner.sendMessage("<red>You have no free forge slots available!</red>");
 						owner.playSound(Sound.ENTITY_CREEPER_HURT, 0.4, 0.9);
 					}
 					else
@@ -401,8 +401,7 @@ public class ForgeGUI extends AbstractGUI
 						}
 						else 
 						{
-							//for (String k : requirements.reqs.keySet()) System.out.println(k);
-							owner.sendMessage("REDCannot forge, requirements not met.");
+                            owner.sendMessage("<red>Cannot forge, requirements not met!</red>");
 							owner.playSound(Sound.ENTITY_CREEPER_HURT, 0.8, 0.6);
 						}
 					}
