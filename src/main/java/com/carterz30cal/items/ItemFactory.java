@@ -420,6 +420,9 @@ public class ItemFactory
             if (context.player.getLevel() < item.stats.getStat(Stat.LEVEL_REQUIREMENT)) {
                 setSection.section.add(text().append(text("\u00D7 Requires Level " + item.stats.getStat(Stat.LEVEL_REQUIREMENT), RED)));
             }
+            if (!setSection.section.isEmpty()) {
+                sections.add(setSection);
+            }
         }
 
         if (!item.description.isEmpty()) {

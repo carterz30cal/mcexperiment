@@ -29,6 +29,9 @@ public class ZombieArmourSet extends GameAbility {
     @Override
     public List<String> miniMessageDescription(@NotNull AbilityContext context) {
         var list = super.miniMessageDescription(context);
+        if (context.owner == null || context.owner.lastStats == null) {
+            return list;
+        }
         list.add("<grey>Whenever an enemy hits you, heal <red>" +
                 getHealing(context.owner.lastStats.getStat(Stat.VITALITY))
                 + Stat.HEALTH.getIcon() + "</red>.");

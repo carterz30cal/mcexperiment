@@ -152,7 +152,13 @@ public class MenuGUI extends AbstractGUI
         else {
             petsLore.add("<grey>You have no pets!</grey>");
         }
-        petsLore.add("<grey>Your active pet is " + Objects.requireNonNull(ItemFactory.getItem(owner.activePet)).name + "</grey>");
+        if (owner.activePet != null) {
+            petsLore.add("<grey>Your active pet is " + Objects.requireNonNull(ItemFactory.getItem(owner.activePet)).name + "</grey>");
+        }
+        else {
+            petsLore.add("<grey>You have <red>no</red> active pet!</grey>");
+        }
+
         inventory.setSlot(
                 ItemFactory.customItem("BONE",
                         "<gold>Pets</gold>",

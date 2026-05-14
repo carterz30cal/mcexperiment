@@ -69,7 +69,7 @@ public enum Stat
 	
 	public String getReverse()
 	{
-		return colour + name.substring(2) + " " + name.charAt(0);
+        return "<" + textColour.asHexString() + ">" + name.substring(2) + " " + name.charAt(0) + "</" + textColour.asHexString() + ">";
 	}
 
     public Component getReversed() {
