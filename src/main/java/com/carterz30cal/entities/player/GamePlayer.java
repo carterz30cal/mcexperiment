@@ -4,7 +4,6 @@ import com.carterz30cal.areas.AreaManager;
 import com.carterz30cal.areas.Areas;
 import com.carterz30cal.areas.PlayerTeleport;
 import com.carterz30cal.areas.quests.Quests;
-import com.carterz30cal.dungeoneering.DungeonManager;
 import com.carterz30cal.entities.DamageInfo;
 import com.carterz30cal.entities.GameEnemy;
 import com.carterz30cal.entities.GameEntity;
@@ -100,7 +99,7 @@ public class GamePlayer extends GameEntity
 	public int bowTick;
 	public int questTick;
     private int areaCheckTick;
-    private int invulTick;
+    private int invulnerabilityTick;
     public Map<String, Long> kills = new HashMap<>();
 	
 	public long lastXpReward;
@@ -117,7 +116,6 @@ public class GamePlayer extends GameEntity
 	
 	public Map<String, Long> discoveries = new HashMap<>();
 	public Map<String, Integer> quiver = new HashMap<>();
-	public Map<String, Integer> counters = new HashMap<>();
 	public Map<String, Integer> sack = new HashMap<>();
 
 	public Map<Integer, String> backpack = new HashMap<>();
@@ -320,8 +318,8 @@ public class GamePlayer extends GameEntity
             questTick--;
         }
 
-        if (invulTick > 0) {
-            invulTick--;
+        if (invulnerabilityTick > 0) {
+            invulnerabilityTick--;
         }
 
         if (areaCheckTick > 0) {
@@ -406,7 +404,6 @@ public class GamePlayer extends GameEntity
 
 			@Override
 			public void run() {
-				// TODO Auto-generated method stub
 				that.gui = gui;
 				flagIgnoreInvClose = true;
 				that.gui.open();
@@ -420,8 +417,7 @@ public class GamePlayer extends GameEntity
 	public boolean hasSet(String s) {
 		if (sets.isEmpty()) return false;
 		Item i = ItemFactory.getItem(s);
-		if (i instanceof ItemSet) {
-			ItemSet set = (ItemSet) i;
+        if (i instanceof ItemSet set) {
             return set.requireCount <= sets.getOrDefault(s, 0);
 		}
 		return false;
@@ -445,15 +441,6 @@ public class GamePlayer extends GameEntity
         }
 	}
 
-
-	/**
-	@deprecated Use getSackSpaceUsed() instead
-	 */
-	@Deprecated
-	public int getSackUsed() {
-        return getSackSpaceUsed();
-	}
-
 	public int getSackSpaceUsed() {
 		int used = 0;
 		for (int i : sack.values()) used += i;
@@ -466,7 +453,7 @@ public class GamePlayer extends GameEntity
 
 	
 	public boolean hasSackSpace(int am) {
-		return getSackUsed() + am <= getSackSize();
+        return getSackSpaceUsed() + am <= getSackSize();
 	}
 	
 	
@@ -487,22 +474,26 @@ public class GamePlayer extends GameEntity
 				Collection col = DiscoveryManager.get(i.discovery);
 				
 				int currentLevel = getDiscoveryLevel(col);
-				if (currentLevel == 0 && discoveries.getOrDefault(col.id, 0L) == 0) sendMessage("GOLDBOLDNew Discovery! " + col.name);
+                if (currentLevel == 0 && discoveries.getOrDefault(col.id, 0L) == 0) {
+                    sendMessage("<gold><b>New Discovery! " + col.name);
+                }
 				
 				discoveries.put(col.id, discoveries.getOrDefault(col.id, 0L) + item.getAmount() * i.discoveryProgress);
 				
 				int newLevel = getDiscoveryLevel(col);
 				while (newLevel > currentLevel)
 				{
-					sendMessage("YELLOW - - - GOLDDISCOVERY LEVEL UPYELLOW - - -");
+                    sendMessage("<yellow> - - - <gold>DISCOVERY LEVEL UP</gold> - - -");
 					for (String recipe : col.recipes.getOrDefault(currentLevel, new ArrayList<>()))
 					{
 						Recipe r = ItemFactory.recipes.get(recipe);
-						
-						String n = r.customName != null ? r.customName : ItemFactory.getItemTypeName(r.item);
-						sendMessage("DARK_GRAY- " + n + " DARK_GRAY[Recipe]");
+                        var recipeItem = ItemFactory.getItem(r.item);
+                        var colour = recipeItem.rarity.textColor.asHexString() + ">";
+
+                        String n = r.customName != null ? r.customName : recipeItem.name;
+                        sendMessage("<dark_grey>- <" + colour + n + "</" + colour + " [Recipe]");
 					}
-					sendMessage("DARK_GRAY- AQUA+" + col.xpRewards.get(currentLevel) + "XP");
+                    sendMessage("<dark_grey>- <aqua>+" + col.xpRewards.get(currentLevel) + "XP");
 					
 					gainXp(col.xpRewards.get(currentLevel));
 					currentLevel++;
@@ -559,7 +550,7 @@ public class GamePlayer extends GameEntity
     }
 
     public void sendMessage(TextComponent.Builder message, Sound sound, double volume, double pitch) {
-        sendMessage(message, sound, 1, 1, 0);
+        sendMessage(message, sound, volume, pitch, 0);
     }
 
     public void sendMessage(TextComponent.Builder message, Sound sound, int tickDelay) {
@@ -661,14 +652,14 @@ public class GamePlayer extends GameEntity
 		{
 			long lvl = getLevel();
 			playSound(Sound.ENTITY_PLAYER_LEVELUP, 1.4, 1.1);
-			sendMessage("GOLDBOLD-------------------");
-			sendMessage("AQUABOLDLevel Up! RESETAQUA" + lvl + " BLUE->AQUA " + (lvl+1));
+            sendMessage("<gold><b>-------------------");
+            sendMessage("<aqua><b>Level Up! </b>" + lvl + " <blue>-></blue> " + (lvl + 1));
             if (level == 1) {
-                sendMessage("REDBOLDIngredient Sack Unlocked!");
-                sendMessage("REDIngredients will now automatically");
-                sendMessage("REDgo into your sack!");
+                sendMessage("<red><b>Ingredient Sack Unlocked!");
+                sendMessage("<red>Ingredients will now automatically");
+                sendMessage("<red>go into your sack!");
             }
-			sendMessage("GOLDBOLD-------------------");
+            sendMessage("<gold><b>-------------------");
 			
 			xp -= LevelUtils.getXpForLevel(level + 1);
 			level++;
@@ -703,7 +694,6 @@ public class GamePlayer extends GameEntity
 	
 	@Override
 	public int getHealth() {
-		// TODO Auto-generated method stub
 		return (int) (stats.getStat(Stat.HEALTH) * health);
 	}
 	
@@ -736,17 +726,7 @@ public class GamePlayer extends GameEntity
 	{
 		return getForgeSlots() <= forge.size();
 	}
-	
-	public int getMagicDamage(double powerScaling, double manaScaling) {
-		double damage = stats.getStat(Stat.DAMAGE);
-		double power = (100D + (stats.getStat(Stat.POWER) * powerScaling)) / 100D;
-		double mana = (100D + (stats.getStat(Stat.MANA) * manaScaling)) / 100D;
-		
-		damage *= power * mana;
-		return (int)Math.round(damage);
-	}
-	
-	
+
 	public Vector getDirection() {
 		return player.getEyeLocation().getDirection().normalize();
 	}
@@ -793,37 +773,16 @@ public class GamePlayer extends GameEntity
 	
 
 
-
 	public void gainHealth(int amount)
 	{
 		int total = getHealth() + amount;
 		setHealth(total);
-		
-		
-		EntityRegainHealthEvent e = new EntityRegainHealthEvent(player, 0, RegainReason.CUSTOM);
+
+
+        EntityRegainHealthEvent e = new EntityRegainHealthEvent(player, 1, RegainReason.CUSTOM);
 		Bukkit.getPluginManager().callEvent(e);
-		/*
-		
-		ProtocolManager protocolManager = ProtocolLibrary.getProtocolManager();
-        PacketContainer packet = protocolManager.createPacket(Server.UPDATE_HEALTH);
-        
-        packet.getFloat()
-        .write(0, (float) health)
-        .write(1, 5F);
-        packet.getIntegers()
-        .write(0, 20);
-        
-        try {
-            protocolManager.sendServerPacket(player, packet);
-        } catch (InvocationTargetException e) {
-            e.printStackTrace();
-        }
-        */
 	}
-	
-	public boolean inDungeon() {
-		return DungeonManager.dungeons.getOrDefault(dungeonId, null) != null;
-	}
+
 	
 	public int getQuiverCount()
 	{
@@ -878,7 +837,6 @@ public class GamePlayer extends GameEntity
 
 			@Override
 			public void run() {
-				// TODO Auto-generated method stub
 				playSound(sound, volume, pitch);
 			}
 			
@@ -1068,11 +1026,11 @@ public class GamePlayer extends GameEntity
 
 
     public boolean IsOnInvulnerableCooldown() {
-        return invulTick > 0;
+        return invulnerabilityTick > 0;
     }
 
     public void SetOnInvulnerableCooldown() {
-        invulTick = stats.getStat(Stat.INVULNERABILITY_TICKS);
+        invulnerabilityTick = stats.getStat(Stat.INVULNERABILITY_TICKS);
     }
 
 

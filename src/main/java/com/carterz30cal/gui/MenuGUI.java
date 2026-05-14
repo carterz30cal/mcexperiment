@@ -155,7 +155,7 @@ public class MenuGUI extends AbstractGUI
         petsLore.add("<grey>Your active pet is " + Objects.requireNonNull(ItemFactory.getItem(owner.activePet)).name + "</grey>");
         inventory.setSlot(
                 ItemFactory.customItem("BONE",
-                        "GOLDPets",
+                        "<gold>Pets</gold>",
                         petsLore),
                 PET_POS);
 
