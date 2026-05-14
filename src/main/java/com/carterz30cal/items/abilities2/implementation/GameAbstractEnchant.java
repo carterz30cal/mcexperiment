@@ -3,6 +3,11 @@ package com.carterz30cal.items.abilities2.implementation;
 import net.kyori.adventure.text.format.NamedTextColor;
 import net.kyori.adventure.text.format.TextColor;
 
+/**
+ * @author carterz30cal
+ * @version 1
+ * @since 1.0.0
+ */
 public abstract class GameAbstractEnchant extends GameAbility {
     private static final TextColor GOLD = TextColor.color(NamedTextColor.GOLD);
     private static final TextColor BLUE = TextColor.color(NamedTextColor.BLUE);

@@ -13,19 +13,15 @@ import java.util.List;
 import static net.kyori.adventure.text.Component.text;
 import static net.kyori.adventure.text.format.NamedTextColor.GRAY;
 
+/**
+ * @author carterz30cal
+ * @version 1
+ * @since 1.0.0
+ */
 public class SeraphSwordAbility extends GameAbility {
     @Override
     public String name(AbilityContext context) {
         return "Starlight-Imbued";
-    }
-
-    @Deprecated
-    @Override
-    public List<String> description(AbilityContext context) {
-        var l = super.description(context);
-        l.add("GRAYGains " + Stat.POWER.colour + "+5" + Stat.POWER.getIcon() + " GRAYfor every " + Stat.FOCUS.colour + "1" + Stat.FOCUS.getIcon() + " GRAYthat");
-        l.add("GRAYyou have in total. ");
-        return l;
     }
 
     @Override

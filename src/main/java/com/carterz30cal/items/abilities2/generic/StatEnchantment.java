@@ -17,6 +17,11 @@ import java.util.Set;
 
 import static net.kyori.adventure.text.Component.text;
 
+/**
+ * @author carterz30cal
+ * @version 1
+ * @since 1.0.0
+ */
 public class StatEnchantment extends GameAbstractEnchant {
     public String enchantName;
     public int powerPerLevel;
@@ -52,18 +57,6 @@ public class StatEnchantment extends GameAbstractEnchant {
     @Override
     public String name(AbilityContext context) {
         return enchantName;
-    }
-
-    @Override
-    public List<String> description(AbilityContext context) {
-        List<String> lore = new ArrayList<>();
-        if (statOperation == StatOperationType.MULTIPLY) {
-            lore.add("GRAYGrants " + statGranted.colour + (getStat(context) > 0 ? "+" : "-") + getStat(context) + "% " + statGranted.getIcon() + "GRAY.");
-        }
-        else {
-            lore.add("GRAYGrants " + display(statGranted, getStat(context)) + "GRAY.");
-        }
-        return lore;
     }
 
     @Override

@@ -4,10 +4,15 @@ import com.carterz30cal.items.abilities2.implementation.GameAbility;
 import com.carterz30cal.stats.Stat;
 import com.carterz30cal.stats.StatContainer;
 import com.carterz30cal.stats.StatOperationType;
+import org.jetbrains.annotations.NotNull;
 
-import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * @author carterz30cal
+ * @version 1
+ * @since 1.0.0
+ */
 public class PetDrenchedActive extends GameAbility {
     public PetDrenchedActive() {
 
@@ -15,14 +20,14 @@ public class PetDrenchedActive extends GameAbility {
 
     @Override
     public String name(GameAbility.AbilityContext context) {
-        return "GOLDActive: Fishing 101 For Dummies";
+        return "Active: Fishing 101 For Dummies";
     }
 
     @Override
-    public List<String> description(GameAbility.AbilityContext context) {
-        var list = new ArrayList<String>();
-        list.add("GRAYGain " + display(Stat.FISHING_POWER, context.level + 1) + "GRAY for");
-        list.add("GRAYevery " + display(Stat.HEALTH, 15 + context.level) + "GRAY you have.");
+    public List<String> miniMessageDescription(@NotNull AbilityContext context) {
+        var list = super.miniMessageDescription(context);
+        list.add("<grey>Gain " + formattedDisplay(Stat.FISHING_POWER, context.level + 1) + " for</grey>");
+        list.add("<grey>every " + formattedDisplay(Stat.HEALTH, context.level + 15) + " that you have.</grey>");
         return list;
     }
 

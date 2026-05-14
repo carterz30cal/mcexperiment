@@ -2,10 +2,15 @@ package com.carterz30cal.items.abilities2.generic;
 
 import com.carterz30cal.items.abilities2.implementation.GameAbility;
 import com.carterz30cal.stats.Stat;
+import org.jetbrains.annotations.NotNull;
 
-import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * @author carterz30cal
+ * @version 1
+ * @since 1.0.0
+ */
 public class HealingAbility extends GameAbility {
     public long manaCost;
     public long healing;
@@ -18,15 +23,16 @@ public class HealingAbility extends GameAbility {
 
     @Override
     public String name(AbilityContext context) {
-        return "LIGHT_PURPLEInstant Heal!";
+        return "Instant Heal!";
     }
 
     @Override
-    public List<String> description(AbilityContext context) {
-        List<String> lore = new ArrayList<>();
-        lore.add("GOLDLeft clickGRAY to consume " + display(Stat.MANA, manaCost) + "GRAY and");
-        lore.add("GRAYthen heal you for " + display(Stat.HEALTH, healing));
-        return lore;
+    public List<String> miniMessageDescription(@NotNull AbilityContext context) {
+        var list = super.miniMessageDescription(context);
+        list.add("<grey><gold>Left click</gold> to consume " + formattedDisplay(Stat.MANA, manaCost) + " and then");
+        list.add("<grey>heal you for at least " + formattedDisplay(Stat.HEALTH, healing));
+        list.add("<dark_grey>This is affected by buffs to your healing.");
+        return list;
     }
 
     @Override

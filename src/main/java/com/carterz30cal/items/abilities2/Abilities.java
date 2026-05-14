@@ -16,24 +16,13 @@ import com.carterz30cal.items.abilities2.waterway.sets.ZombieArmourSet;
 import com.carterz30cal.stats.Stat;
 import com.carterz30cal.stats.StatOperationType;
 
+/**
+ * @author carterz30cal
+ * @version 1
+ * @since 1.0.0
+ */
 public enum Abilities
 {
-	/*
-	ENCHANT_SHARPNESS(Sharpness.class),
-	ENCHANT_PEARLED(Pearled.class),
-	ENCHANT_TITANIC(Titanic.class),
-	ENCHANT_HEALTHY(Healthy.class),
-	ENCHANT_SUPERLURE(SuperLure.class),
-
-	PET_ACTIVE_DRENCHED_COMMON(PetDrenchedActiveCommon.class),
-	PET_PASSIVE_DRENCHED_COMMON(PetDrenchedPassiveCommon.class),
-	
-	SET_LEAF(LeafArmourSet.class),
-	SET_ZOMBIE(ZombieArmourSet.class),
-	NECROMANCY_SWORD(NecromancerAbility.class),
-	HEALING_WAND_SELF(AbilityWandVitality.class);
-	*/
-
 	ENCHANT_SHARPNESS(new StatEnchantment(
 			"Sharpness", 2,
 			Stat.STRENGTH, 0, 20, 5, ItemType.WEAPON, ItemType.WAND, ItemType.ROD)),
@@ -79,7 +68,7 @@ public enum Abilities
     PET_WATER_TITAN_ACTIVE(new PetWaterTitanActive()),
     WATERWAY_SERAPH_SWORD(new SeraphSwordAbility()),
     MAGIC_SWORD(new MagicSwordAbility()),
-    SERAPH_SUMMON_GUIDE(new SeraphSummonGuideAbility("water_seraph_spirit")),
+    SERAPH_SUMMON_GUIDE(new SeraphSummonGuideAbility("water_seraph_spirit", 20)),
     ADMIN_INSTANT_DEATH_SWORD(new DeadAbility()),
 	;
 	public final GameAbility ability;

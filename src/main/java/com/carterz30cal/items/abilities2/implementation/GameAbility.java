@@ -25,6 +25,12 @@ import java.util.Set;
 
 import static net.kyori.adventure.text.Component.text;
 
+/**
+ * @author carterz30cal
+ * @version 1
+ * @since 1.0.0
+ */
+@SuppressWarnings("unused")
 public abstract class GameAbility {
 
     public Abilities source;
@@ -53,6 +59,14 @@ public abstract class GameAbility {
         return new ArrayList<>();
     }
 
+    /**
+     * Generate a list of component builders that provide descriptions on items.
+     * Typically used over componentDescription for simplicity.
+     *
+     * @param context required ability context for parametric descriptions.
+     * @return a list of component builders
+     * @since 1.0.0
+     */
     public List<String> miniMessageDescription(@NotNull AbilityContext context) {
         return new ArrayList<>();
     }
@@ -128,30 +142,6 @@ public abstract class GameAbility {
 
     public List<ItemReq> getCatalystRequirements(AbilityContext context, int desiredLevel) {
         return new ArrayList<>();
-    }
-
-    /**
-     * @deprecated in favour of formattedDisplay(Stat stat, long val)
-     */
-    @Deprecated
-    protected String display(Stat stat, int val)
-    {
-        String prefix = val >= 0 ? "+" : "";
-        String suffix = stat.display == StatDisplayType.PERCENTAGE ? "%" : "";
-
-        return stat.colour + prefix + val + suffix + stat.getIcon();
-    }
-
-    /**
-     * @deprecated in favour of formattedDisplay(Stat stat, long val)
-     */
-    @Deprecated
-    protected String display(Stat stat, long val)
-    {
-        String prefix = val >= 0 ? "+" : "";
-        String suffix = stat.display == StatDisplayType.PERCENTAGE ? "%" : "";
-
-        return stat.colour + prefix + val + suffix + stat.getIcon();
     }
 
     protected String formattedDisplay(Stat stat, long val) {
