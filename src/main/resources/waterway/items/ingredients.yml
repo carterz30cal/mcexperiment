@@ -210,15 +210,16 @@ seraphs_eye:
 
 
 waterway_seraph_key:
-  name: Seraph's Key
+  name: "Seraph's Key"
   type: KEY
   rarity: INCREDIBLE
-  material: TRIPWIRE_HOOK
+  material: TRIAL_KEY
   value: 500
-  description:
-    - Use to register for the BLUEWater Seraph
-    - fight! REDConsumable!
-    - DARK_GRAYMust be used at the altar in the temple.
+  lore:
+    - Use this to register your place
+    - in the <blue>Waterway Seraph</blue> boss fight.
+    - This must be used at the altar at
+    - the temple entrance. <red>Consumable!</red>
 
 
 

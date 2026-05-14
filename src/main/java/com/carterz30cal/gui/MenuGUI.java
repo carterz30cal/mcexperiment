@@ -70,7 +70,7 @@ public class MenuGUI extends AbstractGUI
             }
             lore.add(
                     text().append(text().content(stat.name + ": ").color(stat.textColour))
-                            .append(text().content(" " + owner.stats.getDisplayed(stat)).color(NamedTextColor.WHITE))
+                            .append(text().content(owner.stats.getDisplayed(stat)).color(NamedTextColor.WHITE))
             );
         }
         if (owner.player.isOp()) {
