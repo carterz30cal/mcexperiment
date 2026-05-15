@@ -12,6 +12,8 @@ import java.util.UUID;
 public class QuestSectionBringItem extends QuestSectionTalking {
     protected String itemId;
     protected int amount;
+    protected Item item;
+    protected String itemName;
 
     public QuestSectionBringItem(
             StringDescription startMessage, StringDescription endMessage,
@@ -21,12 +23,18 @@ public class QuestSectionBringItem extends QuestSectionTalking {
         super(startMessage, description, endMessage, questReward);
         this.itemId = itemId;
         this.amount = amount;
+        this.item = ItemFactory.getItem(itemId);
+
+        var colour = item.rarity.textColor.asHexString();
+        itemName = "<" + colour + ">" + item.name + "</" + colour + ">";
+
     }
 
     @Override
     public List<String> GetDescription(SectionSave save) {
         var list = super.GetDescription(save);
-        list.add("WHITEBring " + this.amount + "WHITEx " + ItemFactory.getItemTypeName(itemId) + " WHITEto " + questgiver.toString() + "WHITE.");
+
+        list.add("<white>Bring " + this.amount + "x " + itemName + " to " + questgiver.toString() + ".");
         return list;
     }
 

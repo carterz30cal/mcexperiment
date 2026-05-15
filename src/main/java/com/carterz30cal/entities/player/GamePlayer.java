@@ -26,7 +26,6 @@ import com.carterz30cal.stats.StatOperationType;
 import com.carterz30cal.utils.EntityUtils;
 import com.carterz30cal.utils.LevelUtils;
 import com.carterz30cal.utils.ScoreboardWrapper;
-import com.carterz30cal.utils.StringUtils;
 import net.kyori.adventure.audience.Audience;
 import net.kyori.adventure.text.TextComponent;
 import net.kyori.adventure.text.format.NamedTextColor;
@@ -121,8 +120,13 @@ public class GamePlayer extends GameEntity
 	public Map<Integer, String> backpack = new HashMap<>();
 	
 	public List<GameEnemy> targeted = new ArrayList<>();
-	
+
+    /**
+     * @deprecated in favour of PlayerScoreboard
+     */
+    @Deprecated
 	private ScoreboardWrapper scoreboard;
+    private PlayerScoreboard playerScoreboard;
 
 
     public void register(UUID uuid)
@@ -132,12 +136,8 @@ public class GamePlayer extends GameEntity
 		mana = 1;
 		
 		entities.put(uuid, this);
-		
-		scoreboard = new ScoreboardWrapper("Dungeons");
-		scoreboard.addLine("GOLDCoins: WHITE0");
-		scoreboard.addBlankSpace();
-		scoreboard.addLine("AQUALevel X");
-		player.setScoreboard(scoreboard.getScoreboard());
+
+        playerScoreboard = new PlayerScoreboard(this);
 	}
 	
 	public void tick()
@@ -348,42 +348,8 @@ public class GamePlayer extends GameEntity
 		}
 		
 		refreshHealth();
-		
-		List<String> score = new ArrayList<>();
-        if (area != null) {
-            score.add("DARK_GRAY" + area.getArea().GetSubAreaName(this));
-            score.add("");
-        }
-        score.add("GOLDCoins: WHITE" + StringUtils.addCommas((int) coins));
-        if (getSackSize() > 0) {
-            score.add("GOLDSack: " + getSackSpaceUsed() + "/" + getSackSize());
-        }
-		score.add("");
-        if (area != null) {
-            score.addAll(area.getArea().GetScoreboard(this));
-        }
-        Quests chosenQuest = GetSelectedQuest();
-        if (chosenQuest != null) {
-            Quests.QuestSave save = GetQuestSave(chosenQuest);
-            if (save.sectionSave.HasTalkedTo()) {
-                score.add("GOLDQuest: WHITE" + chosenQuest.GetName());
-                score.addAll(save.sectionSave.GetDescription());
-                score.add("");
-            }
-        }
-        score.add("AQUALevel " + getLevel() + " DARK_GRAY[AQUA+" + Math.round(this.getLevelProgress() * 100) + "%DARK_GRAY]");
 
-		
-		
-		
-		if (score.size() < scoreboard.size()) {
-			scoreboard = new ScoreboardWrapper("Dungeons");
-			player.setScoreboard(scoreboard.getScoreboard());
-		}
-		for (int l = 0; l < score.size(); l++) {
-			if (l < scoreboard.size()) scoreboard.setLine(l, score.get(l));
-			else scoreboard.addLine(score.get(l));
-		}
+        playerScoreboard.tick();
 		
 		// set targets
 		targeted.removeIf((e) -> e.dead || e.target != this);

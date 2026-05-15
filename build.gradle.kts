@@ -38,8 +38,8 @@ dependencies {
     compileOnly(libs.net.dmulloy2.protocollib)
     //compileOnly(libs.org.spigotmc.spigot.api)
     compileOnly(libs.paper.api)
-    shadow("net.megavex:scoreboard-library-api:2.7.4")
-    shadow("net.megavex:scoreboard-library-implementation:2.7.4")
+    implementation("net.megavex:scoreboard-library-api:2.7.4")
+    implementation("net.megavex:scoreboard-library-implementation:2.7.4")
 }
 
 group = "com.carterz30cal"

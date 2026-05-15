@@ -5,6 +5,7 @@ import com.carterz30cal.entities.player.GamePlayer;
 import com.carterz30cal.items.ItemFactory;
 import net.kyori.adventure.text.TextComponent;
 import net.kyori.adventure.text.format.NamedTextColor;
+import net.kyori.adventure.text.minimessage.MiniMessage;
 import org.bukkit.inventory.ItemStack;
 
 import java.util.ArrayList;
@@ -123,7 +124,7 @@ public class QuestGUI extends AbstractGUI {
             loreList.add(text());
             loreList.add(text().content("Current goal:").color(NamedTextColor.GOLD));
             for (var description : section.GetDescription(q.sectionSave)) {
-                loreList.add(text().append(text(description, NamedTextColor.GRAY)));
+                loreList.add(text().color(NamedTextColor.GRAY).append(MiniMessage.miniMessage().deserialize(description)));
             }
             loreList.add(text());
             if (q.GetQuest() != owner.GetSelectedQuest()) {

@@ -11,6 +11,9 @@ import com.carterz30cal.items.discoveries.DiscoveryManager;
 import com.carterz30cal.mining.MiningManager;
 import com.comphenix.protocol.ProtocolLibrary;
 import com.comphenix.protocol.ProtocolManager;
+import net.megavex.scoreboardlibrary.api.ScoreboardLibrary;
+import net.megavex.scoreboardlibrary.api.exception.NoPacketAdapterAvailableException;
+import net.megavex.scoreboardlibrary.api.noop.NoopScoreboardLibrary;
 import org.bukkit.Bukkit;
 import org.bukkit.World;
 import org.bukkit.command.CommandExecutor;
@@ -24,6 +27,7 @@ public class Dungeons extends JavaPlugin
 	public static Dungeons instance;
 	public static World w;
 	public static ProtocolManager proto;
+    public static ScoreboardLibrary scoreboardLibrary;
 	
 	@Override
 	public void onEnable()
@@ -32,6 +36,14 @@ public class Dungeons extends JavaPlugin
 		w = Bukkit.getWorld("world");
 		GameEntity.allowDeregisters = true;
 		proto = ProtocolLibrary.getProtocolManager();
+
+        try {
+            scoreboardLibrary = ScoreboardLibrary.loadScoreboardLibrary(this);
+        } catch (NoPacketAdapterAvailableException e) {
+            // If server version is not yet supported, you can fall back to the no-op implementation:
+            scoreboardLibrary = new NoopScoreboardLibrary();
+            getLogger().warning("Server version unsupported, scoreboard functionality will not be visible!");
+        }
 
         new DiscoveryManager();
         new ItemFactory();
@@ -79,6 +91,7 @@ public class Dungeons extends JavaPlugin
 		}
 
         MiningManager.onDisable();
+        scoreboardLibrary.close();
     }
 	
 	private void setCommand(String command, CommandExecutor executor)
