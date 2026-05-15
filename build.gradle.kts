@@ -5,6 +5,7 @@
 plugins {
     `java-library`
     `maven-publish`
+    id("com.gradleup.shadow") version "9.0.0"
 }
 
 repositories {
@@ -29,6 +30,7 @@ repositories {
         name = "papermc"
         url = uri("https://repo.papermc.io/repository/maven-public/")
     }
+    mavenCentral()
 }
 
 dependencies {
@@ -36,6 +38,8 @@ dependencies {
     compileOnly(libs.net.dmulloy2.protocollib)
     //compileOnly(libs.org.spigotmc.spigot.api)
     compileOnly(libs.paper.api)
+    shadow("net.megavex:scoreboard-library-api:2.7.4")
+    shadow("net.megavex:scoreboard-library-implementation:2.7.4")
 }
 
 group = "com.carterz30cal"
@@ -46,6 +50,11 @@ publishing {
     publications.create<MavenPublication>("maven") {
         from(components["java"])
     }
+}
+
+tasks.shadowJar {
+    relocate("net.megavex", "com.carterz30cal.libs.megavex")
+    archiveClassifier.set("") // replaces the normal jar as the output
 }
 
 tasks.withType<JavaCompile>() {
@@ -61,9 +70,9 @@ java {
 }
 
 tasks.register<Copy>("copyJar") {
-    dependsOn(tasks.jar)
-    from(tasks.jar.get().archiveFile)
-    into(layout.buildDirectory.dir("../server/plugins")) // Change to your desired folder
+    dependsOn(tasks.shadowJar)
+    from(tasks.shadowJar.get().archiveFile)
+    into(layout.buildDirectory.dir("../server/plugins"))
 }
 
 tasks.build {
