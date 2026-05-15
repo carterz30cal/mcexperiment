@@ -150,7 +150,7 @@ public class GamePlayer extends GameEntity
 				if (player.getInventory().firstEmpty() == -1) {
 					if (!item.haveNotified) {
                         sendMessage(
-                                "<red>Your " + ItemFactory.getItem(item.item).name + " is done, but you don't have enough spare room in your inventory."
+                                "<red>Your " + ItemFactory.getItem(item.item).name + " is done, but you don't have enough spare room in your inventory.</red>"
                         );
 						item.haveNotified = true;
 					}
@@ -159,7 +159,7 @@ public class GamePlayer extends GameEntity
                     sendMessage(
                             "<green>Your " + rep.name + " is done! Find it in your " +
                                     (rep.type == ItemType.INGREDIENT ? "Ingredient Sack!" : "Inventory!") +
-                                    "</green"
+                                    "</green>"
                     );
 					giveItem(item.produce(), false);
 					item.isDone = true;

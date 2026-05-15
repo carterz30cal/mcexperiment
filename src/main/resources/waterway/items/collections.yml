@@ -132,7 +132,7 @@ gold_leaf_collection:
   display-item: gold_leaf
   description:
     - Rarely found growing amongst the leaves.
-    - Quite shiny!
+    - Quite <gold><em>shiny!
   tier-descriptions:
     - Dull
     - Squeaky

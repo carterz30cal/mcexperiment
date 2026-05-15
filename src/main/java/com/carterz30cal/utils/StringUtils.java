@@ -80,6 +80,24 @@ public class StringUtils
                                 .content(new StringBuilder().repeat('|', length - filledLength).toString())
                                 .color(unfilledColour));
     }
+
+    /**
+     * @param length         character length of the bar
+     * @param percentFilled  this will be rounded, based on the length.
+     * @param filledColour   what colour do we want in the filled portion of the bar?
+     * @param unfilledColour what colour do we want in the unfilled portion of the bar?
+     * @return a progress bar of the specified length, filled in to a rounded percent.
+     * @since 1.0.0
+     */
+    public static String stringProgressBar(int length, double percentFilled, TextColor filledColour, TextColor unfilledColour) {
+        int filledLength = (int) Math.round(percentFilled * length);
+        return "<" + filledColour.asHexString() + ">" + new StringBuilder().repeat('|', filledLength).toString() +
+                "</" + filledColour.asHexString() + ">" + "<" + unfilledColour.asHexString() + ">" +
+                new StringBuilder().repeat('|', length - filledLength).toString()
+                + "</" + unfilledColour.asHexString() + ">";
+    }
+
+
 	
 	public static String asPercent(double percent)
 	{

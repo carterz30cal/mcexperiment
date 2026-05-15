@@ -31,10 +31,10 @@ public class QuestSectionKill extends QuestSectionTalking {
         List<String> list = super.GetDescription(save);
         KillSectionSave killSectionSave = castSave(save);
         if (!save.IsFinished()) {
-            list.add("WHITEKill RED" + killSectionSave.kills + "WHITE/GREEN" + killsRequired + " WHITE" + this.prettyName + "WHITE.");
+            list.add("<white>Kill <red>" + killSectionSave.kills + "</red>/<green>" + killsRequired + "</green>" + this.prettyName + ".");
         }
         else {
-            list.add("WHITEReturn to " + questgiver.toString() + "WHITE!");
+            list.add("<white>Return to " + questgiver.toString() + "!</white>");
         }
         return list;
     }

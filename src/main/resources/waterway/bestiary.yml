@@ -9,9 +9,9 @@ waterway_lunatics:
   icon: WOODEN_SWORD
   name: "Lunatics"
   description:
-    - Worship the Water Seraph above
-    - all else. They're not huge fans
-    - of the Lava Seraph.
+    - <grey>Worship the <blue>Water Seraph</blue> above
+    - <grey>all else. They're not huge fans
+    - <grey>of the <red>Lava Seraph</red>.
   parent: waterway
 
 waterway_fishing:

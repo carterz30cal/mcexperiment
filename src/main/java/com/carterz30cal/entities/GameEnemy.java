@@ -506,7 +506,7 @@ public class GameEnemy extends GameEntity
                 30
         );
         if (damageHologram != null) {
-            damageHologram.customName(Component.text(modified.damage));
+            damageHologram.text(Component.text(modified.damage));
         }
 		
 		Entity main = getMain();

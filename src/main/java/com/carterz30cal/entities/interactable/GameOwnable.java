@@ -64,7 +64,6 @@ public class GameOwnable extends GameEntity {
 	
 	@Override
 	public int getHealth() {
-		// TODO Auto-generated method stub
 		return 1;
 	}
 	@Override
@@ -81,7 +80,6 @@ public class GameOwnable extends GameEntity {
 	}
 	@Override
 	public void damage(DamageInfo info) {
-		// TODO Auto-generated method stub
         ArmorStand hologram = EntityUtils.spawnHologram(entityMain.getLocation().add(RandomUtils.getDouble(-0.7F, 0.7F),
 				RandomUtils.getDouble(0.4F, 0.8F),
 				RandomUtils.getDouble(-0.7F, 0.7F)), 30);
@@ -141,8 +139,7 @@ public class GameOwnable extends GameEntity {
                     entityMain.setCollidable(false);
                     Objects.requireNonNull(entityMain.getAttribute(Attribute.MOVEMENT_SPEED)).setBaseValue(0);
 
-                    if (entityMain instanceof Mannequin) {
-                        Mannequin man = (Mannequin) entityMain;
+                    if (entityMain instanceof Mannequin man) {
                         man.setImmovable(true);
                         var prof = ItemFactory.getSkullProfile(skullProfileId);
                         if (prof != null) {

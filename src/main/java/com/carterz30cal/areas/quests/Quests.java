@@ -127,7 +127,7 @@ public enum Quests {
     public QuestSave CreateSave(GamePlayer player) {
         QuestSave save = new QuestSave();
         save.currentSection = 0;
-        save.sectionSave = quests.get(0).getQuest(0).CreateBlankSectionSave(player);
+        save.sectionSave = quests.getFirst().getQuest(0).CreateBlankSectionSave(player);
         return save;
     }
 

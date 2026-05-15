@@ -1132,7 +1132,7 @@ public class ItemFactory
         makeInvalid(stack);
         stack.editMeta(meta -> {
             if (name != null) {
-                var miniName = MiniMessage.miniMessage().deserialize(name).decoration(TextDecoration.ITALIC, TextDecoration.State.FALSE);
+                var miniName = MiniMessage.miniMessage().deserialize(name).decorationIfAbsent(TextDecoration.ITALIC, TextDecoration.State.FALSE);
                 meta.customName(miniName);
             }
             var llist = new ArrayList<Component>();
@@ -1142,7 +1142,7 @@ public class ItemFactory
                         continue;
                     }
                     var miniL = MiniMessage.miniMessage().deserialize(l);
-                    llist.add(miniL.decoration(TextDecoration.ITALIC, TextDecoration.State.FALSE));
+                    llist.add(miniL.decorationIfAbsent(TextDecoration.ITALIC, TextDecoration.State.FALSE));
                 }
             }
             meta.lore(llist);

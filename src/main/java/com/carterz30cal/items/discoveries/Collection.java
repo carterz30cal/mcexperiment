@@ -29,7 +29,7 @@ public class Collection
 		tierDescription = s.getStringList("tier-descriptions");
 		
 		List<String> mod = new ArrayList<>();
-		for (String d : description) mod.add("GRAY" + d);
+        for (String d : description) mod.add("<grey>" + d);
 		description = mod;
 		
 		tiers = s.getIntegerList("tiers");

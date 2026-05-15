@@ -12,6 +12,9 @@ import java.util.List;
 /**
  * ScoreboardWrapper is a class that wraps Bukkit Scoreboard API
  * and makes your life easier.
+ * @since 1.0.0
+ * @version 1
+ * @author carterz30cal
  */
 public class ScoreboardWrapper {
 

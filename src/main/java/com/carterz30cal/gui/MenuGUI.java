@@ -54,7 +54,7 @@ public class MenuGUI extends AbstractGUI
         lore.add(
                 StringUtils.progressBar(40, owner.getLevelProgress(), NamedTextColor.AQUA, NamedTextColor.DARK_GRAY)
                         .append(
-                                text(((int) (owner.getLevelProgress() * 1000) / 10) +
+                                text(" " + ((int) (owner.getLevelProgress() * 1000) / 10) +
                                         "% to Level " +
                                         (owner.getLevel() + 1))
                                         .color(NamedTextColor.AQUA)

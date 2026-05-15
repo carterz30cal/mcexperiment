@@ -37,9 +37,9 @@ public enum Questgivers {
                     new StringDescription("Nice work!",
                             "By now you should have realised that collecting Weird Flesh adds to your discoveries!",
                             "These grant you XP, and unique forge recipes.",
-                            "Find me deeper within BLUEWaterwayWHITE and I'll teach you how to fight a Titan!"),
+                            "Find me deeper within <blue>Waterway</blue> and I'll teach you how to fight a Titan!"),
                     new StringDescription(
-                            "Craft a Flimsy Sword and whack some lunatics!", "You can probably already GOLDupgradeWHITE your Flimsy Sword.",
+                            "Craft a Flimsy Sword and whack some lunatics!", "You can probably already <gold>upgrade</gold> your Flimsy Sword.",
                             "Kill them dead!"),
                     new QuestReward(10), "LUNATIC", "Lunatics", 25
             )
@@ -105,7 +105,7 @@ public enum Questgivers {
                     new StringDescription("I hate it here...", "I miss my home..", "Why can't I go back?"),
                     new StringDescription("You're the best!", "I'm Sam, but you can call me Sam!", "Maybe I'll see you around?"),
                     new StringDescription("I always feel better after food.", "I feel like I'm missing something..", "I hate cod.", "Have you heard much about the Seraph?"),
-                    new StringDescription("WHITEFind something to cheer Sam up."),
+                    new StringDescription("<white>Find something to cheer Sam up.</white>"),
                     new QuestReward(25),
                     "sams_apple", 1
             )
@@ -122,7 +122,7 @@ public enum Questgivers {
                     new StringDescription("Fine, here's an apple I suppose."),
                     new StringDescription(
                             "Don't come back until you've cleared those loons.",
-                            "Get them away from my tree!", "Honestly, I just want a quiet moment! REDGo away!"),
+                            "Get them away from my tree!", "Honestly, I just want a quiet moment! <red><em>Go away!</em></red>"),
                     new ItemQuestReward(10, "sams_apple"),
                     "LUNATIC_SKY", "Sky Lunatics", 40
             )
@@ -133,7 +133,7 @@ public enum Questgivers {
             null,
             new QuestSectionKill(
                     new StringDescription(
-                            "I heard that in the cave behind me, you can find REDLava LunaticsWHITE.",
+                            "I heard that in the cave behind me, you can find <red>Lava Lunatics</red>.",
                             "They sometimes drop Waterway Sacs!", "If you kill a few, maybe you'll get one?"
                     ),
                     new StringDescription(
@@ -152,8 +152,6 @@ public enum Questgivers {
     private final Location location;
     private final List<QuestSection> quests;
     private final QuestRequirement requirement;
-
-    //TODO ADD REWARDS & TALLY UP XP REWARDS
 
     Questgivers(String name, EntityType entityType, Location location, QuestRequirement requirement, QuestSection... quests) {
         this.name = name;
@@ -222,7 +220,7 @@ public enum Questgivers {
             return null;
         }
         else {
-            return quests.get(0).parent;
+            return quests.getFirst().parent;
         }
     }
 }
