@@ -1,0 +1,69 @@
+fermented_flesh:
+  name: Fermented Flesh
+  type: ATTUNER
+  rarity: UNCOMMON
+  material: FERMENTED_SPIDER_EYE
+  attuner-icon: '#'
+  attuner-colour: RED
+  stats:
+    power: +10
+    health: +4
+
+paper_mache:
+  name: Paper Mâché
+  type: ATTUNER
+  rarity: RARE
+  material: BONE_MEAL
+  attuner-colour: WHITE
+  attuner-icon: '#'
+  stats:
+    damage: +1
+    health: -15
+
+weak_silk_mass:
+  name: Stale Chilli Powder
+  type: ATTUNER
+  rarity: RARE
+  material: GUNPOWDER
+  glow: true
+  attuner-colour: BLUE
+  attuner-icon: '#'
+  stats:
+    might: +11
+
+eye_of_spider:
+  name: Eye of Spider
+  type: ATTUNER
+  rarity: VERY_RARE
+  material: SPIDER_EYE
+  attuner-colour: DARK_PURPLE
+  attuner-icon: '#'
+  stats:
+    mana: +5
+    strength: +3
+    might: +3
+
+
+fishing_berries:
+  name: Fishing Berries
+  type: ATTUNER
+  rarity: VERY_RARE
+  material: GLOW_BERRIES
+  attuner-colour: GOLD
+  attuner-icon: b
+  value: 600
+  stats:
+    fishing_power: +10
+    power: +4
+    might: +1
+
+midas_stone:
+  name: Midas Stone
+  type: ATTUNER
+  rarity: LEGENDARY
+  material: GOLD_INGOT
+  attuner-colour: GOLD
+  attuner-icon: '#'
+  stats:
+    bonus_coins: 2
+    might: -2

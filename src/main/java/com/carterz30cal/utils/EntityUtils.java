@@ -10,7 +10,7 @@ import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.entity.*;
 import org.bukkit.entity.ArmorStand.LockType;
-import org.bukkit.event.player.PlayerTeleportEvent.TeleportCause;
+import org.bukkit.event.entity.CreatureSpawnEvent;
 import org.bukkit.inventory.EquipmentSlot;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.potion.PotionEffect;
@@ -23,6 +23,7 @@ import java.util.List;
 
 public class EntityUtils
 {
+    @Deprecated
 	public static ArmorStand spawnHologram(Location location, int lifetime)
 	{
         if (!location.getChunk().isLoaded()) {
@@ -54,6 +55,28 @@ public class EntityUtils
 		
 		return armour;
 	}
+
+    public static TextDisplay spawnTextHologram(Location location, int lifetime) {
+        if (!location.getChunk().isLoaded()) {
+            return null;
+        }
+        TextDisplay display = location.getWorld().spawn(location, TextDisplay.class, CreatureSpawnEvent.SpawnReason.CUSTOM);
+        display.setAlignment(TextDisplay.TextAlignment.CENTER);
+        display.setGravity(false);
+        if (lifetime > 0) {
+            new BukkitRunnable() {
+
+                @Override
+                public void run() {
+                    // TODO Auto-generated method stub
+                    display.remove();
+                }
+
+            }.runTaskLater(Dungeons.instance, lifetime);
+        }
+
+        return display;
+    }
 	
 	
 	public static List<GamePlayer> getNearbyPlayers(Location l, double radius)
@@ -102,8 +125,10 @@ public class EntityUtils
         if (!location.getChunk().isLoaded()) {
             return null;
         }
-		Entity part = location.getWorld().spawnEntity(new Location(location.getWorld(), 0, 0, 0), type);
-		part.teleport(location, TeleportCause.PLUGIN);
+        //Entity part = location.getWorld().spawnEntity(new Location(location.getWorld(), 0, 0, 0), type);
+        assert type.getEntityClass() != null;
+        var part = location.getWorld().spawn(location, type.getEntityClass(), CreatureSpawnEvent.SpawnReason.CUSTOM);
+        //part.teleport(location, TeleportCause.PLUGIN);
 		part.setSilent(true);
 		if (part instanceof LivingEntity)
 		{

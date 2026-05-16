@@ -127,3 +127,40 @@ buildNumber.properties
 # Common working directory
 run/
 /.idea/
+/server/plugins/WorldEdit/.archive-unpack/
+/server/plugins/WorldEdit/sessions/
+/server/debug/
+
+/server/eula.txt
+/server/plugins/ProtocolLib/
+/server/ops.json
+/server/world/datapacks/
+/server/plugins/Dungeons/players.yml
+/server/world/data/
+!/server/world/data/chunks.dat
+!/server/world/data/world_border.dat
+/server/usercache.json
+/server/waterway progression diagram.drawio
+/server/wepif.yml
+/server/whitelist.json
+/server/world*/*.dat_old
+/server/world*/poi
+
+.gradle
+**/build/
+!**/src/**/build/
+
+# Ignore Gradle GUI config
+gradle-app.setting
+
+# Avoid ignoring Gradle wrapper jar file (.jar files are usually ignored)
+!gradle-wrapper.jar
+
+# Avoid ignore Gradle wrappper properties
+!gradle-wrapper.properties
+
+# Cache of project
+.gradletasknamecache
+
+# ignore paper remappings
+**/server/plugins/.paper-remapped

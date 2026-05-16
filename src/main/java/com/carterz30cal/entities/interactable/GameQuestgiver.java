@@ -1,8 +1,8 @@
 package com.carterz30cal.entities.interactable;
 
-import com.carterz30cal.areas2.quests.Questgivers;
-import com.carterz30cal.areas2.quests.Quests;
-import com.carterz30cal.areas2.quests.rewards.QuestReward;
+import com.carterz30cal.areas.quests.Questgivers;
+import com.carterz30cal.areas.quests.Quests;
+import com.carterz30cal.areas.quests.rewards.QuestReward;
 import com.carterz30cal.entities.player.GamePlayer;
 import com.carterz30cal.main.Dungeons;
 import org.bukkit.Sound;
@@ -15,7 +15,7 @@ public class GameQuestgiver extends GameEntityInteractable {
     protected Questgivers backing;
 
     public GameQuestgiver(Questgivers backing) {
-        super(backing.getEntityType(), backing.getLocation(), backing.toString(), "GOLDBOLDQuest");
+        super(backing.getEntityType(), backing.getLocation(), backing.toString(), "<gold><b>Quest");
         this.skullProfileId = backing.getSkullProfileId();
         this.backing = backing;
     }
@@ -49,7 +49,7 @@ public class GameQuestgiver extends GameEntityInteractable {
             return;
         }
 
-        String title = "WHITE<YELLOW" + backing.toString() + "WHITE> ";
+        String title = "<white><<yellow>" + backing.toString() + "<white>> ";
         save.sectionSave.Interact();
         if (save.sectionSave.IsFinished()) {
             int delay = 0;
@@ -59,7 +59,7 @@ public class GameQuestgiver extends GameEntityInteractable {
             }
 
             List<String> questComplete = new ArrayList<>();
-            questComplete.add("AQUA- - - - GOLDBOLDQuest complete! AQUA- - - -");
+            questComplete.add("<aqua>- - - - <gold><b>Quest complete! </b></gold>- - - -</aqua>");
             QuestReward reward = save.sectionSave.GetSection().GetQuestReward();
             if (reward != null) {
                 questComplete.addAll(reward.GetRewardDescription());

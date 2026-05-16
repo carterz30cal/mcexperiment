@@ -27,7 +27,7 @@ public class FishingArea {
 
     static {
         String[] areaFiles = {
-                "waterway2/fishing_areas"
+                "waterway/fishing_areas"
         };
         for (String file : areaFiles) {
             FileConfiguration c = FileUtils.getData(file);

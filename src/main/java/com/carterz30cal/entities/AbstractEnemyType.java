@@ -136,4 +136,14 @@ public abstract class AbstractEnemyType implements Cloneable
 	{
 		
 	}
+
+    @Override
+    public AbstractEnemyType clone() {
+        try {
+            // TODO: copy mutable state here, so the clone can't change the internals of the original
+            return (AbstractEnemyType) super.clone();
+        } catch (CloneNotSupportedException e) {
+            throw new AssertionError();
+        }
+    }
 }

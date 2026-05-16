@@ -1,6 +1,7 @@
 package com.carterz30cal.items;
 
 import com.carterz30cal.entities.player.GamePlayer;
+import com.carterz30cal.main.Dungeons;
 import com.carterz30cal.stats.Stat;
 import com.carterz30cal.utils.RandomUtils;
 import com.carterz30cal.utils.StringUtils;
@@ -19,21 +20,21 @@ public class ItemLootTable
         return loot.size();
 	}
 
-	public List<ItemStack> generate(GamePlayer player)
-	{
-		List<ItemStack> drops = new ArrayList<>();
-		for (ItemLoot l : loot)
+	public ItemLootTable(ConfigurationSection section) {
+		if (section.contains("drops"))
 		{
-			if (l.rollDrop(player.stats.getStat(Stat.LUCK)))
+			ConfigurationSection d = section.getConfigurationSection("drops");
+            assert d != null;
+            for (String drop : d.getKeys(false))
 			{
-				ItemStack it = l.generate();
-				if (l.announcementRarity != ItemRarity.COMMON) player.sendMessage(l.announcementRarity.colour + "BOLD" + l.announcementRarity.name.toUpperCase() + " DROP! " + it.getItemMeta().getDisplayName());
-				
-				drops.add(it);
+				int[] chance = StringUtils.convertStringToFraction(d.getString(drop + ".chance", "1/1"));
+				int[] amount = StringUtils.convertStringToFraction(d.getString(drop + ".amount", "1/1"));
+
+				String enchants = d.getString(drop + ".enchants", "");
+
+				addDrop(drop.split("-")[0], amount, chance, enchants);
 			}
 		}
-		
-		return drops;
 	}
 
 	public List<ContextualDrop> generateWithContexts(GamePlayer player) {
@@ -121,20 +122,26 @@ public class ItemLootTable
 	public ItemLootTable() {
 
 	}
-	public ItemLootTable(ConfigurationSection section) {
-		if (section.contains("drops"))
+
+	public List<ItemStack> generate(GamePlayer player)
+	{
+		List<ItemStack> drops = new ArrayList<>();
+		for (ItemLoot l : loot)
 		{
-			ConfigurationSection d = section.getConfigurationSection("drops");
-			for (String drop : d.getKeys(false))
+			if (l.rollDrop(player.stats.getStat(Stat.LUCK)))
 			{
-				int[] chance = StringUtils.convertStringToFraction(d.getString(drop + ".chance", "1/1"));
-				int[] amount = StringUtils.convertStringToFraction(d.getString(drop + ".amount", "1/1"));
+				ItemStack it = l.generate();
+                if (l.announcementRarity != ItemRarity.COMMON) {
+                    var colour = l.announcementRarity.textColor.asHexString() + ">";
+                    player.sendMessage("<" + colour + "<b>" + l.announcementRarity.name.toUpperCase() + " DROP! " + ItemFactory.getItem(it).name);
+                }
 
-				String enchants = d.getString(drop + ".enchants", "");
 
-				addDrop(drop.split("-")[0], amount, chance, enchants);
+				drops.add(it);
 			}
 		}
+
+		return drops;
 	}
 
     public static class ContextualDrop {
@@ -153,7 +160,6 @@ public class ItemLootTable
 			rarity = loot.rarity;
 		}
 	}
-
 
     public static class ItemLoot
 	{
@@ -177,12 +183,16 @@ public class ItemLootTable
 		public ItemStack generate()
 		{
 			ItemStack gen = ItemFactory.build(item, RandomUtils.getRandom(amount[0], amount[1]));
+            if (gen == null) {
+                Dungeons.instance.getLogger().severe("ItemLootTable: Could not generate item! " + item);
+                return null;
+            }
 			if (enchant != null) 
 			{
 				ItemFactory.addItemData(gen, "enchants", enchant);
 			}
-			
-			ItemFactory.update(gen, null);
+
+            ItemFactory.update(gen, (ItemFactory.FactoryBuildContext) null);
 			return gen;
 		}
 	}

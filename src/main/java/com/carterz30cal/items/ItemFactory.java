@@ -7,15 +7,27 @@ import com.carterz30cal.entities.player.GamePlayer;
 import com.carterz30cal.gui.GooeyInventory;
 import com.carterz30cal.items.abilities2.Abilities;
 import com.carterz30cal.items.abilities2.implementation.GameAbility;
+import com.carterz30cal.items.recipes.Recipe;
+import com.carterz30cal.items.recipes.RecipeCategory;
 import com.carterz30cal.items.sets.ItemSet;
 import com.carterz30cal.items.trims.TrimMaterialWrapper;
 import com.carterz30cal.items.trims.TrimPatternWrapper;
+import com.carterz30cal.items.types.ItemAttuner;
+import com.carterz30cal.items.types.ItemLootbox;
+import com.carterz30cal.items.types.ItemPet;
 import com.carterz30cal.main.Dungeons;
 import com.carterz30cal.stats.Stat;
 import com.carterz30cal.stats.StatContainer;
 import com.carterz30cal.stats.StatDisplayType;
 import com.carterz30cal.utils.FileUtils;
 import com.carterz30cal.utils.StringUtils;
+import com.destroystokyo.paper.profile.PlayerProfile;
+import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.TextComponent;
+import net.kyori.adventure.text.format.NamedTextColor;
+import net.kyori.adventure.text.format.TextColor;
+import net.kyori.adventure.text.format.TextDecoration;
+import net.kyori.adventure.text.minimessage.MiniMessage;
 import org.bukkit.Bukkit;
 import org.bukkit.Color;
 import org.bukkit.Material;
@@ -31,14 +43,17 @@ import org.bukkit.inventory.meta.LeatherArmorMeta;
 import org.bukkit.inventory.meta.SkullMeta;
 import org.bukkit.inventory.meta.trim.ArmorTrim;
 import org.bukkit.persistence.PersistentDataType;
-import org.bukkit.profile.PlayerProfile;
 import org.bukkit.profile.PlayerTextures;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import java.net.MalformedURLException;
-import java.net.URL;
+import java.net.URI;
 import java.util.*;
 import java.util.Map.Entry;
+
+import static net.kyori.adventure.text.Component.text;
+import static net.kyori.adventure.text.format.NamedTextColor.*;
 
 public class ItemFactory
 {
@@ -50,16 +65,16 @@ public class ItemFactory
 	public static Map<Integer, List<Recipe>> levelRecipes = new HashMap<>();
 
 	public static String[] files = {
-			"waterway2/items/ingredients", "waterway2/items/weapons/swords","waterway2/items/weapons/bows",
-            "waterway2/items/weapons/attuners", "waterway2/items/pickaxes/pickaxes",
-            "waterway2/items/fishing_rods/rods",
-			"waterway2/items/talismans/utility","waterway2/items/talismans/offensive",
-			"waterway2/items/lootboxes",
-			"waterway2/items/armours/uncommon_armours","waterway2/items/armours/rare_armours",
-			"waterway2/items/armours/very_rare_armours",
-			"waterway2/items/armours/sets/uncommon_sets","waterway2/items/armours/sets/rare_sets",
-			"waterway2/items/armours/sets/very_rare_sets",
-            "waterway2/items/pet_items", "waterway2/items/quest_items"
+            "waterway/items/ingredients", "waterway/items/weapons/swords", "waterway/items/weapons/bows",
+            "waterway/items/weapons/attuners", "waterway/items/pickaxes/pickaxes",
+            "waterway/items/fishing_rods/rods",
+            "waterway/items/talismans/utility", "waterway/items/talismans/offensive",
+            "waterway/items/lootboxes",
+            "waterway/items/armours/uncommon_armours", "waterway/items/armours/rare_armours",
+            "waterway/items/armours/very_rare_armours",
+            "waterway/items/armours/sets/uncommon_sets", "waterway/items/armours/sets/rare_sets",
+            "waterway/items/armours/sets/very_rare_sets",
+            "waterway/items/pet_items", "waterway/items/quest_items"
 	};
 	
 	
@@ -67,22 +82,22 @@ public class ItemFactory
 	public static NamespacedKey kData = new NamespacedKey(Dungeons.instance, "data");
 	public static NamespacedKey kUUID = new NamespacedKey(Dungeons.instance, "uuid");
 	public static String[] categoryFiles = {
-            "waterway2/recipes/categories"
+            "waterway/recipes/categories"
 	};
 	public static String[] recipeFiles = {
-            "waterway2/recipes/swords", "waterway2/recipes/bows", "waterway2/recipes/ingredients",
-            "waterway2/recipes/armours/uncommon_armours", "waterway2/recipes/armours/rare_armours",
-            "waterway2/recipes/armours/very_rare_armours",
-            "waterway2/recipes/attuners_offensive",
-            "waterway2/recipes/enchantments/sharpness",
-            "waterway2/recipes/talismans", "waterway2/recipes/harvesters", "waterway2/recipes/fishing_rods", "waterway2/recipes/pickaxes"
+            "waterway/recipes/swords", "waterway/recipes/bows", "waterway/recipes/ingredients",
+            "waterway/recipes/armours/uncommon_armours", "waterway/recipes/armours/rare_armours",
+            "waterway/recipes/armours/very_rare_armours",
+            "waterway/recipes/attuners_offensive",
+            "waterway/recipes/enchantments/sharpness",
+            "waterway/recipes/talismans", "waterway/recipes/harvesters", "waterway/recipes/fishing_rods", "waterway/recipes/pickaxes"
 	};
     public static String[] skullFiles = {
-            "waterway2/skulls"
+            "waterway/skulls"
     };
 
 	public static String[] shopFiles = {
-			"waterway2/items/shops"
+            "waterway/items/shops"
 	};
     private static Map<String, PlayerProfile> skullProfiles = new HashMap<>();
 	
@@ -165,6 +180,302 @@ public class ItemFactory
         }
 	}
 
+
+    public static void update(
+            @NotNull ItemStack stack
+    ) {
+        update(stack, (FactoryBuildContext) null);
+    }
+
+    /**
+     * @param stack   ItemStack that we want to update
+     * @param context Provides GamePlayer and additional context such as desired verbosity and colourblindness settings.
+     * @since 1.0.0
+     */
+    @SuppressWarnings("UnnecessaryUnicodeEscape")
+    public static void update(
+            @NotNull ItemStack stack,
+            @Nullable FactoryBuildContext context) {
+        Item item = getItem(stack);
+        if (item == null) {
+            return;
+        }
+        if (context == null) {
+            context = FactoryBuildContext.NULL;
+        }
+        if (stack.getItemMeta() instanceof SkullMeta && item.skullProfileId != null) {
+            setSkullTexture(stack, item.skullProfileId);
+        }
+        var meta = stack.getItemMeta();
+        var itemNameB = text().decorationIfAbsent(TextDecoration.ITALIC, TextDecoration.State.FALSE);
+        var descriptor = text().decorationIfAbsent(TextDecoration.ITALIC, TextDecoration.State.FALSE);
+        List<Component> lore = new ArrayList<>();
+
+        itemNameB.append(text(item.name, item.rarity.textColor));
+
+        var enchantments = getItemEnchants(stack);
+        StatContainer stats = item.stats.clone();
+        int maxEnchantPower = getItemMaxEnchantPower(stack, context.player);
+        int usedEnchantPower = Math.max(0, sumEnchantPower(enchantments));
+
+        if (item.rarity == ItemRarity.MYSTERIOUS) {
+            descriptor.append(text("Mysterious Item", DARK_GRAY));
+        }
+        else {
+            descriptor.append(text(item.rarity.name).append(text(" ")).append(text(item.type.toString())).color(DARK_GRAY));
+        }
+        if (maxEnchantPower > 0) {
+            if (usedEnchantPower > maxEnchantPower) {
+                descriptor.append(text(" [", DARK_GRAY)).append(text("OVERMAX", DARK_RED));
+            }
+            else if (usedEnchantPower == maxEnchantPower) {
+                descriptor.append(text(" [", DARK_GRAY)).append(text("MAX", AQUA));
+            }
+            else {
+                descriptor.append(text(" [", DARK_GRAY))
+                        .append(text(usedEnchantPower, AQUA))
+                        .append(text("/", DARK_GRAY))
+                        .append(text(maxEnchantPower, AQUA));
+            }
+            descriptor.append(text("]", DARK_GRAY));
+        }
+        else if (item.type == ItemType.ENCHANTMENT) {
+            descriptor
+                    .append(text(" [").color(DARK_GRAY))
+                    .append(text(usedEnchantPower).color(AQUA))
+                    .append(text("]").color(DARK_GRAY));
+        }
+        if (item.value > 0 && isItemBaseModel(stack)) {
+            descriptor.append(text(" $" + item.value).color(NamedTextColor.DARK_GREEN));
+        }
+
+        List<ItemAttuner> attuners = getAttuners(stack);
+        if (!attuners.isEmpty()) {
+            itemNameB.append(text(" [", DARK_GRAY));
+            for (ItemAttuner attuner : attuners) {
+                itemNameB.append(text(attuner.plus, attuner.colour));
+                attuner.stats.pushIntoContainer(stats);
+            }
+            itemNameB.append(text("]", DARK_GRAY));
+        }
+
+        if (item.type != ItemType.ENCHANTMENT) {
+            var all = getItemAbilities(stack, context.player);
+            for (var e : all) {
+                e.ability.onItemStats(e, stats);
+            }
+            stats.executeOperations();
+            for (var e : all) {
+                e.ability.onItemStatsLate(e, stats);
+            }
+            stats.executeOperations();
+        }
+
+        record Section(List<TextComponent.Builder> section) {
+        }
+        ;
+        List<Section> sections = new ArrayList<>();
+        Section statSection = new Section(new ArrayList<>());
+        {
+            boolean showStats = false;
+            for (Stat stat : stats.getStats()) {
+                if (stat.display == StatDisplayType.NO_DISPLAY) {
+                    continue;
+                }
+                showStats = true;
+                statSection.section.add(text().append(text(stat.name + ": ", stat.textColour)).append(text(stats.getDisplayed(stat), NamedTextColor.WHITE)));
+            }
+
+            Section statusSection = new Section(new ArrayList<>());
+            {
+                if (!stats.statuses.isEmpty()) {
+                    var l = text().append(text("Applies: ", BLUE));
+                    var vstat = stats.getStatuses();
+
+                    int r = vstat.size();
+                    for (StatusEffect effect : vstat) {
+                        r--;
+                        int value = stats.statuses.effects.get(effect);
+                        l.append(text(value + effect.symbol + " " + effect.name, effect.textColour));
+                        if (r > 0) {
+                            l.append(text(", ", DARK_GRAY));
+                        }
+                    }
+                    statusSection.section.add(l);
+                }
+            }
+
+            if (showStats) {
+                sections.add(statSection);
+            }
+            if (!stats.statuses.isEmpty()) {
+                sections.add(statusSection);
+            }
+        }
+
+        if (!enchantments.isEmpty()) {
+            Section enchantSection = new Section(new ArrayList<>());
+            {
+                if (enchantments.size() > 4) {
+                    var l = text();
+                    int in = 0;
+                    int i = 0;
+                    for (var enchant : enchantments) {
+                        in++;
+                        i++;
+                        l.append(text(enchant.name() + " " + enchant.level, enchant.colour()));
+                        if (in < 3) {
+                            if (i != enchantments.size()) {
+                                l.append(text(", ", DARK_GRAY));
+                            }
+                        }
+                        else {
+                            enchantSection.section.add(l);
+                            l = text();
+                            in = 0;
+                        }
+                    }
+                }
+                else {
+                    for (var enchant : enchantments) {
+                        var l = text().append(text(enchant.name() + " " + enchant.level, enchant.colour()));
+                        var desc = enchant.componentDescription();
+                        enchantSection.section.add(l);
+                        if (!desc.isEmpty()) {
+                            for (var d : desc) {
+                                enchantSection.section.add(text().append(text(" ")).append(d));
+                            }
+                        }
+                        if (item.type == ItemType.ENCHANTMENT && !enchant.ability.getApplicableTypes().isEmpty()) {
+                            var k = text();
+                            k.append(text(" Used with: ", DARK_GRAY));
+                            int i = 0;
+                            for (ItemType ty : enchant.ability.getApplicableTypes()) {
+                                i++;
+                                k.append(text(ty.toPlural(), DARK_GRAY));
+                                if (i != enchant.ability.getApplicableTypes().size()) {
+                                    k.append(text(", ", DARK_GRAY));
+                                }
+                            }
+                            enchantSection.section.add(k);
+                        }
+                    }
+                }
+            }
+            sections.add(enchantSection);
+        }
+
+        var abilities = getItemAbilities(item);
+        Section specificSection = new Section(new ArrayList<>());
+        boolean drawSpecificSection = false;
+        {
+            if (item instanceof ItemPet pet) {
+                if (pet.activeAbility != null) {
+                    abilities.addFirst(pet.activeAbility.getContext(context.player, item.rarity.ordinal()));
+                }
+            }
+            else if (item.type == ItemType.ATTUNER) {
+                drawSpecificSection = true;
+                specificSection.section.add(text().append(text("You may apply up to five attuners onto").color(GRAY)));
+                specificSection.section.add(text().append(text("any wieldable item using the anvil menu.").color(GRAY)));
+            }
+        }
+        if (drawSpecificSection) {
+            sections.add(specificSection);
+        }
+
+        Section abilitySection = new Section(new ArrayList<>());
+        for (var ability : abilities) {
+            abilitySection.section.add(text().append(text(ability.name(), ability.colour())));
+            for (var d : ability.componentDescription()) abilitySection.section.add(text().append(text(" ")).append(d));
+        }
+        if (!abilities.isEmpty()) {
+            sections.add(abilitySection);
+        }
+
+        if (context.player != null) {
+            Section setSection = new Section(new ArrayList<>());
+            if (!item.set.equals("null") && context.player.hasSet(item.set)) {
+                ItemSet set = (ItemSet) getItem(item.set);
+                setSection.section.add(text().append(text("SET BONUS: " + set.name, GOLD).decorate(TextDecoration.BOLD)));
+                for (var d : set.description)
+                    setSection.section.add(text().append(text(" " + d, DARK_GRAY)));
+                for (Stat stat : set.stats.getStats()) {
+                    if (stat.display == StatDisplayType.NO_DISPLAY) {
+                        continue;
+                    }
+                    var l = text();
+                    l.append(text(" " + stat.name + ": ", stat.textColour));
+                    l.append(text(set.stats.getDisplayed(stat), WHITE));
+                    setSection.section.add(l);
+                }
+                for (var ability : getItemAbilities(set)) {
+                    ability.owner = context.player;
+                    for (var d : ability.componentDescription())
+                        setSection.section.add(text().append(text(" ", DARK_GRAY).append(d)));
+                }
+            }
+
+
+            if (context.player.getLevel() < item.stats.getStat(Stat.LEVEL_REQUIREMENT)) {
+                setSection.section.add(text().append(text("\u00D7 Requires Level " + item.stats.getStat(Stat.LEVEL_REQUIREMENT), RED)));
+            }
+            if (!setSection.section.isEmpty()) {
+                sections.add(setSection);
+            }
+        }
+
+        if (!item.description.isEmpty()) {
+            Section descriptionSection = new Section(new ArrayList<>());
+            for (String d : item.description) descriptionSection.section.add(text().append(text(d, DARK_GRAY)));
+            sections.add(descriptionSection);
+        }
+        if (item.lore != null && !item.lore.isEmpty()) {
+            Section loreSection = new Section(new ArrayList<>());
+            for (var l : item.lore) {
+                var miniMessage = MiniMessage.miniMessage().deserialize("<dark_grey>" + l + "</dark_grey>");
+                loreSection.section.add(text().decoration(TextDecoration.ITALIC, TextDecoration.State.FALSE).append(miniMessage));
+            }
+            if (!loreSection.section.isEmpty()) {
+                sections.add(loreSection);
+            }
+        }
+
+        if (!sections.isEmpty()) {
+            lore.add(text(""));
+            for (var section : sections) {
+                for (var sec : section.section) {
+                    lore.add(sec.decorationIfAbsent(TextDecoration.ITALIC, TextDecoration.State.FALSE).build());
+                }
+                lore.add(text(""));
+            }
+            lore.removeLast();
+        }
+
+        lore.addFirst(descriptor.build());
+        meta.customName(itemNameB.build());
+        meta.lore(lore);
+
+        if (meta instanceof LeatherArmorMeta leather) {
+            leather.setColor(Color.fromRGB(item.r, item.g, item.b));
+        }
+        if (meta instanceof ArmorMeta armor) {
+            if (item.trimMaterial != TrimMaterialWrapper.NULL && item.trimPattern != TrimPatternWrapper.NULL) {
+                ArmorTrim trim = new ArmorTrim(item.trimMaterial.GetTrimMaterial(), item.trimPattern.GetTrimPattern());
+                armor.setTrim(trim);
+            }
+        }
+        if (item.glow) {
+            meta.addEnchant(Enchantment.UNBREAKING, 1, false);
+        }
+        else {
+            meta.removeEnchant(Enchantment.UNBREAKING);
+        }
+        stack.setItemMeta(meta);
+    }
+
+    @Deprecated
+    @SuppressWarnings("all")
 	public static void update(ItemStack i, GamePlayer player)
 	{
 		if (i == null) return;
@@ -364,7 +675,7 @@ public class ItemFactory
 
 	public static ItemStack ripPlayerSkull(GamePlayer player)
 	{
-		ItemStack skull = new ItemStack(Material.PLAYER_HEAD, 1);
+        var skull = ItemStack.of(Material.PLAYER_HEAD);
 
 		if (!Bukkit.getServer().getOnlineMode()) return skull;
 
@@ -372,16 +683,12 @@ public class ItemFactory
         if (meta == null) {
             return skull;
         }
-        meta.addItemFlags(ItemFlag.HIDE_PROFILE);
 
 		try
 		{
-			meta.setOwnerProfile(player.player.getPlayerProfile());
-		}
-		catch (Exception e)
-		{
-
-		}
+            meta.setPlayerProfile(player.player.getPlayerProfile());
+		} catch (Exception ignored) {
+        }
 
 		skull.setItemMeta(meta);
 
@@ -397,7 +704,6 @@ public class ItemFactory
 		return build(i, 1);
 	}
 
-    @SuppressWarnings("UnstableApiUsage")
     public static ItemStack build(String i, int amount)
 	{
 		Item item = items.get(i);
@@ -426,44 +732,20 @@ public class ItemFactory
             }
             meta.getPersistentDataContainer().set(kData, PersistentDataType.STRING, "");
             meta.addItemFlags(ItemFlag.values());
-            meta.removeItemFlags(ItemFlag.HIDE_LORE);
+            //meta.removeItemFlags(ItemFlag.HIDE_LORE);
             meta.setUnbreakable(true);
         }
 
 		stack.setItemMeta(meta);
-		if (item != null) update(stack, null);
+        if (item != null) {
+            update(stack, (FactoryBuildContext) null);
+        }
 		
 		return stack;
 	}
 	
-	public static ItemStack buildBook(String enchants)
-	{
-		ItemStack book = build("enchanted_book");
-		
-		ItemFactory.addItemData(book, "enchants", enchants);
-		ItemFactory.update(book, null);
-		
-		return book;
-	}
-	
-	public static ItemStack setItemEnchAttunersShortcut(ItemStack item, String enchants, String attuners)
-	{
-		ItemFactory.addItemData(item, "enchants", enchants);
-		if (attuners != null) ItemFactory.addItemData(item, "attuners", attuners);
-		ItemFactory.update(item, null);
-		
-		return item;
-	}
-	
 	public static boolean isItemBaseModel(ItemStack item) {
         return getItemData(item).isEmpty();
-	}
-	
-	public static String getItemName(ItemStack item)
-	{
-		if (item == null || !item.hasItemMeta()) return "null";
-		assert item.getItemMeta() != null;
-		return item.getItemMeta().getDisplayName();
 	}
 
 	public static String getColouredEnchantmentName(GameAbility.AbilityContext context) {
@@ -497,10 +779,8 @@ public class ItemFactory
 	{
 		Item item = getItem(i);
 		if (item == null) return 0;
-		
-		int power = item.stats.getStat(Stat.ENCHANT_POWER);
-		
-		return power;
+
+        return item.stats.getStat(Stat.ENCHANT_POWER);
 	}
 	
 	/*
@@ -577,10 +857,6 @@ public class ItemFactory
 		return abilities;
 	}
 
-	public static List<GameAbility.AbilityContext> getItemAbilities(ItemStack item)
-	{
-		return getItemAbilities(item, null);
-	}
 	public static List<GameAbility.AbilityContext> getItemAbilities(ItemStack item, GamePlayer p)
 	{
 		if (item == null) return new ArrayList<>();
@@ -610,23 +886,70 @@ public class ItemFactory
 		item.setItemMeta(meta);
 	}
 
+    @Deprecated
     public static ItemStack buildCustom(String base, String name) {
-        ItemStack item = build(base);
-        return buildCustom(item, name, (List<String>) null);
+        return customItem(base, name);
+    }
+
+    public static ItemStack customItem(String base, String name) {
+        ItemStack stack = build(base);
+        return customItem(stack, name, new ArrayList<>());
+    }
+
+    public static ItemStack customItem(String base, String name, NamedTextColor colour) {
+        ItemStack stack = build(base);
+        return customItem(stack, text().content(name).color(colour));
+    }
+
+    public static ItemStack customItem(String base, TextComponent.Builder name, TextComponent.Builder... lore) {
+        ItemStack stack = build(base);
+        return customItem(stack, name, lore);
+    }
+
+    public static ItemStack customItem(String base, TextComponent.Builder name, List<TextComponent.Builder> lore) {
+        ItemStack stack = build(base);
+        return customItem(stack, name, lore);
+    }
+
+    public static ItemStack customItem(String base, String name, String lore) {
+        ItemStack stack = build(base);
+        List<String> loreList = new ArrayList<>();
+        loreList.add(lore);
+        return customItem(stack, name, loreList);
+    }
+
+    public static ItemStack customItem(String base, String name, List<String> lore) {
+        ItemStack stack = build(base);
+        return customItem(stack, name, lore);
     }
 
 
+    /**
+     *
+     * @deprecated in favour of customItem() or more complex buildCustom() calls.
+     */
+    @Deprecated
 	public static ItemStack buildCustom(String base, String name, String lore)
 	{
 		ItemStack item = build(base);
 		return buildCustom(item, name, lore);
-	}
+    }
 
+    /**
+     *
+     * @deprecated in favour of customItem() or more complex buildCustom() calls.
+     */
+    @Deprecated
     public static ItemStack buildCustom(String base, String name, @NotNull List<String> lore) {
         ItemStack item = build(base);
         return buildCustom(item, name, lore);
     }
-	
+
+    /**
+     *
+     * @deprecated in favour of customItem() or more complex buildCustom() calls.
+     */
+    @Deprecated
 	public static ItemStack buildCustom(ItemStack item, String name, String lore)
 	{
 		if (item == null) return null;
@@ -650,8 +973,13 @@ public class ItemFactory
 		item.setItemMeta(meta);
 		
 		return item;
-	}
+    }
 
+    /**
+     *
+     * @deprecated in favour of customItem() or more complex buildCustom() calls.
+     */
+    @Deprecated
     public static ItemStack buildCustom(ItemStack item, String name, List<String> lore) {
         if (item == null) {
             return null;
@@ -671,31 +999,193 @@ public class ItemFactory
 
         return item;
     }
+
+    public static ItemStack buildCustom(
+            @NotNull String stack,
+            String name,
+            @Nullable NamedTextColor colour,
+            @Nullable TextComponent.Builder... lore) {
+        ItemStack item = build(stack);
+        if (item == null) {
+            return null;
+        }
+        return buildCustom(item, name, colour == null ? null : TextColor.color(colour), lore);
+    }
+
+    public static ItemStack buildCustom(
+            @NotNull ItemStack stack,
+            String name,
+            @Nullable NamedTextColor colour,
+            @Nullable TextComponent.Builder... lore) {
+        return buildCustom(stack, name, colour == null ? null : TextColor.color(colour), lore);
+    }
+
+    public static ItemStack buildCustom(
+            @NotNull ItemStack stack,
+            String name,
+            @Nullable NamedTextColor colour,
+            @Nullable NamedTextColor loreColour,
+            @Nullable TextComponent.Builder lore) {
+        return buildCustom(stack, name, colour == null ? null : TextColor.color(colour), lore == null ? null : lore.color(loreColour));
+    }
+
+    /**
+     *
+     * @param stack  The template ItemStack that we want to turn into a display item.
+     * @param name   Whatever you want the ItemStack's custom name to be, in plaintext.
+     * @param colour Either null, which will use the Item default, or a specified TextColor.
+     * @param lore   List of Builders that determines the item lore. If null it sets the lore to empty.
+     * @return ItemStack that has been made 'invalid' (isn't recognized by the game as a custom item) with specified name and lore.
+     * @implNote This isn't safe to run on players' items, make sure you clone the ItemStack first.
+     * @since 1.0.0
+     */
+    @NotNull
+    public static ItemStack buildCustom(
+            @NotNull ItemStack stack,
+            String name,
+            @Nullable TextColor colour,
+            @Nullable TextComponent.Builder... lore) {
+        if (colour == null) {
+            Item item = getItem(stack);
+            if (item == null) {
+                colour = TextColor.color(0x0);
+            }
+            else {
+                colour = getItem(stack).rarity.textColor;
+            }
+        }
+        final TextColor nameColour = colour;
+        return customItem(stack, text().content(name).color(nameColour), lore);
+    }
+
+    /**
+     *
+     * @param stack The template ItemStack that we want to turn into a display item.
+     * @param name  Whatever you want the ItemStack's custom name to be, in plaintext.
+     * @param lore  List of Builders that determines the item lore. If null it sets the lore to empty.
+     * @return ItemStack that has been made 'invalid' (isn't recognized by the game as a custom item) with specified name and lore.
+     * @implNote This isn't safe to run on players' items, make sure you clone the ItemStack first.
+     * @since 1.0.0
+     */
+    public static ItemStack customItem(
+            @NotNull ItemStack stack,
+            @Nullable TextComponent.Builder name,
+            @Nullable TextComponent.Builder... lore
+    ) {
+        if (lore == null) {
+            return customItem(stack, name, new ArrayList<>());
+        }
+        else {
+            return customItem(stack, name, List.of(lore));
+        }
+    }
+
+    /**
+     *
+     * @param stack The template ItemStack that we want to turn into a display item.
+     * @param name  Whatever you want the ItemStack's custom name to be, in plaintext.
+     * @param lore  List of Builders that determines the item lore. If null it sets the lore to empty.
+     * @return ItemStack that has been made 'invalid' (isn't recognized by the game as a custom item) with specified name and lore.
+     * @implNote This isn't safe to run on players' items, make sure you clone the ItemStack first.
+     * @since 1.0.0
+     */
+    public static ItemStack customItem(
+            @NotNull ItemStack stack,
+            @Nullable TextComponent.Builder name,
+            @Nullable List<TextComponent.Builder> lore
+    ) {
+        makeInvalid(stack);
+        stack.editMeta(meta -> {
+            if (name != null) {
+                meta.customName(name.decoration(TextDecoration.ITALIC, TextDecoration.State.FALSE).build());
+            }
+            var llist = new ArrayList<Component>();
+            if (lore != null) {
+                for (var l : lore) {
+                    if (l == null) {
+                        continue;
+                    }
+                    llist.add(l.decoration(TextDecoration.ITALIC, TextDecoration.State.FALSE).build());
+                }
+            }
+            meta.lore(llist);
+        });
+        return stack;
+    }
+
+
+    /**
+     * MiniMessage format customItem generator.
+     *
+     * @param stack The template ItemStack that we want to turn into a display item.
+     * @param name  Whatever you want the ItemStack's custom name to be, in MiniMessage format.
+     * @param lore  List of Strings in MiniMessage format.
+     * @return ItemStack that has been made 'invalid' (isn't recognized by the game as a custom item) with specified name and lore.
+     * @implNote This isn't safe to run on players' items, make sure you clone the ItemStack first.
+     * @since 1.0.0
+     */
+    public static ItemStack customItem(
+            @NotNull ItemStack stack,
+            @Nullable String name,
+            @Nullable List<String> lore
+    ) {
+        makeInvalid(stack);
+        stack.editMeta(meta -> {
+            if (name != null) {
+                var miniName = MiniMessage.miniMessage().deserialize(name).decorationIfAbsent(TextDecoration.ITALIC, TextDecoration.State.FALSE);
+                meta.customName(miniName);
+            }
+            var llist = new ArrayList<Component>();
+            if (lore != null) {
+                for (var l : lore) {
+                    if (l == null) {
+                        continue;
+                    }
+                    var miniL = MiniMessage.miniMessage().deserialize(l);
+                    llist.add(miniL.decorationIfAbsent(TextDecoration.ITALIC, TextDecoration.State.FALSE));
+                }
+            }
+            meta.lore(llist);
+        });
+        return stack;
+    }
 	
     public static void setSkullTexture(ItemStack skull, String profileId) {
         if (skull == null || !skull.hasItemMeta()) {
             return;
         }
         ItemMeta meta = skull.getItemMeta();
-        if (meta instanceof SkullMeta) {
-            SkullMeta skullMeta = (SkullMeta) meta;
-            PlayerProfile profile = skullProfiles.get(profileId);
-            //System.out.println(profile.getTextures().getSkin());
-            skullMeta.setOwnerProfile(profile);
+        if (meta instanceof SkullMeta skullMeta) {
+            var profile = skullProfiles.get(profileId);
+            skullMeta.setPlayerProfile(profile);
             skull.setItemMeta(skullMeta);
         }
     }
 
-    public static PlayerProfile GetSkullProfile(String profileId) {
+    public static PlayerProfile getSkullProfile(String profileId) {
         return skullProfiles.get(profileId);
     }
-	
+
+    /**
+     * @deprecated in favour of getItemNameBuilder()
+     */
+    @Deprecated
 	public static String getItemTypeName(String type)
 	{
 		Item item = getItem(type);
 		if (item == null) return "REDnull";
 		else return item.rarity.colour + item.name;
-	}
+    }
+
+    public static TextComponent.Builder getItemNameBuilder(String type) {
+        Item item = getItem(type);
+        if (item == null) {
+            return text().content("null").color(RED);
+        }
+        else {
+            return text().content(item.name).color(item.rarity.textColor);
+        }
+    }
 	
 	public static String flattenEnchMap(Map<Abilities, Integer> map)
 	{
@@ -735,15 +1225,14 @@ public class ItemFactory
 	public static void setItemData(ItemStack item, Map<String, String> data)
 	{
 		if (item == null || !item.hasItemMeta()) return;
-		
-		String pressedData = "";
-		for (Entry<String, String> d : data.entrySet())
-		{
-			pressedData = pressedData + d.getKey() + ":" + d.getValue() + "~";
+
+        StringBuilder pressedData = new StringBuilder();
+		for (Entry<String, String> d : data.entrySet()) {
+            pressedData.append(d.getKey()).append(":").append(d.getValue()).append("~");
 		}
 		
 		ItemMeta meta = item.getItemMeta();
-		meta.getPersistentDataContainer().set(kData, PersistentDataType.STRING, pressedData);
+        meta.getPersistentDataContainer().set(kData, PersistentDataType.STRING, pressedData.toString());
 		
 		item.setItemMeta(meta);
 	}
@@ -775,11 +1264,11 @@ public class ItemFactory
 	}
 
     public static void generateSkullProfile(String id, String url) {
-        PlayerProfile profile = Dungeons.instance.getServer().createPlayerProfile(UUID.randomUUID());
+        PlayerProfile profile = Dungeons.instance.getServer().createProfile(UUID.randomUUID());
         PlayerTextures textures = profile.getTextures();
 
         try {
-            textures.setSkin(new URL(url));
+            textures.setSkin(URI.create(url).toURL());
         } catch (MalformedURLException e) {
             throw new RuntimeException(e);
         }
@@ -793,9 +1282,8 @@ public class ItemFactory
 	public static String getFlatItemData(ItemStack item)
 	{
 		if (item == null || !item.hasItemMeta()) return "";
-		
-		String dataPart = item.getItemMeta().getPersistentDataContainer().getOrDefault(kData, PersistentDataType.STRING, "");
-		return dataPart;
+
+        return item.getItemMeta().getPersistentDataContainer().getOrDefault(kData, PersistentDataType.STRING, "");
 	}
 	
 	public static String getItemList(int pos)
@@ -836,10 +1324,14 @@ public class ItemFactory
 			item.stats = new StatContainer();
 			item.glow = i.getBoolean("glow", false);
 			item.description = i.getStringList("description");
+            item.lore = i.getStringList("lore");
 			item.value = i.getLong("value");
 			item.tags = i.getStringList("tags");
 			item.set = i.getString("set", "null");
 			if (item.description == null) item.description = new ArrayList<>();
+            if (item.lore == null) {
+                item.lore = new ArrayList<>();
+            }
 
 			var abilities = i.getStringList("abilities");
 			item.abilities = new ArrayList<>();
@@ -872,6 +1364,52 @@ public class ItemFactory
 
 	}
 
+    public static ItemStack buildItemFromString(String string) {
+        return buildItemFromString(string, null);
+    }
+
+    public static ItemStack buildItemFromString(String string, GamePlayer owner) {
+        if (string == null) {
+            return null;
+        }
+        String[] spl = string.split("£");
+        ItemStack item = ItemFactory.build(spl[0]);
+        if (item == null) {
+            return null;
+        }
+        else {
+            switch (spl.length) {
+                case 1:
+                    break;
+                case 2:
+                    item.setAmount(Integer.parseInt(spl[1]));
+                    break;
+                default:
+                    item.setAmount(Integer.parseInt(spl[1]));
+                    ItemFactory.setItemData(item, spl[2]);
+                    break;
+            }
+            ItemFactory.update(item, owner == null ? null : owner.getItemContext());
+            return item;
+        }
+    }
+
+    public static String buildStringFromItem(ItemStack item) {
+        Item itemType = getItem(item);
+        if (itemType == null) {
+            return null;
+        }
+        else {
+            String data = ItemFactory.getFlatItemData(item);
+            if (data.isEmpty()) {
+                return itemType.id + "£" + item.getAmount();
+            }
+            else {
+                return itemType.id + "£" + item.getAmount() + "£" + data;
+            }
+        }
+    }
+
 	private void generateRegular(String p, ConfigurationSection i)
 	{
 		Item item;
@@ -879,7 +1417,28 @@ public class ItemFactory
 		int lootboxItemCount = -1;
 		switch (type) {
 			case ATTUNER:
-				item = new ItemAttuner();
+                var attuner = new ItemAttuner();
+                item = attuner;
+                attuner.plus = i.getString("attuner-icon");
+                if (i.isString("attuner-colour")) {
+                    assert i.getString("attuner-colour") != null;
+                    NamedTextColor ntc = NAMES.value(Objects.requireNonNull(i.getString("attuner-colour")).toLowerCase());
+                    if (ntc != null) {
+                        attuner.colour = TextColor.color(ntc);
+                    }
+                    else {
+                        Dungeons.instance.getLogger().warning("ItemFactory: couldn't find NamedTextColour at " + p + ".attuner-colour");
+                        attuner.colour = TextColor.color(0x0);
+                    }
+                }
+                else if (i.isConfigurationSection("attuner-colour")) {
+                    int r, g, b;
+                    r = i.getInt("attuner-colour.r");
+                    g = i.getInt("attuner-colour.g");
+                    b = i.getInt("attuner-colour.b");
+                    attuner.colour = TextColor.color(r, g, b);
+                }
+
 				break;
 			case LOOTBOX:
 				item = new ItemLootbox();
@@ -897,7 +1456,7 @@ public class ItemFactory
 				try {
 					pet.activeAbility = Abilities.valueOf(i.getString("active-ability"));
 				} catch (IllegalArgumentException e) {
-					System.out.println("[DUNGEONS] Failed to generate ability: " + i.getString("active-ability"));
+                    Dungeons.instance.getLogger().severe("ItemFactory: couldn't find " + i.getString("active-ability") + " ability.");
 				}
 
 				item = pet ;
@@ -920,12 +1479,16 @@ public class ItemFactory
 
 		item.glow = i.getBoolean("glow", false);
 		item.description = i.getStringList("description");
+        item.lore = i.getStringList("lore");
 		item.discovery = i.getString("discovery", null);
 		item.discoveryProgress = i.getInt("discovery-progress", 0);
 		item.set = i.getString("set", "null");
         item.skullProfileId = i.getString("skull-profile-id", null);
 
 		if (item.description == null) item.description = new ArrayList<>();
+        if (item.lore == null) {
+            item.lore = new ArrayList<>();
+        }
 		if (lootboxItemCount > 0) {
 			//item.description.add("");
 			item.description.add("GRAYThis lootbox can contain up");
@@ -952,17 +1515,12 @@ public class ItemFactory
 			item.b = i.getInt("colour.b", 0);
 		}
 
-		if (item instanceof ItemAttuner)
-		{
-			ItemAttuner attuner = (ItemAttuner)item;
-			attuner.plus = i.getString("attuner-icon");
-		}
-
 
 		if (i.contains("stats"))
 		{
 			ConfigurationSection s = i.getConfigurationSection("stats");
-			for (String stat : s.getKeys(false))
+            assert s != null;
+            for (String stat : s.getKeys(false))
 			{
 				item.stats.setStat(Stat.valueOf(stat.toUpperCase()), s.getInt(stat));
 			}
@@ -970,56 +1528,39 @@ public class ItemFactory
 
 		if (i.contains("statuses")) {
 			ConfigurationSection k = i.getConfigurationSection("statuses");
-			item.stats.statuses = new StatusEffects(k);
+            assert k != null;
+            item.stats.statuses = new StatusEffects(k);
 		}
 
 		if (!items.containsKey(item.id)) itemList.add(item.id);
 		items.put(item.id, item);
-	}
-
-    public static ItemStack BuildItemFromString(String string) {
-        return BuildItemFromString(string, null);
     }
 
-    public static ItemStack BuildItemFromString(String string, GamePlayer owner) {
-        if (string == null) {
-            return null;
+    public static final class FactoryBuildContext {
+        public static final FactoryBuildContext NULL = new FactoryBuildContext();
+        public final GamePlayer player;
+        public DescriptionVerbosity verbosity;
+
+        private FactoryBuildContext() {
+            this.player = null;
+            this.verbosity = DescriptionVerbosity.VERBOSE;
         }
-        String[] spl = string.split("£");
-        ItemStack item = ItemFactory.build(spl[0]);
-        if (item == null) {
-            return null;
+
+        public FactoryBuildContext(GamePlayer player) {
+            this.player = player;
+            this.verbosity = DescriptionVerbosity.VERBOSE;
         }
-        else {
-            switch (spl.length) {
-                case 1:
-                    break;
-                case 2:
-                    item.setAmount(Integer.parseInt(spl[1]));
-                    break;
-                default:
-                    item.setAmount(Integer.parseInt(spl[1]));
-                    ItemFactory.setItemData(item, spl[2]);
-                    ItemFactory.update(item, owner);
-                    break;
-            }
-            return item;
+
+        @Override
+        public String toString() {
+            return "FactoryBuildContext[" +
+                    "player=" + player + ']';
+        }
+
+        public enum DescriptionVerbosity {
+            VERBOSE,
+            COMPACT
         }
     }
 
-    public static String BuildStringFromItem(ItemStack item) {
-        Item itemType = getItem(item);
-        if (itemType == null) {
-            return null;
-        }
-        else {
-            String data = ItemFactory.getFlatItemData(item);
-            if (data.isEmpty()) {
-                return itemType.id + "£" + item.getAmount();
-            }
-            else {
-                return itemType.id + "£" + item.getAmount() + "£" + data;
-            }
-        }
-    }
 }

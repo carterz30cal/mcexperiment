@@ -3,8 +3,10 @@ package com.carterz30cal.gui;
 import com.carterz30cal.entities.player.GamePlayer;
 import com.carterz30cal.items.ItemFactory;
 import com.carterz30cal.items.ItemLootTable;
-import com.carterz30cal.items.ItemLootbox;
 import com.carterz30cal.items.ItemRarity;
+import com.carterz30cal.items.types.ItemLootbox;
+import net.kyori.adventure.text.format.NamedTextColor;
+import net.kyori.adventure.text.format.TextDecoration;
 import org.bukkit.Material;
 import org.bukkit.Sound;
 import org.bukkit.inventory.ItemStack;
@@ -12,8 +14,10 @@ import org.bukkit.inventory.ItemStack;
 import java.util.ArrayList;
 import java.util.List;
 
+import static net.kyori.adventure.text.Component.text;
+
 public class LootboxGUI extends AbstractGUI {
-    private static Material[] rarityPanels = {
+    private static final Material[] RARITY_PANELS = {
             Material.LIGHT_GRAY_STAINED_GLASS_PANE, // COMMON
             Material.ORANGE_STAINED_GLASS_PANE, // UNCOMMON
             Material.LIME_STAINED_GLASS_PANE, // RARE
@@ -24,7 +28,6 @@ public class LootboxGUI extends AbstractGUI {
     };
     public LootboxGUI(GamePlayer owner, ItemLootbox lootbox) {
         super(owner);
-
 
         List<ItemLootTable.ContextualDrop> items = lootbox.table.generateWithContexts(owner);
 
@@ -37,33 +40,24 @@ public class LootboxGUI extends AbstractGUI {
         inventory = new GooeyInventory(lootbox.name, inventorySize);
         inventory.initUsingTemplate(GooeyTemplate.PANED_DARK);
 
-
-        // while drops
-        // get upto 7 items
-        // place those seven items
-        // repeat 2 y down
-        // if too big, add disclaimer item at bottom
-
-
-
-
-        if (items.size() == 0) {
-            ItemStack unlucky = ItemFactory.buildCustom("BARRIER", "REDUnlucky!", "REDYou didn't get anything this time..");
-            inventory.setSlot(unlucky, calc(4, 1));
+        if (items.isEmpty()) {
+            inventory.setSlot(
+                    ItemFactory.customItem("BARRIER", "<red>Unlucky!</red>", "<red>You somehow didn't get anything this time!</red>"),
+                    calc(4, 1));
         }
         else {
             int rows = 0;
-            while (items.size() > 0 && rows < 3) {
+            while (!items.isEmpty() && rows < 3) {
                 List<ItemLootTable.ContextualDrop> subset = new ArrayList<>();
                 for (int i = 0; i < 7 && i < items.size(); i++) subset.add(items.get(i));
 
                 if (subset.size() % 2 == 1) {
-                    ItemStack invalidDisplayItem = subset.get(0).getItemStack();
+                    ItemStack invalidDisplayItem = subset.getFirst().getItemStack();
                     ItemFactory.makeInvalid(invalidDisplayItem);
 
-                    inventory.setSlot(getPanel(subset.get(0)), calc(4, rows * 2));
+                    inventory.setSlot(getPanel(subset.getFirst()), calc(4, rows * 2));
                     inventory.setSlot(invalidDisplayItem, calc(4, rows * 2 + 1));
-                    items.remove(subset.remove(0));
+                    items.remove(subset.removeFirst());
                 }
                 int offset = subset.size() / 2;
                 int j = 0;
@@ -90,9 +84,10 @@ public class LootboxGUI extends AbstractGUI {
 
     private ItemStack getPanel(ItemLootTable.ContextualDrop drop) {
         ItemRarity rarity = drop.getItemRarity();
-        ItemStack panel = ItemFactory.buildCustom(rarityPanels[drop.getItemRarity().ordinal()].toString(),
-                rarity.colour + "BOLD" + rarity.name + " Drop!",
-                drop.getItemStack().getItemMeta().getDisplayName() + " GRAYx" + drop.getItemStack().getAmount());
-        return panel;
+        return ItemFactory.customItem(
+                RARITY_PANELS[rarity.ordinal()].toString(),
+                text().append(text().color(rarity.textColor).append(text(rarity.name + " drop!").decorate(TextDecoration.BOLD))),
+                text().append(text(drop.getItemStack().getAmount() + "x ", NamedTextColor.GRAY)).append(drop.getItemStack().displayName())
+        );
     }
 }

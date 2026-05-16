@@ -1,11 +1,9 @@
 package com.carterz30cal.entities.enemies;
 
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Objects;
-
-import com.carterz30cal.items.ItemFactory;
+import com.carterz30cal.entities.AbstractEnemyType;
+import com.carterz30cal.entities.GameEnemy;
 import com.carterz30cal.main.Dungeons;
+import com.carterz30cal.utils.EntityUtils;
 import org.bukkit.Location;
 import org.bukkit.NamespacedKey;
 import org.bukkit.attribute.Attribute;
@@ -13,15 +11,14 @@ import org.bukkit.attribute.AttributeModifier;
 import org.bukkit.attribute.AttributeModifier.Operation;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.entity.EntityType;
-import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Mob;
 import org.bukkit.entity.Slime;
 import org.bukkit.inventory.EquipmentSlot;
-
-import com.carterz30cal.entities.AbstractEnemyType;
-import com.carterz30cal.entities.GameEnemy;
-import com.carterz30cal.utils.EntityUtils;
 import org.bukkit.inventory.EquipmentSlotGroup;
+
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Objects;
 
 public class EnemyTypeSimple extends AbstractEnemyType
 {
@@ -95,6 +92,8 @@ public class EnemyTypeSimple extends AbstractEnemyType
 			}
 
 		}
+
+        System.out.println(mob.main);
 		
 		if (mob.main instanceof Slime)
 		{

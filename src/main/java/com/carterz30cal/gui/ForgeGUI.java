@@ -2,14 +2,23 @@ package com.carterz30cal.gui;
 
 import com.carterz30cal.entities.player.GamePlayer;
 import com.carterz30cal.items.*;
+import com.carterz30cal.items.discoveries.Collection;
+import com.carterz30cal.items.discoveries.DiscoveryManager;
+import com.carterz30cal.items.recipes.Recipe;
+import com.carterz30cal.items.recipes.RecipeCategory;
+import com.carterz30cal.main.Dungeons;
 import com.carterz30cal.utils.StringUtils;
-import org.bukkit.ChatColor;
+import net.kyori.adventure.text.format.NamedTextColor;
+import net.kyori.adventure.text.format.TextDecoration;
+import net.kyori.adventure.text.minimessage.MiniMessage;
 import org.bukkit.Sound;
 import org.bukkit.inventory.ItemStack;
-import org.bukkit.inventory.meta.ItemMeta;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
+
+import static net.kyori.adventure.text.Component.text;
 
 public class ForgeGUI extends AbstractGUI 
 {
@@ -49,18 +58,21 @@ public class ForgeGUI extends AbstractGUI
 		for (int i = 0; i < 54; i++)
 		{
 			if (i / 9 != 0 && i / 9 != 5 && i % 9 != 0 && i % 9 < 6) inventory.setSlot(null, i);
-			else if (i % 9 > 6) 
-			{
-				inventory.setSlot(getForgingItem(f), i);
-				f++;
-			}
-			else inventory.setSlot(GooeyInventory.produceElement("WHITE_STAINED_GLASS_PANE", " "), i);
+			else if (i % 9 > 6) {
+                inventory.setSlot(getForgingItem(f), i);
+                f++;
+            }
+            else {
+                inventory.setSlot(ItemFactory.customItem("WHITE_STAINED_GLASS_PANE",
+                                " "),
+                        i);
+            }
 		}
 		
 		if (category != ItemFactory.baseCategory) 
 		{
 			inventory.setSlot(createCategoryDisplay(category.id, false), calc(3, 0));
-			inventory.setSlot(GooeyInventory.produceElement("ARROW", "REDBack"), calc(3, 5));
+            inventory.setSlot(ItemFactory.customItem("ARROW", "<red>Back</red>"), calc(3, 5));
 		}
 		
 		
@@ -95,10 +107,16 @@ public class ForgeGUI extends AbstractGUI
 		}
 		
 		int count = category.recipes.size() + category.subcategories.size() - g;
-		if (page > 1) inventory.setSlot(GooeyInventory.produceElement("ARROW", "GREENPage " + (page-1)), calc(1, 5));
+        if (page > 1) {
+            inventory.setSlot(ItemFactory.customItem("ARROW",
+                            "<green>Page " + (page - 1) + "</green>"),
+                    calc(1, 5));
+        }
 		if (count > page * 20)
 		{
-			inventory.setSlot(GooeyInventory.produceElement("ARROW", "GREENPage " + (page+1)), calc(5, 5));
+            inventory.setSlot(ItemFactory.customItem("ARROW",
+                            "<green>Page " + (page + 1) + "</green>"),
+                    calc(5, 5));
 			allowNextPage = true;
 		}
 		else allowNextPage = false;
@@ -122,23 +140,31 @@ public class ForgeGUI extends AbstractGUI
 	
 	public ItemStack getForgingItem(int f)
 	{
-		boolean summin = f >= owner.forge.size();
-		if (summin)
+        boolean inUse = f >= owner.forge.size();
+        if (inUse)
 		{
-			if (f < owner.getForgeSlots()) return GooeyInventory.produceElement("ORANGE_STAINED_GLASS_PANE", "GOLDSlot available!");
-			else return GooeyInventory.produceElement("RED_STAINED_GLASS_PANE", "REDSlot locked!");
+            if (f < owner.getForgeSlots()) {
+                return ItemFactory.customItem("ORANGE_STAINED_GLASS_PANE", "<#cc5500>Slot available!</#cc5500>");
+            }
+            else {
+                return ItemFactory.customItem("RED_STAINED_GLASS_PANE", "<red>Slot locked!</red>");
+            }
 		}
 		else 
 		{
 			ItemStack p = owner.forge.get(f).produce();
-			ItemMeta m = p.getItemMeta();
-			List<String> lore = m.getLore();
-			
-			lore.add("");
-			lore.add("WHITETime Remaining: " + StringUtils.getPrettyTime(owner.forge.get(f).finished));
-			
-			m.setLore(StringUtils.colourList(lore));
-			p.setItemMeta(m);
+            if (!p.hasItemMeta()) {
+                return p;
+            }
+            p.editMeta(meta -> {
+                var lore = meta.lore();
+                assert lore != null;
+                lore.add(text().build());
+                lore.add(text().content("Time Remaining:").color(NamedTextColor.WHITE).append(
+                        text(StringUtils.getPrettyTime(owner.forge.get(f).finished))
+                ).decoration(TextDecoration.ITALIC, TextDecoration.State.FALSE).build());
+                meta.lore(lore);
+            });
 			
 			return p;
 		}
@@ -151,63 +177,115 @@ public class ForgeGUI extends AbstractGUI
 		long pLevel = owner.getLevel();
 		
 		List<String> requirements = new ArrayList<>();
-		if (rec.levelRequirement > pLevel) requirements.add("GRAYThis recipe unlocks at WHITELevel " + rec.levelRequirement + "GRAY.");
+        if (rec.levelRequirement > pLevel) {
+            requirements.add("<grey>This recipe unlocks at <white>Level " + rec.levelRequirement + "</white>.</grey>");
+        }
 		if (rec.discoveryReq != null)
 		{
 			Collection col = DiscoveryManager.get(rec.discoveryReq);
 			if (owner.getDiscoveryLevel(col) < rec.discoveryReqLevel + 1)
 			{
-				requirements.add("GRAYThis recipe unlocks at WHITE" + col.name + " " + (rec.discoveryReqLevel + 1) + "GRAY.");
+                requirements.add("<grey>This recipe unlocks at <white>" + col.name + " " + (rec.discoveryReqLevel + 1) + "</white>.</grey>");
 			}
 		}
 
         if (!requirements.isEmpty())
 		{
-            ItemStack r = ItemFactory.buildCustom("RED_STAINED_GLASS_PANE", "REDRecipe locked!");
-			ItemMeta m = r.getItemMeta();
-			
-			m.setLore(StringUtils.colourList(requirements));
-			r.setItemMeta(m);
-			return r;
+            return ItemFactory.customItem("RED_STAINED_GLASS_PANE",
+                    "<red>Recipe locked!</red>", requirements);
 		}
 		
 		ItemStack base = ItemFactory.build(rec.item, rec.amount);
+        if (base == null) {
+            Dungeons.instance.getLogger().severe("ForgeGUI: could not find item: " + rec.item);
+            return ItemFactory.customItem("BARRIER",
+                    "<dark_red>An error has occurred, please try again later.</dark_red>", requirements);
+        }
 		ItemFactory.setItemData(base, "enchants:" + rec.enchants);
-        ItemFactory.update(base, owner);
+        ItemFactory.update(base, owner.getItemContext());
 		ItemFactory.makeInvalid(base);
-		
-		ItemMeta meta = base.getItemMeta();
-		List<String> lore = meta.getLore();
-		if (lore == null) lore = new ArrayList<>();
+
+        List<String> lore = new ArrayList<>();
 		
 		lore.add("");
-		lore.add(rec.time == 0 ? "WHITETime: GREENInstant" : "WHITETime:WHITE" + StringUtils.getPrettyTime(rec.time));
-		lore.add("WHITEBOLDRequirements: ");
-		if (rec.coinCost != 0) lore.add("DARK_PURPLE- " + (rec.coinCost == 1 ? "GOLD1 Coin" : "GOLD" + rec.coinCost + " Coins"));
-		for (String item : rec.items.keySet())
+        lore.add(rec.time == 0 ? "<white>Time: <green>Instant</green></white>" : "<white>Time:" + StringUtils.getPrettyTime(rec.time));
+        lore.add("<white><b>Requirements: </b></white>");
+        if (rec.coinCost != 0) {
+            lore.add("<dark_grey>-</dark_grey> <gold>" +
+                    (rec.coinCost == 1 ? "1 coin" : rec.coinCost + " coins") + "</gold>");
+        }
+        for (String recipeIngredient : rec.items.keySet())
 		{
-			int amountInSack = owner.sack.getOrDefault(item, 0);
+            var ingredient = ItemFactory.getItem(recipeIngredient);
+            var rarityColour = ingredient.rarity.textColor.asHexString() + ">";
 
 			StringBuilder builder = new StringBuilder();
-			builder.append("- ");
-			builder.append(ItemFactory.getItemTypeName(item));
-			builder.append(" DARK_GRAYx");
-			builder.append(rec.items.get(item));
-			if (ItemFactory.getItem(item).type == ItemType.INGREDIENT) {
-				builder.append("  [Sack has x");
-				if (amountInSack >= rec.items.get(item)) builder.append("GREEN");
-				else builder.append("RED");
-
-				builder.append(amountInSack);
-				builder.append("DARK_GRAY]");
+            builder.append("<dark_grey>- <");
+            builder.append(rarityColour);
+            builder.append(ingredient.name);
+            builder.append("</");
+            builder.append(rarityColour);
+            builder.append(" <dark_grey>x");
+            builder.append(rec.items.get(recipeIngredient));
+            if (ingredient.type == ItemType.INGREDIENT) {
+                int sack = owner.sack.getOrDefault(recipeIngredient, 0);
+                int total = sack;
+                for (var checking : owner.player.getInventory().getContents()) {
+                    var check = ItemFactory.getItem(checking);
+                    if (check == null || !check.id.equals(recipeIngredient)) {
+                        continue;
+                    }
+                    total += checking.getAmount();
+                }
+                builder.append(" [You have ");
+                if (total >= rec.items.get(recipeIngredient)) {
+                    if (sack == total) {
+                        builder.append("<green>");
+                        builder.append(sack);
+                        builder.append("</green> in your sack]");
+                    }
+                    else {
+                        builder.append("<green>");
+                        builder.append(total);
+                        builder.append("</green> in total, <green>");
+                        builder.append(sack);
+                        builder.append("</green> are in your sack]");
+                    }
+                }
+                else {
+                    if (total == 0) {
+                        builder.append("<red>none</red>]</dark_grey>");
+                    }
+                    else if (sack == total) {
+                        builder.append("<red>");
+                        builder.append(sack);
+                        builder.append("</red> in your sack]");
+                    }
+                    else {
+                        builder.append("<red>");
+                        builder.append(total);
+                        builder.append("</red> in total, <red>");
+                        builder.append(sack);
+                        builder.append("</red> are in your sack]");
+                    }
+                }
 			}
-
 			lore.add(builder.toString());
 		}
-		
-		if (rec.amount > 1) meta.setDisplayName(meta.getDisplayName() + " " + ChatColor.DARK_GRAY + "x" + rec.amount);
- 		meta.setLore(StringUtils.colourList(lore));
-		base.setItemMeta(meta);
+
+        base.editMeta(meta -> {
+            var listed = meta.lore();
+            for (var line : lore) {
+                var component = MiniMessage.miniMessage().deserialize(line).decoration(TextDecoration.ITALIC, TextDecoration.State.FALSE);
+                assert listed != null;
+                listed.add(component);
+            }
+
+            if (rec.amount > 1) {
+                meta.displayName(text(rec.amount + "x ", NamedTextColor.DARK_GRAY).decoration(TextDecoration.ITALIC, TextDecoration.State.FALSE).append(Objects.requireNonNull(meta.displayName())));
+            }
+            meta.lore(listed);
+        });
 		
 		return base;
 	}
@@ -233,14 +311,25 @@ public class ForgeGUI extends AbstractGUI
 			
 			if (recipe.levelRequirement <= pLevel && collectionUnlocked) unlocked++;
 		}
-		
-		String colour = unlocked == 0 ? "RED" : (unlocked == categoryRecipes.size() ? "GREEN" : "YELLOW");
-		String lore = "GRAYUnlocked Recipes: " + colour + unlocked + "WHITE/GREEN" + categoryRecipes.size();
-		for (String d : cat.description) lore += ";GRAY" + d;
-		if (clickPrompt) lore += ";;YELLOWClick to view recipes!";
-		
+
+        List<String> listed = new ArrayList<>();
+        String title = "<grey>Unlocked Recipes: " +
+                (unlocked == 0 ? "<red>" : (unlocked == categoryRecipes.size() ? "<green>" : "<yellow>")) +
+                unlocked + "<grey>/</grey><green>" + categoryRecipes.size();
+        listed.add(title);
+        if (!cat.description.isEmpty()) {
+            listed.add("");
+            listed.addAll(cat.description);
+        }
+        if (clickPrompt) {
+            listed.add("");
+            listed.add("<yellow>Click to view recipes!</yellow>");
+        }
+
 		if (unlocked == 0) return null;
-		return ItemFactory.buildCustom(cat.icon, cat.name, lore);
+        return ItemFactory.customItem(cat.icon,
+                cat.name,
+                listed);
 	}
 	
 	public boolean allowClick(int clickPos, ItemStack clicked)
@@ -283,12 +372,12 @@ public class ForgeGUI extends AbstractGUI
 					
 					if (recipe.levelRequirement > owner.getLevel() || !collectionUnlocked)
 					{
-						owner.sendMessage("REDYou haven't unlocked this recipe yet!");
+                        owner.sendMessage("<red>You haven't unlocked this recipe yet!</red>");
 						owner.playSound(Sound.ENTITY_CREEPER_HURT, 0.4, 0.9);
 					}
 					else if (owner.isForgeFull() && recipe.time != 0)
 					{
-						owner.sendMessage("REDYou have no free forge slots available!");
+                        owner.sendMessage("<red>You have no free forge slots available!</red>");
 						owner.playSound(Sound.ENTITY_CREEPER_HURT, 0.4, 0.9);
 					}
 					else
@@ -305,13 +394,14 @@ public class ForgeGUI extends AbstractGUI
 							owner.playSound(Sound.BLOCK_ANVIL_USE, 0.9, 1.1);
 							
 							ForgingItem item = new ForgingItem(recipe);
-							if (recipe.enchants == null && !data.equals("")) item.data = data;
+                            if (recipe.enchants == null && !data.isEmpty()) {
+                                item.data = data;
+                            }
 							owner.scheduleForgeItem(item);
 						}
 						else 
 						{
-							//for (String k : requirements.reqs.keySet()) System.out.println(k);
-							owner.sendMessage("REDCannot forge, requirements not met.");
+                            owner.sendMessage("<red>Cannot forge, requirements not met!</red>");
 							owner.playSound(Sound.ENTITY_CREEPER_HURT, 0.8, 0.6);
 						}
 					}

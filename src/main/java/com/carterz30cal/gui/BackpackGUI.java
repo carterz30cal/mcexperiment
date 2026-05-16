@@ -1,6 +1,7 @@
 package com.carterz30cal.gui;
 
 import com.carterz30cal.entities.player.GamePlayer;
+import com.carterz30cal.items.ItemFactory;
 import com.carterz30cal.stats.Stat;
 import org.bukkit.inventory.ItemStack;
 
@@ -15,21 +16,21 @@ public class BackpackGUI extends AbstractGUI {
     }
 
     private void update() {
-        int adji = (page - 1) * 9 * 5;
+        int j = (page - 1) * 9 * 5;
 
         for (int i = 0; i < 9*5;i++) {
-            inventory.setSlot(owner.getBackpackItem(adji + i), i);
+            inventory.setSlot(owner.getBackpackItem(j + i), i);
         }
         for (int i = 0; i < 9; i++) {
-            inventory.setSlot(GooeyInventory.produceElement("WHITE_STAINED_GLASS_PANE", ""), i + (9*5));
+            inventory.setSlot(ItemFactory.customItem("WHITE_STAINED_GLASS_PANE", ""), i + (9 * 5));
         }
 
         if (page > 1) {
-            inventory.setSlot(GooeyInventory.produceElement("ARROW", "GREENPage " + (page - 1)), calc(2, 5));
+            inventory.setSlot(ItemFactory.customItem("ARROW", "<green>Page " + (page - 1) + "</green>"), calc(2, 5));
         }
         if (page < owner.stats.getStat(Stat.BACKPACK_PAGES))
         {
-            inventory.setSlot(GooeyInventory.produceElement("ARROW", "GREENPage " + (page + 1)), calc(6, 5));
+            inventory.setSlot(ItemFactory.customItem("ARROW", "<green>Page " + (page + 1) + "</green>"), calc(6, 5));
             allowNextPage = true;
         }
         else allowNextPage = false;
@@ -42,8 +43,6 @@ public class BackpackGUI extends AbstractGUI {
         int i = (page - 1) * 9 * 5;
         inventory.updateUsingContents();
         for (int c = 0; c < 9*5; c++) {
-            //if (inventory.getSlot(c) == null || ItemFactory.getItem(inventory.getSlot(c)) == null) continue;
-
             owner.setBackpackItem(i + c, inventory.getSlot(c));
         }
     }

@@ -5,10 +5,15 @@ import com.carterz30cal.entities.GameEnemy;
 import com.carterz30cal.entities.GameEntity;
 import com.carterz30cal.items.abilities2.implementation.GameAbility;
 
+/**
+ * @author carterz30cal
+ * @version 1
+ * @since 1.0.0
+ */
 public class DeadAbility extends GameAbility {
     @Override
     public String name(AbilityContext context) {
-        return "REDINSTANT DEATH ABILITY";
+        return "<red>INSTANT DEATH ABILITY</red>";
     }
 
     @Override

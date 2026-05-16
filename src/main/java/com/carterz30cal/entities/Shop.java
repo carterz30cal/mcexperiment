@@ -1,7 +1,7 @@
 package com.carterz30cal.entities;
 
 import com.carterz30cal.entities.interactable.GameShopkeeper;
-import com.carterz30cal.items.Recipe;
+import com.carterz30cal.items.recipes.Recipe;
 import com.carterz30cal.utils.StringUtils;
 import org.bukkit.Location;
 import org.bukkit.configuration.ConfigurationSection;

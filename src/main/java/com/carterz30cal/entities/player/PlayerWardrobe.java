@@ -73,7 +73,7 @@ public class PlayerWardrobe {
             armour = new ItemStack[4];
             talismans = section.getStringList("talismans");
             for (int i = 0; i < 4; i++) {
-                armour[i] = ItemFactory.BuildItemFromString(section.getString("armour[" + i + "]", null));
+                armour[i] = ItemFactory.buildItemFromString(section.getString("armour[" + i + "]", null));
             }
         }
 
@@ -85,7 +85,7 @@ public class PlayerWardrobe {
         private void save(ConfigurationSection section) {
             section.set("talismans", talismans);
             for (int i = 0; i < 4; i++) {
-                section.set("armour[" + i + "]", ItemFactory.BuildStringFromItem(armour[i]));
+                section.set("armour[" + i + "]", ItemFactory.buildStringFromItem(armour[i]));
             }
         }
 

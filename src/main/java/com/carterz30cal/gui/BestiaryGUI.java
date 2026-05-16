@@ -14,12 +14,17 @@ import org.bukkit.inventory.ItemStack;
 
 import java.util.*;
 
+/**
+ * @author carterz30cal
+ * @version 1
+ * @since 1.0.0
+ */
 public class BestiaryGUI extends AbstractGUI {
 
     private static final Map<String, BestiaryCategory> categories = new HashMap<>();
     private static final Map<String, List<BestiaryCategory>> parents = new HashMap<>();
     private static final String[] files = {
-            "waterway2/bestiary"
+            "waterway/bestiary"
     };
 
     static {
@@ -61,31 +66,31 @@ public class BestiaryGUI extends AbstractGUI {
 
         clickableCategories = new String[54];
 
-        List<String> mids = new ArrayList<>();
-        parents.getOrDefault(category, new ArrayList<>()).stream().map(kategory -> kategory.id).forEach(mids::add);
+        List<String> list = new ArrayList<>();
+        parents.getOrDefault(category, new ArrayList<>()).stream().map(kategory -> kategory.id).forEach(list::add);
         List<String> unsorted = new ArrayList<>(categories.get(category).types);
         unsorted.sort(Comparator.comparingInt(a -> -EnemyManager.getType(a).level));
-        mids.addAll(unsorted);
+        list.addAll(unsorted);
         inventory.initUsingTemplate(GooeyTemplate.SHOPPY_DARK);
         for (int i = 0; i < 7 * 4; i++) {
             int dex = ((page - 1) * (7 * 4)) + i;
-            if (dex >= mids.size()) {
+            if (dex >= list.size()) {
                 break;
             }
 
             int point = calc(i % 7 + 1, i / 7 + 1);
 
-            if (categories.containsKey(mids.get(dex))) {
-                BestiaryCategory category = categories.get(mids.get(dex));
+            if (categories.containsKey(list.get(dex))) {
+                BestiaryCategory category = categories.get(list.get(dex));
                 clickableCategories[point] = category.id;
-                inventory.setSlot(generateCategory(mids.get(dex)), point);
+                inventory.setSlot(generateCategory(list.get(dex)), point);
             }
             else {
-                if (owner.kills.getOrDefault(mids.get(dex), 0L) == 0L) {
-                    inventory.setSlot(ItemFactory.buildCustom("BEDROCK", "REDNot yet found!"), point);
+                if (owner.kills.getOrDefault(list.get(dex), 0L) == 0L) {
+                    inventory.setSlot(ItemFactory.customItem("BEDROCK", "<red>Not yet found!</red>"), point);
                 }
                 else {
-                    inventory.setSlot(generateBestiaryEntry(mids.get(dex)), point);
+                    inventory.setSlot(generateBestiaryEntry(list.get(dex)), point);
                 }
             }
 
@@ -94,13 +99,13 @@ public class BestiaryGUI extends AbstractGUI {
 
         inventory.setSlot(generateCategory(category), calc(4, 0));
         if (!category.equals("base")) {
-            inventory.setSlot(ItemFactory.buildCustom("ARROW", "GREENParent Category"), calc(3, 0));
+            inventory.setSlot(ItemFactory.customItem("ARROW", "<green>Parent Category</green>"), calc(3, 0));
         }
         if (page > 1) {
-            inventory.setSlot(ItemFactory.buildCustom("ARROW", "GREENPrevious Page"), calc(1, 5));
+            inventory.setSlot(ItemFactory.customItem("ARROW", "<green>Previous Page</green>"), calc(1, 5));
         }
-        if (mids.size() - (page * 28) > 0) {
-            inventory.setSlot(ItemFactory.buildCustom("ARROW", "GREENNext Page"), calc(7, 5));
+        if (list.size() - (page * 28) > 0) {
+            inventory.setSlot(ItemFactory.customItem("ARROW", "<green>Next Page</green>"), calc(7, 5));
         }
 
 
@@ -109,33 +114,33 @@ public class BestiaryGUI extends AbstractGUI {
 
     private ItemStack generateCategory(String cid) {
         BestiaryCategory category = categories.get(cid);
-        return ItemFactory.buildCustom(category.icon, "WHITE" + category.name, category.description);
+        return ItemFactory.customItem(category.icon, "<white>" + category.name, category.description);
     }
 
     private ItemStack generateBestiaryEntry(String mid) {
         AbstractEnemyType type = EnemyManager.getType(mid);
         long kills = owner.GetKills(mid);
-        String name = "WHITE[" + type.level + "WHITE] " + type.name + " " + owner.GetBestiaryLevel(mid);
-        String colour = owner.GetBestiaryLevel(mid) == 5 ? "GOLD" : "GREEN";
+        String name = "<white>[" + type.level + "] " + type.name;
         List<String> lore = new ArrayList<>();
         if (kills == 1) {
-            lore.add("DARK_GRAY1 kill");
+            lore.add("<dark_grey>1 kill");
         }
         else {
-            lore.add("DARK_GRAY" + StringUtils.commaify(kills) + " kills");
+            lore.add("<dark_grey>" + StringUtils.addCommas(kills) + " kills");
         }
         lore.add("");
-        lore.add("GRAYHealth: RED" + type.health + Stat.HEALTH.getIcon());
-        lore.add("GRAYDamage: RED" + type.damage + Stat.DAMAGE.getIcon() + " DARK_GRAY[" + type.damageType.toString() + "DARK_GRAY]");
+        lore.add("<grey>Health: <red>" + type.health + Stat.HEALTH.getIcon());
+        lore.add("<grey>Damage: <red>" + type.damage + Stat.DAMAGE.getIcon() + "</red> <dark_grey>[" + type.damageType.toString() + "]</dark_grey></grey>");
         lore.add("");
         if (!type.loot.GetLoot().isEmpty()) {
-            lore.add("GOLDDrops:");
+            lore.add("<gold>Drops:");
+            boolean displayLuckMessage = false;
             for (var loot : type.loot.GetLoot()) {
                 Item item = ItemFactory.getItem(loot.item);
                 if (item == null) {
                     continue;
                 }
-                String main = item.rarity.colour + item.name;
+                String main = "<" + item.rarity.textColor.asHexString() + ">" + item.name + "</" + item.rarity.textColor.asHexString() + ">";
                 String drop;
                 String amount;
                 if (loot.amount[0] == loot.amount[1]) {
@@ -143,28 +148,32 @@ public class BestiaryGUI extends AbstractGUI {
                         amount = "";
                     }
                     else {
-                        amount = "GRAY" + loot.amount[0] + "x ";
+                        amount = "<dark_grey>x" + loot.amount[0] + "</dark_grey>";
                     }
                 }
                 else {
-                    amount = "GRAY" + loot.amount[0] + "-" + loot.amount[1] + "x ";
+                    amount = "<dark_grey>x" + loot.amount[0] + "-" + loot.amount[1] + "</dark_grey>";
                 }
                 if ((double) loot.chance[0] / loot.chance[1] < 0.99) {
-                    drop = " DARK_GRAY(AQUA" + StringUtils.asPercent2DP((double) loot.chance[0] / loot.chance[1]) + "DARK_GRAY)";
+                    displayLuckMessage = true;
+                    drop = "<dark_grey>(<aqua>" + StringUtils.asPercent2DP((double) loot.chance[0] / loot.chance[1]) + "</aqua>)</dark_grey>";
                 }
                 else {
                     drop = "";
                 }
-                lore.add("GRAY- " + amount + main + drop);
+                lore.add("<dark_grey>-</dark_grey> " + main + " " + amount + " " + drop);
             }
-            lore.add("DARK_GRAYLuck not applied here!");
+            if (displayLuckMessage) {
+                lore.add("<dark_grey>Drop chances are displayed as base rates");
+                lore.add("<dark_grey>so they may be higher in reality if");
+                lore.add("<dark_grey>you have any of the luck stat.");
+            }
         }
         else {
-            lore.add("REDThis creature doesn't drop anything!");
+            lore.add("<red>This creature doesn't drop anything!</red>");
         }
 
-
-        return ItemFactory.buildCustom("BONE", colour + name, lore);
+        return ItemFactory.customItem("BONE", name, lore);
     }
 
     @Override
@@ -200,8 +209,7 @@ public class BestiaryGUI extends AbstractGUI {
             this.id = id;
             icon = config.getString("icon", "BEDROCK");
             name = config.getString("name", "REDnull");
-            description = new ArrayList<>();
-            config.getStringList("description").forEach(s -> description.add("GRAY" + s));
+            description = config.getStringList("description");
             parent = config.getString("parent", "base");
             types = new ArrayList<>();
         }

@@ -2,12 +2,18 @@ package com.carterz30cal.gui;
 
 import com.carterz30cal.entities.player.GamePlayer;
 import com.carterz30cal.items.ItemFactory;
-import com.carterz30cal.items.Recipe;
+import com.carterz30cal.items.recipes.Recipe;
 import com.carterz30cal.stats.Stat;
 import com.carterz30cal.utils.LevelUtils;
+import net.kyori.adventure.text.TextComponent;
+import net.kyori.adventure.text.format.NamedTextColor;
+import net.kyori.adventure.text.minimessage.MiniMessage;
 import org.bukkit.inventory.ItemStack;
 
 import java.util.ArrayList;
+import java.util.List;
+
+import static net.kyori.adventure.text.Component.text;
 
 public class LevelGUI extends AbstractGUI
 {
@@ -47,12 +53,16 @@ public class LevelGUI extends AbstractGUI
 					for (int r = 4; r >= 0; r--)
 					{
 						int pos = r * 9 + (c - offset);
-						if (pattern[c % pattern.length][r])
-						{
-							level++;
-							inventory.setSlot(getLevelPane(level), pos);
-						}
-						else inventory.setSlot(GooeyInventory.produceElement("BLACK_STAINED_GLASS_PANE", " "), pos);
+                        if (pattern[c % pattern.length][r]) {
+                            level++;
+                            inventory.setSlot(getLevelPane(level), pos);
+                        }
+                        else {
+                            inventory.setSlot(
+                                    ItemFactory.customItem("BLACK_STAINED_GLASS_PANE", " "),
+                                    pos
+                            );
+                        }
 					}
 				}
 				else
@@ -60,94 +70,175 @@ public class LevelGUI extends AbstractGUI
 					for (int r = 0; r < 5; r++)
 					{
 						int pos = r * 9 + (c - offset);
-						if (pattern[c % pattern.length][r])
-						{
-							level++;
-							inventory.setSlot(getLevelPane(level), pos);
-						}
-						else inventory.setSlot(GooeyInventory.produceElement("BLACK_STAINED_GLASS_PANE", " "), pos);
+                        if (pattern[c % pattern.length][r]) {
+                            level++;
+                            inventory.setSlot(getLevelPane(level), pos);
+                        }
+                        else {
+                            inventory.setSlot(
+                                    ItemFactory.customItem("BLACK_STAINED_GLASS_PANE", " "),
+                                    pos
+                            );
+                        }
 					}
 				}
-				
-				
-				inventory.setSlot(GooeyInventory.produceElement("WHITE_STAINED_GLASS_PANE", " "), calc(c - offset, 5));
+
+                inventory.setSlot(
+                        ItemFactory.customItem("WHITE_STAINED_GLASS_PANE", " "),
+                        calc(c - offset, 5)
+                );
 			}
 		}
-		
-		if (offset > 0) inventory.setSlot(GooeyInventory.produceElement("ARROW", "REDGo Back"), calc(0, 5));
-		inventory.setSlot(GooeyInventory.produceElement("ARROW", "GREENNext"), calc(8, 5));
+        if (offset > 0) {
+            inventory.setSlot(
+                    ItemFactory.customItem("ARROW", "<red>Back</red>"),
+                    calc(0, 5)
+            );
+        }
+        inventory.setSlot(
+                ItemFactory.customItem("ARROW", "<green>Next</green>"),
+                calc(8, 5)
+        );
 		
 		inventory.update();
 	}
 	
 	private ItemStack getLevelPane(int level)
 	{
-		if (level > LevelUtils.LEVEL_MAX) return GooeyInventory.produceElement("BLACK_STAINED_GLASS_PANE", " ");
+        if (level > LevelUtils.LEVEL_MAX) {
+            return ItemFactory.customItem("BLACK_STAINED_GLASS_PANE", " ");
+        }
 		
 		boolean hasLevel = level <= owner.getLevel();
 		boolean nextLevel = level - 1 == owner.getLevel();
+
+        var paneName = text()
+                .color(hasLevel ? NamedTextColor.GREEN
+                        : (nextLevel ? NamedTextColor.YELLOW : NamedTextColor.RED))
+                .content("Level " + level);
+        List<TextComponent.Builder> loreList = new ArrayList<>();
+
 		String name = hasLevel ? "GREEN" : (nextLevel) ? "YELLOW" : "RED";
 		String lore = hasLevel ? "GRAYYou have unlocked the following perks:;" : "GRAYReaching this level will;GRAYunlock the following perks:;";
-		String mat = hasLevel ? "LIME_STAINED_GLASS_PANE" : (nextLevel) ? "YELLOW_STAINED_GLASS_PANE" : "RED_STAINED_GLASS_PANE";
+        String mat = hasLevel ? "LIME_STAINED_GLASS_PANE"
+                : (nextLevel) ? "YELLOW_STAINED_GLASS_PANE" : "RED_STAINED_GLASS_PANE";
 		
 		
 		if (level % 5 == 0)
 		{
-			lore += " BLUE+1 " + Stat.POWER.getReverse() + ";";
-			lore += " GREEN+2 " + Stat.DEFENCE.getReverse() + ";";
+            loreList.add(
+                    text().content(" +1 ").append(Stat.POWER.getReversed()).color(NamedTextColor.BLUE)
+            );
+            loreList.add(
+                    text().content(" +2 ").append(Stat.DEFENCE.getReversed()).color(NamedTextColor.GREEN)
+            );
 		}
-		else lore += " RED+8 " + Stat.HEALTH.getReverse() + ";";
+        else {
+            loreList.add(
+                    text().content(" +8 ").append(Stat.HEALTH.getReversed()).color(NamedTextColor.RED)
+            );
+        }
 		if (level > 1) {
             if (level % 8 == 0) {
-                lore += " WHITE+5000 Sack Space;";
+                loreList.add(
+                        text().content(" +5000 Sack Capacity").color(NamedTextColor.WHITE)
+                );
             }
             else {
-                lore += " WHITE+1000 Sack Space;";
+                loreList.add(
+                        text().content(" +1000 Sack Capacity").color(NamedTextColor.WHITE)
+                );
             }
 		}
         if (level == 5) {
-            lore += " WHITE+2 Forge Slots;";
+            loreList.add(
+                    text().content(" +2 Forge Slots").color(NamedTextColor.WHITE)
+            );
         }
 		
 		long totXp = LevelUtils.getXpForLevel(level);
 		
 		if (hasLevel)
 		{
-			int recipes =  ItemFactory.levelRecipes.getOrDefault(level, new ArrayList<>()).size();
-			if (recipes > 0) lore += "GRAYand the following recipes:;";
+            loreList.addFirst(
+                    text().content("You have unlocked the following perks:").color(NamedTextColor.WHITE)
+            );
+            int recipes = ItemFactory.levelRecipes.getOrDefault(level, new ArrayList<>()).size();
+            if (recipes > 0) {
+                loreList.add(
+                        text().content("and the following recipes:").color(NamedTextColor.WHITE)
+                );
+            }
 			for (Recipe r : ItemFactory.levelRecipes.getOrDefault(level, new ArrayList<>()))
 			{
 				if (r.hideInLevelMenu) continue;
-				String n = r.customName != null ? r.customName : ItemFactory.getItemTypeName(r.item);
-				lore += "DARK_GRAY- GRAY" + n + ";";
-				//lore += "DARK_GRAY+GRAY" + n + " GOLDRecipe;";
+                if (r.customName != null) {
+                    loreList.add(
+                            text().content("- ").color(NamedTextColor.DARK_GRAY).append(MiniMessage.miniMessage().deserialize(r.customName))
+                    );
+                }
+                else {
+                    loreList.add(
+                            text().content("- ").color(NamedTextColor.DARK_GRAY).append(
+                                    ItemFactory.getItemNameBuilder(r.item)
+                            )
+                    );
+                }
 			}
 			
 			if (level == LevelUtils.LEVEL_MAX) 
 			{
 				mat = "GOLD_BLOCK";
-				lore += ";GOLDMax level achieved, congrats!";
+                loreList.add(
+                        text()
+                );
+                loreList.add(
+                        text().content("Max level achieved, congrats!").color(NamedTextColor.GOLD)
+                );
 			}
 		}
 		else
 		{
+            loreList.addFirst(
+                    text().content("Reaching this level will unlock the following perks:").color(NamedTextColor.WHITE)
+            );
 			if (level == LevelUtils.LEVEL_MAX) mat = "COAL_BLOCK";
 			
 			int recipes = ItemFactory.levelRecipes.getOrDefault(level, new ArrayList<>()).size();
-			if (recipes == 1) lore += "GOLD +1 Recipe;";
-			else if (recipes > 1) lore += "GOLD +" + recipes + " Recipes;";
+            loreList.add(
+                    text()
+                            .content(recipes == 1 ?
+                                    " +1 recipe" : " +" + recipes + " recipes"
+                            ).color(NamedTextColor.GOLD)
+            );
 			
 			if (nextLevel)
 			{
 				long gotXp = owner.xp;
-				
-				lore += ";AQUA" + gotXp + " / " + totXp + "XP BLUE(AQUA" + (int)(owner.getLevelProgress() * 1000)/10 + "%BLUE)";
+                loreList.add(
+                        text().append(
+                                MiniMessage.miniMessage().deserialize(
+                                        "<aqua>"
+                                                + gotXp
+                                                + " / "
+                                                + totXp
+                                                + "XP <blue>(</blue>"
+                                                + (int) (owner.getLevelProgress() * 1000) / 10
+                                                + "%<blue>)</blue></aqua>"
+                                )
+                        )
+                );
 			}
-			else lore += ";AQUA" + totXp + "XP BLUErequired.";
+            else {
+                loreList.add(
+                        text().append(
+                                text(totXp + "XP required").color(NamedTextColor.AQUA)
+                        )
+                );
+            }
 		}
-		
-		
-		return ItemFactory.buildCustom(mat, name + "Level " + level, lore);
+
+        return ItemFactory.customItem(mat, paneName, loreList);
 	}
 	
 	public boolean allowClick(int clickPos, ItemStack clicked)

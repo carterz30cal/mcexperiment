@@ -1,8 +1,0 @@
-shoddy_water_gem:
-  level: 1
-  amount: 1
-  time: 20s
-  category: fishing_attuners
-  items:
-    sea_shard: 1
-    rotten_fish: 8

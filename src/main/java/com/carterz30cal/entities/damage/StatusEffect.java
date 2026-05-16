@@ -1,6 +1,8 @@
 package com.carterz30cal.entities.damage;
 
 import com.carterz30cal.entities.DamageType;
+import net.kyori.adventure.text.format.NamedTextColor;
+import net.kyori.adventure.text.format.TextColor;
 
 public enum StatusEffect 
 {
@@ -15,6 +17,7 @@ public enum StatusEffect
     public final String shortName;
     public final String symbol;
     public final String colour;
+    public final TextColor textColour;
     public final int defaultResistance; // -1 for immune
     public final double resistanceMultiplier;
     public final AbstractStatus effect;
@@ -23,6 +26,7 @@ public enum StatusEffect
 		this.shortName = shortName;
 		this.symbol = symbol;
 		this.colour = colour;
+        this.textColour = TextColor.color(NamedTextColor.NAMES.value(colour.toLowerCase()));
 		this.defaultResistance = defaultResistance;
 		this.resistanceMultiplier = resistanceMultiplier;
 		this.effect = effect;

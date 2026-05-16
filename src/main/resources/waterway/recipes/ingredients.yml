@@ -1,33 +1,51 @@
-leaf_ball:
-  level: 3
-  time: 30s
-  category: waterway_ingredients
-  discovery: leaf_mush_discovery
-  discovery-tier: 2
-  coins: 10
-  items:
-    leaf_mush: 128
-    
-    
-chilli_apple:
-  level: 4
-  time: 30s
+spiced_meat:
+  level: 1
   category: waterway_ingredients
   items:
-    cayenne_powder: 1
-    jalapeno_powder: 1
-    leaf_ball: 1
-    rotten_fish: 48
-    
-fish_barrel:
-  level: 5
-  time: 5m
+    weird_flesh: 32
+    chilli_powder: 1
+
+paper:
+  level: 2
   category: waterway_ingredients
-  discovery: rotten_fish_discovery
+  items:
+    wet_paper: 115
+
+cooked_waterway_cod:
+  category: waterway_ingredients
+  time: 20m
+  discovery: waterway_cod_collection
   discovery-tier: 3
   items:
-    rotten_fish: 512
-    leaf_mush: 16
-    
+    waterway_cod: 256
 
-  
+bulk_cooked_waterway_cod:
+  item: cooked_waterway_cod
+  amount: 64
+  time: 1h
+  custom-name: GOLD64x BLUECooked Waterway Cod
+  category: waterway_ingredients
+  discovery: waterway_cod_collection
+  discovery-tier: 8
+  items:
+    waterway_cod: 16384
+
+waterway_cod_meal:
+  item: waterway_cod_meal
+  amount: 1
+  time: 12h
+  category: waterway_ingredients
+  discovery: waterway_cod_collection
+  discovery-tier: 9
+  items:
+    cooked_waterway_cod: 128
+    meat_scraps: 1
+    chilli_powder: 2
+
+waterway_seraph_key:
+  category: waterway
+  level: 3
+  items:
+    waterway_sac: 1
+    leaf_mash: 128
+    spiced_meat: 2

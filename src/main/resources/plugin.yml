@@ -21,9 +21,3 @@ commands:
   force:
     description: "Weird admin command that does stuff not worthy of a unique command"
     usage: "suk"
-  kit:
-    description: "Grants OP items for testing"
-    usage: "stop cheating my home slice"
-  max:
-    description: "Hypermax an item."
-    usage: "stop cheating my home slice"

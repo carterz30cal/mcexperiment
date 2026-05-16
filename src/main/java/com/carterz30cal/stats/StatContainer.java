@@ -1,12 +1,10 @@
 package com.carterz30cal.stats;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Map.Entry;
-
+import com.carterz30cal.entities.damage.StatusEffect;
 import com.carterz30cal.entities.damage.StatusEffects;
+
+import java.util.*;
+import java.util.Map.Entry;
 
 
 public class StatContainer implements Cloneable
@@ -28,6 +26,17 @@ public class StatContainer implements Cloneable
 		
 		scheduled.get(priority).add(operation);
 	}
+
+
+    public Set<StatusEffect> getStatuses() {
+        var lot = new HashSet<StatusEffect>();
+        for (var stat : statuses.effects.entrySet()) {
+            if (stat.getValue() > 0) {
+                lot.add(stat.getKey());
+            }
+        }
+        return lot;
+    }
 	
 	/*
 	 * 
@@ -61,14 +70,11 @@ public class StatContainer implements Cloneable
 	
 	public String getDisplayed(Stat stat)
 	{
-		switch (stat.display)
-		{
-		case PERCENTAGE:
-			return getStat(stat) + "%";
-		default:
-			return "" + getStat(stat);
-		}
-	}
+        if (Objects.requireNonNull(stat.display) == StatDisplayType.PERCENTAGE) {
+            return getStat(stat) + "%";
+        }
+        return "" + getStat(stat);
+    }
 	
 	public void setStat(Stat stat, double value)
 	{

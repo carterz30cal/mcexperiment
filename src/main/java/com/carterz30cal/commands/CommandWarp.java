@@ -1,6 +1,6 @@
 package com.carterz30cal.commands;
 
-import com.carterz30cal.areas2.PlayerTeleport;
+import com.carterz30cal.areas.PlayerTeleport;
 import com.carterz30cal.entities.PlayerManager;
 import com.carterz30cal.entities.player.GamePlayer;
 import org.bukkit.command.Command;

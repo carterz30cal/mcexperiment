@@ -4,10 +4,15 @@ import com.carterz30cal.entities.GameEnemy;
 import com.carterz30cal.entities.GameSummon;
 import com.carterz30cal.items.abilities2.implementation.GameAbility;
 import com.carterz30cal.stats.Stat;
+import org.jetbrains.annotations.NotNull;
 
-import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * @author carterz30cal
+ * @version 1
+ * @since 1.0.0
+ */
 public class NecromancerAbility extends GameAbility {
     public NecromancerAbility() {
 
@@ -15,16 +20,16 @@ public class NecromancerAbility extends GameAbility {
 
     @Override
     public String name(AbilityContext context) {
-        return "LIGHT_PURPLESoul Retrieval";
+        return "Soul Retrieval";
     }
 
     @Override
-    public List<String> description(AbilityContext context) {
-        List<String> desc = new ArrayList<>();
-        desc.add("GRAYKilling enemies summons their soul to fight");
-        desc.add("GRAYfor you. Each soul consumes " + Stat.MANA.getReverse() + " GRAYto keep existing.");
-
-        return desc;
+    public List<String> miniMessageDescription(@NotNull AbilityContext context) {
+        var list = super.miniMessageDescription(context);
+        list.add("<grey>Killing enemies will summon their soul to fight");
+        list.add("<grey>for your cause. Each soul consumes " + Stat.MANA.getReverse() + " to keep existing.");
+        list.add("<dark_grey>Mana consumption scales with soul stats.");
+        return list;
     }
 
     public void onKill(AbilityContext context, GameEnemy killed)

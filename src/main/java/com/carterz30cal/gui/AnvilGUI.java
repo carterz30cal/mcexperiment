@@ -3,12 +3,14 @@ package com.carterz30cal.gui;
 import com.carterz30cal.entities.player.GamePlayer;
 import com.carterz30cal.items.*;
 import com.carterz30cal.items.abilities2.Abilities;
+import com.carterz30cal.items.types.ItemAttuner;
 import com.carterz30cal.stats.Stat;
 import com.carterz30cal.utils.StringUtils;
 import org.bukkit.Material;
 import org.bukkit.Sound;
 import org.bukkit.inventory.ItemStack;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -39,8 +41,8 @@ public class AnvilGUI extends AbstractGUI
 		
 		locked = positive;
 		inventory.setSlot(null, calc(4, 1));
-		for (int i = 2; i < 7; i++) inventory.setSlot(GooeyInventory.produceElement(ty, " "), calc(i, 4));
-		for (int i = 2; i < 5; i++) inventory.setSlot(GooeyInventory.produceElement(ty, " "), calc(4, i));
+        for (int i = 2; i < 7; i++) inventory.setSlot(ItemFactory.customItem(ty, " "), calc(i, 4));
+        for (int i = 2; i < 5; i++) inventory.setSlot(ItemFactory.customItem(ty, " "), calc(4, i));
 	}
 	
 	public void onClose()
@@ -151,16 +153,12 @@ public class AnvilGUI extends AbstractGUI
 					}
 					
 					changeMade = modification;
-					if (!modification)
-					{
-						//ItemFactory.setItemData(product, ItemFactory.getItemData(applying));
-					}
-					else
+                    if (modification)
 					{
 						ItemStack preprod = product.clone();
-						String ench = ItemFactory.flattenEnchMap(enchantmentTypes);
-						ItemFactory.addItemData(product, "enchants", ench);
-						
+                        String enchants = ItemFactory.flattenEnchMap(enchantmentTypes);
+                        ItemFactory.addItemData(product, "enchants", enchants);
+
 						if (ItemFactory.sumEnchantPower(ItemFactory.getItemEnchants(product)) > apply.stats.getStat(Stat.ENCHANT_POWER) && apply.type != ItemType.ENCHANTMENT)
 						{
 							changeMade = false;
@@ -191,30 +189,39 @@ public class AnvilGUI extends AbstractGUI
 				// final production thing after all checks.
 				if (changeMade)
 				{
-					ItemFactory.update(product, null);
-					
-					StringBuilder lore = new StringBuilder("GRAYYou need the following in order to;GRAYcombine these two items together!;;GRAYRequires:");
-					
-					if (requirements.coins != 0) lore.append(";").append(StringUtils.getPrettyCoins(requirements.coins));
-					else if (requirements.reqs.isEmpty()) lore = new StringBuilder("GREENThis interaction has no requirements!");
-					for (String item : requirements.getItems())
-					{
-						lore.append(";").append(ItemFactory.getItemTypeName(item)).append(" DARK_GRAYx").append(requirements.getAmount(item));
-					}
-					
-					ItemStack anvil = ItemFactory.buildCustom("ANVIL", "GREENClick!", lore.toString());
+                    ItemFactory.update(product, (ItemFactory.FactoryBuildContext) null);
+
+                    List<String> list = new ArrayList<>();
+                    if (requirements.coins == 0 && requirements.reqs.isEmpty()) {
+                        list.add("<grey>This interaction has no requirements!");
+                    }
+                    else {
+                        list.add("<grey>To combine these items, you</grey>");
+                        list.add("<grey>will need the following:</grey>");
+                        list.add("");
+                        list.add("<grey>Requires:</grey>");
+                        if (requirements.coins > 0) {
+                            list.add("<gold>" + StringUtils.addCommas(requirements.coins) +
+                                    (requirements.coins == 1 ? " coin" : " coins") + "</gold>");
+                        }
+                        for (var ingredient : requirements.getItems()) {
+                            var item = ItemFactory.getItem(ingredient);
+                            var colour = item.rarity.textColor.asHexString() + ">";
+                            list.add("<dark_grey>- <" + colour + item.name + "</" + colour + " x" + requirements.getAmount(ingredient) + "</dark_grey>");
+                        }
+                    }
+
+                    var anvil = ItemFactory.customItem("ANVIL", "<green>Click!</green>", list);
 					
 					update(true);
 					inventory.setSlot(product, calc(4, 1));
 					inventory.setSlot(anvil, calc(4, 4));
-					inventory.update();
 				}
 				else update(false);
 			}
 			else update(false);
-			
-			
-			inventory.update();
+
+            inventory.update();
 		}
 		return false;
 	}

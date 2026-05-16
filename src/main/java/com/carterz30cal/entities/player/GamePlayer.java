@@ -1,10 +1,9 @@
 package com.carterz30cal.entities.player;
 
-import com.carterz30cal.areas2.AreaManager;
-import com.carterz30cal.areas2.Areas;
-import com.carterz30cal.areas2.PlayerTeleport;
-import com.carterz30cal.areas2.quests.Quests;
-import com.carterz30cal.dungeoneering.DungeonManager;
+import com.carterz30cal.areas.AreaManager;
+import com.carterz30cal.areas.Areas;
+import com.carterz30cal.areas.PlayerTeleport;
+import com.carterz30cal.areas.quests.Quests;
 import com.carterz30cal.entities.DamageInfo;
 import com.carterz30cal.entities.GameEnemy;
 import com.carterz30cal.entities.GameEntity;
@@ -12,9 +11,13 @@ import com.carterz30cal.events.GameEventHandler;
 import com.carterz30cal.fishing.FishingArea;
 import com.carterz30cal.gui.AbstractGUI;
 import com.carterz30cal.items.*;
-import com.carterz30cal.items.Collection;
 import com.carterz30cal.items.abilities2.implementation.GameAbility;
+import com.carterz30cal.items.discoveries.Collection;
+import com.carterz30cal.items.discoveries.DiscoveryManager;
+import com.carterz30cal.items.recipes.Recipe;
 import com.carterz30cal.items.sets.ItemSet;
+import com.carterz30cal.items.types.ItemAttuner;
+import com.carterz30cal.items.types.ItemPet;
 import com.carterz30cal.main.Dungeons;
 import com.carterz30cal.mining.Mineable;
 import com.carterz30cal.stats.Stat;
@@ -23,9 +26,11 @@ import com.carterz30cal.stats.StatOperationType;
 import com.carterz30cal.utils.EntityUtils;
 import com.carterz30cal.utils.LevelUtils;
 import com.carterz30cal.utils.ScoreboardWrapper;
-import com.carterz30cal.utils.StringUtils;
-import net.md_5.bungee.api.ChatMessageType;
-import net.md_5.bungee.api.chat.TextComponent;
+import net.kyori.adventure.audience.Audience;
+import net.kyori.adventure.text.TextComponent;
+import net.kyori.adventure.text.format.NamedTextColor;
+import net.kyori.adventure.text.format.TextColor;
+import net.kyori.adventure.text.minimessage.MiniMessage;
 import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
 import org.bukkit.Location;
@@ -43,11 +48,14 @@ import org.bukkit.potion.PotionEffectType;
 import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.util.Vector;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import java.time.LocalDateTime;
 import java.util.*;
 
+import static net.kyori.adventure.text.Component.text;
 
+@SuppressWarnings("UnnecessaryUnicodeEscape")
 public class GamePlayer extends GameEntity
 {
 	public Player player;
@@ -69,7 +77,7 @@ public class GamePlayer extends GameEntity
 	public List<GameAbility.AbilityContext> abilities;
     private boolean cachedLevel = false;
     private Quests selectedQuest;
-    private Map<UUID, GameEventHandler> eventHandlers = new HashMap<>();
+    private final Map<UUID, GameEventHandler> eventHandlers = new HashMap<>();
 
 	public List<String> talismans = new ArrayList<>();
 	public List<String> completedQuests = new ArrayList<>();
@@ -90,7 +98,7 @@ public class GamePlayer extends GameEntity
 	public int bowTick;
 	public int questTick;
     private int areaCheckTick;
-    private int invulTick;
+    private int invulnerabilityTick;
     public Map<String, Long> kills = new HashMap<>();
 	
 	public long lastXpReward;
@@ -107,14 +115,18 @@ public class GamePlayer extends GameEntity
 	
 	public Map<String, Long> discoveries = new HashMap<>();
 	public Map<String, Integer> quiver = new HashMap<>();
-	public Map<String, Integer> counters = new HashMap<>();
 	public Map<String, Integer> sack = new HashMap<>();
 
 	public Map<Integer, String> backpack = new HashMap<>();
 	
 	public List<GameEnemy> targeted = new ArrayList<>();
-	
+
+    /**
+     * @deprecated in favour of PlayerScoreboard
+     */
+    @Deprecated
 	private ScoreboardWrapper scoreboard;
+    private PlayerScoreboard playerScoreboard;
 
 
     public void register(UUID uuid)
@@ -124,12 +136,8 @@ public class GamePlayer extends GameEntity
 		mana = 1;
 		
 		entities.put(uuid, this);
-		
-		scoreboard = new ScoreboardWrapper("Dungeons");
-		scoreboard.addLine("GOLDCoins: WHITE0");
-		scoreboard.addBlankSpace();
-		scoreboard.addLine("AQUALevel X");
-		player.setScoreboard(scoreboard.getScoreboard());
+
+        playerScoreboard = new PlayerScoreboard(this);
 	}
 	
 	public void tick()
@@ -141,11 +149,18 @@ public class GamePlayer extends GameEntity
 			{
 				if (player.getInventory().firstEmpty() == -1) {
 					if (!item.haveNotified) {
-						sendMessage("REDYour " + ItemFactory.getItemTypeName(item.item) + " REDis done, but you don't have spare room in your inventory.");
+                        sendMessage(
+                                "<red>Your " + ItemFactory.getItem(item.item).name + " is done, but you don't have enough spare room in your inventory.</red>"
+                        );
 						item.haveNotified = true;
 					}
 				} else {
-					sendMessage("GREENYour " + ItemFactory.getItemTypeName(item.item) + " GREENis done!");
+                    var rep = ItemFactory.getItem(item.item);
+                    sendMessage(
+                            "<green>Your " + rep.name + " is done! Find it in your " +
+                                    (rep.type == ItemType.INGREDIENT ? "Ingredient Sack!" : "Inventory!") +
+                                    "</green>"
+                    );
 					giveItem(item.produce(), false);
 					item.isDone = true;
 				}
@@ -160,13 +175,10 @@ public class GamePlayer extends GameEntity
 			EntityUtils.applyPotionEffect(player, PotionEffectType.MINING_FATIGUE, 5, 4, false);
 			if (m != null) m.damage(this);
 		}
-		else {
-			//EntityUtils.applyPotionEffect(player, PotionEffectType.MINING_FATIGUE, 5, 0, false);
-		}
 
         EntityUtils.applyPotionEffect(player, PotionEffectType.MINING_FATIGUE, 5, 3, false);
         EntityUtils.applyPotionEffect(player, PotionEffectType.HASTE, 5, 0, false);
-        player.getAttribute(Attribute.ATTACK_SPEED).setBaseValue(10);
+        Objects.requireNonNull(player.getAttribute(Attribute.ATTACK_SPEED)).setBaseValue(10);
 
 
 		player.removePotionEffect(PotionEffectType.DARKNESS);
@@ -221,13 +233,18 @@ public class GamePlayer extends GameEntity
 		
 		if (mainItem != null)
 		{
-			if (mainItem.type.use == ItemTypeUse.WIELDABLE || mainItem.type.use == ItemTypeUse.WIELDABLE_CONSUMABLE) items.add(main);
-			else ItemFactory.update(main, this);
+            if (mainItem.type.use == ItemTypeUse.WIELDABLE || mainItem.type.use == ItemTypeUse.WIELDABLE_CONSUMABLE)
+                items.add(main);
+            else {
+                ItemFactory.update(main, getItemContext());
+            }
 		}
 		if (offItem != null)
 		{
-			if (offItem.type.use == ItemTypeUse.OFFHAND) items.add(off);
-			else ItemFactory.update(off, this);
+            if (offItem.type.use == ItemTypeUse.OFFHAND) items.add(off);
+            else {
+                ItemFactory.update(off, getItemContext());
+            }
 		}
 		
 		for (String talisman : talismans) items.add(ItemFactory.build(talisman));
@@ -247,7 +264,7 @@ public class GamePlayer extends GameEntity
 
 		for (ItemStack item : items)
 		{
-			ItemFactory.update(item, this);
+            ItemFactory.update(item, getItemContext());
 			Item i = ItemFactory.getItem(item);
 			if (i == null || i.stats.getStat(Stat.LEVEL_REQUIREMENT) > getLevel()) continue;
 			StatContainer itemStats = i.stats.clone();
@@ -271,18 +288,25 @@ public class GamePlayer extends GameEntity
         stats.executeOperations();
 
 
+        var actionStatBar = text();
+        actionStatBar.append(text(getHealth() + "\u2665", NamedTextColor.RED));
+        if (stats.getStat(Stat.MANA) > 0) {
+            actionStatBar.append(text(getMana() + "/" + stats.getStat(Stat.MANA) + "\u2605", NamedTextColor.LIGHT_PURPLE));
+        }
+        if (lastXpReward > 0) {
+            actionStatBar.append(text(" +" + lastXpReward + " XP", NamedTextColor.AQUA));
+        }
+        if (lastCoinReward > 0) {
+            actionStatBar.append(text(" +" + lastCoinReward + " coins", NamedTextColor.GOLD));
+        }
 
-
-		
-		String actionBar = "RED" + getHealth() + "\u2665";
-		if (stats.getStat(Stat.MANA) > 0) actionBar += " LIGHT_PURPLE" + getMana() + "\u2605";
-		//actionBar += mana;
-		if (rewardTick > 0) 
-		{
-			rewardTick--;
-			if (lastXpReward > 0) actionBar += "  AQUA+" + lastXpReward + " XP";
-			if (lastCoinReward > 0) actionBar += "  GOLD+" + lastCoinReward + " coins";
-		} 
+        if (rewardTick > 0) {
+            rewardTick--;
+        }
+        else {
+            lastCoinReward = 0;
+            lastXpReward = 0;
+        }
 		
 		if (attackTick > 0) attackTick--;
 
@@ -294,8 +318,8 @@ public class GamePlayer extends GameEntity
             questTick--;
         }
 
-        if (invulTick > 0) {
-            invulTick--;
+        if (invulnerabilityTick > 0) {
+            invulnerabilityTick--;
         }
 
         if (areaCheckTick > 0) {
@@ -305,10 +329,14 @@ public class GamePlayer extends GameEntity
             area = AreaManager.getPlayerArea(this);
             areaCheckTick = 100;
         }
-		
-		sendActionBar(actionBar);
+
+        sendActionBar(actionStatBar);
 		player.getInventory().setItem(8, ItemFactory.menuItem);
-		player.setPlayerListName(StringUtils.colourString("GRAY[WHITE" + level + "GRAY] " + player.getDisplayName()));
+        player.playerListName(
+                text().color(NamedTextColor.GRAY).content("[")
+                        .append(text(level, NamedTextColor.WHITE))
+                        .append(text("] " + player.getName())).build()
+        );
 		
 		regenTick++;
 		if (regenTick >= 40)
@@ -320,42 +348,8 @@ public class GamePlayer extends GameEntity
 		}
 		
 		refreshHealth();
-		
-		List<String> score = new ArrayList<>();
-        if (area != null) {
-            score.add("DARK_GRAY" + area.getArea().GetSubAreaName(this));
-            score.add("");
-        }
-		score.add("GOLDCoins: WHITE" + StringUtils.commaify((int) coins));
-        if (getSackSize() > 0) {
-            score.add("GOLDSack: " + getSackSpaceUsed() + "/" + getSackSize());
-        }
-		score.add("");
-        if (area != null) {
-            score.addAll(area.getArea().GetScoreboard(this));
-        }
-        Quests chosenQuest = GetSelectedQuest();
-        if (chosenQuest != null) {
-            Quests.QuestSave save = GetQuestSave(chosenQuest);
-            if (save.sectionSave.HasTalkedTo()) {
-                score.add("GOLDQuest: WHITE" + chosenQuest.GetName());
-                score.addAll(save.sectionSave.GetDescription());
-                score.add("");
-            }
-        }
-        score.add("AQUALevel " + getLevel() + " DARK_GRAY[AQUA+" + Math.round(this.getLevelProgress() * 100) + "%DARK_GRAY]");
 
-		
-		
-		
-		if (score.size() < scoreboard.size()) {
-			scoreboard = new ScoreboardWrapper("Dungeons");
-			player.setScoreboard(scoreboard.getScoreboard());
-		}
-		for (int l = 0; l < score.size(); l++) {
-			if (l < scoreboard.size()) scoreboard.setLine(l, score.get(l));
-			else scoreboard.addLine(score.get(l));
-		}
+        playerScoreboard.tick();
 		
 		// set targets
 		targeted.removeIf((e) -> e.dead || e.target != this);
@@ -376,7 +370,6 @@ public class GamePlayer extends GameEntity
 
 			@Override
 			public void run() {
-				// TODO Auto-generated method stub
 				that.gui = gui;
 				flagIgnoreInvClose = true;
 				that.gui.open();
@@ -390,8 +383,7 @@ public class GamePlayer extends GameEntity
 	public boolean hasSet(String s) {
 		if (sets.isEmpty()) return false;
 		Item i = ItemFactory.getItem(s);
-		if (i instanceof ItemSet) {
-			ItemSet set = (ItemSet) i;
+        if (i instanceof ItemSet set) {
             return set.requireCount <= sets.getOrDefault(s, 0);
 		}
 		return false;
@@ -415,18 +407,6 @@ public class GamePlayer extends GameEntity
         }
 	}
 
-
-	/**
-	@deprecated Use getSackSpaceUsed() instead
-	 */
-	@Deprecated
-	public int getSackUsed() {
-		int used = 0;
-		for (int i : sack.values()) used += i;
-		
-		return used;
-	}
-
 	public int getSackSpaceUsed() {
 		int used = 0;
 		for (int i : sack.values()) used += i;
@@ -439,7 +419,7 @@ public class GamePlayer extends GameEntity
 
 	
 	public boolean hasSackSpace(int am) {
-		return getSackUsed() + am <= getSackSize();
+        return getSackSpaceUsed() + am <= getSackSize();
 	}
 	
 	
@@ -460,22 +440,26 @@ public class GamePlayer extends GameEntity
 				Collection col = DiscoveryManager.get(i.discovery);
 				
 				int currentLevel = getDiscoveryLevel(col);
-				if (currentLevel == 0 && discoveries.getOrDefault(col.id, 0L) == 0) sendMessage("GOLDBOLDNew Discovery! " + col.name);
+                if (currentLevel == 0 && discoveries.getOrDefault(col.id, 0L) == 0) {
+                    sendMessage("<gold><b>New Discovery! " + col.name);
+                }
 				
 				discoveries.put(col.id, discoveries.getOrDefault(col.id, 0L) + item.getAmount() * i.discoveryProgress);
 				
 				int newLevel = getDiscoveryLevel(col);
 				while (newLevel > currentLevel)
 				{
-					sendMessage("YELLOW - - - GOLDDISCOVERY LEVEL UPYELLOW - - -");
+                    sendMessage("<yellow> - - - <gold>DISCOVERY LEVEL UP</gold> - - -");
 					for (String recipe : col.recipes.getOrDefault(currentLevel, new ArrayList<>()))
 					{
 						Recipe r = ItemFactory.recipes.get(recipe);
-						
-						String n = r.customName != null ? r.customName : ItemFactory.getItemTypeName(r.item);
-						sendMessage("DARK_GRAY- " + n + " DARK_GRAY[Recipe]");
+                        var recipeItem = ItemFactory.getItem(r.item);
+                        var colour = recipeItem.rarity.textColor.asHexString() + ">";
+
+                        String n = r.customName != null ? r.customName : recipeItem.name;
+                        sendMessage("<dark_grey>- <" + colour + n + "</" + colour + " [Recipe]");
 					}
-					sendMessage("DARK_GRAY- AQUA+" + col.xpRewards.get(currentLevel) + "XP");
+                    sendMessage("<dark_grey>- <aqua>+" + col.xpRewards.get(currentLevel) + "XP");
 					
 					gainXp(col.xpRewards.get(currentLevel));
 					currentLevel++;
@@ -499,66 +483,93 @@ public class GamePlayer extends GameEntity
 		}
 		else player.getInventory().addItem(item);
 	}
-	
-	public void sendMessage(String message)
+
+
+    public void sendMessage(String message)
 	{
 		sendMessage(message, 0);
 	}
 	public void sendMessage(String message, int tickDelay)
 	{
-		String edited = StringUtils.colourString(message);
-		if (tickDelay == 0) player.sendMessage(edited);
-		else
-		{
-			new BukkitRunnable()
-			{
+        var minified = MiniMessage.miniMessage().deserialize(message);
+        sendMessage(text().append(minified), null, 0, 0, tickDelay);
+    }
 
-				@Override
-				public void run() {
-					player.sendMessage(edited);
-				}
-				
-			}.runTaskLater(Dungeons.instance, tickDelay);
-		}
-	}
+    public void sendMessage(String message, TextColor colour, int tickDelay) {
+        sendMessage(text().content(message).color(colour), null, 0, 0, tickDelay);
+    }
+
+    public void sendMessage(String message, NamedTextColor colour, int tickDelay) {
+        sendMessage(text().content(message).color(colour), null, 0, 0, tickDelay);
+    }
 	public void sendMessage(String message, Sound sound)
 	{
-		sendMessage(message, sound, 0);
+        sendMessage(text().content(message), sound, 0, 0, 0);
 	}
 	public void sendMessage(String message, Sound sound, int tickDelay)
 	{
-		String edited = StringUtils.colourString(message);
-		if (tickDelay == 0) {
-			player.sendMessage(edited);
-			playSound(sound, 0.6, 0.8);
-		}
-		else
-		{
-			new BukkitRunnable()
-			{
+        sendMessage(text().content(message), sound, 0, 0, tickDelay);
+    }
 
-				@Override
-				public void run() {
-					player.sendMessage(edited);
-					playSound(sound, 0.6, 0.8);
-				}
-				
-			}.runTaskLater(Dungeons.instance, tickDelay);
-		}
-	}
+    public void sendMessage(TextComponent.Builder message, int tickDelay) {
+        sendMessage(message, null, 0, 0, tickDelay);
+    }
+
+    public void sendMessage(TextComponent.Builder message, Sound sound, double volume, double pitch) {
+        sendMessage(message, sound, volume, pitch, 0);
+    }
+
+    public void sendMessage(TextComponent.Builder message, Sound sound, int tickDelay) {
+        sendMessage(message, sound, 1, 1, tickDelay);
+    }
+
+    public void sendMessage(
+            TextComponent.Builder message,
+            @Nullable Sound sound,
+            double volume,
+            double pitch,
+            int tickDelay) {
+        Audience audience = player;
+        if (tickDelay == 0) {
+            audience.sendMessage(message.build());
+            if (sound != null) {
+                playSound(sound, volume, pitch);
+            }
+        }
+        else {
+            new BukkitRunnable() {
+                @Override
+                public void run() {
+                    audience.sendMessage(message.build());
+                    if (sound != null) {
+                        playSound(sound, volume, pitch);
+                    }
+                }
+            }.runTaskLater(Dungeons.instance, tickDelay);
+        }
+    }
+
 
     public void sendChunkMessage(List<String> chunk, int tickDelay) {
         for (var ch : chunk) sendMessage(ch, tickDelay);
     }
-	
-	public void sendTitle(String top, String sub, int in, int stay, int out) {
-		player.sendTitle(StringUtils.colourString(top), StringUtils.colourString(sub), in, stay, out);
-	}
-	
+
+    /**
+     * @param message whatever you want to send to the player client.
+     * @deprecated in favour of sendActionBar with a TextComponent.Builder instead.
+     */
+    @Deprecated
 	public void sendActionBar(String message)
 	{
-		player.spigot().sendMessage(ChatMessageType.ACTION_BAR, TextComponent.fromLegacy(StringUtils.colourString(message)));
+        Audience audience = player;
+        audience.sendActionBar(text(message));
 	}
+
+    public void sendActionBar(TextComponent.Builder message) {
+        Audience audience = player;
+        audience.sendActionBar(message.build());
+    }
+
 
 	@Override
 	public boolean isTargetable(GameEnemy by)
@@ -607,14 +618,14 @@ public class GamePlayer extends GameEntity
 		{
 			long lvl = getLevel();
 			playSound(Sound.ENTITY_PLAYER_LEVELUP, 1.4, 1.1);
-			sendMessage("GOLDBOLD-------------------");
-			sendMessage("AQUABOLDLevel Up! RESETAQUA" + lvl + " BLUE->AQUA " + (lvl+1));
+            sendMessage("<gold><b>-------------------");
+            sendMessage("<aqua><b>Level Up! </b>" + lvl + " <blue>-></blue> " + (lvl + 1));
             if (level == 1) {
-                sendMessage("REDBOLDIngredient Sack Unlocked!");
-                sendMessage("REDIngredients will now automatically");
-                sendMessage("REDgo into your sack!");
+                sendMessage("<red><b>Ingredient Sack Unlocked!");
+                sendMessage("<red>Ingredients will now automatically");
+                sendMessage("<red>go into your sack!");
             }
-			sendMessage("GOLDBOLD-------------------");
+            sendMessage("<gold><b>-------------------");
 			
 			xp -= LevelUtils.getXpForLevel(level + 1);
 			level++;
@@ -649,7 +660,6 @@ public class GamePlayer extends GameEntity
 	
 	@Override
 	public int getHealth() {
-		// TODO Auto-generated method stub
 		return (int) (stats.getStat(Stat.HEALTH) * health);
 	}
 	
@@ -670,10 +680,10 @@ public class GamePlayer extends GameEntity
 	}
 
 	public ItemStack getBackpackItem(int slot) {
-        return ItemFactory.BuildItemFromString(backpack.getOrDefault(slot, null), this);
+        return ItemFactory.buildItemFromString(backpack.getOrDefault(slot, null), this);
 	}
 	public void setBackpackItem(int slot, ItemStack item) {
-        String data = ItemFactory.BuildStringFromItem(item);
+        String data = ItemFactory.buildStringFromItem(item);
         backpack.put(slot, data);
 	}
 
@@ -682,17 +692,7 @@ public class GamePlayer extends GameEntity
 	{
 		return getForgeSlots() <= forge.size();
 	}
-	
-	public int getMagicDamage(double powerScaling, double manaScaling) {
-		double damage = stats.getStat(Stat.DAMAGE);
-		double power = (100D + (stats.getStat(Stat.POWER) * powerScaling)) / 100D;
-		double mana = (100D + (stats.getStat(Stat.MANA) * manaScaling)) / 100D;
-		
-		damage *= power * mana;
-		return (int)Math.round(damage);
-	}
-	
-	
+
 	public Vector getDirection() {
 		return player.getEyeLocation().getDirection().normalize();
 	}
@@ -739,37 +739,16 @@ public class GamePlayer extends GameEntity
 	
 
 
-
 	public void gainHealth(int amount)
 	{
 		int total = getHealth() + amount;
 		setHealth(total);
-		
-		
-		EntityRegainHealthEvent e = new EntityRegainHealthEvent(player, 0, RegainReason.CUSTOM);
+
+
+        EntityRegainHealthEvent e = new EntityRegainHealthEvent(player, 1, RegainReason.CUSTOM);
 		Bukkit.getPluginManager().callEvent(e);
-		/*
-		
-		ProtocolManager protocolManager = ProtocolLibrary.getProtocolManager();
-        PacketContainer packet = protocolManager.createPacket(Server.UPDATE_HEALTH);
-        
-        packet.getFloat()
-        .write(0, (float) health)
-        .write(1, 5F);
-        packet.getIntegers()
-        .write(0, 20);
-        
-        try {
-            protocolManager.sendServerPacket(player, packet);
-        } catch (InvocationTargetException e) {
-            e.printStackTrace();
-        }
-        */
 	}
-	
-	public boolean inDungeon() {
-		return DungeonManager.dungeons.getOrDefault(dungeonId, null) != null;
-	}
+
 	
 	public int getQuiverCount()
 	{
@@ -824,7 +803,6 @@ public class GamePlayer extends GameEntity
 
 			@Override
 			public void run() {
-				// TODO Auto-generated method stub
 				playSound(sound, volume, pitch);
 			}
 			
@@ -1014,10 +992,15 @@ public class GamePlayer extends GameEntity
 
 
     public boolean IsOnInvulnerableCooldown() {
-        return invulTick > 0;
+        return invulnerabilityTick > 0;
     }
 
     public void SetOnInvulnerableCooldown() {
-        invulTick = stats.getStat(Stat.INVULNERABILITY_TICKS);
+        invulnerabilityTick = stats.getStat(Stat.INVULNERABILITY_TICKS);
+    }
+
+
+    public ItemFactory.FactoryBuildContext getItemContext() {
+        return new ItemFactory.FactoryBuildContext(this);
     }
 }

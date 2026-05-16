@@ -1,238 +1,230 @@
-rotten_fish:
-  name: Rotten Fish
+weird_flesh:
+  name: Weird Flesh
   type: INGREDIENT
   rarity: COMMON
-  material: COD
-  discovery: rotten_fish_discovery
+  material: ROTTEN_FLESH
+  discovery: weird_flesh_collection
   discovery-progress: 1
-  description:
-    - Smells absolutely vile.
-    - Used in most BLUEWaterwayGRAY recipes.
-  
-leaf_mush:
-  name: Leaf Mush
+  value: 1
+  lore:
+    - Smells absolutely <em>horrendous!</em>
+    - Found on the corpses of <shadow:red:0.25>lunatics</shadow>.
+
+chilli_powder:
+  name: Chilli Powder
   type: INGREDIENT
-  rarity: COMMON
-  material: GREEN_DYE
-  discovery: leaf_mush_discovery
+  rarity: UNCOMMON
+  material: REDSTONE
+  value: 20
+  discovery: chilli_powder_collection
   discovery-progress: 1
-  description:
-    - Wet, mushy and disgusting.
-    - Found by GREENForagingGRAY within BLUEWaterwayGRAY.
-    
+  lore:
+    - A delicate blend of <em><red>red-hot</red></em> chillis.
+    - A staple of Waterway culture, it is used in
+    - flesh fermentation, amongst other things.
+
+spiced_meat:
+  name: Spiced Meat
+  type: INGREDIENT
+  rarity: UNCOMMON
+  material: COOKED_BEEF
+  glow: true
+  lore:
+    - Chewy, but very flavourful.
+    - A common ingredient in Waterway recipes, especially
+    - in consumables, owing to it's protein content.
+
 wet_paper:
   name: Wet Paper
   type: INGREDIENT
-  rarity: UNCOMMON
+  rarity: COMMON
   material: PAPER
   glow: true
-  discovery: wet_paper_discovery
-  discovery-progress: 1
-  description:
-    - Dissolves at the slightest touch.
-    - Used in some BLUEWaterwayGRAY recipes.
-    
-woodchip:
-  name: Woodchip
+  value: 1
+  lore:
+    - A heap of soggy mush.
+    - Dropped by <shadow:light_purple:0.25>titans</shadow>
+
+spider_silk:
+  name: Spider Silk
   type: INGREDIENT
   rarity: UNCOMMON
-  material: BROWN_DYE
-  discovery: leaf_mush_discovery
-  discovery-progress: 5
+  material: STRING
   description:
-    - How much wood could a woodchip chip?
-    - Not very much, as it turns out.
-    - Found by GREENForagingGRAY within BLUEWaterwayGRAY.
-    
-dungeon_dust:
-  name: Dungeon Dust
+    - Dull grey threads of silk.
+    - Dropped by REDSpidersGRAY.
+
+leaf_mash:
+  name: Leaf Mash
   type: INGREDIENT
   rarity: UNCOMMON
-  material: DEAD_TUBE_CORAL_FAN
-  discovery: dungeon_dust_discovery
+  material: GREEN_DYE
+  value: 1
+  discovery: leaf_mash_collection
   discovery-progress: 1
-  description:
-    - Slowly produced by skeletons gnashing their teeth.
-    - Has an extremely fine consistency.
-    - Found in the BLUEWaterway DungeonsGRAY.
-  
-water_pearl:
-  name: Water Pearl
+  lore:
+    - Blend of mushed-up leaves, devoid
+    - of any nutritional content. Can be
+    - mined throughout Waterway.
+
+gold_leaf:
+  name: Gold Leaf
+  rarity: VERY_RARE
+  material: GOLDEN_CARROT
+  value: 15
+  discovery: gold_leaf_collection
+  discovery-progress: 1
+  lore:
+    - Rarely found in clumps of leaf mash.
+    - A valuable upgrade material. <em><gold>Shiny!</gold></em>
+
+paper:
+  name: Paper
   type: INGREDIENT
   rarity: RARE
-  material: ENDER_PEARL
-  description:
-    - If you stare deep enough, you
-    - might just see a faint ripple.
-    - Used in some BLUEWaterwayGRAY recipes.
-    
+  material: PAPER
+  lore:
+    - Reconstituted parchment, formed by layering
+    - old soggy bits of paper together and then
+    - drying them into this. There's a bit of
+    - a smell lingering. Used to upgrade weaponry.
+
+waterway_sac:
+  name: Waterway Sac
+  type: INGREDIENT
+  rarity: EPIC
+  material: GLOW_INK_SAC
+  value: 75
+  lore:
+    - Undulates in a strange fashion. It's probably
+    - for the best that you don't know what this
+    - is exactly. Usable as an upgrade material.
+
 storm_crystals:
   name: Storm Crystals
   type: INGREDIENT
-  rarity: UNCOMMON
+  rarity: EPIC
   material: PRISMARINE_CRYSTALS
-  description:
-    - Forms during heavy rain.
-    - Used in some BLUEWaterwayGRAY recipes.
-    
-ocean_eye:
-  name: Eye of the Ocean
+  value: 25
+  glow: true
+  lore:
+    - Crushed pieces of a delicate blue crystal
+    - that crackle and pulse with chaotic
+    - storm energy. They seem to form during
+    - the rainy period of Waterway's weather cycle.
+
+combination_catalyst_shard:
+  name: Combination Catalyst Shard
+  type: CATALYST
+  rarity: LEGENDARY
+  material: QUARTZ
+  lore:
+    - This is a small sample of a shard
+    - of a <red>Combination Catalyst</red>. Luckily,
+    - this shard can still be used to apply many
+    - low-power <light_purple>enchantments</light_purple> to items, using your anvil.
+
+
+waterway_cod:
+  name: Waterway Cod
   type: INGREDIENT
-  rarity: RARE
+  rarity: COMMON
+  material: COD
+  value: 1
+  glow: true
+  discovery: waterway_cod_collection
+  discovery-progress: 1
+  lore:
+    - Mild and flaky, this unusually small
+    - variety of cod is found only in
+    - the calm waters of Waterway.
+
+cooked_waterway_cod:
+  name: Cooked Waterway Cod
+  type: INGREDIENT
+  rarity: VERY_RARE
+  material: COOKED_COD
+  value: 240
+  glow: true
+  discovery: waterway_cod_collection
+  discovery-progress: 256
+  lore:
+    - Mild and flaky, this unusually small
+    - variety of cod is found only in
+    - the calm waters of Waterway.
+    - There's a most delicious aroma coming
+    - from this particular sample.
+
+waterway_cod_meal:
+  name: Delish Cod of Waterway
+  type: INGREDIENT
+  rarity: INCREDIBLE
+  material: PLAYER_HEAD
+  value: 30720
+  skull-profile-id: fish_barrel
+  discovery: waterway_cod_collection
+  discovery-progress: 32768
+  lore:
+    - This is the pinnacle of Waterway
+    - cuisine. This valuable meal can
+    - be transformed into various upgrades.
+    - <em>Truly divine!</em>
+
+meat_scraps:
+  name: Meat Scraps
+  type: INGREDIENT
+  rarity: VERY_RARE
+  material: LEAF_LITTER
+  value: 100
+  discovery: meat_scraps_collection
+  discovery-progress: 1
+  description:
+    - Almost inedible.
+    - Drops exclusively from the Drenched.
+
+green_slime:
+  name: Green Slime
+  type: INGREDIENT
+  rarity: EPIC
+  material: PLAYER_HEAD
+  skull-profile-id: green_slime
+  value: 20
+  lore:
+    - The lowest grade of slime. Is frequently
+    - used as an industrial lubricant, but can
+    - also be combined with fruits to make a
+    - rather pleasant jam.
+
+
+seraphs_eye:
+  name: "Seraph's Eye"
+  type: INGREDIENT
+  rarity: INCREDIBLE
   material: ENDER_EYE
-  description:
-    - A combination of foul, wet ingredients.
-    - Created in WHITEThe ForgeGRAY.
-    - Used to craft BLUEWaterwayGRAY armours.
-    
-cayenne_powder:
-  name: Cayenne Powder
-  type: INGREDIENT
-  rarity: RARE
-  material: GLOWSTONE_DUST
-  discovery: chilli_powder_discovery
-  discovery-progress: 2
-  description: 
-    - REDITALICSpicy!
-    - Dropped by the BLUETitanGRAY.
-    - Used to craft powerful weapons.
-    
-jalapeno_powder:
-  name: Jalapeno Powder
-  type: INGREDIENT
-  rarity: RARE
-  material: REDSTONE
-  discovery: chilli_powder_discovery
-  discovery-progress: 1
-  description:
-    - REDITALICSpicy!
-    - Used to craft many powerful items.
-    
-ghost_powder:
-  name: Ghost Pepper Powder
-  type: INGREDIENT
-  rarity: RARE
-  material: GUNPOWDER
-  discovery: chilli_powder_discovery
-  discovery-progress: 1
-  description:
-    - REDITALICSpicy!
-    - Used to craft many powerful items.
-    - Found by GREENForagingGRAY within BLUEWaterwayGRAY.
-  
-    
-    
-chilli_apple:
-  name: Chilli Apple
-  type: INGREDIENT
-  rarity: VERY_RARE
-  material: APPLE
-  discovery: chilli_powder_discovery
-  discovery-progress: 3
-  description:
-    - Quite the acquired taste.
-    - Created in WHITEThe ForgeGRAY.
-    - Used to craft powerful armours.
-    
-jims_sword_upgrader:
-  name: Replacement Hilt
-  type: QUEST_ITEM
-  rarity: VERY_RARE
-  material: STICK
-  glow: true
-  description:
-    - Lovingly crafted by Jim's cousin, Letty.
-    - Use in WHITEThe ForgeGRAY to upgrade Jim's Shoddy Sword.
+  value: 500
+  lore:
+    - A rather delicate example of one
+    - of the Seraph's many watchful eyes.
+    - You imagine that slapping this onto a weapon
+    - might just improve it, for some reason.
 
 
-    
-fish_barrel:
-  name: Barrel of Fish
-  type: INGREDIENT
-  rarity: UNCOMMON
-  material: BARREL
-  glow: true
-  discovery: rotten_fish_discovery
-  discovery-progress: 512
-  description:
-    - When you need loads of fish, build a barrel.
-    - Created in WHITEThe ForgeGRAY.
-    - Used in GOLDexpensiveGRAY recipes.
-    
-leaf_ball:
-  name: Leaf Ball
-  type: INGREDIENT
-  rarity: UNCOMMON
-  material: SLIME_BALL
-  discovery: leaf_mush_discovery
-  discovery-progress: 128
-  description:
-    - Heavy and wet. Gross.
-    - Created in WHITEThe ForgeGRAY.
-    
-hydra_flesh:
-  name: Hydra Flesh
-  type: INGREDIENT
-  rarity: EPIC
-  material: RAW_COPPER
-  description:
-    - Offers regenerative properties.
-    - Obtained by slaying a deadly GREENHydraGRAY.
-    - Used in high-level BLUEWaterwayGRAY recipes.
-    
-shark_tooth:
-  name: Shark Tooth
-  type: INGREDIENT
-  rarity: EPIC
-  material: GHAST_TEAR
-  description:
-    - Made for killing. 
-    - Obtained by slaying AQUAsharksGRAY.
-    - Used in high-level BLUEWaterwayGRAY recipes.
-    
-waterway_gold:
-  name: Waterway Gold
-  type: INGREDIENT
+waterway_seraph_key:
+  name: "Seraph's Key"
+  type: KEY
   rarity: INCREDIBLE
-  material: GOLD_INGOT
-  description:
-    - ITALICThe Seraph spent many years 
-    - ITALICattempting to construct a
-    - ITALICsuit that would protect their 
-    - ITALICsensitive form from water.
-    - Used in GOLDLegendary RecipesGRAY.
-    
-arrow_bundle_seraph:
-  name: Seraph's Arrow Bundle
-  type: INGREDIENT
-  rarity: VERY_RARE
-  material: PLAYER_HEAD
-  description:
-    - Contains many arrows of a particular variety.
-    - Open in WHITEThe ForgeGRAY.
-    
-    
-hydra_head:
-  name: Mangled Hydra Head
-  type: INGREDIENT
-  rarity: INCREDIBLE
-  material: PLAYER_HEAD
-  description:
-    - Rather disgusting, but exceedingly powerful.
-    - Obtained by slaying a REDHydraGRAY.
-    
+  material: TRIAL_KEY
+  value: 500
+  lore:
+    - Use this to register your place
+    - in the <blue>Waterway Seraph</blue> boss fight.
+    - This must be used at the altar at
+    - the temple entrance. <red>Consumable!</red>
+
+
+
 enchanted_book:
   name: Enchanted Book
   type: ENCHANTMENT
   rarity: MYSTERIOUS
   material: ENCHANTED_BOOK
-  
-combination_catalyst_shard:
-  name: Combination Catalyst Shard
-  type: CATALYST
-  rarity: RARE
-  material: QUARTZ
-  description:
-    - Required to LIGHT_PURPLEenchantGRAY items
-    - with weak enchantments.
-  

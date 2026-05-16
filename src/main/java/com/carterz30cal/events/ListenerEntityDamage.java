@@ -28,8 +28,10 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.persistence.PersistentDataType;
 import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.util.Vector;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Objects;
 
@@ -255,32 +257,32 @@ public class ListenerEntityDamage implements Listener
             Dungeons.w.createExplosion(e.getEntity().getLocation(), 5, false, false);
         }
 	}
-	
-	
+
 	@EventHandler
 	public void onProjectileHit(ProjectileHitEvent e)
 	{
-		if (e.getEntity() instanceof AbstractArrow)
+        if (e.getEntity() instanceof AbstractArrow ar)
 		{
-			AbstractArrow ar = (AbstractArrow)e.getEntity();
-			ar.setPickupStatus(PickupStatus.DISALLOWED);
-			
-			if (e.getHitEntity() != null && e.getHitEntity().getType() == EntityType.ENDERMAN) 
+            ar.setPickupStatus(PickupStatus.DISALLOWED);
+
+			if (e.getHitEntity() != null && e.getHitEntity().getType() == EntityType.ENDERMAN)
 			{
-				EntityDamageByEntityEvent ev =
-						new EntityDamageByEntityEvent(
-								(LivingEntity) Objects.requireNonNull(ar.getShooter()),
-								e.getHitEntity(),
-								DamageCause.ENTITY_ATTACK,
-								DamageSource.builder(org.bukkit.damage.DamageType.ARROW).build(),
-								1);
-				onEntityDamageEntity(ev);
-				
+                var event = new EntityDamageByEntityEvent(
+                        (Entity) Objects.requireNonNull(ar.getShooter()),
+                        e.getHitEntity(),
+                        DamageCause.ENTITY_ATTACK,
+                        DamageSource.builder(org.bukkit.damage.DamageType.ARROW).build(),
+                        new HashMap<>(),
+                        new HashMap<EntityDamageEvent.DamageModifier, DiscardDamageModifier>(),
+                        false
+                );
+                onEntityDamageEntity(event);
+
 				e.getEntity().remove();
 			}
-			
-			
-			if (e.getHitBlock() != null) 
+
+
+			if (e.getHitBlock() != null)
 			{
 				new BukkitRunnable()
 				{
@@ -290,44 +292,44 @@ public class ListenerEntityDamage implements Listener
 						// TODO Auto-generated method stub
 						e.getEntity().remove();
 					}
-					
+
 				}.runTaskLater(Dungeons.instance, 20);
 			}
 		}
-		else if (e.getEntity() instanceof FishHook)
+        else if (e.getEntity() instanceof FishHook hook)
 		{
-			FishHook hook = (FishHook)e.getEntity();
-			if (e.getHitEntity() != null)
+            if (e.getHitEntity() != null)
 			{
 				GameEntity entity = GameEntity.get(e.getHitEntity());
 				if (entity instanceof GameEnemy)
 				{
-					EntityDamageByEntityEvent ev = new EntityDamageByEntityEvent(
-							(LivingEntity)hook.getShooter(),
-							e.getHitEntity(),
-							DamageCause.ENTITY_ATTACK,
-							DamageSource.builder(org.bukkit.damage.DamageType.PLAYER_ATTACK).build(),
-							1);
-					onEntityDamageEntity(ev);
-					
+                    var event = new EntityDamageByEntityEvent(
+                            (Entity) Objects.requireNonNull(hook.getShooter()),
+                            e.getHitEntity(),
+                            DamageCause.ENTITY_ATTACK,
+                            DamageSource.builder(org.bukkit.damage.DamageType.PLAYER_ATTACK).build(),
+                            new HashMap<>(),
+                            new HashMap<EntityDamageEvent.DamageModifier, DiscardDamageModifier>(),
+                            false
+                    );
+                    onEntityDamageEntity(event);
+
 					e.getEntity().remove();
 				}
 			}
 		}
-		
+
 		e.setCancelled(false);
 	}
-	
 	
 	@EventHandler
 	public void onEntityDamage(EntityDamageEvent e)
 	{
 		GameEntity entity = GameEntity.get(e.getEntity());
-		
+
 		if (entity instanceof GamePlayer)
 		{
 			GamePlayer player = (GamePlayer)entity;
-			//System.out.println(e.getCause());
 			switch (e.getCause())
 			{
 			case CUSTOM:
@@ -345,9 +347,8 @@ public class ListenerEntityDamage implements Listener
 				e.setCancelled(true);
 			}
 		}
-		else if (entity instanceof GameEnemy)
+        else if (entity instanceof GameEnemy enemy)
 		{
-			GameEnemy enemy = (GameEnemy)entity;
             switch (e.getCause()) {
                 case CUSTOM:
                 case ENTITY_ATTACK:
@@ -376,9 +377,22 @@ public class ListenerEntityDamage implements Listener
                     e.setCancelled(true);
             }
 		}
-		
-		
+
+
 	}
+	
+    private static class DiscardDamageModifier implements com.google.common.base.Function<Double, Double> {
+
+        @Override
+        public Double apply(Double aDouble) {
+            return 1.0;
+        }
+
+        @Override
+        public boolean equals(@Nullable Object object) {
+            return false;
+        }
+    }
 	
 	@EventHandler
 	public void onEntityTransform(EntityTransformEvent e)

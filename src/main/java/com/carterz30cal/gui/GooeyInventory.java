@@ -79,8 +79,8 @@ public class GooeyInventory
 	{
 		underlying.setContents(contents);
 	}
-	
-	
+
+    @Deprecated
 	public static ItemStack produceElement(String type, String name)
 	{
 		ItemStack base = ItemFactory.build(type);
