@@ -1,5 +1,6 @@
 package com.carterz30cal.entities;
 
+import com.carterz30cal.entities.enemies.implementation.GameEnemy;
 import org.bukkit.Color;
 import org.bukkit.Location;
 import org.bukkit.entity.Entity;

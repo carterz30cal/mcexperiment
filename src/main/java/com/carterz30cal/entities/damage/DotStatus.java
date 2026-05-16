@@ -1,11 +1,10 @@
 package com.carterz30cal.entities.damage;
 
-import org.bukkit.scheduler.BukkitRunnable;
-
 import com.carterz30cal.entities.DamageInfo;
 import com.carterz30cal.entities.DamageType;
-import com.carterz30cal.entities.GameEnemy;
+import com.carterz30cal.entities.enemies.implementation.GameEnemy;
 import com.carterz30cal.main.Dungeons;
+import org.bukkit.scheduler.BukkitRunnable;
 
 public class DotStatus extends AbstractStatus {
 

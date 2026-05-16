@@ -1,6 +1,6 @@
 package com.carterz30cal.entities.damage;
 
-import com.carterz30cal.entities.GameEnemy;
+import com.carterz30cal.entities.enemies.implementation.GameEnemy;
 
 public abstract class AbstractStatus 
 {

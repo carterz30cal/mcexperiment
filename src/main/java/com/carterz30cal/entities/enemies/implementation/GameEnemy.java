@@ -1,6 +1,7 @@
-package com.carterz30cal.entities;
+package com.carterz30cal.entities.enemies.implementation;
 
 import com.carterz30cal.areas.AbstractGameArea;
+import com.carterz30cal.entities.*;
 import com.carterz30cal.entities.damage.StatusEffect;
 import com.carterz30cal.entities.damage.StatusEffects;
 import com.carterz30cal.entities.enemies.EnemyTypeSimple;
@@ -59,8 +60,9 @@ public class GameEnemy extends GameEntity
     public AbstractGameArea spawnedArea;
 	
 	private BukkitRunnable ticker;
-	
-	protected void destroy()
+
+
+    protected void destroy()
 	{
 		if (dead) return;
 		health = 0;

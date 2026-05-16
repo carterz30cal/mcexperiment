@@ -1,8 +1,12 @@
 package com.carterz30cal.events;
 
-import com.carterz30cal.entities.*;
+import com.carterz30cal.entities.DamageInfo;
+import com.carterz30cal.entities.DamageType;
+import com.carterz30cal.entities.GameEntity;
+import com.carterz30cal.entities.GameSummon;
 import com.carterz30cal.entities.damage.StatusEffect;
 import com.carterz30cal.entities.enemies.EnemyTypeDamageCapped;
+import com.carterz30cal.entities.enemies.implementation.GameEnemy;
 import com.carterz30cal.entities.player.GamePlayer;
 import com.carterz30cal.items.Item;
 import com.carterz30cal.items.ItemFactory;

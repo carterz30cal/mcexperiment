@@ -1,8 +1,8 @@
 package com.carterz30cal.items.abilities2.generic;
 
 import com.carterz30cal.entities.DamageInfo;
-import com.carterz30cal.entities.GameEnemy;
 import com.carterz30cal.entities.GameEntity;
+import com.carterz30cal.entities.enemies.implementation.GameEnemy;
 import com.carterz30cal.items.abilities2.implementation.GameAbility;
 
 /**

@@ -1,10 +1,9 @@
 package com.carterz30cal.entities.enemies;
 
+import com.carterz30cal.entities.enemies.implementation.GameEnemy;
+import com.carterz30cal.utils.ParticleUtils;
 import org.bukkit.Particle;
 import org.bukkit.configuration.ConfigurationSection;
-
-import com.carterz30cal.entities.GameEnemy;
-import com.carterz30cal.utils.ParticleUtils;
 
 public class EnemyTypeSeraphMageHealth extends EnemyTypeSimple
 {

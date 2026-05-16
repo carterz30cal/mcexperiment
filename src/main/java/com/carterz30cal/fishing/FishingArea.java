@@ -1,7 +1,7 @@
 package com.carterz30cal.fishing;
 
 import com.carterz30cal.entities.EnemyManager;
-import com.carterz30cal.entities.GameEnemy;
+import com.carterz30cal.entities.enemies.implementation.GameEnemy;
 import com.carterz30cal.entities.player.GamePlayer;
 import com.carterz30cal.items.ItemRarity;
 import com.carterz30cal.main.Dungeons;

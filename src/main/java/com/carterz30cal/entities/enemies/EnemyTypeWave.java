@@ -1,14 +1,13 @@
 package com.carterz30cal.entities.enemies;
 
+import com.carterz30cal.entities.enemies.implementation.GameEnemy;
+import com.carterz30cal.main.Dungeons;
+import com.carterz30cal.utils.EntityUtils;
 import org.bukkit.Location;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Zombie;
 import org.bukkit.potion.PotionEffectType;
-
-import com.carterz30cal.entities.GameEnemy;
-import com.carterz30cal.main.Dungeons;
-import com.carterz30cal.utils.EntityUtils;
 
 public class EnemyTypeWave extends EnemyTypeSimple {
 

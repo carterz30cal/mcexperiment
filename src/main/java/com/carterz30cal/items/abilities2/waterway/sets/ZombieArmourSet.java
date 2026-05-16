@@ -1,6 +1,6 @@
 package com.carterz30cal.items.abilities2.waterway.sets;
 
-import com.carterz30cal.entities.GameEnemy;
+import com.carterz30cal.entities.enemies.implementation.GameEnemy;
 import com.carterz30cal.items.abilities2.implementation.GameAbility;
 import com.carterz30cal.stats.Stat;
 import org.jetbrains.annotations.NotNull;

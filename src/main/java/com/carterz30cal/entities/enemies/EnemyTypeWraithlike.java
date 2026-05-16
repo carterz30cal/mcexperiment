@@ -1,11 +1,10 @@
 package com.carterz30cal.entities.enemies;
 
+import com.carterz30cal.entities.enemies.implementation.GameEnemy;
+import com.carterz30cal.utils.EntityUtils;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.potion.PotionEffectType;
-
-import com.carterz30cal.entities.GameEnemy;
-import com.carterz30cal.utils.EntityUtils;
 
 public class EnemyTypeWraithlike extends EnemyTypeSimple
 {

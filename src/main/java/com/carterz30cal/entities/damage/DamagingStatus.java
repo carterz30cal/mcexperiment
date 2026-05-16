@@ -2,7 +2,7 @@ package com.carterz30cal.entities.damage;
 
 import com.carterz30cal.entities.DamageInfo;
 import com.carterz30cal.entities.DamageType;
-import com.carterz30cal.entities.GameEnemy;
+import com.carterz30cal.entities.enemies.implementation.GameEnemy;
 
 public class DamagingStatus extends AbstractStatus {
 
