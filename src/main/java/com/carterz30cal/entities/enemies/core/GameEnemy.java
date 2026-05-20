@@ -1,10 +1,18 @@
-package com.carterz30cal.entities.enemies.implementation;
+package com.carterz30cal.entities.enemies.core;
 
 import com.carterz30cal.areas.AbstractGameArea;
 import com.carterz30cal.entities.*;
-import com.carterz30cal.entities.damage.StatusEffect;
 import com.carterz30cal.entities.damage.StatusEffects;
 import com.carterz30cal.entities.enemies.EnemyTypeSimple;
+import com.carterz30cal.entities.enemies.directors.EnemyDirector;
+import com.carterz30cal.entities.enemies.representation.EnemyInformationDisplay;
+import com.carterz30cal.entities.enemies.representation.EnemyRepresentation;
+import com.carterz30cal.entities.health.EntityHealthSystem;
+import com.carterz30cal.entities.health.damage.DamagePacket;
+import com.carterz30cal.entities.health.damage.handlers.AggressiveEntity;
+import com.carterz30cal.entities.health.damage.handlers.DamageModifier;
+import com.carterz30cal.entities.health.damage.handlers.DamageableEntity;
+import com.carterz30cal.entities.health.status.StatusEffect;
 import com.carterz30cal.entities.player.GamePlayer;
 import com.carterz30cal.main.Dungeons;
 import com.carterz30cal.stats.Stat;
@@ -13,7 +21,11 @@ import com.carterz30cal.utils.LevelUtils;
 import com.carterz30cal.utils.RandomUtils;
 import com.carterz30cal.utils.StringUtils;
 import net.kyori.adventure.text.Component;
-import org.bukkit.*;
+import net.kyori.adventure.text.format.NamedTextColor;
+import org.bukkit.ChatColor;
+import org.bukkit.Location;
+import org.bukkit.NamespacedKey;
+import org.bukkit.Sound;
 import org.bukkit.attribute.Attribute;
 import org.bukkit.attribute.AttributeModifier;
 import org.bukkit.entity.ArmorStand;
@@ -26,14 +38,26 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.persistence.PersistentDataType;
 import org.bukkit.potion.PotionEffectType;
 import org.bukkit.scheduler.BukkitRunnable;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.*;
 
-public class GameEnemy extends GameEntity
+import static net.kyori.adventure.text.Component.text;
+
+@SuppressWarnings("UnnecessaryUnicodeEscape")
+public class GameEnemy extends GameEntity implements AggressiveEntity, DamageableEntity
 {
 	public static NamespacedKey keyEnemy = new NamespacedKey(Dungeons.instance, "keyEnemy");
 	public static NamespacedKey keyArrowType = new NamespacedKey(Dungeons.instance, "keyArrowType");
-	
+
+    private final BukkitRunnable ticker;
+    private EnemyRepresentation representation;
+    private EntityHealthSystem healthSystem;
+    private EnemyDirector enemyDirector;
+    private EnemyData enemyData;
+    private EnemyInformationDisplay enemyInformationDisplay;
+
+
 	public AbstractEnemyType type;
 	
 	public Entity main;
@@ -58,75 +82,190 @@ public class GameEnemy extends GameEntity
 	
 	public Map<String, Object> data = new HashMap<>();
     public AbstractGameArea spawnedArea;
-	
-	private BukkitRunnable ticker;
+    private String typeId;
 
+    public GameEnemy(EnemyRepresentation representation, EntityHealthSystem healthSystem, EnemyDirector director, String typeId) {
+        this.representation = representation;
+        this.healthSystem = healthSystem;
+        this.enemyDirector = director;
+        this.enemyInformationDisplay = new EnemyInformationDisplay(this);
+        this.typeId = typeId;
+
+        this.ticker = new BukkitRunnable() {
+            @Override
+            public void run() {
+                tick();
+            }
+        };
+        this.ticker.runTaskTimer(Dungeons.instance, 0, 1);
+    }
+
+    public void tick() {
+        enemyDirector.tick();
+        representation.tick(enemyDirector.getLocation());
+        healthSystem.tick();
+
+        enemyInformationDisplay.reset();
+        enemyInformationDisplay.setLine(0, getName());
+        if (enemyData.alwaysDisplayHealth || !healthSystem.isAtMaxHealth()) {
+            enemyInformationDisplay.setLine(1, text(healthSystem.getHealth() + "\u2665", NamedTextColor.RED));
+        }
+        int i = 1;
+        for (var status : StatusEffect.values()) {
+            var value = healthSystem.getBuildup(status);
+            if (value < 1) {
+                continue;
+            }
+            i++;
+            enemyInformationDisplay.setLine(i, text().append(
+                    text(status.symbol + " " + status.shortName, status.textColour),
+                    StringUtils.progressBar(5, healthSystem.getBuildupPercentage(status), status.textColour, NamedTextColor.DARK_GRAY)
+            ).build());
+        }
+        enemyInformationDisplay.tick();
+    }
+
+    protected Component getName() {
+        return text().append(
+                text("[", NamedTextColor.DARK_GRAY),
+                text(enemyData.level, NamedTextColor.AQUA),
+                text("]", NamedTextColor.DARK_GRAY),
+                text(" "),
+                enemyData.name
+        ).build();
+    }
+
+
+    public EnemyDirector getEnemyDirector() {
+        return enemyDirector;
+    }
+
+    public EnemyRepresentation getRepresentation() {
+        return representation;
+    }
+
+    public EnemyData getEnemyData() {
+        return enemyData;
+    }
+
+    public void setEnemyData(EnemyData data) {
+        this.enemyData = data;
+    }
+
+    @Override
+    public void damage(@NotNull DamagePacket damagePacket) {
+        if (healthSystem.damage(damagePacket)) {
+            if (healthSystem.isDead()) {
+                kill();
+            }
+            representation.damage();
+        }
+    }
+
+    @Override
+    public List<DamageModifier> getDefensiveDamageModifiers() {
+        return List.of();
+    }
+
+    @Override
+    public boolean isImmune(StatusEffect effect) {
+        return false;
+    }
+
+    @Override
+    public double getHealthPercentage() {
+        return healthSystem.getHealthPercentage();
+    }
+
+    /**
+     *
+     * @return the LivingEntity that we want the vanilla targeting system to target for us.
+     */
+    @Override
+    public LivingEntity getTargetableEntity() {
+        return enemyDirector.getTargetableEntity();
+    }
+
+    @Override
+    public List<DamageModifier> getAggressiveDamageModifiers() {
+        return List.of();
+    }
+
+    @Override
+    public long getStat(Stat stat) {
+        if (enemyData == null) {
+            return 0;
+        }
+        else {
+            return enemyData.stats.getOrDefault(stat, 0L);
+        }
+    }
+
+    public long getCoinValue(GamePlayer rewardee) {
+        long health = healthSystem.getMaxHealth() / 500;
+        long damage = enemyData.getTotalRawDamage() / 30;
+        long levels = enemyData.level;
+        double multiplier = (100D + rewardee.getStat(Stat.BONUS_COINS)) / 100D;
+        return Math.round((health + damage + levels) * multiplier);
+    }
 
     protected void destroy()
 	{
 		if (dead) return;
 		health = 0;
 		dead = true;
-		
-		//String name = "RED" + type.name + "GRAY : RED0\u2665";
-		//if (type.level != 0) name = "WHITE[" + type.level + "] " + name;
-		//display.setCustomName(StringUtils.colourString(name));
-		
-		List<Entity> all = new ArrayList<>(getParts());
-		all.add(getMain());
-		for (Entity e : all) 
-		{
-			if (e == director) e.remove();
-			else if (e instanceof LivingEntity) ((LivingEntity)e).setHealth(0);
-			else e.remove();
-		}
+
+        enemyDirector.remove();
+        representation.kill();
+        enemyInformationDisplay.remove(false);
+        var lastAttacker = healthSystem.getLastAttacker();
+        if (lastAttacker instanceof GamePlayer player) {
+            player.attackTick = 0;
+        }
 
         if (spawnedArea != null && lastDamager != null) {
             spawnedArea.OnKill(this);
         }
-		
-		if (lastDamager != null) lastDamager.attackTick = 0;
+        dropLoot();
+
 		ticker.cancel();
-		type.onKilled(this);
-		dropItems(lastDamager);
-		
 		deregister();
 	}
-	
-	public double getHeight() {
-		return type.displayHeight;
-	}
-	
-	public Color getBloodColour() {
-		return type.bloodColour;
-	}
-	
-	@Override
-	public void remove()
-	{
-		health = 0;
-		dead = true;
-		
-		List<Entity> all = new ArrayList<>(getParts());
-		all.add(getMain());
-		for (Entity e : all) e.remove();
 
+    public void dropLoot() {
+        for (var attacker : healthSystem.getPlayerAttackers()) {
+            var builder = EnemyBuilder.getBuilder(typeId);
+            assert builder != null;
+            if (!builder.isTemporaryBuilder()) {
+                attacker.IncrementKill(typeId);
+            }
+            for (var a : attacker.abilities)
+                a.ability.onKill(a, this);
+            for (var eh : attacker.GetEventHandlers())
+                eh.OnKill(attacker, this, attacker.area);
+            if (enemyData.lootTable != null) {
+                for (ItemStack it : enemyData.lootTable.generate(attacker)) attacker.giveItem(it);
+            }
+
+            attacker.playSound(Sound.ENTITY_EXPERIENCE_ORB_PICKUP, 0.8, 1.4);
+            attacker.lastCoinReward = attacker.gainCoins(this);
+            attacker.rewardTick = 30;
+        }
+    }
+
+    @Override
+    public void remove() {
+        health = 0;
+        dead = true;
+
+        enemyDirector.remove();
+        representation.remove();
+        enemyInformationDisplay.remove(true);
 
         ticker.cancel();
-		deregister();
-	}
-	
-	public List<Entity> getParts()
-	{
-		List<Entity> e = new ArrayList<>(parts);
-		if (display != null) e.add(display);
-		
-		if (displayName != null) e.add(displayName);
-		if (displayHealth != null) e.add(displayHealth);
-		if (displayStatuses != null) e.add(displayStatuses);
-		return e;
-	}
-	
+        deregister();
+    }
+
 	public void setImmune(boolean v)
 	{
 		main.setInvulnerable(v);
@@ -438,9 +577,8 @@ public class GameEnemy extends GameEntity
 		killer.rewardTick = 30;
 	}
 
-	
-	
-	
+
+    @Deprecated
 	public void damage(int damage)
 	{
 		DamageInfo info = new DamageInfo();
@@ -449,6 +587,8 @@ public class GameEnemy extends GameEntity
 		
 		damage(info);
 	}
+
+    @Deprecated
 	public void damage(int damage, DamageType type)
 	{
 		DamageInfo info = new DamageInfo();
@@ -457,9 +597,9 @@ public class GameEnemy extends GameEntity
 		
 		damage(info);
 	}
-	
-	@SuppressWarnings({ "deprecation", "unused" })
+
 	@Override
+    @Deprecated
 	public void damage(DamageInfo info) {
 		if (dead) return;
 		if (main.isInvulnerable())
@@ -508,7 +648,7 @@ public class GameEnemy extends GameEntity
                 30
         );
         if (damageHologram != null) {
-            damageHologram.text(Component.text(modified.damage));
+            damageHologram.text(text(modified.damage));
         }
 		
 		Entity main = getMain();
@@ -523,4 +663,5 @@ public class GameEnemy extends GameEntity
         }
 		
 	}
+
 }

@@ -1,8 +1,9 @@
-package com.carterz30cal.entities.damage;
+package com.carterz30cal.entities.health.status;
 
 import com.carterz30cal.entities.DamageInfo;
 import com.carterz30cal.entities.DamageType;
-import com.carterz30cal.entities.enemies.implementation.GameEnemy;
+import com.carterz30cal.entities.enemies.core.GameEnemy;
+import com.carterz30cal.entities.health.damage.handlers.DamageableEntity;
 import com.carterz30cal.main.Dungeons;
 import org.bukkit.scheduler.BukkitRunnable;
 
@@ -45,4 +46,9 @@ public class DotStatus extends AbstractStatus {
 			
 		}.runTaskTimer(Dungeons.instance, delay, delay);
 	}
+
+    @Override
+    public void apply(DamageableEntity entity) {
+
+    }
 }

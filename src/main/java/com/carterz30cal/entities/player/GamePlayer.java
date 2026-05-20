@@ -6,7 +6,12 @@ import com.carterz30cal.areas.PlayerTeleport;
 import com.carterz30cal.areas.quests.Quests;
 import com.carterz30cal.entities.DamageInfo;
 import com.carterz30cal.entities.GameEntity;
-import com.carterz30cal.entities.enemies.implementation.GameEnemy;
+import com.carterz30cal.entities.enemies.core.GameEnemy;
+import com.carterz30cal.entities.health.damage.DamagePacket;
+import com.carterz30cal.entities.health.damage.handlers.AggressiveEntity;
+import com.carterz30cal.entities.health.damage.handlers.DamageModifier;
+import com.carterz30cal.entities.health.damage.handlers.DamageableEntity;
+import com.carterz30cal.entities.health.status.StatusEffect;
 import com.carterz30cal.events.GameEventHandler;
 import com.carterz30cal.fishing.FishingArea;
 import com.carterz30cal.gui.AbstractGUI;
@@ -56,7 +61,7 @@ import java.util.*;
 import static net.kyori.adventure.text.Component.text;
 
 @SuppressWarnings("UnnecessaryUnicodeEscape")
-public class GamePlayer extends GameEntity
+public class GamePlayer extends GameEntity implements DamageableEntity, AggressiveEntity
 {
 	public Player player;
 	public StatContainer stats;
@@ -633,6 +638,7 @@ public class GamePlayer extends GameEntity
 		
 		return amount;
 	}
+
 	
 	public int gainCoins(GameEnemy killed)
 	{
@@ -1002,5 +1008,43 @@ public class GamePlayer extends GameEntity
 
     public ItemFactory.FactoryBuildContext getItemContext() {
         return new ItemFactory.FactoryBuildContext(this);
+    }
+
+    @Override
+    public List<DamageModifier> getAggressiveDamageModifiers() {
+        return List.of();
+    }
+
+    @Override
+    public void damage(@NotNull DamagePacket damagePacket) {
+
+    }
+
+    @Override
+    public List<DamageModifier> getDefensiveDamageModifiers() {
+        return List.of();
+    }
+
+    @Override
+    public boolean isImmune(StatusEffect effect) {
+        return false;
+    }
+
+    @Override
+    public double getHealthPercentage() {
+        return health;
+    }
+
+    @Override
+    public long getStat(Stat stat) {
+        if (stats == null) {
+            return 0;
+        }
+        return stats.getStat(stat);
+    }
+
+    @Override
+    public LivingEntity getTargetableEntity() {
+        return player;
     }
 }

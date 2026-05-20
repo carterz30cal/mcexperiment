@@ -2,6 +2,7 @@ package com.carterz30cal.entities;
 
 import com.carterz30cal.utils.StringUtils;
 
+@Deprecated
 public enum DamageType
 {
 	PHYSICAL("GRAYPhysical", 100),

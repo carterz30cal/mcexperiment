@@ -2,7 +2,7 @@ package com.carterz30cal.entities.enemies;
 
 import com.carterz30cal.areas.bosses.waterway.AreaBossWaterwaySeraph;
 import com.carterz30cal.entities.DamageInfo;
-import com.carterz30cal.entities.enemies.implementation.GameEnemy;
+import com.carterz30cal.entities.enemies.core.GameEnemy;
 import com.carterz30cal.entities.player.GamePlayer;
 import org.bukkit.configuration.ConfigurationSection;
 

@@ -1,6 +1,6 @@
 package com.carterz30cal.entities.enemies;
 
-import com.carterz30cal.entities.enemies.implementation.GameEnemy;
+import com.carterz30cal.entities.enemies.core.GameEnemy;
 import com.carterz30cal.utils.ParticleUtils;
 import org.bukkit.Particle;
 import org.bukkit.configuration.ConfigurationSection;

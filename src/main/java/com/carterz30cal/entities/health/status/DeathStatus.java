@@ -1,7 +1,8 @@
-package com.carterz30cal.entities.damage;
+package com.carterz30cal.entities.health.status;
 
 import com.carterz30cal.entities.DamageType;
-import com.carterz30cal.entities.enemies.implementation.GameEnemy;
+import com.carterz30cal.entities.enemies.core.GameEnemy;
+import com.carterz30cal.entities.health.damage.handlers.DamageableEntity;
 import com.carterz30cal.utils.EntityUtils;
 import com.carterz30cal.utils.RandomUtils;
 import org.bukkit.ChatColor;
@@ -29,4 +30,9 @@ public class DeathStatus extends AbstractStatus {
 		}
 		
 	}
+
+    @Override
+    public void apply(DamageableEntity entity) {
+
+    }
 }

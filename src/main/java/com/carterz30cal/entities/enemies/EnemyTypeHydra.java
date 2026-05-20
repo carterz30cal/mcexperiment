@@ -1,8 +1,8 @@
 package com.carterz30cal.entities.enemies;
 
 import com.carterz30cal.entities.DamageInfo;
-import com.carterz30cal.entities.EnemyManager;
-import com.carterz30cal.entities.enemies.implementation.GameEnemy;
+import com.carterz30cal.entities.enemies.core.EnemyManager;
+import com.carterz30cal.entities.enemies.core.GameEnemy;
 import com.carterz30cal.entities.player.GamePlayer;
 import com.carterz30cal.utils.EntityUtils;
 import org.bukkit.Location;

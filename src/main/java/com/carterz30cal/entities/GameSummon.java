@@ -1,6 +1,6 @@
 package com.carterz30cal.entities;
 
-import com.carterz30cal.entities.enemies.implementation.GameEnemy;
+import com.carterz30cal.entities.enemies.core.GameEnemy;
 import com.carterz30cal.entities.player.GamePlayer;
 import com.carterz30cal.utils.EntityUtils;
 import com.carterz30cal.utils.ParticleUtils;

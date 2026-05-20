@@ -2,8 +2,12 @@ package com.carterz30cal.areas.bosses.waterway;
 
 import com.carterz30cal.areas.PlayerTeleport;
 import com.carterz30cal.areas.bosses.AbstractAreaBoss;
-import com.carterz30cal.entities.*;
-import com.carterz30cal.entities.enemies.implementation.GameEnemy;
+import com.carterz30cal.entities.DamageInfo;
+import com.carterz30cal.entities.DamageType;
+import com.carterz30cal.entities.GameEntity;
+import com.carterz30cal.entities.GameFloatingItem;
+import com.carterz30cal.entities.enemies.core.EnemyManager;
+import com.carterz30cal.entities.enemies.core.GameEnemy;
 import com.carterz30cal.entities.player.GamePlayer;
 import com.carterz30cal.items.Item;
 import com.carterz30cal.items.ItemFactory;

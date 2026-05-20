@@ -1,6 +1,6 @@
 package com.carterz30cal.items.abilities2.waterway.pets;
 
-import com.carterz30cal.entities.enemies.implementation.GameEnemy;
+import com.carterz30cal.entities.enemies.core.GameEnemy;
 import com.carterz30cal.items.ItemFactory;
 import com.carterz30cal.items.abilities2.implementation.GameAbility;
 import org.jetbrains.annotations.NotNull;

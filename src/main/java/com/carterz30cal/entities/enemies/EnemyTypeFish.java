@@ -1,6 +1,6 @@
 package com.carterz30cal.entities.enemies;
 
-import com.carterz30cal.entities.enemies.implementation.GameEnemy;
+import com.carterz30cal.entities.enemies.core.GameEnemy;
 import com.carterz30cal.fishing.FishingArea;
 import com.carterz30cal.items.ItemRarity;
 import org.bukkit.configuration.ConfigurationSection;

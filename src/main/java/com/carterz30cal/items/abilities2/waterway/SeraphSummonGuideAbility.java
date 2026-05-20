@@ -2,8 +2,8 @@ package com.carterz30cal.items.abilities2.waterway;
 
 import com.carterz30cal.entities.AbstractEnemyType;
 import com.carterz30cal.entities.DamageInfo;
-import com.carterz30cal.entities.EnemyManager;
 import com.carterz30cal.entities.GameSummon;
+import com.carterz30cal.entities.enemies.core.EnemyManager;
 import com.carterz30cal.entities.player.GamePlayer;
 import com.carterz30cal.items.abilities2.implementation.GameAbility;
 import com.carterz30cal.utils.RandomUtils;

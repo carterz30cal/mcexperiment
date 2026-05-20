@@ -1,8 +1,8 @@
 package com.carterz30cal.areas.spawners;
 
 import com.carterz30cal.areas.AbstractGameArea;
-import com.carterz30cal.entities.EnemyManager;
-import com.carterz30cal.entities.enemies.implementation.GameEnemy;
+import com.carterz30cal.entities.enemies.core.EnemyManager;
+import com.carterz30cal.entities.enemies.core.GameEnemy;
 import org.bukkit.Location;
 
 import java.util.ArrayList;

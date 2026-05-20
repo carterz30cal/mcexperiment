@@ -1,9 +1,8 @@
 package com.carterz30cal.dungeoneering;
 
-import org.bukkit.Location;
-
-import com.carterz30cal.entities.EnemyManager;
+import com.carterz30cal.entities.enemies.core.EnemyManager;
 import com.carterz30cal.utils.RandomUtils;
+import org.bukkit.Location;
 
 public class DungeonSpawnLocation {
 	public Location location;

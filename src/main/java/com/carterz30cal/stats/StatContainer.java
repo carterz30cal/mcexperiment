@@ -1,7 +1,7 @@
 package com.carterz30cal.stats;
 
-import com.carterz30cal.entities.damage.StatusEffect;
 import com.carterz30cal.entities.damage.StatusEffects;
+import com.carterz30cal.entities.health.status.StatusEffect;
 
 import java.util.*;
 import java.util.Map.Entry;

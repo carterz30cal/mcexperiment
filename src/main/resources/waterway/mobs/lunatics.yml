@@ -1,31 +1,31 @@
 lunatic_1:
   name: Lunatic
-  type: SIMPLE
   level: 1
   health: 10
   knockback: 100
-  damage: 10
-  damage-type: PHYSICAL
-  display-height: 1.8
-  blood-colour: 250,0,50
-  bestiary-category: waterway_lunatics
-  armour:
-    PHYSICAL: 0
-    PROJECTILE: 0
-    MAGICAL: 0
-    HOLY: 0
-    BLEED: 0
-    FIRE: 0
-    WITHER: 0
-  resistances:
-    BLEED: 15
-  equipment:
-    HAND: WOODEN_SWORD
+  speed: 1
+  always-display-health: false
+  coin-multiplier: 1
+  damage:
+    PHYSICAL: 10
+  stats:
+    ROBUSTNESS: 15
+  entities:
+    _:
+      type: ZOMBIE
+      scale: 1
+      offset: 0,0,0
+      equipment:
+        HAND: WOODEN_SWORD
+  bestiary:
+    category: waterway_lunatics
   tags:
     - LUNATIC
-  drops:
+  loot:
     weird_flesh:
       amount: 2/2
+    water_boots:
+      chance: 1/75
 
 lunatic_2:
   name: Lunatic

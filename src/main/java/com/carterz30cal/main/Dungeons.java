@@ -1,9 +1,9 @@
 package com.carterz30cal.main;
 
 import com.carterz30cal.commands.*;
-import com.carterz30cal.entities.EnemyManager;
 import com.carterz30cal.entities.GameEntity;
 import com.carterz30cal.entities.PlayerManager;
+import com.carterz30cal.entities.enemies.core.EnemyManager;
 import com.carterz30cal.entities.player.GamePlayer;
 import com.carterz30cal.events.*;
 import com.carterz30cal.items.ItemFactory;

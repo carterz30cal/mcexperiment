@@ -1,6 +1,6 @@
 package com.carterz30cal.entities.interactable;
 
-import com.carterz30cal.entities.enemies.implementation.GameEnemy;
+import com.carterz30cal.entities.enemies.core.GameEnemy;
 import com.carterz30cal.entities.player.GamePlayer;
 import org.bukkit.Location;
 import org.bukkit.entity.Entity;

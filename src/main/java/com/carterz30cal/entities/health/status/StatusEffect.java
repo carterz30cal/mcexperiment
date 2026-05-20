@@ -1,12 +1,19 @@
-package com.carterz30cal.entities.damage;
+package com.carterz30cal.entities.health.status;
 
 import com.carterz30cal.entities.DamageType;
 import net.kyori.adventure.text.format.NamedTextColor;
 import net.kyori.adventure.text.format.TextColor;
 
+@SuppressWarnings("UnnecessaryUnicodeEscape")
 public enum StatusEffect 
 {
-	BLEED("Bleed", "BLD", "\u00D7", "RED", 250, 1.1, new DamagingStatus(90, 0.035, DamageType.BLEED)),
+    BLEED("Bleed",
+            "BLD",
+            "\u00D7",
+            "RED",
+            250,
+            1.1,
+            new DamagingStatus(90, 0.035, com.carterz30cal.entities.health.damage.DamageType.BLEED)),
     BURN("Burn", "BRN", "\u00D7", "GOLD", 100, 1.4, new DotStatus(10, 0.005, 4, 7, DamageType.FIRE)),
 	POISON("Poison", "PSN", "\u2620", "GREEN", 1000, 1.2, new DotStatus(5, 0, 20, 2, DamageType.WITHER)),
 	DEATH("Instant Death", "DTH", "\u2620", "WHITE", 10000, 1.04, new DeathStatus()),

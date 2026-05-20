@@ -3,7 +3,7 @@ package com.carterz30cal.areas;
 import com.carterz30cal.areas.bosses.AbstractAreaBoss;
 import com.carterz30cal.areas.spawners.AbstractEnemySpawner;
 import com.carterz30cal.entities.GameEntity;
-import com.carterz30cal.entities.enemies.implementation.GameEnemy;
+import com.carterz30cal.entities.enemies.core.GameEnemy;
 import com.carterz30cal.entities.player.GamePlayer;
 import com.carterz30cal.utils.Box;
 import org.bukkit.Location;
