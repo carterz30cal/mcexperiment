@@ -10,15 +10,22 @@ import org.bukkit.entity.LivingEntity;
 
 import java.util.List;
 
+/**
+ * @author carterz30cal
+ * @version 1
+ * @since 1.0.0
+ */
 public class SimpleTargetingBehaviour implements TargetingBehaviour {
-    private boolean ignoresTargetLimit;
+    private final boolean ignoresTargetLimit;
+    private final GameEnemy owner;
 
-    public SimpleTargetingBehaviour(boolean ignoresTargetLimit) {
+    public SimpleTargetingBehaviour(GameEnemy owner, boolean ignoresTargetLimit) {
         this.ignoresTargetLimit = ignoresTargetLimit;
+        this.owner = owner;
     }
 
     @Override
-    public LivingEntity findTarget(Location location) {
+    public LivingEntity findTarget(GameEnemy owner, Location location) {
         List<GameEnemy> enemies = EntityUtils.getNearbyEnemies(location, 14);
         enemies.removeIf((e) -> !(e instanceof GameSummon));
         if (!enemies.isEmpty()) {
@@ -32,11 +39,10 @@ public class SimpleTargetingBehaviour implements TargetingBehaviour {
                 if (player.targeted.size() >= player.getMaxTargets() && !ignoresTargetLimit) {
                     continue;
                 }
-                player.targeted.add(this);
-                return player;
+                player.targeted.add(owner);
+                return player.player;
             }
             return null;
         }
-        return null;
     }
 }

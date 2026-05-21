@@ -29,6 +29,41 @@ lunatic_1:
 
 lunatic_2:
   name: Lunatic
+  level: 2
+  health: 35
+  knockback: 100
+  speed: 1
+  always-display-health: false
+  coin-multiplier: 1
+  damage:
+    PHYSICAL: 25
+  stats:
+    ROBUSTNESS: 15
+  entities:
+    _:
+      type: ZOMBIE
+      scale: 1
+      offset: 0,0,0
+      equipment:
+        HAND: WOODEN_SWORD
+  bestiary:
+    category: waterway_lunatics
+  tags:
+    - LUNATIC
+  loot:
+    weird_flesh:
+      amount: 3/7
+    water_helmet:
+      chance: 1/75
+    water_chestplate:
+      chance: 1/75
+    water_leggings:
+      chance: 1/75
+    water_boots:
+      chance: 1/75
+
+lunatic_2:
+  name: Lunatic
   type: SIMPLE
   level: 2
   health: 35

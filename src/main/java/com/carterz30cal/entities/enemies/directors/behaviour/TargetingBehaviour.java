@@ -1,5 +1,6 @@
 package com.carterz30cal.entities.enemies.directors.behaviour;
 
+import com.carterz30cal.entities.enemies.core.GameEnemy;
 import org.bukkit.Location;
 import org.bukkit.entity.LivingEntity;
 
@@ -9,5 +10,5 @@ import org.bukkit.entity.LivingEntity;
  * @since 1.0.0
  */
 public interface TargetingBehaviour {
-    LivingEntity findTarget(Location location);
+    LivingEntity findTarget(GameEnemy owner, Location location);
 }

@@ -23,7 +23,7 @@ public class KillEnemySpawner extends SimpleAreaEnemySpawner {
         if (killCount >= killsToSpawn && GetCurrentlyValidToSpawn() && mobs.isEmpty()) {
             killCount = 0;
             GameEnemy enemy = GetValidSpawningOption().Spawn(spawnBox.GetRandomMobLocation());
-            mobs.add(enemy.GetUUID());
+            mobs.add(enemy.getUUID());
         }
     }
 

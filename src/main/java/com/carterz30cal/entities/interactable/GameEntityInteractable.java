@@ -16,12 +16,12 @@ public class GameEntityInteractable extends GameOwnable {
 
     public GameEntityInteractable(EntityType entityType, Location location, String title, String subtitle) {
         super(entityType, location, title, subtitle);
-        entities.put(GetUUID(), this);
+        entities.put(getUUID(), this);
     }
 
     public GameEntityInteractable(String skullProfileId, Location location, String title, String subtitle) {
         super(skullProfileId, location, title, subtitle);
-        entities.put(GetUUID(), this);
+        entities.put(getUUID(), this);
     }
 
     public static GameEntityInteractable GetEntity(Entity entity) {

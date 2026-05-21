@@ -82,7 +82,7 @@ public class SimpleAreaEnemySpawner extends AbstractEnemySpawner {
             int max = GetPlayersWithinValidArea().size() + 2;
             while (mobs.size() < GetMaxMobCount() && max > 0) {
                 GameEnemy enemy = GetValidSpawningOption().Spawn(spawnBox.GetRandomMobLocation());
-                mobs.add(enemy.GetUUID());
+                mobs.add(enemy.getUUID());
                 max--;
             }
             spawnTick = 0;
@@ -93,7 +93,7 @@ public class SimpleAreaEnemySpawner extends AbstractEnemySpawner {
 
     @Override
     public void onAreaKill(GameEnemy killed) {
-        mobs.remove(killed.GetUUID());
+        mobs.remove(killed.getUUID());
         super.onAreaKill(killed);
     }
 

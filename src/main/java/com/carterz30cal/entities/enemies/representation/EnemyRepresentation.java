@@ -1,16 +1,20 @@
 package com.carterz30cal.entities.enemies.representation;
 
+import com.carterz30cal.entities.GameEntity;
 import com.carterz30cal.entities.enemies.core.GameEnemy;
 import com.carterz30cal.main.Dungeons;
 import org.bukkit.Location;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
+import org.bukkit.persistence.PersistentDataType;
 import org.bukkit.util.Vector;
 
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
+
+import static com.carterz30cal.entities.enemies.core.GameEnemy.keyEnemy;
 
 /**
  * @author carterz30cal
@@ -69,6 +73,12 @@ public class EnemyRepresentation {
     public void remove() {
         for (var e : entities.values()) {
             e.remove();
+        }
+    }
+
+    public void register(GameEntity entity) {
+        for (var e : entities.values()) {
+            e.getPersistentDataContainer().set(keyEnemy, PersistentDataType.STRING, entity.getUUID().toString());
         }
     }
 }

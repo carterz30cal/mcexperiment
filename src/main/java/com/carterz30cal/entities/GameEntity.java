@@ -9,6 +9,7 @@ import org.bukkit.persistence.PersistentDataType;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 import java.util.UUID;
 
 public abstract class GameEntity
@@ -48,9 +49,13 @@ public abstract class GameEntity
 		return l.distance(getLocation());
 	}
 
-    public UUID GetUUID() {
-        return uuid;
-    }
+	public static GameEntity get(Entity e)
+	{
+		if (e == null || !e.getPersistentDataContainer().has(GameEnemy.keyEnemy, PersistentDataType.STRING)) return null;
+
+        UUID uuid = UUID.fromString(Objects.requireNonNull(e.getPersistentDataContainer().get(GameEnemy.keyEnemy, PersistentDataType.STRING)));
+		return entities.get(uuid);
+	}
 	
 	protected void register(UUID uuid)
 	{
@@ -62,13 +67,9 @@ public abstract class GameEntity
 		entities.remove(uuid);
 	}
 	
-	public static GameEntity get(Entity e)
-	{
-		if (e == null || !e.getPersistentDataContainer().has(GameEnemy.keyEnemy, PersistentDataType.STRING)) return null;
-		
-		UUID uuid = UUID.fromString(e.getPersistentDataContainer().get(GameEnemy.keyEnemy, PersistentDataType.STRING));
-		return entities.get(uuid);
-	}
+    public UUID getUUID() {
+        return uuid;
+    }
 
     public boolean isTargetable(GameEnemy gameEnemy) {
 		return true;

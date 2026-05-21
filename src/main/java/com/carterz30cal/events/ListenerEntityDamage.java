@@ -422,7 +422,7 @@ public class ListenerEntityDamage implements Listener
 			e.getEntity().remove();
 		}
 		else {
-            e.getEntity().getPersistentDataContainer().set(GameEnemy.keyEnemy, PersistentDataType.STRING, enemy.GetUUID().toString());
+			e.getEntity().getPersistentDataContainer().set(GameEnemy.keyEnemy, PersistentDataType.STRING, enemy.getUUID().toString());
 		}
 	}
 	

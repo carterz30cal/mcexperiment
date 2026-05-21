@@ -17,10 +17,13 @@ public class DamagePacket {
     public final Map<StatusEffect, Long> statusEffects = new HashMap<>();
     public final Map<StatusResistance, Long> statusResistances = new HashMap<>();
     private final List<DamagePacketOperation> operations = new ArrayList<>();
+    public Map<DamageType, Long> damages = new HashMap<>();
     public DamageableEntity defender;
     public AggressiveEntity aggressor;
-    public Map<DamageType, Long> damages;
 
+    public DamagePacket() {
+
+    }
     public DamagePacket(DamageableEntity defender, AggressiveEntity aggressor, long damage) {
         this(defender, aggressor, damage, DamageType.PHYSICAL);
     }
@@ -28,7 +31,6 @@ public class DamagePacket {
     public DamagePacket(DamageableEntity defender, AggressiveEntity aggressor, long damage, DamageType damageType) {
         this.defender = defender;
         this.aggressor = aggressor;
-        this.damages = new HashMap<>();
         this.damages.put(damageType, damage);
         for (var resistance : DamageResistance.values()) {
             this.resistances.put(resistance, defender.getStat(resistance.getResistanceStat()));
@@ -67,7 +69,10 @@ public class DamagePacket {
      * @since 1.0.0
      */
     public double getResistanceMultiplier(DamageType damageType) {
-        var value = resistances.getOrDefault(DamageResistance.getDamageResistance(damageType), 0L);
+        var value = 0L;
+        for (var resistance : DamageResistance.getDamageResistance(damageType)) {
+            value += resistances.get(resistance);
+        }
         if (value >= 0) {
             return value / (value + 100D);
         }

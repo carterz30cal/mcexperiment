@@ -107,7 +107,7 @@ public class GamePlayer extends GameEntity implements DamageableEntity, Aggressi
     public Map<String, Long> kills = new HashMap<>();
 	
 	public long lastXpReward;
-	public int lastCoinReward;
+    public long lastCoinReward;
 	public int rewardTick;
 	
 	public boolean mining;

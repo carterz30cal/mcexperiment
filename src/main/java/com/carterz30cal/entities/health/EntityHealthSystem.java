@@ -28,11 +28,13 @@ public class EntityHealthSystem {
     private long maxHealth;
     private double health;
     private AggressiveEntity lastAttacker;
+    private boolean immune;
 
     public EntityHealthSystem(long maxHealth) {
         this.maxHealth = maxHealth;
         this.health = 1;
         this.damageHandlers = new ArrayList<>();
+        this.immune = false;
     }
 
     public boolean damage(@NotNull DamagePacket damagePacket) {
@@ -111,6 +113,14 @@ public class EntityHealthSystem {
             hologram.text(text().content(String.valueOf(amount)).color(damage.getColour()).build());
         }
 
+    }
+
+    public boolean isImmune() {
+        return immune;
+    }
+
+    public void setImmune(boolean immune) {
+        this.immune = immune;
     }
 
     public long getBuildup(StatusEffect status) {
