@@ -84,7 +84,7 @@ public class EnemyTypeHydra extends EnemyTypeDamageCapped
 		{
 			for (GamePlayer player : EntityUtils.getNearbyPlayers(enemy.getLocation(), lifeDrainRadius))
 			{
-				player.damage(lifeDrain);
+                //player.damage(lifeDrain);
 			}
 			
 			enemy.data.put("life_drain_timer", 0);

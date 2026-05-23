@@ -17,6 +17,7 @@ import java.util.List;
  * @version 1
  * @author carterz30cal
  */
+@Deprecated
 public class ScoreboardWrapper {
 
     public static final int MAX_LINES = 16;
@@ -29,8 +30,7 @@ public class ScoreboardWrapper {
     /**
      * Instantiates a new ScoreboardWrapper with a default title.
      */
-    @SuppressWarnings("deprecation")
-	public ScoreboardWrapper(String title) {
+    public ScoreboardWrapper(String title) {
         scoreboard = Bukkit.getScoreboardManager().getNewScoreboard();
         objective = scoreboard.registerNewObjective(title, "dummy");
         objective.setDisplayName(title);

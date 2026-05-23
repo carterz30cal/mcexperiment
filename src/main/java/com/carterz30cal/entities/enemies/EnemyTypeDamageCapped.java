@@ -8,6 +8,7 @@ import org.bukkit.configuration.ConfigurationSection;
 import java.util.HashMap;
 import java.util.Map;
 
+@Deprecated
 public class EnemyTypeDamageCapped extends EnemyTypeSimple 
 {
 	public static Map<GameEnemy, Map<GamePlayer, Integer>> overkills = new HashMap<>();

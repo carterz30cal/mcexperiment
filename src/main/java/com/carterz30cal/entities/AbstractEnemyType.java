@@ -17,6 +17,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+@Deprecated
 public abstract class AbstractEnemyType implements Cloneable
 {
 	public static Map<String, AbstractEnemyType> types = new HashMap<>();

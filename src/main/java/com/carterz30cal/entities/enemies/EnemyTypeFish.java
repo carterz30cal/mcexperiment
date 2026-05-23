@@ -9,6 +9,7 @@ import org.bukkit.inventory.EquipmentSlot;
 import java.util.HashMap;
 import java.util.Map;
 
+@Deprecated
 public class EnemyTypeFish extends EnemyTypeSimple
 {
 	public Map<EquipmentSlot, String> equipment = new HashMap<>();

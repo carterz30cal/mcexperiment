@@ -9,6 +9,7 @@ import org.bukkit.configuration.ConfigurationSection;
 import java.util.HashSet;
 import java.util.Set;
 
+@Deprecated
 public class EnemyTypeSeraph extends EnemyTypeDamageCapped
 {
     public int bonusHealthPerPlayer;

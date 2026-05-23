@@ -1,10 +1,11 @@
 package com.carterz30cal.entities;
 
+import org.bukkit.configuration.ConfigurationSection;
+
 import java.util.HashMap;
 import java.util.Map;
 
-import org.bukkit.configuration.ConfigurationSection;
-
+@Deprecated
 public class EntityArmour
 {
 	public Map<DamageType, Integer> armour = new HashMap<>();

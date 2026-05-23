@@ -4,7 +4,9 @@ import com.carterz30cal.entities.enemies.*;
 import org.bukkit.configuration.ConfigurationSection;
 
 import java.lang.reflect.InvocationTargetException;
-public enum EnemyTypes 
+
+@Deprecated
+public enum EnemyTypes
 {
 	SIMPLE(EnemyTypeSimple.class),
     CAPPED(EnemyTypeDamageCapped.class),

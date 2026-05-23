@@ -20,6 +20,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
 
+@Deprecated
 public class EnemyTypeSimple extends AbstractEnemyType
 {
 	public static final NamespacedKey KEY_SPEED = new NamespacedKey(Dungeons.instance, "speed");
