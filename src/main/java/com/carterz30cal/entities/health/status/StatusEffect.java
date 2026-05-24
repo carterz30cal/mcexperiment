@@ -1,9 +1,16 @@
 package com.carterz30cal.entities.health.status;
 
-import com.carterz30cal.entities.DamageType;
+import com.carterz30cal.entities.health.damage.DamageType;
 import net.kyori.adventure.text.format.NamedTextColor;
 import net.kyori.adventure.text.format.TextColor;
 
+import java.util.Objects;
+
+/**
+ * @author carterz30cal
+ * @version 2
+ * @since 1.0.0
+ */
 @SuppressWarnings("UnnecessaryUnicodeEscape")
 public enum StatusEffect 
 {
@@ -13,11 +20,11 @@ public enum StatusEffect
             "RED",
             250,
             1.1,
-            new DamagingStatus(90, 0.035, com.carterz30cal.entities.health.damage.DamageType.BLEED)),
-    BURN("Burn", "BRN", "\u00D7", "GOLD", 100, 1.4, new DotStatus(10, 0.005, 4, 7, DamageType.FIRE)),
-	POISON("Poison", "PSN", "\u2620", "GREEN", 1000, 1.2, new DotStatus(5, 0, 20, 2, DamageType.WITHER)),
-	DEATH("Instant Death", "DTH", "\u2620", "WHITE", 10000, 1.04, new DeathStatus()),
-	DECAY("Decay", "DCY", "\u2620", "YELLOW", 400, 1.2, new DamagingStatus(300, 0.008, DamageType.HOLY))
+            new DamagingStatus(90, 0.035, DamageType.BLEED)),
+//    BURN("Burn", "BRN", "\u00D7", "GOLD", 100, 1.4, new DotStatus(10, 0.005, 4, 7, DamageType.FIRE)),
+//	POISON("Poison", "PSN", "\u2620", "GREEN", 1000, 1.2, new DotStatus(5, 0, 20, 2, DamageType.WITHER)),
+//	DEATH("Instant Death", "DTH", "\u2620", "WHITE", 10000, 1.04, new DeathStatus()),
+//	DECAY("Decay", "DCY", "\u2620", "YELLOW", 400, 1.2, new DamagingStatus(300, 0.008, DamageType.HOLY))
 	;
 
     public final String name;
@@ -33,17 +40,9 @@ public enum StatusEffect
 		this.shortName = shortName;
 		this.symbol = symbol;
 		this.colour = colour;
-        this.textColour = TextColor.color(NamedTextColor.NAMES.value(colour.toLowerCase()));
+        this.textColour = TextColor.color(Objects.requireNonNull(NamedTextColor.NAMES.value(colour.toLowerCase())));
 		this.defaultResistance = defaultResistance;
 		this.resistanceMultiplier = resistanceMultiplier;
 		this.effect = effect;
-	}
-	
-	public String getLoreName() {
-		return colour + name + symbol;
-	}
-	
-	public String getEnemyDisplayName() {
-		return colour + shortName;
 	}
 }

@@ -3,11 +3,13 @@ package com.carterz30cal.entities.health;
 import com.carterz30cal.entities.health.damage.DamagePacket;
 import com.carterz30cal.entities.health.damage.handlers.AggressiveEntity;
 import com.carterz30cal.entities.health.damage.handlers.DamageHandler;
-import com.carterz30cal.entities.health.damage.handlers.DamageModifier;
 import com.carterz30cal.entities.health.status.StatusEffect;
 import com.carterz30cal.entities.player.GamePlayer;
+import com.carterz30cal.items.abilities2.implementation.AbilityWithDefend;
+import com.carterz30cal.items.abilities2.implementation.AggressiveAbility;
 import com.carterz30cal.utils.EntityUtils;
 import com.carterz30cal.utils.RandomUtils;
+import org.bukkit.entity.Display;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.*;
@@ -41,16 +43,24 @@ public class EntityHealthSystem {
         if (damagePacket.defender == null) {
             throw new IllegalStateException("A damagePacket must have a defender!");
         }
-        List<DamageModifier> damageModifiers = new ArrayList<>();
         if (damagePacket.aggressor != null) {
             lastAttacker = damagePacket.aggressor;
             attackers.add(damagePacket.aggressor);
-            damageModifiers.addAll(damagePacket.aggressor.getAggressiveDamageModifiers());
+
+            for (var context : damagePacket.aggressor.getAggressiveDamageModifiers()) {
+                if (!(context.getAbility() instanceof AggressiveAbility aggressiveAbility)) {
+                    continue;
+                }
+                aggressiveAbility.damage(context, damagePacket);
+            }
         }
-        damageModifiers.addAll(damagePacket.defender.getDefensiveDamageModifiers());
-        for (var modifier : damageModifiers) {
-            modifier.modifyDamagePacket(damagePacket);
+        for (var context : damagePacket.defender.getDefensiveDamageModifiers()) {
+            if (!(context.getAbility() instanceof AbilityWithDefend defendAbility)) {
+                continue;
+            }
+            defendAbility.defend(context, damagePacket);
         }
+        damagePacket.settle();
         long total = 0;
         for (var damage : damagePacket.damages.keySet()) {
             total += Math.round(damagePacket.damages.get(damage)
@@ -97,19 +107,19 @@ public class EntityHealthSystem {
     }
 
     private void displayDamageHolograms(@NotNull DamagePacket damagePacket) {
-
-        var vector = damagePacket.defender.getLocation().clone().subtract(damagePacket.aggressor.getLocation()).multiply(0.3);
+        var vector = damagePacket.defender.getLocation().clone().add(0, 0, 0).subtract(damagePacket.aggressor.getLocation()).multiply(-0.3);
         for (var damage : damagePacket.damages.keySet()) {
-            var location = RandomUtils.getRandomInCircle(damagePacket.defender.getLocation().clone().add(vector), 0.1, 0.3);
+            var location = RandomUtils.getRandomInCircle(damagePacket.defender.getLocation().clone().add(vector).add(0, 1, 0), 0.2, 0.4);
             var amount = damagePacket.damages.getOrDefault(damage, 0L);
             if (amount <= 0) {
                 continue;
             }
 
-            var hologram = EntityUtils.spawnTextHologram(location, 30);
+            var hologram = EntityUtils.spawnTextHologram(location, 20);
             if (hologram == null) {
                 continue;
             }
+            hologram.setBillboard(Display.Billboard.CENTER);
             hologram.text(text().content(String.valueOf(amount)).color(damage.getColour()).build());
         }
 
@@ -184,7 +194,7 @@ public class EntityHealthSystem {
     }
 
     public long getHealth() {
-        return Math.round(health / maxHealth);
+        return Math.round(health * maxHealth);
     }
 
     public double getHealthPercentage() {

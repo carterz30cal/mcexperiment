@@ -87,7 +87,7 @@ public class SimpleAreaEnemySpawner extends AbstractEnemySpawner {
             }
             spawnTick = 0;
         }
-        mobs.removeIf((e) -> GameEntity.entities.get(e).dead);
+        mobs.removeIf((e) -> !GameEntity.entities.containsKey(e) || GameEntity.entities.get(e).dead);
         super.tick();
     }
 

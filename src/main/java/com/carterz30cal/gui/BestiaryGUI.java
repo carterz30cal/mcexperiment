@@ -119,7 +119,7 @@ public class BestiaryGUI extends AbstractGUI {
 
     private ItemStack generateBestiaryEntry(String mid) {
         AbstractEnemyType type = EnemyManager.getType(mid);
-        long kills = owner.GetKills(mid);
+        long kills = owner.getKills(mid);
         String name = "<white>[" + type.level + "] " + type.name;
         List<String> lore = new ArrayList<>();
         if (kills == 1) {

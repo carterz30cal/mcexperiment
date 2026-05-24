@@ -1,43 +1,34 @@
 package com.carterz30cal.events;
 
-import com.carterz30cal.entities.DamageInfo;
-import com.carterz30cal.entities.DamageType;
 import com.carterz30cal.entities.GameEntity;
-import com.carterz30cal.entities.GameSummon;
-import com.carterz30cal.entities.enemies.EnemyTypeDamageCapped;
 import com.carterz30cal.entities.enemies.core.GameEnemy;
-import com.carterz30cal.entities.health.status.StatusEffect;
+import com.carterz30cal.entities.health.damage.AttackType;
+import com.carterz30cal.entities.health.damage.DamagePacket;
+import com.carterz30cal.entities.health.damage.handlers.AggressiveEntity;
+import com.carterz30cal.entities.health.damage.handlers.DamageableEntity;
 import com.carterz30cal.entities.player.GamePlayer;
-import com.carterz30cal.items.Item;
-import com.carterz30cal.items.ItemFactory;
-import com.carterz30cal.items.ItemType;
+import com.carterz30cal.entities.player.GameProjectile;
 import com.carterz30cal.main.Dungeons;
 import com.carterz30cal.stats.Stat;
 import com.carterz30cal.utils.EntityUtils;
 import com.carterz30cal.utils.MathsUtils;
 import com.carterz30cal.utils.ParticleUtils;
 import com.carterz30cal.utils.RandomUtils;
+import org.bukkit.Color;
 import org.bukkit.Location;
 import org.bukkit.Particle;
 import org.bukkit.Sound;
-import org.bukkit.damage.DamageSource;
 import org.bukkit.entity.*;
 import org.bukkit.entity.AbstractArrow.PickupStatus;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.*;
-import org.bukkit.event.entity.EntityDamageEvent.DamageCause;
 import org.bukkit.event.entity.EntityRegainHealthEvent.RegainReason;
-import org.bukkit.inventory.ItemStack;
 import org.bukkit.persistence.PersistentDataType;
 import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.util.Vector;
-import org.jetbrains.annotations.Nullable;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Objects;
+import static org.bukkit.event.entity.EntityDamageEvent.DamageCause.ENTITY_SWEEP_ATTACK;
 
 public class ListenerEntityDamage implements Listener
 {
@@ -54,172 +45,93 @@ public class ListenerEntityDamage implements Listener
 		GameEntity damaged = GameEntity.get(e.getEntity());
 		
 		if (damaged == null || damager == null) return;
-		if (damager instanceof GamePlayer)
-		{
-			GamePlayer player = (GamePlayer)damager;
-			//GameEnemy enemy = (GameEnemy)damaged;
-			GameEntity enemy = damaged;
-			
-			ItemStack main = player.getMainItem();
-			Item item = ItemFactory.getItem(main);
-			
-			DamageInfo info = new DamageInfo();
-			e.setCancelled(true);
-			
-			
-			
-			var abilities = new ArrayList<>(player.abilities);
-			if (e.getDamager() instanceof AbstractArrow)
-			{
-				String arrowType = e.getDamager().getPersistentDataContainer().getOrDefault(GameEnemy.keyArrowType, PersistentDataType.STRING, "arrow");
-				
-				Item arrow = ItemFactory.getItem(arrowType);
-				abilities.addAll(ItemFactory.getItemAbilities(arrow));
-				arrow.stats.pushIntoContainer(player.stats);
-				
-				e.getDamager().remove();
-			}
-			else if (player.attackTick > 0) return;
-			
-			player.attackTick = 4;
-			info.defender = damaged;
-			info.attacker = player;
-			info.main = true;
-            info.damage = 1;
-
-            if (item == null) {
-				info.type = DamageType.PHYSICAL;
-			}
-			else
-			{
-				info.type = item.type.damageType;
-				
-				
-				for (var a : abilities) a.ability.onPreAttack(a, info);
-				player.stats.executeOperations();
-				
-				if (e.getDamager() instanceof Player && info.type == DamageType.PROJECTILE || item.type == ItemType.TOME) info.damage = 1;
-				else
-				{
-					double multiplier = ((100 + player.stats.getStat(Stat.STRENGTH))/100D) * ((100 + player.stats.getStat(Stat.POWER))/100D)
-							* ((100 + player.stats.getStat(Stat.MIGHT))/100D);
-
-                    info.damage = (int) Math.round(player.stats.getStat(Stat.DAMAGE) * multiplier);
-				}
-                if (info.damage < 1) {
-                    info.damage = 1;
-                }
-			}
-			
-			for (var a : abilities)
-			{
-                a.ability.onAttack(a, info, damaged);
-				a.ability.onLeftClick(a);
-			}
-			player.stats.executeOperations();
-			
-			int hits = player.stats.getStat(Stat.SAVAGERY) / 100;
-			int cha = player.stats.getStat(Stat.SAVAGERY) % 100;
-			if (RandomUtils.getRandom(1, 100) <= cha) hits++;
-			
-			final int post = hits + 1;
-			
-			new BukkitRunnable()
-			{
-				int h = post;
-				@Override
-				public void run() {
-					if (damaged.getHealth() == 0 || damaged.dead || info.damage == 0) 
-					{
-						cancel();
-						return;
-					}
-					if (damaged instanceof GameEnemy) {
-						((GameEnemy)damaged).lastDamager = player;
-						for (StatusEffect effect : player.stats.statuses.effects.keySet()) {
-							int value = player.stats.statuses.getStatus(effect);
-							for (var ab : abilities) {
-								value = ab.ability.onStatusBuildup(ab, effect, value);
-							}
-							
-							((GameEnemy) damaged).applyStatusEffect(effect, value);
-						}
-					}
-					
-					damaged.damage(info);
-					info.damage *= 0.85;
-					if (h != post)
-					{
-						int deg;
-						if (RandomUtils.getRandom(1, 2) == 1) deg = RandomUtils.getRandom(30, 150);
-						else deg = RandomUtils.getRandom(360-150, 360-30);
-						
-						int degOffset = RandomUtils.getRandom(160, 200);
-						
-						Vector dis = damager.getLocation().subtract(damaged.getLocation()).toVector().normalize();
-						dis.setY(0);
-						
-						
-						Vector rot = dis.clone().rotateAroundY(Math.toRadians(90));
-						dis = dis.multiply(0.75);
-						Location p1 = damaged.getLocation().add(0, enemy.getHeight() / 2, 0);
-						p1 = p1
-								.add(dis)
-								.add(rot.getX() * MathsUtils.getCircleX(deg), MathsUtils.getCircleZ(deg) * 0.9, rot.getZ() * MathsUtils.getCircleX(deg));
-						Location p2 = damaged.getLocation().add(0, enemy.getHeight() / 2, 0);
-						p2 = p2
-								.add(dis)
-								.add(rot.getX() * MathsUtils.getCircleX(deg + degOffset), MathsUtils.getCircleZ(deg + degOffset) * 0.9, rot.getZ() * MathsUtils.getCircleX(deg + degOffset));
-						
-						ParticleUtils.spawnLine(p1, p2, new Particle.DustOptions(enemy.getBloodColour(), 0.8F), 11);
-                        player.playSound(Sound.ENTITY_PLAYER_ATTACK_CRIT, 0.65, 0.7);
-					}
-					
-					h--;
-					if (h == 0) cancel();
-				}
-				
-			}.runTaskTimer(Dungeons.instance, 0, 3);
-			
-			
-		}
-		else if (damager instanceof GameSummon) {
-			if (damaged instanceof GamePlayer) {
-				e.setCancelled(true);
-			} else {
-				GameEnemy enemy = (GameEnemy)damager;
-				e.setDamage(0);
-
-				DamageInfo info = enemy.getAttack();
-				info.attacker = ((GameSummon)damager).getOwner();
-				info.indirect = true;
-				damaged.damage(info);
-			}
-		}
-		else if (damager instanceof GameEnemy)
-		{
-			GameEnemy enemy = (GameEnemy)damager;
-
-
-            if (damaged instanceof GamePlayer) {
-                GamePlayer damagedPlayer = (GamePlayer) damaged;
-                damagedPlayer.lastDamager = enemy;
-                if (!damagedPlayer.IsOnInvulnerableCooldown()) {
-                    damaged.damage(enemy.getAttack());
-                    damagedPlayer.SetOnInvulnerableCooldown();
-                }
-            }
-            else {
-                damaged.damage(enemy.getAttack());
-            }
-			e.setDamage(0);
-
+        if (!(damager instanceof AggressiveEntity aggressor) || !(damaged instanceof DamageableEntity victim)) {
+            return;
         }
-		
-		
-	}
+        if (!victim.isDamageable(aggressor) || e.getCause() == ENTITY_SWEEP_ATTACK) {
+            e.setCancelled(true);
+            return;
+        }
+        e.setCancelled(true);
+        handleEntityDamageEntity(victim, aggressor);
+    }
 
-	@EventHandler
+    private void handleEntityDamageEntity(DamageableEntity victim, AggressiveEntity aggressor) {
+        var packet = aggressor.getBlankDamagePacket();
+        packet.defender = victim;
+        aggressor.attack();
+        victim.damage(packet);
+        long hits = packet.aggressor.getStat(Stat.SAVAGERY) / 100;
+        long cha = packet.aggressor.getStat(Stat.SAVAGERY) % 100;
+        if (RandomUtils.getRandom(1, 100) <= cha) {
+            hits++;
+        }
+        final long post = hits;
+        if (post > 0) {
+            new BukkitRunnable() {
+                long h = post;
+
+                @Override
+                public void run() {
+                    if (!packet.isValid()) {
+                        cancel();
+                        return;
+                    }
+                    packet.multiply(0.8D);
+                    victim.damage(packet);
+//                    if (damaged instanceof GameEnemy) {
+//                        ((GameEnemy)damaged).lastDamager = player;
+//                        for (StatusEffect effect : player.stats.statuses.effects.keySet()) {
+//                            int value = player.stats.statuses.getStatus(effect);
+//                            for (var ab : abilities) {
+//                                value = ab.ability.onStatusBuildup(ab, effect, value);
+//                            }
+//
+//                            ((GameEnemy) damaged).applyStatusEffect(effect, value);
+//                        }
+//                    }
+
+                    int deg;
+                    if (RandomUtils.getRandom(1, 2) == 1) {
+                        deg = RandomUtils.getRandom(30, 150);
+                    }
+                    else {
+                        deg = RandomUtils.getRandom(360 - 150, 360 - 30);
+                    }
+
+                    int degOffset = RandomUtils.getRandom(160, 200);
+
+                    Vector dis = aggressor.getLocation().subtract(victim.getLocation()).toVector().normalize();
+                    dis.setY(0);
+
+
+                    Vector rot = dis.clone().rotateAroundY(Math.toRadians(90));
+                    dis = dis.multiply(0.75);
+                    Location p1 = victim.getLocation().add(0, 1, 0);
+                    p1 = p1
+                            .add(dis)
+                            .add(rot.getX() * MathsUtils.getCircleX(deg), MathsUtils.getCircleZ(deg) * 0.9, rot.getZ() * MathsUtils.getCircleX(deg));
+                    Location p2 = victim.getLocation().add(0, 1, 0);
+                    p2 = p2
+                            .add(dis)
+                            .add(rot.getX() * MathsUtils.getCircleX(deg + degOffset), MathsUtils.getCircleZ(deg + degOffset) * 0.9, rot.getZ() * MathsUtils.getCircleX(deg + degOffset));
+
+                    ParticleUtils.spawnLine(p1, p2, new Particle.DustOptions(Color.RED, 0.8F), 11);
+                    if (packet.aggressor instanceof GamePlayer player) {
+                        player.playSound(Sound.ENTITY_PLAYER_ATTACK_CRIT, 0.65, 0.7);
+                    }
+
+                    h--;
+                    if (h == 0) {
+                        cancel();
+                    }
+                }
+
+            }.runTaskTimer(Dungeons.instance, 3, 3);
+        }
+    }
+
+    @EventHandler
 	public void onEntityCombust(EntityCombustEvent e) {
 		e.setCancelled(true);
 	}
@@ -227,16 +139,17 @@ public class ListenerEntityDamage implements Listener
     @EventHandler
     public void onEntityPrime(ExplosionPrimeEvent e) {
         GameEntity entity = GameEntity.get(e.getEntity());
-        if (entity instanceof GameEnemy) {
-            List<GameEntity> entities = new ArrayList<>(EntityUtils.getNearbyEnemies(entity.getLocation(), 4.5));
-            entities.removeIf((b) -> !(b instanceof GameSummon));
-            entities.addAll(EntityUtils.getNearbyPlayers(entity.getLocation(), 4.5));
-            for (var ent : entities) {
-                ent.damage(((GameEnemy) entity).getAttack());
+        if (entity instanceof AggressiveEntity aggressor) {
+            var entities = EntityUtils.getNearbyEntities(aggressor.getLocation(), 4.5);
+            entities.removeIf((b) -> !(b instanceof DamageableEntity damageable) || !damageable.isDamageable(aggressor));
+            for (var v : entities) {
+                var victim = (DamageableEntity) v;
+                handleEntityDamageEntity(victim, aggressor);
             }
-            ((GameEnemy) entity).kill();
-            ((GameEnemy) entity).getMain().remove();
-            Dungeons.w.createExplosion(entity.getLocation(), 4.5F, false, false);
+            if (aggressor instanceof DamageableEntity body) {
+                body.kill();
+            }
+            Dungeons.w.createExplosion(aggressor.getLocation(), 4.5F, false, false);
         }
         e.setCancelled(true);
     }
@@ -245,15 +158,15 @@ public class ListenerEntityDamage implements Listener
 	public void onEntityExplode(EntityExplodeEvent e)
 	{
         if (e.getEntity() instanceof BreezeWindCharge) {
-            GameEnemy owner = (GameEnemy) GameEntity.get(e.getEntity());
-            if (owner == null) {
-                return;
+            var p = GameEntity.get(e.getEntity());
+            if (p instanceof AggressiveEntity projectile) {
+                var entities = EntityUtils.getNearbyDamageableEntities(projectile.getLocation(), 2.5);
+                for (var victim : entities) {
+                    handleEntityDamageEntity(victim, projectile);
+                }
             }
-            List<GameEntity> entities = new ArrayList<>();
-            entities.addAll(EntityUtils.getNearbyEnemies(e.getLocation(), 2.5));
-            entities.addAll(EntityUtils.getNearbyPlayers(e.getLocation(), 2.5));
-            for (var entity : entities) {
-                entity.damage(owner.getAttack());
+            else {
+                e.setCancelled(true);
             }
         }
         else {
@@ -265,63 +178,44 @@ public class ListenerEntityDamage implements Listener
 	@EventHandler
 	public void onProjectileHit(ProjectileHitEvent e)
 	{
-        if (e.getEntity() instanceof AbstractArrow ar)
-		{
-            ar.setPickupStatus(PickupStatus.DISALLOWED);
+        var projectile = GameEntity.get(e.getEntity());
+        if (projectile instanceof GameProjectile gameProjectile) {
+            if (e.getEntity() instanceof AbstractArrow ar) {
+                ar.setPickupStatus(PickupStatus.DISALLOWED);
 
-			if (e.getHitEntity() != null && e.getHitEntity().getType() == EntityType.ENDERMAN)
-			{
-                var event = new EntityDamageByEntityEvent(
-                        (Entity) Objects.requireNonNull(ar.getShooter()),
-                        e.getHitEntity(),
-                        DamageCause.ENTITY_ATTACK,
-                        DamageSource.builder(org.bukkit.damage.DamageType.ARROW).build(),
-                        new HashMap<>(),
-                        new HashMap<EntityDamageEvent.DamageModifier, DiscardDamageModifier>(),
-                        false
-                );
-                onEntityDamageEntity(event);
+                if (e.getHitEntity() != null && e.getHitEntity().getType() == EntityType.ENDERMAN) {
+                    var v = GameEntity.get(e.getHitEntity());
+                    if (v instanceof DamageableEntity victim) {
+                        handleEntityDamageEntity(victim, gameProjectile);
+                    }
+                }
 
-				e.getEntity().remove();
-			}
+                if (e.getHitBlock() != null) {
+                    new BukkitRunnable() {
 
+                        @Override
+                        public void run() {
+                            // TODO Auto-generated method stub
+                            projectile.remove();
+                        }
 
-			if (e.getHitBlock() != null)
-			{
-				new BukkitRunnable()
-				{
-
-					@Override
-					public void run() {
-						// TODO Auto-generated method stub
-						e.getEntity().remove();
-					}
-
-				}.runTaskLater(Dungeons.instance, 20);
-			}
-		}
-        else if (e.getEntity() instanceof FishHook hook)
-		{
-            if (e.getHitEntity() != null)
-			{
-				GameEntity entity = GameEntity.get(e.getHitEntity());
-				if (entity instanceof GameEnemy)
-				{
-                    var event = new EntityDamageByEntityEvent(
-                            (Entity) Objects.requireNonNull(hook.getShooter()),
-                            e.getHitEntity(),
-                            DamageCause.ENTITY_ATTACK,
-                            DamageSource.builder(org.bukkit.damage.DamageType.PLAYER_ATTACK).build(),
-                            new HashMap<>(),
-                            new HashMap<EntityDamageEvent.DamageModifier, DiscardDamageModifier>(),
-                            false
-                    );
-                    onEntityDamageEntity(event);
-
-					e.getEntity().remove();
-				}
-			}
-		}
+                    }.runTaskLater(Dungeons.instance, 20);
+                }
+            }
+        }
+        else if (e.getEntity() instanceof FishHook hook) {
+            if (hook.getOwnerUniqueId() == null) {
+                return;
+            }
+            if (e.getHitEntity() != null) {
+                var player = (GamePlayer) GameEntity.get(hook.getOwnerUniqueId());
+                GameEntity entity = GameEntity.get(e.getHitEntity());
+                if (entity instanceof DamageableEntity victim) {
+                    handleEntityDamageEntity(victim, player);
+                }
+                e.getEntity().remove();
+            }
+        }
 
 		e.setCancelled(false);
 	}
@@ -330,75 +224,39 @@ public class ListenerEntityDamage implements Listener
 	public void onEntityDamage(EntityDamageEvent e)
 	{
 		GameEntity entity = GameEntity.get(e.getEntity());
-
-		if (entity instanceof GamePlayer)
-		{
-			GamePlayer player = (GamePlayer)entity;
-			switch (e.getCause())
-			{
-			case CUSTOM:
-			case SUICIDE:
-			case ENTITY_ATTACK:
-				return;
-			case FALL:
-				int damage = (int)(player.player.getFallDistance() * player.player.getFallDistance() * 0.09);
-				player.damage(damage);
-				e.setCancelled(true);
-				break;
-			case VOID:
-				player.kill();
-			default:
-				e.setCancelled(true);
-			}
-		}
-        else if (entity instanceof GameEnemy enemy)
-		{
-            switch (e.getCause()) {
-                case CUSTOM:
-                case ENTITY_ATTACK:
-                    break;
-                case DROWNING:
-                    if (RandomUtils.getRandom(1, 5) == 1) {
-                        DamageInfo info = new DamageInfo();
-                        info.type = DamageType.FROST;
-                        info.damage = 25;
-                        enemy.damage(info);
-                    }
-                    e.setCancelled(true);
-                    break;
-                case VOID:
-                case WORLD_BORDER:
-                case SUICIDE:
-                    if (enemy.type instanceof EnemyTypeDamageCapped) {
-                        enemy.remove();
-                    }
-                    else {
-                        enemy.kill();
-                    }
-                    break;
-                case FALL:
-                default:
-                    e.setCancelled(true);
-            }
-		}
-
-
-	}
-	
-    private static class DiscardDamageModifier implements com.google.common.base.Function<Double, Double> {
-
-        @Override
-        public Double apply(Double aDouble) {
-            return 1.0;
+        if (!(entity instanceof DamageableEntity victim)) {
+            return;
         }
+        e.setCancelled(true);
 
-        @Override
-        public boolean equals(@Nullable Object object) {
-            return false;
+        DamagePacket packet = new DamagePacket();
+        packet.aggressor = null;
+        packet.defender = victim;
+        packet.attack = AttackType.ENVIRONMENT;
+        switch (e.getCause()) {
+            case KILL:
+            case VOID:
+                victim.kill();
+                break;
+            case FALL:
+                if (e.getEntity().getFallDistance() < 5) {
+                    break;
+                }
+                long fallDamage = Math.round(e.getEntity().getFallDistance() * e.getEntity().getFallDistance() * 0.15);
+                packet.addDamage(com.carterz30cal.entities.health.damage.DamageType.FALL, fallDamage);
+                e.setCancelled(false);
+                e.setDamage(1);
+                break;
+            case DROWNING:
+                packet.addDamage(com.carterz30cal.entities.health.damage.DamageType.SUFFOCATION, 5);
+                break;
+            default:
+                break;
         }
+        victim.damage(packet);
     }
-	
-	@EventHandler
+
+    @EventHandler
 	public void onEntityTransform(EntityTransformEvent e)
 	{
 		e.setCancelled(true);
@@ -413,6 +271,9 @@ public class ListenerEntityDamage implements Listener
 	@EventHandler
 	public void onEntityLaunch(ProjectileLaunchEvent e) {
 		Entity shooter = (Entity)e.getEntity().getShooter();
+        if (e.getEntity() instanceof AbstractArrow arrow) {
+            arrow.setPickupStatus(PickupStatus.DISALLOWED);
+        }
 		if (shooter instanceof Player) return;
 		
 		GameEnemy enemy = (GameEnemy)GameEnemy.get(shooter);
@@ -430,7 +291,7 @@ public class ListenerEntityDamage implements Listener
 	@EventHandler
 	public void onEntityTeleport(EntityTeleportEvent e)
 	{
-		e.setCancelled(true);
+        e.setCancelled(false);
 	}
 	
 	@EventHandler

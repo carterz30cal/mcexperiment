@@ -228,8 +228,8 @@ public class ForgeGUI extends AbstractGUI
             builder.append(" <dark_grey>x");
             builder.append(rec.items.get(recipeIngredient));
             if (ingredient.type == ItemType.INGREDIENT) {
-                int sack = owner.sack.getOrDefault(recipeIngredient, 0);
-                int total = sack;
+                long sack = owner.sack.getOrDefault(recipeIngredient, 0L);
+                long total = sack;
                 for (var checking : owner.player.getInventory().getContents()) {
                     var check = ItemFactory.getItem(checking);
                     if (check == null || !check.id.equals(recipeIngredient)) {

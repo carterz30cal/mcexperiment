@@ -2,9 +2,8 @@ package com.carterz30cal.entities.enemies.core;
 
 import com.carterz30cal.areas.AbstractGameArea;
 import com.carterz30cal.entities.AbstractEnemyType;
-import com.carterz30cal.entities.DamageInfo;
-import com.carterz30cal.entities.DamageType;
 import com.carterz30cal.entities.GameEntity;
+import com.carterz30cal.entities.TagHavingEntity;
 import com.carterz30cal.entities.damage.StatusEffects;
 import com.carterz30cal.entities.enemies.directors.EnemyDirector;
 import com.carterz30cal.entities.enemies.representation.EnemyInformationDisplay;
@@ -12,13 +11,13 @@ import com.carterz30cal.entities.enemies.representation.EnemyRepresentation;
 import com.carterz30cal.entities.health.EntityHealthSystem;
 import com.carterz30cal.entities.health.damage.DamagePacket;
 import com.carterz30cal.entities.health.damage.handlers.AggressiveEntity;
-import com.carterz30cal.entities.health.damage.handlers.DamageModifier;
 import com.carterz30cal.entities.health.damage.handlers.DamageableEntity;
 import com.carterz30cal.entities.health.status.StatusEffect;
 import com.carterz30cal.entities.player.GamePlayer;
+import com.carterz30cal.items.abilities2.implementation.AbilityWithKillEffect;
+import com.carterz30cal.items.abilities2.implementation.ContextWithAbility;
 import com.carterz30cal.main.Dungeons;
 import com.carterz30cal.stats.Stat;
-import com.carterz30cal.utils.LevelUtils;
 import com.carterz30cal.utils.StringUtils;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
@@ -32,57 +31,76 @@ import org.bukkit.entity.Mob;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.scheduler.BukkitRunnable;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.*;
 
 import static net.kyori.adventure.text.Component.text;
 
+/**
+ * @author carterz30cal
+ * @version 3
+ * @since 1.0.0
+ */
 @SuppressWarnings("UnnecessaryUnicodeEscape")
-public class GameEnemy extends GameEntity implements AggressiveEntity, DamageableEntity
+public class GameEnemy extends GameEntity implements AggressiveEntity, DamageableEntity, TagHavingEntity
 {
 	public static NamespacedKey keyEnemy = new NamespacedKey(Dungeons.instance, "keyEnemy");
-	public static NamespacedKey keyArrowType = new NamespacedKey(Dungeons.instance, "keyArrowType");
 
     private final BukkitRunnable ticker;
-    private EnemyRepresentation representation;
-    private EntityHealthSystem healthSystem;
-    private EnemyDirector enemyDirector;
-    private EnemyData enemyData;
-    private EnemyInformationDisplay enemyInformationDisplay;
-
-
+    @Deprecated
 	public AbstractEnemyType type;
-	
+    @Deprecated
 	public Entity main;
+    @Deprecated
 	public List<Entity> parts = new ArrayList<>();
-
-
+    @Deprecated
     public Mob director;
-
-	protected ArmorStand display;
-	
-	protected ArmorStand displayName;
-	protected ArmorStand displayHealth;
-	protected ArmorStand displayStatuses;
-	
+    @Deprecated
 	public GameEntity target;
-	
+    @Deprecated
 	public GamePlayer lastDamager;
-	public int timesHit;
-	
+    @Deprecated
 	public StatusEffects statuses;
+    @Deprecated
 	public StatusEffects resistances;
-	
+    @Deprecated
 	public Map<String, Object> data = new HashMap<>();
+    protected EnemyRepresentation representation;
+    protected EntityHealthSystem healthSystem;
+    protected EnemyDirector enemyDirector;
+    protected EnemyData enemyData;
+    protected EnemyInformationDisplay enemyInformationDisplay;
+    @Deprecated
+	protected ArmorStand display;
     public AbstractGameArea spawnedArea;
-    private String typeId;
+    protected String typeId;
 
-    public GameEnemy(EnemyRepresentation representation, EntityHealthSystem healthSystem, EnemyDirector director, String typeId) {
+    public GameEnemy(EnemyRepresentation representation, EntityHealthSystem healthSystem, EnemyDirector director, EnemyData data, String typeId) {
         this.representation = representation;
         this.healthSystem = healthSystem;
         this.enemyDirector = director;
+        this.enemyData = data;
         this.enemyInformationDisplay = new EnemyInformationDisplay(this);
         this.typeId = typeId;
+        this.uuid = UUID.randomUUID();
+
+        this.ticker = new BukkitRunnable() {
+            @Override
+            public void run() {
+                tick();
+            }
+        };
+        this.ticker.runTaskTimer(Dungeons.instance, 0, 1);
+    }
+
+    public GameEnemy(EnemyRepresentation representation, EntityHealthSystem healthSystem, EnemyDirector director, EnemyData data) {
+        this.representation = representation;
+        this.healthSystem = healthSystem;
+        this.enemyDirector = director;
+        this.enemyData = data;
+        this.enemyInformationDisplay = new EnemyInformationDisplay(this);
+        this.uuid = UUID.randomUUID();
 
         this.ticker = new BukkitRunnable() {
             @Override
@@ -146,21 +164,46 @@ public class GameEnemy extends GameEntity implements AggressiveEntity, Damageabl
     @Override
     public void damage(@NotNull DamagePacket damagePacket) {
         if (healthSystem.damage(damagePacket)) {
+            if (damagePacket.aggressor instanceof GamePlayer player) {
+                player.playSound(enemyData.hurtSound, 0.5, 1);
+                enemyDirector.knockback(1, damagePacket.aggressor.getLocation());
+            }
             if (healthSystem.isDead()) {
                 kill();
             }
+
             representation.damage();
         }
     }
 
     @Override
-    public List<DamageModifier> getDefensiveDamageModifiers() {
+    public void heal(long amount) {
+        healthSystem.heal(amount);
+    }
+
+    @Override
+    public List<? extends ContextWithAbility<? extends GameEntity>> getDefensiveDamageModifiers() {
         return List.of();
     }
 
     @Override
     public boolean isImmune(StatusEffect effect) {
         return false;
+    }
+
+    @Override
+    public boolean isAlive() {
+        return !dead;
+    }
+
+    /**
+     *
+     * @param by what is attempting to attack us
+     * @return false if the victim is currently invulnerable, true otherwise
+     */
+    @Override
+    public boolean isDamageable(AggressiveEntity by) {
+        return true;
     }
 
     @Override
@@ -178,11 +221,30 @@ public class GameEnemy extends GameEntity implements AggressiveEntity, Damageabl
     }
 
     @Override
-    public List<DamageModifier> getAggressiveDamageModifiers() {
+    public boolean isTargetable(AggressiveEntity by) {
+        return enemyDirector.isTargetable(by);
+    }
+
+    @Override
+    public List<? extends ContextWithAbility<? extends GameEntity>> getAggressiveDamageModifiers() {
         return List.of();
     }
 
+    /**
+     * This just handles any post-attack events we want the entity to work with.
+     * e.g. for projectiles this will destroy the projectile, for players this will
+     * trigger attack cooldowns.
+     */
+    @Override
+    public void attack() {
+        representation.swing();
+    }
+
     public void tick() {
+        if (!enemyDirector.getTargetableEntity().isValid()) {
+            remove();
+            return;
+        }
         enemyDirector.tick(this);
         representation.tick(enemyDirector.getLocation());
         healthSystem.tick();
@@ -228,7 +290,6 @@ public class GameEnemy extends GameEntity implements AggressiveEntity, Damageabl
     protected void destroy()
 	{
 		if (dead) return;
-		health = 0;
 		dead = true;
 
         enemyDirector.remove();
@@ -260,7 +321,6 @@ public class GameEnemy extends GameEntity implements AggressiveEntity, Damageabl
 
     @Override
     public void remove() {
-        health = 0;
         dead = true;
 
         enemyDirector.remove();
@@ -276,10 +336,14 @@ public class GameEnemy extends GameEntity implements AggressiveEntity, Damageabl
             var builder = EnemyBuilder.getBuilder(typeId);
             assert builder != null;
             if (!builder.isTemporaryBuilder()) {
-                attacker.IncrementKill(typeId);
+                attacker.incrementKill(typeId);
             }
-            for (var a : attacker.abilities)
-                a.ability.onKill(a, this);
+            for (var a : attacker.abilities) {
+                if (a.ability instanceof AbilityWithKillEffect killEffect) {
+                    killEffect.killEffect(a, this);
+                }
+            }
+
             for (var eh : attacker.GetEventHandlers())
                 eh.OnKill(attacker, this, attacker.area);
             if (enemyData.lootTable != null) {
@@ -294,9 +358,13 @@ public class GameEnemy extends GameEntity implements AggressiveEntity, Damageabl
         }
     }
 
+    /**
+     * @deprecated in favour of tag() from TagHavingEntity interface
+     */
+    @Deprecated
 	public final boolean hasTag(String tag)
 	{
-		return type.tags.contains(tag);
+        return enemyData.tags.contains(tag);
 	}
 
     public void kill() {
@@ -327,6 +395,10 @@ public class GameEnemy extends GameEntity implements AggressiveEntity, Damageabl
 
 		super.register(uuid);
 	}
+
+    public EntityHealthSystem getHealthSystem() {
+        return healthSystem;
+    }
 	
 	@Override
 	public Location getLocation()
@@ -341,42 +413,8 @@ public class GameEnemy extends GameEntity implements AggressiveEntity, Damageabl
 		if (director != null) director.teleport(l);
 	}
 
-    @Deprecated
-	public void dropItems(GamePlayer killer)
-	{
-		if (killer == null) return;
-
-        killer.IncrementKill(type.id);
-		
-		for (var a : killer.abilities) a.ability.onKill(a, this);
-        for (var eh : killer.GetEventHandlers()) eh.OnKill(killer, this, killer.area);
-		
-		for (ItemStack it : type.loot.generate(killer)) killer.giveItem(it);
-		
-		killer.playSound(Sound.ENTITY_EXPERIENCE_ORB_PICKUP, 0.8, 1.4);
-		killer.lastXpReward = killer.gainXp(LevelUtils.getEnemyBaseXpReward(type.level));
-		
-		killer.lastCoinReward = killer.gainCoins(this);
-		
-		killer.rewardTick = 30;
-	}
-
-
-    @Deprecated
-	public void damage(int damage)
-	{
-
+    @Override
+    public boolean tag(@Nullable String tag) {
+        return enemyData.tag(tag);
     }
-
-    @Deprecated
-	public void damage(int damage, DamageType type)
-	{
-	}
-
-	@Override
-    @Deprecated
-	public void damage(DamageInfo info) {
-
-    }
-
 }

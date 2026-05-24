@@ -1,6 +1,5 @@
 package com.carterz30cal.entities.enemies.directors.behaviour;
 
-import com.carterz30cal.entities.GameSummon;
 import com.carterz30cal.entities.PlayerManager;
 import com.carterz30cal.entities.enemies.core.GameEnemy;
 import com.carterz30cal.stats.Stat;
@@ -17,17 +16,15 @@ import java.util.List;
  */
 public class SimpleTargetingBehaviour implements TargetingBehaviour {
     private final boolean ignoresTargetLimit;
-    private final GameEnemy owner;
 
-    public SimpleTargetingBehaviour(GameEnemy owner, boolean ignoresTargetLimit) {
+    public SimpleTargetingBehaviour(boolean ignoresTargetLimit) {
         this.ignoresTargetLimit = ignoresTargetLimit;
-        this.owner = owner;
     }
 
     @Override
-    public LivingEntity findTarget(GameEnemy owner, Location location) {
+    public LivingEntity findTarget(GameEnemy brain, Location location) {
         List<GameEnemy> enemies = EntityUtils.getNearbyEnemies(location, 14);
-        enemies.removeIf((e) -> !(e instanceof GameSummon));
+        enemies.removeIf((e) -> !e.isTargetable(brain));
         if (!enemies.isEmpty()) {
             return enemies.getFirst().getTargetableEntity();
         }
@@ -39,7 +36,7 @@ public class SimpleTargetingBehaviour implements TargetingBehaviour {
                 if (player.targeted.size() >= player.getMaxTargets() && !ignoresTargetLimit) {
                     continue;
                 }
-                player.targeted.add(owner);
+                player.targeted.add(brain);
                 return player.player;
             }
             return null;

@@ -3,6 +3,7 @@ package com.carterz30cal.gui;
 import com.carterz30cal.entities.player.GamePlayer;
 import com.carterz30cal.items.*;
 import com.carterz30cal.items.abilities2.Abilities;
+import com.carterz30cal.items.abilities2.implementation.GameAbstractEnchant;
 import com.carterz30cal.items.types.ItemAttuner;
 import com.carterz30cal.stats.Stat;
 import com.carterz30cal.utils.StringUtils;
@@ -15,6 +16,11 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * @author carterz30cal
+ * @version 2
+ * @since 1.0.0
+ */
 public class AnvilGUI extends AbstractGUI 
 {
 	public boolean locked;
@@ -117,37 +123,49 @@ public class AnvilGUI extends AbstractGUI
 				
 				
 				boolean changeMade = false;
-				boolean appliable = true;
+                boolean valid = true;
 				
 				for (var enchant : bookEnchants)
 				{
-					if (enchant.ability.getApplicableTypes().contains(apply.type)) continue;
-					
-					appliable = false;
+                    if (!(enchant.ability instanceof GameAbstractEnchant enchantment)) {
+                        continue;
+                    }
+                    if (enchantment.getValidTypes().contains(apply.type)) {
+                        continue;
+                    }
+
+                    valid = false;
 					break;
 				}
-				//if (ItemFactory.sumEnchantPower(applyingEnchants) + ItemFactory.sumEnchantPower(bookEnchants) > apply.stats.getStat(Stat.ENCHANT_POWER)) appliable = false;
 				
 				// check if any enchants actually get applied or increased
-				if (appliable || apply.type == ItemType.ENCHANTMENT)
+                if (valid || apply.type == ItemType.ENCHANTMENT)
 				{
 					Map<Abilities, Integer> enchantmentTypes = new HashMap<>();
-					for (var e : applyingEnchants) enchantmentTypes.put(e.ability.source, e.level);
+                    for (var e : applyingEnchants) {
+                        if (!(e.ability instanceof GameAbstractEnchant enchantment)) {
+                            continue;
+                        }
+                        enchantmentTypes.put(enchantment.source, e.level);
+                    }
 					
 					boolean modification = false;
 					for (var be : bookEnchants)
 					{
-						Abilities source = be.ability.source;
+                        if (!(be.ability instanceof GameAbstractEnchant enchant)) {
+                            continue;
+                        }
+                        Abilities source = enchant.source;
 						if (!enchantmentTypes.containsKey(source) || enchantmentTypes.get(source) < be.level)
 						{
 							enchantmentTypes.put(source, be.level);
-							requirements.addRequirement(be.ability.getCatalystRequirements(be, be.level));
+                            requirements.addRequirement(enchant.getCatalystRequirements(be, be.level));
 							modification = true;
 						}
-						else if (enchantmentTypes.get(source) == be.level && be.level < be.ability.getMaximumLevel())
+                        else if (enchantmentTypes.get(source) == be.level && be.level < enchant.getMaximumLevel())
 						{
 							enchantmentTypes.put(source, be.level + 1);
-							requirements.addRequirement(be.ability.getCatalystRequirements(be, be.level + 1));
+                            requirements.addRequirement(enchant.getCatalystRequirements(be, be.level + 1));
 							modification = true;
 						}
 					}
@@ -159,7 +177,7 @@ public class AnvilGUI extends AbstractGUI
                         String enchants = ItemFactory.flattenEnchMap(enchantmentTypes);
                         ItemFactory.addItemData(product, "enchants", enchants);
 
-						if (ItemFactory.sumEnchantPower(ItemFactory.getItemEnchants(product)) > apply.stats.getStat(Stat.ENCHANT_POWER) && apply.type != ItemType.ENCHANTMENT)
+                        if (ItemFactory.sumEnchantPower(ItemFactory.getItemEnchants(product)) > apply.stats.stat(Stat.ENCHANT_POWER) && apply.type != ItemType.ENCHANTMENT)
 						{
 							changeMade = false;
 							product = preprod;
@@ -167,9 +185,8 @@ public class AnvilGUI extends AbstractGUI
 					}
 					
 				}
-				
-				appliable = false;
-				Item bookItem = ItemFactory.getItem(book);
+
+                Item bookItem = ItemFactory.getItem(book);
 				if (bookItem != null && bookItem.type == ItemType.ATTUNER && apply.type.use == ItemTypeUse.WIELDABLE)
 				{
 					List<ItemAttuner> attuners = ItemFactory.getAttuners(applying);
@@ -189,7 +206,7 @@ public class AnvilGUI extends AbstractGUI
 				// final production thing after all checks.
 				if (changeMade)
 				{
-                    ItemFactory.update(product, (ItemFactory.FactoryBuildContext) null);
+                    ItemFactory.update(product, null);
 
                     List<String> list = new ArrayList<>();
                     if (requirements.coins == 0 && requirements.reqs.isEmpty()) {

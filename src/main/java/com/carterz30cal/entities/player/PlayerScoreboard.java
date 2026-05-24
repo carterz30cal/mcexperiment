@@ -19,6 +19,11 @@ import java.util.List;
 
 import static net.kyori.adventure.text.Component.text;
 
+/**
+ * @author carterz30cal
+ * @version 1
+ * @since 1.0.0
+ */
 public class PlayerScoreboard {
     private final Sidebar sidebar;
     private final ComponentSidebarLayout sidebarLayout;

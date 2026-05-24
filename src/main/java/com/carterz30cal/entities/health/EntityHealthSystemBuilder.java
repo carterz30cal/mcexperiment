@@ -33,6 +33,7 @@ public class EntityHealthSystemBuilder {
     public EntityHealthSystem build() {
         var healthSystem = new EntityHealthSystem(maxHealth);
         healthSystem.addDamageHandlers(damageHandlers);
+        healthSystem.setHealthPercentage(1);
         return healthSystem;
     }
 }

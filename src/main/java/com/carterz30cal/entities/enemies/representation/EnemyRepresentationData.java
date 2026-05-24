@@ -39,7 +39,8 @@ public class EnemyRepresentationData {
 
     public EnemyRepresentationData(@NotNull ConfigurationSection yaml) {
         scale = yaml.getDouble("scale");
-        offset = yaml.getVector("offset");
+        var list = yaml.getDoubleList("offset");
+        offset = new Vector(list.get(0), list.get(1), list.get(2));
         type = EntityType.valueOf(Objects.requireNonNull(yaml.getString("type")).toUpperCase());
 
         if (yaml.contains("equipment")) {
@@ -70,14 +71,14 @@ public class EnemyRepresentationData {
         entity.setSilent(true);
         if (entity instanceof LivingEntity livingEntity) {
             livingEntity.setCollidable(false);
-
+            livingEntity.setAI(false);
             EntityUtils.applyPotionEffect(livingEntity, PotionEffectType.FIRE_RESISTANCE, 999999, 1, false);
         }
         if (entity instanceof Mob mob) {
             for (EquipmentSlot slot : equipment.keySet()) {
                 EntityUtils.setArmourPiece(mob, slot, equipment.get(slot));
             }
-            mob.setRemoveWhenFarAway(false);
+            //mob.setRemoveWhenFarAway(false);
 
             var scaleAttribute = mob.getAttribute(Attribute.SCALE);
             if (scaleAttribute != null) {

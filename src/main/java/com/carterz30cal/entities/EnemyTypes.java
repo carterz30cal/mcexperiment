@@ -11,16 +11,8 @@ public enum EnemyTypes
 	SIMPLE(EnemyTypeSimple.class),
     CAPPED(EnemyTypeDamageCapped.class),
 	FISH(EnemyTypeFish.class),
-	TITAN(EnemyTypeTitanDrench.class),
-	TITAN_FISH(EnemyTypeTitanDrenchFish.class),
 	HYDRA(EnemyTypeHydra.class),
-	WRAITHLIKE(EnemyTypeWraithlike.class),
 	SERAPH(EnemyTypeSeraph.class),
-	SERAPH_MAGE_HEALTH(EnemyTypeSeraphMageHealth.class),
-	SERAPH_MAGE_MANA(EnemyTypeSeraphMageMana.class),
-	WAVE(EnemyTypeWave.class),
-	
-	SLAYER_BLIZZARD(EnemyTypeSlayerBlizzard.class);
 	
 	;
 	private Class<? extends AbstractEnemyType> type;

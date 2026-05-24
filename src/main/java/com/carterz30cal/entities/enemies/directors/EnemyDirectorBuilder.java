@@ -1,30 +1,37 @@
 package com.carterz30cal.entities.enemies.directors;
 
-import com.carterz30cal.entities.enemies.directors.behaviour.SimpleTargetingBehaviour;
-import com.carterz30cal.main.Dungeons;
+import com.carterz30cal.entities.enemies.directors.behaviour.TargetingBehaviour;
 import org.bukkit.Location;
-import org.bukkit.entity.EntityType;
-import org.bukkit.entity.Mob;
-import org.bukkit.potion.PotionEffect;
-import org.bukkit.potion.PotionEffectType;
 
+/**
+ * @author carterz30cal
+ * @version 1
+ * @since 1.0.0
+ */
 public class EnemyDirectorBuilder {
-    public int knockback;
-    public double speed;
+    private int knockback;
+    private double speed;
+    private TargetingBehaviour targetingBehaviour;
 
-    public void setKnockback(int knockback) {
+    public EnemyDirectorBuilder setKnockback(int knockback) {
         this.knockback = knockback;
+        return this;
     }
 
-    public void setSpeed(double speed) {
+    public EnemyDirectorBuilder setSpeed(double speed) {
         this.speed = speed;
+        return this;
+    }
+
+    public EnemyDirectorBuilder setTargetingBehaviour(TargetingBehaviour targetingBehaviour) {
+        this.targetingBehaviour = targetingBehaviour;
+        return this;
     }
 
     public EnemyDirector build(Location baseLocation) {
-        var mob = (Mob) Dungeons.w.spawnEntity(baseLocation, EntityType.ZOMBIE, false);
-        mob.addPotionEffect(new PotionEffect(PotionEffectType.INVISIBILITY, Integer.MAX_VALUE, 0, false, false));
-        var director = new EnemyDirector(mob, new SimpleTargetingBehaviour(false), knockback);
+        var director = new EnemyDirector(baseLocation, knockback);
         director.setSpeed(speed);
+        director.setTargetingBehaviour(targetingBehaviour);
         return director;
     }
 }

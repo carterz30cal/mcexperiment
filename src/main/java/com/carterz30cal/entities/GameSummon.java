@@ -1,119 +1,111 @@
 package com.carterz30cal.entities;
 
+import com.carterz30cal.entities.enemies.core.EnemyBuilder;
+import com.carterz30cal.entities.enemies.core.EnemyData;
 import com.carterz30cal.entities.enemies.core.GameEnemy;
+import com.carterz30cal.entities.enemies.directors.EnemyDirector;
+import com.carterz30cal.entities.enemies.directors.EnemyDirectorBuilder;
+import com.carterz30cal.entities.enemies.directors.behaviour.SummonTargetingBehaviour;
+import com.carterz30cal.entities.enemies.representation.EnemyRepresentationBuilder;
+import com.carterz30cal.entities.enemies.representation.EnemyRepresentationData;
+import com.carterz30cal.entities.health.EntityHealthSystem;
+import com.carterz30cal.entities.health.EntityHealthSystemBuilder;
+import com.carterz30cal.entities.health.damage.DamagePacket;
 import com.carterz30cal.entities.player.GamePlayer;
-import com.carterz30cal.utils.EntityUtils;
 import com.carterz30cal.utils.ParticleUtils;
+import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.format.NamedTextColor;
 import org.bukkit.Color;
 import org.bukkit.Location;
-import org.bukkit.Material;
 import org.bukkit.Particle;
 import org.bukkit.entity.EntityType;
-import org.bukkit.entity.LivingEntity;
-import org.bukkit.entity.Mob;
 import org.bukkit.inventory.EquipmentSlot;
-import org.bukkit.inventory.ItemStack;
+import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
+import org.bukkit.util.Vector;
 
-import java.util.List;
+import java.util.HashMap;
 
+import static net.kyori.adventure.text.Component.text;
+
+/**
+ * @author carterz30cal
+ * @version 2
+ * @since 1.0.0
+ */
 public class GameSummon extends GameEnemy {
 
     private GamePlayer owner;
     private int useManaTick = 0;
+    private static final EnemyRepresentationBuilder representationBuilder;
 
-    public GameSummon(Location spawn, AbstractEnemyType type) {
-        super(spawn, type);
+    static {
+        var data = new EnemyRepresentationData();
+        data.type = EntityType.ZOMBIE;
+        data.offset = new Vector(0, 0, 0);
+        data.scale = 0.9D;
+        data.equipment = new HashMap<>();
+        data.equipment.put(EquipmentSlot.CHEST, "CHAINMAIL_CHESTPLATE");
+        representationBuilder = new EnemyRepresentationBuilder();
+        representationBuilder.add(data);
     }
 
-    @Override
-    public int getHealth()
-    {
-        return (int)(health * type.getMaxHealth() * 0.5);
-    }
-
-    @Override
-    public void setHealth(int value)
-    {
-        double prog = (double)value / ((double)type.getMaxHealth() * 0.5);
-
-        if (prog > 1) prog = 1;
-
-        if (prog <= 0) kill();
-
-        health = prog;
+    public GameSummon(EntityHealthSystem healthSystem, EnemyDirector director, EnemyData data) {
+        super(representationBuilder.build(director.getLocation()), healthSystem, director, data);
+        typeId = uuid.toString();
+        representation.register(this);
+        register(uuid);
     }
 
     public GamePlayer getOwner() {
         return this.owner;
     }
 
-    @Override
-    public void doTick()
-    {
-        useManaTick++;
-        if (useManaTick % 40 == 0 && !owner.useMana(type.level)) damage(Math.max(type.getMaxHealth() / 6, 2), DamageType.WITHER);
-
-        if (main instanceof LivingEntity) {
-            LivingEntity livingEntity = (LivingEntity) main;
-            EntityUtils.applyPotionEffect(livingEntity, PotionEffectType.INVISIBILITY, 20, 1, false);
-
-            ParticleUtils.spawn(getLocation().add(0, type.displayHeight / 2, 0), new Particle.DustOptions(Color.GRAY, 0.5F), 0.6);
-        }
-
-        tick();
-        if (target == owner && owner.getLocation().distance(getLocation()) < 5) {
-            target = null;
-        }
-    }
-
-    @Override
-    protected GameEntity findTarget() {
-        //GameEntity en;
-        List<GameEnemy> enemies = EntityUtils.getNearbyEnemies(getLocation(), 10);
-        enemies.removeIf((e) -> (e instanceof GameSummon));
-        if (!enemies.isEmpty()) return enemies.get(0);
-        else if (owner.getLocation().distance(getLocation()) > 10) {
-            return owner;
-        }
-        else return null;
-    }
-
-    @Override
-    protected String getName() {
-        String name = "BLUE" + type.onName(this) + " Soul";
-        if (type.level != 0) name = "WHITE[" + type.level + "] " + name;
-
-        return name;
-    }
-
-    @Override
-    public void dropItems(GamePlayer killer)
-    {
-
-    }
-
-    public static GameSummon SpawnSummonFromEnemy(GamePlayer owner, GameEnemy dead) {
-        return SpawnSummonFromEnemy(owner, dead.getLocation(), dead.type);
-    }
-
-    public static GameSummon SpawnSummonFromEnemy(GamePlayer owner, Location location, AbstractEnemyType dead) {
-        GameSummon summon = new GameSummon(location, dead);
-        summon.main = EntityUtils.spawnPart(EntityType.ZOMBIE, location);
-        EntityUtils.setArmourPiece((Mob)summon.main, EquipmentSlot.HEAD, new ItemStack(Material.CHAINMAIL_HELMET));
-        EntityUtils.setArmourPiece((Mob)summon.main, EquipmentSlot.CHEST, new ItemStack(Material.CHAINMAIL_CHESTPLATE));
-        if (dead.level > 15) {
-            EntityUtils.setArmourPiece((Mob) summon.main, EquipmentSlot.LEGS, new ItemStack(Material.CHAINMAIL_LEGGINGS));
-        }
-        if (dead.level > 10) {
-            EntityUtils.setArmourPiece((Mob) summon.main, EquipmentSlot.FEET, new ItemStack(Material.CHAINMAIL_BOOTS));
-        }
+    public static GameSummon spawn(GamePlayer owner, Location where, GameEnemy dead) {
+        var healthBuilder = new EntityHealthSystemBuilder().setMaxHealth(dead.getHealthSystem().getMaxHealth());
+        var director = new EnemyDirectorBuilder().setSpeed(2).setTargetingBehaviour(new SummonTargetingBehaviour(owner));
+        var summon = new GameSummon(healthBuilder.build(), director.build(where), dead.getEnemyData());
         summon.owner = owner;
-        summon.SetSpeed(2);
-
-        summon.register();
         return summon;
     }
 
+    public static GameSummon spawn(GamePlayer owner, Location where, EnemyBuilder builder) {
+        var healthBuilder = builder.getHealthSystemBuilder();
+        var director = new EnemyDirectorBuilder().setSpeed(2).setTargetingBehaviour(new SummonTargetingBehaviour(owner));
+        var summon = new GameSummon(healthBuilder.build(), director.build(where), builder.getEnemyData());
+        summon.owner = owner;
+        return summon;
+    }
 
+    @Override
+    public void tick() {
+        super.tick();
+
+        useManaTick++;
+        if (useManaTick % 40 == 0 && !owner.useMana((int) enemyData.level)) {
+            var packet = new DamagePacket();
+            packet.defender = this;
+            long damage = 2 + (healthSystem.getMaxHealth() / 8);
+            packet.addDamage(
+                    com.carterz30cal.entities.health.damage.DamageType.SUFFOCATION,
+                    damage);
+            damage(packet);
+        }
+        representation.applyPotionEffect(new PotionEffect(PotionEffectType.INVISIBILITY, Integer.MAX_VALUE, 0, false, false));
+        ParticleUtils.spawn(getLocation().add(0, 1, 0), new Particle.DustOptions(Color.GRAY, 0.5F), 0.6);
+
+        if (enemyDirector.getTarget() == owner.player && owner.player.getLocation().distance(getLocation()) < 5) {
+            enemyDirector.setTarget(null);
+        }
+    }
+
+    @Override
+    public void dropLoot() {
+
+    }
+
+    @Override
+    protected Component getName() {
+        return super.getName().append(text(" Soul", NamedTextColor.AQUA));
+    }
 }

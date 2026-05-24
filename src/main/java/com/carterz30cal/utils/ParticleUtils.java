@@ -1,6 +1,9 @@
 package com.carterz30cal.utils;
 
 import com.carterz30cal.entities.PlayerManager;
+import com.carterz30cal.entities.health.damage.AttackType;
+import com.carterz30cal.entities.health.damage.DamagePacket;
+import com.carterz30cal.entities.health.damage.DamageType;
 import com.carterz30cal.entities.player.GamePlayer;
 import org.bukkit.Location;
 import org.bukkit.Particle;
@@ -57,8 +60,13 @@ public class ParticleUtils {
 				double dy = pos.getY() - o.getLocation().getY();
 				
 				double dist = Math.sqrt(dx*dx + dz*dz);
+                // TODO FIX THIS SHIT
 				if (dist < 0.6 && dy < 2) {
-					o.damage(damage);
+                    DamagePacket packet = new DamagePacket();
+                    packet.defender = o;
+                    packet.attack = AttackType.MELEE;
+                    packet.addDamage(DamageType.PHYSICAL, damage);
+                    o.damage(packet);
 					hit.add(o);
 				}
 			}

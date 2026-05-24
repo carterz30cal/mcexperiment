@@ -3,6 +3,7 @@ package com.carterz30cal.utils;
 import com.carterz30cal.entities.GameEntity;
 import com.carterz30cal.entities.PlayerManager;
 import com.carterz30cal.entities.enemies.core.GameEnemy;
+import com.carterz30cal.entities.health.damage.handlers.DamageableEntity;
 import com.carterz30cal.entities.player.GamePlayer;
 import com.carterz30cal.items.ItemFactory;
 import com.carterz30cal.main.Dungeons;
@@ -63,6 +64,7 @@ public class EntityUtils
         TextDisplay display = location.getWorld().spawn(location, TextDisplay.class, CreatureSpawnEvent.SpawnReason.CUSTOM);
         display.setAlignment(TextDisplay.TextAlignment.CENTER);
         display.setGravity(false);
+        display.setNoPhysics(true);
         if (lifetime > 0) {
             new BukkitRunnable() {
 
@@ -119,7 +121,30 @@ public class EntityUtils
 		
 		return enemies;
 	}
-	 
+
+    public static List<GameEntity> getNearbyEntities(Location l, double radius) {
+        List<GameEntity> entities = new ArrayList<>();
+        for (GameEntity e : GameEntity.entities.values()) {
+            if (e.getLocation().distance(l) <= radius) {
+                entities.add(e);
+            }
+        }
+        return entities;
+    }
+
+    public static List<DamageableEntity> getNearbyDamageableEntities(Location l, double radius) {
+        List<DamageableEntity> entities = new ArrayList<>();
+        for (GameEntity e : GameEntity.entities.values()) {
+            if (e instanceof DamageableEntity d) {
+                if (d.getLocation().distance(l) <= radius) {
+                    entities.add(d);
+                }
+            }
+        }
+        return entities;
+    }
+
+
 	public static Entity spawnPart(EntityType type, Location location)
 	{
         if (!location.getChunk().isLoaded()) {
@@ -152,14 +177,6 @@ public class EntityUtils
 		
 		return part;
 	}
-	public static void sayTo(List<GamePlayer> players, String message)
-	{
-		sayTo(players, message, 0);
-	}
-	public static void sayTo(List<GamePlayer> players, String message, int delay)
-	{
-		for (GamePlayer p : players) p.sendMessage(message, delay);
-	}
 	
 	public static void setArmourPiece(Mob mob, EquipmentSlot slot, ItemStack item)
 	{
@@ -169,49 +186,14 @@ public class EntityUtils
 	{
 		mob.getEquipment().setItem(slot, ItemFactory.build(item));
 	}
-	
+
+    @Deprecated
 	public static void setEntityName(LivingEntity e, String name)
 	{
 		if (e == null) return;
 		e.setCustomName(StringUtils.colourString(name));
 	}
-	
-	public static void applyKnockback(GamePlayer player, GameEnemy enemy)
-	{
-		applyKnockback(player, enemy, 100);
-	}
-	
-	public static void applyKnockback(GamePlayer player, GameEnemy enemy, int mkb)
-	{
-		double knockback = (mkb / 100D) * (enemy.type.knockback / 100D);
 
-        if (enemy.getMain().getLocation().subtract(0, 0.1, 0).getBlock().getType() == Material.AIR) {
-            knockback *= 0.4;
-        }
-		
-		Vector kbv = enemy.getMain().getLocation().subtract(player.getLocation()).toVector().normalize();
-		
-		kbv.setY(0.4);
-		kbv.multiply(knockback * 0.6);
-		
-
-		try
-		{
-			if (enemy.director != null) {
-				kbv.add(enemy.director.getVelocity());
-				enemy.director.setVelocity(kbv);
-			}
-			else {
-				kbv.add(enemy.getMain().getVelocity());
-				enemy.getMain().setVelocity(kbv);
-			}
-		}
-		catch (IllegalArgumentException ignored)
-		{
-			
-		}
-		
-	}
 
     public static void applyKnockback(GamePlayer player, LivingEntity enemy, int mkb) {
         double knockback = (mkb / 100D);

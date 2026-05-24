@@ -11,7 +11,7 @@ import java.util.Map;
 
 /**
  * @author carterz30cal
- * @version 1
+ * @version 2
  * @since 1.0.0
  */
 public enum DamageResistance {
@@ -52,7 +52,7 @@ public enum DamageResistance {
     }
 
     public static List<DamageResistance> getDamageResistance(DamageType damageType) {
-        return damageToResistanceMap.get(damageType);
+        return damageToResistanceMap.getOrDefault(damageType, new ArrayList<>());
     }
 
     public DamageType getDamageType() {

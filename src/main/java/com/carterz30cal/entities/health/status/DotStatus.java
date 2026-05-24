@@ -7,6 +7,7 @@ import com.carterz30cal.entities.health.damage.handlers.DamageableEntity;
 import com.carterz30cal.main.Dungeons;
 import org.bukkit.scheduler.BukkitRunnable;
 
+@Deprecated
 public class DotStatus extends AbstractStatus {
 
 	public int damage;
@@ -39,7 +40,6 @@ public class DotStatus extends AbstractStatus {
 					
 					info.type = type;
 					info.damage = damage + (int)Math.round(percentDamage * enemy.health);
-					enemy.damage(info);
 				}
 				else cancel();
 			}

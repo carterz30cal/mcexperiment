@@ -2,40 +2,45 @@ package com.carterz30cal.items.abilities2.waterway;
 
 import com.carterz30cal.entities.GameSummon;
 import com.carterz30cal.entities.enemies.core.GameEnemy;
+import com.carterz30cal.entities.health.damage.handlers.DamageableEntity;
+import com.carterz30cal.items.abilities2.implementation.AbilityWithDescription;
+import com.carterz30cal.items.abilities2.implementation.AbilityWithKillEffect;
 import com.carterz30cal.items.abilities2.implementation.GameAbility;
+import com.carterz30cal.items.abilities2.implementation.PlayerAbilityContext;
 import com.carterz30cal.stats.Stat;
 import org.jetbrains.annotations.NotNull;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
  * @author carterz30cal
- * @version 1
+ * @version 2
  * @since 1.0.0
  */
-public class NecromancerAbility extends GameAbility {
+public class NecromancerAbility extends GameAbility implements AbilityWithDescription, AbilityWithKillEffect {
     public NecromancerAbility() {
 
     }
 
     @Override
-    public String name(AbilityContext context) {
-        return "Soul Retrieval";
+    public String name(PlayerAbilityContext context) {
+        return "Soul Hook";
     }
 
     @Override
-    public List<String> miniMessageDescription(@NotNull AbilityContext context) {
-        var list = super.miniMessageDescription(context);
+    public List<String> miniMessageDescription(@NotNull PlayerAbilityContext context) {
+        var list = new ArrayList<String>();
         list.add("<grey>Killing enemies will summon their soul to fight");
         list.add("<grey>for your cause. Each soul consumes " + Stat.MANA.getReverse() + " to keep existing.");
         list.add("<dark_grey>Mana consumption scales with soul stats.");
         return list;
     }
 
-    public void onKill(AbilityContext context, GameEnemy killed)
-    {
-        if (!(killed instanceof GameSummon)) {
-            GameSummon.SpawnSummonFromEnemy(context.owner, killed);
+    @Override
+    public void killEffect(PlayerAbilityContext context, DamageableEntity killed) {
+        if (killed instanceof GameEnemy enemy && !(killed instanceof GameSummon)) {
+            GameSummon.spawn(context.owner, killed.getLocation(), enemy);
         }
     }
 }

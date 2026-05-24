@@ -157,8 +157,8 @@ public final class AreaBossWaterwaySeraph extends AbstractAreaBoss {
             if (phase == 1) {
                 if (importantSummons.isEmpty()) {
                     phase = 2;
-                    boss.SetSpeed(1.5);
-                    boss.setImmune(false);
+                    //boss.SetSpeed(1.5);
+                    //boss.setImmune(false);
                     sendMessage("DARK_REDNO! WHITETime for me to join the fight...", 1);
                 }
             }
@@ -208,8 +208,8 @@ public final class AreaBossWaterwaySeraph extends AbstractAreaBoss {
 
     private void spawnMainBoss() {
         boss = EnemyManager.spawn("waterway_seraph", seraphSpawnLocation);
-        boss.setImmune(true);
-        boss.SetSpeed(0);
+        //boss.setImmune(true);
+        //boss.setSpeed(0);
 
         importantSummons.add(EnemyManager.spawn(fightVariation.spawnMid, new Location(Dungeons.w, 85.5, 84, 163.5, 90, 0)));
         //85.5, 84, 171.5
@@ -267,7 +267,7 @@ public final class AreaBossWaterwaySeraph extends AbstractAreaBoss {
                                     info.defender = p;
                                     info.attacker = null;
                                     info.indirect = true;
-                                    p.damage(info);
+                                    //p.damage(info);
                                 }
                             }
                         }
@@ -302,7 +302,7 @@ public final class AreaBossWaterwaySeraph extends AbstractAreaBoss {
                     public void run() {
                         for (var registered : registeredPlayers) {
                             if (registered.getLocation().distance(bomb) < 3.25) {
-                                registered.damage(BOMB_DAMAGE);
+                                //registered.damage(BOMB_DAMAGE);
                             }
                         }
                         List<GameEntity> targets = new ArrayList<>();
@@ -317,13 +317,13 @@ public final class AreaBossWaterwaySeraph extends AbstractAreaBoss {
                                 info.defender = summon;
                                 info.attacker = null;
                                 info.indirect = true;
-                                summon.damage(info);
+                                //summon.damage(info);
                             }
                         }
                         if (RandomUtils.getRandom(0, 8) == 0) {
                             sendMessage("DARK_REDKaboom!", 10);
                         }
-                        Dungeons.w.createExplosion(bomb, 3F, false, false, boss.getMain());
+                        //Dungeons.w.createExplosion(bomb, 3F, false, false, boss.getMain());
                         for (int x = -2; x < 3; x++)
                             for (int z = -2; z < 3; z++) MiningManager.UnsetBlock(bomb.clone().add(x, 0, z));
                     }
@@ -392,7 +392,7 @@ public final class AreaBossWaterwaySeraph extends AbstractAreaBoss {
             list.add("GOLDleave the boss room!");
         }
         else if (boss != null) {
-            list.add("RED" + boss.getHealth() + "\u2665");
+            //list.add("RED" + boss.getHealth() + "\u2665");
         }
 
         return list;
@@ -407,7 +407,7 @@ public final class AreaBossWaterwaySeraph extends AbstractAreaBoss {
     private void damageNonRegisteredPlayers() {
         for (var player : bounds.GetPlayersWithin()) {
             if (!registeredPlayers.contains(player)) {
-                player.damage(player.getHealth() / 5);
+                //player.damage(player.getHealth() / 5);
             }
         }
     }

@@ -33,7 +33,7 @@ public class CommandWarp implements CommandExecutor {
                 return false;
             }
             else {
-                player.Teleport(teleport);
+                player.teleport(teleport);
                 return true;
             }
         }

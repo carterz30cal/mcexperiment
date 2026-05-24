@@ -10,7 +10,7 @@ import java.util.Set;
 
 public class ItemReqs 
 {
-	public Map<String, Integer> reqs = new HashMap<>();
+    public Map<String, Long> reqs = new HashMap<>();
 	public int coins;
 	
 	public void addRequirement(ItemReq requirement)
@@ -18,7 +18,7 @@ public class ItemReqs
 		if (requirement == null) return;
 		
 		coins += requirement.coins;
-		reqs.put(requirement.item, reqs.getOrDefault(requirement.item, 0) + requirement.amount);
+        reqs.put(requirement.item, reqs.getOrDefault(requirement.item, 0L) + requirement.amount);
 	}
 	
 	public void addRequirement(List<ItemReq> requirement)
@@ -31,22 +31,23 @@ public class ItemReqs
 	{
 		return reqs.keySet();
 	}
-	public int getAmount(String item)
+
+    public long getAmount(String item)
 	{
-		return reqs.getOrDefault(item, 0);
+        return reqs.getOrDefault(item, 0L);
 	}
 	
 	
 	public void execute(GamePlayer by)
 	{
 		by.coins -= coins;
-		
-		Map<String, Integer> working = new HashMap<>(reqs);
+
+        Map<String, Long> working = new HashMap<>(reqs);
 		for (String w : working.keySet()) {
-			int sack = by.sack.getOrDefault(w, 0);
+            long sack = by.sack.getOrDefault(w, 0L);
 			//System.out.println(w + " - " + sack);
 			if (sack > 0) {
-				int am = working.get(w);
+                long am = working.get(w);
 				working.put(w, am - sack);
 				by.sack.put(w, Math.max(0, sack - am));
 			}
@@ -57,26 +58,26 @@ public class ItemReqs
 			if (item == null) continue;
 			if (!working.containsKey(item.id)) continue;
 			if (working.get(item.id) == 0) working.remove(item.id);
-			
-			int amLeft = working.getOrDefault(item.id, 0);
-			
-			int setAm = i.getAmount() - Math.min(Math.max(0, amLeft), i.getAmount());
-			
-			int am = working.getOrDefault(item.id, 0) - i.getAmount();
+
+            long amLeft = working.getOrDefault(item.id, 0L);
+
+            long setAm = i.getAmount() - Math.min(Math.max(0, amLeft), i.getAmount());
+
+            long am = working.getOrDefault(item.id, 0L) - i.getAmount();
 			if (am <= 0) working.remove(item.id);
 			else working.put(item.id, am);
-			
-			i.setAmount(setAm);
+
+            i.setAmount(Math.toIntExact(setAm));
 		}
 	}
 	
 	public boolean areRequirementsMet(GamePlayer by)
 	{
 		if (by.coins < coins) return false;
-		
-		Map<String, Integer> working = new HashMap<>(reqs);
+
+        Map<String, Long> working = new HashMap<>(reqs);
 		for (String w : working.keySet()) {
-			int sack = by.sack.getOrDefault(w, 0);
+            long sack = by.sack.getOrDefault(w, 0L);
 			if (sack > 0) {
 				working.put(w, working.get(w) - sack);
 			}
@@ -87,14 +88,14 @@ public class ItemReqs
 			if (item == null) continue;
 			if (!working.containsKey(item.id)) continue;
 			if (working.get(item.id) == 0) working.remove(item.id);
-			
-			int am = working.getOrDefault(item.id, 0) - i.getAmount();
+
+            long am = working.getOrDefault(item.id, 0L) - i.getAmount();
 			if (am <= 0) working.remove(item.id);
 			else working.put(item.id, am);
 		}
-		
-		
-		for (int w : working.values()) {
+
+
+        for (long w : working.values()) {
 			if (w > 0) return false;
 		}
 		return true;
@@ -103,8 +104,8 @@ public class ItemReqs
 	public String grabDataFromRequirements(GamePlayer by)
 	{
 		ItemStack dataHolder = ItemFactory.build("flimsy_sword");
-		
-		Map<String, Integer> working = new HashMap<>(reqs);
+
+        Map<String, Long> working = new HashMap<>(reqs);
 		for (ItemStack i : by.player.getInventory().getContents())
 		{
 			Item item = ItemFactory.getItem(i);
@@ -112,12 +113,12 @@ public class ItemReqs
 			if (!working.containsKey(item.id)) continue;
 			
 			Map<String, String> data = ItemFactory.getItemData(i);
-			if (data.size() != 0) 
+            if (!data.isEmpty())
 			{
 				ItemFactory.setItemData(dataHolder, data);
 			}
-			
-			int am = working.getOrDefault(item.id, 0) - i.getAmount();
+
+            long am = working.getOrDefault(item.id, 0L) - i.getAmount();
 			if (am <= 0) working.remove(item.id);
 			else working.put(item.id, am);
 		}

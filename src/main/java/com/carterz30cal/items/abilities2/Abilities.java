@@ -7,6 +7,7 @@ import com.carterz30cal.items.abilities2.generic.HealingAbility;
 import com.carterz30cal.items.abilities2.generic.MagicSwordAbility;
 import com.carterz30cal.items.abilities2.generic.StatEnchantment;
 import com.carterz30cal.items.abilities2.implementation.GameAbility;
+import com.carterz30cal.items.abilities2.implementation.PlayerAbilityContext;
 import com.carterz30cal.items.abilities2.waterway.*;
 import com.carterz30cal.items.abilities2.waterway.pets.PetDrenchedActive;
 import com.carterz30cal.items.abilities2.waterway.pets.PetDrenchedPassive;
@@ -78,11 +79,12 @@ public enum Abilities
 		this.ability.source = this;
 	}
 
-	public GameAbility.AbilityContext getContext(GamePlayer owner) {
+    public PlayerAbilityContext getContext(GamePlayer owner) {
 		return getContext(owner, 1);
 	}
-	public GameAbility.AbilityContext getContext(GamePlayer owner, int level) {
-		var context = new GameAbility.AbilityContext(ability);
+
+    public PlayerAbilityContext getContext(GamePlayer owner, int level) {
+        var context = new PlayerAbilityContext(ability);
 		context.level = level;
 		context.owner = owner;
 		return context;

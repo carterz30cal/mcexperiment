@@ -6,9 +6,9 @@ import org.bukkit.entity.LivingEntity;
 
 /**
  * @author carterz30cal
- * @version 1
+ * @version 2
  * @since 1.0.0
  */
 public interface TargetingBehaviour {
-    LivingEntity findTarget(GameEnemy owner, Location location);
+    LivingEntity findTarget(GameEnemy brain, Location location);
 }

@@ -6,11 +6,13 @@ import com.carterz30cal.main.Dungeons;
 import org.bukkit.Location;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.LivingEntity;
+import org.bukkit.entity.Mob;
 import org.bukkit.entity.Player;
 import org.bukkit.persistence.PersistentDataType;
+import org.bukkit.potion.PotionEffect;
 import org.bukkit.util.Vector;
 
-import java.util.Collection;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -55,7 +57,9 @@ public class EnemyRepresentation {
 
     public void damage() {
         for (var e : entities.entrySet()) {
-            e.getValue().broadcastHurtAnimation((Collection<Player>) Dungeons.instance.getServer().getOnlinePlayers());
+            var list = new ArrayList<Player>();
+            Dungeons.instance.getServer().getOnlinePlayers().forEach(player -> list.add(player.getPlayer()));
+            e.getValue().broadcastHurtAnimation(list);
         }
     }
 
@@ -73,6 +77,28 @@ public class EnemyRepresentation {
     public void remove() {
         for (var e : entities.values()) {
             e.remove();
+        }
+    }
+
+    /**
+     * applies a potion effect to all LivingEntities in the representation. this will mostly be used to make
+     * entities invisible.
+     *
+     * @param effect the potion effect
+     */
+    public void applyPotionEffect(PotionEffect effect) {
+        for (var e : entities.values()) {
+            if (e instanceof LivingEntity livingEntity) {
+                livingEntity.addPotionEffect(effect);
+            }
+        }
+    }
+
+    public void swing() {
+        for (var e : entities.values()) {
+            if (e instanceof Mob mob) {
+                mob.swingMainHand();
+            }
         }
     }
 

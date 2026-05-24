@@ -6,7 +6,9 @@ import com.carterz30cal.entities.health.status.StatusEffect;
 import com.carterz30cal.entities.player.GamePlayer;
 import com.carterz30cal.gui.GooeyInventory;
 import com.carterz30cal.items.abilities2.Abilities;
-import com.carterz30cal.items.abilities2.implementation.GameAbility;
+import com.carterz30cal.items.abilities2.implementation.AbilityWithStats;
+import com.carterz30cal.items.abilities2.implementation.GameAbstractEnchant;
+import com.carterz30cal.items.abilities2.implementation.PlayerAbilityContext;
 import com.carterz30cal.items.recipes.Recipe;
 import com.carterz30cal.items.recipes.RecipeCategory;
 import com.carterz30cal.items.sets.ItemSet;
@@ -55,6 +57,11 @@ import java.util.Map.Entry;
 import static net.kyori.adventure.text.Component.text;
 import static net.kyori.adventure.text.format.NamedTextColor.*;
 
+/**
+ * @author carterz30cal
+ * @version 3
+ * @since 1.0.0
+ */
 public class ItemFactory
 {
 	public static ItemFactory instance;
@@ -262,13 +269,11 @@ public class ItemFactory
         if (item.type != ItemType.ENCHANTMENT) {
             var all = getItemAbilities(stack, context.player);
             for (var e : all) {
-                e.ability.onItemStats(e, stats);
+                if (e.ability instanceof AbilityWithStats abilityWithStats) {
+                    abilityWithStats.modifyStats(e, stats, AbilityWithStats.Situation.ITEM);
+                }
             }
-            stats.executeOperations();
-            for (var e : all) {
-                e.ability.onItemStatsLate(e, stats);
-            }
-            stats.executeOperations();
+            stats.execute();
         }
 
         record Section(List<TextComponent.Builder> section) {
@@ -346,18 +351,25 @@ public class ItemFactory
                                 enchantSection.section.add(text().append(text(" ")).append(d));
                             }
                         }
-                        if (item.type == ItemType.ENCHANTMENT && !enchant.ability.getApplicableTypes().isEmpty()) {
-                            var k = text();
-                            k.append(text(" Used with: ", DARK_GRAY));
-                            int i = 0;
-                            for (ItemType ty : enchant.ability.getApplicableTypes()) {
-                                i++;
-                                k.append(text(ty.toPlural(), DARK_GRAY));
-                                if (i != enchant.ability.getApplicableTypes().size()) {
-                                    k.append(text(", ", DARK_GRAY));
+                        if (item.type == ItemType.ENCHANTMENT) {
+                            if (enchant.ability instanceof GameAbstractEnchant enchAbility) {
+                                var validTypes = enchAbility.getValidTypes();
+                                if (!validTypes.isEmpty()) {
+                                    var k = text();
+                                    k.append(text(" Used with: ", DARK_GRAY));
+                                    int i = 0;
+                                    for (ItemType ty : validTypes) {
+                                        i++;
+                                        k.append(text(ty.toPlural(), DARK_GRAY));
+                                        if (i != validTypes.size()) {
+                                            k.append(text(", ", DARK_GRAY));
+                                        }
+                                    }
+                                    enchantSection.section.add(k);
                                 }
+
                             }
-                            enchantSection.section.add(k);
+
                         }
                     }
                 }
@@ -398,8 +410,11 @@ public class ItemFactory
             if (!item.set.equals("null") && context.player.hasSet(item.set)) {
                 ItemSet set = (ItemSet) getItem(item.set);
                 setSection.section.add(text().append(text("SET BONUS: " + set.name, GOLD).decorate(TextDecoration.BOLD)));
-                for (var d : set.description)
-                    setSection.section.add(text().append(text(" " + d, DARK_GRAY)));
+                for (var d : set.lore) {
+                    var miniMessage = MiniMessage.miniMessage().deserialize(" <dark_grey>" + d + "</dark_grey>");
+                    setSection.section.add(text().append(miniMessage));
+                }
+
                 for (Stat stat : set.stats.getStats()) {
                     if (stat.display == StatDisplayType.NO_DISPLAY) {
                         continue;
@@ -417,19 +432,14 @@ public class ItemFactory
             }
 
 
-            if (context.player.getLevel() < item.stats.getStat(Stat.LEVEL_REQUIREMENT)) {
-                setSection.section.add(text().append(text("\u00D7 Requires Level " + item.stats.getStat(Stat.LEVEL_REQUIREMENT), RED)));
+            if (context.player.getLevel() < item.stats.stat(Stat.LEVEL_REQUIREMENT)) {
+                setSection.section.add(text().append(text("\u00D7 Requires Level " + item.stats.stat(Stat.LEVEL_REQUIREMENT), RED)));
             }
             if (!setSection.section.isEmpty()) {
                 sections.add(setSection);
             }
         }
 
-        if (!item.description.isEmpty()) {
-            Section descriptionSection = new Section(new ArrayList<>());
-            for (String d : item.description) descriptionSection.section.add(text().append(text(d, DARK_GRAY)));
-            sections.add(descriptionSection);
-        }
         if (item.lore != null && !item.lore.isEmpty()) {
             Section loreSection = new Section(new ArrayList<>());
             for (var l : item.lore) {
@@ -473,205 +483,6 @@ public class ItemFactory
         }
         stack.setItemMeta(meta);
     }
-
-    @Deprecated
-    @SuppressWarnings("all")
-	public static void update(ItemStack i, GamePlayer player)
-	{
-		if (i == null) return;
-		Item item = getItem(i);
-		if (item == null) return;
-        if (i.getItemMeta() instanceof SkullMeta && item.skullProfileId != null) {
-            setSkullTexture(i, item.skullProfileId);
-        }
-		ItemMeta meta = i.getItemMeta();
-
-
-        List<String> lore = new ArrayList<>();
-
-		var enchantments = getItemEnchants(i);
-		StatContainer stats = item.stats.clone();
-
-		int maxEnchantPower = getItemMaxEnchantPower(i, player);
-		int usedEnchantPower = Math.max(0, sumEnchantPower(enchantments));
-
-		StringBuilder name = new StringBuilder(item.rarity.colour + item.name);
-
-
-		String descriptor = "DARK_GRAY" + item.rarity.name + " " + item.type.toString();
-		if (item.rarity == ItemRarity.MYSTERIOUS) descriptor = "DARK_GRAYMysterious Item";
-
-		if (maxEnchantPower > 0)
-		{
-			if (usedEnchantPower > maxEnchantPower) descriptor = descriptor + " [DARK_REDOVERMAXDARK_GRAY]";
-			else if (usedEnchantPower == maxEnchantPower) descriptor = descriptor + " [AQUAMAXDARK_GRAY]";
-			else descriptor = descriptor + " [AQUA" + usedEnchantPower + "DARK_GRAY/AQUA" + maxEnchantPower + "DARK_GRAY]";
-		}
-		else if (item.type == ItemType.ENCHANTMENT)
-		{
-			descriptor = descriptor + " [AQUA" + usedEnchantPower + "DARK_GRAY]";
-		}
-		if (item.value > 0 && isItemBaseModel(i)) {
-			descriptor = descriptor + " DARK_GREEN$" + item.value + "DARK_GRAY";
-		}
-		lore.add(descriptor);
-		lore.add("");
-
-		List<ItemAttuner> attuners = getAttuners(i);
-		if (!attuners.isEmpty()) name.append(" DARK_GRAY[");
-		for (ItemAttuner attuner : attuners)
-		{
-			name.append(attuner.plus);
-			attuner.stats.pushIntoContainer(stats);
-		}
-		if (!attuners.isEmpty()) name.append("DARK_GRAY]");
-
-		if (item.type != ItemType.ENCHANTMENT)
-		{
-			var all = getItemAbilities(i, player);
-			for (var e : all)
-			{
-				e.ability.onItemStats(e, stats);
-			}
-			stats.executeOperations();
-			for (var e : all)
-			{
-				e.ability.onItemStatsLate(e, stats);
-			}
-			stats.executeOperations();
-		}
-
-		for (Stat stat : stats.getStats())
-		{
-			if (stat.display == StatDisplayType.NO_DISPLAY) continue;
-			lore.add(stat.colour + stat.name + ": WHITE" + stats.getDisplayed(stat));
-		}
-
-		if (!stats.statuses.isEmpty()) {
-			lore.add("");
-			lore.add("GOLDApplies: ");
-			for (StatusEffect effect : stats.statuses.effects.keySet()) {
-				int value = stats.statuses.effects.get(effect);
-				if (value == 0) continue;
-				lore.add(" " + effect.colour + value + " " + effect.name + " " + effect.symbol);
-			}
-		}
-
-		if (meta instanceof LeatherArmorMeta)
-		{
-			LeatherArmorMeta leather = (LeatherArmorMeta)meta;
-
-			leather.setColor(Color.fromRGB(item.r, item.g, item.b));
-		}
-        if (meta instanceof ArmorMeta) {
-            ArmorMeta armor = (ArmorMeta) meta;
-            if (item.trimMaterial != TrimMaterialWrapper.NULL && item.trimPattern != TrimPatternWrapper.NULL) {
-                ArmorTrim trim = new ArmorTrim(item.trimMaterial.GetTrimMaterial(), item.trimPattern.GetTrimPattern());
-                armor.setTrim(trim);
-            }
-        }
-
-
-		if (enchantments.size() > 4)
-		{
-			if (!lore.get(lore.size() - 1).isEmpty()) lore.add("");
-
-			StringBuilder l = new StringBuilder();
-			int in = 0;
-			for (var enchant : enchantments)
-			{
-				in++;
-				if (in < 3)
-				{
-					l.append(getColouredEnchantmentName(enchant)).append(", ");
-				}
-				else
-				{
-					lore.add(l + getColouredEnchantmentName(enchant));
-					l = new StringBuilder();
-					in = 0;
-				}
-			}
-			if (in != 0) lore.add(l.substring(0, l.length() - 2));
-		}
-		else if (!enchantments.isEmpty())
-		{
-			if (!lore.get(lore.size() - 1).isEmpty()) lore.add("");
-			for (var enchant : enchantments)
-			{
-				lore.add(getColouredEnchantmentName(enchant));
-				for (String d : enchant.description()) lore.add(" " + d);
-				if (item.type == ItemType.ENCHANTMENT) {
-					StringBuilder appl = new StringBuilder();
-					appl.append("DARK_GRAY Used with: ");
-					for (ItemType ty : enchant.ability.getApplicableTypes()) {
-						appl.append(ty.toString());
-						if (appl.charAt(appl.length() - 1) != 's') appl.append("s");
-						appl.append(", ");
-					}
-					lore.add(appl.substring(0, appl.length() - 2));
-				}
-			}
-		}
-
-		if (!lore.get(lore.size() - 1).isEmpty()) lore.add("");
-		var abilities = getItemAbilities(item);
-		if (item instanceof ItemPet) {
-			ItemPet pet = (ItemPet) item;
-			if (pet.activeAbility != null) {
-				abilities.add(0, pet.activeAbility.getContext(player, item.rarity.ordinal()));
-			}
-		}
-		for (var context : abilities)
-		{
-			lore.add(context.name());
-			for (String d : context.description()) lore.add(" " + d);
-		}
-
-		if (!lore.get(lore.size() - 1).isEmpty()) lore.add("");
-		for (String d : item.description) lore.add("GRAY" + d);
-		if (item.type == ItemType.ATTUNER)
-		{
-			lore.add("GRAYYou may apply up to five attuners");
-			lore.add("GRAYon any wieldable item.");
-		}
-
-		if (player != null) {
-			if (!item.set.equals("null") && player.hasSet(item.set)) {
-				ItemSet set = (ItemSet) getItem(item.set);
-				lore.add("GOLDBOLDSET BONUS: " + set.name);
-				for (String d : set.description) lore.add(" GRAY" + d);
-				for (Stat stat : set.stats.getStats())
-				{
-					if (stat.display == StatDisplayType.NO_DISPLAY) continue;
-					lore.add(" " + stat.colour + stat.name + ": WHITE" + set.stats.getDisplayed(stat));
-				}
-				for (var context : getItemAbilities(set))
-				{
-					context.owner = player;
-					//lore.add(" " + ability.name());
-					for (String d : context.description()) lore.add(" " + d);
-				}
-			}
-
-			if (player.getLevel() < item.stats.getStat(Stat.LEVEL_REQUIREMENT)) {
-				lore.add("RED\u00D7 Requires Level " + item.stats.getStat(Stat.LEVEL_REQUIREMENT));
-			}
-		}
-
-
-		while (lore.get(lore.size() - 1).isEmpty()) lore.remove(lore.size() - 1);
-		meta.setLore(StringUtils.colourList(lore));
-		meta.setDisplayName(StringUtils.colourString(name.toString()));
-
-		if (item.glow)
-		{
-			meta.addEnchant(Enchantment.UNBREAKING, 1, false);
-		}
-		else meta.removeEnchant(Enchantment.UNBREAKING);
-
-		i.setItemMeta(meta);
-	}
 
 	public static ItemStack ripPlayerSkull(GamePlayer player)
 	{
@@ -747,22 +558,6 @@ public class ItemFactory
 	public static boolean isItemBaseModel(ItemStack item) {
         return getItemData(item).isEmpty();
 	}
-
-	public static String getColouredEnchantmentName(GameAbility.AbilityContext context) {
-		int maxLevel = context.ability.getMaximumLevel();
-		StringBuilder name = new StringBuilder();
-		if (context.level < maxLevel) {
-			name.append("DARK_PURPLE");
-		}
-		else if (context.level == maxLevel) {
-			name.append("BLUE");
-		}
-		else name.append("GOLD");
-		name.append(context.name());
-		name.append(" ");
-		name.append(context.level);
-		return name.toString();
-	}
 	
 	public static Item getItem(ItemStack item)
 	{
@@ -774,7 +569,8 @@ public class ItemFactory
 		if (item == null) return null;
 		return items.getOrDefault(item, null);
 	}
-	
+
+    @Deprecated
 	public static int getItemMaxEnchantPower(ItemStack i, GamePlayer player)
 	{
 		Item item = getItem(i);
@@ -789,29 +585,34 @@ public class ItemFactory
 	 * enchants:power-1,strength-2,MIDAS_TOUCH-5~reforge:incredible
 	 * 
 	 */
-	
-	public static int sumEnchantPower(List<GameAbility.AbilityContext> enchants)
+
+    public static int sumEnchantPower(List<PlayerAbilityContext> enchants)
 	{
 		int power = 0;
-		for (var e : enchants) power += e.getEnchantPower();
+        for (var e : enchants) {
+            if (e.ability instanceof GameAbstractEnchant enchant) {
+                power += (int) enchant.getEnchantPower(e);
+            }
+        }
 		
 		return power;
 	}
-	
-	
-	/*
-	 * this function doesn't return incompatible enchantments.
-	 * 
-	 * 
-	 */
-	public static List<GameAbility.AbilityContext> getItemEnchants(ItemStack i)
+
+
+    public static List<PlayerAbilityContext> getItemEnchants(ItemStack i)
 	{
 		return getItemEnchants(i, null);
 	}
-	
-	public static List<GameAbility.AbilityContext> getItemEnchants(ItemStack i, GamePlayer owner)
-	{
-		List<GameAbility.AbilityContext> enchants = new ArrayList<>();
+
+    /**
+     *
+     * @param i     the ItemStack we're checking
+     * @param owner the player that we're checking on.
+     * @return all compatible enchantments on i
+     * @since 1.0.0
+     */
+    public static List<PlayerAbilityContext> getItemEnchants(ItemStack i, GamePlayer owner) {
+        List<PlayerAbilityContext> enchants = new ArrayList<>();
 		String[] strEnch = getItemData(i).getOrDefault("enchants", "").split(",");
 		Item item = getItem(i);
 		if (item == null) return new ArrayList<>();
@@ -827,42 +628,44 @@ public class ItemFactory
 				ability = Abilities.valueOf(split[0]);
 			} catch (IllegalArgumentException e) {
 				continue;
-			}
-			GameAbility.AbilityContext context = ability.getContext(owner, level);
-
-            if (context.ability.getApplicableTypes().contains(item.type) || item.type == ItemType.ENCHANTMENT) {
+            }
+            PlayerAbilityContext context = ability.getContext(owner, level);
+            if (item.type == ItemType.ENCHANTMENT) {
+                enchants.add(context);
+            }
+            else if (context.ability instanceof GameAbstractEnchant enchant && enchant.getValidTypes().contains(item.type)) {
                 enchants.add(context);
             }
         }
 		
 		return enchants;
 	}
-	
-	
-	
-	public static List<GameAbility.AbilityContext> getItemAbilities(Item item)
+
+
+    public static List<PlayerAbilityContext> getItemAbilities(Item item)
 	{
 		return getItemAbilities(item, null);
-	}
-	public static List<GameAbility.AbilityContext> getItemAbilities(Item item, GamePlayer p)
+    }
+
+    public static List<PlayerAbilityContext> getItemAbilities(Item item, GamePlayer p)
 	{
 		if (item == null) return new ArrayList<>();
-		
-		List<GameAbility.AbilityContext> abilities = new ArrayList<>();
+
+        List<PlayerAbilityContext> abilities = new ArrayList<>();
 		for (var a : item.abilities)
 		{
 			abilities.add(a.getContext(p, item.rarity.ordinal()));
 		}
 		
 		return abilities;
-	}
+    }
 
-	public static List<GameAbility.AbilityContext> getItemAbilities(ItemStack item, GamePlayer p)
+    public static List<PlayerAbilityContext> getItemAbilities(ItemStack item, GamePlayer p)
 	{
 		if (item == null) return new ArrayList<>();
 		Item i = getItem(item);
 
-		List<GameAbility.AbilityContext> abilities = new ArrayList<>();
+        List<PlayerAbilityContext> abilities = new ArrayList<>();
 		for (var a : i.abilities)
 		{
 			abilities.add(a.getContext(p, i.rarity.ordinal()));
@@ -1323,12 +1126,10 @@ public class ItemFactory
 			item.rarity = ItemRarity.valueOf(i.getString("rarity", "COMMON"));
 			item.stats = new StatContainer();
 			item.glow = i.getBoolean("glow", false);
-			item.description = i.getStringList("description");
             item.lore = i.getStringList("lore");
 			item.value = i.getLong("value");
 			item.tags = i.getStringList("tags");
 			item.set = i.getString("set", "null");
-			if (item.description == null) item.description = new ArrayList<>();
             if (item.lore == null) {
                 item.lore = new ArrayList<>();
             }
@@ -1351,9 +1152,8 @@ public class ItemFactory
 			{
 				ConfigurationSection s = i.getConfigurationSection("stats");
                 assert s != null;
-                for (String stat : s.getKeys(false))
-				{
-					item.stats.setStat(Stat.valueOf(stat.toUpperCase()), StringUtils.getIntFromStringConf(s, stat, in));
+                for (String stat : s.getKeys(false)) {
+                    item.stats.setStat(Stat.valueOf(stat.toUpperCase()), StringUtils.getLongFromStringConf(s, stat, in));
 				}
 			}
 
@@ -1478,23 +1278,20 @@ public class ItemFactory
         item.trimMaterial = TrimMaterialWrapper.valueOf(i.getString("trim-material", "NULL"));
 
 		item.glow = i.getBoolean("glow", false);
-		item.description = i.getStringList("description");
         item.lore = i.getStringList("lore");
 		item.discovery = i.getString("discovery", null);
 		item.discoveryProgress = i.getInt("discovery-progress", 0);
 		item.set = i.getString("set", "null");
         item.skullProfileId = i.getString("skull-profile-id", null);
 
-		if (item.description == null) item.description = new ArrayList<>();
         if (item.lore == null) {
             item.lore = new ArrayList<>();
         }
 		if (lootboxItemCount > 0) {
 			//item.description.add("");
-			item.description.add("GRAYThis lootbox can contain up");
-			item.description.add("GRAYto GOLD" + lootboxItemCount + "GRAY unique items!");
-            item.description.add("DARK_GRAYItems are automatically added to either");
-            item.description.add("DARK_GRAYyour inventory or your ingredient sack.");
+            item.lore.add("<grey>This lookbox can contain up to <gold>" + lootboxItemCount + "</gold> different");
+            item.lore.add("<grey>drops, all of which are added automatically to</grey>");
+            item.lore.add("<grey>either your inventory or your sack upon opening!</grey>");
 		}
 		var abilities = i.getStringList("abilities");
 		item.abilities = new ArrayList<>();
@@ -1520,9 +1317,8 @@ public class ItemFactory
 		{
 			ConfigurationSection s = i.getConfigurationSection("stats");
             assert s != null;
-            for (String stat : s.getKeys(false))
-			{
-				item.stats.setStat(Stat.valueOf(stat.toUpperCase()), s.getInt(stat));
+            for (String stat : s.getKeys(false)) {
+                item.stats.setStat(Stat.valueOf(stat.toUpperCase()), s.getLong(stat));
 			}
 		}
 

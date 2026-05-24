@@ -4,6 +4,7 @@ import com.carterz30cal.entities.enemies.core.GameEnemy;
 import com.carterz30cal.main.Dungeons;
 import com.carterz30cal.utils.EntityUtils;
 import net.kyori.adventure.text.Component;
+import org.bukkit.entity.Display;
 import org.bukkit.entity.TextDisplay;
 import org.bukkit.scheduler.BukkitRunnable;
 import org.jetbrains.annotations.Nullable;
@@ -38,7 +39,7 @@ public class EnemyInformationDisplay {
             updated.add(false);
         }
         components.set(index, component);
-        updated.set(0, true);
+        updated.set(index, true);
     }
 
     public void removeLine(int index) {
@@ -57,13 +58,19 @@ public class EnemyInformationDisplay {
         }
         while (displays.size() < components.size()) {
             var text = EntityUtils.spawnTextHologram(owner.getLocation(), -1);
+            assert text != null;
+            text.setTeleportDuration(1);
+            text.setBillboard(Display.Billboard.CENTER);
             displays.add(text);
         }
         for (int i = 0; i < components.size(); i++) {
             var display = displays.get(i);
             display.text(components.get(i));
+
             var y = (TEXT_GAP * (components.size() - i)) + owner.getRepresentation().getTallestPoint();
-            display.teleportAsync(owner.getLocation().clone().add(0, y, 0));
+            var location = owner.getLocation().clone().add(0, y + TEXT_GAP, 0);
+            location.setPitch(0);
+            display.teleportAsync(location);
         }
     }
 

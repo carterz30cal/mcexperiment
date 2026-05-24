@@ -13,7 +13,10 @@ import net.kyori.adventure.text.minimessage.MiniMessage;
  */
 public enum DamageType {
     PHYSICAL("<white>Physical</white>", NamedTextColor.WHITE),
-    BLEED("<red><em>Bleed</em></red>", NamedTextColor.RED);
+    MAGIC("<aqua>Magic</aqua>", NamedTextColor.AQUA),
+    BLEED("<red><em>Bleed</em></red>", NamedTextColor.RED),
+    FALL("<grey>Fall</grey>", NamedTextColor.GRAY),
+    SUFFOCATION("<yellow>Suffocation</yellow>", NamedTextColor.YELLOW);
     private final Component name;
     private final TextColor colour;
 

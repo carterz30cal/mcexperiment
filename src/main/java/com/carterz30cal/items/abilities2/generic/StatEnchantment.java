@@ -1,8 +1,9 @@
 package com.carterz30cal.items.abilities2.generic;
 
+import com.carterz30cal.entities.StatHavingEntity;
 import com.carterz30cal.items.ItemReq;
 import com.carterz30cal.items.ItemType;
-import com.carterz30cal.items.abilities2.implementation.GameAbstractEnchant;
+import com.carterz30cal.items.abilities2.implementation.*;
 import com.carterz30cal.stats.Stat;
 import com.carterz30cal.stats.StatContainer;
 import com.carterz30cal.stats.StatOperationType;
@@ -11,56 +12,47 @@ import net.kyori.adventure.text.format.NamedTextColor;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 import static net.kyori.adventure.text.Component.text;
 
 /**
  * @author carterz30cal
- * @version 1
+ * @version 2
  * @since 1.0.0
  */
-public class StatEnchantment extends GameAbstractEnchant {
-    public String enchantName;
-    public int powerPerLevel;
+public class StatEnchantment extends GameAbstractEnchant implements AbilityWithDescription, AbilityWithStats {
+    public long powerPerLevel;
     public Stat statGranted;
-    public int flatStat;
-    public int statPerLevel;
-    public int maxLevel;
-    public Set<ItemType> applicable;
+    public long flatStat;
+    public long statPerLevel;
     public StatOperationType statOperation;
 
-    public StatEnchantment(String name, int powerPerLevel, Stat granted, int flat, int statPerLevel, int maxLevel, ItemType... types) {
-        this.enchantName = name;
+    public StatEnchantment(String name, long powerPerLevel, Stat granted, long flat, long statPerLevel, int maxLevel, ItemType... types) {
+        super(name, maxLevel, types);
         this.powerPerLevel = powerPerLevel;
         this.statGranted = granted;
         this.flatStat = flat;
         this.statPerLevel = statPerLevel;
-        this.maxLevel = maxLevel;
-        this.applicable = new HashSet<>(List.of(types));
         this.statOperation = StatOperationType.ADD;
     }
 
-    public StatEnchantment(String name, int powerPerLevel, Stat granted, int flat, int statPerLevel, int maxLevel, StatOperationType statOperation, ItemType... types) {
-        this.enchantName = name;
+    public StatEnchantment(String name, long powerPerLevel, Stat granted, long flat, long statPerLevel, int maxLevel, StatOperationType statOperation, ItemType... types) {
+        super(name, maxLevel, types);
         this.powerPerLevel = powerPerLevel;
         this.statGranted = granted;
         this.flatStat = flat;
         this.statPerLevel = statPerLevel;
-        this.maxLevel = maxLevel;
-        this.applicable = new HashSet<>(List.of(types));
         this.statOperation = statOperation;
     }
 
     @Override
-    public String name(AbilityContext context) {
-        return enchantName;
+    public String name(PlayerAbilityContext context) {
+        return super.name(context);
     }
 
     @Override
-    public List<TextComponent.Builder> componentDescription(@NotNull AbilityContext context) {
+    public List<TextComponent.Builder> componentDescription(@NotNull PlayerAbilityContext context) {
         var description = text();
 
         description.append(text("Grants ", NamedTextColor.GRAY));
@@ -70,44 +62,46 @@ public class StatEnchantment extends GameAbstractEnchant {
         }
         description.append(text(statGranted.getIcon(), statGranted.textColour)).append(text(".", NamedTextColor.GRAY));
 
-        var d = super.componentDescription(context);
+        var d = new ArrayList<TextComponent.Builder>();
         d.add(description);
         return d;
     }
 
     @Override
-    public int getEnchantPower(AbilityContext context) {
+    public long getEnchantPower(PlayerAbilityContext context) {
         return powerPerLevel * context.level;
     }
 
     @Override
-    public int getMaximumLevel() {
-        return maxLevel;
-    }
-
-    @Override
-    public List<ItemReq> getCatalystRequirements(AbilityContext context, int desiredLevel) {
+    public List<ItemReq> getCatalystRequirements(PlayerAbilityContext context) {
         List<ItemReq> reqs = new ArrayList<>();
         reqs.add(new ItemReq("combination_catalyst_shard", 1));
         return reqs;
     }
 
+
+    private long getStat(PlayerAbilityContext context) {
+        return flatStat + (context.level * statPerLevel);
+    }
+
+    /**
+     *
+     * @param context   ability context, for level only.
+     * @param stats     the container we'll be operating on
+     * @param situation where is this being fired.
+     */
     @Override
-    public void onItemStats(AbilityContext context, StatContainer item) {
+    public void modifyStats(ContextWithAbility<? extends StatHavingEntity> context, StatContainer stats, Situation situation) {
+        if (situation != Situation.ITEM) {
+            return;
+        }
+        long level = context.getLevel();
+        long stat = flatStat + (level * statPerLevel);
         if (statOperation == StatOperationType.MULTIPLY) {
-            item.scheduleOperation(statGranted, StatOperationType.MULTIPLY, (100 + getStat(context)) / 100D);
+            stats.scheduleOperation(statGranted, StatOperationType.MULTIPLY, (100 + stat) / 100D);
         }
         else {
-            item.scheduleOperation(statGranted, statOperation, getStat(context));
+            stats.scheduleOperation(statGranted, statOperation, stat);
         }
-    }
-
-    @Override
-    public Set<ItemType> getApplicableTypes() {
-        return applicable;
-    }
-
-    private int getStat(AbilityContext context) {
-        return flatStat + (context.level * statPerLevel);
     }
 }

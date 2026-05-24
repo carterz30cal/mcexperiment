@@ -34,7 +34,7 @@ public class ListenerInventoryEvents implements Listener
             if (e.getSlotType() == InventoryType.SlotType.ARMOR && e.getRawSlot() == 5) {
                 ItemStack cursor = e.getCursor();
                 ItemStack place = e.getCurrentItem();
-                if (cursor == null || cursor.getType() == Material.AIR) {
+                if (cursor.getType() == Material.AIR) {
                     return;
                 }
                 if (e.isShiftClick()) {

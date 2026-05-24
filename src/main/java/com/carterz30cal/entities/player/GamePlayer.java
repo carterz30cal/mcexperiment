@@ -4,19 +4,20 @@ import com.carterz30cal.areas.AreaManager;
 import com.carterz30cal.areas.Areas;
 import com.carterz30cal.areas.PlayerTeleport;
 import com.carterz30cal.areas.quests.Quests;
-import com.carterz30cal.entities.DamageInfo;
 import com.carterz30cal.entities.GameEntity;
 import com.carterz30cal.entities.enemies.core.GameEnemy;
+import com.carterz30cal.entities.health.EntityHealthSystem;
+import com.carterz30cal.entities.health.damage.AttackType;
 import com.carterz30cal.entities.health.damage.DamagePacket;
+import com.carterz30cal.entities.health.damage.DamageType;
 import com.carterz30cal.entities.health.damage.handlers.AggressiveEntity;
-import com.carterz30cal.entities.health.damage.handlers.DamageModifier;
 import com.carterz30cal.entities.health.damage.handlers.DamageableEntity;
 import com.carterz30cal.entities.health.status.StatusEffect;
 import com.carterz30cal.events.GameEventHandler;
 import com.carterz30cal.fishing.FishingArea;
 import com.carterz30cal.gui.AbstractGUI;
 import com.carterz30cal.items.*;
-import com.carterz30cal.items.abilities2.implementation.GameAbility;
+import com.carterz30cal.items.abilities2.implementation.*;
 import com.carterz30cal.items.discoveries.Collection;
 import com.carterz30cal.items.discoveries.DiscoveryManager;
 import com.carterz30cal.items.recipes.Recipe;
@@ -30,13 +31,11 @@ import com.carterz30cal.stats.StatContainer;
 import com.carterz30cal.stats.StatOperationType;
 import com.carterz30cal.utils.EntityUtils;
 import com.carterz30cal.utils.LevelUtils;
-import com.carterz30cal.utils.ScoreboardWrapper;
 import net.kyori.adventure.audience.Audience;
 import net.kyori.adventure.text.TextComponent;
 import net.kyori.adventure.text.format.NamedTextColor;
 import net.kyori.adventure.text.format.TextColor;
 import net.kyori.adventure.text.minimessage.MiniMessage;
-import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
 import org.bukkit.Location;
 import org.bukkit.Sound;
@@ -45,7 +44,6 @@ import org.bukkit.block.Block;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
-import org.bukkit.event.entity.EntityRegainHealthEvent;
 import org.bukkit.event.entity.EntityRegainHealthEvent.RegainReason;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.persistence.PersistentDataType;
@@ -60,6 +58,11 @@ import java.util.*;
 
 import static net.kyori.adventure.text.Component.text;
 
+/**
+ * @author carterz30cal
+ * @version 1
+ * @since 1.0.0
+ */
 @SuppressWarnings("UnnecessaryUnicodeEscape")
 public class GamePlayer extends GameEntity implements DamageableEntity, AggressiveEntity
 {
@@ -78,8 +81,8 @@ public class GamePlayer extends GameEntity implements DamageableEntity, Aggressi
 	public long xp;
 	
 	public List<ForgingItem> forge = new ArrayList<>();
-	
-	public List<GameAbility.AbilityContext> abilities;
+
+    public List<PlayerAbilityContext> abilities;
     private boolean cachedLevel = false;
     private Quests selectedQuest;
     private final Map<UUID, GameEventHandler> eventHandlers = new HashMap<>();
@@ -117,20 +120,16 @@ public class GamePlayer extends GameEntity implements DamageableEntity, Aggressi
 
     public PlayerWardrobe wardrobe = new PlayerWardrobe(this);
     public PlayerSkillTree skillTree = new PlayerSkillTree(this);
+    public EntityHealthSystem healthSystem;
 	
 	public Map<String, Long> discoveries = new HashMap<>();
 	public Map<String, Integer> quiver = new HashMap<>();
-	public Map<String, Integer> sack = new HashMap<>();
+    public Map<String, Long> sack = new HashMap<>();
 
 	public Map<Integer, String> backpack = new HashMap<>();
 	
 	public List<GameEnemy> targeted = new ArrayList<>();
 
-    /**
-     * @deprecated in favour of PlayerScoreboard
-     */
-    @Deprecated
-	private ScoreboardWrapper scoreboard;
     private PlayerScoreboard playerScoreboard;
 
 
@@ -181,8 +180,8 @@ public class GamePlayer extends GameEntity implements DamageableEntity, Aggressi
 			if (m != null) m.damage(this);
 		}
 
-        EntityUtils.applyPotionEffect(player, PotionEffectType.MINING_FATIGUE, 5, 3, false);
-        EntityUtils.applyPotionEffect(player, PotionEffectType.HASTE, 5, 0, false);
+        EntityUtils.applyPotionEffect(player, PotionEffectType.MINING_FATIGUE, 30, 3, false);
+        EntityUtils.applyPotionEffect(player, PotionEffectType.HASTE, 30, 0, false);
         Objects.requireNonNull(player.getAttribute(Attribute.ATTACK_SPEED)).setBaseValue(10);
 
 
@@ -271,32 +270,46 @@ public class GamePlayer extends GameEntity implements DamageableEntity, Aggressi
 		{
             ItemFactory.update(item, getItemContext());
 			Item i = ItemFactory.getItem(item);
-			if (i == null || i.stats.getStat(Stat.LEVEL_REQUIREMENT) > getLevel()) continue;
+            if (i == null || i.stats.stat(Stat.LEVEL_REQUIREMENT) > getLevel()) {
+                continue;
+            }
 			StatContainer itemStats = i.stats.clone();
 			for (ItemAttuner attuner : ItemFactory.getAttuners(item)) attuner.stats.pushIntoContainer(itemStats);
 			//List<ItemEnchant> enchants = ItemFactory.getItemEnchants(item);
 			
 			var iAbilities = ItemFactory.getItemAbilities(item, this);
-			for (var e : iAbilities) e.ability.onItemStats(e, itemStats);
-			itemStats.executeOperations();
-			for (var e : iAbilities) e.ability.onItemStatsLate(e, itemStats);
+            for (var e : iAbilities) {
+                if (!(e instanceof AbilityWithStats is)) {
+                    continue;
+                }
+                is.modifyStats(e, itemStats, AbilityWithStats.Situation.ITEM);
+            }
+            itemStats.execute();
+            //for (var e : iAbilities) e.ability.onItemStatsLate(e, itemStats);
 			
 			itemStats.pushIntoContainer(stats);
 			abilities.addAll(iAbilities);
 		}
 
-		stats.executeOperations();
-		for (var a : abilities) a.ability.onPlayerStats(a, stats);
+        stats.execute();
+        for (var a : abilities) {
+            if (!(a instanceof AbilityWithStats is)) {
+                continue;
+            }
+            is.modifyStats(a, stats, AbilityWithStats.Situation.PLAYER);
+        }
         stats.scheduleOperation(Stat.BACKPACK_PAGES, StatOperationType.ADD, 2);
         stats.scheduleOperation(Stat.BACKPACK_PAGES, StatOperationType.CAP_MIN, 1);
         stats.scheduleOperation(Stat.LUCK, StatOperationType.ADD, 15);
-        stats.executeOperations();
+        stats.execute();
+
+        healthSystem.setMaxHealth(stats.stat(Stat.HEALTH));
 
 
         var actionStatBar = text();
-        actionStatBar.append(text(getHealth() + "\u2665", NamedTextColor.RED));
-        if (stats.getStat(Stat.MANA) > 0) {
-            actionStatBar.append(text(getMana() + "/" + stats.getStat(Stat.MANA) + "\u2605", NamedTextColor.LIGHT_PURPLE));
+        actionStatBar.append(text(healthSystem.getHealth() + "\u2665", NamedTextColor.RED));
+        if (stats.stat(Stat.MANA) > 0) {
+            actionStatBar.append(text(" " + getMana() + "/" + stats.stat(Stat.MANA) + "\u2605", NamedTextColor.LIGHT_PURPLE));
         }
         if (lastXpReward > 0) {
             actionStatBar.append(text(" +" + lastXpReward + " XP", NamedTextColor.AQUA));
@@ -347,9 +360,9 @@ public class GamePlayer extends GameEntity implements DamageableEntity, Aggressi
 		if (regenTick >= 40)
 		{
 			regenTick = 0;
-			
-			gainHealth(stats.getStat(Stat.VITALITY));
-            gainMana(stats.getStat(Stat.FOCUS));
+
+            heal(stats.stat(Stat.VITALITY));
+            gainMana(stats.stat(Stat.FOCUS));
 		}
 		
 		refreshHealth();
@@ -402,23 +415,24 @@ public class GamePlayer extends GameEntity implements DamageableEntity, Aggressi
 		while (level < discovery.tiers.size() && discovery.tiers.get(level) <= count) level++;
 		return level;
 	}
-	
-	public int getSackSize() {
+
+    public long getSackSize() {
         if (stats == null) {
             return 0;
         }
         else {
-            return stats.getStat(Stat.SACK_SPACE);
+            return stats.stat(Stat.SACK_SPACE);
         }
 	}
 
-	public int getSackSpaceUsed() {
-		int used = 0;
-		for (int i : sack.values()) used += i;
+    public long getSackSpaceUsed() {
+        long used = 0;
+        for (long i : sack.values()) used += i;
 
 		return used;
 	}
-	public int getSackSpaceRemaining() {
+
+    public long getSackSpaceRemaining() {
 		return getSackSize() - getSackSpaceUsed();
 	}
 
@@ -474,7 +488,7 @@ public class GamePlayer extends GameEntity implements DamageableEntity, Aggressi
 			if (i.type == ItemType.ARROW) quiver.put(i.id, quiver.getOrDefault(i.id, 0) + item.getAmount());
 			else if (i.type == ItemType.INGREDIENT && hasSackSpace(item.getAmount()))
 			{
-				int am = sack.getOrDefault(i.id, 0) + item.getAmount();
+                long am = sack.getOrDefault(i.id, 0L) + item.getAmount();
 				sack.put(i.id, am);
 			}
             else {
@@ -574,25 +588,6 @@ public class GamePlayer extends GameEntity implements DamageableEntity, Aggressi
         Audience audience = player;
         audience.sendActionBar(message.build());
     }
-
-
-	@Override
-	public boolean isTargetable(GameEnemy by)
-	{
-		double dist = by.getLocation().distance(getLocation());
-		double yDist = by.getLocation().getY() - getLocation().getY();
-		yDist = Math.abs(yDist);
-
-        if (player.getGameMode() == GameMode.CREATIVE) return false;
-        else {
-            return dist <= stats.getStat(Stat.VISIBILITY) && yDist <= 7;
-        }
-	}
-
-	@Override
-	public LivingEntity getTargetable() {
-		return player;
-	}
 	
 	public int getMaxTargets()
 	{
@@ -639,7 +634,7 @@ public class GamePlayer extends GameEntity implements DamageableEntity, Aggressi
 		return amount;
 	}
 
-	
+    @Deprecated
 	public int gainCoins(GameEnemy killed)
 	{
 		int total = 1 + (killed.type.health / 75);
@@ -662,21 +657,6 @@ public class GamePlayer extends GameEntity implements DamageableEntity, Aggressi
         }
 		
 		return slots;
-	}
-	
-	@Override
-	public int getHealth() {
-		return (int) (stats.getStat(Stat.HEALTH) * health);
-	}
-	
-	public void setHealth(int amount)
-	{
-        health = amount / (double) stats.getStat(Stat.HEALTH);
-		
-		health = Math.max(0, health);
-		health = Math.min(1, health);
-		
-		refreshHealth();
 	}
 	
 	public void scheduleForgeItem(ForgingItem item)
@@ -702,39 +682,55 @@ public class GamePlayer extends GameEntity implements DamageableEntity, Aggressi
 	public Vector getDirection() {
 		return player.getEyeLocation().getDirection().normalize();
 	}
-	
+
+    /**
+     * @deprecated in favour of mana()
+     */
+    @Deprecated
 	public int getMana()
 	{
-		return (int) (mana * stats.getStat(Stat.MANA));
+        return (int) (mana * stats.stat(Stat.MANA));
+    }
+
+    public void setMana(long amount)
+	{
+        double am = ((double) amount) / stats.stat(Stat.MANA);
+
+		am = Math.min(1, am);
+		am = Math.max(0, am);
+
+		mana = am;
 	}
-	
-	public void gainMana(int amount)
+
+    public long mana() {
+        return Math.round(mana * stats.stat(Stat.MANA));
+    }
+
+    public void gainMana(long amount)
 	{
         if (amount == 0) {
             return;
         }
-		int total = getMana() + amount;
-		
+        long total = getMana() + amount;
+
 		setMana(total);
 	}
-	
+
+    @Deprecated
 	public void loseMana(int amount)
 	{
 		int total = getMana() - amount;
-		
+
 		setMana(total);
 	}
-	
-	public void setMana(int amount)
-	{
-		double am = ((double)amount)/stats.getStat(Stat.MANA);
-		
-		am = Math.min(1, am);
-		am = Math.max(0, am);
-		
-		mana = am;
-	}
-	
+
+    public void loseMana(long amount) {
+        long total = mana() - amount;
+
+        setMana(total);
+    }
+
+    @Deprecated
 	public boolean useMana(int amount)
 	{
 		if (getMana() < amount) return false;
@@ -742,17 +738,24 @@ public class GamePlayer extends GameEntity implements DamageableEntity, Aggressi
 		loseMana(amount);
 		return true;
 	}
-	
+
+    public boolean useMana(long amount) {
+        if (getMana() < amount) {
+            return false;
+        }
+
+        loseMana(amount);
+        return true;
+    }
 
 
-	public void gainHealth(int amount)
+    public void heal(long amount)
 	{
-		int total = getHealth() + amount;
-		setHealth(total);
+        if (amount > 0) {
+            healthSystem.heal(amount);
 
-
-        EntityRegainHealthEvent e = new EntityRegainHealthEvent(player, 1, RegainReason.CUSTOM);
-		Bukkit.getPluginManager().callEvent(e);
+            player.heal(1, RegainReason.REGEN);
+        }
 	}
 
 	
@@ -786,15 +789,7 @@ public class GamePlayer extends GameEntity implements DamageableEntity, Aggressi
 	{
 		player.setSaturation(1);
 		player.setFoodLevel(20);
-		player.setHealth(Math.max(2, health * 20));
-	}
-	
-	public void takeHealth(int amount)
-	{
-		int total = getHealth() - amount;
-		
-		setHealth(total);
-		if (health == 0) kill();
+        player.setHealth(Math.max(2, healthSystem.getHealthPercentage() * 20));
 	}
 	
 	public void playSound(Sound sound, double volume, double pitch)
@@ -818,26 +813,25 @@ public class GamePlayer extends GameEntity implements DamageableEntity, Aggressi
 	
 	public void kill()
 	{
-		sendMessage("REDYou were slain..");
+        sendMessage("<red>You were slain..</red>");
 		playSound(Sound.ENTITY_PLAYER_DEATH, 1, 0.9);
 		player.teleport(new Location(Dungeons.w, 0.5, 65, 0.5));
         player.setFallDistance(0);
         if (area != null) {
             area.getArea().OnPlayerDeath(this);
-            Teleport(area.getArea().GetRespawnPoint(this), false);
+            teleport(area.getArea().GetRespawnPoint(this), false);
         }
         else {
-            Teleport(PlayerTeleport.WATERWAY_SPAWN, false);
+            teleport(PlayerTeleport.WATERWAY_SPAWN, false);
         }
-		
-		health = 1;
+        healthSystem.setHealthPercentage(1);
 	}
 
-    public void Teleport(PlayerTeleport teleport) {
-        Teleport(teleport, true);
+    public void teleport(PlayerTeleport teleport) {
+        teleport(teleport, true);
     }
 
-    public void Teleport(PlayerTeleport teleport, boolean playSound) {
+    public void teleport(PlayerTeleport teleport, boolean playSound) {
         if (playSound) {
             playSound(Sound.ENTITY_ENDERMAN_TELEPORT, 0.8, 1.1);
         }
@@ -859,35 +853,14 @@ public class GamePlayer extends GameEntity implements DamageableEntity, Aggressi
 	}
 
 
-    public void IncrementKill(String mobId) {
+    public void incrementKill(String mobId) {
         kills.put(mobId, kills.getOrDefault(mobId, 0L) + 1);
     }
 
-    public long GetKills(String mobId) {
+    public long getKills(String mobId) {
         return kills.getOrDefault(mobId, 0L);
     }
 
-    public int GetBestiaryLevel(String mobId) {
-        long kills = GetKills(mobId);
-        if (kills > 999) {
-            return 5;
-        }
-        else if (kills > 499) {
-            return 4;
-        }
-        else if (kills > 99) {
-            return 3;
-        }
-        else if (kills > 24) {
-            return 2;
-        }
-        else if (kills > 4) {
-            return 1;
-        }
-        else {
-            return 0;
-        }
-    }
 
 	@Override
 	public void remove(){
@@ -906,29 +879,6 @@ public class GamePlayer extends GameEntity implements DamageableEntity, Aggressi
 			set.add(pet.petLine);
 		}
 		return set;
-	}
-
-	
-	@SuppressWarnings("ReassignedVariable")
-	public void damage(int damage)
-	{
-		int modifiedDamage = (int)Math.max(Math.round(damage * (100D / (100 + stats.getStat(Stat.DEFENCE)))), 0);
-		for (var a : abilities) modifiedDamage = a.ability.onDamaged(a, this.lastDamager, modifiedDamage);
-		
-		
-		takeHealth(modifiedDamage);
-		player.damage(1);
-	}
-	
-	@Override
-	@SuppressWarnings("ReassignedVariable")
-	public void damage(@NotNull DamageInfo info)
-	{
-		int modifiedDamage = (int)Math.max(Math.round(info.damage * (100D / (100 + stats.getStat(Stat.DEFENCE)))), 0);
-		for (var a : abilities) modifiedDamage = a.ability.onDamaged(a, this.lastDamager, modifiedDamage);
-
-		takeHealth(modifiedDamage);
-		player.damage(1);
 	}
 
     public void hideEntity(Entity entity) {
@@ -997,11 +947,11 @@ public class GamePlayer extends GameEntity implements DamageableEntity, Aggressi
     }
 
 
-    public boolean IsOnInvulnerableCooldown() {
+    public boolean isOnInvulnerableCooldown() {
         return invulnerabilityTick > 0;
     }
 
-    public void SetOnInvulnerableCooldown() {
+    public void setOnInvulnerableCooldown() {
         invulnerabilityTick = stats.getStat(Stat.INVULNERABILITY_TICKS);
     }
 
@@ -1011,17 +961,58 @@ public class GamePlayer extends GameEntity implements DamageableEntity, Aggressi
     }
 
     @Override
-    public List<DamageModifier> getAggressiveDamageModifiers() {
-        return List.of();
+    public List<? extends ContextWithAbility<? extends GameEntity>> getAggressiveDamageModifiers() {
+        return getAbilitiesWith(AggressiveAbility.class);
+    }
+
+    public <A extends Ability> List<PlayerAbilityContext> getAbilitiesWith(Class<A> clazz) {
+        var list = new ArrayList<PlayerAbilityContext>();
+        for (var ability : abilities) {
+            if (clazz.isInstance(ability.ability)) {
+                list.add(ability);
+            }
+        }
+        return list;
+    }
+
+    /**
+     * This just handles any post-attack events we want the entity to work with.
+     * e.g. for projectiles this will destroy the projectile, for players this will
+     * trigger attack cooldowns.
+     */
+    @Override
+    public void attack() {
+        attackTick = 4;
+    }
+
+    @Override
+    public DamagePacket getBlankDamagePacket() {
+        var packet = new DamagePacket();
+        packet.aggressor = this;
+        packet.attack = AttackType.MELEE;
+
+        // add damages
+        long physical = Math.round(getStat(Stat.DAMAGE) * (1D + (getStat(Stat.STRENGTH) / 100D))
+                * (1D + (getStat(Stat.POWER) / 100D))
+                * (1D + (getStat(Stat.MIGHT) / 100D)));
+        packet.addDamage(DamageType.PHYSICAL, physical);
+
+        return packet;
     }
 
     @Override
     public void damage(@NotNull DamagePacket damagePacket) {
-
+        if (healthSystem.damage(damagePacket)) {
+            player.playHurtAnimation(0);
+            setOnInvulnerableCooldown();
+            if (healthSystem.isDead()) {
+                kill();
+            }
+        }
     }
 
     @Override
-    public List<DamageModifier> getDefensiveDamageModifiers() {
+    public List<? extends ContextWithAbility<? extends GameEntity>> getDefensiveDamageModifiers() {
         return List.of();
     }
 
@@ -1031,8 +1022,23 @@ public class GamePlayer extends GameEntity implements DamageableEntity, Aggressi
     }
 
     @Override
+    public boolean isAlive() {
+        return !healthSystem.isDead();
+    }
+
+    /**
+     *
+     * @param by what is attempting to attack us
+     * @return false if the victim is currently invulnerable, true otherwise
+     */
+    @Override
+    public boolean isDamageable(AggressiveEntity by) {
+        return !isOnInvulnerableCooldown();
+    }
+
+    @Override
     public double getHealthPercentage() {
-        return health;
+        return healthSystem.getHealthPercentage();
     }
 
     @Override
@@ -1046,5 +1052,24 @@ public class GamePlayer extends GameEntity implements DamageableEntity, Aggressi
     @Override
     public LivingEntity getTargetableEntity() {
         return player;
+    }
+
+    @Override
+    public boolean isTargetable(AggressiveEntity by) {
+        if (by instanceof GameEnemy) {
+            double dist = by.getLocation().distance(getLocation());
+            double yDist = by.getLocation().getY() - getLocation().getY();
+            yDist = Math.abs(yDist);
+
+            if (player.getGameMode() == GameMode.CREATIVE) {
+                return false;
+            }
+            else {
+                return dist <= stats.getStat(Stat.VISIBILITY) && yDist <= 7;
+            }
+        }
+        else {
+            return false;
+        }
     }
 }

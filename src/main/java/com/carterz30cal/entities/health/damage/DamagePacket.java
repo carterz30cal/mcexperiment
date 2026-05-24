@@ -20,6 +20,7 @@ public class DamagePacket {
     public Map<DamageType, Long> damages = new HashMap<>();
     public DamageableEntity defender;
     public AggressiveEntity aggressor;
+    public AttackType attack;
 
     public DamagePacket() {
 
@@ -71,10 +72,10 @@ public class DamagePacket {
     public double getResistanceMultiplier(DamageType damageType) {
         var value = 0L;
         for (var resistance : DamageResistance.getDamageResistance(damageType)) {
-            value += resistances.get(resistance);
+            value += resistances.getOrDefault(resistance, 0L);
         }
         if (value >= 0) {
-            return value / (value + 100D);
+            return 1 - (value / (value + 100D));
         }
         else {
             return (1D - (value / 100D));
@@ -85,4 +86,19 @@ public class DamagePacket {
         return Math.max(0, statusEffects.getOrDefault(effect, 0L) - statusResistances.getOrDefault(StatusResistance.getDamageResistance(effect), 0L));
     }
 
+    public long getTotalDamage() {
+        long total = 0;
+        for (var damage : damages.values()) {
+            total += damage;
+        }
+        return total;
+    }
+
+    public boolean isValid() {
+        return defender.isAlive() && getTotalDamage() > 0;
+    }
+
+    public void multiply(double multiplier) {
+        damages.replaceAll((i, b) -> Math.round(b * multiplier));
+    }
 }

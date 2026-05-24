@@ -1,6 +1,6 @@
 package com.carterz30cal.entities.player;
 
-import com.carterz30cal.items.abilities2.implementation.GameAbility;
+import com.carterz30cal.items.abilities2.implementation.PlayerAbilityContext;
 import com.carterz30cal.skills.Skills;
 import com.carterz30cal.stats.Stat;
 import org.bukkit.configuration.ConfigurationSection;
@@ -10,10 +10,17 @@ import java.util.EnumMap;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * TODO FINISH!
+ *
+ * @author carterz30cal
+ * @version 1
+ * @since 1.0.0
+ */
 public class PlayerSkillTree {
     private final GamePlayer owner;
     private final Map<Skills, Integer> tree = new EnumMap<>(Skills.class);
-    private List<GameAbility.AbilityContext> underlying;
+    private List<PlayerAbilityContext> underlying;
 
     public PlayerSkillTree(GamePlayer owner) {
         this.owner = owner;
@@ -48,7 +55,7 @@ public class PlayerSkillTree {
             if (entry.getValue() == 0) {
                 continue;
             }
-            var context = new GameAbility.AbilityContext(entry.getKey().getSkill());
+            var context = new PlayerAbilityContext(entry.getKey().getSkill());
             context.owner = owner;
             context.level = entry.getValue();
             underlying.add(context);
@@ -74,11 +81,11 @@ public class PlayerSkillTree {
         return used;
     }
 
-    public int getRemainingTokens() {
-        return owner.stats.getStat(Stat.SKILL_TREE_TOKENS) - getTokensUsed();
+    public long getRemainingTokens() {
+        return owner.stats.stat(Stat.SKILL_TREE_TOKENS) - getTokensUsed();
     }
 
-    public List<GameAbility.AbilityContext> getUnderlyingAbilities() {
+    public List<PlayerAbilityContext> getUnderlyingAbilities() {
         return underlying;
     }
 }

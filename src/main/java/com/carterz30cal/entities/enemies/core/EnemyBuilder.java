@@ -13,7 +13,7 @@ import java.util.UUID;
 
 /**
  * @author carterz30cal
- * @version 1
+ * @version 2
  * @since 1.0.0
  */
 public class EnemyBuilder {
@@ -51,9 +51,17 @@ public class EnemyBuilder {
         return this;
     }
 
+    public EnemyDirectorBuilder getDirectorBuilder() {
+        return directorBuilder;
+    }
+
     public EnemyBuilder setRepresentationBuilder(EnemyRepresentationBuilder representationBuilder) {
         this.representationBuilder = representationBuilder;
         return this;
+    }
+
+    public EnemyRepresentationBuilder getRepresentationBuilder() {
+        return representationBuilder;
     }
 
     public EnemyBuilder setHealthSystemBuilder(EntityHealthSystemBuilder healthSystemBuilder) {
@@ -61,15 +69,25 @@ public class EnemyBuilder {
         return this;
     }
 
+    public EntityHealthSystemBuilder getHealthSystemBuilder() {
+        return healthSystemBuilder;
+    }
+
     public EnemyBuilder setEnemyData(EnemyData data) {
         this.data = data;
         return this;
     }
 
+    public EnemyData getEnemyData() {
+        return data;
+    }
+
     public GameEnemy build(@NotNull Location spawnLocation) {
-        var enemy = new GameEnemy(representationBuilder.build(spawnLocation), healthSystemBuilder.build(), directorBuilder.build(spawnLocation), id);
-        enemy.setEnemyData(data);
-        return enemy;
+        return new GameEnemy(
+                representationBuilder.build(spawnLocation),
+                healthSystemBuilder.build(),
+                directorBuilder.build(spawnLocation),
+                data, id);
     }
 
     public boolean isTemporaryBuilder() {

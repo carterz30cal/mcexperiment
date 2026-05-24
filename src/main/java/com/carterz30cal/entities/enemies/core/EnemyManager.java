@@ -1,8 +1,8 @@
 package com.carterz30cal.entities.enemies.core;
 
 import com.carterz30cal.entities.AbstractEnemyType;
-import com.carterz30cal.entities.EnemyTypes;
 import com.carterz30cal.entities.enemies.directors.EnemyDirectorBuilder;
+import com.carterz30cal.entities.enemies.directors.behaviour.SimpleTargetingBehaviour;
 import com.carterz30cal.entities.enemies.representation.EnemyRepresentationBuilder;
 import com.carterz30cal.entities.health.EntityHealthSystemBuilder;
 import com.carterz30cal.entities.health.damage.DamageType;
@@ -19,12 +19,12 @@ import java.util.Objects;
 public class EnemyManager 
 {
 	public static String[] files = {
-            "waterway/mobs/lunatics", "waterway/mobs/titans",
-            "waterway/mobs/seraph/boss", "waterway/mobs/seraph/summons",
-            "waterway/mobs/fishing/fishing_common",
-            "waterway/mobs/fishing/fishing_uncommon",
-            "waterway/mobs/fishing/fishing_rare",
-            "waterway/mobs/fishing/fishing_very_rare",
+            "waterway/mobs/lunatics", //"waterway/mobs/titans",
+            //"waterway/mobs/seraph/boss", "waterway/mobs/seraph/summons",
+            // "waterway/mobs/fishing/fishing_common",
+            //"waterway/mobs/fishing/fishing_uncommon",
+            //  "waterway/mobs/fishing/fishing_rare",
+            //   "waterway/mobs/fishing/fishing_very_rare",
 	};
 	
 	public static EnemyManager instance;
@@ -39,9 +39,6 @@ public class EnemyManager
             assert c != null;
             for (String p : c.getKeys(false))
 			{
-				EnemyTypes type = EnemyTypes.valueOf(c.getString(p + ".type", file));
-				type.generate(c.getConfigurationSection(p));
-
                 var health = new EntityHealthSystemBuilder();
                 health.setMaxHealth(c.getLong(p + ".health"));
 
@@ -55,6 +52,7 @@ public class EnemyManager
                 var director = new EnemyDirectorBuilder();
                 director.setKnockback(c.getInt(p + ".knockback", 100));
                 director.setSpeed(c.getDouble(p + ".speed", 1D));
+                director.setTargetingBehaviour(new SimpleTargetingBehaviour(false));
 
                 var data = new EnemyData();
                 data.name = MiniMessage.miniMessage().deserialize(c.getString(p + ".name", "null"));
@@ -97,14 +95,16 @@ public class EnemyManager
                 }
 
                 EnemyBuilder enemy = new EnemyBuilder(p);
-                enemy.setHealthSystemBuilder(health).setRepresentationBuilder(representationBuilder).setDirectorBuilder(director);
+                enemy.setHealthSystemBuilder(health).setRepresentationBuilder(representationBuilder).setDirectorBuilder(director).setEnemyData(data);
 			}
 		}
 	}
 	
 	public static GameEnemy spawn(String type, Location l)
 	{
-		return AbstractEnemyType.types.get(type).generate(l);
+        var enemy = EnemyBuilder.getBuilder(type).build(l);
+        enemy.register();
+        return enemy;
 	}
 	
 	public static AbstractEnemyType getType(String type) {

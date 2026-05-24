@@ -7,6 +7,11 @@ import org.jetbrains.annotations.NotNull;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * @author carterz30cal
+ * @version 2
+ * @since 1.0.0
+ */
 public class EnemyRepresentationBuilder {
     private final List<EnemyRepresentationData> data = new ArrayList<>();
 
@@ -19,6 +24,16 @@ public class EnemyRepresentationBuilder {
     public EnemyRepresentationBuilder add(@NotNull ConfigurationSection yaml) {
         var entity = EnemyRepresentationData.fromYaml(yaml);
         data.add(entity);
+        return this;
+    }
+
+    /**
+     *
+     * @param data the entity data we want to add to the representation
+     * @return the builder
+     */
+    public EnemyRepresentationBuilder add(@NotNull EnemyRepresentationData data) {
+        this.data.add(data);
         return this;
     }
 

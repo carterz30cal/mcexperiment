@@ -1,45 +1,42 @@
 package com.carterz30cal.items.abilities2.waterway.pets;
 
-import com.carterz30cal.entities.DamageInfo;
 import com.carterz30cal.entities.GameEntity;
-import com.carterz30cal.entities.enemies.core.GameEnemy;
-import com.carterz30cal.items.abilities2.implementation.GameAbility;
+import com.carterz30cal.entities.TagHavingEntity;
+import com.carterz30cal.entities.health.damage.DamagePacket;
+import com.carterz30cal.entities.health.damage.DamageType;
+import com.carterz30cal.entities.health.damage.operations.implementations.MultiplyDamageTypeOperation;
+import com.carterz30cal.items.abilities2.implementation.*;
 import com.carterz30cal.utils.StringUtils;
 import org.jetbrains.annotations.NotNull;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
  * @author carterz30cal
- * @version 1
+ * @version 2
  * @since 1.0.0
  */
-public class PetDrenchedPassive extends GameAbility {
-    public PetDrenchedPassive() {
-
-    }
-
+public class PetDrenchedPassive extends GameAbility implements AggressiveAbility, AbilityWithDescription {
     @Override
-    public String name(GameAbility.AbilityContext context) {
+    public String name(PlayerAbilityContext context) {
         return "Passive: Hunting Nemo";
     }
 
     @Override
-    public List<String> miniMessageDescription(@NotNull AbilityContext context) {
-        var list = super.miniMessageDescription(context);
-        list.add("<grey>Deal <red>" + StringUtils.truncatedDouble2(getDamageBonus(context)) +
+    public List<String> miniMessageDescription(@NotNull PlayerAbilityContext context) {
+        var list = new ArrayList<String>();
+        list.add("<grey>Deal <red>" + StringUtils.truncatedDouble2(1.1 + (0.1 * context.getLevel())) +
                 "x</red> more damage to fishing mobs.");
         return list;
     }
 
-    private double getDamageBonus(GameAbility.AbilityContext context) {
-        return 1.1 + (0.1 * context.level);
-    }
-
     @Override
-    public void onAttack(AbilityContext context, DamageInfo info, GameEntity attacked) {
-        if (info.defender instanceof GameEnemy enemy) {
-            if (enemy.hasTag("FISHING")) info.damage = (int) (info.damage * getDamageBonus(context));
+    public void damage(ContextWithAbility<? extends GameEntity> context, DamagePacket packet) {
+        if (packet.defender instanceof TagHavingEntity taggable) {
+            if (taggable.tag("FISHING")) {
+                packet.addOperation(new MultiplyDamageTypeOperation(DamageType.PHYSICAL, 1.1 + (0.1 * context.getLevel())));
+            }
         }
     }
 }

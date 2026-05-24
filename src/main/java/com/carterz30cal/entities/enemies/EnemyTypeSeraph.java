@@ -41,7 +41,7 @@ public class EnemyTypeSeraph extends EnemyTypeDamageCapped
 		
 		for (GamePlayer damager : damagers)
 		{
-			enemy.dropItems(damager);
+            //enemy.dropItems(damager);
 		}
 		
 		super.onKilled(enemy);

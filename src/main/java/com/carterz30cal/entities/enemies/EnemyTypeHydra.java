@@ -17,6 +17,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+@Deprecated
 public class EnemyTypeHydra extends EnemyTypeDamageCapped
 {
 	public int lifeDrain;
@@ -131,7 +132,7 @@ public class EnemyTypeHydra extends EnemyTypeDamageCapped
 		
 		for (GamePlayer damager : damagers)
 		{
-			enemy.dropItems(damager);
+            //enemy.dropItems(damager);
 		}
 		
 		super.onKilled(enemy);

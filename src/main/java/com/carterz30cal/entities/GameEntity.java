@@ -1,11 +1,10 @@
 package com.carterz30cal.entities;
 
 import com.carterz30cal.entities.enemies.core.GameEnemy;
-import org.bukkit.Color;
 import org.bukkit.Location;
 import org.bukkit.entity.Entity;
-import org.bukkit.entity.LivingEntity;
 import org.bukkit.persistence.PersistentDataType;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -16,32 +15,13 @@ public abstract class GameEntity
 {
 	public static Map<UUID, GameEntity> entities = new HashMap<>();
 	public static boolean allowDeregisters = true;
-	
+
+    @Deprecated
 	public double health = 1;
 	public boolean dead;
     protected UUID uuid;
-	
-	public abstract int getHealth();
-	
+
 	public abstract void remove();
-	
-	public abstract void damage(DamageInfo info);
-	
-	public void damage(int damage) {
-		DamageInfo info = new DamageInfo();
-		info.damage = damage;
-		info.type = DamageType.PHYSICAL;
-		
-		damage(info);
-	}
-	
-	public double getHeight() {
-		return 2;
-	}
-	
-	public Color getBloodColour() {
-		return Color.RED;
-	}
 	
 	public abstract Location getLocation();
 	
@@ -56,6 +36,10 @@ public abstract class GameEntity
         UUID uuid = UUID.fromString(Objects.requireNonNull(e.getPersistentDataContainer().get(GameEnemy.keyEnemy, PersistentDataType.STRING)));
 		return entities.get(uuid);
 	}
+
+    public static GameEntity get(@NotNull UUID uuid) {
+        return entities.get(uuid);
+    }
 	
 	protected void register(UUID uuid)
 	{
@@ -70,12 +54,4 @@ public abstract class GameEntity
     public UUID getUUID() {
         return uuid;
     }
-
-    public boolean isTargetable(GameEnemy gameEnemy) {
-		return true;
-    }
-
-	public LivingEntity getTargetable() {
-		return null;
-	}
 }
