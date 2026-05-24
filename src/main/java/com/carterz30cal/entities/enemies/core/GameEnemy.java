@@ -249,12 +249,13 @@ public class GameEnemy extends GameEntity implements AggressiveEntity, Damageabl
         representation.tick(enemyDirector.getLocation());
         healthSystem.tick();
 
+        int i = 0;
         enemyInformationDisplay.reset();
         enemyInformationDisplay.setLine(0, getName());
         if (enemyData.alwaysDisplayHealth || !healthSystem.isAtMaxHealth()) {
             enemyInformationDisplay.setLine(1, text(healthSystem.getHealth() + "\u2665", NamedTextColor.RED));
+            i++;
         }
-        int i = 1;
         for (var status : StatusEffect.values()) {
             var value = healthSystem.getBuildup(status);
             if (value < 1) {
@@ -262,8 +263,8 @@ public class GameEnemy extends GameEntity implements AggressiveEntity, Damageabl
             }
             i++;
             enemyInformationDisplay.setLine(i, text().append(
-                    text(status.symbol + " " + status.shortName, status.textColour),
-                    StringUtils.progressBar(5, healthSystem.getBuildupPercentage(status), status.textColour, NamedTextColor.DARK_GRAY)
+                    text(status.symbol + " " + status.shortName + " ", status.textColour),
+                    StringUtils.progressBar(4, healthSystem.getBuildupPercentage(status), status.textColour, NamedTextColor.DARK_GRAY)
             ).build());
         }
         enemyInformationDisplay.tick();

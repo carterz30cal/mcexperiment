@@ -10,6 +10,7 @@ import com.carterz30cal.items.abilities2.implementation.AggressiveAbility;
 import com.carterz30cal.utils.EntityUtils;
 import com.carterz30cal.utils.RandomUtils;
 import org.bukkit.entity.Display;
+import org.bukkit.util.Vector;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.*;
@@ -107,7 +108,13 @@ public class EntityHealthSystem {
     }
 
     private void displayDamageHolograms(@NotNull DamagePacket damagePacket) {
-        var vector = damagePacket.defender.getLocation().clone().add(0, 0, 0).subtract(damagePacket.aggressor.getLocation()).multiply(-0.3);
+        Vector vector;
+        if (damagePacket.aggressor == null) {
+            vector = new Vector();
+        }
+        else {
+            vector = damagePacket.defender.getLocation().clone().add(0, 0, 0).subtract(damagePacket.aggressor.getLocation()).multiply(-0.3).toVector();
+        }
         for (var damage : damagePacket.damages.keySet()) {
             var location = RandomUtils.getRandomInCircle(damagePacket.defender.getLocation().clone().add(vector).add(0, 1, 0), 0.2, 0.4);
             var amount = damagePacket.damages.getOrDefault(damage, 0L);

@@ -45,6 +45,7 @@ public class EnemyInformationDisplay {
     public void removeLine(int index) {
         components.remove(index);
         if (displays.size() > index) {
+            displays.get(index).remove();
             displays.remove(index);
         }
         updated.remove(index);

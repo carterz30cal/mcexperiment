@@ -997,6 +997,11 @@ public class GamePlayer extends GameEntity implements DamageableEntity, Aggressi
                 * (1D + (getStat(Stat.MIGHT) / 100D)));
         packet.addDamage(DamageType.PHYSICAL, physical);
 
+        // add statuses
+        for (var s : stats.statuses.effects.keySet()) {
+            packet.statusEffects.put(s, (long) stats.statuses.getStatus(s));
+        }
+
         return packet;
     }
 
