@@ -20,7 +20,7 @@ import static com.carterz30cal.entities.enemies.core.GameEnemy.keyEnemy;
 
 /**
  * @author carterz30cal
- * @version 1
+ * @version 2
  * @since 1.0.0
  */
 public class EnemyRepresentation {
@@ -46,7 +46,7 @@ public class EnemyRepresentation {
     public double getTallestPoint() {
         if (tallestPoint == -1) {
             for (var e : entities.entrySet()) {
-                tallestPoint = Math.max(tallestPoint, e.getKey().offset.getY() + e.getValue().getHeight());
+                tallestPoint = Math.max(tallestPoint, e.getKey().offset.getY() + (e.getValue().getHeight() * e.getKey().scale));
             }
             if (tallestPoint == -1) {
                 throw new IllegalStateException("Tried to calculate tallest point with an empty representation!");
