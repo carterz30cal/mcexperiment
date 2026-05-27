@@ -361,11 +361,8 @@ public class GameEnemy extends GameEntity implements AggressiveEntity, Damageabl
 
             for (var eh : attacker.GetEventHandlers())
                 eh.OnKill(attacker, this, attacker.area);
-            Dungeons.instance.getLogger().info("GOT HERE1");
             if (enemyData.lootTable != null) {
-                Dungeons.instance.getLogger().info("GOT HERE2");
                 for (ItemStack it : enemyData.lootTable.generate(attacker)) {
-                    Dungeons.instance.getLogger().info("GOT HERE3" + it.displayName().examinableName());
                     attacker.giveItem(it);
                 }
             }
