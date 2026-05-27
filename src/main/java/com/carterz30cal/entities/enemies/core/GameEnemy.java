@@ -5,6 +5,8 @@ import com.carterz30cal.entities.AbstractEnemyType;
 import com.carterz30cal.entities.GameEntity;
 import com.carterz30cal.entities.TagHavingEntity;
 import com.carterz30cal.entities.damage.StatusEffects;
+import com.carterz30cal.entities.enemies.abilities.EnemyAbility;
+import com.carterz30cal.entities.enemies.abilities.EnemyAbilityContext;
 import com.carterz30cal.entities.enemies.directors.EnemyDirector;
 import com.carterz30cal.entities.enemies.representation.EnemyInformationDisplay;
 import com.carterz30cal.entities.enemies.representation.EnemyRepresentation;
@@ -39,7 +41,7 @@ import static net.kyori.adventure.text.Component.text;
 
 /**
  * @author carterz30cal
- * @version 3
+ * @version 4
  * @since 1.0.0
  */
 @SuppressWarnings("UnnecessaryUnicodeEscape")
@@ -71,6 +73,7 @@ public class GameEnemy extends GameEntity implements AggressiveEntity, Damageabl
     protected EnemyDirector enemyDirector;
     protected EnemyData enemyData;
     protected EnemyInformationDisplay enemyInformationDisplay;
+    protected final List<EnemyAbilityContext> abilities = new ArrayList<>();
     @Deprecated
 	protected ArmorStand display;
     public AbstractGameArea spawnedArea;
@@ -161,6 +164,12 @@ public class GameEnemy extends GameEntity implements AggressiveEntity, Damageabl
         this.enemyData = data;
     }
 
+    public void setAbilities(List<EnemyAbility> ability) {
+        for (var a : ability) {
+            abilities.add(new EnemyAbilityContext(a, this));
+        }
+    }
+
     @Override
     public void damage(@NotNull DamagePacket damagePacket) {
         if (healthSystem.damage(damagePacket)) {
@@ -183,7 +192,7 @@ public class GameEnemy extends GameEntity implements AggressiveEntity, Damageabl
 
     @Override
     public List<? extends ContextWithAbility<? extends GameEntity>> getDefensiveDamageModifiers() {
-        return List.of();
+        return abilities;
     }
 
     @Override
@@ -333,6 +342,11 @@ public class GameEnemy extends GameEntity implements AggressiveEntity, Damageabl
     }
 
     public void dropLoot() {
+        for (var ability : abilities) {
+            if (ability.getAbility() instanceof AbilityWithKillEffect kill) {
+                kill.killEffect(ability, this);
+            }
+        }
         for (var attacker : healthSystem.getPlayerAttackers()) {
             var builder = EnemyBuilder.getBuilder(typeId);
             assert builder != null;
@@ -347,8 +361,13 @@ public class GameEnemy extends GameEntity implements AggressiveEntity, Damageabl
 
             for (var eh : attacker.GetEventHandlers())
                 eh.OnKill(attacker, this, attacker.area);
+            Dungeons.instance.getLogger().info("GOT HERE1");
             if (enemyData.lootTable != null) {
-                for (ItemStack it : enemyData.lootTable.generate(attacker)) attacker.giveItem(it);
+                Dungeons.instance.getLogger().info("GOT HERE2");
+                for (ItemStack it : enemyData.lootTable.generate(attacker)) {
+                    Dungeons.instance.getLogger().info("GOT HERE3" + it.displayName().examinableName());
+                    attacker.giveItem(it);
+                }
             }
 
             attacker.playSound(Sound.ENTITY_EXPERIENCE_ORB_PICKUP, 0.8, 1.4);

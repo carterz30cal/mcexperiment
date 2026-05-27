@@ -4,18 +4,14 @@ import com.carterz30cal.entities.DamageInfo;
 import com.carterz30cal.entities.GameEntity;
 import com.carterz30cal.entities.enemies.core.GameEnemy;
 import com.carterz30cal.entities.health.status.StatusEffect;
-import com.carterz30cal.items.ItemReq;
 import com.carterz30cal.items.abilities2.Abilities;
 import com.carterz30cal.stats.Stat;
 import com.carterz30cal.stats.StatContainer;
 import com.carterz30cal.stats.StatDisplayType;
 
-import java.util.ArrayList;
-import java.util.List;
-
 /**
  * @author carterz30cal
- * @version 2
+ * @version 3
  * @since 1.0.0
  */
 @SuppressWarnings("unused")
@@ -83,11 +79,6 @@ public abstract class GameAbility implements Ability {
     @Deprecated
     public void onPlayerStats(PlayerAbilityContext context, StatContainer item) {
 
-    }
-
-
-    public List<ItemReq> getCatalystRequirements(PlayerAbilityContext context, int desiredLevel) {
-        return new ArrayList<>();
     }
 
     protected String formattedDisplay(Stat stat, long val) {

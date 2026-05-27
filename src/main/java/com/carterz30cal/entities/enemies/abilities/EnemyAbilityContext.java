@@ -6,12 +6,18 @@ import com.carterz30cal.items.abilities2.implementation.ContextWithAbility;
 
 /**
  * @author carterz30cal
- * @version 1
+ * @version 2
  * @since 1.0.0
  */
 public class EnemyAbilityContext implements ContextWithAbility<GameEnemy> {
     private long level = 1;
-    private GameEnemy owner;
+    private final GameEnemy owner;
+    private final EnemyAbility ability;
+
+    public EnemyAbilityContext(EnemyAbility ability, GameEnemy owner) {
+        this.owner = owner;
+        this.ability = ability;
+    }
 
     @Override
     public long getLevel() {
@@ -20,7 +26,7 @@ public class EnemyAbilityContext implements ContextWithAbility<GameEnemy> {
 
     @Override
     public Ability getAbility() {
-        return null;
+        return ability;
     }
 
     @Override

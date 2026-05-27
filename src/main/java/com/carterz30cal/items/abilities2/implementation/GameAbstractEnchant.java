@@ -58,7 +58,7 @@ public abstract class GameAbstractEnchant extends GameAbility implements Ability
         return validTypes;
     }
 
-    public abstract List<ItemReq> getCatalystRequirements(PlayerAbilityContext context);
+    public abstract List<ItemReq> getCatalystRequirements(PlayerAbilityContext context, long level);
 
     /**
      *

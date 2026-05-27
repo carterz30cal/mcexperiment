@@ -1,19 +1,19 @@
 package com.carterz30cal.entities.enemies.core;
 
+import com.carterz30cal.entities.enemies.abilities.EnemyAbility;
 import com.carterz30cal.entities.enemies.directors.EnemyDirectorBuilder;
 import com.carterz30cal.entities.enemies.representation.EnemyRepresentationBuilder;
 import com.carterz30cal.entities.health.EntityHealthSystemBuilder;
 import org.bukkit.Location;
+import org.bukkit.configuration.ConfigurationSection;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-import java.util.HashMap;
-import java.util.Map;
-import java.util.UUID;
+import java.util.*;
 
 /**
  * @author carterz30cal
- * @version 2
+ * @version 3
  * @since 1.0.0
  */
 public class EnemyBuilder {
@@ -22,6 +22,7 @@ public class EnemyBuilder {
     private EnemyDirectorBuilder directorBuilder;
     private EnemyRepresentationBuilder representationBuilder;
     private EntityHealthSystemBuilder healthSystemBuilder;
+    private final List<EnemyAbility> abilities = new ArrayList<>();
     private EnemyData data;
     private boolean temporaryBuilder;
 
@@ -69,6 +70,12 @@ public class EnemyBuilder {
         return this;
     }
 
+    public EnemyBuilder addAbility(ConfigurationSection abilityConfig) {
+        var ability = EnemyAbility.get(Objects.requireNonNull(abilityConfig.getString("class")), abilityConfig);
+        abilities.add(ability);
+        return this;
+    }
+
     public EntityHealthSystemBuilder getHealthSystemBuilder() {
         return healthSystemBuilder;
     }
@@ -83,11 +90,13 @@ public class EnemyBuilder {
     }
 
     public GameEnemy build(@NotNull Location spawnLocation) {
-        return new GameEnemy(
+        var enemy = new GameEnemy(
                 representationBuilder.build(spawnLocation),
                 healthSystemBuilder.build(),
                 directorBuilder.build(spawnLocation),
                 data, id);
+        enemy.setAbilities(abilities);
+        return enemy;
     }
 
     public boolean isTemporaryBuilder() {

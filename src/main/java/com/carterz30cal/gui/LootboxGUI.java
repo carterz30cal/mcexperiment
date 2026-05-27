@@ -84,10 +84,13 @@ public class LootboxGUI extends AbstractGUI {
 
     private ItemStack getPanel(ItemLootTable.ContextualDrop drop) {
         ItemRarity rarity = drop.getItemRarity();
+        int amount = Math.min(99, drop.getItemStack().getAmount());
+        var item = drop.getItemStack().clone();
+        item.setAmount(amount);
         return ItemFactory.customItem(
                 RARITY_PANELS[rarity.ordinal()].toString(),
                 text().append(text().color(rarity.textColor).append(text(rarity.name + " drop!").decorate(TextDecoration.BOLD))),
-                text().append(text(drop.getItemStack().getAmount() + "x ", NamedTextColor.GRAY)).append(drop.getItemStack().displayName())
+                text().append(text(amount + "x ", NamedTextColor.GRAY)).append(item.displayName())
         );
     }
 }

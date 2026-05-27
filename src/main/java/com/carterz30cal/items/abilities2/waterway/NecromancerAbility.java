@@ -1,12 +1,11 @@
 package com.carterz30cal.items.abilities2.waterway;
 
+import com.carterz30cal.entities.GameEntity;
 import com.carterz30cal.entities.GameSummon;
 import com.carterz30cal.entities.enemies.core.GameEnemy;
 import com.carterz30cal.entities.health.damage.handlers.DamageableEntity;
-import com.carterz30cal.items.abilities2.implementation.AbilityWithDescription;
-import com.carterz30cal.items.abilities2.implementation.AbilityWithKillEffect;
-import com.carterz30cal.items.abilities2.implementation.GameAbility;
-import com.carterz30cal.items.abilities2.implementation.PlayerAbilityContext;
+import com.carterz30cal.entities.player.GamePlayer;
+import com.carterz30cal.items.abilities2.implementation.*;
 import com.carterz30cal.stats.Stat;
 import org.jetbrains.annotations.NotNull;
 
@@ -38,9 +37,12 @@ public class NecromancerAbility extends GameAbility implements AbilityWithDescri
     }
 
     @Override
-    public void killEffect(PlayerAbilityContext context, DamageableEntity killed) {
+    public void killEffect(ContextWithAbility<? extends GameEntity> context, DamageableEntity killed) {
+        if (!(context.getOwner() instanceof GamePlayer player)) {
+            throw new IllegalStateException("NecromancerAbility must have a GamePlayer owner");
+        }
         if (killed instanceof GameEnemy enemy && !(killed instanceof GameSummon)) {
-            GameSummon.spawn(context.owner, killed.getLocation(), enemy);
+            GameSummon.spawn(player, killed.getLocation(), enemy);
         }
     }
 }

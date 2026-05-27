@@ -78,7 +78,7 @@ public class ItemFactory
             "waterway/items/talismans/utility", "waterway/items/talismans/offensive",
             "waterway/items/lootboxes",
             "waterway/items/armours/uncommon_armours", "waterway/items/armours/rare_armours",
-            "waterway/items/armours/very_rare_armours",
+            "waterway/items/armours/very_rare_armours", "waterway/items/armours/epic_armours",
             "waterway/items/armours/sets/uncommon_sets", "waterway/items/armours/sets/rare_sets",
             "waterway/items/armours/sets/very_rare_sets",
             "waterway/items/pet_items", "waterway/items/quest_items"
@@ -1242,7 +1242,7 @@ public class ItemFactory
 				break;
 			case LOOTBOX:
 				item = new ItemLootbox();
-				((ItemLootbox) item).table = new ItemLootTable(i);
+                ((ItemLootbox) item).table = new ItemLootTable(i.getConfigurationSection("drops"));
 				lootboxItemCount = ((ItemLootbox) item).table.getDropCount();
 				break;
 			case VIRTUAL_SET:

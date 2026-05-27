@@ -1,11 +1,10 @@
 package com.carterz30cal.items.abilities2.waterway.pets;
 
+import com.carterz30cal.entities.GameEntity;
 import com.carterz30cal.entities.health.damage.handlers.DamageableEntity;
+import com.carterz30cal.entities.player.GamePlayer;
 import com.carterz30cal.items.ItemFactory;
-import com.carterz30cal.items.abilities2.implementation.AbilityWithDescription;
-import com.carterz30cal.items.abilities2.implementation.AbilityWithKillEffect;
-import com.carterz30cal.items.abilities2.implementation.GameAbility;
-import com.carterz30cal.items.abilities2.implementation.PlayerAbilityContext;
+import com.carterz30cal.items.abilities2.implementation.*;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
@@ -30,7 +29,10 @@ public class PetWaterTitanActive extends GameAbility implements AbilityWithDescr
     }
 
     @Override
-    public void killEffect(PlayerAbilityContext context, DamageableEntity killed) {
-        context.owner.giveItem(ItemFactory.build("wet_paper"), true);
+    public void killEffect(ContextWithAbility<? extends GameEntity> context, DamageableEntity killed) {
+        if (!(context.getOwner() instanceof GamePlayer player)) {
+            throw new IllegalStateException("NecromancerAbility must have a GamePlayer owner");
+        }
+        player.giveItem(ItemFactory.build("wet_paper"), true);
     }
 }

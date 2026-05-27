@@ -33,12 +33,6 @@ public class DamagePacket {
         this.defender = defender;
         this.aggressor = aggressor;
         this.damages.put(damageType, damage);
-        for (var resistance : DamageResistance.values()) {
-            this.resistances.put(resistance, defender.getStat(resistance.getResistanceStat()));
-        }
-        for (var resistance : StatusResistance.values()) {
-            this.statusResistances.put(resistance, defender.getStat(resistance.getResistanceStat()));
-        }
     }
 
     public void addDamage(long damage) {
@@ -59,6 +53,12 @@ public class DamagePacket {
         for (var operation : operations) {
             operation.run(this);
         }
+        for (var resistance : DamageResistance.values()) {
+            this.resistances.put(resistance, defender.getStat(resistance.getResistanceStat()));
+        }
+        for (var resistance : StatusResistance.values()) {
+            this.statusResistances.put(resistance, defender.getStat(resistance.getResistanceStat()));
+        }
     }
 
     /**
@@ -75,10 +75,10 @@ public class DamagePacket {
             value += resistances.getOrDefault(resistance, 0L);
         }
         if (value >= 0) {
-            return 1 - (value / (value + 100D));
+            return 1 - ((double) value / (value + 100D));
         }
         else {
-            return (1D - (value / 100D));
+            return (1D - ((double) value / 100D));
         }
     }
 

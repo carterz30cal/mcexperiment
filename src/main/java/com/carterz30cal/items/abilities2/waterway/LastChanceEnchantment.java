@@ -43,7 +43,7 @@ public class LastChanceEnchantment extends GameAbstractEnchant implements Abilit
     }
 
     @Override
-    public List<ItemReq> getCatalystRequirements(PlayerAbilityContext context) {
+    public List<ItemReq> getCatalystRequirements(PlayerAbilityContext context, long level) {
         List<ItemReq> reqs = new ArrayList<>();
         reqs.add(new ItemReq("combination_catalyst_shard", 2 * context.level));
         if (context.level > 1) {

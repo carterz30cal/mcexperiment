@@ -279,10 +279,9 @@ public class GamePlayer extends GameEntity implements DamageableEntity, Aggressi
 			
 			var iAbilities = ItemFactory.getItemAbilities(item, this);
             for (var e : iAbilities) {
-                if (!(e instanceof AbilityWithStats is)) {
-                    continue;
+                if (e.ability instanceof AbilityWithStats is) {
+                    is.modifyStats(e, itemStats, AbilityWithStats.Situation.ITEM);
                 }
-                is.modifyStats(e, itemStats, AbilityWithStats.Situation.ITEM);
             }
             itemStats.execute();
             //for (var e : iAbilities) e.ability.onItemStatsLate(e, itemStats);
@@ -293,7 +292,7 @@ public class GamePlayer extends GameEntity implements DamageableEntity, Aggressi
 
         stats.execute();
         for (var a : abilities) {
-            if (!(a instanceof AbilityWithStats is)) {
+            if (!(a.ability instanceof AbilityWithStats is)) {
                 continue;
             }
             is.modifyStats(a, stats, AbilityWithStats.Situation.PLAYER);
@@ -992,9 +991,9 @@ public class GamePlayer extends GameEntity implements DamageableEntity, Aggressi
         packet.attack = AttackType.MELEE;
 
         // add damages
-        long physical = Math.round(getStat(Stat.DAMAGE) * (1D + (getStat(Stat.STRENGTH) / 100D))
-                * (1D + (getStat(Stat.POWER) / 100D))
-                * (1D + (getStat(Stat.MIGHT) / 100D)));
+        long physical = Math.round(getStat(Stat.DAMAGE) * (1D + ((double) getStat(Stat.STRENGTH) / 100D))
+                * (1D + ((double) getStat(Stat.POWER) / 100D))
+                * (1D + ((double) getStat(Stat.MIGHT) / 100D)));
         packet.addDamage(DamageType.PHYSICAL, physical);
 
         // add statuses
@@ -1051,7 +1050,9 @@ public class GamePlayer extends GameEntity implements DamageableEntity, Aggressi
         if (stats == null) {
             return 0;
         }
-        return stats.getStat(stat);
+        else {
+            return stats.stat(stat);
+        }
     }
 
     @Override

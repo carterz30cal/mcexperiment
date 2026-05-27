@@ -1,0 +1,13 @@
+titan_helmet:
+  name: Titan Helm
+  type: HELMET
+  rarity: EPIC
+  material: PLAYER_HEAD
+  value: 1000
+  skull-profile-id: titan_helmet
+  stats:
+    defence: +80
+    padding: +40
+    robustness: +40
+    level_requirement: 5
+    enchant_power: 20

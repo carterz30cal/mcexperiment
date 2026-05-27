@@ -21,7 +21,7 @@ import static net.kyori.adventure.text.Component.text;
  * Handles all health systems for entities, including DOTs, damage types and resistances.
  *
  * @author carterz30cal
- * @version 1
+ * @version 2
  * @since 1.0.0
  */
 public class EntityHealthSystem {
@@ -49,22 +49,20 @@ public class EntityHealthSystem {
             attackers.add(damagePacket.aggressor);
 
             for (var context : damagePacket.aggressor.getAggressiveDamageModifiers()) {
-                if (!(context.getAbility() instanceof AggressiveAbility aggressiveAbility)) {
-                    continue;
+                if (context.getAbility() instanceof AggressiveAbility aggressiveAbility) {
+                    aggressiveAbility.damage(context, damagePacket);
                 }
-                aggressiveAbility.damage(context, damagePacket);
             }
         }
         for (var context : damagePacket.defender.getDefensiveDamageModifiers()) {
-            if (!(context.getAbility() instanceof AbilityWithDefend defendAbility)) {
-                continue;
+            if (context.getAbility() instanceof AbilityWithDefend defendAbility) {
+                defendAbility.defend(context, damagePacket);
             }
-            defendAbility.defend(context, damagePacket);
         }
         damagePacket.settle();
         long total = 0;
         for (var damage : damagePacket.damages.keySet()) {
-            total += Math.round(damagePacket.damages.get(damage)
+            total += Math.round((double) damagePacket.damages.get(damage)
                     * damagePacket.getResistanceMultiplier(damage));
         }
         if (total > 0) {
@@ -117,7 +115,8 @@ public class EntityHealthSystem {
         }
         for (var damage : damagePacket.damages.keySet()) {
             var location = RandomUtils.getRandomInCircle(damagePacket.defender.getLocation().clone().add(vector).add(0, 1, 0), 0.2, 0.4);
-            var amount = damagePacket.damages.getOrDefault(damage, 0L);
+            var amount = Math.round((double) damagePacket.damages.get(damage)
+                    * damagePacket.getResistanceMultiplier(damage));
             if (amount <= 0) {
                 continue;
             }
@@ -158,6 +157,7 @@ public class EntityHealthSystem {
      * @param amount long-integer value of the amount of health to heal
      * @return returns true if the entity gained any health.
      */
+    @SuppressWarnings("UnusedReturnValue")
     public boolean heal(long amount) {
         double savedHealth = health;
         double total = health * maxHealth;

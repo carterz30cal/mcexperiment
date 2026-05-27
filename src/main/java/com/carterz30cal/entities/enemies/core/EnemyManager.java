@@ -19,7 +19,7 @@ import java.util.Objects;
 public class EnemyManager 
 {
 	public static String[] files = {
-            "waterway/mobs/lunatics", //"waterway/mobs/titans",
+            "waterway/mobs/lunatics", "waterway/mobs/titans",
             //"waterway/mobs/seraph/boss", "waterway/mobs/seraph/summons",
             // "waterway/mobs/fishing/fishing_common",
             //"waterway/mobs/fishing/fishing_uncommon",
@@ -95,6 +95,13 @@ public class EnemyManager
                 }
 
                 EnemyBuilder enemy = new EnemyBuilder(p);
+                if (c.contains(p + ".abilities")) {
+                    var d = c.getConfigurationSection(p + ".abilities");
+                    assert d != null;
+                    for (var e : d.getKeys(false)) {
+                        enemy.addAbility(d.getConfigurationSection(e));
+                    }
+                }
                 enemy.setHealthSystemBuilder(health).setRepresentationBuilder(representationBuilder).setDirectorBuilder(director).setEnemyData(data);
 			}
 		}
