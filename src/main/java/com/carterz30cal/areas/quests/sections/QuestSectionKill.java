@@ -87,7 +87,7 @@ public class QuestSectionKill extends QuestSectionTalking {
 
         @Override
         public void OnKill(GamePlayer killer, GameEnemy killed, Areas area) {
-            if (killed.hasTag(killTag)) {
+            if (killed.tag(killTag)) {
                 kills++;
             }
         }
