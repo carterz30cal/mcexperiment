@@ -1,27 +1,36 @@
 package com.carterz30cal.entities.enemies.core;
 
-import com.carterz30cal.entities.AbstractEnemyType;
 import com.carterz30cal.entities.enemies.directors.EnemyDirectorBuilder;
 import com.carterz30cal.entities.enemies.directors.behaviour.SimpleTargetingBehaviour;
 import com.carterz30cal.entities.enemies.representation.EnemyRepresentationBuilder;
 import com.carterz30cal.entities.health.EntityHealthSystemBuilder;
 import com.carterz30cal.entities.health.damage.DamageType;
+import com.carterz30cal.fishing.FishingArea;
+import com.carterz30cal.gui.BestiaryGUI;
 import com.carterz30cal.items.ItemLootTable;
+import com.carterz30cal.items.ItemRarity;
 import com.carterz30cal.stats.Stat;
 import com.carterz30cal.utils.FileUtils;
 import net.kyori.adventure.text.minimessage.MiniMessage;
 import org.bukkit.Location;
+import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.file.FileConfiguration;
+import org.bukkit.entity.EntityType;
 
 import java.util.HashSet;
 import java.util.Objects;
 
+/**
+ * @author carterz30cal
+ * @version 3
+ * @since 1.0.0
+ */
 public class EnemyManager 
 {
 	public static String[] files = {
             "waterway/mobs/lunatics", "waterway/mobs/titans",
             //"waterway/mobs/seraph/boss", "waterway/mobs/seraph/summons",
-            // "waterway/mobs/fishing/fishing_common",
+            "waterway/mobs/fishing/fishing_common",
             //"waterway/mobs/fishing/fishing_uncommon",
             //  "waterway/mobs/fishing/fishing_rare",
             //   "waterway/mobs/fishing/fishing_very_rare",
@@ -50,21 +59,21 @@ public class EnemyManager
                 }
 
                 var director = new EnemyDirectorBuilder();
-                director.setKnockback(c.getInt(p + ".knockback", 100));
-                director.setSpeed(c.getDouble(p + ".speed", 1D));
-                director.setTargetingBehaviour(new SimpleTargetingBehaviour(false));
+                director.setKnockback(c.getInt(p + ".knockback", 100))
+                        .setSpeed(c.getDouble(p + ".speed", 1D))
+                        .setEntityType(EntityType.valueOf(c.getString(p + ".director", "ZOMBIE").toUpperCase()))
+                        .setTargetingBehaviour(new SimpleTargetingBehaviour(false));
 
                 var data = new EnemyData();
                 data.name = MiniMessage.miniMessage().deserialize(c.getString(p + ".name", "null"));
+                data.mmName = c.getString(p + ".name", "<red>null</red>");
                 data.level = c.getLong(p + ".level", 1L);
                 data.alwaysDisplayHealth = c.getBoolean(p + ".always-display-health", false);
                 data.coinMultiplier = c.getDouble(p + ".coin-multiplier", 1D);
                 if (c.contains(p + ".loot")) {
                     data.lootTable = new ItemLootTable(Objects.requireNonNull(c.getConfigurationSection(p + ".loot")));
                 }
-                if (c.contains(p + ".bestiary")) {
-                    data.bestiaryCategory = c.getString(p + ".bestiary.category");
-                }
+
                 if (c.contains(p + ".tags")) {
                     data.tags = new HashSet<>(c.getStringList(p + ".tags"));
                 }
@@ -94,12 +103,27 @@ public class EnemyManager
                     }
                 }
 
+
                 EnemyBuilder enemy = new EnemyBuilder(p);
                 if (c.contains(p + ".abilities")) {
                     var d = c.getConfigurationSection(p + ".abilities");
                     assert d != null;
                     for (var e : d.getKeys(false)) {
                         enemy.addAbility(d.getConfigurationSection(e));
+                    }
+                }
+                if (c.contains(p + ".bestiary")) {
+                    data.bestiaryCategory = c.getString(p + ".bestiary.category");
+                    assert data.bestiaryCategory != null;
+                    BestiaryGUI.registerTypeIntoCategory(enemy.getId(), data.bestiaryCategory);
+                }
+                if (c.contains(p + ".fishing")) {
+                    ConfigurationSection section = c.getConfigurationSection(p + ".fishing");
+                    if (section != null) {
+                        for (String area : section.getKeys(false)) {
+                            ItemRarity rarity = ItemRarity.valueOf(section.getString(area));
+                            FishingArea.getFishingArea(area).addToBracket(rarity, enemy.getId());
+                        }
                     }
                 }
                 enemy.setHealthSystemBuilder(health).setRepresentationBuilder(representationBuilder).setDirectorBuilder(director).setEnemyData(data);
@@ -112,9 +136,5 @@ public class EnemyManager
         var enemy = EnemyBuilder.getBuilder(type).build(l);
         enemy.register();
         return enemy;
-	}
-	
-	public static AbstractEnemyType getType(String type) {
-		return AbstractEnemyType.types.get(type);
 	}
 }

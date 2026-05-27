@@ -81,6 +81,9 @@ public class GameProjectile extends GameEntity implements AggressiveEntity {
                     * (1D + (getStat(Stat.POWER) / 100D)));
             packet.addDamage(DamageType.PHYSICAL, physical);
         }
+        long physical = packet.damages.getOrDefault(DamageType.PHYSICAL, 0L);
+        packet.addDamage(DamageType.PROJECTILE, physical);
+        packet.damages.put(DamageType.PHYSICAL, 0L);
         return packet;
     }
 

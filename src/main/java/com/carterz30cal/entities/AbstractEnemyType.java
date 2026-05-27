@@ -59,7 +59,7 @@ public abstract class AbstractEnemyType implements Cloneable
 		size = m.getInt("size", 2);
 		speed = m.getDouble("speed", 1);
         bestiaryCategory = m.getString("bestiary-category", "base");
-        BestiaryGUI.RegisterTypeIntoCategory(id, bestiaryCategory);
+        BestiaryGUI.registerTypeIntoCategory(id, bestiaryCategory);
 		
 		resistances = StatusEffects.createWithDefaultResistances();
 		if (m.contains("resistances")) {

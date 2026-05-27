@@ -78,12 +78,17 @@ public class DamagePacket {
             return 1 - ((double) value / (value + 100D));
         }
         else {
-            return (1D - ((double) value / 100D));
+            return (1D - ((double) value / (-value + 100D)));
         }
     }
 
     public long getUnresistedStatusEffect(StatusEffect effect) {
-        return Math.max(0, statusEffects.getOrDefault(effect, 0L) - statusResistances.getOrDefault(StatusResistance.getDamageResistance(effect), 0L));
+        if (statusEffects.getOrDefault(effect, 0L) == 0L) {
+            return 0L;
+        }
+        else {
+            return Math.max(0, statusEffects.getOrDefault(effect, 0L) - statusResistances.getOrDefault(StatusResistance.getDamageResistance(effect), 0L));
+        }
     }
 
     public long getTotalDamage() {

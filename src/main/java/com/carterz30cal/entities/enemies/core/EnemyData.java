@@ -22,12 +22,14 @@ public class EnemyData implements TagHavingEntity {
     public Map<Stat, Long> stats = new HashMap<>();
     public Set<String> tags;
     public Component name;
+    public String mmName;
     public long level;
     public boolean alwaysDisplayHealth;
     public double coinMultiplier;
     public ItemLootTable lootTable;
     public String bestiaryCategory;
     public Sound hurtSound = Sound.ENTITY_ZOMBIE_HURT; // TODO add to files
+    public Sound deathSound = Sound.ENTITY_ZOMBIE_DEATH;
 
     public long getTotalRawDamage() {
         long total = 0L;

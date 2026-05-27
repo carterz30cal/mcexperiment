@@ -47,6 +47,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.entity.EntityRegainHealthEvent.RegainReason;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.persistence.PersistentDataType;
+import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.util.Vector;
@@ -180,8 +181,14 @@ public class GamePlayer extends GameEntity implements DamageableEntity, Aggressi
 			if (m != null) m.damage(this);
 		}
 
-        EntityUtils.applyPotionEffect(player, PotionEffectType.MINING_FATIGUE, 30, 3, false);
-        EntityUtils.applyPotionEffect(player, PotionEffectType.HASTE, 30, 0, false);
+        var miningFatigue = player.getPotionEffect(PotionEffectType.MINING_FATIGUE);
+        if (miningFatigue == null) {
+            player.addPotionEffect(new PotionEffect(PotionEffectType.MINING_FATIGUE, PotionEffect.INFINITE_DURATION, 2, false, false, false));
+        }
+        var haste = player.getPotionEffect(PotionEffectType.HASTE);
+        if (haste == null) {
+            player.addPotionEffect(new PotionEffect(PotionEffectType.HASTE, PotionEffect.INFINITE_DURATION, 0, false, false, false));
+        }
         Objects.requireNonNull(player.getAttribute(Attribute.ATTACK_SPEED)).setBaseValue(10);
 
 
@@ -300,6 +307,7 @@ public class GamePlayer extends GameEntity implements DamageableEntity, Aggressi
         stats.scheduleOperation(Stat.BACKPACK_PAGES, StatOperationType.ADD, 2);
         stats.scheduleOperation(Stat.BACKPACK_PAGES, StatOperationType.CAP_MIN, 1);
         stats.scheduleOperation(Stat.LUCK, StatOperationType.ADD, 15);
+        stats.scheduleOperation(Stat.DAMAGE, StatOperationType.CAP_MIN, 1);
         stats.execute();
 
         healthSystem.setMaxHealth(stats.stat(Stat.HEALTH));

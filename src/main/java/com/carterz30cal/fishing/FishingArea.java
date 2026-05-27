@@ -19,6 +19,11 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * @author carterz30cal
+ * @version 2
+ * @since 1.0.0
+ */
 public class FishingArea {
     private static final Map<String, FishingArea> fishingAreas = new HashMap<>();
     private final List<FishingBracket> brackets;
@@ -183,12 +188,6 @@ public class FishingArea {
         public int bracketWeight;
         public ItemRarity bracketRarity;
         public List<String> bracketMobs;
-
-        private FishingBracket(FishingBracket bracket) {
-            bracketWeight = bracket.bracketWeight;
-            bracketRarity = bracket.bracketRarity;
-            bracketMobs = bracket.bracketMobs;
-        }
 
         private FishingBracket(ItemRarity rarity) {
             bracketMobs = new ArrayList<>();

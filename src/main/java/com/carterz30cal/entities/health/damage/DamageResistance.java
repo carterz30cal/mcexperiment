@@ -16,8 +16,11 @@ import java.util.Map;
  */
 public enum DamageResistance {
     PHYSICAL(DamageType.PHYSICAL, Stat.DEFENCE),
-    PROJECTILE(DamageType.PHYSICAL, Stat.DEFENCE),
-    PROJECTILE_PADDING(DamageType.PHYSICAL, Stat.PADDING),
+    PROJECTILE(DamageType.PROJECTILE, Stat.DEFENCE),
+    PROJECTILE_PADDING(DamageType.PROJECTILE, Stat.PADDING),
+    EXPLOSIVE(DamageType.EXPLOSIVE, Stat.PADDING),
+    FIRE(DamageType.FIRE, Stat.INSULATION),
+    FROST(DamageType.FROST, Stat.INSULATION)
     ;
     private static final Map<DamageType, List<DamageResistance>> damageToResistanceMap = new HashMap<>();
     private static final Map<DamageType, Stat> damageToStatMap = new HashMap<>();

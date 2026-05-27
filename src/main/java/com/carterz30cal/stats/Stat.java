@@ -19,6 +19,7 @@ public enum Stat
     VITALITY("\u25C6 Vitality", NamedTextColor.GREEN, StatType.DEFENSIVE, StatDisplayType.NORMAL),
     ROBUSTNESS("\u00B1 Robustness", NamedTextColor.RED, StatType.DEFENSIVE, StatDisplayType.NORMAL),
     PADDING("\u25CB Padding", NamedTextColor.WHITE, StatType.DEFENSIVE, StatDisplayType.NORMAL),
+    INSULATION("\u03C8 Insulation", NamedTextColor.WHITE, StatType.DEFENSIVE, StatDisplayType.NORMAL),
 
     MANA("\u00D7 Mana", NamedTextColor.LIGHT_PURPLE, StatType.OFFENSIVE, StatDisplayType.NORMAL),
     FOCUS("\u25C6 Focus", NamedTextColor.AQUA, StatType.OFFENSIVE, StatDisplayType.NORMAL),

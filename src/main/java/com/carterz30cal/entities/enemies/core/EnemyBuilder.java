@@ -85,6 +85,10 @@ public class EnemyBuilder {
         return this;
     }
 
+    public String getId() {
+        return id;
+    }
+
     public EnemyData getEnemyData() {
         return data;
     }

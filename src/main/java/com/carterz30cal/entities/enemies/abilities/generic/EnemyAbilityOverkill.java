@@ -53,7 +53,7 @@ public class EnemyAbilityOverkill extends EnemyAbility implements AbilityWithDef
 
     @Override
     public void killEffect(ContextWithAbility<? extends GameEntity> context, DamageableEntity killed) {
-        var map = hits.get(context.getOwner());
+        var map = hits.getOrDefault(context.getOwner(), new HashMap<>());
         for (var player : map.keySet()) {
             int hits = map.get(player);
             player.sendMessage("<red><b>OVERKILL!</b> x" + hits + "<gold> - " + (hits * reward) + " coins</gold></red>");

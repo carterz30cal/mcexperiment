@@ -3,7 +3,7 @@ drenched_UNCOMMON:
   entity-type: DROWNED
   has-director: true
   type: FISH
-  fishing-brackets:
+  fishing:
     WATERWAY: UNCOMMON
   level: 4
   health: 300
@@ -41,7 +41,7 @@ drenched_UNCOMMON:
 lunatic_fisherman_UNCOMMON:
   name: YELLOWLunatic Fisherman
   type: FISH
-  fishing-brackets:
+  fishing:
     WATERWAY: UNCOMMON
   level: 4
   health: 145
@@ -96,7 +96,7 @@ sea_slug_UNCOMMON:
   entity-type: SILVERFISH
   has-director: true
   scale: 1.4
-  fishing-brackets:
+  fishing:
     WATERWAY: UNCOMMON
   level: 4
   health: 120
@@ -138,7 +138,7 @@ sea_slime_UNCOMMON:
   entity-type: SLIME
   has-director: false
   scale: 1.4
-  fishing-brackets:
+  fishing:
     WATERWAY: UNCOMMON
   level: 4
   health: 550
@@ -173,7 +173,7 @@ sea_slime_UNCOMMON:
 angry_creeper_UNCOMMON:
   name: YELLOWAngry Creeper
   type: FISH
-  fishing-brackets:
+  fishing:
     WATERWAY: UNCOMMON
   level: 4
   health: 150
@@ -207,11 +207,13 @@ angry_creeper_UNCOMMON:
     enchanted_book:
       chance: 1/125
       enchants: ENCHANT_LAST_CHANCE-1
+    blast_plating:
+      chance: 1/250
 
 hydro_stray_UNCOMMON:
   name: YELLOWHydrostray
   type: FISH
-  fishing-brackets:
+  fishing:
     WATERWAY: UNCOMMON
   level: 4
   health: 300

@@ -33,14 +33,19 @@ import static com.carterz30cal.entities.enemies.core.GameEnemy.keyEnemy;
 public class EnemyDirector implements LocatableEntity, TargetableEntity {
     private static final NamespacedKey KEY_SPEED = new NamespacedKey(Dungeons.instance, "speed");
     private Mob directingEntity;
+    private EntityType directorType = EntityType.ZOMBIE;
     private TargetingBehaviour behaviour;
     private double knockbackResistance;
     private Location cachedLocation;
+    private double speed = 1;
 
     public EnemyDirector(Location location, double knockbackResistance) {
         this.knockbackResistance = knockbackResistance / 100D;
         this.cachedLocation = location;
-        createDirector();
+    }
+
+    public void setDirectorType(EntityType directorType) {
+        this.directorType = directorType;
     }
 
     public void register(GameEntity entity) {
@@ -53,7 +58,7 @@ public class EnemyDirector implements LocatableEntity, TargetableEntity {
     }
 
     public void createDirector() {
-        var mob = (Mob) Dungeons.w.spawnEntity(cachedLocation, EntityType.ZOMBIE, false);
+        var mob = (Mob) Dungeons.w.spawnEntity(cachedLocation, directorType, false);
         mob.addPotionEffect(new PotionEffect(PotionEffectType.INVISIBILITY, Integer.MAX_VALUE, 0, false, false));
         mob.setSilent(true);
         //mob.setRemoveWhenFarAway(false);
@@ -105,6 +110,11 @@ public class EnemyDirector implements LocatableEntity, TargetableEntity {
         directingEntity.setTarget(target);
     }
 
+    public void setInitialSpeed(double speed) {
+        this.speed = speed;
+        resetSpeed();
+    }
+
     public void setSpeed(double speed) {
         var scaleAttribute = directingEntity.getAttribute(Attribute.MOVEMENT_SPEED);
         if (scaleAttribute != null) {
@@ -116,6 +126,14 @@ public class EnemyDirector implements LocatableEntity, TargetableEntity {
                             EquipmentSlotGroup.ANY)
             );
         }
+    }
+
+    public void resetSpeed() {
+        setSpeed(speed);
+    }
+
+    public double getSpeed() {
+        return speed;
     }
 
     public void setKnockbackResistance(int knockbackResistance) {

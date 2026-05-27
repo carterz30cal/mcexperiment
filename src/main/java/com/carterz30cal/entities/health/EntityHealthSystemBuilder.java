@@ -30,6 +30,10 @@ public class EntityHealthSystemBuilder {
         return this;
     }
 
+    public long getMaxHealth() {
+        return maxHealth;
+    }
+
     public EntityHealthSystem build() {
         var healthSystem = new EntityHealthSystem(maxHealth);
         healthSystem.addDamageHandlers(damageHandlers);

@@ -90,7 +90,7 @@ public class LootboxGUI extends AbstractGUI {
         return ItemFactory.customItem(
                 RARITY_PANELS[rarity.ordinal()].toString(),
                 text().append(text().color(rarity.textColor).append(text(rarity.name + " drop!").decorate(TextDecoration.BOLD))),
-                text().append(text(amount + "x ", NamedTextColor.GRAY)).append(item.displayName())
+                text().append(text(drop.getItemStack().getAmount() + "x ", NamedTextColor.GRAY)).append(item.displayName())
         );
     }
 }

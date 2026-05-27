@@ -1,7 +1,6 @@
 package com.carterz30cal.gui;
 
-import com.carterz30cal.entities.AbstractEnemyType;
-import com.carterz30cal.entities.enemies.core.EnemyManager;
+import com.carterz30cal.entities.enemies.core.EnemyBuilder;
 import com.carterz30cal.entities.player.GamePlayer;
 import com.carterz30cal.items.Item;
 import com.carterz30cal.items.ItemFactory;
@@ -16,7 +15,7 @@ import java.util.*;
 
 /**
  * @author carterz30cal
- * @version 1
+ * @version 2
  * @since 1.0.0
  */
 public class BestiaryGUI extends AbstractGUI {
@@ -55,7 +54,7 @@ public class BestiaryGUI extends AbstractGUI {
         update();
     }
 
-    public static void RegisterTypeIntoCategory(String eid, String cid) {
+    public static void registerTypeIntoCategory(String eid, String cid) {
         if (cid.equals("NO_REGISTER")) {
             return;
         }
@@ -69,7 +68,7 @@ public class BestiaryGUI extends AbstractGUI {
         List<String> list = new ArrayList<>();
         parents.getOrDefault(category, new ArrayList<>()).stream().map(kategory -> kategory.id).forEach(list::add);
         List<String> unsorted = new ArrayList<>(categories.get(category).types);
-        unsorted.sort(Comparator.comparingInt(a -> -EnemyManager.getType(a).level));
+        unsorted.sort(Comparator.comparingLong(a -> -Objects.requireNonNull(EnemyBuilder.getBuilder(a)).getEnemyData().level));
         list.addAll(unsorted);
         inventory.initUsingTemplate(GooeyTemplate.SHOPPY_DARK);
         for (int i = 0; i < 7 * 4; i++) {
@@ -118,9 +117,12 @@ public class BestiaryGUI extends AbstractGUI {
     }
 
     private ItemStack generateBestiaryEntry(String mid) {
-        AbstractEnemyType type = EnemyManager.getType(mid);
+        var builder = EnemyBuilder.getBuilder(mid);
+        assert builder != null;
+        var data = builder.getEnemyData();
+        var health = builder.getHealthSystemBuilder();
         long kills = owner.getKills(mid);
-        String name = "<white>[" + type.level + "] " + type.name;
+        String name = "<white>[" + data.level + "] " + data.mmName;
         List<String> lore = new ArrayList<>();
         if (kills == 1) {
             lore.add("<dark_grey>1 kill");
@@ -129,13 +131,24 @@ public class BestiaryGUI extends AbstractGUI {
             lore.add("<dark_grey>" + StringUtils.addCommas(kills) + " kills");
         }
         lore.add("");
-        lore.add("<grey>Health: <red>" + type.health + Stat.HEALTH.getIcon());
-        lore.add("<grey>Damage: <red>" + type.damage + Stat.DAMAGE.getIcon() + "</red> <dark_grey>[" + type.damageType.toString() + "]</dark_grey></grey>");
+        lore.add("<grey>Health: <red>" + health.getMaxHealth() + Stat.HEALTH.getIcon());
+        StringBuilder str = new StringBuilder();
+        for (var dmg : data.damages.entrySet()) {
+            str.append("<")
+                    .append(dmg.getKey().getColour().asHexString())
+                    .append(">")
+                    .append(dmg.getValue())
+                    .append("</")
+                    .append(dmg.getKey().getColour().asHexString())
+                    .append("> + ");
+        }
+        str.deleteCharAt(str.length() - 2);
+        lore.add("<grey>Damage: </grey><dark_grey>" + str + "</dark_grey>");
         lore.add("");
-        if (!type.loot.GetLoot().isEmpty()) {
+        if (!data.lootTable.GetLoot().isEmpty()) {
             lore.add("<gold>Drops:");
             boolean displayLuckMessage = false;
-            for (var loot : type.loot.GetLoot()) {
+            for (var loot : data.lootTable.GetLoot()) {
                 Item item = ItemFactory.getItem(loot.item);
                 if (item == null) {
                     continue;
@@ -208,7 +221,7 @@ public class BestiaryGUI extends AbstractGUI {
         private BestiaryCategory(String id, ConfigurationSection config) {
             this.id = id;
             icon = config.getString("icon", "BEDROCK");
-            name = config.getString("name", "REDnull");
+            name = config.getString("name", "<red>null</red>");
             description = config.getStringList("description");
             parent = config.getString("parent", "base");
             types = new ArrayList<>();

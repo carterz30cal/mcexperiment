@@ -18,6 +18,7 @@ import com.carterz30cal.entities.health.status.StatusEffect;
 import com.carterz30cal.entities.player.GamePlayer;
 import com.carterz30cal.items.abilities2.implementation.AbilityWithKillEffect;
 import com.carterz30cal.items.abilities2.implementation.ContextWithAbility;
+import com.carterz30cal.items.abilities2.implementation.RegisterableAbility;
 import com.carterz30cal.main.Dungeons;
 import com.carterz30cal.stats.Stat;
 import com.carterz30cal.utils.StringUtils;
@@ -166,7 +167,11 @@ public class GameEnemy extends GameEntity implements AggressiveEntity, Damageabl
 
     public void setAbilities(List<EnemyAbility> ability) {
         for (var a : ability) {
-            abilities.add(new EnemyAbilityContext(a, this));
+            var context = new EnemyAbilityContext(a, this);
+            abilities.add(context);
+            if (a instanceof RegisterableAbility registerableAbility) {
+                registerableAbility.register(context);
+            }
         }
     }
 
@@ -310,10 +315,16 @@ public class GameEnemy extends GameEntity implements AggressiveEntity, Damageabl
             player.attackTick = 0;
         }
 
-        if (spawnedArea != null && lastDamager != null) {
+        if (spawnedArea != null && !healthSystem.getPlayerAttackers().isEmpty()) {
             spawnedArea.OnKill(this);
         }
         dropLoot();
+
+        for (var a : abilities) {
+            if (a.getAbility() instanceof RegisterableAbility registerable) {
+                registerable.unregister(a);
+            }
+        }
 
 		ticker.cancel();
 		deregister();
@@ -367,7 +378,8 @@ public class GameEnemy extends GameEntity implements AggressiveEntity, Damageabl
                 }
             }
 
-            attacker.playSound(Sound.ENTITY_EXPERIENCE_ORB_PICKUP, 0.8, 1.4);
+            attacker.playSound(enemyData.deathSound, 0.6, 1);
+            attacker.playSound(Sound.ENTITY_EXPERIENCE_ORB_PICKUP, 1, 1.35);
             var coins = getCoinValue(attacker);
             attacker.coins += coins;
             attacker.lastCoinReward = coins;

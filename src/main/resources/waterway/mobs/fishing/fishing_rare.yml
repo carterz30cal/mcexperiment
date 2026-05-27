@@ -3,7 +3,7 @@ drenched_RARE:
   entity-type: DROWNED
   has-director: true
   type: FISH
-  fishing-brackets:
+  fishing:
     WATERWAY: RARE
   level: 6
   health: 600
@@ -41,7 +41,7 @@ drenched_RARE:
 lunatic_fisherman_RARE:
   name: GREENLunatic Fisherman
   type: FISH
-  fishing-brackets:
+  fishing:
     WATERWAY: RARE
   level: 6
   coin-multiplier: 3
@@ -97,7 +97,7 @@ sea_slug_RARE:
   entity-type: SILVERFISH
   has-director: true
   scale: 1.4
-  fishing-brackets:
+  fishing:
     WATERWAY: RARE
   level: 6
   health: 200
@@ -142,7 +142,7 @@ sea_slime_RARE:
   entity-type: SLIME
   has-director: false
   scale: 1.4
-  fishing-brackets:
+  fishing:
     WATERWAY: RARE
   level: 6
   health: 800
@@ -181,7 +181,7 @@ sea_slime_RARE:
 angry_creeper_RARE:
   name: GREENAngry Creeper
   type: FISH
-  fishing-brackets:
+  fishing:
     WATERWAY: RARE
   level: 6
   health: 250
@@ -224,7 +224,7 @@ angry_creeper_RARE:
 hydro_stray_RARE:
   name: GREENHydrostray
   type: FISH
-  fishing-brackets:
+  fishing:
     WATERWAY: RARE
   level: 6
   health: 500
@@ -259,7 +259,7 @@ hydro_stray_RARE:
 lonely_seahorse_RARE:
   name: GREENLonely Sea-horse
   type: FISH
-  fishing-brackets:
+  fishing:
     WATERWAY: RARE
   level: 6
   has-director: true
@@ -289,7 +289,7 @@ scared_shockreaver_RARE:
   entity-type: DROWNED
   has-director: true
   scale: 1.25
-  fishing-brackets:
+  fishing:
     WATERWAY: RARE
   level: 6
   health: 900

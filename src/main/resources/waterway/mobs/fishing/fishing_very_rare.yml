@@ -3,7 +3,7 @@ drenched_VERY_RARE:
   entity-type: DROWNED
   has-director: true
   type: FISH
-  fishing-brackets:
+  fishing:
     WATERWAY: VERY_RARE
   level: 7
   health: 1000
@@ -43,7 +43,7 @@ drenched_VERY_RARE:
 lunatic_fisherman_VERY_RARE:
   name: BLUELunatic Fisherman
   type: FISH
-  fishing-brackets:
+  fishing:
     WATERWAY: VERY_RARE
   level: 7
   coin-multiplier: 3
@@ -99,7 +99,7 @@ sea_slug_VERY_RARE:
   entity-type: SILVERFISH
   has-director: true
   scale: 1.4
-  fishing-brackets:
+  fishing:
     WATERWAY: VERY_RARE
   level: 7
   health: 500
@@ -144,7 +144,7 @@ sea_slime_VERY_RARE:
   entity-type: SLIME
   has-director: false
   scale: 1.5
-  fishing-brackets:
+  fishing:
     WATERWAY: VERY_RARE
   level: 7
   health: 1400
@@ -186,7 +186,7 @@ scared_shockreaver_VERY_RARE:
   entity-type: DROWNED
   has-director: true
   scale: 1.25
-  fishing-brackets:
+  fishing:
     WATERWAY: VERY_RARE
   level: 7
   health: 1000
@@ -234,7 +234,7 @@ scared_shockreaver_VERY_RARE:
 angry_creeper_VERY_RARE:
   name: BLUEAngry Creeper
   type: FISH
-  fishing-brackets:
+  fishing:
     WATERWAY: VERY_RARE
   level: 7
   health: 300
@@ -277,7 +277,7 @@ angry_creeper_VERY_RARE:
 hydro_stray_VERY_RARE:
   name: BLUEHydrostray
   type: FISH
-  fishing-brackets:
+  fishing:
     WATERWAY: VERY_RARE
   level: 7
   health: 900
@@ -317,7 +317,7 @@ hydro_stray_VERY_RARE:
 lonely_seahorse_VERY_RARE:
   name: BLUELonely Sea-horse
   type: FISH
-  fishing-brackets:
+  fishing:
     WATERWAY: VERY_RARE
   level: 7
   has-director: true
@@ -346,7 +346,7 @@ water_spirit_VERY_RARE:
   name: BLUEBOLDWater Spirit
   type: FISH
   entity-type: BREEZE
-  fishing-brackets:
+  fishing:
     WATERWAY: VERY_RARE
   ignore-target-limit: true
   level: 10
@@ -384,7 +384,7 @@ titan_fishing_VERY_RARE:
   type: TITAN_FISH
   coin-multiplier: 3
   entity-type: HUSK
-  fishing-brackets:
+  fishing:
     WATERWAY: VERY_RARE
   ignore-target-limit: true
   level: 21

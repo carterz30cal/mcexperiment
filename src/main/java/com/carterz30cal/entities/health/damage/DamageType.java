@@ -13,7 +13,14 @@ import net.kyori.adventure.text.minimessage.MiniMessage;
  */
 public enum DamageType {
     PHYSICAL("<white>Physical</white>", NamedTextColor.WHITE),
+    PROJECTILE("<white>Projectile</white>", NamedTextColor.WHITE),
+    EXPLOSIVE("<#FFA500>Explosive</#FFA500>", TextColor.color(0xFFA500)),
+    FIRE("<dark_red>Fire</dark_red>", NamedTextColor.DARK_RED),
+    FROST("<dark_blue>Frost</dark_blue>", NamedTextColor.DARK_BLUE),
     MAGIC("<aqua>Magic</aqua>", NamedTextColor.AQUA),
+    HOLY("<gold>Holy</gold>", NamedTextColor.GOLD),
+    LIGHTNING("<yellow>Lightning</yellow>", NamedTextColor.YELLOW),
+    CORRUPTION("<dark_purple>Corruption</dark_purple>", NamedTextColor.DARK_PURPLE),
     BLEED("<red><em>Bleed</em></red>", NamedTextColor.RED),
     FALL("<grey>Fall</grey>", NamedTextColor.GRAY),
     SUFFOCATION("<yellow>Suffocation</yellow>", NamedTextColor.YELLOW);
