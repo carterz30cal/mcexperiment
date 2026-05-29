@@ -13,6 +13,7 @@ import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Mob;
 import org.bukkit.inventory.EquipmentSlot;
 import org.bukkit.inventory.EquipmentSlotGroup;
+import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 import org.bukkit.util.Vector;
 import org.jetbrains.annotations.NotNull;
@@ -31,6 +32,7 @@ public class EnemyRepresentationData {
     public double scale;
     public Vector offset;
     public EntityType type;
+    public boolean invisible;
     public Map<EquipmentSlot, String> equipment = new HashMap<>();
 
     public EnemyRepresentationData() {
@@ -38,10 +40,11 @@ public class EnemyRepresentationData {
     }
 
     public EnemyRepresentationData(@NotNull ConfigurationSection yaml) {
-        scale = yaml.getDouble("scale");
+        scale = yaml.getDouble("scale", 1);
         var list = yaml.getDoubleList("offset");
         offset = new Vector(list.get(0), list.get(1), list.get(2));
         type = EntityType.valueOf(Objects.requireNonNull(yaml.getString("type")).toUpperCase());
+        invisible = yaml.getBoolean("invisible", false);
 
         if (yaml.contains("equipment")) {
             ConfigurationSection e = yaml.getConfigurationSection("equipment");
@@ -73,6 +76,9 @@ public class EnemyRepresentationData {
             livingEntity.setCollidable(false);
             livingEntity.setAI(false);
             EntityUtils.applyPotionEffect(livingEntity, PotionEffectType.FIRE_RESISTANCE, 999999, 1, false);
+            if (invisible) {
+                livingEntity.addPotionEffect(new PotionEffect(PotionEffectType.INVISIBILITY, PotionEffect.INFINITE_DURATION, 0, false, false));
+            }
         }
         if (entity instanceof Mob mob) {
             for (EquipmentSlot slot : equipment.keySet()) {

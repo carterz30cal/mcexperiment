@@ -1,35 +1,31 @@
 drenched_VERY_RARE:
-  name: BLUEDrenched
-  entity-type: DROWNED
-  has-director: true
-  type: FISH
+  name: <blue>Drenched
   fishing:
     WATERWAY: VERY_RARE
   level: 7
   health: 1000
   knockback: 125
-  damage: 120
-  damage-type: PHYSICAL
-  display-height: 1.8
-  blood-colour: 0,50,100
-  bestiary-category: waterway_fishing_very_rare
-  armour:
-    PHYSICAL: 0
-    PROJECTILE: 0
-    MAGICAL: 0
-    HOLY: 0
-    BLEED: -30
-    FIRE: 100
-    WITHER: 0
-  equipment:
-    HAND: COPPER_HOE
-    CHEST: IRON_CHESTPLATE
-    FEET: LEATHER_BOOTS
+  damage:
+    PHYSICAL: 120
+  bestiary:
+    category: waterway_fishing_very_rare
+  stats:
+    ROBUSTNESS: -10
+    INSULATION: 10
+  entities:
+    _:
+      type: DROWNED
+      scale: 1
+      offset: [ 0,0,0 ]
+      equipment:
+        HAND: COPPER_HOE
+        CHEST: IRON_CHESTPLATE
+        FEET: LEATHER_BOOTS
   tags:
     - FISHING
     - FISHING_WATERWAY
     - FISHING_VERY_RARE
-  drops:
+  loot:
     waterway_cod:
       amount: 10/25
     meat_scraps:
@@ -41,41 +37,40 @@ drenched_VERY_RARE:
       chance: 1/150
 
 lunatic_fisherman_VERY_RARE:
-  name: BLUELunatic Fisherman
-  type: FISH
+  name: <blue>Lunatic Fisherman
   fishing:
     WATERWAY: VERY_RARE
   level: 7
   coin-multiplier: 3
   health: 800
   knockback: 95
-  damage: 140
+  damage:
+    PHYSICAL: 140
   speed: 1.6
-  damage-type: PHYSICAL
-  display-height: 1.8
-  blood-colour: 250,0,50
-  bestiary-category: waterway_fishing_very_rare
-  armour:
-    PHYSICAL: 0
-    PROJECTILE: 75
-    MAGICAL: 0
-    HOLY: 0
-    BLEED: -50
-    FIRE: 200
-    WITHER: 0
-  equipment:
-    HAND: FISHING_ROD
-    HEAD: water_helmet
-    CHEST: LEATHER_CHESTPLATE
-    LEGS: LEATHER_LEGGINGS
-    FEET: LEATHER_BOOTS
+  bestiary:
+    category: waterway_fishing_very_rare
+  stats:
+    PADDING: 50
+    INSULATION: 200
+    ROBUSTNESS: -8
+  entities:
+    _:
+      type: ZOMBIE
+      scale: 1
+      offset: [ 0,0,0 ]
+      equipment:
+        HAND: FISHING_ROD
+        HEAD: water_helmet
+        CHEST: LEATHER_CHESTPLATE
+        LEGS: LEATHER_LEGGINGS
+        FEET: LEATHER_BOOTS
   tags:
     - LUNATIC
     - LUNATIC_HIGH_RANK
     - FISHING
     - FISHING_WATERWAY
     - FISHING_VERY_RARE
-  drops:
+  loot:
     weird_flesh:
       amount: 10/26
     waterway_cod:
@@ -94,35 +89,36 @@ lunatic_fisherman_VERY_RARE:
       chance: 1/70
 
 sea_slug_VERY_RARE:
-  name: BLUESea Slug
-  type: FISH
-  entity-type: SILVERFISH
-  has-director: true
-  scale: 1.4
+  name: <blue>Sea Slug
   fishing:
     WATERWAY: VERY_RARE
   level: 7
   health: 500
   knockback: 165
-  damage: 160
   speed: 1.8
-  damage-type: PHYSICAL
-  display-height: 0.7
-  blood-colour: 250,0,50
-  bestiary-category: waterway_fishing_very_rare
-  armour:
-    PHYSICAL: 0
-    PROJECTILE: 75
-    MAGICAL: 0
-    HOLY: 0
-    BLEED: -50
-    FIRE: 200
-    WITHER: 0
+  damage:
+    PHYSICAL: 160
+  bestiary:
+    category: waterway_fishing_very_rare
+  stats:
+    PADDING: 75
+    INSULATION: 200
+    ROBUSTNESS: -10
+  entities:
+    _:
+      scale: 1.4
+      type: SILVERFISH
+      offset: [ 0,0,0 ]
+    hitbox:
+      scale: 1
+      type: ZOMBIE
+      offset: [ 0,0,0 ]
+      invisible: true
   tags:
     - FISHING
     - FISHING_WATERWAY
     - FISHING_VERY_RARE
-  drops:
+  loot:
     waterway_cod:
       amount: 20/40
     fishing_berries:
@@ -140,35 +136,35 @@ sea_slug_VERY_RARE:
 
 sea_slime_VERY_RARE:
   name: BLUESea Slime
-  type: FISH
-  entity-type: SLIME
-  has-director: false
-  scale: 1.5
   fishing:
     WATERWAY: VERY_RARE
   level: 7
   health: 1400
   knockback: 20
-  damage: 85
+  damage:
+    PHYSICAL: 85
   speed: 1.1
-  damage-type: PHYSICAL
-  display-height: 0.8
-  blood-colour: 250,0,50
-  bestiary-category: waterway_fishing_very_rare
-  armour:
-    PHYSICAL: 0
-    PROJECTILE: 75
-    MAGICAL: 0
-    HOLY: 0
-    BLEED: 10000
-    FIRE: -50
-    WITHER: 0
+  entities:
+    b:
+      type: SLIME
+      scale: 1.5
+      offset: [ 0,0,0 ]
+    t:
+      type: SLIME
+      scale: 1
+      offset: [ 0,0.7,0 ]
+  bestiary:
+    category: waterway_fishing_very_rare
+  stats:
+    PADDING: 75
+    ROBUSTNESS: 1000
+    INSULATION: -50
   tags:
     - FISHING
     - FISHING_WATERWAY
     - FISHING_VERY_RARE
     - SLIME
-  drops:
+  loot:
     waterway_cod:
       amount: 10/65
     green_slime:
@@ -181,48 +177,46 @@ sea_slime_VERY_RARE:
       enchants: ENCHANT_SLIMED-2
 
 scared_shockreaver_VERY_RARE:
-  name: BLUEScared Shockreaver
-  type: FISH
-  entity-type: DROWNED
-  has-director: true
-  scale: 1.25
+  name: <blue>Scared Shockreaver
   fishing:
     WATERWAY: VERY_RARE
   level: 7
   health: 1000
   knockback: 0
-  damage: 100
   speed: 1.15
-  damage-type: PHYSICAL
-  display-height: 2.3
-  blood-colour: 250,0,50
-  bestiary-category: waterway_fishing_very_rare
-  equipment:
-    HAND: DIAMOND_AXE
-    HEAD: DIAMOND_HELMET
-    CHEST: DIAMOND_CHESTPLATE
-    LEGS: DIAMOND_LEGGINGS
-    FEET: DIAMOND_BOOTS
-  armour:
-    PHYSICAL: 300
-    PROJECTILE: 600
-    MAGICAL: 0
-    HOLY: 0
-    BLEED: -70
-    FIRE: -20
-    WITHER: 0
+  damage:
+    PHYSICAL: 75
+    LIGHTNING: 25
+  stats:
+    DEFENCE: 200
+    PADDING: 400
+    ROBUSTNESS: -12
+    INSULATION: -50
+  bestiary:
+    category: waterway_fishing_very_rare
+  entities:
+    _:
+      type: DROWNED
+      scale: 1.1
+      offset: [ 0,0,0 ]
+      equipment:
+        HAND: DIAMOND_AXE
+        HEAD: DIAMOND_HELMET
+        CHEST: DIAMOND_CHESTPLATE
+        LEGS: DIAMOND_LEGGINGS
+        FEET: DIAMOND_BOOTS
   tags:
     - FISHING
     - FISHING_WATERWAY
     - FISHING_VERY_RARE
     - WATERWAY_SHOCKER
-  drops:
+  loot:
     storm_crystals:
       amount: 2/2
     waterway_cod:
       amount: 20/50
     storm_talisman_VERY_RARE:
-      chance: 1/5
+      chance: 1/4
     fishing_berries:
       chance: 1/250
     cooked_waterway_cod:
@@ -232,37 +226,32 @@ scared_shockreaver_VERY_RARE:
       enchants: ENCHANT_SUPERLURE-1
 
 angry_creeper_VERY_RARE:
-  name: BLUEAngry Creeper
-  type: FISH
+  name: <blue>Angry Creeper
   fishing:
     WATERWAY: VERY_RARE
+  director: CREEPER
   level: 7
   health: 300
-  entity-type: CREEPER
   knockback: 200
-  damage: 350
+  damage:
+    EXPLOSIVE: 400
   speed: 1.3
-  damage-type: PHYSICAL
-  display-height: 1.8
-  blood-colour: 0,170,50
-  bestiary-category: waterway_fishing_very_rare
-  resistances:
-    BLEED: -1
-    BURN: 10
-    POISON: -1
-  armour:
-    PHYSICAL: 0
-    PROJECTILE: -10
-    MAGICAL: 0
-    HOLY: 0
-    BLEED: 0
-    FIRE: -95
-    WITHER: 0
+  bestiary:
+    category: waterway_fishing_very_rare
+  stats:
+    INSULATION: 75
+    ROBUSTNESS: 200
+    PADDING: -50
+  entities:
+    _:
+      type: CREEPER
+      scale: 1.1
+      offset: [ 0,0,0 ]
   tags:
     - FISHING
     - FISHING_WATERWAY
     - FISHING_VERY_RARE
-  drops:
+  loot:
     waterway_cod:
       amount: 25/100
     enchanted_book-LC1:
@@ -275,33 +264,36 @@ angry_creeper_VERY_RARE:
       enchants: ENCHANT_LAST_CHANCE-2
 
 hydro_stray_VERY_RARE:
-  name: BLUEHydrostray
-  type: FISH
+  name: <blue>Hydrostray
   fishing:
     WATERWAY: VERY_RARE
+  director: SKELETON
   level: 7
   health: 900
-  entity-type: STRAY
   knockback: 100
-  damage: 110
-  damage-type: PROJECTILE
   speed: 1.2
-  display-height: 1.8
-  bestiary-category: waterway_fishing_very_rare
-  blood-colour: 250,0,50
+  damage:
+    PROJECTILE: 80
+    FROST: 35
+  bestiary:
+    category: waterway_fishing_very_rare
   tags:
     - FISHING
     - FISHING_WATERWAY
     - FISHING_VERY_RARE
-  equipment:
-    HAND: BOW
-  drops:
+  entities:
+    _:
+      type: STRAY
+      offset: [ 0,0,0 ]
+      equipment:
+        HAND: ARROW
+  loot:
     waterway_cod:
       amount: 30/70
     enchanted_book:
       chance: 1/80
       enchants: ENCHANT_POWER-1
-    hydrostray_skin: # chase drop from this mob
+    hydrostray_skin: # chase drop?
       chance: 1/150
     enchanted_book-2:
       chance: 1/200
@@ -315,27 +307,27 @@ hydro_stray_VERY_RARE:
       chance: 1/700
 
 lonely_seahorse_VERY_RARE:
-  name: BLUELonely Sea-horse
-  type: FISH
+  name: <blue>Lonely Sea-horse
   fishing:
     WATERWAY: VERY_RARE
   level: 7
-  has-director: true
-  health: 1950
-  entity-type: ZOMBIE_HORSE
-  scale: 0.75
+  health: 2000
   knockback: 50
-  damage: 70
-  damage-type: PHYSICAL
+  damage:
+    PHYSICAL: 80
   speed: 1.35
-  display-height: 1.4
-  bestiary-category: waterway_fishing_very_rare
-  blood-colour: 250,0,50
+  bestiary:
+    category: waterway_fishing_very_rare
   tags:
     - FISHING
     - FISHING_WATERWAY
     - FISHING_VERY_RARE
-  drops:
+  entities:
+    _:
+      type: ZOMBIE_HORSE
+      scale: 0.7
+      offset: [ 0,0,0 ]
+  loot:
     waterway_cod:
       amount: 80/90
     fishing_berries:
@@ -343,36 +335,42 @@ lonely_seahorse_VERY_RARE:
       amount: 1/2
 
 water_spirit_VERY_RARE:
-  name: BLUEBOLDWater Spirit
-  type: FISH
+  name: <blue><b>Water Spirit
   entity-type: BREEZE
   fishing:
     WATERWAY: VERY_RARE
-  ignore-target-limit: true
+  director: BREEZE
+  #ignore-target-limit: true
   level: 10
   health: 3000
   knockback: 0
-  damage: 190
-  damage-type: MAGICAL
-  display-height: 1.9
-  blood-colour: 0,75,150
   speed: 1.4
-  bestiary-category: waterway_fishing_very_rare
-  resistances:
-    BLEED: -1
-  armour:
-    PHYSICAL: 25
-    PROJECTILE: -25
-    MAGICAL: 1000
-    HOLY: -25
-    FIRE: -25
-    WITHER: 0
+  damage:
+    MAGIC: 120
+    FROST: 20
+  bestiary:
+    category: waterway_fishing_very_rare
+  stats:
+    DEFENCE: 25
+    PADDING: -50
+    INSULATION: -25
+    ROBUSTNESS: 10
+  abilities:
+    overkill:
+      class: generic.EnemyAbilityOverkill
+      percentage: 0.1
+      reward: 30
+  entities:
+    _:
+      type: BREEZE
+      scale: 1.1
+      offset: [ 0,0.2,0 ]
   tags:
     - FISHING
     - FISHING_WATERWAY
     - FISHING_VERY_RARE
     - FISHING_MINIBOSS
-  drops:
+  loot:
     waterway_cod:
       amount: 70/100
     water_spirit_soul:
@@ -380,53 +378,46 @@ water_spirit_VERY_RARE:
 
 
 titan_fishing_VERY_RARE:
-  name: BLUEBOLDMinor Titan
-  type: TITAN_FISH
-  coin-multiplier: 3
-  entity-type: HUSK
+  name: <blue><b>Young Titan
   fishing:
     WATERWAY: VERY_RARE
-  ignore-target-limit: true
+  #ignore-target-limit: true
   level: 21
-  health: 4500
+  health: 4000
+  coin-multiplier: 4
   knockback: 40
-  damage: 100
-  damage-type: PHYSICAL
-  display-height: 2.1
-  blood-colour: 250,0,50
-  damage-cap-percentage: 3
-  overkill-reward: 4
+  damage:
+    PHYSICAL: 100
   speed: 1.3
-  bestiary-category: waterway_fishing_very_rare
-  titan-fight:
-    explosion-radius: 5
-    explosion-damage: 400
-    explosion-cooldown: 300
-    slash-damage: 90
-    slash-cooldown: 30
-    slash-time: 15
-    beam-damage: 110
-    beam-min-range: 9
-    beam-cooldown: 30
-    rain-damage: 40
-    rain-min-range: 2
-    rain-max-range: 9
-  resistances:
-    BLEED: 150
-  armour:
-    PHYSICAL: 0
-    PROJECTILE: 500
-    MAGICAL: 0
-    HOLY: 0
-    BLEED: -35
-    FIRE: 0
-    WITHER: 0
-  equipment:
-    HAND: ripe_sword
-    HEAD: WITHER_SKELETON_SKULL
-    CHEST: water_chestplate
-    LEGS: leather_leggings
-    FEET: GOLDEN_BOOTS
+  bestiary:
+    category: waterway_fishing_very_rare
+  stats:
+    ROBUSTNESS: 10
+    PADDING: 100
+  abilities:
+    overkill:
+      class: generic.EnemyAbilityOverkill
+      percentage: 0.05
+      reward: 3
+    slash:
+      class: waterway.titan.EnemyAbilityTitanSlash
+      distance: 4.75
+      cooldown: 40
+      delay: 18
+      double: true
+      degrees: 30
+      raise: 0.7
+  entities:
+    _:
+      type: DROWNED
+      scale: 0.9
+      offset: [ 0,0,0 ]
+      equipment:
+        HAND: pungent_sword
+        HEAD: titan_helmet
+        CHEST: water_chestplate
+        LEGS: leather_leggings
+        FEET: GOLDEN_BOOTS
   tags:
     - TITAN
     - TITAN_LOW_RANK
@@ -435,6 +426,14 @@ titan_fishing_VERY_RARE:
     - FISHING_WATERWAY
     - FISHING_VERY_RARE
     - FISHING_MINIBOSS
-  drops:
+  loot:
     titan_lootbox_1:
-      amount: 2/2
+      chance: 1/2
+      amount: 1/1
+    wet_paper:
+      amount: 66/333
+    fishing_berries:
+      chance: 1/8
+      amount: 1/1
+    cooked_waterway_cod:
+      chance: 1/25

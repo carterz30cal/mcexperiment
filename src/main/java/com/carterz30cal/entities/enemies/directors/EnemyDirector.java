@@ -1,12 +1,12 @@
 package com.carterz30cal.entities.enemies.directors;
 
 import com.carterz30cal.entities.GameEntity;
-import com.carterz30cal.entities.GameSummon;
 import com.carterz30cal.entities.LocatableEntity;
 import com.carterz30cal.entities.TargetableEntity;
 import com.carterz30cal.entities.enemies.core.GameEnemy;
 import com.carterz30cal.entities.enemies.directors.behaviour.TargetingBehaviour;
 import com.carterz30cal.entities.health.damage.handlers.AggressiveEntity;
+import com.carterz30cal.entities.player.summons.GameSummon;
 import com.carterz30cal.main.Dungeons;
 import com.carterz30cal.utils.EntityUtils;
 import org.bukkit.Location;
@@ -14,12 +14,13 @@ import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
 import org.bukkit.attribute.Attribute;
 import org.bukkit.attribute.AttributeModifier;
+import org.bukkit.entity.AbstractSkeleton;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Mob;
 import org.bukkit.inventory.EquipmentSlotGroup;
+import org.bukkit.inventory.ItemStack;
 import org.bukkit.persistence.PersistentDataType;
-import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 import org.bukkit.util.Vector;
 
@@ -59,8 +60,12 @@ public class EnemyDirector implements LocatableEntity, TargetableEntity {
 
     public void createDirector() {
         var mob = (Mob) Dungeons.w.spawnEntity(cachedLocation, directorType, false);
-        mob.addPotionEffect(new PotionEffect(PotionEffectType.INVISIBILITY, Integer.MAX_VALUE, 0, false, false));
+        //mob.addPotionEffect(new PotionEffect(PotionEffectType.INVISIBILITY, Integer.MAX_VALUE, 0, false, false));
+        mob.setVisibleByDefault(false);
         mob.setSilent(true);
+        if (mob instanceof AbstractSkeleton skeleton) {
+            skeleton.getEquipment().setItemInMainHand(new ItemStack(Material.BOW), true);
+        }
         //mob.setRemoveWhenFarAway(false);
         directingEntity = mob;
     }

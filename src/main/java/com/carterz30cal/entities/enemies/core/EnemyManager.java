@@ -31,9 +31,9 @@ public class EnemyManager
             "waterway/mobs/lunatics", "waterway/mobs/titans",
             //"waterway/mobs/seraph/boss", "waterway/mobs/seraph/summons",
             "waterway/mobs/fishing/fishing_common",
-            //"waterway/mobs/fishing/fishing_uncommon",
-            //  "waterway/mobs/fishing/fishing_rare",
-            //   "waterway/mobs/fishing/fishing_very_rare",
+            "waterway/mobs/fishing/fishing_uncommon",
+            "waterway/mobs/fishing/fishing_rare",
+            "waterway/mobs/fishing/fishing_very_rare",
 	};
 	
 	public static EnemyManager instance;

@@ -1,35 +1,30 @@
 drenched_UNCOMMON:
-  name: YELLOWDrenched
-  entity-type: DROWNED
-  has-director: true
-  type: FISH
-  fishing:
-    WATERWAY: UNCOMMON
+  name: <yellow>Drenched
   level: 4
   health: 300
   knockback: 125
-  damage: 40
-  damage-type: PHYSICAL
-  display-height: 1.8
-  blood-colour: 0,50,100
-  bestiary-category: waterway_fishing_uncommon
-  armour:
-    PHYSICAL: 0
-    PROJECTILE: 0
-    MAGICAL: 0
-    HOLY: 0
-    BLEED: -30
-    FIRE: 100
-    WITHER: 0
-  equipment:
-    HAND: COPPER_HOE
-    CHEST: IRON_CHESTPLATE
-    FEET: LEATHER_BOOTS
+  damage:
+    PHYSICAL: 40
+  stats:
+    ROBUSTNESS: -10
+  bestiary:
+    category: waterway_fishing_uncommon
+  fishing:
+    WATERWAY: UNCOMMON
+  entities:
+    _:
+      type: DROWNED
+      scale: 1
+      offset: [ 0,0,0 ]
+      equipment:
+        HAND: COPPER_HOE
+        CHEST: IRON_CHESTPLATE
+        FEET: LEATHER_BOOTS
   tags:
     - FISHING
     - FISHING_WATERWAY
     - FISHING_UNCOMMON
-  drops:
+  loot:
     waterway_cod:
       amount: 3/10
     meat_scraps:
@@ -39,40 +34,39 @@ drenched_UNCOMMON:
       chance: 1/160
 
 lunatic_fisherman_UNCOMMON:
-  name: YELLOWLunatic Fisherman
-  type: FISH
+  name: <yellow>Lunatic Fisherman
+  level: 4
+  health: 150
+  knockback: 95
+  speed: 1.4
+  damage:
+    PHYSICAL: 30
   fishing:
     WATERWAY: UNCOMMON
-  level: 4
-  health: 145
-  knockback: 95
-  damage: 30
-  speed: 1.6
-  damage-type: PHYSICAL
-  display-height: 1.8
-  blood-colour: 250,0,50
-  bestiary-category: waterway_fishing_uncommon
-  armour:
-    PHYSICAL: 0
-    PROJECTILE: 75
-    MAGICAL: 0
-    HOLY: 0
-    BLEED: -50
-    FIRE: 200
-    WITHER: 0
-  equipment:
-    HAND: FISHING_ROD
-    HEAD: water_helmet
-    CHEST: LEATHER_CHESTPLATE
-    LEGS: LEATHER_LEGGINGS
-    FEET: LEATHER_BOOTS
+  bestiary:
+    category: waterway_fishing_uncommon
+  stats:
+    PADDING: 50
+    INSULATION: 200
+    ROBUSTNESS: -5
+  entities:
+    _:
+      type: ZOMBIE
+      scale: 1
+      offset: [ 0,0,0 ]
+      equipment:
+        HAND: FISHING_ROD
+        HEAD: water_helmet
+        CHEST: LEATHER_CHESTPLATE
+        LEGS: LEATHER_LEGGINGS
+        FEET: LEATHER_BOOTS
   tags:
     - LUNATIC
     - LUNATIC_HIGH_RANK
     - FISHING
     - FISHING_WATERWAY
     - FISHING_UNCOMMON
-  drops:
+  loot:
     weird_flesh:
       amount: 5/26
     waterway_cod:
@@ -85,41 +79,40 @@ lunatic_fisherman_UNCOMMON:
       chance: 1/75
     water_boots:
       chance: 1/75
-    flimsy_fishing_rod:
-      chance: 1/75
     fishing_berries:
       chance: 1/80
 
 sea_slug_UNCOMMON:
-  name: YELLOWSea Slug
-  type: FISH
-  entity-type: SILVERFISH
-  has-director: true
-  scale: 1.4
-  fishing:
-    WATERWAY: UNCOMMON
+  name: <yellow>Sea Slug
   level: 4
   health: 120
-  knockback: 165
-  damage: 40
-  speed: 1.75
-  damage-type: PHYSICAL
-  display-height: 0.7
-  blood-colour: 250,0,50
-  bestiary-category: waterway_fishing_uncommon
-  armour:
-    PHYSICAL: 0
-    PROJECTILE: 75
-    MAGICAL: 0
-    HOLY: 0
-    BLEED: -50
-    FIRE: 200
-    WITHER: 0
+  knockback: 150
+  speed: 1.8
+  damage:
+    PHYSICAL: 40
+  fishing:
+    WATERWAY: UNCOMMON
+  bestiary:
+    category: waterway_fishing_uncommon
+  stats:
+    PADDING: 75
+    INSULATION: 200
+    ROBUSTNESS: -10
+  entities:
+    _:
+      scale: 1.4
+      type: SILVERFISH
+      offset: [ 0,0,0 ]
+    hitbox:
+      scale: 1
+      type: ZOMBIE
+      offset: [ 0,0,0 ]
+      invisible: true
   tags:
     - FISHING
     - FISHING_WATERWAY
     - FISHING_UNCOMMON
-  drops:
+  loot:
     waterway_cod:
       amount: 10/20
     fishing_berries:
@@ -133,36 +126,36 @@ sea_slug_UNCOMMON:
       enchants: ENCHANT_SUPERLURE-1
 
 sea_slime_UNCOMMON:
-  name: YELLOWSea Slime
-  type: FISH
-  entity-type: SLIME
-  has-director: false
-  scale: 1.4
+  name: <yellow>Sea Slime
+  level: 4
+  health: 500
+  knockback: 30
+  speed: 1.1
+  damage:
+    PHYSICAL: 40
   fishing:
     WATERWAY: UNCOMMON
-  level: 4
-  health: 550
-  knockback: 30
-  damage: 40
-  speed: 1.1
-  damage-type: PHYSICAL
-  display-height: 0.7
-  blood-colour: 250,0,50
-  bestiary-category: waterway_fishing_uncommon
-  armour:
-    PHYSICAL: 0
-    PROJECTILE: 75
-    MAGICAL: 0
-    HOLY: 0
-    BLEED: 10000
-    FIRE: -50
-    WITHER: 0
+  bestiary:
+    category: waterway_fishing_uncommon
+  stats:
+    PADDING: 75
+    ROBUSTNESS: 1000
+    INSULATION: -50
+  entities:
+    b:
+      type: SLIME
+      scale: 1.5
+      offset: [ 0,0,0 ]
+    t:
+      type: SLIME
+      scale: 1
+      offset: [ 0,0.7,0 ]
   tags:
     - FISHING
     - FISHING_WATERWAY
     - FISHING_UNCOMMON
     - SLIME
-  drops:
+  loot:
     waterway_cod:
       amount: 10/20
     green_slime:
@@ -171,37 +164,32 @@ sea_slime_UNCOMMON:
       chance: 1/500
 
 angry_creeper_UNCOMMON:
-  name: YELLOWAngry Creeper
-  type: FISH
+  name: <yellow>Angry Creeper
   fishing:
     WATERWAY: UNCOMMON
   level: 4
+  director: CREEPER
   health: 150
-  entity-type: CREEPER
   knockback: 200
-  damage: 200
   speed: 1.3
-  damage-type: PHYSICAL
-  display-height: 1.8
-  blood-colour: 0,170,50
-  bestiary-category: waterway_fishing_uncommon
-  resistances:
-    BLEED: -1
-    BURN: 10
-    POISON: -1
-  armour:
-    PHYSICAL: 0
-    PROJECTILE: -10
-    MAGICAL: 0
-    HOLY: 0
-    BLEED: 0
-    FIRE: -95
-    WITHER: 0
+  damage:
+    EXPLOSIVE: 200
+  stats:
+    INSULATION: 75
+    ROBUSTNESS: 200
+    PADDING: -50
+  bestiary:
+    category: waterway_fishing_uncommon
+  entities:
+    _:
+      type: CREEPER
+      scale: 1
+      offset: [ 0,0,0 ]
   tags:
     - FISHING
     - FISHING_WATERWAY
     - FISHING_UNCOMMON
-  drops:
+  loot:
     waterway_cod:
       amount: 10/25
     enchanted_book:
@@ -211,27 +199,30 @@ angry_creeper_UNCOMMON:
       chance: 1/250
 
 hydro_stray_UNCOMMON:
-  name: YELLOWHydrostray
-  type: FISH
-  fishing:
-    WATERWAY: UNCOMMON
+  name: <yellow>Hydrostray
   level: 4
   health: 300
-  entity-type: STRAY
+  director: SKELETON
   knockback: 100
-  damage: 50
-  damage-type: PROJECTILE
-  speed: 1.2
-  display-height: 1.8
-  bestiary-category: waterway_fishing_uncommon
-  blood-colour: 250,0,50
+  speed: 1.3
+  damage:
+    PROJECTILE: 40
+    FROST: 15
+  fishing:
+    WATERWAY: UNCOMMON
+  bestiary:
+    category: waterway_fishing_uncommon
+  entities:
+    _:
+      type: STRAY
+      offset: [ 0,0,0 ]
+      equipment:
+        HAND: ARROW
   tags:
     - FISHING
     - FISHING_WATERWAY
     - FISHING_UNCOMMON
-  equipment:
-    HAND: BOW
-  drops:
+  loot:
     waterway_cod:
       amount: 5/20
     enchanted_book:
