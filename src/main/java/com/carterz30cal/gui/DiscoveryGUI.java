@@ -167,7 +167,7 @@ public class DiscoveryGUI extends AbstractGUI {
                             "</green>/<green>" + discovery.tiers.get(lvl - 1) + "</green>]");
 				}
                 else {
-                    lore.add(StringUtils.stringProgressBar(40, 1,
+                    lore.add(StringUtils.stringProgressBar(40, progress,
                             NamedTextColor.GREEN,
                             NamedTextColor.DARK_GRAY) +
                             " <green>" + StringUtils.asPercent(progress) + "</green> <white>[<" + colour +
