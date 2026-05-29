@@ -641,21 +641,6 @@ public class GamePlayer extends GameEntity implements DamageableEntity, Aggressi
 		return amount;
 	}
 
-    @Deprecated
-	public int gainCoins(GameEnemy killed)
-	{
-		int total = 1 + (killed.type.health / 75);
-		total += killed.type.damage / 25;
-		total += killed.type.level / 2;
-
-		double extraCoinsMultiplier = (100D + stats.getStat(Stat.BONUS_COINS)) / 100;
-
-        int finalTotal = (int) Math.round(total * extraCoinsMultiplier * killed.type.coinMultiplier);
-        coins += finalTotal;
-        return finalTotal;
-	}
-	
-	
 	public int getForgeSlots()
 	{
 		int slots = 4;
@@ -1079,7 +1064,7 @@ public class GamePlayer extends GameEntity implements DamageableEntity, Aggressi
                 return false;
             }
             else {
-                return dist <= stats.getStat(Stat.VISIBILITY) && yDist <= 7;
+                return dist <= stats.stat(Stat.VISIBILITY) && yDist <= 7;
             }
         }
         else {
