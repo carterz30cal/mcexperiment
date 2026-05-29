@@ -1,10 +1,10 @@
 package com.carterz30cal.items.abilities2.waterway;
 
 import com.carterz30cal.entities.GameEntity;
-import com.carterz30cal.entities.GameSummon;
 import com.carterz30cal.entities.enemies.core.GameEnemy;
 import com.carterz30cal.entities.health.damage.handlers.DamageableEntity;
 import com.carterz30cal.entities.player.GamePlayer;
+import com.carterz30cal.entities.player.summons.GameSummon;
 import com.carterz30cal.items.abilities2.implementation.*;
 import com.carterz30cal.stats.Stat;
 import org.jetbrains.annotations.NotNull;

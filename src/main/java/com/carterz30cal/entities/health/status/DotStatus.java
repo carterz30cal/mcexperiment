@@ -36,7 +36,7 @@ public class DotStatus extends AbstractStatus {
 					
 					DamageInfo info = new DamageInfo();
 					info.defender = enemy;
-					info.attacker = enemy.lastDamager;
+                    //info.attacker = enemy.lastDamager;
 					
 					info.type = type;
 					info.damage = damage + (int)Math.round(percentDamage * enemy.health);

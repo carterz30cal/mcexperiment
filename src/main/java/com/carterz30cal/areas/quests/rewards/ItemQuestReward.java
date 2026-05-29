@@ -5,6 +5,11 @@ import com.carterz30cal.items.ItemFactory;
 
 import java.util.List;
 
+/**
+ * @author carterz30cal
+ * @version 2
+ * @since 1.0.0
+ */
 public class ItemQuestReward extends QuestReward {
 
     protected String item;
@@ -24,15 +29,15 @@ public class ItemQuestReward extends QuestReward {
     }
 
     @Override
-    public List<String> GetRewardDescription() {
-        var list = super.GetRewardDescription();
-        list.add("AQUA-- " + ItemFactory.getItemTypeName(item) + "DARK_GRAY x" + amount + "AQUA!");
+    public List<String> getRewardDescription() {
+        var list = super.getRewardDescription();
+        list.add("<aqua>-- " + ItemFactory.getItemTypeName(item) + "<dark_grey> x" + amount + "</dark_grey>!");
         return list;
     }
 
     @Override
-    public void GrantOneTimeRewards(GamePlayer player) {
-        super.GrantOneTimeRewards(player);
+    public void grantOneTimeRewards(GamePlayer player) {
+        super.grantOneTimeRewards(player);
 
         player.giveItem(ItemFactory.build(item, amount), true);
     }

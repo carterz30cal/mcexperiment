@@ -1,10 +1,8 @@
 package com.carterz30cal.entities.enemies.core;
 
 import com.carterz30cal.areas.AbstractGameArea;
-import com.carterz30cal.entities.AbstractEnemyType;
 import com.carterz30cal.entities.GameEntity;
 import com.carterz30cal.entities.TagHavingEntity;
-import com.carterz30cal.entities.damage.StatusEffects;
 import com.carterz30cal.entities.enemies.abilities.EnemyAbility;
 import com.carterz30cal.entities.enemies.abilities.EnemyAbilityContext;
 import com.carterz30cal.entities.enemies.directors.EnemyDirector;
@@ -27,22 +25,21 @@ import net.kyori.adventure.text.format.NamedTextColor;
 import org.bukkit.Location;
 import org.bukkit.NamespacedKey;
 import org.bukkit.Sound;
-import org.bukkit.entity.ArmorStand;
-import org.bukkit.entity.Entity;
 import org.bukkit.entity.LivingEntity;
-import org.bukkit.entity.Mob;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.scheduler.BukkitRunnable;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.UUID;
 
 import static net.kyori.adventure.text.Component.text;
 
 /**
  * @author carterz30cal
- * @version 4
+ * @version 5
  * @since 1.0.0
  */
 @SuppressWarnings("UnnecessaryUnicodeEscape")
@@ -51,32 +48,14 @@ public class GameEnemy extends GameEntity implements AggressiveEntity, Damageabl
 	public static NamespacedKey keyEnemy = new NamespacedKey(Dungeons.instance, "keyEnemy");
 
     private final BukkitRunnable ticker;
-    @Deprecated
-	public AbstractEnemyType type;
-    @Deprecated
-	public Entity main;
-    @Deprecated
-	public List<Entity> parts = new ArrayList<>();
-    @Deprecated
-    public Mob director;
-    @Deprecated
-	public GameEntity target;
-    @Deprecated
-	public GamePlayer lastDamager;
-    @Deprecated
-	public StatusEffects statuses;
-    @Deprecated
-	public StatusEffects resistances;
-    @Deprecated
-	public Map<String, Object> data = new HashMap<>();
+
     protected EnemyRepresentation representation;
     protected EntityHealthSystem healthSystem;
     protected EnemyDirector enemyDirector;
     protected EnemyData enemyData;
     protected EnemyInformationDisplay enemyInformationDisplay;
     protected final List<EnemyAbilityContext> abilities = new ArrayList<>();
-    @Deprecated
-	protected ArmorStand display;
+
     public AbstractGameArea spawnedArea;
     protected String typeId;
 
@@ -114,29 +93,6 @@ public class GameEnemy extends GameEntity implements AggressiveEntity, Damageabl
         };
         this.ticker.runTaskTimer(Dungeons.instance, 0, 1);
     }
-
-    @Deprecated
-	public GameEnemy(Location spawn, AbstractEnemyType type)
-	{
-		this.type = type;
-		health = 1;
-        this.uuid = UUID.randomUUID();
-
-		this.statuses = new StatusEffects();
-		this.resistances = type.resistances.clone();
-
-		ticker = new BukkitRunnable()
-		{
-
-			@Override
-			public void run() {
-				doTick();
-			}
-
-		};
-
-		ticker.runTaskTimer(Dungeons.instance, 1, 1);
-	}
 
     protected Component getName() {
         return text().append(
@@ -217,7 +173,7 @@ public class GameEnemy extends GameEntity implements AggressiveEntity, Damageabl
      */
     @Override
     public boolean isDamageable(AggressiveEntity by) {
-        return true;
+        return !equals(by);
     }
 
     @Override
@@ -387,15 +343,6 @@ public class GameEnemy extends GameEntity implements AggressiveEntity, Damageabl
         }
     }
 
-    /**
-     * @deprecated in favour of tag() from TagHavingEntity interface
-     */
-    @Deprecated
-	public final boolean hasTag(String tag)
-	{
-        return enemyData.tags.contains(tag);
-	}
-
     public void kill() {
         destroy();
     }
@@ -433,13 +380,6 @@ public class GameEnemy extends GameEntity implements AggressiveEntity, Damageabl
 	public Location getLocation()
 	{
         return enemyDirector.getLocation();
-	}
-	
-    @Deprecated
-	public void setLocation(Location l)
-	{
-		main.teleport(l);
-		if (director != null) director.teleport(l);
 	}
 
     @Override

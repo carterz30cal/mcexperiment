@@ -6,23 +6,33 @@ import com.carterz30cal.entities.health.damage.AttackType;
 import com.carterz30cal.entities.health.damage.DamagePacket;
 import com.carterz30cal.entities.health.damage.DamageType;
 import com.carterz30cal.entities.health.damage.handlers.AggressiveEntity;
+import com.carterz30cal.events.ListenerEntityDamage;
 import com.carterz30cal.items.Item;
 import com.carterz30cal.items.ItemFactory;
 import com.carterz30cal.items.abilities2.implementation.ContextWithAbility;
+import com.carterz30cal.main.Dungeons;
 import com.carterz30cal.stats.Stat;
 import com.carterz30cal.stats.StatContainer;
+import com.carterz30cal.utils.EntityUtils;
 import org.bukkit.Location;
 import org.bukkit.entity.Projectile;
 import org.bukkit.persistence.PersistentDataType;
+import org.bukkit.scheduler.BukkitRunnable;
 
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * @author carterz30cal
+ * @version 2
+ * @since 1.0.0
+ */
 public class GameProjectile extends GameEntity implements AggressiveEntity {
     private final AggressiveEntity owner;
     private final Projectile projectile;
     private final List<ContextWithAbility<? extends GameEntity>> contextualAbilities = new ArrayList<>();
     private StatContainer stats;
+    private final BukkitRunnable runnable;
 
     public GameProjectile(AggressiveEntity owner, Projectile projectile) {
         this.owner = owner;
@@ -31,12 +41,33 @@ public class GameProjectile extends GameEntity implements AggressiveEntity {
         uuid = projectile.getUniqueId();
         projectile.getPersistentDataContainer().set(GameEnemy.keyEnemy, PersistentDataType.STRING, uuid.toString());
         register(uuid);
+        runnable = new BukkitRunnable() {
+            @Override
+            public void run() {
+                tick();
+            }
+        };
+        runnable.runTaskTimer(Dungeons.instance, 2, 1);
     }
+
+    protected void tick() {
+        if (dead) {
+            return;
+        }
+        for (var entity : EntityUtils.getNearbyDamageableEntities(projectile.getLocation(), 1)) {
+            if (entity.isDamageable(owner)) {
+                ListenerEntityDamage.handleEntityDamageEntity(entity, this);
+                break;
+            }
+        }
+    }
+
 
     public void setContextualAbilities(Item item) {
         if (owner instanceof GamePlayer player) {
             var list = new ArrayList<ContextWithAbility<? extends GameEntity>>(ItemFactory.getItemAbilities(item, player));
             contextualAbilities.addAll(list);
+            stats = item.stats.clone();
         }
         else {
             throw new IllegalCallerException("item projectile contextual abilities must be set by a GamePlayer owner.");
@@ -45,6 +76,7 @@ public class GameProjectile extends GameEntity implements AggressiveEntity {
 
     @Override
     public void remove() {
+        runnable.cancel();
         projectile.remove();
     }
 
@@ -92,6 +124,6 @@ public class GameProjectile extends GameEntity implements AggressiveEntity {
         if (stats == null) {
             return 0;
         }
-        return stats.getStat(stat);
+        return stats.stat(stat);
     }
 }

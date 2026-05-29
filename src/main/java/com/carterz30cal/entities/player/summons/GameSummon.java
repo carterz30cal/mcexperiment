@@ -1,4 +1,4 @@
-package com.carterz30cal.entities;
+package com.carterz30cal.entities.player.summons;
 
 import com.carterz30cal.entities.enemies.core.EnemyBuilder;
 import com.carterz30cal.entities.enemies.core.EnemyData;

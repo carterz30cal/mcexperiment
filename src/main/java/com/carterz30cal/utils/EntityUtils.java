@@ -20,7 +20,9 @@ import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.util.Vector;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 public class EntityUtils
 {
@@ -132,11 +134,11 @@ public class EntityUtils
         return entities;
     }
 
-    public static List<DamageableEntity> getNearbyDamageableEntities(Location l, double radius) {
-        List<DamageableEntity> entities = new ArrayList<>();
+    public static Set<DamageableEntity> getNearbyDamageableEntities(Location l, double radius) {
+        Set<DamageableEntity> entities = new HashSet<>();
         for (GameEntity e : GameEntity.entities.values()) {
             if (e instanceof DamageableEntity d) {
-                if (d.getLocation().distance(l) <= radius) {
+                if (d.getLocation().distance(l) <= radius || d.getLocation().add(0, 1, 0).distance(l) <= radius) {
                     entities.add(d);
                 }
             }

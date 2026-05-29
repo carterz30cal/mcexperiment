@@ -90,10 +90,10 @@ public class StringUtils
      * @since 1.0.0
      */
     public static String stringProgressBar(int length, double percentFilled, TextColor filledColour, TextColor unfilledColour) {
-        int filledLength = (int) Math.round(percentFilled * length);
-        return "<" + filledColour.asHexString() + ">" + new StringBuilder().repeat('|', filledLength).toString() +
+        int filledLength = (int) Math.round(percentFilled * (double) length);
+        return "<" + filledColour.asHexString() + ">" + new StringBuilder().repeat('|', filledLength) +
                 "</" + filledColour.asHexString() + ">" + "<" + unfilledColour.asHexString() + ">" +
-                new StringBuilder().repeat('|', length - filledLength).toString()
+                new StringBuilder().repeat('|', length - filledLength)
                 + "</" + unfilledColour.asHexString() + ">";
     }
 

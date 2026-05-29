@@ -56,7 +56,7 @@ public class ListenerEntityDamage implements Listener
         handleEntityDamageEntity(victim, aggressor);
     }
 
-    private void handleEntityDamageEntity(DamageableEntity victim, AggressiveEntity aggressor) {
+    public static void handleEntityDamageEntity(DamageableEntity victim, AggressiveEntity aggressor) {
         var packet = aggressor.getBlankDamagePacket();
         packet.defender = victim;
         aggressor.attack();
@@ -159,14 +159,19 @@ public class ListenerEntityDamage implements Listener
 	{
         if (e.getEntity() instanceof BreezeWindCharge) {
             var p = GameEntity.get(e.getEntity());
+            e.setCancelled(true);
             if (p instanceof AggressiveEntity projectile) {
-                var entities = EntityUtils.getNearbyDamageableEntities(projectile.getLocation(), 2.5);
+                var entities = EntityUtils.getNearbyDamageableEntities(projectile.getLocation(), 2);
+                entities.removeIf((b) -> !b.isDamageable(projectile));
                 for (var victim : entities) {
+                    if (victim.equals(projectile)) {
+                        continue;
+                    }
                     handleEntityDamageEntity(victim, projectile);
                 }
             }
             else {
-                e.setCancelled(true);
+
             }
         }
         else {
@@ -201,6 +206,18 @@ public class ListenerEntityDamage implements Listener
 
                     }.runTaskLater(Dungeons.instance, 20);
                 }
+            }
+        }
+        else if (e.getEntity() instanceof AbstractArrow arrow) {
+            if (e.getHitBlock() != null) {
+                new BukkitRunnable() {
+
+                    @Override
+                    public void run() {
+                        // TODO Auto-generated method stub
+                        arrow.remove();
+                    }
+                }.runTaskLater(Dungeons.instance, 20);
             }
         }
         else if (e.getEntity() instanceof FishHook hook) {
@@ -277,12 +294,15 @@ public class ListenerEntityDamage implements Listener
 		if (shooter instanceof Player) return;
 		
 		GameEnemy enemy = (GameEnemy)GameEnemy.get(shooter);
-        if (enemy == null || !enemy.type.onLaunch(enemy))
+        if (enemy == null)
 		{
 			e.setCancelled(true);
 			e.getEntity().remove();
 		}
 		else {
+            if (e.getEntity() instanceof LivingEntity living) {
+                living.setCollidable(false);
+            }
 			e.getEntity().getPersistentDataContainer().set(GameEnemy.keyEnemy, PersistentDataType.STRING, enemy.getUUID().toString());
 		}
 	}

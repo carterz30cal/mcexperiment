@@ -377,7 +377,7 @@ public class GamePlayer extends GameEntity implements DamageableEntity, Aggressi
         playerScoreboard.tick();
 		
 		// set targets
-		targeted.removeIf((e) -> e.dead || e.target != this);
+        targeted.removeIf((e) -> e.dead);
 	}
 	
 	public void openGui(AbstractGUI gui)
