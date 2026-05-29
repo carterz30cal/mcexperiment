@@ -34,7 +34,7 @@ public abstract class AbstractGameArea {
 
     public void OnPlayerDeath(GamePlayer player) {
         for (var boss : registeredBosses) {
-            boss.OnPlayerDeath(player);
+            boss.onLeftFight(player, AbstractAreaBoss.LeftFightReason.DEATH);
         }
     }
 
@@ -56,24 +56,18 @@ public abstract class AbstractGameArea {
      */
     public void OnRightClick(GamePlayer player, Location location) {
         for (var boss : registeredBosses) {
-            boss.OnRightClick(player, location);
+
         }
     }
 
     public void OnTeleport(GamePlayer player, PlayerTeleport teleport) {
         for (var boss : registeredBosses) {
-            boss.OnTeleport(player, teleport);
+            boss.onLeftFight(player, AbstractAreaBoss.LeftFightReason.TELEPORTED);
         }
     }
 
     public List<String> GetScoreboard(GamePlayer player) {
         List<String> list = new ArrayList<>();
-        for (var boss : registeredBosses) {
-            if (!boss.IsPlayerInvolved(player)) {
-                continue;
-            }
-            list.addAll(boss.GetScoreboard(player));
-        }
         return list;
     }
 

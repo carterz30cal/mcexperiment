@@ -170,9 +170,6 @@ public class ListenerEntityDamage implements Listener
                     handleEntityDamageEntity(victim, projectile);
                 }
             }
-            else {
-
-            }
         }
         else {
             e.setCancelled(true);
@@ -200,7 +197,6 @@ public class ListenerEntityDamage implements Listener
 
                         @Override
                         public void run() {
-                            // TODO Auto-generated method stub
                             projectile.remove();
                         }
 
@@ -214,7 +210,6 @@ public class ListenerEntityDamage implements Listener
 
                     @Override
                     public void run() {
-                        // TODO Auto-generated method stub
                         arrow.remove();
                     }
                 }.runTaskLater(Dungeons.instance, 20);

@@ -41,7 +41,7 @@ public class PlayerScoreboard {
 
         var lines = SidebarComponent.builder()
                 .addDynamicLine(() -> {
-                    var subAreaName = owner.area.getArea().GetSubAreaName(owner);
+                    var subAreaName = owner.area != null ? owner.area.getArea().GetSubAreaName(owner) : "Void";
                     return text(subAreaName, NamedTextColor.DARK_GRAY);
                 })
                 .addBlankLine()
@@ -103,7 +103,7 @@ public class PlayerScoreboard {
                 Quests.QuestSave save = owner.GetQuestSave(chosenQuest);
                 if (save.sectionSave.HasTalkedTo()) {
                     drawable.drawLine(text());
-                    drawable.drawLine(text("Quest: ", NamedTextColor.GOLD).append(text(chosenQuest.GetName(), NamedTextColor.WHITE)));
+                    drawable.drawLine(text("Quest: ", NamedTextColor.GOLD).append(text(chosenQuest.getName(), NamedTextColor.WHITE)));
                     for (var sc : save.sectionSave.GetDescription()) {
                         drawable.drawLine(MiniMessage.miniMessage().deserialize(sc));
                     }

@@ -45,7 +45,7 @@ public enum Questgivers {
             )
     ),
     TUTORIAL_TAM_SPOT2(
-            "Tutorial Tam", EntityType.IRON_GOLEM, new Location(Dungeons.w, -94.5, 65, 6.5),
+            "Tutorial Tam", EntityType.IRON_GOLEM, new Location(Dungeons.w, -82.9, 65, -14.3, -36, 2),
             new PreviousQuestRequirement(TUTORIAL_TAM_SPOT1),
             new QuestSectionKill(
                     new StringDescription("Hi!",

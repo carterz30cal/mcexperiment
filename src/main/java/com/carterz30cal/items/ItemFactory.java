@@ -97,7 +97,7 @@ public class ItemFactory
             "waterway/recipes/armours/very_rare_armours",
             "waterway/recipes/attuners_offensive",
             "waterway/recipes/enchantments/sharpness",
-            "waterway/recipes/talismans", "waterway/recipes/harvesters", "waterway/recipes/fishing_rods", "waterway/recipes/pickaxes"
+            "waterway/recipes/talismans", "waterway/recipes/fishing_rods", "waterway/recipes/pickaxes"
 	};
     public static String[] skullFiles = {
             "waterway/skulls"

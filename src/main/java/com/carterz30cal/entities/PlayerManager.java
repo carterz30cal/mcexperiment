@@ -107,7 +107,7 @@ public class PlayerManager
             for (Quests quest : Quests.values()) {
                 ConfigurationSection qs = quests.getConfigurationSection(quest.name());
                 if (qs != null) {
-                    p.LoadQuestSave(quest.LoadSave(p, qs));
+                    p.LoadQuestSave(quest.loadSave(p, qs));
                 }
             }
         }
@@ -217,7 +217,7 @@ public class PlayerManager
         c.createSection("quests");
         for (Quests quest : Quests.values()) {
             ConfigurationSection qs = Objects.requireNonNull(c.getConfigurationSection("quests")).createSection(quest.name());
-            quest.SaveSave(p, qs);
+            quest.saveSave(p, qs);
         }
         Quests selected = p.GetSelectedQuest();
         if (selected != null) {

@@ -40,3 +40,5 @@ blast_plating:
   value: 800
   stats:
     padding: +200
+    enchant_power: 20
+    level_requirement: 5

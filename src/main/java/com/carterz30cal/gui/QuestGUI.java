@@ -13,6 +13,11 @@ import java.util.List;
 
 import static net.kyori.adventure.text.Component.text;
 
+/**
+ * @author carterz30cal
+ * @version 2
+ * @since 1.0.0
+ */
 public class QuestGUI extends AbstractGUI {
     private Quests.QuestSave[] saves;
     private int page;
@@ -100,7 +105,7 @@ public class QuestGUI extends AbstractGUI {
     private ItemStack getQuestDisplay(Quests.QuestSave q) {
         var loreList = new ArrayList<TextComponent.Builder>();
         var lore = text();
-        int completedCount = q.GetQuest().GetCompletedSections(q.currentSection).size();
+        int completedCount = q.GetQuest().getCompletedSections(q.currentSection).size();
 
         lore.append(
                 text("You've completed ", NamedTextColor.GRAY)
@@ -109,17 +114,17 @@ public class QuestGUI extends AbstractGUI {
         ).append(
                 text("/", NamedTextColor.GRAY)
         ).append(
-                text(q.GetQuest().GetTotalSectionCount(), NamedTextColor.GREEN)
+                text(q.GetQuest().getTotalSectionCount(), NamedTextColor.GREEN)
         ).append(
                 text(" quests!", NamedTextColor.GRAY)
         );
         loreList.add(lore);
-        if (!q.GetQuest().GetDescription().isEmpty()) {
+        if (!q.GetQuest().getDescription().isEmpty()) {
             loreList.add(text());
-            for (var description : q.GetQuest().GetDescription())
+            for (var description : q.GetQuest().getDescription())
                 loreList.add(text().append(text(description, NamedTextColor.GRAY)));
         }
-        var section = q.GetQuest().GetQuestSection(q.currentSection);
+        var section = q.GetQuest().getQuestSection(q.currentSection);
         if (!q.completedQuest && section != null && !section.GetDescription(q.sectionSave).isEmpty()) {
             loreList.add(text());
             loreList.add(text().content("Current goal:").color(NamedTextColor.GOLD));
@@ -137,7 +142,7 @@ public class QuestGUI extends AbstractGUI {
 
         return ItemFactory.customItem(
                 q.completedQuest ? "BOOK" : "WRITTEN_BOOK",
-                text().content("Quest: " + q.GetQuest().GetName()).color(NamedTextColor.GREEN),
+                text().content("Quest: " + q.GetQuest().getName()).color(NamedTextColor.GREEN),
                 loreList.toArray(new TextComponent.Builder[0])
         );
     }

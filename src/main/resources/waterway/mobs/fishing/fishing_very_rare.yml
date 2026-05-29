@@ -342,7 +342,7 @@ water_spirit_VERY_RARE:
   director: BREEZE
   #ignore-target-limit: true
   level: 10
-  health: 3000
+  health: 5000
   knockback: 0
   speed: 1.4
   damage:
@@ -374,7 +374,7 @@ water_spirit_VERY_RARE:
     waterway_cod:
       amount: 70/100
     water_spirit_soul:
-      chance: 1/100
+      chance: 1/50
 
 
 titan_fishing_VERY_RARE:
@@ -383,7 +383,7 @@ titan_fishing_VERY_RARE:
     WATERWAY: VERY_RARE
   #ignore-target-limit: true
   level: 21
-  health: 4000
+  health: 6500
   coin-multiplier: 4
   knockback: 40
   damage:
@@ -428,10 +428,10 @@ titan_fishing_VERY_RARE:
     - FISHING_MINIBOSS
   loot:
     titan_lootbox_1:
-      chance: 1/2
-      amount: 1/1
+      chance: 1/1
+      amount: 1/2
     wet_paper:
-      amount: 66/333
+      amount: 111/444
     fishing_berries:
       chance: 1/8
       amount: 1/1

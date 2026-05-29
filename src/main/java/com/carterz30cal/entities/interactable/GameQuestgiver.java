@@ -26,7 +26,7 @@ public class GameQuestgiver extends GameEntityInteractable {
         if (quest == null) {
             return true;
         }
-        else if (quest.HasCompletedQuestgiver(interactingPlayer, backing)) {
+        else if (quest.hasCompletedQuestgiver(interactingPlayer, backing)) {
             return false;
         }
         else {
@@ -43,7 +43,7 @@ public class GameQuestgiver extends GameEntityInteractable {
 
         Quests.QuestSave save = interactingPlayer.GetQuestSave(quest);
         if (save.sectionSave == null) {
-            quest.FixSave(save, interactingPlayer);
+            quest.fixSave(save, interactingPlayer);
         }
         if (save.sectionSave.GetSection().questgiver != backing) {
             return;
@@ -81,7 +81,7 @@ public class GameQuestgiver extends GameEntityInteractable {
                         interactingPlayer.rewardTick = 30;
                         reward.grantOneTimeRewards(interactingPlayer);
                     }
-                    quest.MoveSave(interactingPlayer);
+                    quest.moveSave(interactingPlayer);
                 }
             }.runTaskLater(Dungeons.instance, delay + 5);
             interactingPlayer.questTick = delay + 10;

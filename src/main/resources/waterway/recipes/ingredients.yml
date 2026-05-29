@@ -19,11 +19,22 @@ cooked_waterway_cod:
   items:
     waterway_cod: 256
 
+mini_bulk_cooked_waterway_cod:
+  item: cooked_waterway_cod
+  amount: 4
+  time: 30m
+  custom-name: <gold>4x <blue>Cooked Waterway Cod
+  category: waterway_ingredients
+  discovery: waterway_cod_collection
+  discovery-tier: 5
+  items:
+    waterway_cod: 1024
+
 bulk_cooked_waterway_cod:
   item: cooked_waterway_cod
   amount: 64
   time: 1h
-  custom-name: GOLD64x BLUECooked Waterway Cod
+  custom-name: <gold>64x <blue>Cooked Waterway Cod
   category: waterway_ingredients
   discovery: waterway_cod_collection
   discovery-tier: 8

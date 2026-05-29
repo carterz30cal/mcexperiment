@@ -1,9 +1,9 @@
 titan_1:
   name: <light_purple>Titan</light_purple>
   level: 20
-  health: 7000
-  knockback: 20
-  speed: 1
+  health: 7500
+  knockback: 25
+  speed: 1.1
   always-display-health: true
   coin-multiplier: 5
   damage:
@@ -27,8 +27,8 @@ titan_1:
   abilities:
     overkill:
       class: generic.EnemyAbilityOverkill
-      percentage: 0.015
-      reward: 4
+      percentage: 0.012
+      reward: 3
     slash:
       class: waterway.titan.EnemyAbilityTitanSlash
       distance: 4

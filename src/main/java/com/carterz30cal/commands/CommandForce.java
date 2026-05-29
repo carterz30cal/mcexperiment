@@ -1,5 +1,6 @@
 package com.carterz30cal.commands;
 
+import com.carterz30cal.areas.bosses.waterway.AreaBossWaterwaySeraph;
 import com.carterz30cal.entities.PlayerManager;
 import com.carterz30cal.entities.Shop;
 import com.carterz30cal.entities.player.GamePlayer;
@@ -28,6 +29,9 @@ public class CommandForce implements CommandExecutor {
                 case "clearquests":
                     p.ClearQuests();
                     p.SetSelectedQuest(null);
+                    break;
+                case "seraph":
+                    AreaBossWaterwaySeraph.instance.register(p);
                     break;
 				case "openshop":
 					p.openGui(new ShopGUI(p, Shop.shops.get(args[1])));

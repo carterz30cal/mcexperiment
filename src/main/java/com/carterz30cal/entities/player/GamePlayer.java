@@ -139,6 +139,7 @@ public class GamePlayer extends GameEntity implements DamageableEntity, Aggressi
 		player.getPersistentDataContainer().set(GameEnemy.keyEnemy, PersistentDataType.STRING, uuid.toString());
 		
 		mana = 1;
+        this.uuid = uuid;
 		
 		entities.put(uuid, this);
 
@@ -924,7 +925,7 @@ public class GamePlayer extends GameEntity implements DamageableEntity, Aggressi
         Quests.QuestSave save = quests.getOrDefault(quest, null);
         if (save == null) {
             // GENERATE QUEST SAVE
-            save = quest.CreateSave(this);
+            save = quest.createSave(this);
             quests.put(quest, save);
         }
         return save;
@@ -1001,6 +1002,7 @@ public class GamePlayer extends GameEntity implements DamageableEntity, Aggressi
     public void damage(@NotNull DamagePacket damagePacket) {
         if (healthSystem.damage(damagePacket)) {
             player.playHurtAnimation(0);
+            playSound(Sound.ENTITY_PLAYER_HURT, 0.6, 1);
             setOnInvulnerableCooldown();
             if (healthSystem.isDead()) {
                 kill();
