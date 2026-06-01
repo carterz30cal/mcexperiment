@@ -30,7 +30,7 @@ import static net.kyori.adventure.text.Component.text;
 
 /**
  * @author carterz30cal
- * @version 2
+ * @version 3
  * @since 1.0.0
  */
 public class GameSummon extends GameEnemy {
@@ -63,7 +63,7 @@ public class GameSummon extends GameEnemy {
 
     public static GameSummon spawn(GamePlayer owner, Location where, GameEnemy dead) {
         var healthBuilder = new EntityHealthSystemBuilder().setMaxHealth(dead.getHealthSystem().getMaxHealth());
-        var director = new EnemyDirectorBuilder().setSpeed(2).setTargetingBehaviour(new SummonTargetingBehaviour(owner));
+        var director = new EnemyDirectorBuilder().setEntityType(EntityType.ZOMBIE).setSpeed(2).setTargetingBehaviour(new SummonTargetingBehaviour(owner));
         var summon = new GameSummon(healthBuilder.build(), director.build(where), dead.getEnemyData());
         summon.owner = owner;
         return summon;
@@ -71,7 +71,7 @@ public class GameSummon extends GameEnemy {
 
     public static GameSummon spawn(GamePlayer owner, Location where, EnemyBuilder builder) {
         var healthBuilder = builder.getHealthSystemBuilder();
-        var director = new EnemyDirectorBuilder().setSpeed(2).setTargetingBehaviour(new SummonTargetingBehaviour(owner));
+        var director = new EnemyDirectorBuilder().setEntityType(EntityType.ZOMBIE).setSpeed(2).setTargetingBehaviour(new SummonTargetingBehaviour(owner));
         var summon = new GameSummon(healthBuilder.build(), director.build(where), builder.getEnemyData());
         summon.owner = owner;
         return summon;
@@ -82,7 +82,7 @@ public class GameSummon extends GameEnemy {
         super.tick();
 
         useManaTick++;
-        if (useManaTick % 40 == 0 && !owner.useMana((int) enemyData.level)) {
+        if (useManaTick % 40 == 0 && !owner.useMana(enemyData.level)) {
             var packet = new DamagePacket();
             packet.defender = this;
             long damage = 2 + (healthSystem.getMaxHealth() / 8);
