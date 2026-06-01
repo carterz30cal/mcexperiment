@@ -29,7 +29,7 @@ public class EnemyManager
 {
 	public static String[] files = {
             "waterway/mobs/lunatics", "waterway/mobs/titans",
-            //"waterway/mobs/seraph/boss", "waterway/mobs/seraph/summons",
+            "waterway/mobs/seraph/boss", "waterway/mobs/seraph/summons",
             "waterway/mobs/fishing/fishing_common",
             "waterway/mobs/fishing/fishing_uncommon",
             "waterway/mobs/fishing/fishing_rare",

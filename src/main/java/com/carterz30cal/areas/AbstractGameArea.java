@@ -79,7 +79,7 @@ public abstract class AbstractGameArea {
     public abstract PlayerTeleport GetRespawnPoint(GamePlayer died);
 
     public boolean IsInBounds(GameEntity entity) {
-        return boundingBox.IsWithin(entity.getLocation());
+        return boundingBox.isWithin(entity.getLocation());
     }
 
     public boolean IsInBounds(GamePlayer player) {

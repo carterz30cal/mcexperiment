@@ -23,14 +23,14 @@ public class KillEnemySpawner extends SimpleAreaEnemySpawner {
         mobs.removeIf((e) -> !GameEntity.entities.containsKey(e) || GameEntity.entities.get(e).dead);
         if (killCount >= killsToSpawn && GetCurrentlyValidToSpawn() && mobs.isEmpty()) {
             killCount = 0;
-            GameEnemy enemy = GetValidSpawningOption().Spawn(spawnBox.GetRandomMobLocation());
+            GameEnemy enemy = GetValidSpawningOption().Spawn(spawnBox.getRandomMobLocation());
             mobs.add(enemy.getUUID());
         }
     }
 
     @Override
     protected boolean GetCurrentlyValidToSpawn() {
-        List<GamePlayer> players = EntityUtils.getNearbyPlayers(spawnBox.GetMiddleAsLocation(), 20);
+        List<GamePlayer> players = EntityUtils.getNearbyPlayers(spawnBox.getMiddleAsLocation(), 20);
         return !players.isEmpty();
     }
 

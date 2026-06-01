@@ -8,12 +8,24 @@ paper_mache_bow:
     power: +75
     enchant_power: +5
 
+titan_bow:
+  name: Titan's Bow
+  type: BOW
+  material: BOW
+  rarity: VERY_RARE
+  stats:
+    damage: +15
+    defence: +50
+    enchant_power: +10
+
 spider_bow:
   name: Spider Bow
   type: BOW
   material: BOW
   glow: true
   rarity: VERY_RARE
+  lore:
+    - <red>Unobtainable!
   stats:
     damage: +5
     power: -50
@@ -25,7 +37,8 @@ flimsy_arrow:
   type: ARROW
   material: STICK
   rarity: TRASH
-  description: A arrow of the poorest craftdwarfship.
+  lore:
+    - An arrow of the poorest craftdwarfship.
   stats:
     damage: -1
     power: -10

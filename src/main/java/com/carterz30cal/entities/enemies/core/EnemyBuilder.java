@@ -13,9 +13,10 @@ import java.util.*;
 
 /**
  * @author carterz30cal
- * @version 3
+ * @version 4
  * @since 1.0.0
  */
+@SuppressWarnings({"UnusedReturnValue", "unused"})
 public class EnemyBuilder {
     private final static Map<String, EnemyBuilder> builders = new HashMap<>();
     private final String id;
@@ -35,6 +36,22 @@ public class EnemyBuilder {
     public EnemyBuilder() {
         this(UUID.randomUUID().toString());
         temporaryBuilder = true;
+    }
+
+    /**
+     * Copy constructor
+     *
+     * @param existing copy this <code>EnemyBuilder</code>
+     * @since 1.0.0
+     */
+    public EnemyBuilder(EnemyBuilder existing) {
+        this.id = existing.id;
+        temporaryBuilder = true;
+        abilities.addAll(existing.abilities);
+        this.data = new EnemyData(existing.data);
+        this.directorBuilder = new EnemyDirectorBuilder(existing.directorBuilder);
+        this.representationBuilder = new EnemyRepresentationBuilder(existing.representationBuilder);
+        this.healthSystemBuilder = new EntityHealthSystemBuilder(existing.healthSystemBuilder);
     }
 
     /**
@@ -72,6 +89,11 @@ public class EnemyBuilder {
 
     public EnemyBuilder addAbility(ConfigurationSection abilityConfig) {
         var ability = EnemyAbility.get(Objects.requireNonNull(abilityConfig.getString("class")), abilityConfig);
+        abilities.add(ability);
+        return this;
+    }
+
+    public EnemyBuilder addAbility(EnemyAbility ability) {
         abilities.add(ability);
         return this;
     }

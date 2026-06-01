@@ -39,6 +39,8 @@ public class ItemQuestReward extends QuestReward {
     public void grantOneTimeRewards(GamePlayer player) {
         super.grantOneTimeRewards(player);
 
-        player.giveItem(ItemFactory.build(item, amount), true);
+        var stack = ItemFactory.buildItemFromString(item);
+        stack.setAmount(amount);
+        player.giveItem(stack, true);
     }
 }

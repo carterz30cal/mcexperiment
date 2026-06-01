@@ -1,32 +1,55 @@
-waterway_seraph:
-  name: BLUEBOLDWater Seraph
-  type: SERAPH
-  has-director: true
-  coin-multiplier: 5
-  entity-type: ENDERMAN
-  ignore-target-limit: true
-  level: 30
-  health: 32500
-  knockback: 0
-  damage: 115
-  damage-type: PHYSICAL
-  display-height: 3.2
-  blood-colour: 250,0,50
-  damage-cap-percentage: 4
-  overkill-reward: 15
-  bestiary-category: waterway_waterway_seraph
-  scale: 1.3
-  speed: 1.5
-  armour:
-    PHYSICAL: 0
-    PROJECTILE: 0
-    MAGICAL: 25
-    HOLY: -50
-    BLEED: -30
-    FIRE: -80
-    WITHER: 0
+water_seraph_boss:
+  name: <#7335db>Water Seraph</#7335db>
+  level: 40
+  health: 50000
+  speed: 2.1
+  knockback: 45
+  damage:
+    PHYSICAL: 70
+    MAGIC: 5
+  stats:
+    PADDING: -100
+    ROBUSTNESS: -10
+    INSULATION: -20
+  bestiary:
+    category: waterway_waterway_seraph
+  abilities:
+    overkill:
+      class: generic.EnemyAbilityOverkill
+      percentage: 0.015
+      reward: 4
   tags:
     - BOSS
     - SERAPH
     - WATERWAY
-  drops: { }
+  entities:
+    _:
+      type: ENDERMAN
+      scale: 1.5
+      offset: [ 0,0,0 ]
+
+water_seraph_boss_final:
+  name: <#7335db>Water Seraph</#7335db>
+  level: 1
+  health: 50
+  speed: 2.1
+  knockback: 45
+  director: SLIME
+  damage:
+    PHYSICAL: 1
+  stats:
+    PADDING: -100
+    ROBUSTNESS: -10
+    INSULATION: -20
+    DEFENCE: -1000
+  bestiary:
+    category: NO_REGISTER
+  tags:
+    - BOSS
+    - SERAPH
+    - WATERWAY
+  entities:
+    _:
+      type: SLIME
+      scale: 0.8
+      offset: [ 0,0,0 ]

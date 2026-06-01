@@ -18,7 +18,7 @@ public class QuestReward {
 
     public List<String> getRewardDescription() {
         List<String> list = new ArrayList<>();
-        list.add("AQUA-- +" + GetXP() + "XP!");
+        list.add("<aqua>-- +" + GetXP() + "XP!");
         return list;
     }
 

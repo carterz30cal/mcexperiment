@@ -12,10 +12,10 @@ armour-cultist:
     g: 222
     b: 89
   stats:
-    might: +5,+5,+5,+5
+    might: +5,+15,+10,+5
     bonus_coins: +10,+10,+10,+10
     level_requirement: 4
-    enchant_power: +25
+    enchant_power: +30
 
 armour-leaf:
   name:
@@ -31,8 +31,8 @@ armour-leaf:
     g: 200
     b: 25
   stats:
-    health: +30,+70,+40,+25
-    enchant_power: +25
+    health: +40,+80,+60,+30
+    enchant_power: +30
     level_requirement: 4
 
 armour-gold_leaf:
@@ -50,7 +50,7 @@ armour-gold_leaf:
   trim-pattern: HOST
   trim-material: GOLD
   stats:
-    defence: 45, 60, 50, 35
+    defence: 50, 70, 60, 40
     mining_speed: +20
     enchant_power: +20
     level_requirement: 4

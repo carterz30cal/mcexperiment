@@ -77,8 +77,6 @@ healing_wand_waterway:
   coins: 2000
   items:
     waterway_sac: 2
-    leaf_mash: 512
-    gold_leaf: 16
     spiced_meat: 10
 
 necromancy_sword:

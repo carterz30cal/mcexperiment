@@ -32,6 +32,12 @@ public enum Quests {
             Questgivers.CREEPY_JIM_SPOT1
     ),
 
+    MORGK(
+            "Morgk",
+            new StringDescription(),
+            Questgivers.MORGK
+    ),
+
     WATERWAY_SAM(
             "Sam",
             new StringDescription(),

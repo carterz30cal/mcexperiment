@@ -8,12 +8,31 @@ import java.util.List;
 
 /**
  * @author carterz30cal
- * @version 1
+ * @version 2
  * @since 1.0.0
  */
 public class EntityHealthSystemBuilder {
     private final List<DamageHandler> damageHandlers = new ArrayList<>();
     private long maxHealth;
+
+    /**
+     * Default blank constructor
+     *
+     * @since 1.0.0
+     */
+    public EntityHealthSystemBuilder() {
+
+    }
+
+    /**
+     * Copy constructor
+     *
+     * @param existing what are we copying?
+     * @since 1.0.0
+     */
+    public EntityHealthSystemBuilder(EntityHealthSystemBuilder existing) {
+        maxHealth = existing.maxHealth;
+    }
 
     public EntityHealthSystemBuilder addDamageHandler(DamageHandlers damageHandler) {
         damageHandlers.add(damageHandler.getDamageHandler());

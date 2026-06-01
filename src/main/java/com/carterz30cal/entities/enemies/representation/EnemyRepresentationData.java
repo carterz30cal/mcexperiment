@@ -24,7 +24,7 @@ import java.util.Objects;
 
 /**
  * @author carterz30cal
- * @version 1
+ * @version 2
  * @since 1.0.0
  */
 public class EnemyRepresentationData {
@@ -35,8 +35,27 @@ public class EnemyRepresentationData {
     public boolean invisible;
     public Map<EquipmentSlot, String> equipment = new HashMap<>();
 
+    /**
+     * Default blank constructor
+     *
+     * @since 1.0.0
+     */
     public EnemyRepresentationData() {
 
+    }
+
+    /**
+     * Copy constructor
+     *
+     * @param existing what are we copying from?
+     * @since 1.0.0
+     */
+    public EnemyRepresentationData(EnemyRepresentationData existing) {
+        this.scale = existing.scale;
+        this.offset = existing.offset;
+        this.type = existing.type;
+        this.invisible = existing.invisible;
+        this.equipment.putAll(existing.equipment);
     }
 
     public EnemyRepresentationData(@NotNull ConfigurationSection yaml) {

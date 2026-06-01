@@ -18,6 +18,7 @@ import org.bukkit.Location;
 import org.bukkit.entity.Projectile;
 import org.bukkit.persistence.PersistentDataType;
 import org.bukkit.scheduler.BukkitRunnable;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -83,6 +84,11 @@ public class GameProjectile extends GameEntity implements AggressiveEntity {
     @Override
     public Location getLocation() {
         return projectile.getLocation();
+    }
+
+    @Override
+    public void teleport(@NotNull Location location) {
+        throw new IllegalCallerException("can't teleport a GameProjectile");
     }
 
     @Override

@@ -382,6 +382,16 @@ public class GameEnemy extends GameEntity implements AggressiveEntity, Damageabl
         return enemyDirector.getLocation();
 	}
 
+    /**
+     * Uses the director's .teleport method
+     *
+     * @param location where are we going?
+     */
+    @Override
+    public void teleport(@NotNull Location location) {
+        enemyDirector.teleport(location);
+    }
+
     @Override
     public boolean tag(@Nullable String tag) {
         return enemyData.tag(tag);

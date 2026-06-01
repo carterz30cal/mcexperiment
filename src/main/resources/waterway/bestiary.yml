@@ -29,43 +29,45 @@ waterway_fishing:
   parent: waterway
 waterway_fishing_common:
   icon: WHITE_CONCRETE
-  name: "GRAYBOLDCOMMON WHITEBracket"
+  name: "<grey><b>COMMON</b></grey> Bracket"
   description:
-    - Lowest tier fishing mobs found
-    - exclusively in BLUEWaterway!
+    - <grey>Lowest tier fishing mobs found</grey>
+    - <grey>exclusively in <blue>Waterway</blue>!</grey>
   parent: waterway_fishing
 waterway_fishing_uncommon:
   icon: YELLOW_CONCRETE
-  name: "YELLOWBOLDUNCOMMON WHITEBracket"
+  name: "<yellow><b>UNCOMMON</b></yellow> Bracket"
   description:
-    - Stronger fishing mobs found
-    - by fishing in BLUEWaterway!
+    - <grey>Stronger fishing mobs found</grey>
+    - <grey>by fishing in <blue>Waterway</blue></grey>!
   parent: waterway_fishing
 waterway_fishing_rare:
   icon: LIME_CONCRETE
-  name: "GREENBOLDRARE WHITEBracket"
+  name: "<green><b>RARE</b></green> Bracket"
   description:
-    - Difficult fishing beasts!
+    - <grey>Difficult fishing beasts!</grey>
+    - <grey>Found exclusively within <blue>Waterway</blue>!</grey>
   parent: waterway_fishing
 waterway_fishing_very_rare:
   icon: BLUE_CONCRETE
-  name: "BLUEBOLDVERY RARE WHITEBracket"
+  name: "<blue><b>VERY RARE</b></blue> Bracket"
   description:
-    - Only the best fishers can consistently
-    - fish up these beasts!
+    - <grey>Only the best fishers can consistently</grey>
+    - <grey>fish up these beasts!</grey>
+    - <grey>Found exclusively within <blue>Waterway</blue>!</grey>
   parent: waterway_fishing
 
 waterway_waterway_seraph:
   icon: ENDER_PEARL
   name: "BLUEWater Seraph"
   description:
-    - The Seraph hides within their temple, waiting
-    - for bold adventurers to stumble to their demise.
+    - <grey>The Seraph hides within their temple, waiting
+    - <grey>for bold adventurers to stumble to their demise.
   parent: waterway
 waterway_seraph_summons:
   icon: ZOMBIE_SPAWN_EGG
   name: "Seraph's Summons"
   description:
-    - The Seraph may summon a variety of beasts
-    - to come to their aid.
+    - <grey>The Seraph may summon a variety of beasts
+    - <grey>to come to their aid.
   parent: waterway_waterway_seraph

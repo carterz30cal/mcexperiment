@@ -9,6 +9,7 @@ import com.carterz30cal.items.abilities2.implementation.AbilityWithDefend;
 import com.carterz30cal.items.abilities2.implementation.AggressiveAbility;
 import com.carterz30cal.utils.EntityUtils;
 import com.carterz30cal.utils.RandomUtils;
+import net.kyori.adventure.text.format.NamedTextColor;
 import org.bukkit.entity.Display;
 import org.bukkit.util.Vector;
 import org.jetbrains.annotations.NotNull;
@@ -21,7 +22,7 @@ import static net.kyori.adventure.text.Component.text;
  * Handles all health systems for entities, including DOTs, damage types and resistances.
  *
  * @author carterz30cal
- * @version 2
+ * @version 3
  * @since 1.0.0
  */
 public class EntityHealthSystem {
@@ -54,6 +55,17 @@ public class EntityHealthSystem {
                 }
             }
         }
+
+        if (immune) {
+            var location = RandomUtils.getRandomInCircle(damagePacket.defender.getLocation().clone().add(0, 1, 0), 0.2, 0.4);
+            var hologram = EntityUtils.spawnTextHologram(location, 30);
+            if (hologram != null) {
+                hologram.setBillboard(Display.Billboard.CENTER);
+                hologram.text(text().content("IMMUNE").color(NamedTextColor.RED).build());
+            }
+            return false;
+        }
+
         for (var context : damagePacket.defender.getDefensiveDamageModifiers()) {
             if (context.getAbility() instanceof AbilityWithDefend defendAbility) {
                 defendAbility.defend(context, damagePacket);
@@ -121,14 +133,13 @@ public class EntityHealthSystem {
                 continue;
             }
 
-            var hologram = EntityUtils.spawnTextHologram(location, 20);
+            var hologram = EntityUtils.spawnTextHologram(location, 30);
             if (hologram == null) {
                 continue;
             }
             hologram.setBillboard(Display.Billboard.CENTER);
             hologram.text(text().content(String.valueOf(amount)).color(damage.getColour()).build());
         }
-
     }
 
     public boolean isImmune() {

@@ -34,12 +34,12 @@ public enum Abilities
 	)),
 	ENCHANT_TITANIC(new StatEnchantment(
 			"Titanic", 1,
-			Stat.DEFENCE, 0, 5, 5,
+            Stat.DEFENCE, 10, 5, 5,
 			ItemType.HELMET, ItemType.CHESTPLATE, ItemType.LEGGINGS, ItemType.BOOTS
 	)),
 	ENCHANT_PEARLED(new StatEnchantment(
-			"Pearled", 1,
-			Stat.MANA, 0, 5, 5,
+            "Pearled", 2,
+            Stat.MANA, 0, 10, 5,
 			ItemType.HELMET, ItemType.CHESTPLATE, ItemType.LEGGINGS, ItemType.BOOTS
 	)),
 	ENCHANT_BOOST(new StatEnchantment(
@@ -55,13 +55,15 @@ public enum Abilities
             "Luck", 1, Stat.LUCK, 0, 1, 5, ItemType.WEAPON, ItemType.ROD, ItemType.WAND, ItemType.BOW
     )),
     ENCHANT_CONCENTRATION(new StatEnchantment(
-            "Concentration", 3, Stat.FOCUS, 2, 1, 3, ItemType.HELMET, ItemType.WEAPON
+            "Concentration", 3, Stat.FOCUS, 1, 1, 3, ItemType.HELMET, ItemType.WEAPON
     )),
     ENCHANT_LAST_CHANCE(new LastChanceEnchantment()),
     ENCHANT_POWER(new StatEnchantment("Power", 2, Stat.DAMAGE, 0, 1, 5, ItemType.BOW)),
 
+    ENCHANT_REGROWTH(new StatEnchantment("Regrowth", 2, Stat.VITALITY, 1, 1, 2, ItemType.WEAPON, ItemType.BOW, ItemType.ROD)),
+
 	NECROMANCY_SWORD(new NecromancerAbility()),
-    HEALING_WAND_WATERWAY(new HealingAbility(12, 30)),
+    HEALING_WAND_WATERWAY(new HealingAbility(15, 10, 5)),
 	SET_LEAF(new LeafArmourSet()),
 	SET_ZOMBIE(new ZombieArmourSet()),
 	PET_DRENCHED_ACTIVE(new PetDrenchedActive()),

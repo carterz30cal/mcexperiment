@@ -1,93 +1,139 @@
-water_seraph_golem:
-  name: Golem
-  type: SIMPLE
-  entity-type: IRON_GOLEM
-  ignore-target-limit: true
-  level: 15
-  health: 7500
-  coin-multiplier: 2
-  knockback: 0
-  damage: 100
-  damage-type: PHYSICAL
-  display-height: 3.3
-  blood-colour: 250,0,50
-  speed: 1.1
-  scale: 1.25
-  bestiary-category: waterway_seraph_summons
-  armour:
-    PHYSICAL: 0
-    PROJECTILE: 0
-    MAGICAL: -75
-    HOLY: -30
-    BLEED: -20
-    FIRE: 50
-    WITHER: 0
-  resistances:
-    BLEED: 120
-  tags:
-    - FANATIC
-    - SERAPH_BOSS_SUMMON
-    - IRON_GOLEM
-    - GOLEM
-
-water_seraph_fanatic:
-  name: Seraph Fanatic
-  type: SIMPLE
-  entity-type: ZOMBIE
-  ignore-target-limit: true
-  level: 8
-  health: 1500
-  coin-multiplier: 0.1
-  knockback: 30
-  damage: 28
-  damage-type: PHYSICAL
-  display-height: 1.8
-  blood-colour: 250,0,50
-  speed: 1.5
-  bestiary-category: waterway_seraph_summons
-  armour:
-    PHYSICAL: 25
-    PROJECTILE: 0
-    MAGICAL: 25
-    HOLY: -25
-    BLEED: -75
-    FIRE: 10
-    WITHER: 0
-  resistances:
-    BLEED: 50
-  equipment:
-    HAND: pungent_sword_rare
-    HEAD: WHITE_STAINED_GLASS
-    CHEST: CHAINMAIL_CHESTPLATE
-    LEGS: CHAINMAIL_LEGGINGS
-    FEET: gold_leaf_boots
+water_seraph_ad_phase3_lunatic:
+  name: Loon
+  level: 7
+  health: 1100
+  knockback: 110
+  speed: 1.4
+  always-display-health: false
+  coin-multiplier: 0.5
+  damage:
+    PHYSICAL: 45
+  stats:
+    DEFENCE: -30
+    ROBUSTNESS: 15
+    PADDING: -600
+  entities:
+    _:
+      type: ZOMBIE
+      scale: 0.8
+      offset: [ 0,0,0 ]
+      equipment:
+        HAND: zombie_sword
+        HEAD: BLACK_STAINED_GLASS
+        CHEST: water_chestplate
+        LEGS: CHAINMAIL_LEGGINGS
+        FEET: water_boots
+  bestiary:
+    category: waterway_seraph_summons
   tags:
     - LUNATIC
     - LUNATIC_HIGH_RANK
+    - LUNATIC_SKY
     - FANATIC
+    - SERAPH_AD
+    - SERAPH_AD_PHASE3
+
+water_seraph_ad_phase3_magic_archer:
+  name: Magic Archer
+  level: 7
+  health: 650
+  director: SKELETON
+  speed: 1.5
+  knockback: 100
+  damage:
+    MAGIC: 6
+  stats:
+    PADDING: -500
+  bestiary:
+    category: waterway_seraph_summons
+  entities:
+    _:
+      type: STRAY
+      offset: [ 0,0,0 ]
+      equipment:
+        HAND: ARROW
+  tags:
+    - FANATIC
+    - SERAPH_AD
+    - SERAPH_AD_PHASE3
+
+water_seraph_ad_phase3_creeper:
+  name: Dousplode
+  level: 7
+  health: 300
+  director: CREEPER
+  speed: 1.8
+  knockback: 150
+  damage:
+    EXPLOSIVE: 70
+  bestiary:
+    category: waterway_seraph_summons
+  entities:
+    1:
+      type: CREEPER
+      scale: 0.8
+      offset: [ 0,0,0 ]
+    2:
+      type: CREEPER
+      scale: 0.8
+      offset: [ 0,1,0 ]
+  tags:
+    - FANATIC
+    - SERAPH_AD
+    - SERAPH_AD_PHASE3
+
+water_seraph_ad_phase4_golem:
+  name: Seraph's Golem
+  level: 25
+  health: 12000
+  director: IRON_GOLEM
+  speed: 1.7
+  knockback: 0
+  damage:
+    PHYSICAL: 125
+  stats:
+    PADDING: 250
+    INSULATION: -250
+    ROBUSTNESS: 200
+  bestiary:
+    category: waterway_seraph_summons
+  entities:
+    _:
+      type: IRON_GOLEM
+      offset: [ 0,0,0 ]
+      scale: 1.2
+  tags:
+    - FANATIC
+    - SERAPH_AD
+    - SERAPH_AD_PHASE4
+    - GOLEM
+    - MINIBOSS
 
 water_seraph_spirit:
   name: Spirit
-  type: SIMPLE
-  entity-type: ZOMBIE
-  ignore-target-limit: true
-  level: 6
+  level: 5
   health: 900
+  knockback: 110
+  speed: 1.4
+  always-display-health: false
   coin-multiplier: 0
-  knockback: 0
-  damage: 50
-  damage-type: MAGICAL
-  display-height: 1.8
-  blood-colour: 250,0,50
-  speed: 1.5
-  bestiary-category: NO_REGISTER
-  armour:
-    PHYSICAL: 25
-    PROJECTILE: 0
-    MAGICAL: 25
-    HOLY: -25
-    BLEED: -75
-    FIRE: 10
-    WITHER: 0
-  resistances:
-    BLEED: 50
+  damage:
+    PHYSICAL: 45
+  stats:
+    DEFENCE: 50
+    ROBUSTNESS: 15
+    PADDING: 20
+  entities:
+    _:
+      type: ZOMBIE
+      scale: 0.8
+      offset: [ 0,0,0 ]
+  bestiary:
+    category: NO_REGISTER
+  tags:
+    - LUNATIC
+    - LUNATIC_HIGH_RANK
+    - LUNATIC_SKY
+    - FANATIC
+    - SERAPH_AD
+    - SERAPH_AD_PHASE3

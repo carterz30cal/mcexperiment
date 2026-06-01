@@ -4,8 +4,10 @@ import com.carterz30cal.items.abilities2.implementation.AbilityWithClick;
 import com.carterz30cal.items.abilities2.implementation.AbilityWithDescription;
 import com.carterz30cal.items.abilities2.implementation.GameAbility;
 import com.carterz30cal.items.abilities2.implementation.PlayerAbilityContext;
+import com.carterz30cal.main.Dungeons;
 import com.carterz30cal.stats.Stat;
 import org.bukkit.Sound;
+import org.bukkit.scheduler.BukkitRunnable;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
@@ -19,11 +21,13 @@ import java.util.List;
 public class HealingAbility extends GameAbility implements AbilityWithDescription, AbilityWithClick {
     public long manaCost;
     public long healing;
+    public int ticks;
 
 
-    public HealingAbility(long manaCost, long healing) {
+    public HealingAbility(long manaCost, long healing, int ticks) {
         this.manaCost = manaCost;
         this.healing = healing;
+        this.ticks = ticks;
     }
 
     @Override
@@ -35,7 +39,7 @@ public class HealingAbility extends GameAbility implements AbilityWithDescriptio
     public List<String> miniMessageDescription(@NotNull PlayerAbilityContext context) {
         var list = new ArrayList<String>();
         list.add("<grey><gold>Right click</gold> to consume " + formattedDisplay(Stat.MANA, manaCost) + " and then");
-        list.add("<grey>heal you for at least " + formattedDisplay(Stat.HEALTH, healing));
+        list.add("<grey>heal you for at least " + formattedDisplay(Stat.HEALTH, healing) + "<dark_grey>x" + ticks);
         list.add("<dark_grey>This is affected by buffs to your healing.");
         return list;
     }
@@ -44,8 +48,21 @@ public class HealingAbility extends GameAbility implements AbilityWithDescriptio
     public void click(PlayerAbilityContext context, Situation situation) {
         if (situation == Situation.RIGHT_CLICK) {
             if (context.owner.useMana(manaCost)) {
-                context.owner.heal(healing);
-                context.owner.playSound(Sound.BLOCK_NOTE_BLOCK_CHIME, 0.3, 1.3);
+                new BukkitRunnable() {
+                    int i = ticks;
+
+                    @Override
+                    public void run() {
+                        if (i == 0) {
+                            cancel();
+                        }
+                        else {
+                            context.owner.heal(healing);
+                            context.owner.playSound(Sound.BLOCK_NOTE_BLOCK_CHIME, 0.3, 1.3);
+                            i--;
+                        }
+                    }
+                }.runTaskTimer(Dungeons.instance, 0, 5);
             }
         }
     }

@@ -23,6 +23,7 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.persistence.PersistentDataType;
 import org.bukkit.potion.PotionEffectType;
 import org.bukkit.util.Vector;
+import org.jetbrains.annotations.NotNull;
 
 import static com.carterz30cal.entities.enemies.core.GameEnemy.keyEnemy;
 
@@ -170,6 +171,11 @@ public class EnemyDirector implements LocatableEntity, TargetableEntity {
     @Override
     public Location getLocation() {
         return directingEntity.getLocation();
+    }
+
+    @Override
+    public void teleport(@NotNull Location location) {
+        directingEntity.teleportAsync(location);
     }
 
     @Override

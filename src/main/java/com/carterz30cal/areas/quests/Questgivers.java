@@ -128,6 +128,20 @@ public enum Questgivers {
             )
     ),
 
+    MORGK(
+            "Morgk", EntityType.BOGGED, new Location(Dungeons.w, -87.5, 67, 24.5, -130, 4),
+            new PreviousQuestRequirement(CREEPY_JIM_SPOT1),
+            new QuestSectionBringItem(
+                    new StringDescription("I'd be careful going up the mountain!", "It houses the Seraph's temple!",
+                            "I've heard at the top there are some rather fiesty lunatics", "They might have Waterway Sacs?",
+                            "If you find any, I'd love to take one off your hands"),
+                    new StringDescription("Thanks!", "I hear these make great weapon upgrades!", "I hope you didn't need to upgrade your weapon.", "Take this powerful enchantment with you."),
+                    new StringDescription("I'd really like a Waterway Sac, if you happen across any.", "Have you seen Sam lately?", "Have you seen Jim around?"),
+                    new ItemQuestReward(15, "enchanted_book£1£enchants:ENCHANT_CONCENTRATION-2", 1),
+                    "waterway_sac", 1
+            )
+    ),
+
     WATERWAY_CHARLOTTE_1(
             "Charlotte", EntityType.CAVE_SPIDER, new Location(Dungeons.w, -40.5, 64, -24.5, 9, 4),
             null,

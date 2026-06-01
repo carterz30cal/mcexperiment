@@ -1,13 +1,20 @@
 package com.carterz30cal.areas.bosses;
 
 import com.carterz30cal.areas.spawners.AbstractEnemySpawner;
+import com.carterz30cal.entities.GameEntity;
+import com.carterz30cal.entities.enemies.core.EnemyBuilder;
+import com.carterz30cal.entities.enemies.core.EnemyManager;
+import com.carterz30cal.entities.enemies.core.GameEnemy;
+import com.carterz30cal.entities.enemies.directors.behaviour.BossRoomTargetingBehaviour;
 import com.carterz30cal.entities.player.GamePlayer;
 import com.carterz30cal.items.ItemFactory;
 import com.carterz30cal.main.Dungeons;
 import com.carterz30cal.utils.RandomUtils;
 import net.kyori.adventure.audience.Audience;
+import net.kyori.adventure.bossbar.BossBar;
 import net.kyori.adventure.text.minimessage.MiniMessage;
 import net.megavex.scoreboardlibrary.api.sidebar.component.LineDrawable;
+import org.bukkit.Location;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.scheduler.BukkitRunnable;
 import org.jetbrains.annotations.NotNull;
@@ -15,6 +22,7 @@ import org.jetbrains.annotations.Nullable;
 import org.jetbrains.annotations.Range;
 
 import java.util.*;
+import java.util.concurrent.atomic.AtomicInteger;
 
 /**
  * Handles area bosses, and their sign-up processes, as well as more involved abilities that
@@ -56,6 +64,14 @@ public abstract class AbstractAreaBoss extends AbstractEnemySpawner {
      * @since 1.0.0
      */
     private Audience fightingAudience = Audience.empty();
+
+    /**
+     * Our list of owned entities. These should be guaranteed to disappear when the fight has ended.
+     * All enemies present in the ownedEnemies array should also be present here.
+     *
+     * @since 1.0.0
+     */
+    private final List<GameEntity> ownedEntities = new ArrayList<>();
     /**
      * Our array of weighted drops. Modified using <code>drops()</code>.<br>
      * We can determine what drops to give a player using the <code>drop()</code> method,
@@ -63,6 +79,18 @@ public abstract class AbstractAreaBoss extends AbstractEnemySpawner {
      * @since 1.0.0
      */
     private WeightedDrop[] drops;
+    /**
+     * A subset of the owned entities list, containing only enemies.
+     * These should not persist beyond the lifetime of the fight.
+     */
+    private final Map<String, GameEnemy> enemies = new HashMap<>();
+    /**
+     * Boss bar displayed for the <code>fightingAudience</code>. Should only be created
+     * after all players have registered.
+     *
+     * @since 1.0.0
+     */
+    private BossBar bossBar;
 
     /**
      * Called after all players who want to participate have signed up, basically
@@ -131,6 +159,7 @@ public abstract class AbstractAreaBoss extends AbstractEnemySpawner {
             throw new IllegalStateException("Player is not registered for this boss fight!");
         }
         else {
+            removeBossBar(player);
             registeredPlayers.remove(player);
             List<Audience> remaining = new ArrayList<>();
             for (GamePlayer p : registeredPlayers) {
@@ -282,6 +311,193 @@ public abstract class AbstractAreaBoss extends AbstractEnemySpawner {
             quantity--;
         }
         return drops;
+    }
+
+    /**
+     * Spawns a <code>GameEnemy</code> using an <code>EnemyBuilder</code> object.
+     *
+     * @param builder  enemy definition to use to spawn with.
+     * @param position where do we want to spawn this enemy?
+     * @return the entity object of this new spawned enemy.
+     * @see EnemyBuilder
+     * @see GameEnemy
+     * @since 1.0.0
+     */
+    public GameEnemy spawn(
+            @NotNull EnemyBuilder builder,
+            @NotNull Location position) {
+        var entity = builder.build(position);
+        entity.register();
+        ownedEntities.add(entity);
+        enemies.put(entity.getUUID().toString(), entity);
+        return entity;
+    }
+
+    /**
+     * Spawns a <code>GameEnemy</code> using an <code>EnemyBuilder</code> object.
+     *
+     * @param builder  enemy definition to use to spawn with.
+     * @param position where do we want to spawn this enemy?
+     * @return the entity object of this new spawned enemy.
+     * @see EnemyBuilder
+     * @see GameEnemy
+     * @since 1.0.0
+     */
+    public GameEnemy spawn(
+            @NotNull String builder,
+            @NotNull Location position) {
+        var entity = EnemyManager.spawn(builder, position);
+        ownedEntities.add(entity);
+        enemies.put(entity.getUUID().toString(), entity);
+        return entity;
+    }
+
+    /**
+     * Spawns a <code>GameEnemy</code> using an <code>EnemyBuilder</code> object.
+     *
+     * @param id       the enemy identifier
+     * @param builder  enemy definition to use to spawn with.
+     * @param position where do we want to spawn this enemy?
+     * @return the entity object of this new spawned enemy.
+     * @see EnemyBuilder
+     * @see GameEnemy
+     * @since 1.0.0
+     */
+    public GameEnemy spawn(
+            @NotNull String id,
+            @NotNull EnemyBuilder builder,
+            @NotNull Location position) {
+        var entity = builder.build(position);
+        entity.register();
+        ownedEntities.add(entity);
+        enemies.put(id, entity);
+        return entity;
+    }
+
+    /**
+     * Clones the builder, adjusts the targeting behaviour and returns the copy
+     * of the builder. Typically used to change the targeting behaviour to something
+     * like <code>BossRoomTargetingBehaviour</code>, which has a wider scope than
+     * <code>SimpleTargetingBehaviour</code> does.
+     *
+     * @param existing the old builder
+     * @return the copied builder
+     */
+    public EnemyBuilder adjustBuilderTargetingBehaviour(EnemyBuilder existing) {
+        var cloned = new EnemyBuilder(existing);
+        cloned.getDirectorBuilder().setTargetingBehaviour(new BossRoomTargetingBehaviour(this));
+        return cloned;
+    }
+
+    /**
+     * Gets an enemy using an id.
+     *
+     * @param id enemy identifier
+     * @return <code>GameEnemy</code>, if it exists.
+     * @since 1.0.0
+     */
+    public @Nullable GameEnemy get(
+            @NotNull String id) {
+        return enemies.getOrDefault(id, null);
+    }
+
+    /**
+     * Clears the enemies from the boss fight.
+     *
+     * @implNote Must <code>remove()</code> every en
+     * @since 1.0.0
+     */
+    public void removeEnemies() {
+        for (var enemy : enemies.values()) {
+            enemy.remove();
+        }
+        enemies.clear();
+    }
+
+    /**
+     * Returns a list of enemies registered with this boss.
+     *
+     * @return the list of registered enemies
+     * @since 1.0.0
+     */
+    public List<GameEnemy> getEnemies() {
+        return enemies.values().stream().toList();
+    }
+
+    /**
+     * @return the number of enemies active, including presumably the main boss.
+     * @since 1.0.0
+     */
+    public int getAliveEnemyCount() {
+        AtomicInteger count = new AtomicInteger();
+        enemies.values().forEach((e) -> {
+            if (!e.dead) {
+                count.getAndIncrement();
+            }
+        });
+        return count.get();
+    }
+
+    /**
+     * Create and show a boss bar to the current audience for this boss fight.
+     *
+     * @param name    message on the boss bar, in MiniMessage format
+     * @param colour  colour of the boss bar
+     * @param overlay notches or no notches, basically
+     * @see MiniMessage
+     * @since 1.0.0
+     */
+    public void createBar(@NotNull String name, @NotNull BossBar.Color colour, @NotNull BossBar.Overlay overlay) {
+        bossBar = BossBar.bossBar(MiniMessage.miniMessage().deserialize(name), 1, colour, overlay);
+        fightingAudience.showBossBar(bossBar);
+    }
+
+    /**
+     * Adjusts the boss bar. Silently fails if the bar is null.
+     *
+     * @param name     message on the boss bar, in MiniMessage format
+     * @param progress how full is the bar (0-1)?
+     * @since 1.0.0
+     */
+    public void bossBar(@NotNull String name, double progress) {
+        if (bossBar == null) {
+            return;
+        }
+        bossBar.name(MiniMessage.miniMessage().deserialize(name));
+        bossBar.progress((float) progress);
+    }
+
+    /**
+     * Adjusts the boss bar. Silently fails if the bar is null.
+     *
+     * @param progress how full is the bar (0-1)?
+     * @since 1.0.0
+     */
+    public void bossBar(double progress) {
+        if (bossBar == null) {
+            return;
+        }
+        bossBar.progress((float) progress);
+    }
+
+    /**
+     * Removes the boss bar for all players on the register
+     *
+     * @since 1.0.0
+     */
+    public void removeBossBar() {
+        fightingAudience.hideBossBar(bossBar);
+        bossBar = null;
+    }
+
+    /**
+     * Removes the boss bar for a specific player
+     *
+     * @param player who are we removing the boss bar from?
+     * @since 1.0.0
+     */
+    public void removeBossBar(GamePlayer player) {
+        bossBar.removeViewer(player.player);
     }
 
     /**

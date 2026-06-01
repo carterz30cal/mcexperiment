@@ -45,6 +45,9 @@ titan_lootbox_1:
     titan_blade:
       chance: 1/35
       amount: 1/1
+    titan_bow:
+      chance: 1/40
+      amount: 1/1
     titan_lootbox_1:
       chance: 1/40
       amount: 1/3
@@ -58,4 +61,4 @@ titan_lootbox_1:
       enchants: ENCHANT_TITANIC-2
     combination_catalyst_shard-ag:
       chance: 1/120
-      amount: 10/30
+      amount: 10/15

@@ -81,7 +81,7 @@ public class SimpleAreaEnemySpawner extends AbstractEnemySpawner {
         if (spawnTick >= spawnTimer && GetCurrentlyValidToSpawn()) {
             int max = GetPlayersWithinValidArea().size() + 2;
             while (mobs.size() < GetMaxMobCount() && max > 0) {
-                GameEnemy enemy = GetValidSpawningOption().Spawn(spawnBox.GetRandomMobLocation());
+                GameEnemy enemy = GetValidSpawningOption().Spawn(spawnBox.getRandomMobLocation());
                 mobs.add(enemy.getUUID());
                 max--;
             }
@@ -98,12 +98,12 @@ public class SimpleAreaEnemySpawner extends AbstractEnemySpawner {
     }
 
     protected int GetMaxMobCount() {
-        int crossArea = spawnBox.GetHorizontalCrossSectionalArea();
+        int crossArea = spawnBox.getHorizontalCrossSectionalArea();
         return (int) Math.round((crossArea / 81D) * spawnMultiplier);
     }
 
     protected List<GamePlayer> GetPlayersWithinValidArea() {
-        return EntityUtils.getNearbyPlayers(spawnBox.GetMiddleAsLocation(), spawnBox.GetHorizontalLongestSide() + 4);
+        return EntityUtils.getNearbyPlayers(spawnBox.getMiddleAsLocation(), spawnBox.getHorizontalLongestSide() + 4);
     }
 
     protected boolean GetCurrentlyValidToSpawn() {

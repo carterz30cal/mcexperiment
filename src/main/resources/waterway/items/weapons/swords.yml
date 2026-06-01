@@ -139,8 +139,7 @@ necromancy_sword:
     - NECROMANCY_SWORD
   stats:
     damage: +28
-    mana: +125
-    focus: +5
+    focus: +7
     visibility: +6
     enchant_power: +25
     level_requirement: 5
@@ -154,8 +153,7 @@ healing_wand_waterway:
     - HEALING_WAND_WATERWAY
   stats:
     damage: +10
-    mana: +50
-    focus: +2
+    focus: +3
     enchant_power: +20
     level_requirement: 5
 
@@ -227,8 +225,7 @@ healing_wand_waterway_incredible:
     - HEALING_WAND_WATERWAY
   stats:
     damage: +10
-    mana: +50
-    focus: +5
+    focus: +8
     enchant_power: +20
     level_requirement: 6
 

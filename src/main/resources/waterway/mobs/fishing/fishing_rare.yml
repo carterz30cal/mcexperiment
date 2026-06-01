@@ -32,7 +32,7 @@ drenched_RARE:
       chance: 1/300
       amount: 3/3
     pet_drenched_common:
-      chance: 1/140
+      chance: 1/130
 
 lunatic_fisherman_RARE:
   name: <green>Lunatic Fisherman

@@ -39,6 +39,22 @@ enchanted_book-BOOST:
     paper: 2
     cooked_waterway_cod: 1
 
+
+
+enchanted_book-REGROWTH:
+  custom-name: <green>Regrowth <dark_grey>[Enchantment]
+  enchants: ENCHANT_REGROWTH-1
+  time: 10m
+  category: waterway_enchantments
+  discovery: leaf_mash_collection
+  discovery-tier: 2
+  level: 3
+  items:
+    paper: 3
+    leaf_mash: 130
+    chilli_powder: 3
+
+
 enchanted_book-SUPERLURE:
   custom-name: <gold>Super Lure <dark_grey>[Enchantment]
   enchants: ENCHANT_SUPERLURE-2

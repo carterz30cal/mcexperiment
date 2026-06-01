@@ -4,11 +4,11 @@ codpiece_leggings:
   material: COPPER_LEGGINGS
   rarity: VERY_RARE
   stats:
-    defence: +15
+    defence: +25
     might: +35
-    fishing_power: +20
+    fishing_power: +25
     enchant_power: +5
-    level_requirement: 6
+    level_requirement: 5
 
 lava_glass_helmet:
   name: Lavaglass Helmet
@@ -30,7 +30,7 @@ clear_glass_helmet:
   stats:
     mana: +100
     enchant_power: +50
-    level_requirement: 6
+    level_requirement: 5
 
 blast_plating:
   name: Blast Plating

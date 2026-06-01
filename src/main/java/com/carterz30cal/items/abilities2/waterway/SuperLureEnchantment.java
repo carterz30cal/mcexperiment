@@ -25,8 +25,8 @@ public class SuperLureEnchantment extends GameAbstractEnchant implements Ability
     @Override
     public List<String> miniMessageDescription(@NotNull PlayerAbilityContext context) {
         var list = new ArrayList<String>();
-        list.add("<grey>Grants " + formattedDisplay(Stat.FISHING_POWER, 10L * context.level)
-                + " and also " + formattedDisplay(Stat.MANA, 20L * context.level) + "!");
+        list.add("<grey>Grants " + formattedDisplay(Stat.FISHING_POWER, 20L * context.level)
+                + " and also " + formattedDisplay(Stat.FOCUS, 3L * context.level) + "!");
         return list;
     }
 
@@ -48,7 +48,7 @@ public class SuperLureEnchantment extends GameAbstractEnchant implements Ability
             return;
         }
         var level = context.getLevel();
-        stats.scheduleOperation(Stat.FISHING_POWER, StatOperationType.ADD, 10 * level);
-        stats.scheduleOperation(Stat.MANA, StatOperationType.ADD, 20 * level);
+        stats.scheduleOperation(Stat.FISHING_POWER, StatOperationType.ADD, 20 * level);
+        stats.scheduleOperation(Stat.FOCUS, StatOperationType.ADD, 3 * level);
     }
 }

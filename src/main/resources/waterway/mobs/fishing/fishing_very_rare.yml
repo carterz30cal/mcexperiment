@@ -32,7 +32,7 @@ drenched_VERY_RARE:
       chance: 1/300
       amount: 4/4
     pet_drenched_common:
-      chance: 1/140
+      chance: 1/100
     fishing_berries:
       chance: 1/150
 
@@ -135,7 +135,7 @@ sea_slug_VERY_RARE:
       enchants: ENCHANT_SUPERLURE-2
 
 sea_slime_VERY_RARE:
-  name: BLUESea Slime
+  name: <blue>Sea Slime
   fishing:
     WATERWAY: VERY_RARE
   level: 7

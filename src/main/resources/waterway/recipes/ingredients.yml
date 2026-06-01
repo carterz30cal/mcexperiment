@@ -11,6 +11,13 @@ paper:
   items:
     wet_paper: 115
 
+waterway_sac:
+  level: 4
+  category: waterway_ingredients
+  items:
+    paper: 2
+    chilli_powder: 10
+
 cooked_waterway_cod:
   category: waterway_ingredients
   time: 20m
@@ -55,8 +62,8 @@ waterway_cod_meal:
 
 waterway_seraph_key:
   category: waterway
-  level: 3
+  level: 4
   items:
     waterway_sac: 1
-    leaf_mash: 128
+    leaf_mash: 96
     spiced_meat: 2

@@ -207,8 +207,8 @@ public class GamePlayer extends GameEntity implements DamageableEntity, Aggressi
 		stats.scheduleOperation(Stat.VISIBILITY, StatOperationType.ADD, 16);
 		stats.scheduleOperation(Stat.VISIBILITY, StatOperationType.CAP_MIN, 1);
 		stats.scheduleOperation(Stat.VISIBILITY, StatOperationType.CAP_MAX, 24);
-		stats.scheduleOperation(Stat.FOCUS, StatOperationType.CAP_MIN, 0);
-        stats.scheduleOperation(Stat.INVULNERABILITY_TICKS, StatOperationType.ADD, 2);
+        stats.scheduleOperation(Stat.FOCUS, StatOperationType.CAP_MIN, 1);
+        stats.scheduleOperation(Stat.INVULNERABILITY_TICKS, StatOperationType.ADD, 4);
         stats.scheduleOperation(Stat.WARDROBE_SLOTS, StatOperationType.ADD, PlayerWardrobe.DEFAULT_SLOT_COUNT);
 
 		stats.scheduleOperation(Stat.POWER, StatOperationType.CAP_MIN, 0);
@@ -844,6 +844,12 @@ public class GamePlayer extends GameEntity implements DamageableEntity, Aggressi
 	{
 		return player.getLocation();
 	}
+
+    @Override
+    public void teleport(@NotNull Location location) {
+        playSound(Sound.ENTITY_ENDERMAN_TELEPORT, 0.8, 1.1);
+        player.teleport(location);
+    }
 
 
     public void incrementKill(String mobId) {

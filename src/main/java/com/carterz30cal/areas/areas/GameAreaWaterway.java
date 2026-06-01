@@ -41,6 +41,8 @@ public class GameAreaWaterway extends AbstractGameArea {
 
         // SKY AREA
         RegisterSpawner(new SimpleAreaEnemySpawner(-27, 75, -4, 106, 125, 0.75, "lunatic_5_sky"));
+
+        RegisterSpawner(new SimpleAreaEnemySpawner(59, 142, 45, 132, 96, 2, "lunatic_6"));
     }
 
     @Override

@@ -234,3 +234,53 @@ lunatic_5_lava:
       chance: 1/200
     lava_glass_helmet:
       chance: 1/500
+
+lunatic_6:
+  name: Fanatic
+  level: 6
+  health: 1100
+  knockback: 70
+  speed: 1.2
+  always-display-health: false
+  coin-multiplier: 1.25
+  damage:
+    PHYSICAL: 80
+  stats:
+    ROBUSTNESS: 5
+    PADDING: 30
+  entities:
+    _:
+      type: ZOMBIE
+      scale: 1.15
+      offset: [ 0,0,0 ]
+      equipment:
+        HAND: zombie_sword
+        HEAD: cultist_helmet
+        CHEST: gold_leaf_chestplate
+        LEGS: CHAINMAIL_LEGGINGS
+        FEET: water_boots
+  bestiary:
+    category: waterway_lunatics
+  tags:
+    - LUNATIC
+    - LUNATIC_HIGH_RANK
+    - LUNATIC_SKY
+    - FANATIC
+  loot:
+    weird_flesh:
+      amount: 16/30
+    chilli_powder:
+      chance: 1/8
+      amount: 2/5
+    waterway_sac:
+      chance: 1/50
+      amount: 1/1
+    waterway_sac-2:
+      chance: 1/65
+      amount: 2/2
+    enchanted_book:
+      enchants: ENCHANT_SHARPNESS-1
+      chance: 1/185
+    enchanted_book-SH2:
+      enchants: ENCHANT_SHARPNESS-2
+      chance: 1/400
