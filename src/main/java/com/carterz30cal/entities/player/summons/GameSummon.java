@@ -11,6 +11,7 @@ import com.carterz30cal.entities.enemies.representation.EnemyRepresentationData;
 import com.carterz30cal.entities.health.EntityHealthSystem;
 import com.carterz30cal.entities.health.EntityHealthSystemBuilder;
 import com.carterz30cal.entities.health.damage.DamagePacket;
+import com.carterz30cal.entities.health.damage.handlers.AggressiveEntity;
 import com.carterz30cal.entities.player.GamePlayer;
 import com.carterz30cal.utils.ParticleUtils;
 import net.kyori.adventure.text.Component;
@@ -54,6 +55,7 @@ public class GameSummon extends GameEnemy {
         super(representationBuilder.build(director.getLocation()), healthSystem, director, data);
         typeId = uuid.toString();
         representation.register(this);
+        enemyDirector.register(this);
         register(uuid);
     }
 
@@ -63,7 +65,7 @@ public class GameSummon extends GameEnemy {
 
     public static GameSummon spawn(GamePlayer owner, Location where, GameEnemy dead) {
         var healthBuilder = new EntityHealthSystemBuilder().setMaxHealth(dead.getHealthSystem().getMaxHealth());
-        var director = new EnemyDirectorBuilder().setEntityType(EntityType.ZOMBIE).setSpeed(2).setTargetingBehaviour(new SummonTargetingBehaviour(owner));
+        var director = new EnemyDirectorBuilder().setSummon(true).setEntityType(EntityType.ZOMBIE).setSpeed(2).setTargetingBehaviour(new SummonTargetingBehaviour(owner));
         var summon = new GameSummon(healthBuilder.build(), director.build(where), dead.getEnemyData());
         summon.owner = owner;
         return summon;
@@ -71,7 +73,7 @@ public class GameSummon extends GameEnemy {
 
     public static GameSummon spawn(GamePlayer owner, Location where, EnemyBuilder builder) {
         var healthBuilder = builder.getHealthSystemBuilder();
-        var director = new EnemyDirectorBuilder().setEntityType(EntityType.ZOMBIE).setSpeed(2).setTargetingBehaviour(new SummonTargetingBehaviour(owner));
+        var director = new EnemyDirectorBuilder().setSummon(true).setEntityType(EntityType.ZOMBIE).setSpeed(2).setTargetingBehaviour(new SummonTargetingBehaviour(owner));
         var summon = new GameSummon(healthBuilder.build(), director.build(where), builder.getEnemyData());
         summon.owner = owner;
         return summon;
@@ -97,6 +99,11 @@ public class GameSummon extends GameEnemy {
         if (enemyDirector.getTarget() == owner.player && owner.player.getLocation().distance(getLocation()) < 5) {
             enemyDirector.setTarget(null);
         }
+    }
+
+    @Override
+    public boolean isTargetable(AggressiveEntity by) {
+        return !(by instanceof GameSummon) && super.isTargetable(by);
     }
 
     @Override

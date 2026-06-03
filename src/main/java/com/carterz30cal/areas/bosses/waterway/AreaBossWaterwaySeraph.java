@@ -70,18 +70,15 @@ public final class AreaBossWaterwaySeraph extends AbstractAreaBoss {
 
     private AreaBossWaterwaySeraph() {
         drops(new WeightedDrop("enchanted_book£1£enchants:ENCHANT_LUCK-1~", 60),
-                new WeightedDrop("waterway_sac£10", 40),
-                new WeightedDrop("gold_leaf£100", 40),
-                new WeightedDrop("seraph_sword£1", 5),
+                new WeightedDrop("seraph_sword£1", 10),
                 new WeightedDrop("enchanted_book£1£enchants:ENCHANT_CONCENTRATION-1~", 25),
                 new WeightedDrop("enchanted_book£1£enchants:ENCHANT_SHARPNESS-3~", 20),
                 new WeightedDrop("waterway_seraph_key£5", 5),
-                new WeightedDrop("seraphs_eye£3", 5),
-                new WeightedDrop("eye_of_spider£2", 10),
+                new WeightedDrop("seraphs_eye£3", 2),
                 new WeightedDrop("clear_glass_helmet£1", 5),
                 new WeightedDrop("seraphs_pyjamas£1", 5),
-                new WeightedDrop("seraph_ooze", 2),
-                new WeightedDrop("seraphs_guide_to_summoning_spirits", 2));
+                new WeightedDrop("seraph_ooze", 5),
+                new WeightedDrop("seraphs_guide_to_summoning_spirits", 5));
     }
 
     @Override
@@ -308,8 +305,8 @@ public final class AreaBossWaterwaySeraph extends AbstractAreaBoss {
             return;
         }
         if (seraph.dead) {
-            message(BOSS_MESSAGE_PREFIX + "No..");
-            message(BOSS_MESSAGE_PREFIX + "Not like this...", 10);
+            message(BOSS_MESSAGE_PREFIX + "No.....");
+            message(BOSS_MESSAGE_PREFIX + "It can't end like this...", 30);
             for (var enemy : getEnemies()) enemy.remove();
             spawn("SERAPH_FINAL", Objects.requireNonNull(EnemyBuilder.getBuilder("water_seraph_boss_final")), seraph.getLocation());
             phase = 6;

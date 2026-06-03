@@ -27,4 +27,5 @@ public class SummonTargetingBehaviour extends SimpleTargetingBehaviour {
             return super.findTarget(brain, location);
         }
     }
+
 }

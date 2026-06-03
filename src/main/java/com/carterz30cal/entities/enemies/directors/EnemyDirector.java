@@ -40,6 +40,7 @@ public class EnemyDirector implements LocatableEntity, TargetableEntity {
     private double knockbackResistance;
     private Location cachedLocation;
     private double speed = 1;
+    private boolean summon = false;
 
     public EnemyDirector(Location location, double knockbackResistance) {
         this.knockbackResistance = knockbackResistance / 100D;
@@ -53,6 +54,10 @@ public class EnemyDirector implements LocatableEntity, TargetableEntity {
     public void register(GameEntity entity) {
         var uuid = entity.getUUID();
         directingEntity.getPersistentDataContainer().set(keyEnemy, PersistentDataType.STRING, uuid.toString());
+    }
+
+    public void setSummon(boolean summon) {
+        this.summon = summon;
     }
 
     public void setTargetingBehaviour(TargetingBehaviour behaviour) {
@@ -185,6 +190,9 @@ public class EnemyDirector implements LocatableEntity, TargetableEntity {
 
     @Override
     public boolean isTargetable(AggressiveEntity by) {
+        if (summon) {
+            return true; // TODO EXPAND LOGIC?
+        }
         return !(by instanceof GameEnemy) || by instanceof GameSummon;
     }
 }

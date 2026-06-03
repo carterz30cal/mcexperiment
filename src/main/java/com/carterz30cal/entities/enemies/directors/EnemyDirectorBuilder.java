@@ -15,6 +15,7 @@ public class EnemyDirectorBuilder {
     private double speed;
     private TargetingBehaviour targetingBehaviour;
     private EntityType entityType;
+    private boolean summon = false;
 
     /**
      * Default blank constructor
@@ -35,6 +36,7 @@ public class EnemyDirectorBuilder {
         this.speed = existing.speed;
         this.targetingBehaviour = existing.targetingBehaviour;
         this.entityType = existing.entityType;
+        this.summon = existing.summon;
     }
 
     public EnemyDirectorBuilder setKnockback(int knockback) {
@@ -44,6 +46,11 @@ public class EnemyDirectorBuilder {
 
     public EnemyDirectorBuilder setSpeed(double speed) {
         this.speed = speed;
+        return this;
+    }
+
+    public EnemyDirectorBuilder setSummon(boolean summon) {
+        this.summon = summon;
         return this;
     }
 
@@ -63,6 +70,7 @@ public class EnemyDirectorBuilder {
         director.setTargetingBehaviour(targetingBehaviour);
         director.createDirector();
         director.setInitialSpeed(speed);
+        director.setSummon(summon);
         return director;
     }
 }

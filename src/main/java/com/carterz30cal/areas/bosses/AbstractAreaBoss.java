@@ -497,7 +497,9 @@ public abstract class AbstractAreaBoss extends AbstractEnemySpawner {
      * @since 1.0.0
      */
     public void removeBossBar(GamePlayer player) {
-        bossBar.removeViewer(player.player);
+        if (bossBar != null) {
+            bossBar.removeViewer(player.player);
+        }
     }
 
     /**

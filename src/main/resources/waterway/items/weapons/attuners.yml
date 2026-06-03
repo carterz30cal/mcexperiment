@@ -39,9 +39,9 @@ eye_of_spider:
   attuner-colour: DARK_PURPLE
   attuner-icon: '#'
   stats:
-    mana: +5
-    strength: +3
-    might: +3
+    power: +2
+    strength: +5
+    might: +2
 
 
 fishing_berries:
