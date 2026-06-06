@@ -1,79 +1,78 @@
 drenched_RARE:
-  name: GREENDrenched
-  entity-type: DROWNED
-  has-director: true
-  type: FISH
-  fishing-brackets:
-    WATERWAY: RARE
+  name: <green>Drenched
   level: 6
   health: 600
   knockback: 125
-  damage: 90
-  damage-type: PHYSICAL
-  display-height: 1.8
-  blood-colour: 0,50,100
-  bestiary-category: waterway_fishing_rare
-  armour:
-    PHYSICAL: 0
-    PROJECTILE: 0
-    MAGICAL: 0
-    HOLY: 0
-    BLEED: -30
-    FIRE: 100
-    WITHER: 0
-  equipment:
-    HAND: COPPER_HOE
-    CHEST: IRON_CHESTPLATE
-    FEET: LEATHER_BOOTS
+  damage:
+    PHYSICAL: 90
+  stats:
+    ROBUSTNESS: -10
+    INSULATION: 10
+  bestiary:
+    category: waterway_fishing_rare
+  fishing:
+    WATERWAY: RARE
+  souls:
+    WATERWAY: 3
+  entities:
+    _:
+      type: DROWNED
+      scale: 1
+      offset: [ 0,0,0 ]
+      equipment:
+        HAND: COPPER_HOE
+        CHEST: IRON_CHESTPLATE
+        FEET: LEATHER_BOOTS
   tags:
     - FISHING
     - FISHING_WATERWAY
     - FISHING_RARE
-  drops:
+  loot:
     waterway_cod:
       amount: 10/15
     meat_scraps:
       chance: 1/300
       amount: 3/3
     pet_drenched_common:
-      chance: 1/140
+      chance: 1/130
 
 lunatic_fisherman_RARE:
-  name: GREENLunatic Fisherman
-  type: FISH
-  fishing-brackets:
-    WATERWAY: RARE
+  name: <green>Lunatic Fisherman
   level: 6
-  coin-multiplier: 3
   health: 425
   knockback: 95
-  damage: 100
   speed: 1.6
-  damage-type: PHYSICAL
-  display-height: 1.8
-  blood-colour: 250,0,50
-  bestiary-category: waterway_fishing_rare
-  armour:
-    PHYSICAL: 0
-    PROJECTILE: 75
-    MAGICAL: 0
-    HOLY: 0
-    BLEED: -50
-    FIRE: 200
-    WITHER: 0
-  equipment:
-    HAND: FISHING_ROD
-    HEAD: water_helmet
-    CHEST: LEATHER_CHESTPLATE
-    LEGS: LEATHER_LEGGINGS
-    FEET: LEATHER_BOOTS
+  coin-multiplier: 3
+  damage:
+    PHYSICAL: 100
+  fishing:
+    WATERWAY: RARE
+  bestiary:
+    category: waterway_fishing_rare
+  stats:
+    PADDING: 50
+    INSULATION: 200
+    ROBUSTNESS: -8
+  souls:
+    WATERWAY: 3
+  entities:
+    _:
+      type: ZOMBIE
+      scale: 1
+      offset: [ 0,0,0 ]
+      equipment:
+        HAND: FISHING_ROD
+        HEAD: water_helmet
+        CHEST: LEATHER_CHESTPLATE
+        LEGS: LEATHER_LEGGINGS
+        FEET: LEATHER_BOOTS
   tags:
     - LUNATIC
     - LUNATIC_HIGH_RANK
     - FISHING
     - FISHING_WATERWAY
     - FISHING_RARE
-  drops:
+  loot:
     weird_flesh:
       amount: 5/26
     waterway_cod:
@@ -86,41 +85,42 @@ lunatic_fisherman_RARE:
       chance: 1/75
     water_boots:
       chance: 1/75
-    flimsy_fishing_rod:
-      chance: 1/75
     fishing_berries:
       chance: 1/80
 
 sea_slug_RARE:
-  name: GREENSea Slug
-  type: FISH
-  entity-type: SILVERFISH
-  has-director: true
-  scale: 1.4
-  fishing-brackets:
-    WATERWAY: RARE
+  name: <green>Sea Slug
   level: 6
   health: 200
   knockback: 165
-  damage: 70
   speed: 1.75
-  damage-type: PHYSICAL
-  display-height: 0.7
-  blood-colour: 250,0,50
-  bestiary-category: waterway_fishing_rare
-  armour:
-    PHYSICAL: 0
-    PROJECTILE: 75
-    MAGICAL: 0
-    HOLY: 0
-    BLEED: -50
-    FIRE: 200
-    WITHER: 0
+  damage:
+    PHYSICAL: 70
+  fishing:
+    WATERWAY: RARE
+  stats:
+    PADDING: 75
+    INSULATION: 200
+    ROBUSTNESS: -10
+  bestiary:
+    category: waterway_fishing_rare
+  souls:
+    WATERWAY: 3
   tags:
     - FISHING
     - FISHING_WATERWAY
     - FISHING_RARE
-  drops:
+  entities:
+    _:
+      scale: 1.4
+      type: SILVERFISH
+      offset: [ 0,0,0 ]
+    hitbox:
+      scale: 1
+      type: ZOMBIE
+      offset: [ 0,0,0 ]
+      invisible: true
+  loot:
     waterway_cod:
       amount: 10/40
     fishing_berries:
@@ -137,36 +137,38 @@ sea_slug_RARE:
       enchants: ENCHANT_SUPERLURE-2
 
 sea_slime_RARE:
-  name: GREENSea Slime
-  type: FISH
-  entity-type: SLIME
-  has-director: false
-  scale: 1.4
-  fishing-brackets:
-    WATERWAY: RARE
+  name: <green>Sea Slime
   level: 6
   health: 800
   knockback: 20
-  damage: 70
   speed: 1.1
-  damage-type: PHYSICAL
-  display-height: 0.7
-  blood-colour: 250,0,50
-  bestiary-category: waterway_fishing_rare
-  armour:
-    PHYSICAL: 0
-    PROJECTILE: 75
-    MAGICAL: 0
-    HOLY: 0
-    BLEED: 10000
-    FIRE: -50
-    WITHER: 0
+  damage:
+    PHYSICAL: 70
+  fishing:
+    WATERWAY: RARE
+  bestiary:
+    category: waterway_fishing_rare
+  stats:
+    PADDING: 75
+    ROBUSTNESS: 1000
+    INSULATION: -50
+  souls:
+    WATERWAY: 3
+  entities:
+    b:
+      type: SLIME
+      scale: 1.5
+      offset: [ 0,0,0 ]
+    t:
+      type: SLIME
+      scale: 1
+      offset: [ 0,0.7,0 ]
   tags:
     - FISHING
     - FISHING_WATERWAY
     - FISHING_RARE
     - SLIME
-  drops:
+  loot:
     waterway_cod:
       amount: 10/55
     green_slime:
@@ -179,37 +181,34 @@ sea_slime_RARE:
       enchants: ENCHANT_SLIMED-2
 
 angry_creeper_RARE:
-  name: GREENAngry Creeper
-  type: FISH
-  fishing-brackets:
-    WATERWAY: RARE
+  name: <green>Angry Creeper
   level: 6
   health: 250
-  entity-type: CREEPER
   knockback: 200
-  damage: 300
+  director: CREEPER
   speed: 1.3
-  damage-type: PHYSICAL
-  display-height: 1.8
-  blood-colour: 0,170,50
-  bestiary-category: waterway_fishing_rare
-  resistances:
-    BLEED: -1
-    BURN: 10
-    POISON: -1
-  armour:
-    PHYSICAL: 0
-    PROJECTILE: -10
-    MAGICAL: 0
-    HOLY: 0
-    BLEED: 0
-    FIRE: -95
-    WITHER: 0
+  damage:
+    EXPLOSIVE: 300
+  stats:
+    INSULATION: 75
+    ROBUSTNESS: 200
+    PADDING: -50
+  bestiary:
+    category: waterway_fishing_rare
+  fishing:
+    WATERWAY: RARE
+  souls:
+    WATERWAY: 3
+  entities:
+    _:
+      type: CREEPER
+      scale: 1.1
+      offset: [ 0,0,0 ]
   tags:
     - FISHING
     - FISHING_WATERWAY
     - FISHING_RARE
-  drops:
+  loot:
     waterway_cod:
       amount: 25/50
     enchanted_book-LC1:
@@ -222,27 +221,32 @@ angry_creeper_RARE:
       enchants: ENCHANT_LAST_CHANCE-2
 
 hydro_stray_RARE:
-  name: GREENHydrostray
-  type: FISH
-  fishing-brackets:
-    WATERWAY: RARE
+  name: <green>Hydrostray
   level: 6
   health: 500
-  entity-type: STRAY
-  knockback: 100
-  damage: 85
-  damage-type: PROJECTILE
+  director: SKELETON
   speed: 1.2
-  display-height: 1.8
-  bestiary-category: waterway_fishing_rare
-  blood-colour: 250,0,50
+  knockback: 100
+  damage:
+    PROJECTILE: 60
+    FROST: 25
   tags:
     - FISHING
     - FISHING_WATERWAY
     - FISHING_RARE
-  equipment:
-    HAND: BOW
-  drops:
+  bestiary:
+    category: waterway_fishing_rare
+  fishing:
+    WATERWAY: RARE
+  souls:
+    WATERWAY: 3
+  entities:
+    _:
+      type: STRAY
+      offset: [ 0,0,0 ]
+      equipment:
+        HAND: ARROW
+  loot:
     waterway_cod:
       amount: 15/30
     enchanted_book:
@@ -257,75 +261,77 @@ hydro_stray_RARE:
       chance: 1/800
 
 lonely_seahorse_RARE:
-  name: GREENLonely Sea-horse
-  type: FISH
-  fishing-brackets:
-    WATERWAY: RARE
+  name: <green>Lonely Sea-horse
   level: 6
-  has-director: true
   health: 1250
-  entity-type: ZOMBIE_HORSE
-  scale: 0.7
   knockback: 50
-  damage: 40
-  damage-type: PHYSICAL
   speed: 1.35
-  display-height: 1.4
-  bestiary-category: waterway_fishing_rare
-  blood-colour: 250,0,50
+  damage:
+    PHYSICAL: 50
+  souls:
+    WATERWAY: 10
+  entities:
+    _:
+      type: ZOMBIE_HORSE
+      scale: 0.7
+      offset: [ 0,0,0 ]
+  fishing:
+    WATERWAY: RARE
+  bestiary:
+    category: waterway_fishing_rare
   tags:
     - FISHING
     - FISHING_WATERWAY
     - FISHING_RARE
-  drops:
+  loot:
     waterway_cod:
       amount: 40/50
     fishing_berries:
       chance: 1/100
 
 scared_shockreaver_RARE:
-  name: GREENScared Shockreaver
-  type: FISH
-  entity-type: DROWNED
-  has-director: true
-  scale: 1.25
-  fishing-brackets:
-    WATERWAY: RARE
+  name: <green>Scared Shockreaver
   level: 6
   health: 900
   knockback: 0
-  damage: 60
   speed: 1.15
-  damage-type: PHYSICAL
-  display-height: 2.3
-  blood-colour: 250,0,50
-  bestiary-category: waterway_fishing_rare
-  equipment:
-    HAND: DIAMOND_AXE
-    HEAD: DIAMOND_HELMET
-    CHEST: DIAMOND_CHESTPLATE
-    LEGS: DIAMOND_LEGGINGS
-    FEET: DIAMOND_BOOTS
-  armour:
-    PHYSICAL: 200
-    PROJECTILE: 600
-    MAGICAL: 0
-    HOLY: 0
-    BLEED: -70
-    FIRE: -20
-    WITHER: 0
+  damage:
+    PHYSICAL: 50
+    LIGHTNING: 10
+  stats:
+    DEFENCE: 200
+    PADDING: 400
+    ROBUSTNESS: -12
+    INSULATION: -50
+  bestiary:
+    category: waterway_fishing_rare
+  souls:
+    WATERWAY: 3
+  entities:
+    _:
+      type: DROWNED
+      scale: 1.1
+      offset: [ 0,0,0 ]
+      equipment:
+        HAND: DIAMOND_AXE
+        HEAD: DIAMOND_HELMET
+        CHEST: DIAMOND_CHESTPLATE
+        LEGS: DIAMOND_LEGGINGS
+        FEET: DIAMOND_BOOTS
+  fishing:
+    WATERWAY: RARE
   tags:
     - FISHING
     - FISHING_WATERWAY
     - FISHING_RARE
     - WATERWAY_SHOCKER
-  drops:
+  loot:
     storm_crystals:
       amount: 1/1
     waterway_cod:
       amount: 10/40
     storm_talisman_rare:
-      chance: 1/6
+      chance: 1/5
     fishing_berries:
       chance: 1/250
     cooked_waterway_cod:

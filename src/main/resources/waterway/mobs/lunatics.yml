@@ -1,98 +1,94 @@
 lunatic_1:
   name: Lunatic
-  type: SIMPLE
   level: 1
   health: 10
   knockback: 100
-  damage: 10
-  damage-type: PHYSICAL
-  display-height: 1.8
-  blood-colour: 250,0,50
-  bestiary-category: waterway_lunatics
-  armour:
-    PHYSICAL: 0
-    PROJECTILE: 0
-    MAGICAL: 0
-    HOLY: 0
-    BLEED: 0
-    FIRE: 0
-    WITHER: 0
-  resistances:
-    BLEED: 15
-  equipment:
-    HAND: WOODEN_SWORD
+  speed: 1
+  always-display-health: false
+  coin-multiplier: 1
+  damage:
+    PHYSICAL: 10
+  stats:
+    ROBUSTNESS: 5
+  souls:
+    WATERWAY: 1
+  entities:
+    _:
+      type: ZOMBIE
+      scale: 1
+      offset: [ 0,0,0 ]
+      equipment:
+        HAND: WOODEN_SWORD
+  bestiary:
+    category: waterway_lunatics
   tags:
     - LUNATIC
-  drops:
+  loot:
     weird_flesh:
       amount: 2/2
+    water_boots:
+      chance: 1/75
 
 lunatic_2:
   name: Lunatic
-  type: SIMPLE
   level: 2
   health: 35
   knockback: 100
-  damage: 25
-  damage-type: PHYSICAL
-  display-height: 1.8
-  blood-colour: 250,0,50
-  bestiary-category: waterway_lunatics
-  armour:
-    PHYSICAL: 0
-    PROJECTILE: 0
-    MAGICAL: 0
-    HOLY: 0
-    BLEED: 0
-    FIRE: 0
-    WITHER: 0
-  equipment:
-    HAND: WOODEN_SWORD
-  resistances:
-    BLEED: 20
+  speed: 1
+  always-display-health: false
+  coin-multiplier: 1
+  damage:
+    PHYSICAL: 25
+  stats:
+    ROBUSTNESS: 5
+  souls:
+    WATERWAY: 1
+  entities:
+    _:
+      type: ZOMBIE
+      scale: 1
+      offset: [ 0,0,0 ]
+      equipment:
+        HAND: WOODEN_SWORD
+  bestiary:
+    category: waterway_lunatics
   tags:
     - LUNATIC
-  drops:
+  loot:
     weird_flesh:
       amount: 3/7
     water_helmet:
-      chance: 1/75
-    water_chestplate:
-      chance: 1/75
-    water_leggings:
       chance: 1/75
     water_boots:
       chance: 1/75
 
 lunatic_3:
   name: Lunatic Warrior
-  type: SIMPLE
   level: 3
-  health: 50
-  knockback: 95
+  health: 60
+  knockback: 90
   speed: 1.1
-  damage: 30
-  damage-type: PHYSICAL
-  display-height: 1.8
-  blood-colour: 250,0,50
-  bestiary-category: waterway_lunatics
-  resistances:
-    BLEED: 25
-  armour:
-    PHYSICAL: 0
-    PROJECTILE: 0
-    MAGICAL: 0
-    HOLY: 0
-    BLEED: 0
-    FIRE: 0
-    WITHER: 0
-  equipment:
-    HAND: WOODEN_SWORD
-    CHEST: LEATHER_CHESTPLATE
+  always-display-health: false
+  coin-multiplier: 1
+  damage:
+    PHYSICAL: 35
+  stats:
+    ROBUSTNESS: 5
+  souls:
+    WATERWAY: 1
+  entities:
+    _:
+      type: ZOMBIE
+      scale: 1
+      offset: [ 0,0,0 ]
+      equipment:
+        HAND: WOODEN_SWORD
+        CHEST: LEATHER_CHESTPLATE
+  bestiary:
+    category: waterway_lunatics
   tags:
     - LUNATIC
-    - LUNATIC_HIGH_RANK
-  drops:
+  loot:
     weird_flesh:
       amount: 5/11
     chilli_powder:
@@ -100,44 +96,39 @@ lunatic_3:
       amount: 1/1
     water_helmet:
       chance: 1/50
-    water_chestplate:
-      chance: 1/50
     water_leggings:
       chance: 1/50
     water_boots:
       chance: 1/50
 
-
-
 lunatic_4:
   name: Lunatic Warrior
-  type: SIMPLE
   level: 4
   health: 125
   knockback: 90
   speed: 1.15
-  damage: 40
-  damage-type: PHYSICAL
-  display-height: 1.8
-  blood-colour: 250,0,50
-  bestiary-category: waterway_lunatics
-  armour:
-    PHYSICAL: 0
-    PROJECTILE: 0
-    MAGICAL: 0
-    HOLY: 0
-    BLEED: 0
-    FIRE: 0
-    WITHER: 0
-  equipment:
-    HAND: WOODEN_SWORD
-    CHEST: LEATHER_CHESTPLATE
+  always-display-health: false
+  coin-multiplier: 1
+  damage:
+    PHYSICAL: 40
+  stats:
+    ROBUSTNESS: 8
+  souls:
+    WATERWAY: 2
+  entities:
+    _:
+      type: ZOMBIE
+      scale: 1
+      offset: [ 0,0,0 ]
+      equipment:
+        HAND: WOODEN_SWORD
+        CHEST: LEATHER_CHESTPLATE
+  bestiary:
+    category: waterway_lunatics
   tags:
     - LUNATIC
     - LUNATIC_HIGH_RANK
-  resistances:
-    BLEED: 55
-  drops:
+  loot:
     weird_flesh:
       amount: 7/14
     chilli_powder:
@@ -154,39 +145,38 @@ lunatic_4:
 
 lunatic_5_sky:
   name: Sky Lunatic
-  type: SIMPLE
-  entity-type: ZOMBIE
   level: 5
   health: 650
-  knockback: 70
-  damage: 55
-  damage-type: PHYSICAL
-  display-height: 1.8
-  blood-colour: 250,0,50
+  knockback: 80
   speed: 1.1
-  bestiary-category: waterway_lunatics
-  resistances:
-    BLEED: 35
-  armour:
-    PHYSICAL: 0
-    PROJECTILE: 20
-    MAGICAL: 0
-    HOLY: 0
-    BLEED: -50
-    FIRE: 0
-    WITHER: 0
-  equipment:
-    HAND: zombie_sword
-    HEAD: LIGHT_BLUE_STAINED_GLASS
-    CHEST: water_chestplate
-    LEGS: CHAINMAIL_LEGGINGS
-    FEET: water_boots
+  always-display-health: false
+  coin-multiplier: 1
+  damage:
+    PHYSICAL: 55
+  stats:
+    ROBUSTNESS: 12
+    PADDING: 20
+  souls:
+    WATERWAY: 2
+  entities:
+    _:
+      type: ZOMBIE
+      scale: 1.1
+      offset: [ 0,0,0 ]
+      equipment:
+        HAND: zombie_sword
+        HEAD: LIGHT_BLUE_STAINED_GLASS
+        CHEST: water_chestplate
+        LEGS: CHAINMAIL_LEGGINGS
+        FEET: water_boots
+  bestiary:
+    category: waterway_lunatics
   tags:
     - LUNATIC
     - LUNATIC_HIGH_RANK
     - LUNATIC_SKY
     - FANATIC
-  drops:
+  loot:
     weird_flesh:
       amount: 15/25
     chilli_powder:
@@ -212,39 +202,38 @@ lunatic_5_sky:
 
 lunatic_5_lava:
   name: Lava Lunatic
-  type: SIMPLE
-  entity-type: ZOMBIE
   level: 5
-  health: 300
-  knockback: 50
-  damage: 65
-  damage-type: PHYSICAL
-  display-height: 1.8
-  blood-colour: 250,0,50
-  speed: 1
-  bestiary-category: waterway_lunatics
-  resistances:
-    BLEED: 40
-  armour:
-    PHYSICAL: 0
-    PROJECTILE: 50
-    MAGICAL: 0
-    HOLY: 0
-    BLEED: -40
-    FIRE: 0
-    WITHER: 0
-  equipment:
-    HAND: pungent_sword_rare
-    HEAD: ORANGE_STAINED_GLASS
-    CHEST: leather_chestplate
-    LEGS: CHAINMAIL_LEGGINGS
-    FEET: leather_boots
+  health: 375
+  knockback: 55
+  speed: 1.1
+  always-display-health: false
+  coin-multiplier: 1
+  damage:
+    PHYSICAL: 70
+  stats:
+    ROBUSTNESS: -5
+    PADDING: 50
+  souls:
+    WATERWAY: 3
+  entities:
+    _:
+      type: ZOMBIE
+      scale: 1.1
+      offset: [ 0,0,0 ]
+      equipment:
+        HAND: pungent_sword_rare
+        HEAD: ORANGE_STAINED_GLASS
+        CHEST: leather_chestplate
+        LEGS: CHAINMAIL_LEGGINGS
+        FEET: leather_boots
+  bestiary:
+    category: waterway_lunatics
   tags:
     - LUNATIC
     - LUNATIC_HIGH_RANK
     - LUNATIC_LAVA
     - FANATIC
-  drops:
+  loot:
     weird_flesh:
       amount: 10/25
     chilli_powder:
@@ -257,3 +246,55 @@ lunatic_5_lava:
       chance: 1/200
     lava_glass_helmet:
       chance: 1/500
+
+lunatic_6:
+  name: Fanatic
+  level: 6
+  health: 1100
+  knockback: 70
+  speed: 1.2
+  always-display-health: false
+  coin-multiplier: 1.25
+  damage:
+    PHYSICAL: 80
+  stats:
+    ROBUSTNESS: 5
+    PADDING: 30
+  souls:
+    WATERWAY: 3
+  entities:
+    _:
+      type: ZOMBIE
+      scale: 1.15
+      offset: [ 0,0,0 ]
+      equipment:
+        HAND: zombie_sword
+        HEAD: cultist_helmet
+        CHEST: gold_leaf_chestplate
+        LEGS: CHAINMAIL_LEGGINGS
+        FEET: water_boots
+  bestiary:
+    category: waterway_lunatics
+  tags:
+    - LUNATIC
+    - LUNATIC_HIGH_RANK
+    - LUNATIC_SKY
+    - FANATIC
+  loot:
+    weird_flesh:
+      amount: 16/30
+    chilli_powder:
+      chance: 1/8
+      amount: 2/5
+    waterway_sac:
+      chance: 1/50
+      amount: 1/1
+    waterway_sac-2:
+      chance: 1/65
+      amount: 2/2
+    enchanted_book:
+      enchants: ENCHANT_SHARPNESS-1
+      chance: 1/185
+    enchanted_book-SH2:
+      enchants: ENCHANT_SHARPNESS-2
+      chance: 1/400

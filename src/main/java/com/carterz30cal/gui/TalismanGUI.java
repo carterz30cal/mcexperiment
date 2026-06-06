@@ -81,7 +81,7 @@ public class TalismanGUI extends AbstractGUI
 				owner.talismans.remove(tali);
 				
 				ItemStack click = clicked.clone();
-				ItemFactory.update(click, owner);
+                ItemFactory.update(click, owner.getItemContext());
 				owner.giveItem(click);
 				owner.playSound(Sound.BLOCK_DISPENSER_DISPENSE, 0.7, 1);
 			}

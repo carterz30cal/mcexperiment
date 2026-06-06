@@ -26,7 +26,7 @@ public class GameQuestgiver extends GameEntityInteractable {
         if (quest == null) {
             return true;
         }
-        else if (quest.HasCompletedQuestgiver(interactingPlayer, backing)) {
+        else if (quest.hasCompletedQuestgiver(interactingPlayer, backing)) {
             return false;
         }
         else {
@@ -43,7 +43,7 @@ public class GameQuestgiver extends GameEntityInteractable {
 
         Quests.QuestSave save = interactingPlayer.GetQuestSave(quest);
         if (save.sectionSave == null) {
-            quest.FixSave(save, interactingPlayer);
+            quest.fixSave(save, interactingPlayer);
         }
         if (save.sectionSave.GetSection().questgiver != backing) {
             return;
@@ -62,7 +62,7 @@ public class GameQuestgiver extends GameEntityInteractable {
             questComplete.add("<aqua>- - - - <gold><b>Quest complete! </b></gold>- - - -</aqua>");
             QuestReward reward = save.sectionSave.GetSection().GetQuestReward();
             if (reward != null) {
-                questComplete.addAll(reward.GetRewardDescription());
+                questComplete.addAll(reward.getRewardDescription());
             }
             interactingPlayer.playSound(Sound.BLOCK_NOTE_BLOCK_CHIME, 0.4, 0.6, delay + 4);
             interactingPlayer.playSound(Sound.BLOCK_NOTE_BLOCK_CHIME, 0.45, 0.7, delay + 5);
@@ -79,9 +79,9 @@ public class GameQuestgiver extends GameEntityInteractable {
                     if (reward != null) {
                         interactingPlayer.lastXpReward = interactingPlayer.gainXp(reward.GetXP());
                         interactingPlayer.rewardTick = 30;
-                        reward.GrantOneTimeRewards(interactingPlayer);
+                        reward.grantOneTimeRewards(interactingPlayer);
                     }
-                    quest.MoveSave(interactingPlayer);
+                    quest.moveSave(interactingPlayer);
                 }
             }.runTaskLater(Dungeons.instance, delay + 5);
             interactingPlayer.questTick = delay + 10;

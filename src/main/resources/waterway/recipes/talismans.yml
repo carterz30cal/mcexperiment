@@ -13,6 +13,13 @@ grey_chunk:
     chilli_powder: 20
     spiced_meat: 4
 
+titans_talisman:
+  level: 4
+  category: waterway_talismans
+  items:
+    paper: 4
+    spiced_meat: 12
+    gold_leaf: 12
 
 titans_talisman_very_rare:
   level: 5

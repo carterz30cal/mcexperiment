@@ -1,14 +1,12 @@
 package com.carterz30cal.entities.interactable;
 
-import com.carterz30cal.entities.DamageInfo;
-import com.carterz30cal.entities.GameEnemy;
 import com.carterz30cal.entities.GameEntity;
 import com.carterz30cal.entities.PlayerManager;
+import com.carterz30cal.entities.enemies.core.GameEnemy;
 import com.carterz30cal.entities.player.GamePlayer;
 import com.carterz30cal.items.ItemFactory;
 import com.carterz30cal.main.Dungeons;
 import com.carterz30cal.utils.EntityUtils;
-import com.carterz30cal.utils.RandomUtils;
 import com.carterz30cal.utils.StringUtils;
 import io.papermc.paper.datacomponent.item.ResolvableProfile;
 import org.bukkit.Location;
@@ -61,12 +59,8 @@ public class GameOwnable extends GameEntity {
 
         register(this.uuid);
     }
-	
-	@Override
-	public int getHealth() {
-		return 1;
-	}
-	@Override
+
+    @Override
 	public void remove() {
         if (entityMain != null) {
             entityMain.remove();
@@ -78,14 +72,8 @@ public class GameOwnable extends GameEntity {
             entityTitle.remove();
         }
 	}
-	@Override
-	public void damage(DamageInfo info) {
-        ArmorStand hologram = EntityUtils.spawnHologram(entityMain.getLocation().add(RandomUtils.getDouble(-0.7F, 0.7F),
-				RandomUtils.getDouble(0.4F, 0.8F),
-				RandomUtils.getDouble(-0.7F, 0.7F)), 30);
-		hologram.setCustomName(Integer.toString(info.damage));
-	}
-	@Override
+
+    @Override
 	public Location getLocation() {
 		// TODO Auto-generated method stub
         return location;

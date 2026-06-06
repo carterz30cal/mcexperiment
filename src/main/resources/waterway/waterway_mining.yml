@@ -1,11 +1,11 @@
 weak_leaf_mash:
   name: "Leaf Mash"
-  hardness: 110
+  hardness: 90
   power-required: 1
   block-type: GREEN_WOOL
   item: leaf_mash
   lower-bound: 1
-  upper-bound: 3
+  upper-bound: 5
   conversion-chance: 40
   converts-into: GOLD_BLOCK
   mines-into: BEDROCK
@@ -13,12 +13,12 @@ weak_leaf_mash:
 
 leaf_mash:
   name: "Leaf Mash"
-  hardness: 240
+  hardness: 190
   power-required: 1
   block-type: LIME_WOOL
   item: leaf_mash
-  lower-bound: 1
-  upper-bound: 6
+  lower-bound: 2
+  upper-bound: 11
   conversion-chance: 45
   converts-into: GOLD_BLOCK
   mines-into: BEDROCK

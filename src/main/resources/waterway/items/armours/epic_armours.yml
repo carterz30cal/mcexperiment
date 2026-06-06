@@ -1,0 +1,27 @@
+titan_helmet:
+  name: Titan Helm
+  type: HELMET
+  rarity: EPIC
+  material: PLAYER_HEAD
+  value: 1000
+  skull-profile-id: titan_helmet
+  stats:
+    defence: +80
+    padding: +40
+    robustness: +40
+    level_requirement: 5
+    enchant_power: 20
+
+seraphs_pyjamas:
+  name: "Seraph's Pyjamas"
+  type: LEGGINGS
+  rarity: EPIC
+  trim-pattern: EYE
+  trim-material: LAPIS
+  material: GOLDEN_LEGGINGS
+  value: 1000
+  stats:
+    strength: +50
+    health: +15
+    enchant_power: +15
+    level_requirement: 6

@@ -2,8 +2,8 @@ package com.carterz30cal.areas;
 
 import com.carterz30cal.areas.bosses.AbstractAreaBoss;
 import com.carterz30cal.areas.spawners.AbstractEnemySpawner;
-import com.carterz30cal.entities.GameEnemy;
 import com.carterz30cal.entities.GameEntity;
+import com.carterz30cal.entities.enemies.core.GameEnemy;
 import com.carterz30cal.entities.player.GamePlayer;
 import com.carterz30cal.utils.Box;
 import org.bukkit.Location;
@@ -34,7 +34,7 @@ public abstract class AbstractGameArea {
 
     public void OnPlayerDeath(GamePlayer player) {
         for (var boss : registeredBosses) {
-            boss.OnPlayerDeath(player);
+            boss.onLeftFight(player, AbstractAreaBoss.LeftFightReason.DEATH);
         }
     }
 
@@ -56,24 +56,18 @@ public abstract class AbstractGameArea {
      */
     public void OnRightClick(GamePlayer player, Location location) {
         for (var boss : registeredBosses) {
-            boss.OnRightClick(player, location);
+
         }
     }
 
     public void OnTeleport(GamePlayer player, PlayerTeleport teleport) {
         for (var boss : registeredBosses) {
-            boss.OnTeleport(player, teleport);
+            boss.onLeftFight(player, AbstractAreaBoss.LeftFightReason.TELEPORTED);
         }
     }
 
     public List<String> GetScoreboard(GamePlayer player) {
         List<String> list = new ArrayList<>();
-        for (var boss : registeredBosses) {
-            if (!boss.IsPlayerInvolved(player)) {
-                continue;
-            }
-            list.addAll(boss.GetScoreboard(player));
-        }
         return list;
     }
 
@@ -85,7 +79,7 @@ public abstract class AbstractGameArea {
     public abstract PlayerTeleport GetRespawnPoint(GamePlayer died);
 
     public boolean IsInBounds(GameEntity entity) {
-        return boundingBox.IsWithin(entity.getLocation());
+        return boundingBox.isWithin(entity.getLocation());
     }
 
     public boolean IsInBounds(GamePlayer player) {

@@ -8,6 +8,7 @@ flimsy_fishing_rod:
     damage: +10
     fishing_power: +10
     enchant_power: +15
+    level_requirement: 1
 
 reinforced_fishing_rod:
   name: Reinforced Fishing Rod
@@ -18,6 +19,7 @@ reinforced_fishing_rod:
     damage: +15
     fishing_power: +65
     enchant_power: +20
+    level_requirement: 2
 
 better_fishing_rod:
   name: Better Fishing Rod
@@ -28,6 +30,7 @@ better_fishing_rod:
     damage: +15
     fishing_power: +90
     enchant_power: +20
+    level_requirement: 3
 
 poisonous_fishing_rod:
   name: Poisonous Fishing Rod
@@ -51,6 +54,7 @@ good_fishing_rod:
     damage: +15
     fishing_power: +110
     enchant_power: +25
+    level_requirement: 4
 
 barbara_rod:
   name: Barbara
@@ -63,6 +67,17 @@ barbara_rod:
     fishing_power: +20
     enchant_power: +50
     level_requirement: 9
+
+great_fishing_rod:
+  name: Great Fishing Rod
+  type: ROD
+  rarity: EPIC
+  material: FISHING_ROD
+  stats:
+    damage: +15
+    fishing_power: +175
+    enchant_power: +30
+    level_requirement: 6
 
 super_rod:
   name: Super Rod

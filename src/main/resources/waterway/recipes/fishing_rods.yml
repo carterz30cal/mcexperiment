@@ -45,3 +45,14 @@ good_fishing_rod:
     better_fishing_rod: 1
     cooked_waterway_cod: 2
     waterway_sac: 2
+
+great_fishing_rod:
+  level: 6
+  category: waterway_fishing_rods
+  discovery: waterway_cod_collection
+  discovery-tier: 6
+  items:
+    good_fishing_rod: 1
+    cooked_waterway_cod: 20
+    waterway_sac: 10
+    seraphs_eye: 1

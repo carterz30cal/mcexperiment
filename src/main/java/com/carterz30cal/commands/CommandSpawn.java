@@ -1,6 +1,6 @@
 package com.carterz30cal.commands;
 
-import com.carterz30cal.entities.EnemyManager;
+import com.carterz30cal.entities.enemies.core.EnemyManager;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;

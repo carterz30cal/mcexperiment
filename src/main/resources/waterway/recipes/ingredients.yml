@@ -11,6 +11,13 @@ paper:
   items:
     wet_paper: 115
 
+waterway_sac:
+  level: 4
+  category: waterway_ingredients
+  items:
+    paper: 2
+    chilli_powder: 10
+
 cooked_waterway_cod:
   category: waterway_ingredients
   time: 20m
@@ -19,11 +26,22 @@ cooked_waterway_cod:
   items:
     waterway_cod: 256
 
+mini_bulk_cooked_waterway_cod:
+  item: cooked_waterway_cod
+  amount: 4
+  time: 30m
+  custom-name: <gold>4x <blue>Cooked Waterway Cod
+  category: waterway_ingredients
+  discovery: waterway_cod_collection
+  discovery-tier: 5
+  items:
+    waterway_cod: 1024
+
 bulk_cooked_waterway_cod:
   item: cooked_waterway_cod
   amount: 64
   time: 1h
-  custom-name: GOLD64x BLUECooked Waterway Cod
+  custom-name: <gold>64x <blue>Cooked Waterway Cod
   category: waterway_ingredients
   discovery: waterway_cod_collection
   discovery-tier: 8
@@ -44,8 +62,8 @@ waterway_cod_meal:
 
 waterway_seraph_key:
   category: waterway
-  level: 3
+  level: 4
   items:
     waterway_sac: 1
-    leaf_mash: 128
+    leaf_mash: 96
     spiced_meat: 2

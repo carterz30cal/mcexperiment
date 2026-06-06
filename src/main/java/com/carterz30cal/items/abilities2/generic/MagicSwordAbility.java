@@ -1,37 +1,42 @@
 package com.carterz30cal.items.abilities2.generic;
 
-import com.carterz30cal.entities.DamageInfo;
-import com.carterz30cal.entities.DamageType;
 import com.carterz30cal.entities.GameEntity;
-import com.carterz30cal.items.abilities2.implementation.GameAbility;
+import com.carterz30cal.entities.health.damage.AttackType;
+import com.carterz30cal.entities.health.damage.DamagePacket;
+import com.carterz30cal.entities.health.damage.DamageType;
+import com.carterz30cal.entities.health.damage.operations.implementations.ConvertDamageTypeOperation;
+import com.carterz30cal.items.abilities2.implementation.*;
 import org.jetbrains.annotations.NotNull;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
  * @author carterz30cal
- * @version 1
+ * @version 2
  * @since 1.0.0
  */
-public class MagicSwordAbility extends GameAbility {
+public class MagicSwordAbility extends GameAbility implements AbilityWithDescription, AggressiveAbility {
     @Override
-    public String name(AbilityContext context) {
-        return "Magic Weapon";
+    public String name(PlayerAbilityContext context) {
+        return "Magical Blade";
     }
 
     @Override
-    public List<String> miniMessageDescription(@NotNull AbilityContext context) {
-        var list = super.miniMessageDescription(context);
-        list.add("<grey>This weapon deals <aqua>magical</aqua> damage");
-        list.add("<grey>instead of <white>physical</white> damage.");
-        list.add("<dark_grey>Other damage types are unaffected.");
+    public List<String> miniMessageDescription(@NotNull PlayerAbilityContext context) {
+        var list = new ArrayList<String>();
+        list.add("<grey>This weapon converts <white>physical</white> damage</grey>");
+        list.add("<grey>into <aqua>magic</aqua> damage.</grey>");
         return list;
     }
 
     @Override
-    public void onAttack(AbilityContext context, DamageInfo info, GameEntity attacked) {
-        if (info.type == DamageType.PHYSICAL) {
-            info.type = DamageType.MAGICAL;
+    public void damage(ContextWithAbility<? extends GameEntity> context, DamagePacket packet) {
+        if (packet.attack != AttackType.MELEE) {
+            return;
         }
+        packet.addOperation(new ConvertDamageTypeOperation(DamageType.PHYSICAL, DamageType.MAGIC));
     }
+
+
 }

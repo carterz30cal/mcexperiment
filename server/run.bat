@@ -1,1 +1,1 @@
-java -jar -Xmx2G paper-1.21.11-127.jar --nogui
+java --enable-preview -jar -Xmx2G paper-1.21.11-127.jar --nogui

@@ -19,6 +19,11 @@ import java.util.List;
 
 import static net.kyori.adventure.text.Component.text;
 
+/**
+ * @author carterz30cal
+ * @version 1
+ * @since 1.0.0
+ */
 public class PlayerScoreboard {
     private final Sidebar sidebar;
     private final ComponentSidebarLayout sidebarLayout;
@@ -36,7 +41,7 @@ public class PlayerScoreboard {
 
         var lines = SidebarComponent.builder()
                 .addDynamicLine(() -> {
-                    var subAreaName = owner.area.getArea().GetSubAreaName(owner);
+                    var subAreaName = owner.area != null ? owner.area.getArea().GetSubAreaName(owner) : "Void";
                     return text(subAreaName, NamedTextColor.DARK_GRAY);
                 })
                 .addBlankLine()
@@ -98,7 +103,7 @@ public class PlayerScoreboard {
                 Quests.QuestSave save = owner.GetQuestSave(chosenQuest);
                 if (save.sectionSave.HasTalkedTo()) {
                     drawable.drawLine(text());
-                    drawable.drawLine(text("Quest: ", NamedTextColor.GOLD).append(text(chosenQuest.GetName(), NamedTextColor.WHITE)));
+                    drawable.drawLine(text("Quest: ", NamedTextColor.GOLD).append(text(chosenQuest.getName(), NamedTextColor.WHITE)));
                     for (var sc : save.sectionSave.GetDescription()) {
                         drawable.drawLine(MiniMessage.miniMessage().deserialize(sc));
                     }

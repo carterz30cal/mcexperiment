@@ -14,9 +14,9 @@ leaf_pickaxe:
   material: WOODEN_PICKAXE
   glow: true
   stats:
-    mining_speed: 140
+    mining_speed: 150
     breaking_power: 2
-    mining_fortune: 20
+    mining_fortune: 50
 
 gold_leaf_pickaxe:
   name: Gold Leaf Pickaxe
@@ -24,6 +24,6 @@ gold_leaf_pickaxe:
   rarity: RARE
   material: GOLDEN_PICKAXE
   stats:
-    mining_speed: 175
+    mining_speed: 200
     breaking_power: 2
-    mining_fortune: 30
+    mining_fortune: 110

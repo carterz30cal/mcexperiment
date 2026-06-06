@@ -13,6 +13,7 @@ import org.bukkit.util.Vector;
 import java.util.ArrayList;
 import java.util.List;
 
+@Deprecated
 public class GameParticleProjectile extends GameEntity 
 {
 	public Particle.DustOptions display;
@@ -28,12 +29,6 @@ public class GameParticleProjectile extends GameEntity
 	
 	protected BukkitRunnable ticker;
 	protected GamePlayer playerOwner;
-	
-	@Override
-	public int getHealth() {
-		// TODO Auto-generated method stub
-		return 1;
-	}
 
 	@Override
 	public void remove() {
@@ -41,11 +36,6 @@ public class GameParticleProjectile extends GameEntity
 
 	}
 
-	@Override
-	public void damage(DamageInfo info) {
-		// TODO Auto-generated method stub
-
-	}
 
 	@Override
 	public Location getLocation() {
@@ -70,15 +60,15 @@ public class GameParticleProjectile extends GameEntity
 			if (check.distance(next) <= 0.6 && dy <= 1.8 && dy > 0)
 			{
 				hit.add(e);
-				
-				DamageInfo info = new DamageInfo();
-				info.damage = damage;
-				info.attacker = playerOwner;
-				info.defender = e;
-				info.type = DamageType.MAGICAL;
-				info.main = true;
-				
-				e.damage(info);
+
+//				DamageInfo info = new DamageInfo();
+//				info.damage = damage;
+//				info.attacker = playerOwner;
+//				info.defender = e;
+//				info.type = DamageType.MAGICAL;
+//				info.main = true;
+//
+//				e.damage(info);
 				piercesLeft--;
 			}
 			

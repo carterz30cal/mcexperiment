@@ -70,7 +70,7 @@ water_spirit_soul:
   name: Water Spirit Soul
   type: TALISMAN
   rarity: RARE
-  material: PLAYER_HEAD
+  material: LIGHT_BLUE_GLAZED_TERRACOTTA
   value: 1000
   stats:
-    FISHING_POWER: +70
+    FISHING_POWER: +80

@@ -17,6 +17,9 @@ public enum Stat
     HEALTH("\u2665 Health", NamedTextColor.RED, StatType.DEFENSIVE, StatDisplayType.NORMAL),
     DEFENCE("\u25CB Defence", NamedTextColor.GREEN, StatType.DEFENSIVE, StatDisplayType.NORMAL),
     VITALITY("\u25C6 Vitality", NamedTextColor.GREEN, StatType.DEFENSIVE, StatDisplayType.NORMAL),
+    ROBUSTNESS("\u00B1 Robustness", NamedTextColor.RED, StatType.DEFENSIVE, StatDisplayType.NORMAL),
+    PADDING("\u25CB Padding", NamedTextColor.WHITE, StatType.DEFENSIVE, StatDisplayType.NORMAL),
+    INSULATION("\u03C8 Insulation", NamedTextColor.WHITE, StatType.DEFENSIVE, StatDisplayType.NORMAL),
 
     MANA("\u00D7 Mana", NamedTextColor.LIGHT_PURPLE, StatType.OFFENSIVE, StatDisplayType.NORMAL),
     FOCUS("\u25C6 Focus", NamedTextColor.AQUA, StatType.OFFENSIVE, StatDisplayType.NORMAL),
@@ -38,8 +41,10 @@ public enum Stat
     LEVEL_REQUIREMENT("level requirement", NamedTextColor.BLACK, StatType.HIDDEN, StatDisplayType.NO_DISPLAY),
     BACKPACK_PAGES("backpack pages", NamedTextColor.WHITE, StatType.HIDDEN, StatDisplayType.NO_DISPLAY),
     WARDROBE_SLOTS("wardrobe slots", NamedTextColor.WHITE, StatType.HIDDEN, StatDisplayType.NO_DISPLAY),
+    FORGE_SLOTS("\u03C8 Forge Slots", NamedTextColor.WHITE, StatType.ECONOMY, StatDisplayType.NORMAL),
     SACK_SPACE("\uD83D Sack Space", NamedTextColor.WHITE, StatType.HIDDEN, StatDisplayType.NO_DISPLAY_IN_PLAYER_STATS),
     VISIBILITY("\u25CB Visibility", NamedTextColor.YELLOW, StatType.OFFENSIVE, StatDisplayType.NORMAL),
+    INTIMIDATION("\u25BC Intimidation", NamedTextColor.YELLOW, StatType.DEFENSIVE, StatDisplayType.NORMAL),
     SKILL_TREE_TOKENS("skill tree tokens", NamedTextColor.WHITE, StatType.HIDDEN, StatDisplayType.NO_DISPLAY),
 	;
     public final String name;

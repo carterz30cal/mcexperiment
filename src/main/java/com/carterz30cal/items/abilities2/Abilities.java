@@ -7,9 +7,11 @@ import com.carterz30cal.items.abilities2.generic.HealingAbility;
 import com.carterz30cal.items.abilities2.generic.MagicSwordAbility;
 import com.carterz30cal.items.abilities2.generic.StatEnchantment;
 import com.carterz30cal.items.abilities2.implementation.GameAbility;
+import com.carterz30cal.items.abilities2.implementation.PlayerAbilityContext;
 import com.carterz30cal.items.abilities2.waterway.*;
 import com.carterz30cal.items.abilities2.waterway.pets.PetDrenchedActive;
 import com.carterz30cal.items.abilities2.waterway.pets.PetDrenchedPassive;
+import com.carterz30cal.items.abilities2.waterway.pets.PetWaterSpiderActive;
 import com.carterz30cal.items.abilities2.waterway.pets.PetWaterTitanActive;
 import com.carterz30cal.items.abilities2.waterway.sets.LeafArmourSet;
 import com.carterz30cal.items.abilities2.waterway.sets.ZombieArmourSet;
@@ -25,7 +27,7 @@ public enum Abilities
 {
 	ENCHANT_SHARPNESS(new StatEnchantment(
 			"Sharpness", 2,
-			Stat.STRENGTH, 0, 20, 5, ItemType.WEAPON, ItemType.WAND, ItemType.ROD)),
+            Stat.STRENGTH, 0, 20, 5, ItemType.WEAPON, ItemType.BOW, ItemType.ROD)),
 	ENCHANT_HEALTHY(new StatEnchantment(
 			"Healthy", 1,
             Stat.HEALTH, 30, 10, 3,
@@ -33,12 +35,12 @@ public enum Abilities
 	)),
 	ENCHANT_TITANIC(new StatEnchantment(
 			"Titanic", 1,
-			Stat.DEFENCE, 0, 5, 5,
+            Stat.DEFENCE, 10, 5, 5,
 			ItemType.HELMET, ItemType.CHESTPLATE, ItemType.LEGGINGS, ItemType.BOOTS
 	)),
 	ENCHANT_PEARLED(new StatEnchantment(
-			"Pearled", 1,
-			Stat.MANA, 0, 5, 5,
+            "Pearled", 2,
+            Stat.MANA, 0, 10, 5,
 			ItemType.HELMET, ItemType.CHESTPLATE, ItemType.LEGGINGS, ItemType.BOOTS
 	)),
 	ENCHANT_BOOST(new StatEnchantment(
@@ -54,20 +56,26 @@ public enum Abilities
             "Luck", 1, Stat.LUCK, 0, 1, 5, ItemType.WEAPON, ItemType.ROD, ItemType.WAND, ItemType.BOW
     )),
     ENCHANT_CONCENTRATION(new StatEnchantment(
-            "Concentration", 3, Stat.FOCUS, 2, 1, 3, ItemType.HELMET, ItemType.WEAPON
+            "Concentration", 3, Stat.FOCUS, 1, 1, 3, ItemType.HELMET, ItemType.WEAPON
     )),
     ENCHANT_LAST_CHANCE(new LastChanceEnchantment()),
     ENCHANT_POWER(new StatEnchantment("Power", 2, Stat.DAMAGE, 0, 1, 5, ItemType.BOW)),
+    ENCHANT_BLADE(new StatEnchantment("Blade", 2, Stat.DAMAGE, 0, 1, 4, ItemType.WEAPON)),
+
+    ENCHANT_REGROWTH(new StatEnchantment("Regrowth", 2, Stat.VITALITY, 1, 1, 2, ItemType.WEAPON, ItemType.BOW, ItemType.ROD)),
 
 	NECROMANCY_SWORD(new NecromancerAbility()),
-    HEALING_WAND_WATERWAY(new HealingAbility(12, 30)),
+    HEALING_WAND_WATERWAY(new HealingAbility(15, 10, 5)),
 	SET_LEAF(new LeafArmourSet()),
 	SET_ZOMBIE(new ZombieArmourSet()),
 	PET_DRENCHED_ACTIVE(new PetDrenchedActive()),
 	PET_DRENCHED_PASSIVE(new PetDrenchedPassive()),
     PET_WATER_TITAN_ACTIVE(new PetWaterTitanActive()),
+    PET_WATER_SPIDER_ACTIVE(new PetWaterSpiderActive()),
     WATERWAY_SERAPH_SWORD(new SeraphSwordAbility()),
+    WATERWAY_SERAPH_KEY(new SeraphKeyAbility()),
     MAGIC_SWORD(new MagicSwordAbility()),
+    RAGING_AXE(new RagingAxeAbility()),
     SERAPH_SUMMON_GUIDE(new SeraphSummonGuideAbility("water_seraph_spirit", 20)),
     ADMIN_INSTANT_DEATH_SWORD(new DeadAbility()),
 	;
@@ -78,11 +86,12 @@ public enum Abilities
 		this.ability.source = this;
 	}
 
-	public GameAbility.AbilityContext getContext(GamePlayer owner) {
+    public PlayerAbilityContext getContext(GamePlayer owner) {
 		return getContext(owner, 1);
 	}
-	public GameAbility.AbilityContext getContext(GamePlayer owner, int level) {
-		var context = new GameAbility.AbilityContext(ability);
+
+    public PlayerAbilityContext getContext(GamePlayer owner, int level) {
+        var context = new PlayerAbilityContext(ability);
 		context.level = level;
 		context.owner = owner;
 		return context;

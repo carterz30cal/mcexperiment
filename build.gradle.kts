@@ -25,7 +25,6 @@ repositories {
     maven {
         url = uri("https://repo.maven.apache.org/maven2/")
     }
-
     maven {
         name = "papermc"
         url = uri("https://repo.papermc.io/repository/maven-public/")
@@ -39,7 +38,7 @@ dependencies {
     //compileOnly(libs.org.spigotmc.spigot.api)
     compileOnly(libs.paper.api)
     implementation("net.megavex:scoreboard-library-api:2.7.4")
-    implementation("net.megavex:scoreboard-library-implementation:2.7.4")
+    runtimeOnly("net.megavex:scoreboard-library-implementation:2.7.4")
 }
 
 group = "com.carterz30cal"
@@ -52,22 +51,30 @@ publishing {
     }
 }
 
+java {
+    toolchain.languageVersion.set(JavaLanguageVersion.of(21))
+}
+
 tasks.shadowJar {
     relocate("net.megavex", "com.carterz30cal.libs.megavex")
     archiveClassifier.set("") // replaces the normal jar as the output
 }
 
-tasks.withType<JavaCompile>() {
+tasks.withType<JavaCompile> {
+    options.encoding = "UTF-8"
+    options.compilerArgs.add("--enable-preview")
+}
+
+tasks.withType<Javadoc> {
     options.encoding = "UTF-8"
 }
 
-tasks.withType<Javadoc>() {
-    options.encoding = "UTF-8"
+tasks.withType<Test>().configureEach {
+    useJUnitPlatform()
+    jvmArgs("--enable-preview")
 }
 
-java {
-    toolchain.languageVersion.set(JavaLanguageVersion.of(21))
-}
+
 
 tasks.register<Copy>("copyJar") {
     dependsOn(tasks.shadowJar)

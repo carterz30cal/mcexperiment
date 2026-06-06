@@ -4,11 +4,11 @@ codpiece_leggings:
   material: COPPER_LEGGINGS
   rarity: VERY_RARE
   stats:
-    defence: +15
+    defence: +25
     might: +35
-    fishing_power: +20
+    fishing_power: +25
     enchant_power: +5
-    level_requirement: 6
+    level_requirement: 5
 
 lava_glass_helmet:
   name: Lavaglass Helmet
@@ -30,18 +30,15 @@ clear_glass_helmet:
   stats:
     mana: +100
     enchant_power: +50
-    level_requirement: 6
+    level_requirement: 5
 
-seraphs_pyjamas:
-  name: "Seraph's Pyjamas"
-  type: LEGGINGS
-  rarity: EPIC
-  trim-pattern: EYE
-  trim-material: LAPIS
-  material: GOLDEN_LEGGINGS
-  value: 1000
+blast_plating:
+  name: Blast Plating
+  type: CHESTPLATE
+  material: IRON_CHESTPLATE
+  rarity: VERY_RARE
+  value: 800
   stats:
-    strength: +50
-    health: +15
-    enchant_power: +15
-    level_requirement: 6
+    padding: +200
+    enchant_power: 20
+    level_requirement: 5

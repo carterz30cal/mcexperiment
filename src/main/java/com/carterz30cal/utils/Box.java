@@ -12,6 +12,11 @@ import java.util.List;
 import java.util.Set;
 import java.util.stream.Stream;
 
+/**
+ * @author carterz30cal
+ * @version 2
+ * @since 1.0.0
+ */
 public class Box {
     private final int x1;
     private final int y1;
@@ -59,32 +64,34 @@ public class Box {
         this(location.getBlockX(), location.getBlockY(), location.getBlockZ());
     }
 
-    public Box Expand(int by) {
+    public Box expand(int by) {
         return new Box(x1 - by, y1 - by, z1 - by, x2 + by, y2 + by, z2 + by);
     }
-    public Box Expand(int byX, int byY, int byZ) {
+
+    public Box expand(int byX, int byY, int byZ) {
         return new Box(x1 - byX, y1 - byY, z1 - byZ, x2 + byX, y2 + byY, z2 + byZ);
     }
 
-    public boolean IsWithin(Location l1) {
+    public boolean isWithin(Location l1) {
         int x = l1.getBlockX();
         int y = l1.getBlockY();
         int z = l1.getBlockZ();
         return x >= x1 && x <= x2 && y >= y1 && y <= y2 && z >= z1 && z <= z2;
     }
 
-    public Location GetLowerCornerAsLocation() {
+    public Location getLowerCornerAsLocation() {
         return new Location(Dungeons.w, x1, y1, z1);
     }
-    public Location GetUpperCornerAsLocation() {
+
+    public Location getUpperCornerAsLocation() {
         return new Location(Dungeons.w, x2, y2, z2);
     }
 
-    public Location GetMiddleAsLocation() {
+    public Location getMiddleAsLocation() {
         return new Location(Dungeons.w, (double) (x1 + x2) / 2, (double) (y1 + y2) / 2, (double) (z1 + z2) / 2);
     }
 
-    public Stream<Location> GetWithin() {
+    public Stream<Location> getWithin() {
         List<Location> locations = new ArrayList<>();
         for (int x = x1; x <= x2; x++) {
             for (int y = y1; y <= y2; y++) {
@@ -96,54 +103,52 @@ public class Box {
         return locations.stream();
     }
 
-    public Set<GamePlayer> GetPlayersWithin() {
+    public Set<GamePlayer> getPlayersWithin() {
         Set<GamePlayer> players = new HashSet<>();
         for (var player : PlayerManager.getOnlinePlayers()) {
-            if (IsWithin(player.getLocation())) {
+            if (isWithin(player.getLocation())) {
                 players.add(player);
             }
         }
         return players;
     }
 
-    public Location GetRandomMobLocation() {
+    public Location getRandomMobLocation() {
         int rx = RandomUtils.getRandom(x1, x2);
-        int ry = RandomUtils.getRandom(y1, y2);
+        int ry = Math.min(y1, y2);
         int rz = RandomUtils.getRandom(z1, z2);
 
         Location location = new Location(Dungeons.w, rx, ry, rz);
-        int attempts = 0;
-        while (location.getBlock().getType() != Material.AIR && attempts < 15) {
+        while (location.getBlock().getType() != Material.AIR && ry <= y2) {
             ry++;
-            attempts++;
             location = new Location(Dungeons.w, rx, ry, rz);
         }
         if (location.getBlock().getType() != Material.AIR) {
-            return GetRandomMobLocation();
+            return getRandomMobLocation();
         }
         else {
-            attempts = 0;
+            int attempts = 0;
             while (location.clone().subtract(0, 1, 0).getBlock().getType() == Material.AIR && attempts < 15) {
                 ry--;
                 attempts++;
                 location = new Location(Dungeons.w, rx, ry, rz);
             }
             if (location.clone().subtract(0, 1, 0).getBlock().getType() == Material.AIR) {
-                return GetRandomMobLocation();
+                return getRandomMobLocation();
             }
         }
         if (location.clone().subtract(0, 1, 0).getBlock().isLiquid()) {
-            return GetRandomMobLocation();
+            return getRandomMobLocation();
         }
 
         return location;
     }
 
-    public int GetHorizontalCrossSectionalArea() {
+    public int getHorizontalCrossSectionalArea() {
         return (x2 - x1) * (z2 - z1);
     }
 
-    public double GetHorizontalLongestSide() {
+    public double getHorizontalLongestSide() {
         return Math.max(x2 - x1, z2 - z1);
     }
 }

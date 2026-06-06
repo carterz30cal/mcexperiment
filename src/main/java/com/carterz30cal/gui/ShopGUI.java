@@ -104,7 +104,7 @@ public class ShopGUI extends AbstractGUI {
         }
         for (String item : recipe.items.keySet())
         {
-            int amountInSack = owner.sack.getOrDefault(item, 0);
+            long amountInSack = owner.sack.getOrDefault(item, 0L);
             var l = text().append(text("- ", DARK_GRAY))
                     .append(ItemFactory.getItemNameBuilder(item))
                     .append(text(" x" + recipe.items.get(item), DARK_GRAY));

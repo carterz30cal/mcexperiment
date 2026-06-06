@@ -1,50 +1,40 @@
 package com.carterz30cal.items.abilities2.waterway;
 
 
-import com.carterz30cal.items.abilities2.implementation.GameAbility;
+import com.carterz30cal.entities.StatHavingEntity;
+import com.carterz30cal.items.abilities2.implementation.*;
 import com.carterz30cal.stats.Stat;
 import com.carterz30cal.stats.StatContainer;
-import com.carterz30cal.stats.StatOperationType;
-import net.kyori.adventure.text.TextComponent;
+import com.carterz30cal.stats.operations.GrantStatFromStatOperation;
 import org.jetbrains.annotations.NotNull;
 
+import java.util.ArrayList;
 import java.util.List;
-
-import static net.kyori.adventure.text.Component.text;
-import static net.kyori.adventure.text.format.NamedTextColor.GRAY;
 
 /**
  * @author carterz30cal
- * @version 1
+ * @version 2
  * @since 1.0.0
  */
-public class SeraphSwordAbility extends GameAbility {
+public class SeraphSwordAbility extends GameAbility implements AbilityWithDescription, AbilityWithStats {
     @Override
-    public String name(AbilityContext context) {
+    public String name(PlayerAbilityContext context) {
         return "Starlight-Imbued";
     }
 
     @Override
-    public List<TextComponent.Builder> componentDescription(@NotNull AbilityContext context) {
-        var l = super.componentDescription(context);
-        var l1 = text();
-        l1.append(text("Gains", GRAY))
-                .append(text(" +5" + Stat.POWER.getIcon(), Stat.POWER.textColour))
-                .append(text(" for every", GRAY))
-                .append(text(" 1" + Stat.FOCUS.getIcon(), Stat.FOCUS.textColour))
-                .append(text(" that", GRAY));
-        var l2 = text();
-        l2.append(text("you have in total.", GRAY));
-        l.add(l1);
-        l.add(l2);
-        return l;
+    public List<String> miniMessageDescription(@NotNull PlayerAbilityContext context) {
+        var list = new ArrayList<String>();
+        list.add("<grey>Grants " + formattedDisplay(Stat.POWER, 5) + " for every<grey>");
+        list.add("<grey>" + formattedDisplay(Stat.FOCUS, 2) + " that this weapon has.<grey>");
+        return list;
     }
 
     @Override
-    public void onItemStats(AbilityContext context, StatContainer item) {
-        if (context == null || context.owner == null || context.owner.lastStats == null) {
+    public void modifyStats(ContextWithAbility<? extends StatHavingEntity> context, StatContainer stats, Situation situation) {
+        if (situation != Situation.ITEM) {
             return;
         }
-        item.scheduleOperation(Stat.POWER, StatOperationType.ADD, context.owner.lastStats.getStat(Stat.FOCUS) * 5);
+        stats.operation(new GrantStatFromStatOperation(Stat.FOCUS, Stat.POWER, 2, 5));
     }
 }

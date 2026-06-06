@@ -90,10 +90,10 @@ public class StringUtils
      * @since 1.0.0
      */
     public static String stringProgressBar(int length, double percentFilled, TextColor filledColour, TextColor unfilledColour) {
-        int filledLength = (int) Math.round(percentFilled * length);
-        return "<" + filledColour.asHexString() + ">" + new StringBuilder().repeat('|', filledLength).toString() +
+        int filledLength = (int) Math.round(percentFilled * (double) length);
+        return "<" + filledColour.asHexString() + ">" + new StringBuilder().repeat('|', filledLength) +
                 "</" + filledColour.asHexString() + ">" + "<" + unfilledColour.asHexString() + ">" +
-                new StringBuilder().repeat('|', length - filledLength).toString()
+                new StringBuilder().repeat('|', length - filledLength)
                 + "</" + unfilledColour.asHexString() + ">";
     }
 
@@ -245,6 +245,10 @@ public class StringUtils
 	{
 		return selectFromList(s.getString(p, "0"), i);
 	}
+
+    public static long getLongFromStringConf(ConfigurationSection s, String p, int i) {
+        return selectLongFromList(s.getString(p, "0"), i);
+    }
 	public static String getStrFromStringConf(ConfigurationSection s, String p, int i)
 	{
 		return s.getString(p).split(",")[i];
@@ -256,6 +260,16 @@ public class StringUtils
 		if (l.length == 1) return Integer.parseInt(l[0]);
 		else return Integer.parseInt(l[i].strip());
 	}
+
+    public static long selectLongFromList(String list, int i) {
+        String[] l = list.split(",");
+        if (l.length == 1) {
+            return Long.parseLong(l[0]);
+        }
+        else {
+            return Long.parseLong(l[i].strip());
+        }
+    }
 
     @Deprecated
 	public static String colourString(String string)

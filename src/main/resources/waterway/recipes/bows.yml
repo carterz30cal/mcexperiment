@@ -1,32 +1,55 @@
 paper_mache_bow:
-  level: 3
+  level: 2
   time: 5m
   category: waterway_weapons_bows
   items:
     weird_flesh: 32
     chilli_powder: 2
 
+spider_bow:
+  level: 3
+  time: 5m
+  category: waterway_weapons_bows
+  items:
+    spider_silk: 450
+
+paper_mache_bow_very_rare:
+  level: 3
+  category: waterway_weapons_bows
+  items:
+    paper_mache_bow: 1
+    spider_silk: 80
+    chilli_powder: 10
+
+lunatic_bow:
+  level: 3
+  time: 5m
+  category: waterway_weapons_bows
+  items:
+    spider_silk: 200
+    weird_flesh: 800
+
 flimsy_arrow:
-  custom-name: GOLD12xGRAY Flimsy Arrow
-  level: 3
+  custom-name: <gold>12x<grey> Flimsy Arrow
+  level: 2
   category: waterway_weapons_arrows
-  amount: 12
+  amount: 24
   items:
-    weird_flesh: 3
+    weird_flesh: 7
 paper_arrow:
-  custom-name: GOLD3xGRAY Paper Arrow
+  custom-name: <gold>3x<grey> Paper Arrow
   level: 3
   category: waterway_weapons_arrows
-  amount: 3
+  amount: 20
   items:
-    wet_paper: 2
+    wet_paper: 12
 spiced_arrow:
-  custom-name: GOLD85x YELLOWSpiced Arrow
+  custom-name: <gold>85x <yellow>Spiced Arrow
   level: 4
   category: waterway_weapons_arrows
   discovery: weird_flesh_collection
   discovery-tier: 3
-  amount: 85
+  amount: 100
   items:
     spiced_meat: 1
-    chilli_powder: 1
+    chilli_powder: 2

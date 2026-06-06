@@ -1,14 +1,15 @@
 package com.carterz30cal.events;
 
-import com.carterz30cal.entities.GameEnemy;
 import com.carterz30cal.entities.GameEntity;
 import com.carterz30cal.entities.interactable.GameEntityInteractable;
 import com.carterz30cal.entities.player.GamePlayer;
+import com.carterz30cal.entities.player.GameProjectile;
 import com.carterz30cal.gui.LootboxGUI;
 import com.carterz30cal.gui.MenuGUI;
 import com.carterz30cal.items.Item;
 import com.carterz30cal.items.ItemFactory;
 import com.carterz30cal.items.ItemType;
+import com.carterz30cal.items.abilities2.implementation.AbilityWithClick;
 import com.carterz30cal.items.types.ItemLootbox;
 import com.carterz30cal.mining.MiningManager;
 import org.bukkit.FluidCollisionMode;
@@ -23,8 +24,12 @@ import org.bukkit.event.player.PlayerAnimationEvent;
 import org.bukkit.event.player.PlayerAnimationType;
 import org.bukkit.event.player.PlayerInteractEntityEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
-import org.bukkit.persistence.PersistentDataType;
 
+/**
+ * @author carterz30cal
+ * @version 2
+ * @since 1.0.0
+ */
 public class ListenerPlayerInteract implements Listener {
 	@EventHandler
 	public void onPlayerInteract(PlayerInteractEvent e)
@@ -44,46 +49,34 @@ public class ListenerPlayerInteract implements Listener {
 			Action act = e.getAction();
 			if (act == Action.RIGHT_CLICK_AIR || act == Action.RIGHT_CLICK_BLOCK) 
 			{
-                if (item instanceof ItemLootbox && e.getItem().getAmount() > 0) {
-					ItemLootbox lootbox = (ItemLootbox)item;
-
-					p.openGui(new LootboxGUI(p, lootbox));
+                if (item instanceof ItemLootbox lootbox && e.getItem().getAmount() > 0) {
+                    p.openGui(new LootboxGUI(p, lootbox));
 
 					e.setCancelled(true);
 					e.getItem().setAmount(e.getItem().getAmount() - 1);
 				}
 				p.allowInteract = !p.allowInteract;
-				if (p.allowInteract) for (var a : p.abilities) a.ability.onRightClick(a);
+                if (p.allowInteract) {
+                    for (var a : p.abilities) {
+                        if (!(a.ability instanceof AbilityWithClick abilityWithClick)) {
+                            continue;
+                        }
+                        abilityWithClick.click(a, AbilityWithClick.Situation.RIGHT_CLICK);
+                    }
+                }
                 if (act == Action.RIGHT_CLICK_BLOCK && p.area != null) {
                     assert e.getClickedBlock() != null;
                     p.area.getArea().OnRightClick(p, e.getClickedBlock().getLocation());
                 }
 				
 				if (item != null && item.material == Material.FISHING_ROD) e.setCancelled(false);
-				if (act == Action.RIGHT_CLICK_BLOCK && e.getClickedBlock().getType() == Material.BARREL) {
-					e.setCancelled(false);
-				}
-			}
-			else if (act == Action.LEFT_CLICK_AIR || act == Action.LEFT_CLICK_BLOCK)
-			{
-				/*
-				if (item != null && item.type == ItemType.BOW && p.bowTick < 1)
-				{
-					p.bowTick = 4;
-					if (p.getQuiverCount() > 0)
-					{
-						Arrow arrow = p.player.launchProjectile(Arrow.class);
-						arrow.getPersistentDataContainer().set(GameEnemy.keyEnemy, PersistentDataType.STRING, p.player.getUniqueId().toString());
-						arrow.getPersistentDataContainer().set(GameEnemy.keyArrowType, PersistentDataType.STRING, p.useArrow());
-					}
-					else p.sendMessage("REDYou are out of arrows!");
-				}
-				for (ItemAbility a : p.abilities) a.onLeftClick();
-				*/
-			}
-			
-			
-			
+                if (act == Action.RIGHT_CLICK_BLOCK) {
+                    assert e.getClickedBlock() != null;
+                    if (e.getClickedBlock().getType() == Material.BARREL) {
+                        e.setCancelled(false);
+                    }
+                }
+            }
 		}
 	}
 	
@@ -99,11 +92,12 @@ public class ListenerPlayerInteract implements Listener {
                         p.bowTick = 4;
                         if (p.getQuiverCount() > 0) {
                             Arrow arrow = p.player.launchProjectile(Arrow.class);
-                            arrow.getPersistentDataContainer().set(GameEnemy.keyEnemy, PersistentDataType.STRING, p.player.getUniqueId().toString());
-                            arrow.getPersistentDataContainer().set(GameEnemy.keyArrowType, PersistentDataType.STRING, p.useArrow());
+                            var projectile = new GameProjectile(p, arrow);
+                            var arrowType = p.useArrow();
+                            projectile.setContextualAbilities(ItemFactory.getItem(arrowType));
                         }
                         else {
-                            p.sendMessage("REDYou are out of arrows!");
+                            p.sendMessage("<red>You are out of arrows!</red>");
                         }
                     }
                 }
@@ -116,7 +110,12 @@ public class ListenerPlayerInteract implements Listener {
                     }
                 }
             }
-			for (var a : p.abilities) a.ability.onLeftClick(a);
+            for (var a : p.abilities) {
+                if (!(a.ability instanceof AbilityWithClick abilityWithClick)) {
+                    continue;
+                }
+                abilityWithClick.click(a, AbilityWithClick.Situation.LEFT_CLICK);
+            }
 		}
 	}
 	

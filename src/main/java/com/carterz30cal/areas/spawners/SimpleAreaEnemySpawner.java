@@ -1,7 +1,7 @@
 package com.carterz30cal.areas.spawners;
 
-import com.carterz30cal.entities.GameEnemy;
 import com.carterz30cal.entities.GameEntity;
+import com.carterz30cal.entities.enemies.core.GameEnemy;
 import com.carterz30cal.entities.player.GamePlayer;
 import com.carterz30cal.utils.Box;
 import com.carterz30cal.utils.EntityUtils;
@@ -81,29 +81,29 @@ public class SimpleAreaEnemySpawner extends AbstractEnemySpawner {
         if (spawnTick >= spawnTimer && GetCurrentlyValidToSpawn()) {
             int max = GetPlayersWithinValidArea().size() + 2;
             while (mobs.size() < GetMaxMobCount() && max > 0) {
-                GameEnemy enemy = GetValidSpawningOption().Spawn(spawnBox.GetRandomMobLocation());
-                mobs.add(enemy.GetUUID());
+                GameEnemy enemy = GetValidSpawningOption().Spawn(spawnBox.getRandomMobLocation());
+                mobs.add(enemy.getUUID());
                 max--;
             }
             spawnTick = 0;
         }
-        mobs.removeIf((e) -> GameEntity.entities.get(e).dead);
+        mobs.removeIf((e) -> !GameEntity.entities.containsKey(e) || GameEntity.entities.get(e).dead);
         super.tick();
     }
 
     @Override
     public void onAreaKill(GameEnemy killed) {
-        mobs.remove(killed.GetUUID());
+        mobs.remove(killed.getUUID());
         super.onAreaKill(killed);
     }
 
     protected int GetMaxMobCount() {
-        int crossArea = spawnBox.GetHorizontalCrossSectionalArea();
+        int crossArea = spawnBox.getHorizontalCrossSectionalArea();
         return (int) Math.round((crossArea / 81D) * spawnMultiplier);
     }
 
     protected List<GamePlayer> GetPlayersWithinValidArea() {
-        return EntityUtils.getNearbyPlayers(spawnBox.GetMiddleAsLocation(), spawnBox.GetHorizontalLongestSide() + 4);
+        return EntityUtils.getNearbyPlayers(spawnBox.getMiddleAsLocation(), spawnBox.getHorizontalLongestSide() + 4);
     }
 
     protected boolean GetCurrentlyValidToSpawn() {

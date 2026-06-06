@@ -28,26 +28,12 @@ public class GameFloatingItem extends GameEntity {
 	private GamePlayer owner;
 	
 	private BukkitRunnable ticker;
-	
-	
-	
-	@Override
-	public int getHealth() {
-		// TODO Auto-generated method stub
-		return 1;
-	}
 
 	@Override
 	public void remove() {
 		// TODO Auto-generated method stub
 		deregister(display.getUniqueId());
 		display.remove();
-	}
-
-	@Override
-	public void damage(DamageInfo info) {
-		// TODO Auto-generated method stub
-
 	}
 
 	@Override

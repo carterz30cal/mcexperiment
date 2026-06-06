@@ -1,6 +1,7 @@
 package com.carterz30cal.entities;
 
 import com.carterz30cal.areas.quests.Quests;
+import com.carterz30cal.entities.health.EntityHealthSystemBuilder;
 import com.carterz30cal.entities.player.GamePlayer;
 import com.carterz30cal.items.ForgingItem;
 import com.carterz30cal.main.Dungeons;
@@ -79,19 +80,6 @@ public class PlayerManager
 	}
 	
 	
-	public void registerPlayer(Player p)
-	{
-		GamePlayer player = new GamePlayer();
-		player.player = p;
-		player.health = 1;
-		player.completedQuests.add("player_joined");
-		
-		loadPlayer(player);
-		
-		player.register(p.getUniqueId());
-		players.put(p.getUniqueId(), player);
-	}
-	
 	public static void loadPlayer(GamePlayer p)
 	{
 		if (!f.contains(p.player.getUniqueId().toString())) {
@@ -99,11 +87,11 @@ public class PlayerManager
 			return;
 		}
 		ConfigurationSection c = f.getConfigurationSection(p.player.getUniqueId().toString());
-		
+
 		p.level = c.getInt("level", 0);
 		p.xp = c.getInt("xp", 0);
 		p.coins = c.getInt("coins", 0);
-		
+
 		ConfigurationSection forging = c.getConfigurationSection("forging");
 		if (forging != null)
 		{
@@ -119,7 +107,7 @@ public class PlayerManager
             for (Quests quest : Quests.values()) {
                 ConfigurationSection qs = quests.getConfigurationSection(quest.name());
                 if (qs != null) {
-                    p.LoadQuestSave(quest.LoadSave(p, qs));
+                    p.LoadQuestSave(quest.loadSave(p, qs));
                 }
             }
         }
@@ -134,7 +122,7 @@ public class PlayerManager
         }
         p.wardrobe.Load(wardrobe);
         p.skillTree.load(c);
-		
+
 		ConfigurationSection quiver = c.getConfigurationSection("quiver");
 		if (quiver != null)
 		{
@@ -151,7 +139,7 @@ public class PlayerManager
             }
         }
 
-		
+
 		ConfigurationSection discoveries = c.getConfigurationSection("discoveries");
 		if (discoveries != null)
 		{
@@ -160,13 +148,13 @@ public class PlayerManager
 				p.discoveries.put(path, discoveries.getLong(path, 0));
 			}
 		}
-		
+
 		ConfigurationSection sack = c.getConfigurationSection("sack");
 		if (sack != null)
 		{
 			for (String path : sack.getKeys(false))
 			{
-				p.sack.put(path, sack.getInt(path, 0));
+                p.sack.put(path, sack.getLong(path, 0));
 			}
 		}
 
@@ -181,9 +169,21 @@ public class PlayerManager
 
 		p.activePet = c.getString("active-pet");
 		p.pets = c.getStringList("pets");
-		
-		
+
+
 		p.talismans = c.getStringList("talismans");
+	}
+	
+	public void registerPlayer(Player p)
+	{
+		GamePlayer player = new GamePlayer();
+		player.player = p;
+        player.healthSystem = new EntityHealthSystemBuilder().build();
+
+		loadPlayer(player);
+
+		player.register(p.getUniqueId());
+		players.put(p.getUniqueId(), player);
 	}
 	
 	public static void savePlayer(GamePlayer p)
@@ -216,7 +216,7 @@ public class PlayerManager
         c.createSection("quests");
         for (Quests quest : Quests.values()) {
             ConfigurationSection qs = Objects.requireNonNull(c.getConfigurationSection("quests")).createSection(quest.name());
-            quest.SaveSave(p, qs);
+            quest.saveSave(p, qs);
         }
         Quests selected = p.GetSelectedQuest();
         if (selected != null) {

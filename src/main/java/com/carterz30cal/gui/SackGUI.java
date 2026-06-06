@@ -73,7 +73,7 @@ public class SackGUI extends AbstractGUI
                             .append(text(" x" + owner.sack.get(s), NamedTextColor.WHITE)),
                     lore
             );
-            display.setAmount(Math.min(owner.sack.get(s), 64));
+            display.setAmount(Math.toIntExact(Math.min(owner.sack.get(s), 64L)));
 			arrows[y * 9 + x] = s;
 
             inventory.setSlot(display, calc(x, y));
@@ -104,10 +104,10 @@ public class SackGUI extends AbstractGUI
             }
 		}
 		else if (clickPos < 54 && arrows[clickPos] != null && owner.player.getInventory().firstEmpty() != -1) {
-			int am = Math.min(64, owner.sack.getOrDefault(arrows[clickPos], 0));
-			owner.sack.put(arrows[clickPos], owner.sack.getOrDefault(arrows[clickPos], 0) - am);
+            long am = Math.min(64, owner.sack.getOrDefault(arrows[clickPos], 0L));
+            owner.sack.put(arrows[clickPos], owner.sack.getOrDefault(arrows[clickPos], 0L) - am);
 
-            var item = ItemFactory.build(arrows[clickPos], am);
+            var item = ItemFactory.build(arrows[clickPos], Math.toIntExact(am));
             if (item != null) {
                 owner.player.getInventory().addItem(item);
             }
@@ -127,13 +127,13 @@ public class SackGUI extends AbstractGUI
         if (i != null && i.type == ItemType.INGREDIENT) {
             int am = it.getAmount();
             if (owner.hasSackSpace(am)) {
-                owner.sack.put(i.id, owner.sack.getOrDefault(i.id, 0) + am);
+                owner.sack.put(i.id, owner.sack.getOrDefault(i.id, 0L) + am);
                 it.setAmount(0);
             }
             else if (owner.getSackSpaceRemaining() > 0) {
-                int ram = owner.getSackSpaceRemaining();
-                owner.sack.put(i.id, owner.sack.getOrDefault(i.id, 0) + ram);
-                clicked.setAmount(am - ram);
+                long ram = owner.getSackSpaceRemaining();
+                owner.sack.put(i.id, owner.sack.getOrDefault(i.id, 0L) + ram);
+                clicked.setAmount((int) (am - ram));
             }
         }
     }

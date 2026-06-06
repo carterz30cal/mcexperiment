@@ -1,7 +1,7 @@
 package com.carterz30cal.fishing;
 
-import com.carterz30cal.entities.EnemyManager;
-import com.carterz30cal.entities.GameEnemy;
+import com.carterz30cal.entities.enemies.core.EnemyManager;
+import com.carterz30cal.entities.enemies.core.GameEnemy;
 import com.carterz30cal.entities.player.GamePlayer;
 import com.carterz30cal.items.ItemRarity;
 import com.carterz30cal.main.Dungeons;
@@ -19,8 +19,14 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * @author carterz30cal
+ * @version 3
+ * @since 1.0.0
+ */
 public class FishingArea {
     private static final Map<String, FishingArea> fishingAreas = new HashMap<>();
+    private static final Map<GamePlayer, FishingBobber> bobbers = new HashMap<>();
     private final List<FishingBracket> brackets;
     private int powerSubtraction;
     private int powerReduction;
@@ -89,6 +95,11 @@ public class FishingArea {
             }
         }
 
+        if (bobbers.containsKey(owner)) {
+            var bobber = bobbers.get(owner);
+            bobber.cancel();
+        }
+
         FishingBracket bracket = brackets.get(i);
         FishingBobber bobber = new FishingBobber();
         bobber.owner = owner;
@@ -104,7 +115,7 @@ public class FishingArea {
         EntityUtils.applyKnockback(owner, bobber.displayBottom, -100);
         bobber.displayBottom.setVelocity(owner.getLocation().subtract(bobberSpot).toVector().normalize().setY(0.6));
         bobber.lifetime = (int)Math.round(20 * 45 * Math.log(bobber.rarity.ordinal() + 2));
-
+        bobbers.put(owner, bobber);
 
         bobber.runTaskTimer(Dungeons.instance, 1, 1);
         return bobber;
@@ -144,16 +155,21 @@ public class FishingArea {
         }
 
         @Override
+        public void cancel() {
+            displayTop.remove();
+            displayBottom.remove();
+            super.cancel();
+        }
+
+        @Override
         public void run() {
             lifetime--;
 
             location = displayBottom.getLocation();
             displayTop.teleport(location.clone().add(0, 0.5, 0));
-            Box attemptBox = new Box(location.clone().add(0, 0, 0)).Expand(1, 0, 1);
+            Box attemptBox = new Box(location.clone().add(0, 0, 0)).expand(1, 0, 1);
 
             if (lifetime < 1 || bracketMobs.isEmpty()) {
-                displayTop.remove();
-                displayBottom.remove();
                 cancel();
             }
             else {
@@ -168,11 +184,11 @@ public class FishingArea {
                 );
                 if (lifetime % 20 == 0) enemies.removeIf((e) -> e.dead);
                 if (lifetime % (20 * 4) == 1 && enemies.size() < 4) {
-                    if (attemptBox.GetMiddleAsLocation().subtract(0, 1, 0).getBlock().getType() == Material.AIR) {
+                    if (attemptBox.getMiddleAsLocation().subtract(0, 1, 0).getBlock().getType() == Material.AIR) {
                         return;
                     }
                     //Location spawnLocation = location.clone().add(0,1.25,0);
-                    Location attempt = attemptBox.GetRandomMobLocation();
+                    Location attempt = attemptBox.getRandomMobLocation();
                     enemies.add(EnemyManager.spawn(RandomUtils.getChoice(bracketMobs), attempt.add(0, 0.25, 0)));
                 }
             }
@@ -183,12 +199,6 @@ public class FishingArea {
         public int bracketWeight;
         public ItemRarity bracketRarity;
         public List<String> bracketMobs;
-
-        private FishingBracket(FishingBracket bracket) {
-            bracketWeight = bracket.bracketWeight;
-            bracketRarity = bracket.bracketRarity;
-            bracketMobs = bracket.bracketMobs;
-        }
 
         private FishingBracket(ItemRarity rarity) {
             bracketMobs = new ArrayList<>();

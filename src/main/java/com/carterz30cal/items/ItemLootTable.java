@@ -11,6 +11,11 @@ import org.bukkit.inventory.ItemStack;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * @author carterz30cal
+ * @version 2
+ * @since 1.0.0
+ */
 public class ItemLootTable
 {
     private final List<ItemLoot> loot = new ArrayList<>();
@@ -21,20 +26,14 @@ public class ItemLootTable
 	}
 
 	public ItemLootTable(ConfigurationSection section) {
-		if (section.contains("drops"))
-		{
-			ConfigurationSection d = section.getConfigurationSection("drops");
-            assert d != null;
-            for (String drop : d.getKeys(false))
-			{
-				int[] chance = StringUtils.convertStringToFraction(d.getString(drop + ".chance", "1/1"));
-				int[] amount = StringUtils.convertStringToFraction(d.getString(drop + ".amount", "1/1"));
+        for (String drop : section.getKeys(false)) {
+            int[] chance = StringUtils.convertStringToFraction(section.getString(drop + ".chance", "1/1"));
+            int[] amount = StringUtils.convertStringToFraction(section.getString(drop + ".amount", "1/1"));
 
-				String enchants = d.getString(drop + ".enchants", "");
+            String enchants = section.getString(drop + ".enchants", "");
 
-				addDrop(drop.split("-")[0], amount, chance, enchants);
-			}
-		}
+            addDrop(drop.split("-")[0], amount, chance, enchants);
+        }
 	}
 
 	public List<ContextualDrop> generateWithContexts(GamePlayer player) {

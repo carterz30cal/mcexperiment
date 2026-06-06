@@ -12,13 +12,13 @@ public class QuestReward {
         this.xp = xp;
     }
 
-    public void GrantOneTimeRewards(GamePlayer player) {
+    public void grantOneTimeRewards(GamePlayer player) {
 
     }
 
-    public List<String> GetRewardDescription() {
+    public List<String> getRewardDescription() {
         List<String> list = new ArrayList<>();
-        list.add("AQUA-- +" + GetXP() + "XP!");
+        list.add("<aqua>-- +" + GetXP() + "XP!");
         return list;
     }
 

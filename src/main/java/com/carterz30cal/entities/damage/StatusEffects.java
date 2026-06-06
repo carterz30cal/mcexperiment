@@ -1,9 +1,10 @@
 package com.carterz30cal.entities.damage;
 
+import com.carterz30cal.entities.health.status.StatusEffect;
+import org.bukkit.configuration.ConfigurationSection;
+
 import java.util.HashMap;
 import java.util.Map;
-
-import org.bukkit.configuration.ConfigurationSection;
 
 public class StatusEffects implements Cloneable {
 	public Map<StatusEffect, Integer> effects = new HashMap<>();
