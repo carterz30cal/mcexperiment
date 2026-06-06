@@ -29,6 +29,7 @@ spiced_meat:
   rarity: UNCOMMON
   material: COOKED_BEEF
   glow: true
+  value: 50
   lore:
     - Chewy, but very flavourful.
     - A common ingredient in Waterway recipes, especially
@@ -50,9 +51,12 @@ spider_silk:
   type: INGREDIENT
   rarity: UNCOMMON
   material: STRING
-  description:
-    - Dull grey threads of silk.
-    - Dropped by REDSpidersGRAY.
+  value: 2
+  lore:
+    - A pale-grey thread, produced by spiders
+    - found in dingy caves within Waterway.
+    - This is an essential ingredient for
+    - any bowyer worth their salt.
 
 leaf_mash:
   name: Leaf Mash
@@ -215,11 +219,8 @@ waterway_seraph_key:
   rarity: INCREDIBLE
   material: TRIAL_KEY
   value: 500
-  lore:
-    - Use this to register your place
-    - in the <blue>Waterway Seraph</blue> boss fight.
-    - This must be used at the altar at
-    - the temple entrance. <red>Consumable!</red>
+  abilities:
+    - WATERWAY_SERAPH_KEY
 
 
 

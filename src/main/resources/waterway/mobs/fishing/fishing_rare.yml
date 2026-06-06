@@ -12,6 +12,8 @@ drenched_RARE:
     category: waterway_fishing_rare
   fishing:
     WATERWAY: RARE
+  souls:
+    WATERWAY: 3
   entities:
     _:
       type: DROWNED
@@ -51,6 +53,8 @@ lunatic_fisherman_RARE:
     PADDING: 50
     INSULATION: 200
     ROBUSTNESS: -8
+  souls:
+    WATERWAY: 3
   entities:
     _:
       type: ZOMBIE
@@ -100,6 +104,8 @@ sea_slug_RARE:
     ROBUSTNESS: -10
   bestiary:
     category: waterway_fishing_rare
+  souls:
+    WATERWAY: 3
   tags:
     - FISHING
     - FISHING_WATERWAY
@@ -146,6 +152,8 @@ sea_slime_RARE:
     PADDING: 75
     ROBUSTNESS: 1000
     INSULATION: -50
+  souls:
+    WATERWAY: 3
   entities:
     b:
       type: SLIME
@@ -189,6 +197,8 @@ angry_creeper_RARE:
     category: waterway_fishing_rare
   fishing:
     WATERWAY: RARE
+  souls:
+    WATERWAY: 3
   entities:
     _:
       type: CREEPER
@@ -228,6 +238,8 @@ hydro_stray_RARE:
     category: waterway_fishing_rare
   fishing:
     WATERWAY: RARE
+  souls:
+    WATERWAY: 3
   entities:
     _:
       type: STRAY
@@ -256,6 +268,8 @@ lonely_seahorse_RARE:
   speed: 1.35
   damage:
     PHYSICAL: 50
+  souls:
+    WATERWAY: 10
   entities:
     _:
       type: ZOMBIE_HORSE
@@ -291,6 +305,8 @@ scared_shockreaver_RARE:
     INSULATION: -50
   bestiary:
     category: waterway_fishing_rare
+  souls:
+    WATERWAY: 3
   entities:
     _:
       type: DROWNED

@@ -143,7 +143,7 @@ public class ForgeGUI extends AbstractGUI
         boolean inUse = f >= owner.forge.size();
         if (inUse)
 		{
-            if (f < owner.getForgeSlots()) {
+            if (f < owner.forgeSlots()) {
                 return ItemFactory.customItem("ORANGE_STAINED_GLASS_PANE", "<#cc5500>Slot available!</#cc5500>");
             }
             else {

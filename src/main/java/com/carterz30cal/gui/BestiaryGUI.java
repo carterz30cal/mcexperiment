@@ -144,6 +144,9 @@ public class BestiaryGUI extends AbstractGUI {
         }
         str.deleteCharAt(str.length() - 2);
         lore.add("<grey>Damage: </grey><dark_grey>" + str + "</dark_grey>");
+        if (!data.souls.isEmpty()) {
+            lore.add("<grey>Souls: </grey><aqua>" + data.getTotalSouls() + "</aqua>");
+        }
         lore.add("");
         if (data.lootTable != null && !data.lootTable.GetLoot().isEmpty()) {
             lore.add("<gold>Drops:");

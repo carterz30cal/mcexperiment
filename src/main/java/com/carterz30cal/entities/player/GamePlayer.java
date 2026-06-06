@@ -17,7 +17,10 @@ import com.carterz30cal.events.GameEventHandler;
 import com.carterz30cal.fishing.FishingArea;
 import com.carterz30cal.gui.AbstractGUI;
 import com.carterz30cal.items.*;
-import com.carterz30cal.items.abilities2.implementation.*;
+import com.carterz30cal.items.abilities2.implementation.Ability;
+import com.carterz30cal.items.abilities2.implementation.AbilityWithStats;
+import com.carterz30cal.items.abilities2.implementation.ContextWithAbility;
+import com.carterz30cal.items.abilities2.implementation.PlayerAbilityContext;
 import com.carterz30cal.items.discoveries.Collection;
 import com.carterz30cal.items.discoveries.DiscoveryManager;
 import com.carterz30cal.items.recipes.Recipe;
@@ -29,6 +32,7 @@ import com.carterz30cal.mining.Mineable;
 import com.carterz30cal.stats.Stat;
 import com.carterz30cal.stats.StatContainer;
 import com.carterz30cal.stats.StatOperationType;
+import com.carterz30cal.stats.operations.AddStatOperation;
 import com.carterz30cal.utils.EntityUtils;
 import com.carterz30cal.utils.LevelUtils;
 import net.kyori.adventure.audience.Audience;
@@ -61,7 +65,7 @@ import static net.kyori.adventure.text.Component.text;
 
 /**
  * @author carterz30cal
- * @version 1
+ * @version 2
  * @since 1.0.0
  */
 @SuppressWarnings("UnnecessaryUnicodeEscape")
@@ -89,7 +93,6 @@ public class GamePlayer extends GameEntity implements DamageableEntity, Aggressi
     private final Map<UUID, GameEventHandler> eventHandlers = new HashMap<>();
 
 	public List<String> talismans = new ArrayList<>();
-	public List<String> completedQuests = new ArrayList<>();
 	public List<String> pets = new ArrayList<>();
 	public String activePet;
 	
@@ -116,8 +119,6 @@ public class GamePlayer extends GameEntity implements DamageableEntity, Aggressi
 	
 	public boolean mining;
 	public boolean allowInteract;
-	
-	public GameEnemy lastDamager;
 
     public PlayerWardrobe wardrobe = new PlayerWardrobe(this);
     public PlayerSkillTree skillTree = new PlayerSkillTree(this);
@@ -207,7 +208,8 @@ public class GamePlayer extends GameEntity implements DamageableEntity, Aggressi
 		stats.scheduleOperation(Stat.VISIBILITY, StatOperationType.ADD, 16);
 		stats.scheduleOperation(Stat.VISIBILITY, StatOperationType.CAP_MIN, 1);
 		stats.scheduleOperation(Stat.VISIBILITY, StatOperationType.CAP_MAX, 24);
-        stats.scheduleOperation(Stat.FOCUS, StatOperationType.CAP_MIN, 1);
+        stats.scheduleOperation(Stat.FOCUS, StatOperationType.ADD, 1);
+        stats.scheduleOperation(Stat.FOCUS, StatOperationType.CAP_MIN, 0);
         stats.scheduleOperation(Stat.INVULNERABILITY_TICKS, StatOperationType.ADD, 4);
         stats.scheduleOperation(Stat.WARDROBE_SLOTS, StatOperationType.ADD, PlayerWardrobe.DEFAULT_SLOT_COUNT);
 
@@ -299,6 +301,7 @@ public class GamePlayer extends GameEntity implements DamageableEntity, Aggressi
 		}
 
         stats.execute();
+        abilities.addAll(skillTree.getUnderlyingAbilities());
         for (var a : abilities) {
             if (!(a.ability instanceof AbilityWithStats is)) {
                 continue;
@@ -307,6 +310,11 @@ public class GamePlayer extends GameEntity implements DamageableEntity, Aggressi
         }
         stats.scheduleOperation(Stat.BACKPACK_PAGES, StatOperationType.ADD, 2);
         stats.scheduleOperation(Stat.BACKPACK_PAGES, StatOperationType.CAP_MIN, 1);
+        stats.operation(new AddStatOperation(Stat.FORGE_SLOTS, 4));
+        if (level >= 5) {
+            stats.operation(new AddStatOperation(Stat.FORGE_SLOTS, 2));
+        }
+        stats.operation(new AddStatOperation(Stat.SKILL_TREE_TOKENS, level));
         stats.scheduleOperation(Stat.LUCK, StatOperationType.ADD, 15);
         stats.scheduleOperation(Stat.DAMAGE, StatOperationType.CAP_MIN, 1);
         stats.execute();
@@ -319,19 +327,27 @@ public class GamePlayer extends GameEntity implements DamageableEntity, Aggressi
         if (stats.stat(Stat.MANA) > 0) {
             actionStatBar.append(text(" " + getMana() + "/" + stats.stat(Stat.MANA) + "\u2605", NamedTextColor.LIGHT_PURPLE));
         }
-        if (lastXpReward > 0) {
-            actionStatBar.append(text(" +" + lastXpReward + " XP", NamedTextColor.AQUA));
-        }
-        if (lastCoinReward > 0) {
-            actionStatBar.append(text(" +" + lastCoinReward + " coins", NamedTextColor.GOLD));
-        }
-
         if (rewardTick > 0) {
+            if (lastXpReward > 0) {
+                actionStatBar.append(text(" +" + lastXpReward + " XP", NamedTextColor.AQUA));
+            }
+            if (lastCoinReward > 0) {
+                actionStatBar.append(text(" +" + lastCoinReward + " coins", NamedTextColor.GOLD));
+            }
+            if (skillTree.getLastSoulReward() > 0) {
+                if (skillTree.getLastSoulReward() == 1) {
+                    actionStatBar.append(
+                            text(" +1 soul", NamedTextColor.AQUA)
+                    );
+                }
+                else {
+                    actionStatBar.append(
+                            text(" +" + skillTree.getLastSoulReward() + " souls", NamedTextColor.AQUA)
+                    );
+                }
+
+            }
             rewardTick--;
-        }
-        else {
-            lastCoinReward = 0;
-            lastXpReward = 0;
         }
 		
 		if (attackTick > 0) attackTick--;
@@ -621,11 +637,15 @@ public class GamePlayer extends GameEntity implements DamageableEntity, Aggressi
 	public long gainXp(long amount)
 	{
         xp += amount;
+        boolean sounds = true;
 		
 		while (xp >= LevelUtils.getXpForLevel(level + 1))
 		{
 			long lvl = getLevel();
-			playSound(Sound.ENTITY_PLAYER_LEVELUP, 1.4, 1.1);
+            if (sounds) {
+                playSound(Sound.ENTITY_PLAYER_LEVELUP, 1.4, 1.1);
+                sounds = false;
+            }
             sendMessage("<gold><b>-------------------");
             sendMessage("<aqua><b>Level Up! </b>" + lvl + " <blue>-></blue> " + (lvl + 1));
             if (level == 1) {
@@ -642,15 +662,9 @@ public class GamePlayer extends GameEntity implements DamageableEntity, Aggressi
 		return amount;
 	}
 
-	public int getForgeSlots()
-	{
-		int slots = 4;
-        if (level >= 5) {
-            slots += 2;
-        }
-		
-		return slots;
-	}
+    public long forgeSlots() {
+        return stats.stat(Stat.FORGE_SLOTS);
+    }
 	
 	public void scheduleForgeItem(ForgingItem item)
 	{
@@ -669,7 +683,7 @@ public class GamePlayer extends GameEntity implements DamageableEntity, Aggressi
 	
 	public boolean isForgeFull()
 	{
-		return getForgeSlots() <= forge.size();
+        return forgeSlots() <= forge.size();
 	}
 
 	public Vector getDirection() {
@@ -961,7 +975,7 @@ public class GamePlayer extends GameEntity implements DamageableEntity, Aggressi
 
     @Override
     public List<? extends ContextWithAbility<? extends GameEntity>> getAggressiveDamageModifiers() {
-        return getAbilitiesWith(AggressiveAbility.class);
+        return getAbilitiesWith(Ability.class);
     }
 
     public <A extends Ability> List<PlayerAbilityContext> getAbilitiesWith(Class<A> clazz) {
@@ -1047,6 +1061,11 @@ public class GamePlayer extends GameEntity implements DamageableEntity, Aggressi
     }
 
     @Override
+    public long getHealth() {
+        return healthSystem.getHealth();
+    }
+
+    @Override
     public long getStat(Stat stat) {
         if (stats == null) {
             return 0;
@@ -1063,7 +1082,7 @@ public class GamePlayer extends GameEntity implements DamageableEntity, Aggressi
 
     @Override
     public boolean isTargetable(AggressiveEntity by) {
-        if (by instanceof GameEnemy) {
+        if (by instanceof GameEnemy enemy) {
             double dist = by.getLocation().distance(getLocation());
             double yDist = by.getLocation().getY() - getLocation().getY();
             yDist = Math.abs(yDist);
@@ -1072,7 +1091,7 @@ public class GamePlayer extends GameEntity implements DamageableEntity, Aggressi
                 return false;
             }
             else {
-                return dist <= stats.stat(Stat.VISIBILITY) && yDist <= 7;
+                return dist <= stats.stat(Stat.VISIBILITY) && yDist <= 7 && enemy.getEnemyData().level > stats.stat(Stat.INTIMIDATION);
             }
         }
         else {

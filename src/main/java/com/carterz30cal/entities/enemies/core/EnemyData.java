@@ -3,6 +3,7 @@ package com.carterz30cal.entities.enemies.core;
 import com.carterz30cal.entities.TagHavingEntity;
 import com.carterz30cal.entities.health.damage.DamageType;
 import com.carterz30cal.items.ItemLootTable;
+import com.carterz30cal.skills.SkillSoulType;
 import com.carterz30cal.stats.Stat;
 import net.kyori.adventure.text.Component;
 import org.bukkit.Sound;
@@ -15,12 +16,13 @@ import java.util.Set;
 
 /**
  * @author carterz30cal
- * @version 3
+ * @version 4
  * @since 1.0.0
  */
 public class EnemyData implements TagHavingEntity {
     public Map<DamageType, Long> damages = new HashMap<>();
     public Map<Stat, Long> stats = new HashMap<>();
+    public Map<SkillSoulType, Long> souls = new HashMap<>();
     public Set<String> tags;
     public Component name;
     public String mmName;
@@ -49,6 +51,7 @@ public class EnemyData implements TagHavingEntity {
         this.damages = new HashMap<>(existing.damages);
         this.stats = new HashMap<>(existing.stats);
         this.tags = new HashSet<>(existing.tags);
+        this.souls = new HashMap<>(existing.souls);
         this.name = existing.name;
         this.mmName = existing.mmName;
         this.level = existing.level;
@@ -58,6 +61,20 @@ public class EnemyData implements TagHavingEntity {
         this.bestiaryCategory = existing.bestiaryCategory;
         this.hurtSound = existing.hurtSound;
         this.deathSound = existing.deathSound;
+    }
+
+    /**
+     * Sums every soul type that this enemy can drop.
+     *
+     * @return the total number of souls that this enemy will drop
+     * @since 1.0.0
+     */
+    public final long getTotalSouls() {
+        long totalSouls = 0;
+        for (var s : souls.keySet()) {
+            totalSouls += souls.get(s);
+        }
+        return totalSouls;
     }
 
     /**

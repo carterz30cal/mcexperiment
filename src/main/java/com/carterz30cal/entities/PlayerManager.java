@@ -179,7 +179,6 @@ public class PlayerManager
 		GamePlayer player = new GamePlayer();
 		player.player = p;
         player.healthSystem = new EntityHealthSystemBuilder().build();
-		player.completedQuests.add("player_joined");
 
 		loadPlayer(player);
 

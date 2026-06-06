@@ -5,7 +5,7 @@ paper_mache_bow:
   rarity: RARE
   stats:
     damage: +10
-    power: +75
+    power: +50
     enchant_power: +5
 
 titan_bow:
@@ -14,9 +14,21 @@ titan_bow:
   material: BOW
   rarity: VERY_RARE
   stats:
-    damage: +15
+    damage: +18
     defence: +50
     enchant_power: +10
+    level_requirement: 3
+
+paper_mache_bow_very_rare:
+  name: Paper Mâché Bow
+  type: BOW
+  material: BOW
+  rarity: VERY_RARE
+  stats:
+    damage: +15
+    power: +75
+    enchant_power: +10
+    level_requirement: 3
 
 spider_bow:
   name: Spider Bow
@@ -24,13 +36,22 @@ spider_bow:
   material: BOW
   glow: true
   rarity: VERY_RARE
-  lore:
-    - <red>Unobtainable!
   stats:
-    damage: +5
-    power: -50
-    might: -50
+    damage: +15
+    strength: +100
     enchant_power: +100
+    level_requirement: 3
+
+lunatic_bow:
+  name: Lunatic Bow
+  type: BOW
+  material: BOW
+  rarity: VERY_RARE
+  stats:
+    damage: +15
+    might: +75
+    enchant_power: +100
+    level_requirement: 3
 
 flimsy_arrow:
   name: Flimsy Arrow

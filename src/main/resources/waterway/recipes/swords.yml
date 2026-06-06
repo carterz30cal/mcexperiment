@@ -88,6 +88,17 @@ necromancy_sword:
     spiced_meat: 16
     paper: 8
 
+berserk_axe:
+  level: 5
+  category: waterway_weapons
+  discovery: chilli_powder_collection
+  discovery-tier: 3
+  items:
+    waterway_sac: 2
+    chilli_powder: 20
+    spiced_meat: 15
+    spider_silk: 200
+
 pungent_sword_incredible:
   level: 6
   category: waterway_weapons

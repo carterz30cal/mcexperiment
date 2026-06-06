@@ -7,11 +7,13 @@ water_seraph_ad_phase3_lunatic:
   always-display-health: false
   coin-multiplier: 0.5
   damage:
-    PHYSICAL: 45
+    PHYSICAL: 38
   stats:
     DEFENCE: -30
     ROBUSTNESS: 15
     PADDING: -600
+  souls:
+    WATERWAY: 3
   entities:
     _:
       type: ZOMBIE
@@ -46,6 +48,8 @@ water_seraph_ad_phase3_magic_archer:
     PADDING: -500
   bestiary:
     category: waterway_seraph_summons
+  souls:
+    WATERWAY: 2
   entities:
     _:
       type: STRAY
@@ -68,6 +72,8 @@ water_seraph_ad_phase3_creeper:
     EXPLOSIVE: 70
   bestiary:
     category: waterway_seraph_summons
+  souls:
+    WATERWAY: 3
   entities:
     1:
       type: CREEPER
@@ -97,6 +103,8 @@ water_seraph_ad_phase4_golem:
     ROBUSTNESS: 200
   bestiary:
     category: waterway_seraph_summons
+  souls:
+    WATERWAY: 20
   entities:
     _:
       type: IRON_GOLEM

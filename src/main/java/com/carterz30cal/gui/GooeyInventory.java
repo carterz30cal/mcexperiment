@@ -53,6 +53,8 @@ public class GooeyInventory
 				break;
 
 		case EMPTY:
+            for (int i = 0; i < size; i++) contents[i] = null;
+            break;
 		default:
 			return;
 		}

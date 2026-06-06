@@ -10,6 +10,8 @@ lunatic_1:
     PHYSICAL: 10
   stats:
     ROBUSTNESS: 5
+  souls:
+    WATERWAY: 1
   entities:
     _:
       type: ZOMBIE
@@ -39,6 +41,8 @@ lunatic_2:
     PHYSICAL: 25
   stats:
     ROBUSTNESS: 5
+  souls:
+    WATERWAY: 1
   entities:
     _:
       type: ZOMBIE
@@ -70,6 +74,8 @@ lunatic_3:
     PHYSICAL: 35
   stats:
     ROBUSTNESS: 5
+  souls:
+    WATERWAY: 1
   entities:
     _:
       type: ZOMBIE
@@ -107,6 +113,8 @@ lunatic_4:
     PHYSICAL: 40
   stats:
     ROBUSTNESS: 8
+  souls:
+    WATERWAY: 2
   entities:
     _:
       type: ZOMBIE
@@ -148,6 +156,8 @@ lunatic_5_sky:
   stats:
     ROBUSTNESS: 12
     PADDING: 20
+  souls:
+    WATERWAY: 2
   entities:
     _:
       type: ZOMBIE
@@ -203,6 +213,8 @@ lunatic_5_lava:
   stats:
     ROBUSTNESS: -5
     PADDING: 50
+  souls:
+    WATERWAY: 3
   entities:
     _:
       type: ZOMBIE
@@ -248,6 +260,8 @@ lunatic_6:
   stats:
     ROBUSTNESS: 5
     PADDING: 30
+  souls:
+    WATERWAY: 3
   entities:
     _:
       type: ZOMBIE

@@ -11,6 +11,7 @@ import com.carterz30cal.items.abilities2.implementation.PlayerAbilityContext;
 import com.carterz30cal.items.abilities2.waterway.*;
 import com.carterz30cal.items.abilities2.waterway.pets.PetDrenchedActive;
 import com.carterz30cal.items.abilities2.waterway.pets.PetDrenchedPassive;
+import com.carterz30cal.items.abilities2.waterway.pets.PetWaterSpiderActive;
 import com.carterz30cal.items.abilities2.waterway.pets.PetWaterTitanActive;
 import com.carterz30cal.items.abilities2.waterway.sets.LeafArmourSet;
 import com.carterz30cal.items.abilities2.waterway.sets.ZombieArmourSet;
@@ -26,7 +27,7 @@ public enum Abilities
 {
 	ENCHANT_SHARPNESS(new StatEnchantment(
 			"Sharpness", 2,
-			Stat.STRENGTH, 0, 20, 5, ItemType.WEAPON, ItemType.WAND, ItemType.ROD)),
+            Stat.STRENGTH, 0, 20, 5, ItemType.WEAPON, ItemType.BOW, ItemType.ROD)),
 	ENCHANT_HEALTHY(new StatEnchantment(
 			"Healthy", 1,
             Stat.HEALTH, 30, 10, 3,
@@ -59,6 +60,7 @@ public enum Abilities
     )),
     ENCHANT_LAST_CHANCE(new LastChanceEnchantment()),
     ENCHANT_POWER(new StatEnchantment("Power", 2, Stat.DAMAGE, 0, 1, 5, ItemType.BOW)),
+    ENCHANT_BLADE(new StatEnchantment("Blade", 2, Stat.DAMAGE, 0, 1, 4, ItemType.WEAPON)),
 
     ENCHANT_REGROWTH(new StatEnchantment("Regrowth", 2, Stat.VITALITY, 1, 1, 2, ItemType.WEAPON, ItemType.BOW, ItemType.ROD)),
 
@@ -69,8 +71,11 @@ public enum Abilities
 	PET_DRENCHED_ACTIVE(new PetDrenchedActive()),
 	PET_DRENCHED_PASSIVE(new PetDrenchedPassive()),
     PET_WATER_TITAN_ACTIVE(new PetWaterTitanActive()),
+    PET_WATER_SPIDER_ACTIVE(new PetWaterSpiderActive()),
     WATERWAY_SERAPH_SWORD(new SeraphSwordAbility()),
+    WATERWAY_SERAPH_KEY(new SeraphKeyAbility()),
     MAGIC_SWORD(new MagicSwordAbility()),
+    RAGING_AXE(new RagingAxeAbility()),
     SERAPH_SUMMON_GUIDE(new SeraphSummonGuideAbility("water_seraph_spirit", 20)),
     ADMIN_INSTANT_DEATH_SWORD(new DeadAbility()),
 	;

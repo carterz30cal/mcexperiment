@@ -1,36 +1,32 @@
 spider_1:
-  name: Spider
-  entity-type: SPIDER
-  type: SIMPLE
-  level: 5
-  health: 140
-  speed: 0.8
-  knockback: 70
-  damage: 40
-  damage-type: PHYSICAL
-  display-height: 1.1
-  blood-colour: 250,0,50
-  armour:
-    PHYSICAL: 0
-    PROJECTILE: 600
-    MAGICAL: 100
-    HOLY: -70
-    BLEED: 100
-    FIRE: -80
-    WITHER: 200
-  equipment:
-    HAND: WOODEN_SWORD
+  name: Water Spider
+  level: 4
+  health: 240
+  director: CAVE_SPIDER
+  knockback: 130
+  speed: 1.4
+  damage:
+    PHYSICAL: 60
+  stats:
+    ROBUSTNESS: -5
+    PADDING: -80
+  souls:
+    WATERWAY: 1
+  entities:
+    _:
+      type: SPIDER
+      scale: 0.7
+      offset: [ 0,0,0 ]
+  bestiary:
+    category: waterway_spiders
   tags:
     - SPIDER
     - BUG
     - ANIMAL
-  drops:
+    - WATERWAY
+  loot:
     spider_silk:
-      chance: 1/3
-      amount: 1/2
-    weak_silk_mass:
-      chance: 1/125
-    spider_bow:
-      chance: 1/500
-    spider_heart:
-      chance: 1/675
+      amount: 1/4
+    pet_water_spider_common:
+      chance: 1/200
+      amount: 1/1

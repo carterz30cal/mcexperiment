@@ -9,6 +9,7 @@ import com.carterz30cal.fishing.FishingArea;
 import com.carterz30cal.gui.BestiaryGUI;
 import com.carterz30cal.items.ItemLootTable;
 import com.carterz30cal.items.ItemRarity;
+import com.carterz30cal.skills.SkillSoulType;
 import com.carterz30cal.stats.Stat;
 import com.carterz30cal.utils.FileUtils;
 import net.kyori.adventure.text.minimessage.MiniMessage;
@@ -29,6 +30,7 @@ public class EnemyManager
 {
 	public static String[] files = {
             "waterway/mobs/lunatics", "waterway/mobs/titans",
+            "waterway/mobs/spiders",
             "waterway/mobs/seraph/boss", "waterway/mobs/seraph/summons",
             "waterway/mobs/fishing/fishing_common",
             "waterway/mobs/fishing/fishing_uncommon",
@@ -72,6 +74,13 @@ public class EnemyManager
                 data.coinMultiplier = c.getDouble(p + ".coin-multiplier", 1D);
                 if (c.contains(p + ".loot")) {
                     data.lootTable = new ItemLootTable(Objects.requireNonNull(c.getConfigurationSection(p + ".loot")));
+                }
+                if (c.contains(p + ".souls")) {
+                    var d = c.getConfigurationSection(p + ".souls");
+                    assert d != null;
+                    for (var s : d.getKeys(false)) {
+                        data.souls.put(SkillSoulType.valueOf(s), d.getLong(s, 0L));
+                    }
                 }
 
                 if (c.contains(p + ".tags")) {

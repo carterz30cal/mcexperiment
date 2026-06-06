@@ -21,11 +21,21 @@ waterway_titans:
     - <red>Unfinished!
   parent: waterway
 
+waterway_spiders:
+  icon: STRING
+  name: "Spiders"
+  description:
+    - <red>Unfinished
+  parent: waterway
+
 waterway_fishing:
   icon: fish_tank
   name: "Fishing"
   description:
-    - Omega!
+    - <grey>Fish up a variety of powerful creatures
+    - <grey>for powerful rewards! Raise your <aqua>fishing power</aqua>
+    - <grey>to raise your odds of fishing up high tier mob brackets!
+    - <dark_grey>E.G. Reach 200 power and you won't catch any common fish
   parent: waterway
 waterway_fishing_common:
   icon: WHITE_CONCRETE
@@ -59,14 +69,14 @@ waterway_fishing_very_rare:
 
 waterway_waterway_seraph:
   icon: ENDER_PEARL
-  name: "BLUEWater Seraph"
+  name: "<blue>Water Seraph</blue>"
   description:
     - <grey>The Seraph hides within their temple, waiting
     - <grey>for bold adventurers to stumble to their demise.
   parent: waterway
 waterway_seraph_summons:
   icon: ZOMBIE_SPAWN_EGG
-  name: "Seraph's Summons"
+  name: "<blue>Seraph's Summons</blue>"
   description:
     - <grey>The Seraph may summon a variety of beasts
     - <grey>to come to their aid.

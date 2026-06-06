@@ -3,45 +3,52 @@ package com.carterz30cal.skills;
 import com.carterz30cal.items.abilities2.implementation.AbilityWithDescription;
 import com.carterz30cal.items.abilities2.implementation.GameAbility;
 import com.carterz30cal.items.abilities2.implementation.PlayerAbilityContext;
-import org.jetbrains.annotations.NotNull;
-
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * @author carterz30cal
- * @version 1
+ * @version 2
  * @since 1.0.0
  */
-public class GameSkill extends GameAbility implements AbilityWithDescription {
+public abstract class GameSkill extends GameAbility implements AbilityWithDescription {
     public Skills skill;
+    public final SkillSoulType soulType;
     public final int maxLevel;
+    public String name;
 
-    public GameSkill(int maxLevel) {
+    public GameSkill(SkillSoulType soulType, int maxLevel) {
         this.maxLevel = maxLevel;
+        this.soulType = soulType;
     }
 
     public String name(PlayerAbilityContext context) {
-        return "";
+        return name;
     }
 
-    @Override
-    public List<String> miniMessageDescription(@NotNull PlayerAbilityContext context) {
-        var list = new ArrayList<String>();
-        list.add("<dark_grey>Level " + context.getLevel() + "/" + maxLevel + "</dark_grey>");
-        list.add("");
-        list.addAll(skillDescription(context));
-        list.add("");
-        if (context.getLevel() == 0) {
-            list.add("<red>Use a skill point to unlock this skill!");
-        }
-        else if (context.getLevel() == maxLevel) {
-            list.add("<gold>Max level!");
-        }
-        return list;
-    }
+    /**
+     * Gets the number of <code>soulType</code> souls needed for
+     * an individual level. The total souls spent is the sum
+     * of this function for each level obtained greater than one.
+     *
+     * @param level what level are we asking about?
+     * @return the amount of souls needed for this one level
+     */
+    public abstract long getSoulsNeedForLevel(long level);
 
-    public List<String> skillDescription(@NotNull PlayerAbilityContext context) {
-        return new ArrayList<>();
+    /**
+     * Gets the total souls consumed to level up this skill to its current level.
+     *
+     * @param level what level is the skill?
+     * @return total souls used
+     */
+    public final long getTotalSoulsUsed(long level) {
+        if (level < 2) {
+            return 0;
+        }
+        long total = 0;
+        while (level > 1) {
+            total += getSoulsNeedForLevel(level);
+            level--;
+        }
+        return total;
     }
 }

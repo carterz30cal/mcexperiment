@@ -11,6 +11,8 @@ titan_1:
   stats:
     ROBUSTNESS: 10
     PADDING: 50
+  souls:
+    WATERWAY: 50
   #  titan-fight:
   #    explosion-radius: 5
   #    explosion-damage: 325

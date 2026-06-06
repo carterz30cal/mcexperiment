@@ -10,6 +10,8 @@ drenched_COMMON:
     #flame: 100
   bestiary:
     category: waterway_fishing_common
+  souls:
+    WATERWAY: 1
   fishing:
     WATERWAY: COMMON
   entities:
@@ -43,6 +45,8 @@ lunatic_fisherman_COMMON:
     PHYSICAL: 25
   fishing:
     WATERWAY: COMMON
+  souls:
+    WATERWAY: 1
   bestiary:
     category: waterway_fishing_common
   stats:
@@ -95,6 +99,8 @@ angry_creeper_COMMON:
     INSULATION: 75
     ROBUSTNESS: 200
     PADDING: -50
+  souls:
+    WATERWAY: 1
   bestiary:
     category: waterway_fishing_common
   entities:

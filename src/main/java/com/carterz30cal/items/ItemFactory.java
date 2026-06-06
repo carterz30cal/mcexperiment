@@ -340,6 +340,9 @@ public class ItemFactory
                             in = 0;
                         }
                     }
+                    if (in != 0) {
+                        enchantSection.section.add(l);
+                    }
                 }
                 else {
                     for (var enchant : enchantments) {

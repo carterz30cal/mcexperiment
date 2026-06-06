@@ -1,14 +1,37 @@
 paper_mache_bow:
-  level: 3
+  level: 2
   time: 5m
   category: waterway_weapons_bows
   items:
     weird_flesh: 32
     chilli_powder: 2
 
+spider_bow:
+  level: 3
+  time: 5m
+  category: waterway_weapons_bows
+  items:
+    spider_silk: 450
+
+paper_mache_bow_very_rare:
+  level: 3
+  category: waterway_weapons_bows
+  items:
+    paper_mache_bow: 1
+    spider_silk: 80
+    chilli_powder: 10
+
+lunatic_bow:
+  level: 3
+  time: 5m
+  category: waterway_weapons_bows
+  items:
+    spider_silk: 200
+    weird_flesh: 800
+
 flimsy_arrow:
   custom-name: <gold>12x<grey> Flimsy Arrow
-  level: 3
+  level: 2
   category: waterway_weapons_arrows
   amount: 24
   items:

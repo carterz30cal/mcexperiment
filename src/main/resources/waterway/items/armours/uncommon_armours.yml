@@ -60,8 +60,8 @@ armour-paper:
     g: 200
     b: 225
   stats:
-    power: 25,25,25,25
-    health: -15, -25, -20, -10
+    power: 25,45,35,20
+    health: -15, -30, -20, -10
     enchant_power: +8
 
 chainmail_helmet:

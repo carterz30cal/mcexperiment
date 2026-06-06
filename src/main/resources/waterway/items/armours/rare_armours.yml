@@ -14,6 +14,7 @@ armour-cultist:
   stats:
     might: +5,+15,+10,+5
     bonus_coins: +10,+10,+10,+10
+    intimidation: 1,1,1,1
     level_requirement: 4
     enchant_power: +30
 

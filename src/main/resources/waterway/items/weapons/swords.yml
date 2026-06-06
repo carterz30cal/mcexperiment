@@ -100,7 +100,7 @@ spearfish_scythe_very_rare:
   material: IRON_HOE
   stats:
     damage: +15
-    strength: +50
+    strength: +70
     enchant_power: +15
 
 piranha_dagger_very_rare:
@@ -144,6 +144,20 @@ necromancy_sword:
     enchant_power: +25
     level_requirement: 5
 
+berserk_axe:
+  name: Berserk Axe
+  type: WEAPON
+  rarity: EPIC
+  material: IRON_AXE
+  abilities:
+    - RAGING_AXE
+  stats:
+    damage: +20
+    health: -25
+    focus: -5
+    level_requirement: 5
+    enchant_power: +25
+
 healing_wand_waterway:
   name: Healing Stick
   type: WEAPON
@@ -175,7 +189,7 @@ spearfish_scythe_incredible:
   material: IRON_HOE
   stats:
     damage: +30
-    strength: +70
+    strength: +90
     enchant_power: +15
     level_requirement: 6
 
@@ -185,9 +199,9 @@ piranha_dagger_incredible:
   rarity: INCREDIBLE
   material: IRON_SWORD
   statuses:
-    BLEED: 50
+    BLEED: 40
   stats:
-    damage: +12
+    damage: +14
     savagery: +25
     enchant_power: +15
     level_requirement: 6

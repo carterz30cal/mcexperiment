@@ -69,10 +69,11 @@ public final class AreaBossWaterwaySeraph extends AbstractAreaBoss {
     public static AreaBossWaterwaySeraph instance = new AreaBossWaterwaySeraph();
 
     private AreaBossWaterwaySeraph() {
-        drops(new WeightedDrop("enchanted_book£1£enchants:ENCHANT_LUCK-1~", 60),
-                new WeightedDrop("seraph_sword£1", 10),
+        drops(new WeightedDrop("enchanted_book£1£enchants:ENCHANT_LUCK-1~", 40),
+                new WeightedDrop("seraph_sword£1", 8),
                 new WeightedDrop("enchanted_book£1£enchants:ENCHANT_CONCENTRATION-1~", 25),
-                new WeightedDrop("enchanted_book£1£enchants:ENCHANT_SHARPNESS-3~", 20),
+                new WeightedDrop("enchanted_book£1£enchants:ENCHANT_SHARPNESS-3~", 10),
+                new WeightedDrop("enchanted_book£1£enchants:ENCHANT_BLADE-1~", 30),
                 new WeightedDrop("waterway_seraph_key£5", 5),
                 new WeightedDrop("seraphs_eye£3", 2),
                 new WeightedDrop("clear_glass_helmet£1", 5),

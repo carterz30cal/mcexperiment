@@ -12,6 +12,8 @@ drenched_VERY_RARE:
   stats:
     ROBUSTNESS: -10
     INSULATION: 10
+  souls:
+    WATERWAY: 5
   entities:
     _:
       type: DROWNED
@@ -53,6 +55,8 @@ lunatic_fisherman_VERY_RARE:
     PADDING: 50
     INSULATION: 200
     ROBUSTNESS: -8
+  souls:
+    WATERWAY: 5
   entities:
     _:
       type: ZOMBIE
@@ -104,6 +108,8 @@ sea_slug_VERY_RARE:
     PADDING: 75
     INSULATION: 200
     ROBUSTNESS: -10
+  souls:
+    WATERWAY: 5
   entities:
     _:
       scale: 1.4
@@ -143,6 +149,8 @@ sea_slime_VERY_RARE:
   knockback: 20
   damage:
     PHYSICAL: 85
+  souls:
+    WATERWAY: 5
   speed: 1.1
   entities:
     b:
@@ -192,6 +200,8 @@ scared_shockreaver_VERY_RARE:
     PADDING: 400
     ROBUSTNESS: -12
     INSULATION: -50
+  souls:
+    WATERWAY: 5
   bestiary:
     category: waterway_fishing_very_rare
   entities:
@@ -242,6 +252,8 @@ angry_creeper_VERY_RARE:
     INSULATION: 75
     ROBUSTNESS: 200
     PADDING: -50
+  souls:
+    WATERWAY: 5
   entities:
     _:
       type: CREEPER
@@ -281,6 +293,8 @@ hydro_stray_VERY_RARE:
     - FISHING
     - FISHING_WATERWAY
     - FISHING_VERY_RARE
+  souls:
+    WATERWAY: 5
   entities:
     _:
       type: STRAY
@@ -318,6 +332,8 @@ lonely_seahorse_VERY_RARE:
   speed: 1.35
   bestiary:
     category: waterway_fishing_very_rare
+  souls:
+    WATERWAY: 15
   tags:
     - FISHING
     - FISHING_WATERWAY
@@ -355,6 +371,8 @@ water_spirit_VERY_RARE:
     PADDING: -50
     INSULATION: -25
     ROBUSTNESS: 10
+  souls:
+    WATERWAY: 40
   abilities:
     overkill:
       class: generic.EnemyAbilityOverkill
@@ -394,6 +412,8 @@ titan_fishing_VERY_RARE:
   stats:
     ROBUSTNESS: 10
     PADDING: 100
+  souls:
+    WATERWAY: 60
   abilities:
     overkill:
       class: generic.EnemyAbilityOverkill

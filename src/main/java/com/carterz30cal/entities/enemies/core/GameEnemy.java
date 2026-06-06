@@ -181,6 +181,11 @@ public class GameEnemy extends GameEntity implements AggressiveEntity, Damageabl
         return healthSystem.getHealthPercentage();
     }
 
+    @Override
+    public long getHealth() {
+        return healthSystem.getHealth();
+    }
+
     /**
      *
      * @return the LivingEntity that we want the vanilla targeting system to target for us.
@@ -340,6 +345,7 @@ public class GameEnemy extends GameEntity implements AggressiveEntity, Damageabl
             attacker.coins += coins;
             attacker.lastCoinReward = coins;
             attacker.rewardTick = 30;
+            attacker.skillTree.gainSouls(getEnemyData());
         }
     }
 

@@ -37,4 +37,6 @@ public interface DamageableEntity extends LocatableEntity, StatHavingEntity, Tar
     boolean isDamageable(AggressiveEntity by);
 
     double getHealthPercentage();
+
+    long getHealth();
 }

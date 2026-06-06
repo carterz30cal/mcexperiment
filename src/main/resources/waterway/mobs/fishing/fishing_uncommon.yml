@@ -11,6 +11,8 @@ drenched_UNCOMMON:
     category: waterway_fishing_uncommon
   fishing:
     WATERWAY: UNCOMMON
+  souls:
+    WATERWAY: 2
   entities:
     _:
       type: DROWNED
@@ -49,6 +51,8 @@ lunatic_fisherman_UNCOMMON:
     PADDING: 50
     INSULATION: 200
     ROBUSTNESS: -5
+  souls:
+    WATERWAY: 2
   entities:
     _:
       type: ZOMBIE
@@ -98,6 +102,8 @@ sea_slug_UNCOMMON:
     PADDING: 75
     INSULATION: 200
     ROBUSTNESS: -10
+  souls:
+    WATERWAY: 2
   entities:
     _:
       scale: 1.4
@@ -141,6 +147,8 @@ sea_slime_UNCOMMON:
     PADDING: 75
     ROBUSTNESS: 1000
     INSULATION: -50
+  souls:
+    WATERWAY: 2
   entities:
     b:
       type: SLIME
@@ -180,6 +188,8 @@ angry_creeper_UNCOMMON:
     PADDING: -50
   bestiary:
     category: waterway_fishing_uncommon
+  souls:
+    WATERWAY: 2
   entities:
     _:
       type: CREEPER
@@ -212,6 +222,8 @@ hydro_stray_UNCOMMON:
     WATERWAY: UNCOMMON
   bestiary:
     category: waterway_fishing_uncommon
+  souls:
+    WATERWAY: 2
   entities:
     _:
       type: STRAY

@@ -6,6 +6,7 @@ import com.carterz30cal.entities.health.damage.handlers.DamageHandler;
 import com.carterz30cal.entities.health.status.StatusEffect;
 import com.carterz30cal.entities.player.GamePlayer;
 import com.carterz30cal.items.abilities2.implementation.AbilityWithDefend;
+import com.carterz30cal.items.abilities2.implementation.AbilityWithStatusProc;
 import com.carterz30cal.items.abilities2.implementation.AggressiveAbility;
 import com.carterz30cal.utils.EntityUtils;
 import com.carterz30cal.utils.RandomUtils;
@@ -108,6 +109,14 @@ public class EntityHealthSystem {
             long current = builtUpStatusEffects.getOrDefault(status, 0L);
             long added = current + damagePacket.getUnresistedStatusEffect(status);
             if (added > getRequiredBuildup(status)) {
+                if (damagePacket.aggressor != null) {
+                    for (var ab : damagePacket.aggressor.getAggressiveDamageModifiers()) {
+                        if (ab.getAbility() instanceof AbilityWithStatusProc proc) {
+                            proc.statusProcEffect(ab, status, damagePacket.defender);
+                        }
+                    }
+                }
+
                 status.effect.apply(damagePacket.defender);
                 builtUpStatusEffects.put(status, 0L);
             }

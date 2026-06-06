@@ -41,8 +41,10 @@ public enum Stat
     LEVEL_REQUIREMENT("level requirement", NamedTextColor.BLACK, StatType.HIDDEN, StatDisplayType.NO_DISPLAY),
     BACKPACK_PAGES("backpack pages", NamedTextColor.WHITE, StatType.HIDDEN, StatDisplayType.NO_DISPLAY),
     WARDROBE_SLOTS("wardrobe slots", NamedTextColor.WHITE, StatType.HIDDEN, StatDisplayType.NO_DISPLAY),
+    FORGE_SLOTS("\u03C8 Forge Slots", NamedTextColor.WHITE, StatType.ECONOMY, StatDisplayType.NORMAL),
     SACK_SPACE("\uD83D Sack Space", NamedTextColor.WHITE, StatType.HIDDEN, StatDisplayType.NO_DISPLAY_IN_PLAYER_STATS),
     VISIBILITY("\u25CB Visibility", NamedTextColor.YELLOW, StatType.OFFENSIVE, StatDisplayType.NORMAL),
+    INTIMIDATION("\u25BC Intimidation", NamedTextColor.YELLOW, StatType.DEFENSIVE, StatDisplayType.NORMAL),
     SKILL_TREE_TOKENS("skill tree tokens", NamedTextColor.WHITE, StatType.HIDDEN, StatDisplayType.NO_DISPLAY),
 	;
     public final String name;

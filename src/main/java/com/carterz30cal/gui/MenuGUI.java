@@ -18,6 +18,11 @@ import java.util.Objects;
 
 import static net.kyori.adventure.text.Component.text;
 
+/**
+ * @author carterz30cal
+ * @version 2
+ * @since 1.0.0
+ */
 public class MenuGUI extends AbstractGUI 
 {
 	public final int ANVIL_POS = calc(7, 1);
@@ -28,11 +33,11 @@ public class MenuGUI extends AbstractGUI
     public final int BESTIARY_POS = calc(6, 1);
 	public final int SACK_POS = calc(2, 1);
 	public final int BACKPACK_POS = calc(5, 2);
-	public final int PET_POS = calc(3, 2);
+    public final int PET_POS = calc(2, 2);
+    public final int SKILL_TREE_POS = calc(3, 2);
     public final int QUEST_POS = calc(4, 2);
     public final int WARDROBE_POS = calc(5, 1);
 
-	
 	public final int LINES = 6;
 	
 	public MenuGUI(GamePlayer owner)
@@ -96,6 +101,8 @@ public class MenuGUI extends AbstractGUI
 
         inventory.setSlot(ItemFactory.customItem("LEATHER", "<aqua>Backpack</aqua>"), BACKPACK_POS);
         inventory.setSlot(ItemFactory.customItem("gold_leaf_chestplate", "<yellow>Wardrobe</yellow>"), WARDROBE_POS);
+
+        inventory.setSlot(ItemFactory.customItem("EMERALD", "<green>Skill Tree"), SKILL_TREE_POS);
 
 		int arrowCount = 0;
 		for (String a : owner.quiver.keySet()) arrowCount += owner.quiver.get(a);
@@ -170,8 +177,9 @@ public class MenuGUI extends AbstractGUI
 		inventory.update();
 	}
 
-	
-	public boolean allowClick(int clickPos, ItemStack clicked)
+
+    @Override
+    public boolean allowClick(int clickPos, ItemStack clicked)
 	{
 		if (clickPos == ANVIL_POS) owner.openGui(new AnvilGUI(owner));
 		else if (clickPos == FORGE_POS) owner.openGui(new ForgeGUI(owner));
@@ -181,6 +189,9 @@ public class MenuGUI extends AbstractGUI
 		else if (clickPos == QUIVER_POS) owner.openGui(new QuiverGUI(owner));
 		else if (clickPos == BACKPACK_POS) owner.openGui(new BackpackGUI(owner));
 		else if (clickPos == PET_POS) owner.openGui(new PetsGUI(owner));
+        else if (clickPos == SKILL_TREE_POS) {
+            owner.openGui(new SkillTreeGUI(owner));
+        }
         else if (clickPos == WARDROBE_POS) {
             owner.openGui(new WardrobeGUI(owner));
         }
