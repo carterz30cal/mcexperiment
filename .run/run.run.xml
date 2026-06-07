@@ -1,0 +1,15 @@
+<component name="ProjectRunConfigurationManager">
+    <configuration default="false" name="run" type="BatchConfigurationType" factoryName="Batch"
+                   focusToolWindowBeforeRun="true">
+        <module name="mcexperiment"/>
+        <option name="INTERPRETER_OPTIONS" value=""/>
+        <option name="WORKING_DIRECTORY" value="./server"/>
+        <option name="PARENT_ENVS" value="true"/>
+        <option name="SCRIPT_NAME" value="run.bat"/>
+        <option name="PARAMETERS" value=""/>
+        <method v="2">
+            <option name="Gradle.BeforeRunTask" enabled="true" tasks="clean test build"
+                    externalProjectPath="$PROJECT_DIR$" vmOptions="" scriptParameters=""/>
+        </method>
+    </configuration>
+</component>
