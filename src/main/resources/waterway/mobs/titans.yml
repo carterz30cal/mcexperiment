@@ -45,11 +45,11 @@ titan_1:
     slash_low:
       class: waterway.titan.EnemyAbilityTitanSlash
       distance: 4.5
-      cooldown: 35
-      delay: 12
+      cooldown: 40
+      delay: 15
       double: true
-      degrees: 40
-      raise: 0.5
+      degrees: 36
+      raise: 0.6
       condition:
         class: AbilityConditionHealthPercentage
         min: 0
@@ -59,12 +59,12 @@ titan_1:
       radius: 7
       damage: 200
       damage-type: EXPLOSIVE
-      cooldown: 240
-      delay: 35
+      cooldown: 280
+      delay: 60
       condition:
         class: AbilityConditionHealthPercentage
         min: 0
-        max: 0.4
+        max: 0.6
   entities:
     _:
       type: DROWNED

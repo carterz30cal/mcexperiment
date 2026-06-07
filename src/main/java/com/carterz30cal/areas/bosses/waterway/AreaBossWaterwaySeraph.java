@@ -186,6 +186,9 @@ public final class AreaBossWaterwaySeraph extends AbstractAreaBoss {
 
         if (isRegistered(player)) {
             deregister(player);
+            if (reason == LeftFightReason.WALKED_OUT) {
+                player.teleport(new Location(Dungeons.w, 59, 88, 167));
+            }
         }
     }
 

@@ -55,6 +55,20 @@ public class EnemyRepresentation {
         return tallestPoint;
     }
 
+    /**
+     * Checks to see if any entities have been made invalid or dead.
+     *
+     * @return <code>true</code> if all entities are still valid, <code>false</code> otherwise.
+     */
+    public boolean valid() {
+        for (var e : entities.values()) {
+            if (!e.isValid() || e.isDead()) {
+                return false;
+            }
+        }
+        return true;
+    }
+
     public void damage() {
         for (var e : entities.entrySet()) {
             var list = new ArrayList<Player>();

@@ -31,12 +31,12 @@ import static net.kyori.adventure.text.Component.text;
 
 /**
  * @author carterz30cal
- * @version 3
+ * @version 4
  * @since 1.0.0
  */
 public class GameSummon extends GameEnemy {
-
-    private GamePlayer owner;
+    public boolean usesMana;
+    protected GamePlayer owner;
     private int useManaTick = 0;
     private static final EnemyRepresentationBuilder representationBuilder;
 
@@ -56,6 +56,7 @@ public class GameSummon extends GameEnemy {
         typeId = uuid.toString();
         representation.register(this);
         enemyDirector.register(this);
+        usesMana = true;
         register(uuid);
     }
 
@@ -84,7 +85,7 @@ public class GameSummon extends GameEnemy {
         super.tick();
 
         useManaTick++;
-        if (useManaTick % 40 == 0 && !owner.useMana(enemyData.level)) {
+        if (usesMana && useManaTick % 40 == 0 && !owner.useMana(enemyData.level)) {
             var packet = new DamagePacket();
             packet.defender = this;
             long damage = 2 + (healthSystem.getMaxHealth() / 8);

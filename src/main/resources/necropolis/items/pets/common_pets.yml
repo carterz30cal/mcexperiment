@@ -1,0 +1,10 @@
+pet_dusted_common:
+  name: Dusted
+  type: PET
+  rarity: COMMON
+  material: PLAYER_HEAD
+  pet-line: dusted
+  active-ability: PET_DUSTED_COMMON
+  value: 600
+  stats:
+    defence: +20

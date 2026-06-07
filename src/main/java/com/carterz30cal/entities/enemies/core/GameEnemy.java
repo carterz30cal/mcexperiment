@@ -39,7 +39,7 @@ import static net.kyori.adventure.text.Component.text;
 
 /**
  * @author carterz30cal
- * @version 5
+ * @version 6
  * @since 1.0.0
  */
 @SuppressWarnings("UnnecessaryUnicodeEscape")
@@ -216,7 +216,7 @@ public class GameEnemy extends GameEntity implements AggressiveEntity, Damageabl
     }
 
     public void tick() {
-        if (!enemyDirector.getTargetableEntity().isValid()) {
+        if (!enemyDirector.getTargetableEntity().isValid() || !representation.valid()) {
             remove();
             return;
         }
@@ -295,8 +295,10 @@ public class GameEnemy extends GameEntity implements AggressiveEntity, Damageabl
     public DamagePacket getBlankDamagePacket() {
         var packet = new DamagePacket();
         packet.aggressor = this;
-        for (var damage : enemyData.damages.entrySet()) {
-            packet.addDamage(damage.getKey(), damage.getValue());
+        if (enemyData != null) {
+            for (var damage : enemyData.damages.entrySet()) {
+                packet.addDamage(damage.getKey(), damage.getValue());
+            }
         }
         return packet;
     }
@@ -344,6 +346,7 @@ public class GameEnemy extends GameEntity implements AggressiveEntity, Damageabl
             var coins = getCoinValue(attacker);
             attacker.coins += coins;
             attacker.lastCoinReward = coins;
+            attacker.lastXpReward = 0;
             attacker.rewardTick = 30;
             attacker.skillTree.gainSouls(getEnemyData());
         }

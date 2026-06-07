@@ -1,0 +1,23 @@
+bone_dust:
+  name: Bone Dust
+  type: INGREDIENT
+  rarity: COMMON
+  material: LIGHT_GRAY_DYE
+  discovery: bone_dust_collection
+  discovery-progress: 1
+  value: 3
+  lore:
+    - Finely powdered warrior bone.
+    - Found throughout Necropolis abundantly.
+
+roasted_bone_dust:
+  name: Roasted Bone Dust
+  type: INGREDIENT
+  rarity: VERY_RARE
+  material: BLACK_DYE
+  discovery: bone_dust_collection
+  discovery-progress: 300
+  value: 850
+  lore:
+    - Warrior bone, roasted into a aromatic powder.
+    - Makes a great treat for pets.

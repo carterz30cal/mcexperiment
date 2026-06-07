@@ -1,0 +1,15 @@
+necropolis:
+  icon: BONE_BLOCK
+  name: "Necropolis"
+  description:
+    - write summin here
+  parent: base
+
+necropolis_dusted:
+  icon: LIGHT_GRAY_CONCRETE_POWDER
+  name: "Dusted"
+  parent: necropolis
+  description:
+    - <grey>Barely animated amalgamations of dust
+    - <grey>held together by a warrior's dying thirst
+    - <grey>for battle.

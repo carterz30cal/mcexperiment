@@ -3,8 +3,12 @@ package com.carterz30cal.stats;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
 import net.kyori.adventure.text.format.TextColor;
-import org.bukkit.ChatColor;
 
+/**
+ * @author carterz30cal
+ * @version 3
+ * @since 1.0.0
+ */
 @SuppressWarnings("UnnecessaryUnicodeEscape")
 public enum Stat
 {
@@ -20,8 +24,9 @@ public enum Stat
     ROBUSTNESS("\u00B1 Robustness", NamedTextColor.RED, StatType.DEFENSIVE, StatDisplayType.NORMAL),
     PADDING("\u25CB Padding", NamedTextColor.WHITE, StatType.DEFENSIVE, StatDisplayType.NORMAL),
     INSULATION("\u03C8 Insulation", NamedTextColor.WHITE, StatType.DEFENSIVE, StatDisplayType.NORMAL),
+    DOUSING("⋎ Dousing", TextColor.fromHexString("#FFA500"), StatType.DEFENSIVE, StatDisplayType.NORMAL),
 
-    MANA("\u00D7 Mana", NamedTextColor.LIGHT_PURPLE, StatType.OFFENSIVE, StatDisplayType.NORMAL),
+    MANA("\u2605 Mana", NamedTextColor.LIGHT_PURPLE, StatType.OFFENSIVE, StatDisplayType.NORMAL),
     FOCUS("\u25C6 Focus", NamedTextColor.AQUA, StatType.OFFENSIVE, StatDisplayType.NORMAL),
 
     FISHING_POWER("\u023E Fishing Power", NamedTextColor.AQUA, StatType.ECONOMY),
@@ -48,8 +53,6 @@ public enum Stat
     SKILL_TREE_TOKENS("skill tree tokens", NamedTextColor.WHITE, StatType.HIDDEN, StatDisplayType.NO_DISPLAY),
 	;
     public final String name;
-    @Deprecated
-    public final ChatColor colour;
     public final TextColor textColour;
     public final StatType type;
     public final StatDisplayType display;
@@ -57,20 +60,24 @@ public enum Stat
     Stat(String name, NamedTextColor colour, StatType type, StatDisplayType display)
 	{
 		this.name = name;
-        this.colour = ChatColor.STRIKETHROUGH;
         this.textColour = TextColor.color(colour);
 		this.type = type;
 		this.display = display;
 	}
-
     Stat(String name, NamedTextColor colour, StatType type)
 	{
 		this.name = name;
-        this.colour = ChatColor.STRIKETHROUGH;
         this.textColour = TextColor.color(colour);
 		this.type = type;
 		this.display = StatDisplayType.NORMAL;
 	}
+
+    Stat(String name, TextColor colour, StatType type, StatDisplayType display) {
+        this.name = name;
+        this.textColour = colour;
+        this.type = type;
+        this.display = display;
+    }
 	
 	public String getReverse()
 	{

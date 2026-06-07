@@ -23,7 +23,7 @@ public class BestiaryGUI extends AbstractGUI {
     private static final Map<String, BestiaryCategory> categories = new HashMap<>();
     private static final Map<String, List<BestiaryCategory>> parents = new HashMap<>();
     private static final String[] files = {
-            "waterway/bestiary"
+            "waterway/bestiary", "necropolis/bestiary"
     };
 
     static {

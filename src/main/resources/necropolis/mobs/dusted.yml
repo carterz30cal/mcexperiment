@@ -1,0 +1,26 @@
+dusted_1:
+  name: Dusted
+  level: 7
+  health: 1600
+  knockback: 110
+  speed: 1.5
+  damage:
+    PHYSICAL: 100
+  stats:
+    DOUSING: -200
+  souls:
+    NECROPOLIS: 1
+  bestiary:
+    category: necropolis_dusted
+  entities:
+    _:
+      type: SKELETON
+      scale: 1
+      offset: [ 0,0,0 ]
+  loot:
+    bone_dust:
+      chance: 1/1
+      amount: 1/2
+    pet_dusted_common:
+      chance: 1/250
+      amount: 1/1

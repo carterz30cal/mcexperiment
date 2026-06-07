@@ -1,0 +1,9 @@
+bone_sword:
+  name: Bone Bonker
+  type: WEAPON
+  rarity: COMMON
+  material: STONE_SWORD
+  stats:
+    damage: +40
+    enchant_power: +10
+    level_requirement: 6

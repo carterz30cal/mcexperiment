@@ -36,6 +36,7 @@ public class EnemyManager
             "waterway/mobs/fishing/fishing_uncommon",
             "waterway/mobs/fishing/fishing_rare",
             "waterway/mobs/fishing/fishing_very_rare",
+            "necropolis/mobs/dusted"
 	};
 	
 	public static EnemyManager instance;

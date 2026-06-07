@@ -1,0 +1,29 @@
+bone_dust_collection:
+  name: Bone Dust
+  display-item: bone_dust
+  description:
+    - An abrasive fine powder.
+  tier-descriptions:
+    - Dust Bunny
+    - Dust Rabbit
+    - Rare Dust Rabbit
+    - Elusive Dust Rabbit
+    - Killer Dust Rabbit of Caerbannog
+    - Caerbannog Horde
+    - Run!!
+  tiers:
+    - 5
+    - 50
+    - 250
+    - 1000
+    - 5000
+    - 20000
+    - 80000
+  xp-rewards:
+    - 50
+    - 40
+    - 30
+    - 20
+    - 10
+    - 5
+    - 5

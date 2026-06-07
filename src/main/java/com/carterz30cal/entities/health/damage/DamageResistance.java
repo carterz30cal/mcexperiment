@@ -20,6 +20,7 @@ public enum DamageResistance {
     PROJECTILE_PADDING(DamageType.PROJECTILE, Stat.PADDING),
     EXPLOSIVE(DamageType.EXPLOSIVE, Stat.PADDING),
     FIRE(DamageType.FIRE, Stat.INSULATION),
+    FIRE_DOUSING(DamageType.FIRE, Stat.DOUSING),
     FROST(DamageType.FROST, Stat.INSULATION)
     ;
     private static final Map<DamageType, List<DamageResistance>> damageToResistanceMap = new HashMap<>();

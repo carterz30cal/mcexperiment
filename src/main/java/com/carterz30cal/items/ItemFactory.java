@@ -81,7 +81,10 @@ public class ItemFactory
             "waterway/items/armours/very_rare_armours", "waterway/items/armours/epic_armours",
             "waterway/items/armours/sets/uncommon_sets", "waterway/items/armours/sets/rare_sets",
             "waterway/items/armours/sets/very_rare_sets",
-            "waterway/items/pet_items", "waterway/items/quest_items"
+            "waterway/items/pet_items", "waterway/items/quest_items",
+            "necropolis/items/weapons/common_swords",
+            "necropolis/items/pets/common_pets",
+            "necropolis/items/ingredients"
 	};
 	
 	
@@ -104,7 +107,7 @@ public class ItemFactory
     };
 
 	public static String[] shopFiles = {
-            "waterway/items/shops"
+            "waterway/items/shops", "necropolis/shops"
 	};
     private static Map<String, PlayerProfile> skullProfiles = new HashMap<>();
 	

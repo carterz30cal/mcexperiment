@@ -14,7 +14,7 @@ public class GameAreaWaterway extends AbstractGameArea {
     public GameAreaWaterway() {
         this.areaName = "Waterway";
         this.boundingBox = new Box(
-                new Location(Dungeons.w, 308, -64, 300),
+                new Location(Dungeons.w, 308, -64, 270),
                 new Location(Dungeons.w, -256, 256, -156)
         );
         this.context = new SpawnerContext();
@@ -30,6 +30,7 @@ public class GameAreaWaterway extends AbstractGameArea {
         RegisterSpawner(new SimpleAreaEnemySpawner(-37, 76, -28, 90, 65, "lunatic_2"));
 
         RegisterSpawner(new KillEnemySpawner("titan_1", 10, -67, 65, -34));
+        RegisterSpawner(new KillEnemySpawner("titan_1", 15, -25, 94, 105));
 
         RegisterSpawner(new SimpleAreaEnemySpawner(-94, -77, -66, -88, 63, 0.7, "lunatic_2", "lunatic_3"));
 

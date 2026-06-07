@@ -1,9 +1,11 @@
 package com.carterz30cal.areas;
 
+import com.carterz30cal.areas.areas.GameAreaNecropolis;
 import com.carterz30cal.areas.areas.GameAreaWaterway;
 
 public enum Areas {
-    WATERWAY(new GameAreaWaterway());
+    WATERWAY(new GameAreaWaterway()),
+    NECROPOLIS(new GameAreaNecropolis());
     private final AbstractGameArea area;
 
     Areas(AbstractGameArea area) {

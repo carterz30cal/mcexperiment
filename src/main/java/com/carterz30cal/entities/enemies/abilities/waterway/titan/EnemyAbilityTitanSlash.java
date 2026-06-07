@@ -103,9 +103,12 @@ public class EnemyAbilityTitanSlash extends EnemyAbility implements Registerable
                         for (double d = degrees - slashDegrees; d <= degrees + slashDegrees; d += 4) {
                             double x = pos.getX() + MathsUtils.getCircleX(d) * distance;
                             double z = pos.getZ() + MathsUtils.getCircleZ(d) * distance;
+                            double ex = pos.getX() + MathsUtils.getCircleX(d) * (distance - 0.2);
+                            double ez = pos.getZ() + MathsUtils.getCircleZ(d) * (distance - 0.2);
                             double y = pos.getY() + 1.3 + (slashRaise * ((d - degrees) / slashDegrees));
                             double doy = pos.getY() + 1.3 - (slashRaise * ((d - degrees) / slashDegrees));
 
+                            Location extra = new Location(pos.getWorld(), ex, y, ez);
                             Location location = new Location(pos.getWorld(), x, y, z);
                             Location location2 = new Location(pos.getWorld(), x, doy, z);
                             if (time == 0) {
@@ -130,6 +133,7 @@ public class EnemyAbilityTitanSlash extends EnemyAbility implements Registerable
                                     }
                                 }
                                 ParticleUtils.spawn(location, DUST_ATTACK, 0);
+                                ParticleUtils.spawn(extra, DUST_ATTACK, 0);
                                 if (doubleSlash) {
                                     ParticleUtils.spawn(location2, DUST_ATTACK, 0);
                                 }
@@ -144,6 +148,7 @@ public class EnemyAbilityTitanSlash extends EnemyAbility implements Registerable
 
                                 if (time % 3 == 0) {
                                     ParticleUtils.spawn(location, DUST_WARNING, 0);
+                                    ParticleUtils.spawn(extra, DUST_WARNING, 0);
                                     if (doubleSlash) {
                                         ParticleUtils.spawn(location2, DUST_WARNING_2, 0);
                                     }

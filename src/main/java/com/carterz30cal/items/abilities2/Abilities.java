@@ -78,6 +78,8 @@ public enum Abilities
     RAGING_AXE(new RagingAxeAbility()),
     SERAPH_SUMMON_GUIDE(new SeraphSummonGuideAbility("water_seraph_spirit", 20)),
     ADMIN_INSTANT_DEATH_SWORD(new DeadAbility()),
+
+    PET_DUSTED_COMMON(new StatEnchantment("Dustball", 0, Stat.DEFENCE, 75, 0, 1))
 	;
 	public final GameAbility ability;
 

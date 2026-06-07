@@ -82,6 +82,7 @@ public class EnemyRepresentationData {
     public static EnemyRepresentationData fromYaml(@NotNull ConfigurationSection yaml) {
         EntityType type = EntityType.valueOf(Objects.requireNonNull(yaml.getString("type")).toUpperCase());
         return switch (type) {
+            case ITEM_DISPLAY -> new ItemDisplayRepresentationData(yaml);
             default -> new EnemyRepresentationData(yaml);
         };
 

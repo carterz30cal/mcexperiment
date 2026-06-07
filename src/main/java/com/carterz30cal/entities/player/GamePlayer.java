@@ -13,6 +13,7 @@ import com.carterz30cal.entities.health.damage.DamageType;
 import com.carterz30cal.entities.health.damage.handlers.AggressiveEntity;
 import com.carterz30cal.entities.health.damage.handlers.DamageableEntity;
 import com.carterz30cal.entities.health.status.StatusEffect;
+import com.carterz30cal.entities.player.summons.GamePet;
 import com.carterz30cal.events.GameEventHandler;
 import com.carterz30cal.fishing.FishingArea;
 import com.carterz30cal.gui.AbstractGUI;
@@ -122,6 +123,7 @@ public class GamePlayer extends GameEntity implements DamageableEntity, Aggressi
 
     public PlayerWardrobe wardrobe = new PlayerWardrobe(this);
     public PlayerSkillTree skillTree = new PlayerSkillTree(this);
+    public GamePet pet;
     public EntityHealthSystem healthSystem;
 	
 	public Map<String, Long> discoveries = new HashMap<>();
@@ -269,7 +271,14 @@ public class GamePlayer extends GameEntity implements DamageableEntity, Aggressi
 				abilities.add(itemActivePet.activeAbility.getContext(this, itemActivePet.rarity.ordinal()));
 				items.add(ItemFactory.build(activePet));
 			}
-
+            if (player.getGameMode() == GameMode.CREATIVE) {
+                if (pet != null) {
+                    pet.remove();
+                }
+            }
+            else if (pet == null || pet.dead) {
+                pet = GamePet.spawn(this, getLocation(), activePet);
+            }
 		}
 
 		for (String s : sets.keySet()) {
@@ -1091,7 +1100,8 @@ public class GamePlayer extends GameEntity implements DamageableEntity, Aggressi
                 return false;
             }
             else {
-                return dist <= stats.stat(Stat.VISIBILITY) && yDist <= 7 && enemy.getEnemyData().level > stats.stat(Stat.INTIMIDATION);
+                var level = enemy.getEnemyData() == null ? 0 : enemy.getEnemyData().level;
+                return dist <= stats.stat(Stat.VISIBILITY) && yDist <= 7 && level > stats.stat(Stat.INTIMIDATION);
             }
         }
         else {
