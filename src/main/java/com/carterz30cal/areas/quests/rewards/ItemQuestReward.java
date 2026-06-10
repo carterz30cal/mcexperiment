@@ -3,35 +3,38 @@ package com.carterz30cal.areas.quests.rewards;
 import com.carterz30cal.entities.player.GamePlayer;
 import com.carterz30cal.items.ItemFactory;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
  * @author carterz30cal
- * @version 2
+ * @version 3
  * @since 1.0.0
  */
 public class ItemQuestReward extends QuestReward {
 
-    protected String item;
-    protected int amount;
+    protected final List<String> item = new ArrayList<>();
 
     public ItemQuestReward(long xp, String item, int amount) {
         super(xp);
 
-        this.item = item;
-        this.amount = amount;
+        var i = item + "£" + amount;
+        this.item.add(i);
     }
 
-    public ItemQuestReward(long xp, String item) {
+    public ItemQuestReward(long xp, String... items) {
         super(xp);
-        this.item = item;
-        this.amount = 1;
+        this.item.addAll(List.of(items));
     }
 
     @Override
     public List<String> getRewardDescription() {
         var list = super.getRewardDescription();
-        list.add("<aqua>-- " + ItemFactory.getItemTypeName(item) + "<dark_grey> x" + amount + "</dark_grey>!");
+        for (var i : item) {
+            var j = ItemFactory.buildItemFromString(i);
+            var k = ItemFactory.getItem(j);
+            list.add("<aqua>-- <" + k.rarity.textColor.asHexString() + ">" + k.name + "<dark_grey> x" + j.getAmount() + "</dark_grey>!");
+        }
         return list;
     }
 
@@ -39,8 +42,9 @@ public class ItemQuestReward extends QuestReward {
     public void grantOneTimeRewards(GamePlayer player) {
         super.grantOneTimeRewards(player);
 
-        var stack = ItemFactory.buildItemFromString(item);
-        stack.setAmount(amount);
-        player.giveItem(stack, true);
+        for (var i : item) {
+            var stack = ItemFactory.buildItemFromString(i);
+            player.giveItem(stack, true);
+        }
     }
 }

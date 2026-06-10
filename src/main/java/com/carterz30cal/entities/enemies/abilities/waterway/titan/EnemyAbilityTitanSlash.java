@@ -103,8 +103,8 @@ public class EnemyAbilityTitanSlash extends EnemyAbility implements Registerable
                         for (double d = degrees - slashDegrees; d <= degrees + slashDegrees; d += 4) {
                             double x = pos.getX() + MathsUtils.getCircleX(d) * distance;
                             double z = pos.getZ() + MathsUtils.getCircleZ(d) * distance;
-                            double ex = pos.getX() + MathsUtils.getCircleX(d) * (distance - 0.2);
-                            double ez = pos.getZ() + MathsUtils.getCircleZ(d) * (distance - 0.2);
+                            double ex = pos.getX() + MathsUtils.getCircleX(d) * (distance - 0.4);
+                            double ez = pos.getZ() + MathsUtils.getCircleZ(d) * (distance - 0.4);
                             double y = pos.getY() + 1.3 + (slashRaise * ((d - degrees) / slashDegrees));
                             double doy = pos.getY() + 1.3 - (slashRaise * ((d - degrees) / slashDegrees));
 
@@ -133,7 +133,6 @@ public class EnemyAbilityTitanSlash extends EnemyAbility implements Registerable
                                     }
                                 }
                                 ParticleUtils.spawn(location, DUST_ATTACK, 0);
-                                ParticleUtils.spawn(extra, DUST_ATTACK, 0);
                                 if (doubleSlash) {
                                     ParticleUtils.spawn(location2, DUST_ATTACK, 0);
                                 }

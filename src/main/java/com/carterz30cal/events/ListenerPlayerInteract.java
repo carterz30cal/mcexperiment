@@ -11,6 +11,7 @@ import com.carterz30cal.items.ItemFactory;
 import com.carterz30cal.items.ItemType;
 import com.carterz30cal.items.abilities2.implementation.AbilityWithClick;
 import com.carterz30cal.items.types.ItemLootbox;
+import com.carterz30cal.main.Dungeons;
 import com.carterz30cal.mining.MiningManager;
 import org.bukkit.FluidCollisionMode;
 import org.bukkit.GameMode;
@@ -125,10 +126,12 @@ public class ListenerPlayerInteract implements Listener {
 	{
 		GamePlayer p = (GamePlayer)GameEntity.get(e.getPlayer());
         if (p != null && p.questTick == 0) {
-            GameEntityInteractable interactable = GameEntityInteractable.GetEntity(e.getRightClicked());
-            if (interactable != null) {
+            var clicked = GameEntity.get(e.getRightClicked());
+            Dungeons.instance.getLogger().warning("GOT HERE - " + clicked.getClass().getName());
+            if (clicked instanceof GameEntityInteractable interactable) {
+                Dungeons.instance.getLogger().warning("GOT HERE2");
                 p.questTick = 4;
-                interactable.Interact(p);
+                interactable.interact(p);
             }
         }
 	}

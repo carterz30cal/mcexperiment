@@ -43,9 +43,12 @@ public class ListenerEntityDamage implements Listener
 	{
 		GameEntity damager = GameEntity.get(e.getDamager());
 		GameEntity damaged = GameEntity.get(e.getEntity());
-		
-		if (damaged == null || damager == null) return;
+
+        if (damaged == null || damager == null) {
+            e.setCancelled(true);
+        }
         if (!(damager instanceof AggressiveEntity aggressor) || !(damaged instanceof DamageableEntity victim)) {
+            e.setCancelled(true);
             return;
         }
         if (!victim.isDamageable(aggressor) || e.getCause() == ENTITY_SWEEP_ATTACK) {

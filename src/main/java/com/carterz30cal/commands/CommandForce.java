@@ -29,8 +29,8 @@ public class CommandForce implements CommandExecutor {
 					p.sendMessage(Long.toString(LevelUtils.getEnemyBaseXpReward(arg)));
 					break;
                 case "clearquests":
-                    p.ClearQuests();
-                    p.SetSelectedQuest(null);
+                    p.clearQuests();
+                    p.setSelectedQuest(null);
                     break;
                 case "seraph":
                     AreaBossWaterwaySeraph.instance.register(p);

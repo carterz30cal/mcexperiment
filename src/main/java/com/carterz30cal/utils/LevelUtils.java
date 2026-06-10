@@ -47,7 +47,7 @@ public class LevelUtils
             }
             xp += gross;
         }
-        for (var questSave : player.GetQuestSaves()) {
+        for (var questSave : player.getQuestSaves()) {
             for (var sections : questSave.GetQuest().getCompletedSections(questSave.currentSection)) {
                 QuestReward reward = sections.GetQuestReward();
                 if (reward == null) {

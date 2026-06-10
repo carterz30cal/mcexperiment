@@ -1,0 +1,9 @@
+necropolis:
+  name: Necropolis
+  icon: BONE_BLOCK
+  parent: base
+
+necropolis_weapons:
+  name: Weapons
+  icon: WOODEN_SWORD
+  parent: necropolis

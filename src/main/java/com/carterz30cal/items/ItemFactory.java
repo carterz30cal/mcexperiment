@@ -4,7 +4,6 @@ import com.carterz30cal.entities.Shop;
 import com.carterz30cal.entities.damage.StatusEffects;
 import com.carterz30cal.entities.health.status.StatusEffect;
 import com.carterz30cal.entities.player.GamePlayer;
-import com.carterz30cal.gui.GooeyInventory;
 import com.carterz30cal.items.abilities2.Abilities;
 import com.carterz30cal.items.abilities2.implementation.AbilityWithStats;
 import com.carterz30cal.items.abilities2.implementation.GameAbstractEnchant;
@@ -59,7 +58,7 @@ import static net.kyori.adventure.text.format.NamedTextColor.*;
 
 /**
  * @author carterz30cal
- * @version 3
+ * @version 4
  * @since 1.0.0
  */
 public class ItemFactory
@@ -91,9 +90,7 @@ public class ItemFactory
 	public static NamespacedKey kItem = new NamespacedKey(Dungeons.instance, "item");
 	public static NamespacedKey kData = new NamespacedKey(Dungeons.instance, "data");
 	public static NamespacedKey kUUID = new NamespacedKey(Dungeons.instance, "uuid");
-	public static String[] categoryFiles = {
-            "waterway/recipes/categories"
-	};
+    private static final Map<String, PlayerProfile> skullProfiles = new HashMap<>();
 	public static String[] recipeFiles = {
             "waterway/recipes/swords", "waterway/recipes/bows", "waterway/recipes/ingredients",
             "waterway/recipes/armours/uncommon_armours", "waterway/recipes/armours/rare_armours",
@@ -109,7 +106,9 @@ public class ItemFactory
 	public static String[] shopFiles = {
             "waterway/items/shops", "necropolis/shops"
 	};
-    private static Map<String, PlayerProfile> skullProfiles = new HashMap<>();
+	public static String[] categoryFiles = {
+            "waterway/recipes/categories", "necropolis/recipes/categories"
+	};
 	
 	private static List<String> itemList;
 	
@@ -119,14 +118,20 @@ public class ItemFactory
 	{
 		instance = this;
 
-		menuItem = GooeyInventory.produceElement("EMERALD", "GOLDMenu DARK_GRAY(Click)");
+        menuItem = ItemFactory.customItem("EMERALD", "<gold>Menu</gold> <dark_grey>(Click!)</dark_grey>");
 		itemList = new ArrayList<>();
 		for (String file : files)
 		{
 			FileConfiguration c = FileUtils.getData(file);
-			for (String p : c.getKeys(false))
+            if (c == null) {
+                continue;
+            }
+            for (String p : c.getKeys(false))
 			{
 				ConfigurationSection i = c.getConfigurationSection(p);
+                if (i == null) {
+                    continue;
+                }
 				
 				String temp = p.split("-")[0];
 				switch (temp)

@@ -3,6 +3,11 @@ necropolis_shop:
   shopkeeper-name: "Herb Bloombert"
   shopkeeper-type: MANNEQUIN
   location: 40.4, 69.06, 379.3, 170, 0
+  entities:
+    _:
+      type: MANNEQUIN
+      offset: [ 0,0,0 ]
+      scale: 1
   items:
     catalyst:
       item: combination_catalyst_shard

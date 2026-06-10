@@ -2,6 +2,7 @@ package com.carterz30cal.entities.enemies.representation;
 
 import com.carterz30cal.entities.GameEntity;
 import com.carterz30cal.entities.enemies.core.GameEnemy;
+import com.carterz30cal.entities.player.GamePlayer;
 import com.carterz30cal.main.Dungeons;
 import org.bukkit.Location;
 import org.bukkit.entity.Entity;
@@ -20,7 +21,7 @@ import static com.carterz30cal.entities.enemies.core.GameEnemy.keyEnemy;
 
 /**
  * @author carterz30cal
- * @version 2
+ * @version 3
  * @since 1.0.0
  */
 public class EnemyRepresentation {
@@ -67,6 +68,25 @@ public class EnemyRepresentation {
             }
         }
         return true;
+    }
+
+    /**
+     * Makes this representation either visible or invisible to
+     * a specific <code>GamePlayer</code>.
+     *
+     * @param viewer  who are we changing the status of this rep for?
+     * @param visible should this be invisible or visible?
+     * @since 1.0.0
+     */
+    public void display(GamePlayer viewer, boolean visible) {
+        for (var e : entities.values()) {
+            if (visible) {
+                viewer.showEntity(e);
+            }
+            else {
+                viewer.hideEntity(e);
+            }
+        }
     }
 
     public void damage() {

@@ -23,13 +23,14 @@ import static net.kyori.adventure.text.Component.text;
  * Handles all health systems for entities, including DOTs, damage types and resistances.
  *
  * @author carterz30cal
- * @version 3
+ * @version 4
  * @since 1.0.0
  */
 public class EntityHealthSystem {
     private final List<DamageHandler> damageHandlers;
     private final Set<AggressiveEntity> attackers = new HashSet<>();
     private final Map<StatusEffect, Long> builtUpStatusEffects = new HashMap<>();
+    private final Map<StatusEffect, Integer> statusProcs = new HashMap<>();
     private long maxHealth;
     private double health;
     private AggressiveEntity lastAttacker;
@@ -118,6 +119,7 @@ public class EntityHealthSystem {
                 }
 
                 status.effect.apply(damagePacket.defender);
+                statusProcs.compute(status, (_, v) -> v == null ? 1 : v + 1);
                 builtUpStatusEffects.put(status, 0L);
             }
             else {
@@ -163,9 +165,9 @@ public class EntityHealthSystem {
         return builtUpStatusEffects.getOrDefault(status, 0L);
     }
 
-    // TODO readd stacking buildup requirement
     public long getRequiredBuildup(StatusEffect status) {
-        return status.defaultResistance;
+        int procs = statusProcs.getOrDefault(status, 0);
+        return Math.round(status.defaultResistance * Math.pow(status.resistanceMultiplier, procs));
     }
 
     public double getBuildupPercentage(StatusEffect status) {

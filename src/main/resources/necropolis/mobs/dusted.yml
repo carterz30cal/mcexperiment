@@ -12,6 +12,8 @@ dusted_1:
     NECROPOLIS: 1
   bestiary:
     category: necropolis_dusted
+  tags:
+    - NECROPOLIS
   entities:
     _:
       type: SKELETON

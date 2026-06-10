@@ -1,31 +1,33 @@
 package com.carterz30cal.entities.interactable;
 
+import com.carterz30cal.areas.quests.requirements.LevelRequirement;
 import com.carterz30cal.entities.Shop;
 import com.carterz30cal.entities.player.GamePlayer;
 import com.carterz30cal.gui.ShopGUI;
-import org.bukkit.entity.EntityType;
+import com.carterz30cal.main.Dungeons;
 
+/**
+ * @author carterz30cal
+ * @version 2
+ * @since 1.0.0
+ */
 public class GameShopkeeper extends GameEntityInteractable {
     private final Shop shop;
 
     public GameShopkeeper(Shop shop) {
-        super(shop.shopkeeperType, shop.shopkeeperLocation, shop.shopkeeperName, "GOLDBOLDShop");
+        super(shop.representationBuilder, shop.shopkeeperLocation);
+        title(shop.shopkeeperName);
+        subtitle("<gold><b>Shop</b></gold>");
 
         this.shop = shop;
-        if (shop.shopkeeperType == EntityType.MANNEQUIN) {
-            this.skullProfileId = shop.skullProfileId;
-        }
+        this.requirement = new LevelRequirement(shop.requiredLevel);
     }
 
     @Override
-    protected boolean HasMetRequirements(GamePlayer interactingPlayer) {
-        return (interactingPlayer.getLevel() >= shop.requiredLevel);
-    }
+    public void interact(GamePlayer interactingPlayer) {
+        super.interact(interactingPlayer);
 
-    @Override
-    public void Interact(GamePlayer interactingPlayer) {
-        super.Interact(interactingPlayer);
-
+        Dungeons.instance.getLogger().warning("GOT HERE3");
         interactingPlayer.openGui(new ShopGUI(interactingPlayer, shop));
     }
 }

@@ -107,13 +107,13 @@ public class PlayerManager
             for (Quests quest : Quests.values()) {
                 ConfigurationSection qs = quests.getConfigurationSection(quest.name());
                 if (qs != null) {
-                    p.LoadQuestSave(quest.loadSave(p, qs));
+                    p.loadQuestSave(quest.loadSave(p, qs));
                 }
             }
         }
         String selected = c.getString("selected-quest");
         if (selected != null) {
-            p.SetSelectedQuest(Quests.valueOf(selected));
+            p.setSelectedQuest(Quests.valueOf(selected));
         }
 
         ConfigurationSection wardrobe = c.getConfigurationSection("wardrobe");
@@ -218,7 +218,7 @@ public class PlayerManager
             ConfigurationSection qs = Objects.requireNonNull(c.getConfigurationSection("quests")).createSection(quest.name());
             quest.saveSave(p, qs);
         }
-        Quests selected = p.GetSelectedQuest();
+        Quests selected = p.getSelectedQuest();
         if (selected != null) {
             c.set("selected-quest", selected.name());
         }

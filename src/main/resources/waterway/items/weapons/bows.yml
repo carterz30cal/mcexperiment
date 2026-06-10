@@ -14,7 +14,7 @@ titan_bow:
   material: BOW
   rarity: VERY_RARE
   stats:
-    damage: +18
+    damage: +20
     defence: +50
     enchant_power: +10
     level_requirement: 3
@@ -27,7 +27,7 @@ paper_mache_bow_very_rare:
   stats:
     damage: +15
     power: +75
-    enchant_power: +10
+    enchant_power: +15
     level_requirement: 3
 
 spider_bow:
@@ -38,8 +38,8 @@ spider_bow:
   rarity: VERY_RARE
   stats:
     damage: +15
-    strength: +100
-    enchant_power: +100
+    strength: +75
+    enchant_power: +15
     level_requirement: 3
 
 lunatic_bow:
@@ -50,7 +50,7 @@ lunatic_bow:
   stats:
     damage: +15
     might: +75
-    enchant_power: +100
+    enchant_power: +15
     level_requirement: 3
 
 flimsy_arrow:

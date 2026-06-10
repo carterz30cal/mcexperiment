@@ -3,6 +3,11 @@ bobs_simple_supplies:
   shopkeeper-name: "Bob"
   shopkeeper-type: MANNEQUIN
   location: -53.5, 76, 17.6, 117, 0
+  entities:
+    _:
+      type: MANNEQUIN
+      offset: [ 0,0,0 ]
+      scale: 1
   items:
     weird_flesh:
       item: weird_flesh
@@ -36,6 +41,11 @@ cultist_shop:
   shopkeeper-type: MANNEQUIN
   location: 51.7, 96, 159.4, 129, 3
   required_quest: ex_fanatic
+  entities:
+    _:
+      type: MANNEQUIN
+      offset: [ 0,0,0 ]
+      scale: 1
   items:
     eye_of_spider:
       item: eye_of_spider

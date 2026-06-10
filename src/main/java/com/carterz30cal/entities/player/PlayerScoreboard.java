@@ -98,9 +98,12 @@ public class PlayerScoreboard {
 
         @Override
         public void draw(@NotNull LineDrawable drawable) {
-            var chosenQuest = owner.GetSelectedQuest();
+            var chosenQuest = owner.getSelectedQuest();
             if (chosenQuest != null) {
-                Quests.QuestSave save = owner.GetQuestSave(chosenQuest);
+                Quests.QuestSave save = owner.getQuestSave(chosenQuest);
+                if (save == null || save.sectionSave == null) {
+                    return;
+                }
                 if (save.sectionSave.HasTalkedTo()) {
                     drawable.drawLine(text());
                     drawable.drawLine(text("Quest: ", NamedTextColor.GOLD).append(text(chosenQuest.getName(), NamedTextColor.WHITE)));

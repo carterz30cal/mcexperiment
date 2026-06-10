@@ -1,0 +1,43 @@
+sword_spirit_1:
+  name: Sword Spirit
+  level: 8
+  health: 2000
+  knockback: 110
+  speed: 1.1
+  damage:
+    MAGIC: 65
+  stats:
+    DOUSING: -200
+  souls:
+    NECROPOLIS: 1
+  bestiary:
+    category: necropolis_sword_spirits
+  tags:
+    - NECROPOLIS
+    - SPIRIT
+  entities:
+    hitbox:
+      type: ZOMBIE
+      scale: 0.8
+      offset: [ 0,0,0 ]
+      invisible: true
+    1:
+      type: ITEM_DISPLAY
+      item: DIAMOND_SWORD
+      scale: 1.2
+      offset: [ 0.4,0.5,0 ]
+    2:
+      type: ITEM_DISPLAY
+      item: DIAMOND_SWORD
+      scale: 1.2
+      offset: [ -0.4,0.5,0 ]
+    3:
+      type: ITEM_DISPLAY
+      item: DIAMOND_SWORD
+      scale: 1.2
+      offset: [ 0,0.5,0.4 ]
+    4:
+      type: ITEM_DISPLAY
+      item: DIAMOND_SWORD
+      scale: 1.2
+      offset: [ 0,0.5,-0.4 ]

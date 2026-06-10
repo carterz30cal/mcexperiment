@@ -8,6 +8,7 @@ import com.carterz30cal.entities.enemies.abilities.EnemyAbilityContext;
 import com.carterz30cal.entities.enemies.directors.EnemyDirector;
 import com.carterz30cal.entities.enemies.representation.EnemyInformationDisplay;
 import com.carterz30cal.entities.enemies.representation.EnemyRepresentation;
+import com.carterz30cal.entities.enemies.representation.RepresentedEntity;
 import com.carterz30cal.entities.health.EntityHealthSystem;
 import com.carterz30cal.entities.health.damage.DamagePacket;
 import com.carterz30cal.entities.health.damage.handlers.AggressiveEntity;
@@ -39,11 +40,11 @@ import static net.kyori.adventure.text.Component.text;
 
 /**
  * @author carterz30cal
- * @version 6
+ * @version 7
  * @since 1.0.0
  */
 @SuppressWarnings("UnnecessaryUnicodeEscape")
-public class GameEnemy extends GameEntity implements AggressiveEntity, DamageableEntity, TagHavingEntity
+public class GameEnemy extends GameEntity implements AggressiveEntity, DamageableEntity, TagHavingEntity, RepresentedEntity
 {
 	public static NamespacedKey keyEnemy = new NamespacedKey(Dungeons.instance, "keyEnemy");
 

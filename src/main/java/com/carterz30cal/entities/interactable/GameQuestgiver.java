@@ -11,37 +11,45 @@ import org.bukkit.scheduler.BukkitRunnable;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * @author carterz30cal
+ * @version 3
+ * @since 1.0.0
+ */
 public class GameQuestgiver extends GameEntityInteractable {
     protected Questgivers backing;
 
     public GameQuestgiver(Questgivers backing) {
-        super(backing.getEntityType(), backing.getLocation(), backing.toString(), "<gold><b>Quest");
-        this.skullProfileId = backing.getSkullProfileId();
+        super(backing.getRepresentationBuilder(), backing.getLocation());
         this.backing = backing;
+        title(backing.toString());
+        subtitle("<gold><b>Quest</b></gold>");
+
+        this.requirement = backing.getRequirement();
     }
 
     @Override
-    protected boolean HasMetRequirements(GamePlayer interactingPlayer) {
-        Quests quest = backing.GetParent();
+    protected boolean isVisible(GamePlayer viewer) {
+        Quests quest = backing.getParent();
         if (quest == null) {
             return true;
         }
-        else if (quest.hasCompletedQuestgiver(interactingPlayer, backing)) {
+        else if (quest.hasCompletedQuestgiver(viewer, backing)) {
             return false;
         }
         else {
-            return backing.HasMetRequirements(interactingPlayer);
+            return super.isVisible(viewer);
         }
     }
 
     @Override
-    public void Interact(GamePlayer interactingPlayer) {
-        Quests quest = backing.GetParent();
+    public void interact(GamePlayer interactingPlayer) {
+        Quests quest = backing.getParent();
         if (quest == null) {
             return;
         }
 
-        Quests.QuestSave save = interactingPlayer.GetQuestSave(quest);
+        Quests.QuestSave save = interactingPlayer.getQuestSave(quest);
         if (save.sectionSave == null) {
             quest.fixSave(save, interactingPlayer);
         }
@@ -96,6 +104,6 @@ public class GameQuestgiver extends GameEntityInteractable {
             interactingPlayer.questTick = delay + 10;
         }
 
-        super.Interact(interactingPlayer);
+        super.interact(interactingPlayer);
     }
 }

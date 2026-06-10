@@ -18,9 +18,18 @@ public enum StatusEffect
             "BLD",
             "\u00D7",
             "RED",
-            250,
-            1.1,
+            150,
+            1.3,
             new DamagingStatus(90, 0.035, DamageType.BLEED)),
+    BURN(
+            "Burn",
+            "BRN",
+            "△",
+            TextColor.fromHexString("#FFA500"),
+            200,
+            1.1,
+            new DamageOverTimeStatus(50, DamageType.FIRE, 6, 10)
+    )
 //    BURN("Burn", "BRN", "\u00D7", "GOLD", 100, 1.4, new DotStatus(10, 0.005, 4, 7, DamageType.FIRE)),
 //	POISON("Poison", "PSN", "\u2620", "GREEN", 1000, 1.2, new DotStatus(5, 0, 20, 2, DamageType.WITHER)),
 //	DEATH("Instant Death", "DTH", "\u2620", "WHITE", 10000, 1.04, new DeathStatus()),
@@ -30,7 +39,6 @@ public enum StatusEffect
     public final String name;
     public final String shortName;
     public final String symbol;
-    public final String colour;
     public final TextColor textColour;
     public final int defaultResistance; // -1 for immune
     public final double resistanceMultiplier;
@@ -39,10 +47,19 @@ public enum StatusEffect
 		this.name = name;
 		this.shortName = shortName;
 		this.symbol = symbol;
-		this.colour = colour;
         this.textColour = TextColor.color(Objects.requireNonNull(NamedTextColor.NAMES.value(colour.toLowerCase())));
 		this.defaultResistance = defaultResistance;
 		this.resistanceMultiplier = resistanceMultiplier;
 		this.effect = effect;
 	}
+
+    StatusEffect(String name, String shortName, String symbol, TextColor colour, int defaultResistance, double resistanceMultiplier, AbstractStatus effect) {
+        this.name = name;
+        this.shortName = shortName;
+        this.symbol = symbol;
+        this.textColour = colour;
+        this.defaultResistance = defaultResistance;
+        this.resistanceMultiplier = resistanceMultiplier;
+        this.effect = effect;
+    }
 }

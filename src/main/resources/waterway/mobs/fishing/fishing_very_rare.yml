@@ -172,6 +172,7 @@ sea_slime_VERY_RARE:
     - FISHING_WATERWAY
     - FISHING_VERY_RARE
     - SLIME
+    - SEA_SLIME
   loot:
     waterway_cod:
       amount: 10/65

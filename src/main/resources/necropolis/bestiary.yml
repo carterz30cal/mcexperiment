@@ -13,3 +13,10 @@ necropolis_dusted:
     - <grey>Barely animated amalgamations of dust
     - <grey>held together by a warrior's dying thirst
     - <grey>for battle.
+
+necropolis_sword_spirits:
+  icon: DIAMOND_SWORD
+  name: "Sword Spirits"
+  parent: necropolis
+  description:
+    - <red>Write later!

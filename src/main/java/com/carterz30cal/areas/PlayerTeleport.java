@@ -52,7 +52,7 @@ public enum PlayerTeleport {
             return true;
         }
         else {
-            return requirement.HasMetRequirements(player);
+            return requirement.hasMetRequirements(player);
         }
     }
 }

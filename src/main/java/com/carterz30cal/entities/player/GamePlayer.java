@@ -66,7 +66,7 @@ import static net.kyori.adventure.text.Component.text;
 
 /**
  * @author carterz30cal
- * @version 2
+ * @version 3
  * @since 1.0.0
  */
 @SuppressWarnings("UnnecessaryUnicodeEscape")
@@ -640,6 +640,7 @@ public class GamePlayer extends GameEntity implements DamageableEntity, Aggressi
 	
 	public double getLevelProgress()
 	{
+        var _ = getLevel();
 		return ((double)xp) / LevelUtils.getXpForLevel(level + 1);
 	}
 	
@@ -929,42 +930,50 @@ public class GamePlayer extends GameEntity implements DamageableEntity, Aggressi
         return eventHandlers.values();
     }
 
-    public Quests GetSelectedQuest() {
+    public Quests getSelectedQuest() {
         if (selectedQuest == null) {
             return null;
         }
-        else if (GetQuestSave(selectedQuest).completedQuest) {
-            selectedQuest = null;
-            return null;
+        else if (getQuestSave(selectedQuest).completedQuest) {
+            var filt = quests.keySet().stream().filter(q -> !getQuestSave(q).completedQuest);
+            var g = filt.findFirst();
+            if (g.isPresent()) {
+                selectedQuest = g.get();
+                return selectedQuest;
+            }
+            else {
+                return null;
+            }
         }
         else {
             return selectedQuest;
         }
     }
 
-    public void SetSelectedQuest(Quests selectedQuest) {
+    public void setSelectedQuest(Quests selectedQuest) {
         this.selectedQuest = selectedQuest;
     }
 
-    public void ClearQuests() {
+    public void clearQuests() {
         quests.clear();
     }
 
-    public Quests.QuestSave GetQuestSave(Quests quest) {
+    public Quests.QuestSave getQuestSave(Quests quest) {
         Quests.QuestSave save = quests.getOrDefault(quest, null);
         if (save == null) {
-            // GENERATE QUEST SAVE
             save = quest.createSave(this);
-            quests.put(quest, save);
+            if (save != null) {
+                quests.put(quest, save);
+            }
         }
         return save;
     }
 
-    public void LoadQuestSave(Quests.QuestSave quest) {
+    public void loadQuestSave(Quests.QuestSave quest) {
         quests.put(quest.GetQuest(), quest);
     }
 
-    public java.util.Collection<Quests.QuestSave> GetQuestSaves() {
+    public java.util.Collection<Quests.QuestSave> getQuestSaves() {
         return quests.values();
     }
 

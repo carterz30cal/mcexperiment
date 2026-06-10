@@ -1,6 +1,6 @@
 package com.carterz30cal.entities.enemies.representation;
 
-import com.carterz30cal.entities.enemies.core.GameEnemy;
+import com.carterz30cal.entities.player.GamePlayer;
 import com.carterz30cal.main.Dungeons;
 import com.carterz30cal.utils.EntityUtils;
 import net.kyori.adventure.text.Component;
@@ -15,17 +15,17 @@ import java.util.List;
 
 /**
  * @author carterz30cal
- * @version 1
+ * @version 2
  * @since 1.0.0
  */
 public class EnemyInformationDisplay {
     private static final double TEXT_GAP = 0.25;
-    private final GameEnemy owner;
+    private final RepresentedEntity owner;
     private final List<TextDisplay> displays = new ArrayList<>();
     private final List<Component> components = new ArrayList<>();
     private final List<Boolean> updated = new ArrayList<>();
 
-    public EnemyInformationDisplay(GameEnemy owner) {
+    public EnemyInformationDisplay(RepresentedEntity owner) {
         this.owner = owner;
     }
 
@@ -72,6 +72,17 @@ public class EnemyInformationDisplay {
             var location = owner.getLocation().clone().add(0, y + TEXT_GAP, 0);
             location.setPitch(0);
             display.teleportAsync(location);
+        }
+    }
+
+    public void display(GamePlayer viewer, boolean visible) {
+        for (var display : displays) {
+            if (visible) {
+                viewer.showEntity(display);
+            }
+            else {
+                viewer.hideEntity(display);
+            }
         }
     }
 

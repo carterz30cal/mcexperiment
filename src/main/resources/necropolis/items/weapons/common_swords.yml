@@ -7,3 +7,16 @@ bone_sword:
     damage: +40
     enchant_power: +10
     level_requirement: 6
+
+flaming_sword_common:
+  name: Flaming Sword
+  type: WEAPON
+  rarity: COMMON
+  material: COPPER_SWORD
+  glow: true
+  statuses:
+    BURN: 25
+  stats:
+    damage: +30
+    enchant_power: +10
+    level_requirement: 6
