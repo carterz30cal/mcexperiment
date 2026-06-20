@@ -4,7 +4,7 @@ import com.carterz30cal.entities.GameEntity;
 import com.carterz30cal.entities.LocatableEntity;
 import com.carterz30cal.entities.StatHavingEntity;
 import com.carterz30cal.entities.health.damage.DamagePacket;
-import com.carterz30cal.items.abilities2.implementation.ContextWithAbility;
+import com.carterz30cal.items.abilities.implementation.ContextWithAbility;
 
 import java.util.List;
 

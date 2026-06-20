@@ -6,9 +6,9 @@ import com.carterz30cal.entities.enemies.core.GameEnemy;
 import com.carterz30cal.entities.health.damage.DamagePacket;
 import com.carterz30cal.entities.health.damage.handlers.DamageableEntity;
 import com.carterz30cal.entities.player.GamePlayer;
-import com.carterz30cal.items.abilities2.implementation.AbilityWithDefend;
-import com.carterz30cal.items.abilities2.implementation.AbilityWithKillEffect;
-import com.carterz30cal.items.abilities2.implementation.ContextWithAbility;
+import com.carterz30cal.items.abilities.implementation.AbilityWithDefend;
+import com.carterz30cal.items.abilities.implementation.AbilityWithKillEffect;
+import com.carterz30cal.items.abilities.implementation.ContextWithAbility;
 import org.bukkit.configuration.ConfigurationSection;
 import org.jetbrains.annotations.NotNull;
 

@@ -1,9 +1,9 @@
 package com.carterz30cal.skills.implementations;
 
 import com.carterz30cal.entities.StatHavingEntity;
-import com.carterz30cal.items.abilities2.implementation.AbilityWithStats;
-import com.carterz30cal.items.abilities2.implementation.ContextWithAbility;
-import com.carterz30cal.items.abilities2.implementation.PlayerAbilityContext;
+import com.carterz30cal.items.abilities.implementation.AbilityWithStats;
+import com.carterz30cal.items.abilities.implementation.ContextWithAbility;
+import com.carterz30cal.items.abilities.implementation.PlayerAbilityContext;
 import com.carterz30cal.skills.GameSkill;
 import com.carterz30cal.skills.SkillSoulType;
 import com.carterz30cal.stats.Stat;

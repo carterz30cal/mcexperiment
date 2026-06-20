@@ -2,7 +2,7 @@ package com.carterz30cal.entities.enemies.abilities.conditions;
 
 import com.carterz30cal.entities.GameEntity;
 import com.carterz30cal.entities.enemies.abilities.AbilityCondition;
-import com.carterz30cal.items.abilities2.implementation.ContextWithAbility;
+import com.carterz30cal.items.abilities.implementation.ContextWithAbility;
 import org.bukkit.configuration.ConfigurationSection;
 
 /**

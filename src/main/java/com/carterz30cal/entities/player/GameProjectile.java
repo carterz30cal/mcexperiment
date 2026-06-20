@@ -10,7 +10,7 @@ import com.carterz30cal.entities.health.damage.handlers.DamageableEntity;
 import com.carterz30cal.events.ListenerEntityDamage;
 import com.carterz30cal.items.Item;
 import com.carterz30cal.items.ItemFactory;
-import com.carterz30cal.items.abilities2.implementation.ContextWithAbility;
+import com.carterz30cal.items.abilities.implementation.ContextWithAbility;
 import com.carterz30cal.main.Dungeons;
 import com.carterz30cal.stats.Stat;
 import com.carterz30cal.stats.StatContainer;

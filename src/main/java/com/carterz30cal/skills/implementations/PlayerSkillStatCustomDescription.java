@@ -1,6 +1,6 @@
 package com.carterz30cal.skills.implementations;
 
-import com.carterz30cal.items.abilities2.implementation.PlayerAbilityContext;
+import com.carterz30cal.items.abilities.implementation.PlayerAbilityContext;
 import com.carterz30cal.skills.SkillSoulType;
 import com.carterz30cal.stats.Stat;
 import org.jetbrains.annotations.NotNull;

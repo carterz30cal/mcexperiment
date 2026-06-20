@@ -1,6 +1,6 @@
 package com.carterz30cal.items;
 
-import com.carterz30cal.items.abilities2.Abilities;
+import com.carterz30cal.items.abilities.Abilities;
 import com.carterz30cal.items.trims.TrimMaterialWrapper;
 import com.carterz30cal.items.trims.TrimPatternWrapper;
 import com.carterz30cal.stats.StatContainer;

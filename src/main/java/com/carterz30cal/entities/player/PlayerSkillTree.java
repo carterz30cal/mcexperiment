@@ -1,7 +1,7 @@
 package com.carterz30cal.entities.player;
 
 import com.carterz30cal.entities.enemies.core.EnemyData;
-import com.carterz30cal.items.abilities2.implementation.PlayerAbilityContext;
+import com.carterz30cal.items.abilities.implementation.PlayerAbilityContext;
 import com.carterz30cal.skills.SkillSoulType;
 import com.carterz30cal.skills.Skills;
 import com.carterz30cal.stats.Stat;

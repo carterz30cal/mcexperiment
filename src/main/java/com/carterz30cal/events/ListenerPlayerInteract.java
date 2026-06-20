@@ -9,7 +9,7 @@ import com.carterz30cal.gui.MenuGUI;
 import com.carterz30cal.items.Item;
 import com.carterz30cal.items.ItemFactory;
 import com.carterz30cal.items.ItemType;
-import com.carterz30cal.items.abilities2.implementation.AbilityWithClick;
+import com.carterz30cal.items.abilities.implementation.AbilityWithClick;
 import com.carterz30cal.items.types.ItemLootbox;
 import com.carterz30cal.main.Dungeons;
 import com.carterz30cal.mining.MiningManager;

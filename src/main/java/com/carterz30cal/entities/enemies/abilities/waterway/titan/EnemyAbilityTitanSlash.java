@@ -8,8 +8,8 @@ import com.carterz30cal.entities.enemies.abilities.conditions.AbilityConditionAl
 import com.carterz30cal.entities.enemies.core.GameEnemy;
 import com.carterz30cal.entities.health.damage.DamageType;
 import com.carterz30cal.entities.player.GamePlayer;
-import com.carterz30cal.items.abilities2.implementation.ContextWithAbility;
-import com.carterz30cal.items.abilities2.implementation.RegisterableAbility;
+import com.carterz30cal.items.abilities.implementation.ContextWithAbility;
+import com.carterz30cal.items.abilities.implementation.RegisterableAbility;
 import com.carterz30cal.main.Dungeons;
 import com.carterz30cal.utils.MathsUtils;
 import com.carterz30cal.utils.ParticleUtils;
