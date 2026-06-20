@@ -2,10 +2,7 @@ package com.carterz30cal.items.abilities;
 
 import com.carterz30cal.entities.player.GamePlayer;
 import com.carterz30cal.items.ItemType;
-import com.carterz30cal.items.abilities.generic.DeadAbility;
-import com.carterz30cal.items.abilities.generic.HealingAbility;
-import com.carterz30cal.items.abilities.generic.MagicSwordAbility;
-import com.carterz30cal.items.abilities.generic.StatEnchantment;
+import com.carterz30cal.items.abilities.generic.*;
 import com.carterz30cal.items.abilities.implementation.GameAbility;
 import com.carterz30cal.items.abilities.implementation.PlayerAbilityContext;
 import com.carterz30cal.items.abilities.waterway.*;
@@ -79,7 +76,7 @@ public enum Abilities
     SERAPH_SUMMON_GUIDE(new SeraphSummonGuideAbility("water_seraph_spirit", 20)),
     ADMIN_INSTANT_DEATH_SWORD(new DeadAbility()),
 
-    PET_DUSTED_COMMON(new StatEnchantment("Dustball", 0, Stat.DEFENCE, 75, 0, 1))
+	PET_DUSTED_COMMON(new PlayerStatAbility("Dust-ball", Stat.DEFENCE, 75)),
 	;
 	public final GameAbility ability;
 

@@ -20,6 +20,7 @@ public abstract class GameSkill extends GameAbility implements AbilityWithDescri
         this.soulType = soulType;
     }
 
+    @Override
     public String name(PlayerAbilityContext context) {
         return name;
     }
