@@ -76,7 +76,7 @@ public enum Abilities
     SERAPH_SUMMON_GUIDE(new SeraphSummonGuideAbility("water_seraph_spirit", 20)),
     ADMIN_INSTANT_DEATH_SWORD(new DeadAbility()),
 
-	PET_DUSTED_COMMON(new PlayerStatAbility("Dust-ball", Stat.DEFENCE, 75)),
+	PET_DUSTED_COMMON(new PlayerStatAbility("Active: Dust-ball", Stat.DEFENCE, 80)),
 	;
 	public final GameAbility ability;
 

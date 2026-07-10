@@ -40,6 +40,6 @@ public class PlayerStatAbility extends GameAbility implements AbilityWithDescrip
 
     @Override
     public List<String> miniMessageDescription(@NotNull PlayerAbilityContext context) {
-        return Collections.singletonList(STR."<grey>Grants \{formattedDisplay(stat, amount)} to your person.");
+        return Collections.singletonList("<grey>Grants " + formattedDisplay(stat, amount) + " to your person.");
     }
 }
