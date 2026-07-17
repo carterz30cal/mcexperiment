@@ -1,0 +1,52 @@
+paper_production_core:
+  name: Eternal Library Mini-verse
+  type: PRODUCTION_CORE
+  material: ENDER_PEARL
+  rarity: LEGENDARY
+  value: 5000
+  generator:
+    item: wet_paper
+    milliseconds: 6500
+  lore:
+    - A small device which has trapped a small universe
+    - which contains an infinite library. Unfortunately
+    - the <blue>Water Ants</blue> invaded it first, so the
+    - moisture levels in the universe are quite high.
+
+flesh_production_core:
+  name: Endless Ball of Flesh
+  type: PRODUCTION_CORE
+  material: ZOMBIE_SPAWN_EGG
+  rarity: LEGENDARY
+  value: 7500
+  generator:
+    item: weird_flesh
+    milliseconds: 4000
+  lore:
+    - A cursed flesh-ball, which can somehow grow
+    - stinking flesh without any sustenance.
+    - You are highly advised to hold your nose.
+
+chilli_production_core:
+  name: Chilli Portal
+  type: PRODUCTION_CORE
+  material: BLAZE_SPAWN_EGG
+  rarity: LEGENDARY
+  generator:
+    item: chilli_powder
+    milliseconds: 100000
+  lore:
+    - A supply portal to sate the demand for
+    - exotic flavours in <blue>Waterway</blue>.
+
+spontaneous_catalyst_factory_upgrade:
+  name: Catalyst Dust Coagulator
+  type: FACTORY_UPGRADE
+  material: WHITE_WOOL
+  rarity: VERY_RARE
+  abilities:
+    - CATALYST_DUST_COAGULATOR
+  lore:
+    - Nobody quite understands the principle behind
+    - how this coagulator functions, but it does and
+    - that's really all that matters.

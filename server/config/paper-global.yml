@@ -18,16 +18,16 @@ anticheat:
   obfuscation:
     items:
       all-models:
-        also-obfuscate: [ ]
+        also-obfuscate: []
         dont-obfuscate:
-          - minecraft:lodestone_tracker
+        - minecraft:lodestone_tracker
         sanitize-count: true
       enable-item-obfuscation: false
       model-overrides:
         minecraft:elytra:
-          also-obfuscate: [ ]
+          also-obfuscate: []
           dont-obfuscate:
-            - minecraft:damage
+          - minecraft:damage
           sanitize-count: true
 block-updates:
   disable-chorus-plant-updates: false
@@ -136,7 +136,7 @@ unsupported-settings:
   allow-unsafe-end-portal-teleportation: false
   compression-format: ZLIB
   oversized-item-component-sanitizer:
-    dont-sanitize: [ ]
+    dont-sanitize: []
   perform-username-validation: true
   skip-tripwire-hook-placement-validation: false
   skip-vanilla-damage-tick-when-shield-blocked: false

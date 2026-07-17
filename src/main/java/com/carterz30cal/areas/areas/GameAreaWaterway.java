@@ -5,11 +5,23 @@ import com.carterz30cal.areas.PlayerTeleport;
 import com.carterz30cal.areas.bosses.waterway.AreaBossWaterwaySeraph;
 import com.carterz30cal.areas.spawners.KillEnemySpawner;
 import com.carterz30cal.areas.spawners.SimpleAreaEnemySpawner;
+import com.carterz30cal.entities.enemies.representation.EnemyRepresentationBuilder;
+import com.carterz30cal.entities.enemies.representation.EnemyRepresentationData;
+import com.carterz30cal.entities.interactable.GameFactoryOwnerEntity;
 import com.carterz30cal.entities.player.GamePlayer;
 import com.carterz30cal.main.Dungeons;
 import com.carterz30cal.utils.Box;
 import org.bukkit.Location;
+import org.bukkit.entity.EntityType;
+import org.bukkit.util.Vector;
 
+import java.util.HashMap;
+
+/**
+ * @author carterz30cal
+ * @version 2
+ * @since 1.0.0
+ */
 public class GameAreaWaterway extends AbstractGameArea {
     public GameAreaWaterway() {
         this.areaName = "Waterway";
@@ -18,6 +30,16 @@ public class GameAreaWaterway extends AbstractGameArea {
                 new Location(Dungeons.w, -256, 256, -156)
         );
         this.context = new SpawnerContext();
+
+        var factoryEntityBuilder = new EnemyRepresentationBuilder();
+        var rep = new EnemyRepresentationData();
+        rep.offset = new Vector();
+        rep.type = EntityType.VILLAGER;
+        rep.scale = 1;
+        rep.invisible = false;
+        rep.equipment = new HashMap<>();
+        factoryEntityBuilder.add(rep);
+        new GameFactoryOwnerEntity(factoryEntityBuilder, new Location(Dungeons.w, -94.5, 65, 6.5, -120, 0));
 
         // BOSSES
         RegisterBoss(AreaBossWaterwaySeraph.instance);

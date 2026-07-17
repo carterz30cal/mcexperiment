@@ -127,9 +127,7 @@ public class ListenerPlayerInteract implements Listener {
 		GamePlayer p = (GamePlayer)GameEntity.get(e.getPlayer());
         if (p != null && p.questTick == 0) {
             var clicked = GameEntity.get(e.getRightClicked());
-            Dungeons.instance.getLogger().warning("GOT HERE - " + clicked.getClass().getName());
             if (clicked instanceof GameEntityInteractable interactable) {
-                Dungeons.instance.getLogger().warning("GOT HERE2");
                 p.questTick = 4;
                 interactable.interact(p);
             }

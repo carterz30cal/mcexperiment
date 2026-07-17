@@ -3,6 +3,7 @@ package com.carterz30cal.entities;
 import com.carterz30cal.areas.quests.Quests;
 import com.carterz30cal.entities.health.EntityHealthSystemBuilder;
 import com.carterz30cal.entities.player.GamePlayer;
+import com.carterz30cal.entities.player.PlayerItemProducer;
 import com.carterz30cal.items.ForgingItem;
 import com.carterz30cal.main.Dungeons;
 import org.bukkit.Bukkit;
@@ -120,7 +121,7 @@ public class PlayerManager
         if (wardrobe == null) {
             wardrobe = c.createSection("wardrobe");
         }
-        p.wardrobe.Load(wardrobe);
+        p.wardrobe.load(wardrobe);
         p.skillTree.load(c);
 
 		ConfigurationSection quiver = c.getConfigurationSection("quiver");
@@ -172,6 +173,8 @@ public class PlayerManager
 
 
 		p.talismans = c.getStringList("talismans");
+
+		p.factory.load(c);
 	}
 	
 	public void registerPlayer(Player p)
@@ -179,6 +182,7 @@ public class PlayerManager
 		GamePlayer player = new GamePlayer();
 		player.player = p;
         player.healthSystem = new EntityHealthSystemBuilder().build();
+		player.factory = new PlayerItemProducer();
 
 		loadPlayer(player);
 
@@ -227,7 +231,8 @@ public class PlayerManager
         }
 
         c.set("wardrobe", null);
-        p.wardrobe.Save(c.createSection("wardrobe"));
+        p.wardrobe.save(c.createSection("wardrobe"));
+		p.factory.save(c);
         p.skillTree.save(c);
 
 

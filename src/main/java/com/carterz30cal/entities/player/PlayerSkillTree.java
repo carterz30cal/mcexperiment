@@ -1,6 +1,7 @@
 package com.carterz30cal.entities.player;
 
 import com.carterz30cal.entities.enemies.core.EnemyData;
+import com.carterz30cal.entities.player.interfaces.PlayerSavable;
 import com.carterz30cal.items.abilities.implementation.PlayerAbilityContext;
 import com.carterz30cal.skills.SkillSoulType;
 import com.carterz30cal.skills.Skills;
@@ -10,13 +11,11 @@ import org.bukkit.configuration.ConfigurationSection;
 import java.util.*;
 
 /**
- * TODO FINISH!
- *
  * @author carterz30cal
  * @version 1
  * @since 1.0.0
  */
-public class PlayerSkillTree {
+public class PlayerSkillTree implements PlayerSavable {
     private final GamePlayer owner;
     private final Map<Skills, Integer> tree = new EnumMap<>(Skills.class);
     private final Map<SkillSoulType, Long> souls = new EnumMap<>(SkillSoulType.class);

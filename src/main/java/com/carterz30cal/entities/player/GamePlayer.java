@@ -66,7 +66,7 @@ import static net.kyori.adventure.text.Component.text;
 
 /**
  * @author carterz30cal
- * @version 3
+ * @version 4
  * @since 1.0.0
  */
 @SuppressWarnings("UnnecessaryUnicodeEscape")
@@ -124,6 +124,7 @@ public class GamePlayer extends GameEntity implements DamageableEntity, Aggressi
     public PlayerWardrobe wardrobe = new PlayerWardrobe(this);
     public PlayerSkillTree skillTree = new PlayerSkillTree(this);
     public GamePet pet;
+    public PlayerItemProducer factory;
     public EntityHealthSystem healthSystem;
 	
 	public Map<String, Long> discoveries = new HashMap<>();
@@ -267,7 +268,7 @@ public class GamePlayer extends GameEntity implements DamageableEntity, Aggressi
 		for (String pet : pets) items.add(ItemFactory.build(pet));
 		if (activePet != null) {
 			ItemPet itemActivePet = (ItemPet) ItemFactory.getItem(activePet);
-			if (itemActivePet !=null && itemActivePet.activeAbility != null) {
+			if (itemActivePet != null && itemActivePet.activeAbility != null) {
 				abilities.add(itemActivePet.activeAbility.getContext(this, itemActivePet.rarity.ordinal()));
 				items.add(ItemFactory.build(activePet));
 			}
@@ -473,6 +474,17 @@ public class GamePlayer extends GameEntity implements DamageableEntity, Aggressi
 	public boolean hasSackSpace(int am) {
         return getSackSpaceUsed() + am <= getSackSize();
 	}
+
+    /**
+     * Use this method to check if we can add a certain number of items to
+     * this player's ingredient sack.
+     * @param amount how much do we want to add to the sack?
+     * @return whether there's room for <code>amount</code> of items.
+     * @since 1.0.0
+     */
+    public boolean hasSackSpace(long amount) {
+        return getSackSpaceRemaining() >= amount;
+    }
 	
 	
 	public void giveItem(ItemStack item)
@@ -535,6 +547,88 @@ public class GamePlayer extends GameEntity implements DamageableEntity, Aggressi
 		}
 		else player.getInventory().addItem(item);
 	}
+
+    /**
+     * Platform for granting players large quantities of items, beyond the
+     * normal <code>ItemStack</code> scope.
+     * @param items a map of the item ids that we want to give to the player
+     * @param grantDiscoveryProgress should these items contribute towards discoveries?
+     * @implSpec <code>ItemType.INGREDIENT</code>s should preferentially go into the ingredient sack, then into the inventory if
+     * there isn't enough room in the sack.<br>
+     * <code>ItemType.ARROW</code> should be essentially ignored for space checks as they can always go into the quiver.
+     * <br>Other item types should try to go into the inventory if possible. If all else fails, <code>return false</code>.
+     * Storage space should be checked <b>before</b> items are actually added.
+     * @return <code>true</code> if we managed to add the items to an available storage location, <code>false</code> otherwise.
+     * @see ItemStack
+     * @see ItemType
+     * @since 1.0.0
+     */
+    public boolean giveItems(
+            @Nullable Map<String, Long> items,
+            boolean grantDiscoveryProgress) {
+        if (items == null || items.isEmpty()) return true;
+        boolean space = true;
+        long spaceUsed = 0;
+		var storage = player.getInventory().getStorageContents();
+		var empty = player.getInventory().firstEmpty();
+        for (var entry : items.entrySet()) {
+            var item = ItemFactory.getItem(entry.getKey());
+            long amount = entry.getValue();
+            if (item == null || amount == 0 || item.type == ItemType.ARROW) continue;
+            if (item.type == ItemType.INGREDIENT) {
+                if (hasSackSpace(spaceUsed + amount)) {
+                    spaceUsed += amount;
+                    continue;
+                }
+				else {
+					var rem = getSackSpaceRemaining() - spaceUsed;
+					spaceUsed += rem;
+					amount -= rem;
+				}
+            }
+            if (empty == -1 || empty >= storage.length) {
+                space = false;
+				break;
+            }
+			else {
+				while (empty < storage.length && amount > 0) {
+					if (storage[empty] == null) {
+						amount -= item.type.maxStackSize();
+					}
+					empty++;
+				}
+			}
+
+        }
+        if (!space) return false;
+		for (var entry : items.entrySet()) {
+			var item = ItemFactory.getItem(entry.getKey());
+			long amount = entry.getValue();
+			if (item == null || amount == 0) continue;
+			if (item.type == ItemType.ARROW) {
+				quiver.put(item.id, quiver.getOrDefault(item.id, 0) + (int)amount);
+			}
+			else if (item.type == ItemType.INGREDIENT)
+			{
+				if (hasSackSpace(amount)) {
+					sack.put(item.id, sack.getOrDefault(item.id, 0L) + amount);
+					continue;
+				}
+				else if (getSackSpaceRemaining() > 0) {
+					sack.put(item.id, sack.getOrDefault(item.id, 0L) + getSackSpaceRemaining());
+					amount -= getSackSpaceRemaining();
+				}
+			}
+			while (amount > 0) {
+				var sam = (int)Math.min(item.type.maxStackSize(), amount);
+				var stack = ItemFactory.build(entry.getKey(), sam);
+                assert stack != null;
+                player.getInventory().addItem(stack);
+				amount -= sam;
+			}
+		}
+        return true;
+    }
 
 
     public void sendMessage(String message)

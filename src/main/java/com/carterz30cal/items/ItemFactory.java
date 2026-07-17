@@ -14,6 +14,7 @@ import com.carterz30cal.items.sets.ItemSet;
 import com.carterz30cal.items.trims.TrimMaterialWrapper;
 import com.carterz30cal.items.trims.TrimPatternWrapper;
 import com.carterz30cal.items.types.ItemAttuner;
+import com.carterz30cal.items.types.ItemIngredientGenerator;
 import com.carterz30cal.items.types.ItemLootbox;
 import com.carterz30cal.items.types.ItemPet;
 import com.carterz30cal.main.Dungeons;
@@ -80,6 +81,7 @@ public class ItemFactory
             "waterway/items/armours/very_rare_armours", "waterway/items/armours/epic_armours",
             "waterway/items/armours/sets/uncommon_sets", "waterway/items/armours/sets/rare_sets",
             "waterway/items/armours/sets/very_rare_sets",
+            "waterway/items/item_generation",
             "waterway/items/pet_items", "waterway/items/quest_items",
             "necropolis/items/weapons/common_swords",
             "necropolis/items/pets/common_pets",
@@ -97,6 +99,7 @@ public class ItemFactory
             "waterway/recipes/armours/very_rare_armours",
             "waterway/recipes/attuners_offensive",
             "waterway/recipes/enchantments/sharpness",
+            "waterway/recipes/item_generation",
             "waterway/recipes/talismans", "waterway/recipes/fishing_rods", "waterway/recipes/pickaxes"
 	};
     public static String[] skullFiles = {
@@ -401,6 +404,19 @@ public class ItemFactory
                 drawSpecificSection = true;
                 specificSection.section.add(text().append(text("You may apply up to five attuners onto").color(GRAY)));
                 specificSection.section.add(text().append(text("any wieldable item using the anvil menu.").color(GRAY)));
+            }
+            else if (item instanceof ItemIngredientGenerator generator) {
+                drawSpecificSection = true;
+                specificSection.section.add(
+                        text().append(text("Production").color(GOLD))
+                );
+                var produces = getItem(generator.generates);
+                specificSection.section.add(
+                        text().append(text(" Produces: ").color(GRAY), produces.text())
+                );
+                specificSection.section.add(
+                        text().append(text(" Time: ").color(GRAY), text(Math.round(generator.timePerItem() / 100D) / 10D).color(GREEN), text("s", GREEN))
+                );
             }
         }
         if (drawSpecificSection) {
@@ -1251,6 +1267,12 @@ public class ItemFactory
                 }
 
 				break;
+            case PRODUCTION_CORE:
+                var generator = new ItemIngredientGenerator();
+                item = generator;
+                generator.generates = i.getString("generator.item");
+                generator.time = i.getLong("generator.milliseconds", 5000);
+                break;
 			case LOOTBOX:
 				item = new ItemLootbox();
                 ((ItemLootbox) item).table = new ItemLootTable(i.getConfigurationSection("drops"));

@@ -160,17 +160,17 @@ commands:
   send-namespaced: true
   log: true
   replace-commands:
-    - setblock
-    - summon
-    - testforblock
-    - tellraw
+  - setblock
+  - summon
+  - testforblock
+  - tellraw
   spam-exclusions:
-    - /skill
+  - /skill
   enable-spam-exclusions: false
 advancements:
   disable-saving: false
   disabled:
-    - minecraft:story/disabled
+  - minecraft:story/disabled
 messages:
   restart: Server is restarting
   whitelist: You are not whitelisted on this server!
@@ -181,4 +181,4 @@ messages:
 config-version: 12
 stats:
   disable-saving: false
-  forced-stats: { }
+  forced-stats: {}

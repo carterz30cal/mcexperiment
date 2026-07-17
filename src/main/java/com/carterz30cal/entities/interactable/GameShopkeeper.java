@@ -27,7 +27,6 @@ public class GameShopkeeper extends GameEntityInteractable {
     public void interact(GamePlayer interactingPlayer) {
         super.interact(interactingPlayer);
 
-        Dungeons.instance.getLogger().warning("GOT HERE3");
         interactingPlayer.openGui(new ShopGUI(interactingPlayer, shop));
     }
 }

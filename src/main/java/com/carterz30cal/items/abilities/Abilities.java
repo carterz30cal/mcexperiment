@@ -6,6 +6,7 @@ import com.carterz30cal.items.abilities.generic.*;
 import com.carterz30cal.items.abilities.implementation.GameAbility;
 import com.carterz30cal.items.abilities.implementation.PlayerAbilityContext;
 import com.carterz30cal.items.abilities.waterway.*;
+import com.carterz30cal.items.abilities.waterway.factory.CatalystDustCoagulatorFactoryUpgrade;
 import com.carterz30cal.items.abilities.waterway.pets.PetDrenchedActive;
 import com.carterz30cal.items.abilities.waterway.pets.PetDrenchedPassive;
 import com.carterz30cal.items.abilities.waterway.pets.PetWaterSpiderActive;
@@ -75,6 +76,8 @@ public enum Abilities
     RAGING_AXE(new RagingAxeAbility()),
     SERAPH_SUMMON_GUIDE(new SeraphSummonGuideAbility("water_seraph_spirit", 20)),
     ADMIN_INSTANT_DEATH_SWORD(new DeadAbility()),
+
+	CATALYST_DUST_COAGULATOR(new CatalystDustCoagulatorFactoryUpgrade()),
 
 	PET_DUSTED_COMMON(new PlayerStatAbility("Active: Dust-ball", Stat.DEFENCE, 80)),
 	;

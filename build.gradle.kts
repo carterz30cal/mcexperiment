@@ -38,7 +38,7 @@ dependencies {
     //compileOnly(libs.org.spigotmc.spigot.api)
     compileOnly(libs.paper.api)
     implementation("net.megavex:scoreboard-library-api:2.7.4")
-    runtimeOnly("net.megavex:scoreboard-library-implementation:2.7.4")
+    implementation("net.megavex:scoreboard-library-implementation:2.7.4")
 }
 
 group = "com.carterz30cal"
@@ -52,7 +52,7 @@ publishing {
 }
 
 java {
-    toolchain.languageVersion.set(JavaLanguageVersion.of(21))
+    toolchain.languageVersion.set(JavaLanguageVersion.of(25))
 }
 
 tasks.shadowJar {

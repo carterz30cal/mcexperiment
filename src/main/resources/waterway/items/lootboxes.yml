@@ -59,6 +59,9 @@ titan_lootbox_1:
       chance: 1/20
       amount: 1/1
       enchants: ENCHANT_TITANIC-2
+    paper_production_core:
+      chance: 1/110
+      amount: 1/1
     combination_catalyst_shard-ag:
       chance: 1/120
       amount: 10/15

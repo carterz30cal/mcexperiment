@@ -2,7 +2,7 @@ package com.carterz30cal.items;
 
 /**
  * @author carterz30cal
- * @version 2
+ * @version 3
  * @since 1.0.0
  */
 public enum ItemType 
@@ -30,9 +30,12 @@ public enum ItemType
 	LEGGINGS(ItemTypeUse.WEARABLE),
 	BOOTS(ItemTypeUse.WEARABLE),
 	PET(ItemTypeUse.NORMAL),
+	PRODUCTION_CORE("Production Core"),
+	FACTORY_UPGRADE("Factory Upgrade"),
 	VIRTUAL_SET(ItemTypeUse.VIRTUAL_NON_EXIST);
     public final ItemTypeUse use;
 	public String cute;
+	private int maxStackSize = 64;
 	
 	ItemType(ItemTypeUse use)
 	{
@@ -60,4 +63,14 @@ public enum ItemType
             return name + 's';
         }
     }
+
+	/**
+	 * Gets the defined maximum stack size for this item type.
+	 * This is typically 1 for most items, but 64 for ingredients, catalysts and keys.
+	 * @return the maximum stack size allowed for this item type.
+	 * @since 1.0.0
+	 */
+	public int maxStackSize() {
+		return maxStackSize;
+	}
 }

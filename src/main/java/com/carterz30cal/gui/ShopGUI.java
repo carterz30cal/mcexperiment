@@ -139,14 +139,12 @@ public class ShopGUI extends AbstractGUI {
             if (clicked != null) {
                 Item item = ItemFactory.getItem(clicked);
                 if (item != null && item.value > 0) {
-                    String data = ItemFactory.getFlatItemData(clicked);
-                    //System.out.println(data);
                     if (ItemFactory.isItemBaseModel(clicked)) {
                         int am = clicked.getAmount();
                         clicked.setAmount(0);
                         owner.coins += am * item.value;
                     }
-                    else owner.sendMessage("REDYou can't sell modified items to the shop.");
+                    else owner.sendMessage("<red>You can't sell modified items to the shop.");
                 }
             }
             return false;
@@ -172,12 +170,12 @@ public class ShopGUI extends AbstractGUI {
 
 
             if (recipe.levelRequirement > owner.getLevel() || !collectionUnlocked) {
-                owner.sendMessage("REDYou aren't at a high enough level to buy this!");
+                owner.sendMessage("<red>You aren't at a high enough level to buy this!");
                 owner.playSound(Sound.ENTITY_CREEPER_HURT, 0.4, 0.9);
 
             }
             else if (owner.player.getInventory().firstEmpty() == -1) {
-                owner.sendMessage("REDFree up some inventory space!");
+                owner.sendMessage("<red>Free up some inventory space!");
                 owner.playSound(Sound.ENTITY_CREEPER_HURT, 0.4, 0.9);
             }else {
                 ItemReqs requirements = new ItemReqs();
