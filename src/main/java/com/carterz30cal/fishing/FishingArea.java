@@ -74,11 +74,11 @@ public class FishingArea {
     }
 
     public FishingBobber getBobberUsingPower(Location location, GamePlayer owner) {
-        int fishingPower;
-        fishingPower = owner.stats.getStat(Stat.FISHING_POWER) - powerSubtraction;
+        long fishingPower;
+        fishingPower = owner.stats.stat(Stat.FISHING_POWER) - powerSubtraction;
 
-        int adjustedPower = fishingPower;
-        int startPower = 0;
+        long adjustedPower = fishingPower;
+        long startPower = 0;
         int i = 0;
         while (adjustedPower > 0 && i < brackets.size() - 1) {
             startPower += Math.min(adjustedPower, brackets.get(i).bracketWeight);
@@ -91,7 +91,7 @@ public class FishingArea {
         }
 
 
-        int choice = RandomUtils.getRandom(Math.max(0, startPower), getTotalWeight());
+        long choice = RandomUtils.getRandom(Math.max(0L, startPower), getTotalWeight());
         i = 0;
         while (choice > 0 && i <= brackets.size() - 1) {
             choice -= brackets.get(i).bracketWeight;
