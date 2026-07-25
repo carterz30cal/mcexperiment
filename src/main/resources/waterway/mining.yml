@@ -10,6 +10,7 @@ weak_leaf_mash:
   converts-into: GOLD_BLOCK
   mines-into: BEDROCK
   regen-time: 80
+  area: WATERWAY
 
 leaf_mash:
   name: "Leaf Mash"
@@ -23,6 +24,7 @@ leaf_mash:
   converts-into: GOLD_BLOCK
   mines-into: BEDROCK
   regen-time: 80
+  area: WATERWAY
 
 gold_leaf:
   name: "Gold Leaf"
@@ -35,3 +37,4 @@ gold_leaf:
   conversion-chance: -1
   mines-into: BEDROCK
   regen-time: 80
+  area: WATERWAY
