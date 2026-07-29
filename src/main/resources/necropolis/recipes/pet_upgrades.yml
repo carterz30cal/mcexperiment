@@ -1,0 +1,23 @@
+red_slime_common:
+  item: pet_red_slime_common
+  amount: 1
+  time: 1h
+  category: necropolis_pets
+  discovery: rainbow_slime_collection
+  discovery-tier: 3
+  items:
+    roasted_bone_dust: 2
+    red_slime: 500
+    calmed_spirit: 1
+
+drenched_uncommon:
+  item: pet_drenched_uncommon
+  amount: 1
+  level: 6
+  time: 1h
+  category: necropolis_pets
+  discovery: bone_dust_collection
+  discovery-tier: 3
+  items:
+    pet_drenched_common: 2
+    roasted_bone_dust: 1

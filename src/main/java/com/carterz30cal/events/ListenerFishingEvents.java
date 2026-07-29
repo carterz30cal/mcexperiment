@@ -54,11 +54,14 @@ public class ListenerFishingEvents implements Listener
 			e.setExpToDrop(0);
 
             if (p.area == null) {
-                p.sendMessage("<red>There's no fish to catch!");
+                p.sendMessage("<red>There's nothing to catch here!");
             }
             else {
                 p.bobber = FishingArea.getFishingArea(p.area.name()).getBobberUsingPower(e.getHook().getLocation(), p);
-                p.sendMessage("<white>You've fished up a <" + p.bobber.rarity.textColor.asHexString() + "><b>" + p.bobber.rarity.name.toUpperCase() + "</b> <white>bobber!");
+				if (p.bobber == null) {
+					p.sendMessage("<red>You do not have enough fishing power to fish here!");
+				}
+                else p.sendMessage("<white>You've fished up a <" + p.bobber.rarity.textColor.asHexString() + "><b>" + p.bobber.rarity.name.toUpperCase() + "</b> <white>bobber!");
             }
 
 

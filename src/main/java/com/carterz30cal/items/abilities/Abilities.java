@@ -1,10 +1,12 @@
 package com.carterz30cal.items.abilities;
 
+import com.carterz30cal.entities.health.damage.DamageType;
 import com.carterz30cal.entities.player.GamePlayer;
 import com.carterz30cal.items.ItemType;
 import com.carterz30cal.items.abilities.generic.*;
 import com.carterz30cal.items.abilities.implementation.GameAbility;
 import com.carterz30cal.items.abilities.implementation.PlayerAbilityContext;
+import com.carterz30cal.items.abilities.necropolis.enchants.ThornsEnchantment;
 import com.carterz30cal.items.abilities.waterway.*;
 import com.carterz30cal.items.abilities.waterway.factory.CatalystDustCoagulatorFactoryUpgrade;
 import com.carterz30cal.items.abilities.waterway.pets.PetDrenchedActive;
@@ -79,7 +81,32 @@ public enum Abilities
 
 	CATALYST_DUST_COAGULATOR(new CatalystDustCoagulatorFactoryUpgrade()),
 
+	// NECROPOLIS ENCHANTS
+	ENCHANT_EFFICIENCY(new StatEnchantment(
+			"Efficiency", 2, Stat.MINING_SPEED, 0, 20, 5, ItemType.PICKAXE, ItemType.HELMET
+	)),
+	ENCHANT_WETSUIT(new StatEnchantment(
+			"Wetsuit", 2, Stat.INSULATION, 10, 5, 4,
+			ItemType.HELMET, ItemType.CHESTPLATE, ItemType.LEGGINGS, ItemType.BOOTS
+	)),
+	ENCHANT_FORTUNE(new StatEnchantment(
+			"Fortune", 3, Stat.MINING_FORTUNE, 0,10, 10, ItemType.PICKAXE
+	)),
+	ENCHANT_THORNS(new ThornsEnchantment(
+			DamageType.PHYSICAL, 15,
+			Stat.MIGHT, 0.75,
+			1,
+			4,
+			ItemType.HELMET, ItemType.CHESTPLATE, ItemType.LEGGINGS,
+			ItemType.BOOTS
+	)),
+	ENCHANT_FEROCITY(new StatEnchantment(
+			"Ferocity", 2, Stat.SAVAGERY, 0, 1, 10,
+			ItemType.WEAPON, ItemType.BOW, ItemType.ROD
+	)),
+
 	PET_DUSTED_COMMON(new PlayerStatAbility("Active: Dust-ball", Stat.DEFENCE, 80)),
+	PET_RED_SLIME_COMMON(new PlayerStatAbility("Active: Slime Layers", Stat.INSULATION, 150))
 	;
 	public final GameAbility ability;
 

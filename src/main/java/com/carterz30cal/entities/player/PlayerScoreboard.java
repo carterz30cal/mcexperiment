@@ -106,7 +106,11 @@ public class PlayerScoreboard {
                 }
                 if (save.sectionSave.HasTalkedTo()) {
                     drawable.drawLine(text());
-                    drawable.drawLine(text("Quest: ", NamedTextColor.GOLD).append(text(chosenQuest.getName(), NamedTextColor.WHITE)));
+                    if (chosenQuest.getName().length() > 19) {
+                        drawable.drawLine(text("Quest: ", NamedTextColor.GOLD));
+                        drawable.drawLine(text(chosenQuest.getName(), NamedTextColor.WHITE));
+                    }
+                    else drawable.drawLine(text("Quest: ", NamedTextColor.GOLD).append(text(chosenQuest.getName(), NamedTextColor.WHITE)));
                     for (var sc : save.sectionSave.GetDescription()) {
                         drawable.drawLine(MiniMessage.miniMessage().deserialize(sc));
                     }

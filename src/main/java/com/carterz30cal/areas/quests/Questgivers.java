@@ -22,7 +22,7 @@ import java.util.List;
 
 /**
  * @author carterz30cal
- * @version 3
+ * @version 4
  * @since 1.0.0
  */
 public enum Questgivers {
@@ -63,7 +63,7 @@ public enum Questgivers {
                     new StringDescription("Kill lunatics to summon a Titan nearby!"),
                     new ItemQuestReward(10, "titan_lootbox_1", 3),
                     "TITAN",
-                    "LIGHT_PURPLETitan",
+                    "<light_purple>Titan",
                     1
             )
     ),
@@ -86,7 +86,7 @@ public enum Questgivers {
                     new StringDescription("You're too kind.", "Take some Fishing Berries for your troubles."),
                     new StringDescription("Please, bring me some waterway cod."),
                     new ItemQuestReward(5, "fishing_berries", 2),
-                    "cooked_waterway_cod", 50
+                    "waterway_cod", 50
             )
     ),
 

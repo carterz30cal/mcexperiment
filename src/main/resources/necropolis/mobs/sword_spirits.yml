@@ -5,7 +5,7 @@ sword_spirit_1:
   knockback: 110
   speed: 1.1
   damage:
-    MAGIC: 65
+    MAGIC: 50
   stats:
     DOUSING: -200
   souls:
@@ -15,10 +15,14 @@ sword_spirit_1:
   tags:
     - NECROPOLIS
     - SPIRIT
+  loot:
+    calmed_spirit:
+      amount: 1/1
+      chance: 1/20
   entities:
     hitbox:
       type: ZOMBIE
-      scale: 0.8
+      scale: 1.1
       offset: [ 0,0,0 ]
       invisible: true
     1:

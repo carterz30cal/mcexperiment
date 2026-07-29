@@ -1,0 +1,11 @@
+titan_blade_legendary:
+  name: Titan's Slimy Blade
+  type: WEAPON
+  rarity: LEGENDARY
+  material: STONE_SWORD
+  glow: true
+  stats:
+    damage: +35
+    defence: +200
+    enchant_power: +22
+    level_requirement: 7

@@ -1,0 +1,40 @@
+haunting_slime_1:
+  name: Haunting Slime
+  level: 8
+  health: 2000
+  knockback: 140
+  speed: 1.2
+  directors:
+    phase-time: 160
+    options:
+      - BLAZE
+      - MAGMA_CUBE
+  damage:
+    CORRUPTION: 40
+  stats:
+    DEFENCE: 25
+  souls:
+    NECROPOLIS: 4
+  bestiary:
+    category: necropolis_haunting_slime
+  tags:
+    - NECROPOLIS
+    - SLIME
+    - SPIRIT
+  entities:
+    1:
+      type: SLIME
+      scale: 1.4
+      offset: [ 0,0,0 ]
+    2:
+      type: SLIME
+      scale: 1
+      offset: [0,0.4,0]
+    3:
+      type: SLIME
+      scale: 1.4
+      offset: [ 0,0.8,0 ]
+  loot:
+    red_slime:
+      chance: 1/1
+      amount: 2/10

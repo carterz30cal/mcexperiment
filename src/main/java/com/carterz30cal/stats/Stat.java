@@ -24,7 +24,7 @@ public enum Stat
     ROBUSTNESS("\u00B1 Robustness", NamedTextColor.RED, StatType.DEFENSIVE, StatDisplayType.NORMAL),
     PADDING("\u25CB Padding", NamedTextColor.WHITE, StatType.DEFENSIVE, StatDisplayType.NORMAL),
     INSULATION("\u03C8 Insulation", NamedTextColor.WHITE, StatType.DEFENSIVE, StatDisplayType.NORMAL),
-    DOUSING("⋎ Dousing", TextColor.fromHexString("#FFA500"), StatType.DEFENSIVE, StatDisplayType.NORMAL),
+    DOUSING("\u25CB Dousing", TextColor.fromHexString("#FFA500"), StatType.DEFENSIVE, StatDisplayType.NORMAL),
 
     MANA("\u2605 Mana", NamedTextColor.LIGHT_PURPLE, StatType.OFFENSIVE, StatDisplayType.NORMAL),
     FOCUS("\u25C6 Focus", NamedTextColor.AQUA, StatType.OFFENSIVE, StatDisplayType.NORMAL),

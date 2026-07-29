@@ -1,0 +1,28 @@
+spirit_lantern_uncommon:
+  time: 5m
+  category: necropolis_talismans
+  discovery: calmed_spirit_collection
+  discovery-tier: 1
+  items:
+    chilli_powder: 10
+    bone_dust: 64
+    calmed_spirit: 2
+
+spirit_lantern_rare:
+  category: necropolis_talismans
+  discovery: calmed_spirit_collection
+  discovery-tier: 2
+  items:
+    spirit_lantern_uncommon: 1
+    incensed_spirit: 1
+    roasted_bone_dust: 1
+
+spirit_lantern_very_rare:
+  category: necropolis_talismans
+  discovery: calmed_spirit_collection
+  discovery-tier: 3
+  items:
+    spirit_lantern_rare: 1
+    incensed_spirit: 4
+    roasted_bone_dust: 2
+    hydra_flesh: 20

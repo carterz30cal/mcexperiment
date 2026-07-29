@@ -1,0 +1,10 @@
+ethereal_raincoat_uncommon:
+  item: ethereal_raincoat_uncommon
+  time: 10m
+  amount: 1
+  category: necropolis_armour
+  discovery: calmed_spirit_collection
+  discovery-tier: 3
+  items:
+    incensed_spirit: 1
+    hydra_flesh: 16

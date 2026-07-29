@@ -1,0 +1,29 @@
+roasted_bone_dust:
+  time: 8m
+  amount: 1
+  discovery: bone_dust_collection
+  discovery-tier: 2
+  level: 5
+  category: necropolis_ingredients
+  items:
+    bone_dust: 300
+
+incensed_spirit:
+  time: 15m
+  amount: 1
+  discovery: calmed_spirit_collection
+  discovery-tier: 2
+  level: 6
+  category: necropolis_ingredients
+  items:
+    calmed_spirit: 16
+    chilli_powder: 8
+
+green_slime:
+  amount: 2
+  discovery: rainbow_slime_collection
+  discovery-tier: 1
+  category: necropolis_ingredients
+  items:
+    red_slime: 333
+    calmed_spirit: 1

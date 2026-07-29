@@ -108,6 +108,12 @@ public class GameSummon extends GameEnemy {
     }
 
     @Override
+    public boolean isDamageable(AggressiveEntity by) {
+        if (by instanceof GamePlayer) return false;
+        else return super.isDamageable(by);
+    }
+
+    @Override
     public void dropLoot() {
 
     }

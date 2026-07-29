@@ -1,0 +1,33 @@
+spirit_lantern_uncommon:
+  name: Spirit Lantern
+  type: TALISMAN
+  rarity: UNCOMMON
+  material: SOUL_LANTERN
+  value: 200
+  tags:
+    - SPIRIT_LANTERN
+  stats:
+    mining_fortune: +35
+    dousing: +10
+
+spirit_lantern_rare:
+  name: Spirit Lantern
+  type: TALISMAN
+  rarity: RARE
+  material: SOUL_LANTERN
+  tags:
+    - SPIRIT_LANTERN
+  stats:
+    mining_fortune: +45
+    dousing: +15
+
+spirit_lantern_very_rare:
+  name: Spirit Lantern
+  type: TALISMAN
+  rarity: VERY_RARE
+  material: SOUL_LANTERN
+  tags:
+    - SPIRIT_LANTERN
+  stats:
+    mining_fortune: +55
+    dousing: +20

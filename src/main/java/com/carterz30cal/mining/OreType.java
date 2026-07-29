@@ -39,6 +39,6 @@ public class OreType {
 
         minesInto = Material.valueOf(config.getString("mines-into"));
         regenTime = config.getInt("regen-time", 40);
-        area = Areas.valueOf(config.getString("areas"));
+        area = Areas.valueOf(config.getString("area"));
     }
 }

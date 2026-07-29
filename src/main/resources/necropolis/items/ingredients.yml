@@ -10,6 +10,34 @@ bone_dust:
     - Finely powdered warrior bone.
     - Found throughout Necropolis abundantly.
 
+calmed_spirit:
+  name: Calmed Spirit
+  type: INGREDIENT
+  rarity: RARE
+  material: ALLAY_SPAWN_EGG
+  discovery: calmed_spirit_collection
+  discovery-progress: 1
+  value: 100
+  lore:
+    - Apparently, spirits can take a form. These
+    - have calmed into a somewhat goopy syrup.
+    - Found by slaying Sword Spirits.
+
+incensed_spirit:
+  name: Incensed Spirits
+  type: INGREDIENT
+  rarity: EPIC
+  material: ALLAY_SPAWN_EGG
+  glow: true
+  discovery: calmed_spirit_collection
+  discovery-progress: 16
+  value: 1500
+  lore:
+    - Compressing calm spirits into a small space
+    - and assaulting them with chilli powder
+    - will, generally, make them angry again.
+
+
 roasted_bone_dust:
   name: Roasted Bone Dust
   type: INGREDIENT
@@ -21,3 +49,66 @@ roasted_bone_dust:
   lore:
     - Warrior bone, roasted into a aromatic powder.
     - Makes a great treat for pets.
+
+red_slime:
+  name: Red Slime
+  type: INGREDIENT
+  rarity: COMMON
+  material: PLAYER_HEAD
+  skull-profile-id: red_slime
+  discovery: rainbow_slime_collection
+  discovery-progress: 1
+  value: 2
+  lore:
+    - Slightly higher grade slime than the green stuff, it
+    - can handle higher temperatures for longer durations
+    - before degrading. Unlike green slime, it does not
+    - taste good in jams, nor other conserves.
+    - Oozes from cracks in the walls of Necropolis.
+
+debug_rainbow_slime:
+  name: DEBUG RAINBOW SLIME COLLECTION ITEM
+  type: INGREDIENT
+  rarity: MYSTERIOUS
+  discovery: rainbow_slime_collection
+  discovery-progress: 1000000
+  value: 1
+
+debug_spirit:
+  name: DEBUG CALMED SPIRIT COLLECTION ITEM
+  type: INGREDIENT
+  rarity: MYSTERIOUS
+  discovery: calmed_spirit_collection
+  discovery-progress: 1000000
+  value: 1
+
+debug_bone_dust:
+  name: DEBUG BONE DUST COLLECTION ITEM
+  type: INGREDIENT
+  rarity: MYSTERIOUS
+  discovery: bone_dust_collection
+  discovery-progress: 1000000
+  value: 1
+
+hydra_flesh:
+  name: Hydra Flesh
+  type: INGREDIENT
+  rarity: RARE
+  material: PRISMARINE_SHARD
+  value: 15
+  lore:
+    - A small scrap of flesh dropped by slaying a head
+    - of a hydra. Does not require permanently killing
+    - the beast, but captures a small amount of the regenerative
+    - power of it. Used to improve weaponry and produce
+    - health-boosting armour pieces.
+
+hydra_heart:
+  name: Hydra Heart
+  type: INGREDIENT
+  rarity: VERY_RARE
+  material: RED_DYE
+  value: 100
+  lore:
+    - The beating heart of a great Hydra. Can only
+    - be obtained by permanently slaying the beast.

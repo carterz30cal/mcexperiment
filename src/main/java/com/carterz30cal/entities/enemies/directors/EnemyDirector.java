@@ -42,8 +42,7 @@ public class EnemyDirector implements LocatableEntity, TargetableEntity {
     private double speed = 1;
     private boolean summon = false;
 
-    public EnemyDirector(Location location, double knockbackResistance) {
-        this.knockbackResistance = knockbackResistance / 100D;
+    public EnemyDirector(Location location) {
         this.cachedLocation = location;
     }
 
@@ -66,14 +65,12 @@ public class EnemyDirector implements LocatableEntity, TargetableEntity {
 
     public void createDirector() {
         var mob = (Mob) Dungeons.w.spawnEntity(cachedLocation, directorType, false);
-        //mob.addPotionEffect(new PotionEffect(PotionEffectType.INVISIBILITY, Integer.MAX_VALUE, 0, false, false));
         mob.setPersistent(false);
         mob.setVisibleByDefault(false);
         mob.setSilent(true);
         if (mob instanceof AbstractSkeleton skeleton) {
             skeleton.getEquipment().setItemInMainHand(new ItemStack(Material.BOW), true);
         }
-        //mob.setRemoveWhenFarAway(false);
         directingEntity = mob;
     }
 

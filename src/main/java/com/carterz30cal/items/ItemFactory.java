@@ -59,7 +59,7 @@ import static net.kyori.adventure.text.format.NamedTextColor.*;
 
 /**
  * @author carterz30cal
- * @version 4
+ * @version 5
  * @since 1.0.0
  */
 public class ItemFactory
@@ -83,7 +83,12 @@ public class ItemFactory
             "waterway/items/armours/sets/very_rare_sets",
             "waterway/items/item_generation",
             "waterway/items/pet_items", "waterway/items/quest_items",
-            "necropolis/items/weapons/common_swords",
+            "necropolis/items/weapons/common_swords", "necropolis/items/tools/pickaxes",
+            "necropolis/items/weapons/waterway_upgraded_legendary_swords",
+            "necropolis/items/armour/uncommon","necropolis/items/armour/rare",
+            "necropolis/items/armour/sets",
+            "necropolis/items/tools/talismans",
+            "necropolis/items/lootboxes",
             "necropolis/items/pets/common_pets",
             "necropolis/items/ingredients"
 	};
@@ -100,7 +105,11 @@ public class ItemFactory
             "waterway/recipes/attuners_offensive",
             "waterway/recipes/enchantments/sharpness",
             "waterway/recipes/item_generation",
-            "waterway/recipes/talismans", "waterway/recipes/fishing_rods", "waterway/recipes/pickaxes"
+            "waterway/recipes/talismans", "waterway/recipes/fishing_rods", "waterway/recipes/pickaxes",
+            "necropolis/recipes/common_swords", "necropolis/recipes/talismans", "necropolis/recipes/pickaxes",
+            "necropolis/recipes/armour/uncommon","necropolis/recipes/armour/rare",
+            "necropolis/recipes/ingredients", "necropolis/recipes/enchants", "necropolis/recipes/pet_upgrades",
+            "necropolis/recipes/waterway_upgraded_legendary_swords"
 	};
     public static String[] skullFiles = {
             "waterway/skulls"
@@ -157,8 +166,9 @@ public class ItemFactory
 			for (String p : c.getKeys(false))
 			{
 				ConfigurationSection i = c.getConfigurationSection(p);
-				
-				cat.add(new RecipeCategory(i));
+
+                assert i != null;
+                cat.add(new RecipeCategory(i));
 			}
 		}
 		
@@ -231,7 +241,7 @@ public class ItemFactory
 
         itemNameB.append(text(item.name, item.rarity.textColor));
 
-        var enchantments = getItemEnchants(stack);
+        var enchantments = getItemEnchants(stack, context.player);
         StatContainer stats = item.stats.clone();
         int maxEnchantPower = getItemMaxEnchantPower(stack, context.player);
         int usedEnchantPower = Math.max(0, sumEnchantPower(enchantments));
@@ -243,18 +253,13 @@ public class ItemFactory
             descriptor.append(text(item.rarity.name).append(text(" ")).append(text(item.type.toString())).color(DARK_GRAY));
         }
         if (maxEnchantPower > 0) {
-            if (usedEnchantPower > maxEnchantPower) {
-                descriptor.append(text(" [", DARK_GRAY)).append(text("OVERMAX", DARK_RED));
-            }
-            else if (usedEnchantPower == maxEnchantPower) {
-                descriptor.append(text(" [", DARK_GRAY)).append(text("MAX", AQUA));
-            }
-            else {
-                descriptor.append(text(" [", DARK_GRAY))
-                        .append(text(usedEnchantPower, AQUA))
-                        .append(text("/", DARK_GRAY))
-                        .append(text(maxEnchantPower, AQUA));
-            }
+            descriptor.append(text(" [", DARK_GRAY))
+                    .append(text(usedEnchantPower,
+                            usedEnchantPower > maxEnchantPower
+                                    ? DARK_RED
+                                    : AQUA))
+                    .append(text("/", DARK_GRAY))
+                    .append(text(maxEnchantPower, AQUA));
             descriptor.append(text("]", DARK_GRAY));
         }
         else if (item.type == ItemType.ENCHANTMENT) {
@@ -289,7 +294,7 @@ public class ItemFactory
 
         record Section(List<TextComponent.Builder> section) {
         }
-        ;
+
         List<Section> sections = new ArrayList<>();
         Section statSection = new Section(new ArrayList<>());
         {
@@ -367,6 +372,7 @@ public class ItemFactory
                         }
                         if (item.type == ItemType.ENCHANTMENT) {
                             if (enchant.ability instanceof GameAbstractEnchant enchAbility) {
+                                enchantSection.section.add(text().content(" Max level: " + enchAbility.getMaximumLevel()).color(DARK_GRAY));
                                 var validTypes = enchAbility.getValidTypes();
                                 if (!validTypes.isEmpty()) {
                                     var k = text();
@@ -391,7 +397,7 @@ public class ItemFactory
             sections.add(enchantSection);
         }
 
-        var abilities = getItemAbilities(item);
+        var abilities = getItemAbilities(item, context.player);
         Section specificSection = new Section(new ArrayList<>());
         boolean drawSpecificSection = false;
         {
@@ -570,13 +576,12 @@ public class ItemFactory
             }
             meta.getPersistentDataContainer().set(kData, PersistentDataType.STRING, "");
             meta.addItemFlags(ItemFlag.values());
-            //meta.removeItemFlags(ItemFlag.HIDE_LORE);
             meta.setUnbreakable(true);
         }
 
 		stack.setItemMeta(meta);
         if (item != null) {
-            update(stack, (FactoryBuildContext) null);
+            update(stack, null);
         }
 		
 		return stack;
@@ -630,7 +635,6 @@ public class ItemFactory
 	{
 		return getItemEnchants(i, null);
 	}
-
     /**
      *
      * @param i     the ItemStack we're checking
@@ -750,7 +754,8 @@ public class ItemFactory
 
     public static ItemStack customItem(String base, String name, List<String> lore) {
         ItemStack stack = build(base);
-        return customItem(stack, name, lore);
+        if (stack == null) return customItem("BARRIER", "<red>CANNOT BUILD!: " + base, "<red>Gah!");
+        else return customItem(stack, name, lore);
     }
 
 
@@ -865,7 +870,7 @@ public class ItemFactory
      * @param name   Whatever you want the ItemStack's custom name to be, in plaintext.
      * @param colour Either null, which will use the Item default, or a specified TextColor.
      * @param lore   List of Builders that determines the item lore. If null it sets the lore to empty.
-     * @return ItemStack that has been made 'invalid' (isn't recognized by the game as a custom item) with specified name and lore.
+     * @return ItemStack that has been made 'invalid' (isn't recognised by the game as a custom item) with specified name and lore.
      * @implNote This isn't safe to run on players' items, make sure you clone the ItemStack first.
      * @since 1.0.0
      */
@@ -893,7 +898,7 @@ public class ItemFactory
      * @param stack The template ItemStack that we want to turn into a display item.
      * @param name  Whatever you want the ItemStack's custom name to be, in plaintext.
      * @param lore  List of Builders that determines the item lore. If null it sets the lore to empty.
-     * @return ItemStack that has been made 'invalid' (isn't recognized by the game as a custom item) with specified name and lore.
+     * @return ItemStack that has been made 'invalid' (isn't recognised by the game as a custom item) with specified name and lore.
      * @implNote This isn't safe to run on players' items, make sure you clone the ItemStack first.
      * @since 1.0.0
      */
@@ -915,7 +920,7 @@ public class ItemFactory
      * @param stack The template ItemStack that we want to turn into a display item.
      * @param name  Whatever you want the ItemStack's custom name to be, in plaintext.
      * @param lore  List of Builders that determines the item lore. If null it sets the lore to empty.
-     * @return ItemStack that has been made 'invalid' (isn't recognized by the game as a custom item) with specified name and lore.
+     * @return ItemStack that has been made 'invalid' (isn't recognised by the game as a custom item) with specified name and lore.
      * @implNote This isn't safe to run on players' items, make sure you clone the ItemStack first.
      * @since 1.0.0
      */
@@ -950,7 +955,7 @@ public class ItemFactory
      * @param stack The template ItemStack that we want to turn into a display item.
      * @param name  Whatever you want the ItemStack's custom name to be, in MiniMessage format.
      * @param lore  List of Strings in MiniMessage format.
-     * @return ItemStack that has been made 'invalid' (isn't recognized by the game as a custom item) with specified name and lore.
+     * @return ItemStack that has been made 'invalid' (isn't recognised by the game as a custom item) with specified name and lore.
      * @implNote This isn't safe to run on players' items, make sure you clone the ItemStack first.
      * @since 1.0.0
      */

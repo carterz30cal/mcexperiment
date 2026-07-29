@@ -32,7 +32,7 @@ public class EnemyRepresentation {
     public void tick(Location baseLocation) {
         for (var e : entities.entrySet()) {
             var offset = e.getKey().offset.clone();
-            var yaw = baseLocation.getYaw() * Math.PI / 180;
+            var yaw = -baseLocation.getYaw() * Math.PI / 180;
             var ox = (offset.getX() * Math.cos(yaw)
                     + (offset.getZ() * Math.sin(yaw)));
             var oz = (-offset.getX() * Math.sin(yaw)

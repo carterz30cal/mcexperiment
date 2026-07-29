@@ -1,3 +1,4 @@
+#file: noinspection SpellCheckingInspection
 bone_dust_collection:
   name: Bone Dust
   display-item: bone_dust
@@ -27,3 +28,50 @@ bone_dust_collection:
     - 10
     - 5
     - 5
+
+calmed_spirit_collection:
+  name: Calmed Spirits
+  display-item: calmed_spirit
+  description:
+    - Goopy blue spirits, swirling in a sphere.
+  tier-descriptions:
+    - Calm and Collected
+    - Peeved
+    - Incensed
+    - Enraged
+    - Murderous Rage
+  tiers:
+    - 5
+    - 25
+    - 75
+    - 400
+    - 1000
+  xp-rewards:
+    - 50
+    - 20
+    - 15
+    - 10
+    - 5
+
+rainbow_slime_collection:
+  name: Slimes of the Rainbow
+  display-item: red_slime
+  description:
+    - Slime comes in every colour of the rainbow!
+    - Collect them all!
+    - <dark_grey>Every tier above green slime rewards progress</dark_grey>
+  tier-descriptions:
+    - Dry as a Bone
+    - Slime Novice
+    - Slime for Dummies
+    - Slimealicious!
+  tiers:
+    - 5
+    - 75
+    - 300
+    - 1500
+  xp-rewards:
+    - 20
+    - 15
+    - 10
+    - 10

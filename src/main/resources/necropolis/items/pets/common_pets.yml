@@ -8,3 +8,14 @@ pet_dusted_common:
   value: 600
   stats:
     defence: +20
+
+pet_red_slime_common:
+  name: Red Slime
+  type: PET
+  rarity: COMMON
+  material: PLAYER_HEAD
+  pet-line: red_slime
+  active-ability: PET_RED_SLIME_COMMON
+  value: 1000
+  stats:
+    might: +10

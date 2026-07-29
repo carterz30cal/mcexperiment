@@ -7,6 +7,8 @@ import com.carterz30cal.items.abilities.implementation.*;
 import com.carterz30cal.stats.Stat;
 import com.carterz30cal.stats.StatContainer;
 import com.carterz30cal.stats.StatOperationType;
+import com.carterz30cal.stats.operations.AddStatOperation;
+import com.carterz30cal.stats.operations.LegacyStatOperation;
 import net.kyori.adventure.text.TextComponent;
 import net.kyori.adventure.text.format.NamedTextColor;
 import org.jetbrains.annotations.NotNull;
@@ -17,11 +19,14 @@ import java.util.List;
 import static net.kyori.adventure.text.Component.text;
 
 /**
+ * Simple enchantment that grants one type of stat, with optional amount granted independent of stat level.
+ * <br>Always costs one combination catalyst shard.
  * @author carterz30cal
- * @version 2
+ * @version 3
  * @since 1.0.0
  */
-public class StatEnchantment extends GameAbstractEnchant implements AbilityWithDescription, AbilityWithStats {
+public class StatEnchantment extends GameAbstractEnchant
+        implements AbilityWithDescription, AbilityWithStats {
     public long powerPerLevel;
     public Stat statGranted;
     public long flatStat;
@@ -98,10 +103,10 @@ public class StatEnchantment extends GameAbstractEnchant implements AbilityWithD
         long level = context.getLevel();
         long stat = flatStat + (level * statPerLevel);
         if (statOperation == StatOperationType.MULTIPLY) {
-            stats.scheduleOperation(statGranted, StatOperationType.MULTIPLY, (100 + stat) / 100D);
+            stats.operation(new LegacyStatOperation(StatOperationType.MULTIPLY, (100 + stat) / 100D, statGranted));
         }
         else {
-            stats.scheduleOperation(statGranted, statOperation, stat);
+            stats.operation(new LegacyStatOperation(statOperation, stat, statGranted));
         }
     }
 }

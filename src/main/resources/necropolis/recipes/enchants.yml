@@ -1,0 +1,58 @@
+enchanted_book-EFFICIENCY:
+  custom-name: <blue>Efficiency 1 <dark_grey>[Enchantment]
+  enchants: ENCHANT_EFFICIENCY-1
+  level: 5
+  time: 5m
+  category: necropolis_enchantments
+  discovery: rainbow_slime_collection
+  discovery-tier: 2
+  items:
+    paper: 4
+    red_slime: 64
+enchanted_book-WETSUIT:
+  custom-name: <yellow>Wetsuit 1<dark_grey> [Enchantment]
+  enchants: ENCHANT_WETSUIT-1
+  level: 5
+  time: 10m
+  category: necropolis_enchantments
+  discovery: rainbow_slime_collection
+  discovery-tier: 2
+  items:
+    paper: 4
+    red_slime: 80
+enchanted_book-FORTUNE:
+  custom-name: <blue>Fortune 1 <dark_grey>[Enchantment]
+  enchants: ENCHANT_FORTUNE-1
+  level: 6
+  time: 10m
+  category: necropolis_enchantments
+  discovery: rainbow_slime_collection
+  discovery-tier: 3
+  items:
+    paper: 8
+    red_slime: 256
+enchanted_book-THORNS:
+  custom-name: <red>Thorns 1 <dark_grey>[Enchantment]
+  enchants: ENCHANT_THORNS-1
+  level: 7
+  time: 15m
+  category: necropolis_enchantments
+  discovery: rainbow_slime_collection
+  discovery-tier: 3
+  items:
+    paper: 8
+    red_slime: 192
+    roasted_bone_dust: 1
+enchanted_book-FEROCITY1:
+  custom-name: <red>Ferocity 1 <dark_grey>[Enchantment]
+  enchants: ENCHANT_FEROCITY-1
+  level: 8
+  time: 15m
+  category: necropolis_enchantments
+  discovery: calmed_spirit_collection
+  discovery-tier: 3
+  items:
+    paper: 10
+    incensed_spirit: 1
+    red_slime: 80
+    spiced_meat: 4

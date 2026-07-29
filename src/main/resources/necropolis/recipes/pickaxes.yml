@@ -1,0 +1,9 @@
+spirit_pickaxe_very_rare:
+  level: 6
+  time: 5m
+  discovery: calmed_spirit_collection
+  discovery-tier: 2
+  category: necropolis_pickaxes
+  items:
+    calmed_spirit: 10
+    spiced_meat: 4

@@ -78,6 +78,7 @@ public class FishingArea {
         fishingPower = owner.stats.stat(Stat.FISHING_POWER) - powerSubtraction;
 
         long adjustedPower = fishingPower;
+        if (adjustedPower < 0) return null;
         long startPower = 0;
         int i = 0;
         while (adjustedPower > 0 && i < brackets.size() - 1) {

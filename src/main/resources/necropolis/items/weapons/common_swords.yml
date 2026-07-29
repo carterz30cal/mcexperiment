@@ -20,3 +20,15 @@ flaming_sword_common:
     damage: +30
     enchant_power: +10
     level_requirement: 6
+
+slime_sword_common:
+  name: Slime Sword
+  type: WEAPON
+  rarity: COMMON
+  material: DIAMOND_SWORD
+  stats:
+    damage: +34
+    health: +50
+    insulation: +10
+    enchant_power: +20
+    level_requirement: 6

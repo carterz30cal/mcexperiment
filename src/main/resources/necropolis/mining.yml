@@ -1,0 +1,12 @@
+red_slime:
+  name: "Red Slime"
+  hardness: 400
+  power-required: 2
+  block-type: RED_CONCRETE
+  item: red_slime
+  lower-bound: 1
+  upper-bound: 2
+  conversion-chance: 0
+  mines-into: AIR
+  regen-time: 400
+  area: NECROPOLIS

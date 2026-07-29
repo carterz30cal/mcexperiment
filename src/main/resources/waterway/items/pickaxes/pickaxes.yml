@@ -15,7 +15,7 @@ leaf_pickaxe:
   glow: true
   stats:
     mining_speed: 150
-    breaking_power: 2
+    breaking_power: 1
     mining_fortune: 50
 
 gold_leaf_pickaxe:

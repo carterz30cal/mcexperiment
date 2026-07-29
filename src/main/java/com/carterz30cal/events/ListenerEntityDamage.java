@@ -30,6 +30,11 @@ import org.bukkit.util.Vector;
 
 import static org.bukkit.event.entity.EntityDamageEvent.DamageCause.ENTITY_SWEEP_ATTACK;
 
+/**
+ * @author carterz30cal
+ * @version 3
+ * @since 1.0.0
+ */
 public class ListenerEntityDamage implements Listener
 {
 	public static ListenerEntityDamage Instance;
@@ -82,17 +87,6 @@ public class ListenerEntityDamage implements Listener
                     }
                     packet.multiply(0.8D);
                     victim.damage(packet);
-//                    if (damaged instanceof GameEnemy) {
-//                        ((GameEnemy)damaged).lastDamager = player;
-//                        for (StatusEffect effect : player.stats.statuses.effects.keySet()) {
-//                            int value = player.stats.statuses.getStatus(effect);
-//                            for (var ab : abilities) {
-//                                value = ab.ability.onStatusBuildup(ab, effect, value);
-//                            }
-//
-//                            ((GameEnemy) damaged).applyStatusEffect(effect, value);
-//                        }
-//                    }
 
                     int deg;
                     if (RandomUtils.getRandom(1, 2) == 1) {

@@ -1,0 +1,25 @@
+hydra_lootbox:
+  name: Hydra Goodies
+  type: LOOTBOX
+  material: CHEST
+  rarity: VERY_RARE
+  drops:
+    hydra_heart:
+      chance: 1/1
+      amount: 1/1
+    hydra_flesh:
+      chance: 1/1
+      amount: 32/64
+    paper:
+      chance: 1/4
+      amount: 2/8
+    chilli_powder:
+      chance: 1/4
+      amount: 10/32
+    combination_catalyst_shard:
+      chance: 1/5
+      amount: 2/3
+    enchanted_book-SHARPNESS:
+      chance: 1/20
+      amount: 1/1
+      enchants: ENCHANT_SHARPNESS-3

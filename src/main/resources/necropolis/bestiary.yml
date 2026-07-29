@@ -2,7 +2,9 @@ necropolis:
   icon: BONE_BLOCK
   name: "Necropolis"
   description:
-    - write summin here
+    - <grey>Once the graveyard for nobles and knights, this
+    - <grey>long sacred ground has become overrun with skeletons, spirits
+    - <grey>and oozing slime. Some claim a <green>Hydra</green> has taken up residence!
   parent: base
 
 necropolis_dusted:
@@ -20,3 +22,36 @@ necropolis_sword_spirits:
   parent: necropolis
   description:
     - <red>Write later!
+
+necropolis_haunting_slime:
+  icon: red_slime
+  name: "Haunting Slimes"
+  parent: necropolis
+  description:
+    - <red>Write later!
+
+necropolis_bosses:
+  icon: PRISMARINE_SHARD
+  name: "Great Foes"
+  parent: necropolis
+  description:
+    - <grey>These are exceptional enemies found deep in
+    - <grey>the heart of <white>Necropolis</white>, which
+    - <grey>reward powerful equipment upon defeat.
+necropolis_fishing:
+  icon: FISHING_ROD
+  name: "Fishing"
+  parent: necropolis
+  description:
+    - <grey>Fish up a variety of powerful creatures
+    - <grey>for powerful rewards! Raise your <aqua>fishing power</aqua>
+    - <grey>to raise your odds of fishing up high tier mob brackets!
+    - <grey>Necropolis requires at least <aqua>150 fishing power</aqua>
+    - <grey>in order to catch anything.
+necropolis_fishing_common:
+  icon: WHITE_CONCRETE
+  name: "<grey><b>COMMON</b></grey> Bracket"
+  description:
+    - <grey>Lowest tier fishing mobs found</grey>
+    - <grey>exclusively in <white>Necropolis</white>!</grey>
+  parent: necropolis_fishing

@@ -1,0 +1,25 @@
+white_label_pickaxe:
+  name: White Label Pickaxe
+  type: PICKAXE
+  rarity: UNCOMMON
+  material: STONE_PICKAXE
+  value: 500
+  stats:
+    mining_speed: 150
+    breaking_power: 2
+    mining_fortune: 35
+    enchant_power: 5
+    level_requirement: 5
+
+spirit_pickaxe_very_rare:
+  name: Spirit Pickaxe
+  type: PICKAXE
+  rarity: VERY_RARE
+  material: DIAMOND_PICKAXE
+  value: 800
+  stats:
+    mining_speed: 240
+    breaking_power: 2
+    mining_fortune: 125
+    enchant_power: 5
+    level_requirement: 6
