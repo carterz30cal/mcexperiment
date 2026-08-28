@@ -23,3 +23,15 @@ spirit_pickaxe_very_rare:
     mining_fortune: 125
     enchant_power: 5
     level_requirement: 6
+
+clearing_test_pickaxe:
+  name: Testing Pickaxe
+  type: PICKAXE
+  rarity: MYSTERIOUS
+  material: NETHERITE_PICKAXE
+  value: 1
+  stats:
+    mining_speed: 200
+    breaking_power: 10
+    enchant_power: 100
+    clearing: 250

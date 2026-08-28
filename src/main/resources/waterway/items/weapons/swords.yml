@@ -115,6 +115,19 @@ piranha_dagger_very_rare:
     savagery: +20
     enchant_power: +15
 
+storm_axe_very_rare:
+  name: Storm Axe
+  type: WEAPON
+  rarity: VERY_RARE
+  material: DIAMOND_AXE
+  value: 400
+  abilities:
+    - STORM_AXE
+  stats:
+    damage: +22
+    enchant_power: +30
+    level_requirement: 3
+
 titan_blade:
   name: Titan's Blade
   type: WEAPON

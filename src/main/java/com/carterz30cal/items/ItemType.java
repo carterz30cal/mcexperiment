@@ -2,7 +2,7 @@ package com.carterz30cal.items;
 
 /**
  * @author carterz30cal
- * @version 3
+ * @version 4
  * @since 1.0.0
  */
 public enum ItemType 
@@ -32,10 +32,14 @@ public enum ItemType
 	PET(ItemTypeUse.NORMAL),
 	PRODUCTION_CORE("Production Core"),
 	FACTORY_UPGRADE("Factory Upgrade"),
+	POTION_INGREDIENT("Potion Ingredient", ItemTypeUse.CONSUMABLE),
+	POTION_FUMES("Potion Fumes"),
+	POTION_BOTTLE("Bottle"),
+	POTION(ItemTypeUse.TALISMAN),
 	VIRTUAL_SET(ItemTypeUse.VIRTUAL_NON_EXIST);
     public final ItemTypeUse use;
 	public String cute;
-	private int maxStackSize = 64;
+	private final int maxStackSize = 64;
 	
 	ItemType(ItemTypeUse use)
 	{
@@ -44,6 +48,14 @@ public enum ItemType
 	
 	ItemType(String cute) {
 		this.use = ItemTypeUse.NORMAL;
+		this.cute = cute;
+	}
+
+	/**
+	 * @since 1.0.0 [4]
+	 */
+	ItemType(String cute, ItemTypeUse use) {
+		this.use = use;
 		this.cute = cute;
 	}
 	
@@ -68,7 +80,7 @@ public enum ItemType
 	 * Gets the defined maximum stack size for this item type.
 	 * This is typically 1 for most items, but 64 for ingredients, catalysts and keys.
 	 * @return the maximum stack size allowed for this item type.
-	 * @since 1.0.0
+	 * @since 1.0.0 [3]
 	 */
 	public int maxStackSize() {
 		return maxStackSize;

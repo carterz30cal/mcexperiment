@@ -929,8 +929,8 @@ public class GamePlayer extends GameEntity implements DamageableEntity, Aggressi
 		player.teleport(new Location(Dungeons.w, 0.5, 65, 0.5));
         player.setFallDistance(0);
         if (area != null) {
-            area.getArea().OnPlayerDeath(this);
-            teleport(area.getArea().GetRespawnPoint(this), false);
+            area.getArea().onPlayerDeath(this);
+            teleport(area.getArea().getRespawnPoint(this), false);
         }
         else {
             teleport(PlayerTeleport.WATERWAY_SPAWN, false);
@@ -947,7 +947,7 @@ public class GamePlayer extends GameEntity implements DamageableEntity, Aggressi
             playSound(Sound.ENTITY_ENDERMAN_TELEPORT, 0.8, 1.1);
         }
         if (area != null) {
-            area.getArea().OnTeleport(this, teleport);
+            area.getArea().onTeleport(this, teleport);
         }
         player.teleport(teleport.GetLocation());
     }

@@ -23,7 +23,7 @@ import static net.kyori.adventure.text.Component.text;
  * Handles all health systems for entities, including DOTs, damage types and resistances.
  *
  * @author carterz30cal
- * @version 4
+ * @version 5
  * @since 1.0.0
  */
 public class EntityHealthSystem {
@@ -59,7 +59,7 @@ public class EntityHealthSystem {
         }
 
         if (immune) {
-            var location = RandomUtils.getRandomInCircle(damagePacket.defender.getLocation().clone().add(0, 1, 0), 0.2, 0.4);
+            var location = RandomUtils.getRandomAround(damagePacket.defender.getLocation().clone().add(0, 1, 0), 0.1 , 0.5);
             var hologram = EntityUtils.spawnTextHologram(location, 30);
             if (hologram != null) {
                 hologram.setBillboard(Display.Billboard.CENTER);
@@ -137,7 +137,7 @@ public class EntityHealthSystem {
             vector = damagePacket.defender.getLocation().clone().add(0, 0, 0).subtract(damagePacket.aggressor.getLocation()).multiply(-0.3).toVector();
         }
         for (var damage : damagePacket.damages.keySet()) {
-            var location = RandomUtils.getRandomInCircle(damagePacket.defender.getLocation().clone().add(vector).add(0, 1, 0), 0.2, 0.4);
+            var location = RandomUtils.getRandomAround(damagePacket.defender.getLocation().clone().add(vector).add(0, 1, 0), 0.1, 0.5);
             var amount = Math.round((double) damagePacket.damages.get(damage)
                     * damagePacket.getResistanceMultiplier(damage));
             if (amount <= 0) {

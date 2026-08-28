@@ -37,6 +37,7 @@ public class MenuGUI extends AbstractGUI
     public final int SKILL_TREE_POS = calc(3, 2);
     public final int QUEST_POS = calc(4, 2);
     public final int WARDROBE_POS = calc(5, 1);
+    public final int CALENDAR_POS = calc(7, 2);
 
 	public final int LINES = 6;
 	
@@ -103,6 +104,8 @@ public class MenuGUI extends AbstractGUI
         inventory.setSlot(ItemFactory.customItem("gold_leaf_chestplate", "<yellow>Wardrobe</yellow>"), WARDROBE_POS);
 
         inventory.setSlot(ItemFactory.customItem("EMERALD", "<green>Skill Tree"), SKILL_TREE_POS);
+
+        inventory.setSlot(ItemFactory.customItem("PAPER", "<green>Calendar"), CALENDAR_POS);
 
 		int arrowCount = 0;
 		for (String a : owner.quiver.keySet()) arrowCount += owner.quiver.get(a);
@@ -189,6 +192,7 @@ public class MenuGUI extends AbstractGUI
 		else if (clickPos == QUIVER_POS) owner.openGui(new QuiverGUI(owner));
 		else if (clickPos == BACKPACK_POS) owner.openGui(new BackpackGUI(owner));
 		else if (clickPos == PET_POS) owner.openGui(new PetsGUI(owner));
+        else if (clickPos == CALENDAR_POS) owner.openGui(new CalendarGUI(owner));
         else if (clickPos == SKILL_TREE_POS) {
             owner.openGui(new SkillTreeGUI(owner));
         }

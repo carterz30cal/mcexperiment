@@ -4,6 +4,7 @@ import com.carterz30cal.entities.GameEntity;
 import com.carterz30cal.entities.interactable.GameEntityInteractable;
 import com.carterz30cal.entities.player.GamePlayer;
 import com.carterz30cal.entities.player.GameProjectile;
+import com.carterz30cal.gui.BrewingGUI;
 import com.carterz30cal.gui.LootboxGUI;
 import com.carterz30cal.gui.MenuGUI;
 import com.carterz30cal.items.Item;
@@ -11,7 +12,6 @@ import com.carterz30cal.items.ItemFactory;
 import com.carterz30cal.items.ItemType;
 import com.carterz30cal.items.abilities.implementation.AbilityWithClick;
 import com.carterz30cal.items.types.ItemLootbox;
-import com.carterz30cal.main.Dungeons;
 import com.carterz30cal.mining.MiningManager;
 import org.bukkit.FluidCollisionMode;
 import org.bukkit.GameMode;
@@ -50,7 +50,12 @@ public class ListenerPlayerInteract implements Listener {
 			Action act = e.getAction();
 			if (act == Action.RIGHT_CLICK_AIR || act == Action.RIGHT_CLICK_BLOCK) 
 			{
-                if (item instanceof ItemLootbox lootbox && e.getItem().getAmount() > 0) {
+                if (act == Action.RIGHT_CLICK_BLOCK && e.getClickedBlock().getType() == Material.BREWING_STAND) {
+                    p.openGui(new BrewingGUI(p));
+                    e.setCancelled(true);
+                    return;
+                }
+                else if (item instanceof ItemLootbox lootbox && e.getItem().getAmount() > 0) {
                     p.openGui(new LootboxGUI(p, lootbox));
 
 					e.setCancelled(true);
@@ -67,7 +72,7 @@ public class ListenerPlayerInteract implements Listener {
                 }
                 if (act == Action.RIGHT_CLICK_BLOCK && p.area != null) {
                     assert e.getClickedBlock() != null;
-                    p.area.getArea().OnRightClick(p, e.getClickedBlock().getLocation());
+                    p.area.getArea().onRightClick(p, e.getClickedBlock().getLocation());
                 }
 				
 				if (item != null && item.material == Material.FISHING_ROD) e.setCancelled(false);

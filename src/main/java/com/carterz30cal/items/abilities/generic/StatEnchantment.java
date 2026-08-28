@@ -22,7 +22,7 @@ import static net.kyori.adventure.text.Component.text;
  * Simple enchantment that grants one type of stat, with optional amount granted independent of stat level.
  * <br>Always costs one combination catalyst shard.
  * @author carterz30cal
- * @version 3
+ * @version 4
  * @since 1.0.0
  */
 public class StatEnchantment extends GameAbstractEnchant
@@ -49,11 +49,6 @@ public class StatEnchantment extends GameAbstractEnchant
         this.flatStat = flat;
         this.statPerLevel = statPerLevel;
         this.statOperation = statOperation;
-    }
-
-    @Override
-    public String name(PlayerAbilityContext context) {
-        return super.name(context);
     }
 
     @Override

@@ -1,5 +1,7 @@
 package com.carterz30cal.items;
 
+import com.carterz30cal.brewing.PotionElement;
+import com.carterz30cal.brewing.PotionPacket;
 import com.carterz30cal.entities.Shop;
 import com.carterz30cal.entities.damage.StatusEffects;
 import com.carterz30cal.entities.health.status.StatusEffect;
@@ -13,10 +15,7 @@ import com.carterz30cal.items.recipes.RecipeCategory;
 import com.carterz30cal.items.sets.ItemSet;
 import com.carterz30cal.items.trims.TrimMaterialWrapper;
 import com.carterz30cal.items.trims.TrimPatternWrapper;
-import com.carterz30cal.items.types.ItemAttuner;
-import com.carterz30cal.items.types.ItemIngredientGenerator;
-import com.carterz30cal.items.types.ItemLootbox;
-import com.carterz30cal.items.types.ItemPet;
+import com.carterz30cal.items.types.*;
 import com.carterz30cal.main.Dungeons;
 import com.carterz30cal.stats.Stat;
 import com.carterz30cal.stats.StatContainer;
@@ -39,10 +38,7 @@ import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
-import org.bukkit.inventory.meta.ArmorMeta;
-import org.bukkit.inventory.meta.ItemMeta;
-import org.bukkit.inventory.meta.LeatherArmorMeta;
-import org.bukkit.inventory.meta.SkullMeta;
+import org.bukkit.inventory.meta.*;
 import org.bukkit.inventory.meta.trim.ArmorTrim;
 import org.bukkit.persistence.PersistentDataType;
 import org.bukkit.profile.PlayerTextures;
@@ -59,7 +55,7 @@ import static net.kyori.adventure.text.format.NamedTextColor.*;
 
 /**
  * @author carterz30cal
- * @version 5
+ * @version 6
  * @since 1.0.0
  */
 public class ItemFactory
@@ -83,12 +79,16 @@ public class ItemFactory
             "waterway/items/armours/sets/very_rare_sets",
             "waterway/items/item_generation",
             "waterway/items/pet_items", "waterway/items/quest_items",
-            "necropolis/items/weapons/common_swords", "necropolis/items/tools/pickaxes",
+            "necropolis/items/weapons/common","necropolis/items/weapons/uncommon",
+            "necropolis/items/weapons/rare",
+            "necropolis/items/tools/pickaxes",
             "necropolis/items/weapons/waterway_upgraded_legendary_swords",
             "necropolis/items/armour/uncommon","necropolis/items/armour/rare",
             "necropolis/items/armour/sets",
+            "necropolis/items/upgrades/attuners",
             "necropolis/items/tools/talismans",
             "necropolis/items/lootboxes",
+            "necropolis/items/potions",
             "necropolis/items/pets/common_pets",
             "necropolis/items/ingredients"
 	};
@@ -106,7 +106,9 @@ public class ItemFactory
             "waterway/recipes/enchantments/sharpness",
             "waterway/recipes/item_generation",
             "waterway/recipes/talismans", "waterway/recipes/fishing_rods", "waterway/recipes/pickaxes",
-            "necropolis/recipes/common_swords", "necropolis/recipes/talismans", "necropolis/recipes/pickaxes",
+            "necropolis/recipes/swords/common","necropolis/recipes/swords/uncommon",
+            "necropolis/recipes/swords/rare",
+            "necropolis/recipes/talismans", "necropolis/recipes/pickaxes",
             "necropolis/recipes/armour/uncommon","necropolis/recipes/armour/rare",
             "necropolis/recipes/ingredients", "necropolis/recipes/enchants", "necropolis/recipes/pet_upgrades",
             "necropolis/recipes/waterway_upgraded_legendary_swords"
@@ -411,6 +413,13 @@ public class ItemFactory
                 specificSection.section.add(text().append(text("You may apply up to five attuners onto").color(GRAY)));
                 specificSection.section.add(text().append(text("any wieldable item using the anvil menu.").color(GRAY)));
             }
+            else if (item instanceof ItemPotionBottle bottle) {
+                drawSpecificSection = true;
+                specificSection.section.add(
+                        text().append(text().content("Capacity: ").color(GRAY),
+                                text().content("" + bottle.capacity).color(AQUA))
+                );
+            }
             else if (item instanceof ItemIngredientGenerator generator) {
                 drawSpecificSection = true;
                 specificSection.section.add(
@@ -423,6 +432,23 @@ public class ItemFactory
                 specificSection.section.add(
                         text().append(text(" Time: ").color(GRAY), text(Math.round(generator.timePerItem() / 100D) / 10D).color(GREEN), text("s", GREEN))
                 );
+            }
+            else if (item instanceof ItemPotionIngredient potionIngredient) {
+                drawSpecificSection = true;
+                specificSection.section.add(text().content("Potion Elements:").color(GRAY));
+                for (var element : potionIngredient.elements) {
+                    var mm = MiniMessage.miniMessage().deserialize("<dark_grey>-</dark_grey> " + element.element().miniMessage() + " " + element.element().pretty());
+                    specificSection.section.add(text().append(mm).append(text(" " + element.level()).color(element.element().colour())));
+                }
+            }
+            else if (item.type == ItemType.POTION_FUMES) {
+                drawSpecificSection = true;
+                specificSection.section.add(text().content("Fumes:").color(GRAY));
+                var fumes = getPotionPackets(stack);
+                for (var fume : fumes) {
+                    var mm = MiniMessage.miniMessage().deserialize("<dark_grey>-</dark_grey> " + fume.element().miniMessage() + " " + fume.element().pretty());
+                    specificSection.section.add(text().append(mm).append(text(" " + fume.level()).color(fume.element().colour())));
+                }
             }
         }
         if (drawSpecificSection) {
@@ -1047,6 +1073,45 @@ public class ItemFactory
 		
 		return attunerList;
 	}
+
+    /**
+     * Get <code>PotionPacket</code>s from a <code>POTION_FUMES</code> item.
+     * @param item what are we getting from?
+     * @return a list of <code>PotionPacket</code>s
+     * @implSpec potion packets are stored as ELEMENT-LEVEL,ELEMENT2-LEVEL
+     * @since 1.0.0 [6]
+     * @see PotionPacket
+     */
+    public static List<PotionPacket> getPotionPackets(ItemStack item) {
+        Map<String, String> data = getItemData(item);
+        String[] potions = data.getOrDefault("potionPackets", "").split(",");
+
+        List<PotionPacket> packets = new ArrayList<>();
+        for (var pot : potions) {
+            var p = pot.split("-");
+            if (p.length == 1) continue;
+            packets.add(new PotionPacket(PotionElement.valueOf(p[0]), Integer.parseInt(p[1])));
+        }
+        return packets;
+    }
+
+    /**
+     * Set the packets for a <code>POTION_FUMES</code> item.
+     * @param item what item are we setting the packets onto?
+     * @param packets what packets are we setting?
+     * @since 1.0.0 [6]
+     * @see PotionPacket
+     */
+    public static void setPotionPackets(ItemStack item, List<PotionPacket> packets) {
+        var data = getItemData(item);
+        StringBuilder builder = new StringBuilder();
+        for (var packet : packets) {
+            builder.append(packet.element().name()).append("-").append(packet.level()).append(",");
+        }
+        builder.deleteCharAt(builder.length() - 1);
+        data.put("potionPackets", builder.toString());
+        setItemData(item, data);
+    }
 	
 	public static void addItemData(ItemStack item, String key, String data)
 	{
@@ -1272,6 +1337,21 @@ public class ItemFactory
                 }
 
 				break;
+            case POTION_INGREDIENT:
+                var potion = new ItemPotionIngredient();
+                for (var elem : i.getStringList("elements")) {
+                    var spl = elem.split(",");
+                    var element = PotionElement.valueOf(spl[0]);
+                    var level = spl.length > 1 ? Integer.parseInt(spl[1]) : 1;
+                    potion.elements.add(new PotionPacket(element, level));
+                }
+                item = potion;
+                break;
+            case POTION_BOTTLE:
+                var bottle = new ItemPotionBottle();
+                bottle.capacity = i.getInt("capacity");
+                item = bottle;
+                break;
             case PRODUCTION_CORE:
                 var generator = new ItemIngredientGenerator();
                 item = generator;
@@ -1293,7 +1373,7 @@ public class ItemFactory
 				pet.petLine = i.getString("pet-line");
 				try {
 					pet.activeAbility = Abilities.valueOf(i.getString("active-ability"));
-				} catch (IllegalArgumentException e) {
+				} catch (IllegalArgumentException e ) {
                     Dungeons.instance.getLogger().severe("ItemFactory: couldn't find " + i.getString("active-ability") + " ability.");
 				}
 

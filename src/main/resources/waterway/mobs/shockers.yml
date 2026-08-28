@@ -1,0 +1,294 @@
+shocker_1:
+  name: Shocker
+  level: 1
+  health: 15
+  knockback: 100
+  speed: 1.1
+  always-display-health: false
+  coin-multiplier: 1
+  damage:
+    PHYSICAL: 10
+  stats:
+    ROBUSTNESS: 5
+  souls:
+    WATERWAY: 1
+  entities:
+    _:
+      type: ZOMBIE
+      scale: 1
+      offset: [ 0,0,0 ]
+      equipment:
+        CHEST: shocker_chestplate
+        HAND: WOODEN_SWORD
+  bestiary:
+    category: waterway_shockers
+  tags:
+    - LUNATIC
+    - EVENT
+  loot:
+    weird_flesh:
+      amount: 2/3
+    shocker_boots:
+      chance: 1/80
+
+shocker_2:
+  name: Shocker
+  level: 2
+  health: 40
+  knockback: 100
+  speed: 1.1
+  always-display-health: false
+  coin-multiplier: 1
+  damage:
+    PHYSICAL: 25
+    LIGHTNING: 5
+  stats:
+    ROBUSTNESS: 5
+  souls:
+    WATERWAY: 1
+  entities:
+    _:
+      type: ZOMBIE
+      scale: 1
+      offset: [ 0,0,0 ]
+      equipment:
+        CHEST: shocker_chestplate
+        LEGS: shocker_leggings
+        HAND: GOLDEN_SWORD
+  bestiary:
+    category: waterway_shockers
+  tags:
+    - LUNATIC
+    - EVENT
+  loot:
+    weird_flesh:
+      amount: 3/8
+    shocker_helmet:
+      chance: 1/80
+    shocker_boots:
+      chance: 1/80
+
+shocker_3:
+  name: Heavy Shocker
+  level: 3
+  health: 80
+  knockback: 90
+  speed: 1.2
+  always-display-health: false
+  coin-multiplier: 1
+  damage:
+    PHYSICAL: 35
+    LIGHTNING: 5
+  stats:
+    ROBUSTNESS: 5
+  souls:
+    WATERWAY: 1
+  entities:
+    _:
+      type: ZOMBIE
+      scale: 1
+      offset: [ 0,0,0 ]
+      equipment:
+        CHEST: shocker_chestplate
+        LEGS: shocker_leggings
+        FEET: shocker_boots
+        HAND: GOLDEN_SWORD
+  bestiary:
+    category: waterway_shockers
+  tags:
+    - LUNATIC
+    - EVENT
+  loot:
+    weird_flesh:
+      amount: 5/13
+    chilli_powder:
+      chance: 1/8
+      amount: 2/2
+    empty_storm_pearl:
+      chance: 1/20
+    shocker_helmet:
+      chance: 1/80
+    shocker_leggings:
+      chance: 1/80
+    shocker_boots:
+      chance: 1/80
+    enchanted_book:
+      chance: 1/400
+      amount: 1/1
+      enchants: ENCHANT_FLIMSY_PERSISTENCE-1
+
+shocker_4:
+  name: Heavy Shocker
+  level: 4
+  health: 160
+  knockback: 90
+  speed: 1.3
+  always-display-health: false
+  coin-multiplier: 1
+  damage:
+    PHYSICAL: 40
+    LIGHTNING: 10
+  stats:
+    ROBUSTNESS: 8
+  souls:
+    WATERWAY: 2
+  entities:
+    _:
+      type: ZOMBIE
+      scale: 1
+      offset: [ 0,0,0 ]
+      equipment:
+        HEAD: shocker_helmet
+        CHEST: shocker_chestplate
+        LEGS: shocker_leggings
+        FEET: shocker_boots
+        HAND: GOLDEN_SWORD
+  bestiary:
+    category: waterway_shockers
+  tags:
+    - LUNATIC
+    - LUNATIC_HIGH_RANK
+    - EVENT
+  loot:
+    weird_flesh:
+      amount: 7/17
+    chilli_powder:
+      chance: 1/8
+      amount: 3/3
+    empty_storm_pearl:
+      chance: 1/20
+    shocker_helmet:
+      chance: 1/80
+    shocker_chestplate:
+      chance: 1/80
+    shocker_leggings:
+      chance: 1/80
+    shocker_boots:
+      chance: 1/80
+    enchanted_book:
+      chance: 1/400
+      amount: 1/1
+      enchants: ENCHANT_FLIMSY_PERSISTENCE-1
+
+shocker_5_sky:
+  name: Sky Shocker
+  level: 5
+  health: 650
+  knockback: 80
+  speed: 1.1
+  always-display-health: false
+  coin-multiplier: 1
+  damage:
+    PHYSICAL: 55
+  stats:
+    ROBUSTNESS: 12
+    PADDING: 20
+  souls:
+    WATERWAY: 2
+  entities:
+    _:
+      type: ZOMBIE
+      scale: 1.1
+      offset: [ 0,0,0 ]
+      equipment:
+        HAND: zombie_sword
+        HEAD: LIGHT_BLUE_STAINED_GLASS
+        CHEST: shocker_chestplate
+        LEGS: CHAINMAIL_LEGGINGS
+        FEET: shocker_boots
+  bestiary:
+    category: waterway_shockers
+  tags:
+    - LUNATIC
+    - LUNATIC_HIGH_RANK
+    - LUNATIC_SKY
+    - FANATIC
+    - EVENT
+  loot:
+    weird_flesh:
+      amount: 15/30
+    chilli_powder:
+      chance: 1/8
+      amount: 3/4
+    empty_storm_pearl:
+      chance: 1/20
+    shocker_helmet:
+      chance: 1/80
+    shocker_chestplate:
+      chance: 1/80
+    shocker_leggings:
+      chance: 1/80
+    shocker_boots:
+      chance: 1/80
+    waterway_sac:
+      chance: 1/45
+      amount: 1/1
+    enchanted_book-SH1:
+      enchants: ENCHANT_SHARPNESS-1
+      chance: 1/200
+    enchanted_book-FLIMSY:
+      chance: 1/400
+      amount: 1/1
+      enchants: ENCHANT_FLIMSY_PERSISTENCE-1
+    enchanted_book-SH2:
+      enchants: ENCHANT_SHARPNESS-2
+      chance: 1/500
+
+shocker_6:
+  name: Giant Shocker
+  level: 6
+  health: 1100
+  knockback: 70
+  speed: 1.2
+  always-display-health: false
+  coin-multiplier: 1.25
+  damage:
+    PHYSICAL: 80
+  stats:
+    ROBUSTNESS: 5
+    PADDING: 30
+  souls:
+    WATERWAY: 4
+  entities:
+    _:
+      type: ZOMBIE
+      scale: 1.25
+      offset: [ 0,0,0 ]
+      equipment:
+        HAND: zombie_sword
+        HEAD: cultist_helmet
+        CHEST: shocker_chestplate
+        LEGS: CHAINMAIL_LEGGINGS
+        FEET: shocker_boots
+  bestiary:
+    category: waterway_shockers
+  tags:
+    - LUNATIC
+    - LUNATIC_HIGH_RANK
+    - LUNATIC_SKY
+    - FANATIC
+    - EVENT
+  loot:
+    weird_flesh:
+      amount: 16/35
+    chilli_powder:
+      chance: 1/8
+      amount: 2/5
+    empty_storm_pearl:
+      chance: 1/20
+      amount: 1/1
+    waterway_sac:
+      chance: 1/50
+      amount: 1/1
+    waterway_sac-2:
+      chance: 1/65
+      amount: 2/2
+    enchanted_book:
+      enchants: ENCHANT_SHARPNESS-1
+      chance: 1/185
+    enchanted_book-SH2:
+      enchants: ENCHANT_SHARPNESS-2
+      chance: 1/400
+    enchanted_book-FLIMSY:
+      chance: 1/400
+      enchants: ENCHANT_FLIMSY_PERSISTENCE-1

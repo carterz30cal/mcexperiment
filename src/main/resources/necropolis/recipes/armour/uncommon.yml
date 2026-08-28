@@ -1,3 +1,39 @@
+pufferfish_helmet:
+  time: 30m
+  level: 6
+  category: necropolis_armour_pufferfish
+  discovery: necropolis_fish_collection
+  discovery-tier: 1
+  items:
+    necropolis_fish: 10
+
+pufferfish_chestplate:
+  time: 30m
+  level: 6
+  category: necropolis_armour_pufferfish
+  discovery: necropolis_fish_collection
+  discovery-tier: 1
+  items:
+    necropolis_fish: 16
+
+pufferfish_leggings:
+  time: 30m
+  level: 6
+  category: necropolis_armour_pufferfish
+  discovery: necropolis_fish_collection
+  discovery-tier: 1
+  items:
+    necropolis_fish: 14
+
+pufferfish_boots:
+  time: 30m
+  level: 6
+  category: necropolis_armour_pufferfish
+  discovery: necropolis_fish_collection
+  discovery-tier: 1
+  items:
+    necropolis_fish: 8
+
 ethereal_raincoat_uncommon:
   item: ethereal_raincoat_uncommon
   time: 10m

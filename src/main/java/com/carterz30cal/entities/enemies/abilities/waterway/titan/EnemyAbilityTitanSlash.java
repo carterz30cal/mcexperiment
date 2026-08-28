@@ -167,7 +167,7 @@ public class EnemyAbilityTitanSlash extends EnemyAbility implements Registerable
     }
 
     @Override
-    public void unregister(ContextWithAbility<? extends GameEntity> context) {
+    public void deregister(ContextWithAbility<? extends GameEntity> context) {
         if (tickers.containsKey(context.getOwner())) {
             var ticker = tickers.get(context.getOwner());
             ticker.cancel();

@@ -66,6 +66,45 @@ red_slime:
     - taste good in jams, nor other conserves.
     - Oozes from cracks in the walls of Necropolis.
 
+necropolis_fish:
+  name: Necropolis Puffer
+  type: INGREDIENT
+  rarity: COMMON
+  material: PUFFERFISH
+  discovery: necropolis_fish_collection
+  discovery-progress: 1
+  value: 4
+  lore:
+    - A highly unusual species of pufferfish in that it
+    - lives in the frigid waters of Necropolis, which
+    - is unsuitable for all other puffers. These are
+    - a local delicacy, being completely nontoxic, buttery
+    - and a little sweet, if prepared correctly.
+
+cooked_necropolis_fish:
+  name: Fried Puffer
+  type: INGREDIENT
+  rarity: VERY_RARE
+  material: PUFFERFISH
+  discovery: necropolis_fish_collection
+  discovery-progress: 192
+  value: 768
+  lore:
+    - Fried pufferfish is a delicacy in Necropolis, especially
+    - due to the difficulty in preparing such a dish, as the
+    - flesh burns easily. These were once consumed before
+    - great battles in the days gone. There are rumours that
+    - there were once cookbooks that had methods for greater success
+    - in preparation of such a delicate breed of fish.
+
+debug_necropolis_fish:
+  name: DEBUG NECROPOLIS FISH COLLECTION ITEM
+  type: INGREDIENT
+  rarity: MYSTERIOUS
+  discovery: necropolis_fish_collection
+  discovery-progress: 1000000
+  value: 1
+
 debug_rainbow_slime:
   name: DEBUG RAINBOW SLIME COLLECTION ITEM
   type: INGREDIENT

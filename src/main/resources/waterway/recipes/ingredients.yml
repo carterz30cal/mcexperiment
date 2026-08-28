@@ -60,10 +60,19 @@ waterway_cod_meal:
     meat_scraps: 1
     chilli_powder: 2
 
+waterway_downpour_key:
+  category: waterway
+  level: 3
+  items:
+    empty_storm_pearl: 2
+    leaf_mash: 200
+    gold_leaf: 20
+
 waterway_seraph_key:
   category: waterway
   level: 4
   items:
     waterway_sac: 1
-    leaf_mash: 96
+    leaf_mash: 150
     spiced_meat: 2
+

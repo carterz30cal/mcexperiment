@@ -11,6 +11,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
+/**
+ * @author carterz30cal
+ * @version 2
+ * @since 1.0.0
+ */
 public class SimpleAreaEnemySpawner extends AbstractEnemySpawner {
     public static final int DEFAULT_SPAWN_TIMER = 20 * 3;
 
@@ -46,16 +51,27 @@ public class SimpleAreaEnemySpawner extends AbstractEnemySpawner {
         spawnTimer = DEFAULT_SPAWN_TIMER;
         this.spawnMultiplier = spawnMultiplier;
 
-        for (var o : options) {
-            this.options.add(new SpawningOption(o, "NORMAL"));
-        }
+        options("NORMAL", options);
     }
 
-    protected SpawningOption GetValidSpawningOption() {
+    /**
+     * Adds a set of options to a specific mode. Can be chained.
+     * @param mode what mode are we targeting?
+     * @param options what options are we adding for this mode?
+     * @since 1.0.0
+     */
+    public SimpleAreaEnemySpawner options(String mode, String... options) {
+        for (var o : options) {
+            this.options.add(new SpawningOption(o, mode));
+        }
+        return this;
+    }
+
+    protected SpawningOption getValidSpawningOption() {
         List<SpawningOption> validOptions = new ArrayList<>();
         int totalWeight = 0;
         for (var option : options) {
-            if (option.IsValid()) {
+            if (option.valid()) {
                 validOptions.add(option);
                 totalWeight += option.weight;
             }
@@ -78,10 +94,10 @@ public class SimpleAreaEnemySpawner extends AbstractEnemySpawner {
     @Override
     public void tick() {
         spawnTick++;
-        if (spawnTick >= spawnTimer && GetCurrentlyValidToSpawn()) {
-            int max = GetPlayersWithinValidArea().size() + 2;
-            while (mobs.size() < GetMaxMobCount() && max > 0) {
-                GameEnemy enemy = GetValidSpawningOption().Spawn(spawnBox.getRandomMobLocation());
+        if (spawnTick >= spawnTimer && getCurrentlyValidToSpawn()) {
+            int max = getPlayersWithinValidArea().size() + 2;
+            while (mobs.size() < getMaxMobCount() && max > 0) {
+                GameEnemy enemy = getValidSpawningOption().spawn(spawnBox.getRandomMobLocation());
                 mobs.add(enemy.getUUID());
                 max--;
             }
@@ -97,17 +113,17 @@ public class SimpleAreaEnemySpawner extends AbstractEnemySpawner {
         super.onAreaKill(killed);
     }
 
-    protected int GetMaxMobCount() {
+    protected int getMaxMobCount() {
         int crossArea = spawnBox.getHorizontalCrossSectionalArea();
         return (int) Math.round((crossArea / 81D) * spawnMultiplier);
     }
 
-    protected List<GamePlayer> GetPlayersWithinValidArea() {
+    protected List<GamePlayer> getPlayersWithinValidArea() {
         return EntityUtils.getNearbyPlayers(spawnBox.getMiddleAsLocation(), spawnBox.getHorizontalLongestSide() + 4);
     }
 
-    protected boolean GetCurrentlyValidToSpawn() {
-        List<GamePlayer> players = GetPlayersWithinValidArea();
+    protected boolean getCurrentlyValidToSpawn() {
+        List<GamePlayer> players = getPlayersWithinValidArea();
         return !players.isEmpty();
     }
 }

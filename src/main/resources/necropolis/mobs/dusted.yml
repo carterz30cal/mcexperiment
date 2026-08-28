@@ -14,6 +14,7 @@ dusted_1:
     category: necropolis_dusted
   tags:
     - NECROPOLIS
+    - UNDEAD
   entities:
     _:
       type: SKELETON
@@ -25,4 +26,37 @@ dusted_1:
       amount: 1/2
     pet_dusted_common:
       chance: 1/250
+      amount: 1/1
+
+dusted_2:
+  name: Dusted
+  level: 8
+  health: 5000
+  knockback: 105
+  speed: 1.5
+  damage:
+    PHYSICAL: 125
+  stats:
+    DOUSING: -200
+  souls:
+    NECROPOLIS: 1
+  bestiary:
+    category: necropolis_dusted
+  tags:
+    - NECROPOLIS
+    - UNDEAD
+  entities:
+    _:
+      type: SKELETON
+      scale: 1.05
+      offset: [ 0,0,0 ]
+  loot:
+    bone_dust:
+      chance: 1/1
+      amount: 2/3
+    pet_dusted_common:
+      chance: 1/240
+      amount: 1/1
+    dusty_honeycomb:
+      chance: 1/400
       amount: 1/1

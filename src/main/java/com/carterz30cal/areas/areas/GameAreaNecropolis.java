@@ -8,6 +8,11 @@ import com.carterz30cal.main.Dungeons;
 import com.carterz30cal.utils.Box;
 import org.bukkit.Location;
 
+/**
+ * @author carterz30cal
+ * @version 1
+ * @since 1.0.0
+ */
 public class GameAreaNecropolis extends AbstractGameArea {
 
     public GameAreaNecropolis() {
@@ -18,11 +23,11 @@ public class GameAreaNecropolis extends AbstractGameArea {
         );
         this.context = new SpawnerContext();
 
-        RegisterSpawner(new SimpleAreaEnemySpawner(37, 392, 27, 372, 54, 1.5, "dusted_1"));
+        register(new SimpleAreaEnemySpawner(37, 392, 27, 372, 54, 1.5, "dusted_1"));
     }
 
     @Override
-    public PlayerTeleport GetRespawnPoint(GamePlayer died) {
+    public PlayerTeleport getRespawnPoint(GamePlayer died) {
         return PlayerTeleport.NECROPOLIS_SPAWN;
     }
 }

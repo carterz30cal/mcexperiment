@@ -30,6 +30,7 @@ public class EnemyManager
 {
 	public static String[] files = {
             "waterway/mobs/lunatics", "waterway/mobs/titans",
+            "waterway/mobs/shockers",
             "waterway/mobs/spiders",
             "waterway/mobs/seraph/boss", "waterway/mobs/seraph/summons",
             "waterway/mobs/fishing/fishing_common",
@@ -37,7 +38,8 @@ public class EnemyManager
             "waterway/mobs/fishing/fishing_rare",
             "waterway/mobs/fishing/fishing_very_rare",
             "necropolis/mobs/dusted", "necropolis/mobs/sword_spirits", "necropolis/mobs/haunting_slimes",
-            "necropolis/mobs/bosses"
+            "necropolis/mobs/bosses",
+            "necropolis/mobs/fishing/shocktopus"
 	};
 	
 	public static EnemyManager instance;

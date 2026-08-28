@@ -41,7 +41,7 @@ public class PlayerScoreboard {
 
         var lines = SidebarComponent.builder()
                 .addDynamicLine(() -> {
-                    var subAreaName = owner.area != null ? owner.area.getArea().GetSubAreaName(owner) : "Void";
+                    var subAreaName = owner.area != null ? owner.area.getArea().getSubAreaName(owner) : "Void";
                     return text(subAreaName, NamedTextColor.DARK_GRAY);
                 })
                 .addBlankLine()
@@ -84,11 +84,11 @@ public class PlayerScoreboard {
 
         @Override
         public void draw(@NotNull LineDrawable drawable) {
-            if (owner.area == null || owner.area.getArea().GetScoreboard(owner).isEmpty()) {
+            if (owner.area == null || owner.area.getArea().scoreboard(owner).isEmpty()) {
                 return;
             }
             drawable.drawLine(text());
-            for (var sc : owner.area.getArea().GetScoreboard(owner)) {
+            for (var sc : owner.area.getArea().scoreboard(owner)) {
                 drawable.drawLine(MiniMessage.miniMessage().deserialize(sc));
             }
         }

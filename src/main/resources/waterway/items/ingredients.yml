@@ -93,6 +93,19 @@ paper:
     - drying them into this. There's a bit of
     - a smell lingering. Used to upgrade weaponry.
 
+
+empty_storm_pearl:
+  name: Empty Storm Pearl
+  type: INGREDIENT
+  rarity: VERY_RARE
+  material: ENDER_PEARL
+  glow: true
+  value: 40
+  lore:
+    - You'd expect there to be a miniature storm swirling
+    - about within this pearl, but yet there is only
+    - the notable absence of one. Only found during a downpour.
+
 waterway_sac:
   name: Waterway Sac
   type: INGREDIENT
@@ -221,6 +234,15 @@ waterway_seraph_key:
   value: 500
   abilities:
     - WATERWAY_SERAPH_KEY
+
+waterway_downpour_key:
+  name: Divining Rod of Storms
+  type: KEY
+  rarity: INCREDIBLE
+  material: END_ROD
+  value: 100
+  abilities:
+    - WATERWAY_DOWNPOUR_KEY
 
 
 

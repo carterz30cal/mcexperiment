@@ -70,6 +70,7 @@ paper_arrow:
   rarity: COMMON
   stats:
     power: +10
+
 spiced_arrow:
   name: Spiced Arrow
   type: ARROW
@@ -77,3 +78,13 @@ spiced_arrow:
   rarity: UNCOMMON
   stats:
     might: +20
+
+storm_arrow:
+  name: Storm Arrow
+  type: ARROW
+  material: BREEZE_ROD
+  rarity: RARE
+  abilities:
+    - STORM_TALISMAN
+  stats:
+    power: +5

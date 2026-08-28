@@ -4,8 +4,10 @@ titan_blade_legendary:
   rarity: LEGENDARY
   material: STONE_SWORD
   glow: true
+  abilities:
+    - TITAN_BLADE_LEGENDARY
   stats:
     damage: +35
-    defence: +200
-    enchant_power: +22
+    defence: +172
+    enchant_power: +28
     level_requirement: 7

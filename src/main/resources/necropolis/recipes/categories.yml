@@ -18,6 +18,11 @@ necropolis_armour:
   icon: ethereal_raincoat_uncommon
   parent: necropolis
 
+necropolis_armour_pufferfish:
+  name: Pufferfish Armour
+  icon: puffer_chestplate
+  parent: necropolis_armour
+
 necropolis_armour_hydra:
   name: Hydra Armour
   icon: hydra_chestplate

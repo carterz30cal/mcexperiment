@@ -35,6 +35,19 @@ pet_drenched_common:
   stats:
     health: +10
 
+pet_lightning_bug_common:
+  name: Lightning Bug
+  type: PET
+  rarity: COMMON
+  material: PLAYER_HEAD
+  pet-line: lightning_bug
+  active-ability: STORM_PET_ACTIVE_COMMON
+  abilities:
+    - STORM_PET_PASSIVE_COMMON
+  stats:
+    power: +5
+    mana: +5
+
 pet_drenched_uncommon:
   name: Drenched
   type: PET

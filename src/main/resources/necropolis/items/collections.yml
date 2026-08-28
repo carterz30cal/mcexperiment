@@ -75,3 +75,23 @@ rainbow_slime_collection:
     - 15
     - 10
     - 10
+
+necropolis_fish_collection:
+  name: Necropolis Puffers
+  display-item: necropolis_fish
+  description:
+    - Continue your fishing career in <white>Necropolis</white> and
+    - catch some local pufferfish! Make sure you
+    - have plenty fishing power!
+  tier-descriptions:
+    - Fresh outta Waterway
+    - The Art of Handling Dangerous Fish
+    - Delicate Prep 101
+  tiers:
+    - 5
+    - 25
+    - 175
+  xp-rewards:
+    - 10
+    - 10
+    - 10

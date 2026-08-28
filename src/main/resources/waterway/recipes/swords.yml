@@ -62,6 +62,13 @@ spearfish_scythe_very_rare:
     spiced_meat: 6
     waterway_sac: 1
 
+storm_axe_very_rare:
+  category: waterway_weapons
+  items:
+    waterway_sac: 1
+    empty_storm_pearl: 4
+    spiced_meat: 8
+
 piranha_dagger_very_rare:
   item: piranha_dagger_very_rare
   level: 4

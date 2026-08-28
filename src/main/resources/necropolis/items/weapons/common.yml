@@ -22,7 +22,7 @@ flaming_sword_common:
     level_requirement: 6
 
 slime_sword_common:
-  name: Slime Sword
+  name: Red Slimeblade
   type: WEAPON
   rarity: COMMON
   material: DIAMOND_SWORD

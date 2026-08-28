@@ -27,3 +27,12 @@ green_slime:
   items:
     red_slime: 333
     calmed_spirit: 1
+
+cooked_necropolis_fish:
+  amount: 1
+  time: 20m
+  discovery: necropolis_fish_collection
+  discovery-tier: 3
+  category: necropolis_ingredients
+  items:
+    necropolis_fish: 192

@@ -21,7 +21,7 @@ import java.util.*;
 
 /**
  * @author carterz30cal
- * @version 2
+ * @version 3
  * @since 1.0.0
  */
 public class MiningManager {
@@ -69,46 +69,71 @@ public class MiningManager {
         if (!ore.area.equals(player.area)) {
             return;
         }
-        if (ore.powerRequired > player.stats.stat(Stat.BREAKING_POWER)) {
+        if (ore.powerRequired > player.getStat(Stat.BREAKING_POWER)) {
             return;
         }
 
-        long progress = instance.currentlyMining.getOrDefault(location, 0L) + player.stats.stat(Stat.MINING_SPEED);
+        long progress = instance.currentlyMining.getOrDefault(location, 0L) + player.getStat(Stat.MINING_SPEED);
         if (progress > ore.hardness) {
             player.playSound(location.getBlock().getBlockData().getSoundGroup().getBreakSound(), 1, 1);
 
-            int conversion = RandomUtils.getRandom(1, 1000);
-            if (conversion <= ore.conversionChance) {
-                location.getBlock().setType(ore.convertsInto);
-                instance.originalBlock.put(location.getBlock().getLocation(), ore.blockType);
-                BukkitRunnable runnable =
-                        new BukkitRunnable() {
-
-                            @Override
-                            public void run() {
-                                location.getBlock().setType(ore.blockType);
+            int blocks = Math.toIntExact(player.getStat(Stat.CLEARING) / 100) + 1;
+            int remaining = Math.toIntExact(player.getStat(Stat.CLEARING) - ((blocks - 1) * 100L));
+            if (remaining >= RandomUtils.getRandom(1, 100)) blocks++;
+            int r = 0;
+            List<Location> mining = new ArrayList<>();
+            while (blocks > 0 && r < 5) {
+                for (int x = -r; x <= r && blocks > 0; x++) {
+                    for (int z = -r; z <= r && blocks > 0; z++) {
+                        for (int y = 0; y <= r && blocks > 0; y++) {
+                            var check = location.clone().add(x, y, z);
+                            var checkOre = instance.ores.getOrDefault(check.getBlock().getType(), null);
+                            if (checkOre == ore) {
+                                mining.add(check);
+                                blocks--;
                             }
-                        };
-                instance.runnables.add(runnable);
+                        }
+                    }
+                }
+                r++;
             }
-            else {
-                location.getBlock().setType(ore.minesInto);
-                BukkitRunnable runnable =
-                        new BukkitRunnable() {
 
-                            @Override
-                            public void run() {
-                                if (instance.originalBlock.containsKey(location.getBlock().getLocation())) {
-                                    location.getBlock().setType(instance.originalBlock.get(location.getBlock().getLocation()));
+            for (var miningBlock : mining) {
+                int conversion = RandomUtils.getRandom(1, 1000);
+                if (conversion <= ore.conversionChance) {
+                    miningBlock.getBlock().setType(ore.convertsInto);
+                    instance.originalBlock.put(miningBlock.getBlock().getLocation(), ore.blockType);
+                    BukkitRunnable runnable =
+                            new BukkitRunnable() {
+
+                                @Override
+                                public void run() {
+                                    miningBlock.getBlock().setType(ore.blockType);
                                 }
-                                else {
-                                    location.getBlock().setType(ore.blockType);
+                            };
+                    instance.runnables.add(runnable);
+                }
+                else {
+                    miningBlock.getBlock().setType(ore.minesInto);
+                    BukkitRunnable runnable =
+                            new BukkitRunnable() {
+
+                                @Override
+                                public void run() {
+                                    if (instance.originalBlock.containsKey(miningBlock.getBlock().getLocation())) {
+                                        miningBlock.getBlock().setType(instance.originalBlock.get(miningBlock.getBlock().getLocation()));
+                                    }
+                                    else {
+                                        miningBlock.getBlock().setType(ore.blockType);
+                                    }
                                 }
-                            }
-                        };
-                runnable.runTaskLater(Dungeons.instance, ore.regenTime);
-                instance.runnables.add(runnable);
+                            };
+                    runnable.runTaskLater(Dungeons.instance, ore.regenTime);
+                    instance.runnables.add(runnable);
+                }
             }
+
+
 
             long dropMultiplier = player.stats.stat(Stat.MINING_FORTUNE) / 100;
             long chanceForExtra = player.stats.stat(Stat.MINING_FORTUNE) - (dropMultiplier * 100);
@@ -117,7 +142,8 @@ public class MiningManager {
             }
 
             // grant regular drops
-            long dropAmount = RandomUtils.getRandom(ore.lowerBound, ore.upperBound) * (dropMultiplier + 1);
+            long dropAmount = RandomUtils.getRandom(ore.lowerBound, ore.upperBound)
+                    * (dropMultiplier + 1) * mining.size();
             ItemStack dropItem = ItemFactory.build(ore.item, (int) dropAmount);
             player.giveItem(dropItem, true);
             instance.currentlyMining.remove(location);

@@ -9,6 +9,7 @@ enchanted_book-EFFICIENCY:
   items:
     paper: 4
     red_slime: 64
+
 enchanted_book-WETSUIT:
   custom-name: <yellow>Wetsuit 1<dark_grey> [Enchantment]
   enchants: ENCHANT_WETSUIT-1
@@ -20,6 +21,7 @@ enchanted_book-WETSUIT:
   items:
     paper: 4
     red_slime: 80
+
 enchanted_book-FORTUNE:
   custom-name: <blue>Fortune 1 <dark_grey>[Enchantment]
   enchants: ENCHANT_FORTUNE-1
@@ -31,6 +33,7 @@ enchanted_book-FORTUNE:
   items:
     paper: 8
     red_slime: 256
+
 enchanted_book-THORNS:
   custom-name: <red>Thorns 1 <dark_grey>[Enchantment]
   enchants: ENCHANT_THORNS-1
@@ -42,7 +45,8 @@ enchanted_book-THORNS:
   items:
     paper: 8
     red_slime: 192
-    roasted_bone_dust: 1
+    necropolis_fish: 40
+
 enchanted_book-FEROCITY1:
   custom-name: <red>Ferocity 1 <dark_grey>[Enchantment]
   enchants: ENCHANT_FEROCITY-1

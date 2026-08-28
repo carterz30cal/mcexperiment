@@ -13,19 +13,6 @@ titan_1:
     PADDING: 50
   souls:
     WATERWAY: 50
-  #  titan-fight:
-  #    explosion-radius: 5
-  #    explosion-damage: 325
-  #    explosion-cooldown: 300
-  #    slash-damage: 70
-  #    slash-cooldown: 45
-  #    slash-time: 17
-  #    beam-damage: 110
-  #    beam-min-range: 9
-  #    beam-cooldown: 30
-  #    rain-damage: 40
-  #    rain-min-range: 4
-  #    rain-max-range: 11
   abilities:
     overkill:
       class: generic.EnemyAbilityOverkill
@@ -87,5 +74,100 @@ titan_1:
     wet_paper:
       amount: 50/250
     chilli_powder:
-      amount: 1/4
+      amount: 2/3
+
+titan_2:
+  name: <light_purple>Lightning Titan</light_purple>
+  level: 25
+  health: 13000
+  knockback: 20
+  speed: 1.15
+  always-display-health: true
+  coin-multiplier: 7
+  damage:
+    PHYSICAL: 80
+    LIGHTNING: 15
+  stats:
+    ROBUSTNESS: 0
+    PADDING: 50
+  souls:
+    WATERWAY: 80
+  abilities:
+    overkill:
+      class: generic.EnemyAbilityOverkill
+      percentage: 0.011
+      reward: 4
+    slash:
+      class: waterway.titan.EnemyAbilityTitanSlash
+      distance: 4
+      cooldown: 55
+      delay: 19
+      degrees: 60
+      raise: 0.2
+      condition:
+        class: AbilityConditionHealthPercentage
+        min: 0.5
+        max: 1
+    slash_low:
+      class: waterway.titan.EnemyAbilityTitanSlash
+      distance: 4.5
+      cooldown: 40
+      delay: 15
+      double: true
+      degrees: 36
+      raise: 0.6
+      condition:
+        class: AbilityConditionHealthPercentage
+        min: 0.25
+        max: 0.5
+    slash_near_death:
+      class: waterway.titan.EnemyAbilityTitanSlash
+      distance: 4
+      cooldown: 18
+      delay: 10
+      double: true
+      degrees: 25
+      raise: 0.7
+      condition:
+        class: AbilityConditionHealthPercentage
+        min: 0
+        max: 0.25
+    explosion:
+      class: waterway.titan.EnemyAbilityTitanExplosive
+      radius: 7
+      damage: 200
+      damage-type: EXPLOSIVE
+      cooldown: 280
+      delay: 60
+      condition:
+        class: AbilityConditionHealthPercentage
+        min: 0
+        max: 0.6
+  entities:
+    _:
+      type: DROWNED
+      scale: 1.35
+      offset: [ 0,0,0 ]
+      equipment:
+        HAND: pungent_sword
+        HEAD: titan_helmet
+        CHEST: shocker_chestplate
+        FEET: water_boots
+  bestiary:
+    category: waterway_titans
+  tags:
+    - TITAN
+    - TITAN_LOW_RANK
+    - MINIBOSS
+    - EVENT
+  loot:
+    titan_lootbox_2:
+      amount: 1/1
+    wet_paper:
+      amount: 200/300
+    chilli_powder:
+      amount: 5/5
+    pet_lightning_bug_common:
+      chance: 1/100
+      amount: 1/1
 

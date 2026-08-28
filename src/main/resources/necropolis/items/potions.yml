@@ -1,0 +1,60 @@
+jellied_pufferfish:
+  name: Jellied Pufferfish
+  type: POTION_INGREDIENT
+  material: PUFFERFISH
+  rarity: RARE
+  value: 100
+  lore:
+    - A pufferfish stolen from the waters of Necropolis
+    - which has been preserved in some form of jelly.
+    - Looks extremely unappetising - and probably tastes it.
+  elements:
+    - WATER,1
+    - WATER,1
+
+drop_of_sadness:
+  name: Drop of Sadness
+  type: POTION_INGREDIENT
+  material: GHAST_TEAR
+  rarity: RARE
+  value: 50
+  elements:
+    - VOID
+
+leftover_fumes:
+  name: Leftover Fumes
+  type: POTION_FUMES
+  rarity: EPIC
+  material: BUCKET_OF_TADPOLE
+
+potion_gunk:
+  name: Potion Gunk
+  type: INGREDIENT
+  rarity: VERY_RARE
+  material: COAL
+  value: 15
+  lore:
+    - Leftover gunk from a potion bottle that had more
+    - ingredients than necessary. Has several uses of
+    - its own, but is typically a byproduct of the process.
+
+tiny_potion_bottle:
+  name: Tiny Potion Bottle
+  type: POTION_BOTTLE
+  rarity: RARE
+  material: GLASS_BOTTLE
+  capacity: 3
+  value: 100
+
+test_potion_ingredient:
+  name: Test Potion Ingredient
+  type: POTION_INGREDIENT
+  material: GOLD_BLOCK
+  glow: true
+  rarity: MYSTERIOUS
+  elements:
+    - EARTH
+    - WATER
+    - FIRE
+    - AIR
+    - VOID

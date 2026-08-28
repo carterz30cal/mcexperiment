@@ -9,18 +9,16 @@ import com.carterz30cal.items.abilities.implementation.PlayerAbilityContext;
 import com.carterz30cal.items.abilities.necropolis.enchants.ThornsEnchantment;
 import com.carterz30cal.items.abilities.waterway.*;
 import com.carterz30cal.items.abilities.waterway.factory.CatalystDustCoagulatorFactoryUpgrade;
-import com.carterz30cal.items.abilities.waterway.pets.PetDrenchedActive;
-import com.carterz30cal.items.abilities.waterway.pets.PetDrenchedPassive;
-import com.carterz30cal.items.abilities.waterway.pets.PetWaterSpiderActive;
-import com.carterz30cal.items.abilities.waterway.pets.PetWaterTitanActive;
+import com.carterz30cal.items.abilities.waterway.pets.*;
 import com.carterz30cal.items.abilities.waterway.sets.LeafArmourSet;
 import com.carterz30cal.items.abilities.waterway.sets.ZombieArmourSet;
 import com.carterz30cal.stats.Stat;
 import com.carterz30cal.stats.StatOperationType;
+import com.carterz30cal.stats.operations.AddStatOperation;
 
 /**
  * @author carterz30cal
- * @version 1
+ * @version 2
  * @since 1.0.0
  */
 public enum Abilities
@@ -58,6 +56,9 @@ public enum Abilities
     ENCHANT_CONCENTRATION(new StatEnchantment(
             "Concentration", 3, Stat.FOCUS, 1, 1, 3, ItemType.HELMET, ItemType.WEAPON
     )),
+	ENCHANT_FLIMSY_PERSISTENCE(
+			new FlimsyPersistenceEnchant()
+	),
     ENCHANT_LAST_CHANCE(new LastChanceEnchantment()),
     ENCHANT_POWER(new StatEnchantment("Power", 2, Stat.DAMAGE, 0, 1, 5, ItemType.BOW)),
     ENCHANT_BLADE(new StatEnchantment("Blade", 2, Stat.DAMAGE, 0, 1, 4, ItemType.WEAPON)),
@@ -74,6 +75,11 @@ public enum Abilities
     PET_WATER_SPIDER_ACTIVE(new PetWaterSpiderActive()),
     WATERWAY_SERAPH_SWORD(new SeraphSwordAbility()),
     WATERWAY_SERAPH_KEY(new SeraphKeyAbility()),
+	STORM_AXE(new StatOperationOnRainAbility("Stormlord", Stat.STRENGTH, new AddStatOperation(Stat.STRENGTH, 125), true)),
+	STORM_TALISMAN(new StatOperationOnRainAbility("Storm Power", Stat.POWER, new AddStatOperation(Stat.POWER, 40))),
+	STORM_PET_PASSIVE_COMMON(new StatOperationOnRainAbility("Passive: Charged!", Stat.POWER, new AddStatOperation(Stat.POWER, 30))),
+	STORM_PET_ACTIVE_COMMON(new LightningBugPetActive()),
+	WATERWAY_DOWNPOUR_KEY(new WaterwayDownpourSummonAbility()),
     MAGIC_SWORD(new MagicSwordAbility()),
     RAGING_AXE(new RagingAxeAbility()),
     SERAPH_SUMMON_GUIDE(new SeraphSummonGuideAbility("water_seraph_spirit", 20)),
@@ -106,17 +112,15 @@ public enum Abilities
 	)),
 
 	PET_DUSTED_COMMON(new PlayerStatAbility("Active: Dust-ball", Stat.DEFENCE, 80)),
-	PET_RED_SLIME_COMMON(new PlayerStatAbility("Active: Slime Layers", Stat.INSULATION, 150))
+	PET_RED_SLIME_COMMON(new PlayerStatAbility("Active: Slime Layers", Stat.INSULATION, 150)),
+	LESSER_LIFE_SWORD(new GrantStatOnLevelAbility("Signs of Life", Stat.STRENGTH, 8)),
+	TITAN_BLADE_LEGENDARY(new GrantStatOnLevelAbility("Irremovable Defence", Stat.DEFENCE, 4))
 	;
 	public final GameAbility ability;
 
 	Abilities(GameAbility ability) {
 		this.ability = ability;
 		this.ability.source = this;
-	}
-
-    public PlayerAbilityContext getContext(GamePlayer owner) {
-		return getContext(owner, 1);
 	}
 
     public PlayerAbilityContext getContext(GamePlayer owner, int level) {

@@ -6,7 +6,7 @@ paper_production_core:
   value: 5000
   generator:
     item: wet_paper
-    milliseconds: 8000
+    milliseconds: 14000
   lore:
     - A small device which has trapped a small universe
     - which contains an infinite library. Unfortunately
@@ -21,7 +21,7 @@ flesh_production_core:
   value: 7500
   generator:
     item: weird_flesh
-    milliseconds: 5000
+    milliseconds: 8500
   lore:
     - A cursed flesh-ball, which can somehow grow
     - stinking flesh without any sustenance.
@@ -34,7 +34,7 @@ chilli_production_core:
   rarity: LEGENDARY
   generator:
     item: chilli_powder
-    milliseconds: 110000
+    milliseconds: 150000
   lore:
     - A supply portal to sate the demand for
     - exotic flavours in <blue>Waterway</blue>.

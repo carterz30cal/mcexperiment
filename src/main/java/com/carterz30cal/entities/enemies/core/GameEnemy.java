@@ -278,13 +278,13 @@ public class GameEnemy extends GameEntity implements AggressiveEntity, Damageabl
         }
 
         if (spawnedArea != null && !healthSystem.getPlayerAttackers().isEmpty()) {
-            spawnedArea.OnKill(this);
+            spawnedArea.onKill(this);
         }
         dropLoot();
 
         for (var a : abilities) {
             if (a.getAbility() instanceof RegisterableAbility registerable) {
-                registerable.unregister(a);
+                registerable.deregister(a);
             }
         }
 

@@ -1,6 +1,9 @@
 package com.carterz30cal.commands;
 
+import com.carterz30cal.areas.areas.GameAreaWaterway;
 import com.carterz30cal.areas.bosses.waterway.AreaBossWaterwaySeraph;
+import com.carterz30cal.areas.events.EventManager;
+import com.carterz30cal.areas.events.waterway.WaterwayRainEvent;
 import com.carterz30cal.entities.PlayerManager;
 import com.carterz30cal.entities.Shop;
 import com.carterz30cal.entities.player.GamePlayer;
@@ -24,6 +27,9 @@ public class CommandForce implements CommandExecutor {
 		{
 			GamePlayer p = PlayerManager.players.get(((Player) sender).getUniqueId());
 			switch (args[0]) {
+				case "rain":
+					GameAreaWaterway.downpour.start();
+					break;
 				case "calcxp":
 					int arg = Integer.parseInt(args[1]);
 					p.sendMessage(Long.toString(LevelUtils.getEnemyBaseXpReward(arg)));

@@ -23,6 +23,13 @@ public abstract class GameAbstractEnchant extends GameAbility implements Ability
     private final String name;
     private final Set<ItemType> validTypes;
 
+    /**
+     *
+     * @param name displayed name of the enchantment
+     * @param maximumLevel the maximum level that this enchantment can be combined to
+     * @param itemTypes what <code>ItemType</code>s can this enchantment work with?
+     * @since 1.0.0 [1]
+     */
     public GameAbstractEnchant(String name, int maximumLevel, ItemType... itemTypes) {
         this.maximumLevel = maximumLevel;
         this.name = name;
@@ -52,7 +59,7 @@ public abstract class GameAbstractEnchant extends GameAbility implements Ability
      * Currently only used for enchantments
      *
      * @return A set of all ItemTypes this enchant is usable on
-     * @since 1.0.0
+     * @since 1.0.0 [1]
      */
     public final Set<ItemType> getValidTypes() {
         return validTypes;
@@ -64,7 +71,7 @@ public abstract class GameAbstractEnchant extends GameAbility implements Ability
      *
      * @param context ability context, determines level.
      * @return the amount of enchant power that the item needs to hold this enchantment.
-     * @since 1.0.0
+     * @since 1.0.0 [1]
      */
     public abstract long getEnchantPower(PlayerAbilityContext context);
 

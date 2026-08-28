@@ -30,21 +30,21 @@ lunatic_bow:
     weird_flesh: 800
 
 flimsy_arrow:
-  custom-name: <gold>12x<grey> Flimsy Arrow
+  custom-name: <gold>24x<grey> Flimsy Arrow
   level: 2
   category: waterway_weapons_arrows
   amount: 24
   items:
-    weird_flesh: 7
+    weird_flesh: 5
 paper_arrow:
-  custom-name: <gold>3x<grey> Paper Arrow
+  custom-name: <gold>20x<grey> Paper Arrow
   level: 3
   category: waterway_weapons_arrows
   amount: 20
   items:
-    wet_paper: 12
+    wet_paper: 8
 spiced_arrow:
-  custom-name: <gold>85x <yellow>Spiced Arrow
+  custom-name: <gold>100x <yellow>Spiced Arrow
   level: 4
   category: waterway_weapons_arrows
   discovery: weird_flesh_collection
@@ -53,3 +53,12 @@ spiced_arrow:
   items:
     spiced_meat: 1
     chilli_powder: 2
+
+storm_arrow:
+  custom-name: <gold>300x <green>Storm Arrows
+  level: 4
+  category: waterway_weapons_arrows
+  amount: 300
+  items:
+    weird_flesh: 50
+    empty_storm_pearl: 1

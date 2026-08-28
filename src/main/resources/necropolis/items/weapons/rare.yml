@@ -1,0 +1,11 @@
+lesser_life_sword_rare:
+  name: Sword of Lesser Life
+  rarity: RARE
+  type: WEAPON
+  material: WOODEN_SWORD
+  abilities:
+    - LESSER_LIFE_SWORD
+  stats:
+    damage: +30
+    enchant_power: +30
+    level_requirement: 8

@@ -15,7 +15,7 @@ import java.util.List;
 
 /**
  * @author carterz30cal
- * @version 1
+ * @version 2
  * @since 1.0.0
  */
 public class SkillTreeGUI extends AbstractGUI {
@@ -135,8 +135,9 @@ public class SkillTreeGUI extends AbstractGUI {
         }
 
         var nameColour = level == skill.getSkill().maxLevel ? "<aqua>" : (level > 0 ? "<green>" : "<red>");
-
-        return ItemFactory.customItem(material, nameColour + skill.getSkill().name(mockContext), lore);
+        var custom = ItemFactory.customItem(material, nameColour + skill.getSkill().name(mockContext), lore);
+        custom.setAmount(Math.max(1, level));
+        return custom;
     }
 
     private @NotNull List<String> getInfo() {

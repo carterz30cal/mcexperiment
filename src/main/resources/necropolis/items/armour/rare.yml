@@ -5,7 +5,7 @@ armour-hydra:
     - Hydra Trousers
     - Hydra Boots
   material: LEATHER
-  rarity: UNCOMMON
+  rarity: RARE
   set: set_hydra
   colour:
     r: 25

@@ -46,7 +46,7 @@ public class GameOwnable extends GameEntity implements RepresentedEntity {
                 tick();
             }
         };
-        this.ticker.runTaskTimer(Dungeons.instance, 0, 20);
+        if (Dungeons.instance.isEnabled()) this.ticker.runTaskTimer(Dungeons.instance, 0, 20);
         title = text("");
         subtitle = text("");
         register(uuid);

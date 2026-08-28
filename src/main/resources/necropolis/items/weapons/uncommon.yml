@@ -1,0 +1,24 @@
+flaming_sword_uncommon:
+  name: Flaming Sword
+  type: WEAPON
+  rarity: UNCOMMON
+  material: COPPER_SWORD
+  glow: true
+  statuses:
+    BURN: 30
+  stats:
+    damage: +35
+    enchant_power: +12
+    level_requirement: 6
+
+slime_sword_uncommon:
+  name: Red Slimeblade
+  type: WEAPON
+  rarity: UNCOMMON
+  material: DIAMOND_SWORD
+  stats:
+    damage: +37
+    health: +75
+    insulation: +20
+    enchant_power: +20
+    level_requirement: 6

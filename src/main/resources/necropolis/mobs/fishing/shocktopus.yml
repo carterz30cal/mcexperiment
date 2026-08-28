@@ -1,0 +1,39 @@
+shocktopus_common:
+  name: <grey>Shocktopus
+  level: 8
+  health: 4000
+  knockback: 0
+  damage:
+    LIGHTNING: 50
+  stats:
+    DEFENCE: 10
+  souls:
+    NECROPOLIS: 2
+  bestiary:
+    category: necropolis_fishing_common
+  fishing:
+    NECROPOLIS: COMMON
+  abilities:
+    aura:
+      class: generic.EnemyAbilityDamageAura
+      damage-multiplier: 0.8
+      radius: 7
+      dropoff: true
+      period: 20
+  tags:
+    - FISHING
+    - FISHING_NECROPOLIS
+    - FISHING_COMMON
+    - NECROPOLIS
+  entities:
+    _:
+      type: SQUID
+      scale: 0.9
+      offset: [0,0,0]
+    g:
+      type: GLOW_SQUID
+      scale: 1.1
+      offset: [0,0.35,0]
+  loot:
+    necropolis_fish:
+      amount: 1/3
