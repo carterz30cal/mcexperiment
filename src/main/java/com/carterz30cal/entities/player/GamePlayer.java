@@ -28,6 +28,7 @@ import com.carterz30cal.items.recipes.Recipe;
 import com.carterz30cal.items.sets.ItemSet;
 import com.carterz30cal.items.types.ItemAttuner;
 import com.carterz30cal.items.types.ItemPet;
+import com.carterz30cal.items.types.ItemPotion;
 import com.carterz30cal.main.Dungeons;
 import com.carterz30cal.mining.Mineable;
 import com.carterz30cal.stats.Stat;
@@ -263,8 +264,26 @@ public class GamePlayer extends GameEntity implements DamageableEntity, Aggressi
                 ItemFactory.update(off, getItemContext());
             }
 		}
-		
-		for (String talisman : talismans) items.add(ItemFactory.build(talisman));
+
+		var updated = new ArrayList<String>();
+		for (String talisman : talismans) {
+			var item = ItemFactory.buildItemFromString(talisman);
+			var check = ItemFactory.getItem(item);
+			if (check instanceof ItemPotion) {
+				var duration = ItemFactory.getPotionDuration(item);
+                if (duration >= 1) {
+                    ItemFactory.setPotionDuration(item, duration - 1);
+                    updated.add(ItemFactory.buildStringFromItem(item));
+                    items.add(item);
+                }
+				else sendMessage("<red>One of your potions has just expired!");
+            }
+			else {
+				items.add(item);
+				updated.add(talisman);
+			}
+		}
+		talismans = updated;
 		for (String pet : pets) items.add(ItemFactory.build(pet));
 		if (activePet != null) {
 			ItemPet itemActivePet = (ItemPet) ItemFactory.getItem(activePet);

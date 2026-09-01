@@ -16,6 +16,7 @@ pet_red_slime_common:
   material: PLAYER_HEAD
   pet-line: red_slime
   active-ability: PET_RED_SLIME_COMMON
+  skull-profile-id: red_slime
   value: 1000
   stats:
     might: +10

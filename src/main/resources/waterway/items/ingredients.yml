@@ -204,7 +204,7 @@ green_slime:
   type: INGREDIENT
   rarity: EPIC
   material: PLAYER_HEAD
-  skull-profile-id: green_slime
+  skull-profile-id: green_slime_v2
   value: 20
   lore:
     - The lowest grade of slime. Is frequently

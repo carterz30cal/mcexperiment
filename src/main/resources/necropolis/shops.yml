@@ -13,6 +13,10 @@ necropolis_shop:
       item: tiny_potion_bottle
       coins: 100
       level: 5
+    drop_of_sadness:
+      item: drop_of_sadness
+      coins: 125
+      level: 5
     catalyst:
       item: combination_catalyst_shard
       coins: 475

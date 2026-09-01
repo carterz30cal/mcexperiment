@@ -12,12 +12,48 @@ jellied_pufferfish:
     - WATER,1
     - WATER,1
 
+mulch:
+  name: Mulch
+  type: POTION_INGREDIENT
+  material: PODZOL
+  rarity: VERY_RARE
+  value: 200
+  lore:
+    - An unusual brand of mulch made from spices, sand and
+    - nutrient-rich weird flesh, as well as a whole lot
+    - of Waterway-native leaf mash. A handy potion ingredient,
+    - if you'll believe it - especially for defensive potions!
+  elements:
+    - EARTH,1
+    - WATER,1
+    - EARTH,1
+    - WATER,1
+
+everlasting_flame:
+  name: Everlasting Flame
+  type: POTION_INGREDIENT
+  material: BLAZE_POWDER
+  rarity: EPIC
+  value: 400
+  lore:
+    - Flickering away eternally, this is used in
+    - offensive potions for an added kick!
+  elements:
+    - FIRE,1
+    - FIRE,1
+    - FIRE,1
+
+
 drop_of_sadness:
   name: Drop of Sadness
   type: POTION_INGREDIENT
   material: GHAST_TEAR
   rarity: RARE
   value: 50
+  lore:
+    - Void isn't used in any potion recipes, but it
+    - may be useful as a filler or separator.
+    - Or it might not!
   elements:
     - VOID
 
@@ -25,7 +61,7 @@ leftover_fumes:
   name: Leftover Fumes
   type: POTION_FUMES
   rarity: EPIC
-  material: BUCKET_OF_TADPOLE
+  material: TADPOLE_BUCKET
 
 potion_gunk:
   name: Potion Gunk
@@ -44,7 +80,15 @@ tiny_potion_bottle:
   rarity: RARE
   material: GLASS_BOTTLE
   capacity: 3
-  value: 100
+  value: 50
+
+small_potion_bottle:
+  name: Small Potion Bottle
+  type: POTION_BOTTLE
+  rarity: VERY_RARE
+  material: GLASS_BOTTLE
+  capacity: 4
+  value: 50
 
 test_potion_ingredient:
   name: Test Potion Ingredient
@@ -58,3 +102,85 @@ test_potion_ingredient:
     - FIRE
     - AIR
     - VOID
+
+potion_lesser_health:
+  name: Potion of Lesser Health
+  type: POTION
+  material: POTION
+  rarity: RARE
+  duration: 18000
+  value: 125
+  tags:
+    - HEALTH_POTION
+  recipe:
+    - WATER,1
+  lore:
+    - Potions work like talismans, but they last for
+    - a limited time only! Open your player menu and
+    - equip one today for powerful buffs!
+  stats:
+    health: +125
+    level_requirement: 1
+
+potion_health:
+  name: Potion of Health
+  type: POTION
+  material: POTION
+  rarity: RARE
+  duration: 18000
+  value: 150
+  tags:
+    - HEALTH_POTION
+  recipe:
+    - WATER,1
+    - WATER,1
+    - WATER,1
+    - WATER,1
+  lore:
+    - Potions work like talismans, but they last for
+    - a limited time only! Open your player menu and
+    - equip one today for powerful buffs!
+  stats:
+    health: +175
+    level_requirement: 4
+
+potion_lesser_fortitude:
+  name: Potion of Lesser Fortitude
+  type: POTION
+  material: POTION
+  rarity: RARE
+  duration: 18000
+  value: 125
+  tags:
+    - DEFENCE_POTION
+  recipe:
+    - EARTH,1
+    - EARTH,1
+  lore:
+    - Potions work like talismans, but they last for
+    - a limited time only! Open your player menu and
+    - equip one today for powerful buffs!
+  stats:
+    defence: +100
+    level_requirement: 1
+
+potion_lesser_strength:
+  name: Potion of Lesser Strength
+  type: POTION
+  material: POTION
+  rarity: RARE
+  duration: 18000
+  value: 125
+  tags:
+    - ATTACK_POTION
+  recipe:
+    - FIRE,1
+    - EARTH,1
+    - EARTH,1
+  lore:
+    - Potions work like talismans, but they last for
+    - a limited time only! Open your player menu and
+    - equip one today for powerful buffs!
+  stats:
+    strength: +90
+    level_requirement: 1

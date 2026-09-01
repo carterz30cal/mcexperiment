@@ -70,17 +70,17 @@ public class PlayerWardrobe implements PlayerSavable {
         return selectedSlot;
     }
 
-
-    public class WardrobeSlot {
+    /**
+     * @author carterz30cal
+     * @version 2
+     * @since 1.0.0 [1]
+     */
+    public class WardrobeSlot implements PlayerSavable {
         private ItemStack[] armour;
         private List<String> talismans;
 
         private WardrobeSlot(ConfigurationSection section) {
-            armour = new ItemStack[4];
-            talismans = section.getStringList("talismans");
-            for (int i = 0; i < 4; i++) {
-                armour[i] = ItemFactory.buildItemFromString(section.getString("armour[" + i + "]", null));
-            }
+            load(section);
         }
 
         private WardrobeSlot() {
@@ -88,10 +88,19 @@ public class PlayerWardrobe implements PlayerSavable {
             talismans = new ArrayList<>();
         }
 
-        private void save(ConfigurationSection section) {
+        public void save(ConfigurationSection section) {
             section.set("talismans", talismans);
             for (int i = 0; i < 4; i++) {
                 section.set("armour[" + i + "]", ItemFactory.buildStringFromItem(armour[i]));
+            }
+        }
+
+        @Override
+        public void load(ConfigurationSection section) {
+            armour = new ItemStack[4];
+            talismans = section.getStringList("talismans");
+            for (int i = 0; i < 4; i++) {
+                armour[i] = ItemFactory.buildItemFromString(section.getString("armour[" + i + "]", null));
             }
         }
 
@@ -105,11 +114,11 @@ public class PlayerWardrobe implements PlayerSavable {
             owner.player.getInventory().setArmorContents(armour);
         }
 
-        public ItemStack[] GetArmour() {
+        public ItemStack[] armour() {
             return armour;
         }
 
-        public List<String> GetTalismans() {
+        public List<String> talismans() {
             return talismans;
         }
 

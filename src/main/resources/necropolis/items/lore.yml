@@ -1,0 +1,11 @@
+necropolis_note_1:
+  name: Remnants of a Potionmaker's Notes I
+  type: QUEST_ITEM
+  rarity: EPIC
+  material: PAPER
+  value: 1500
+  lore:
+    - Prevention is an unprofitable business. Treatment, now
+    - that is where the money is at. If only Tracy had known
+    - that <aqua>two water elements</aqua> made a healing
+    - potion... maybe she'd still be here with me.

@@ -2,6 +2,7 @@ dusty_honeycomb:
   name: Dusty Honeycomb
   type: ATTUNER
   rarity: RARE
+  material: HONEYCOMB
   value: 750
   attuner-icon: '@'
   attuner-colour:

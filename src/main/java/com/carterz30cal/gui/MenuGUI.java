@@ -20,7 +20,7 @@ import static net.kyori.adventure.text.Component.text;
 
 /**
  * @author carterz30cal
- * @version 2
+ * @version 3
  * @since 1.0.0
  */
 public class MenuGUI extends AbstractGUI 
@@ -91,8 +91,12 @@ public class MenuGUI extends AbstractGUI
         );
     }
 
-	
-	public void update() {
+    @Override
+    public void onTick() {
+        update();
+    }
+
+    public void update() {
         inventory.setSlot(playerHead(), calc(4, 0));
 
         inventory.setSlot(ItemFactory.customItem("ANVIL", "<light_purple>Magic Anvil</light_purple>"), ANVIL_POS);
@@ -137,12 +141,12 @@ public class MenuGUI extends AbstractGUI
             if (i >= owner.talismans.size()) {
                 inventory.setSlot(
                         ItemFactory.customItem("RED_STAINED_GLASS_PANE",
-                                "<red>Empty Talisman Slot</red>",
-                                "<grey>Click a talisman in your inventory to populate this spot!</grey>"), pos);
+                                "<red>Empty Talisman/Potion Slot</red>",
+                                "<grey>Click a talisman or potion in your inventory to populate this spot!</grey>"), pos);
             }
             else {
                 String tali = owner.talismans.get(i);
-                inventory.setSlot(ItemFactory.build(tali), pos);
+                inventory.setSlot(ItemFactory.buildItemFromString(tali, owner), pos);
             }
 		}
 
@@ -208,25 +212,26 @@ public class MenuGUI extends AbstractGUI
         else if (owner.getLevel() > 1 && clickPos == SACK_POS) owner.openGui(new SackGUI(owner));
         else if (clickPos >= LINES * 9) {
             Item cli = ItemFactory.getItem(clicked);
-            if (owner.talismans.size() >= 5) owner.sendMessage("REDYou have no free accessory slots!");
+            if (owner.talismans.size() >= 5) owner.sendMessage("<red>You have no free accessory slots!");
             else if (cli == null) return false;
             else if (cli.type.use != ItemTypeUse.TALISMAN) {
-                owner.sendMessage("REDOnly talismans may go in a talisman slot!");
+                owner.sendMessage("<red>Only talismans and potions may go in a talisman slot!");
             }
             else {
                 List<String> taliTags = new ArrayList<>();
                 for (String talisman : owner.talismans) {
-                    taliTags.addAll(ItemFactory.getItem(talisman).tags);
+                    var item = ItemFactory.buildItemFromString(talisman);
+                    taliTags.addAll(ItemFactory.getItem(item).tags);
                 }
 
                 List<String> check = new ArrayList<>(cli.tags);
                 check.removeIf((t) -> !taliTags.contains(t));
 
                 if (!check.isEmpty() || owner.talismans.contains(cli.id)) {
-                    owner.sendMessage("REDYou already have an incompatible talisman equipped!");
+                    owner.sendMessage("<red>You already have an incompatible talisman equipped!");
                 }
                 else {
-                    owner.talismans.add(ItemFactory.getItem(clicked).id);
+                    owner.talismans.add(ItemFactory.buildStringFromItem(clicked));
                     clicked.setAmount(clicked.getAmount() - 1);
                     owner.playSound(Sound.BLOCK_DISPENSER_DISPENSE, 0.7, 1);
                 }

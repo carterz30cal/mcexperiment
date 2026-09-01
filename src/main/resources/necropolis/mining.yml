@@ -1,6 +1,6 @@
 red_slime:
   name: "Red Slime"
-  hardness: 400
+  hardness: 500
   power-required: 2
   block-type: RED_CONCRETE
   item: red_slime
@@ -9,4 +9,17 @@ red_slime:
   conversion-chance: 0
   mines-into: AIR
   regen-time: 400
+  area: NECROPOLIS
+
+sand:
+  name: "Sand"
+  hardness: 115
+  power-required: 1
+  block-type: SAND
+  item: sand
+  lower-bound: 2
+  upper-bound: 3
+  conversion-chance: 0
+  mines-into: BLACK_CONCRETE_POWDER
+  regen-time: 800
   area: NECROPOLIS

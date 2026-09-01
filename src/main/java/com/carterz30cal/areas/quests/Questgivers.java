@@ -238,7 +238,17 @@ public enum Questgivers {
 
     NECROPOLIS_YONNA(
             "Yonna", EntityType.BREEZE, new Location(Dungeons.w, 39.3, 69.06, 383.4, 123, 0),
-            new PreviousQuestRequirement(CREEPY_JIM_SPOT1)
+            new PreviousQuestRequirement(CREEPY_JIM_SPOT1),
+            new QuestSectionBringItem(
+                    new StringDescription("Hello, I'm Yonna!", "It's very nice to meet you.",
+                            "Say, you wouldn't happen to have any sand lying about?", "12 should do it!"),
+                    new StringDescription("This is very helpful, thank you!", "Now I can begin my brewing career!",
+                            "Hey, while you're here why don't you take this note I found on the floor by this brewing stand?"),
+                    new StringDescription("I could really do with 12 sand."),
+                    new ItemQuestReward(15, "necropolis_note_1", 1),
+                    "sand",
+                    12
+            )
     );
     private final String name;
     private final Location location;

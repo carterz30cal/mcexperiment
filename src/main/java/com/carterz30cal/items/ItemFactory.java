@@ -90,7 +90,8 @@ public class ItemFactory
             "necropolis/items/lootboxes",
             "necropolis/items/potions",
             "necropolis/items/pets/common_pets",
-            "necropolis/items/ingredients"
+            "necropolis/items/ingredients",
+            "necropolis/items/lore"
 	};
 	
 	
@@ -111,6 +112,7 @@ public class ItemFactory
             "necropolis/recipes/talismans", "necropolis/recipes/pickaxes",
             "necropolis/recipes/armour/uncommon","necropolis/recipes/armour/rare",
             "necropolis/recipes/ingredients", "necropolis/recipes/enchants", "necropolis/recipes/pet_upgrades",
+            "necropolis/recipes/potions",
             "necropolis/recipes/waterway_upgraded_legendary_swords"
 	};
     public static String[] skullFiles = {
@@ -450,6 +452,11 @@ public class ItemFactory
                     specificSection.section.add(text().append(mm).append(text(" " + fume.level()).color(fume.element().colour())));
                 }
             }
+            else if (item.type == ItemType.POTION) {
+                drawSpecificSection = true;
+                var duration = getPotionDuration(stack);
+                specificSection.section.add(text().content("Time until empty:").color(GRAY).append(text().content(StringUtils.getPrettyTime(duration)).color(AQUA)));
+            }
         }
         if (drawSpecificSection) {
             sections.add(specificSection);
@@ -598,7 +605,6 @@ public class ItemFactory
             {
                 meta.getPersistentDataContainer().set(kItem, PersistentDataType.STRING, item.id);
                 if (item.type != ItemType.INGREDIENT && item.type.use != ItemTypeUse.CONSUMABLE) meta.getPersistentDataContainer().set(kUUID, PersistentDataType.STRING, UUID.randomUUID().toString());
-
             }
             meta.getPersistentDataContainer().set(kData, PersistentDataType.STRING, "");
             meta.addItemFlags(ItemFlag.values());
@@ -1112,6 +1118,34 @@ public class ItemFactory
         data.put("potionPackets", builder.toString());
         setItemData(item, data);
     }
+
+    /**
+     * Get the duration left on a <code>POTION</code>.
+     * @param item what item are we checking?
+     * @return the duration left, or <code>-1</code> if this item doesn't support durations.
+     * @since 1.0.0 [6]
+     */
+    public static long getPotionDuration(ItemStack item) {
+        Map<String, String> data = getItemData(item);
+        var type = getItem(item);
+        if (!(type instanceof ItemPotion duration)) return -1;
+        if (data.containsKey("potionDuration")) {
+            return Long.parseLong(data.getOrDefault("potionDuration", "-1"));
+        }
+        else return duration.duration;
+    }
+
+    /**
+     * Set the duration left on a <code>POTION</code>.
+     * @param item what item are we setting the duration on?
+     * @param duration the duration we're setting
+     * @since 1.0.0 [6]
+     */
+    public static void setPotionDuration(ItemStack item, long duration) {
+        var data = getItemData(item);
+        data.put("potionDuration", Long.toString(duration));
+        setItemData(item, data);
+    }
 	
 	public static void addItemData(ItemStack item, String key, String data)
 	{
@@ -1351,6 +1385,18 @@ public class ItemFactory
                 var bottle = new ItemPotionBottle();
                 bottle.capacity = i.getInt("capacity");
                 item = bottle;
+                break;
+            case POTION:
+                var pot = new ItemPotion();
+                pot.duration = i.getLong("duration");
+                for (var elem : i.getStringList("recipe")) {
+                    var spl = elem.split(",");
+                    var element = PotionElement.valueOf(spl[0]);
+                    var level = spl.length > 1 ? Integer.parseInt(spl[1]) : 1;
+                    pot.recipe.add(new PotionPacket(element, level));
+                }
+                pot.generate();
+                item = pot;
                 break;
             case PRODUCTION_CORE:
                 var generator = new ItemIngredientGenerator();

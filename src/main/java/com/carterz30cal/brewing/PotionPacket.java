@@ -66,6 +66,15 @@ public class PotionPacket {
     }
 
     /**
+     * Change the level, or potency, of this potion packet.
+     * @param level the level we're setting
+     * @since 1.0.0 [1]
+     */
+    public void level(int level) {
+        this.level = level;
+    }
+
+    /**
      * @return the element of this packet.
      * @since 1.0.0 [1]
      */

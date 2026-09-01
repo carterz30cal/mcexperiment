@@ -55,7 +55,7 @@ public class WardrobeGUI extends AbstractGUI {
         PlayerWardrobe.WardrobeSlot wardrobe = owner.wardrobe.GetSlot(page - 1);
 
         for (int i = 0; i < 4; i++) {
-            ItemStack original = wardrobe.GetArmour()[3 - i];
+            ItemStack original = wardrobe.armour()[3 - i];
             if (original != null) {
                 inventory.setSlot(original.clone(), calc(1, 1 + i));
             }
@@ -69,7 +69,7 @@ public class WardrobeGUI extends AbstractGUI {
             }
         }
         for (int i = 0; i < 5; i++) {
-            if (wardrobe.GetTalismans().size() <= i) {
+            if (wardrobe.talismans().size() <= i) {
                 inventory.setSlot(
                         ItemFactory.customItem(
                                 "RED_STAINED_GLASS_PANE",
@@ -78,7 +78,7 @@ public class WardrobeGUI extends AbstractGUI {
                         calc(3 + i, 1));
             }
             else {
-                inventory.setSlot(ItemFactory.build(wardrobe.GetTalismans().get(i)), calc(3 + i, 1));
+                inventory.setSlot(ItemFactory.build(wardrobe.talismans().get(i)), calc(3 + i, 1));
             }
         }
         if (page > 1) {

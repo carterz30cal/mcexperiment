@@ -10,6 +10,30 @@ bone_dust:
     - Finely powdered warrior bone.
     - Found throughout Necropolis abundantly.
 
+sand:
+  name: Sand
+  type: INGREDIENT
+  rarity: COMMON
+  material: SAND
+  discovery: sand_collection
+  discovery-progress: 1
+  value: 1
+  lore:
+    - Sand - it's annoying and gets everywhere.
+
+compressed_sand:
+  name: Compressed Sand
+  type: INGREDIENT
+  rarity: RARE
+  material: SANDSTONE
+  discovery: sand_collection
+  discovery-progress: 320
+  value: 320
+  lore:
+    - This is a whole lot of sand, making it
+    - extremely annoying, especially when
+    - it gets everywhere.
+
 calmed_spirit:
   name: Calmed Spirit
   type: INGREDIENT

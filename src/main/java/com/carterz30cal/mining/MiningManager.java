@@ -2,6 +2,7 @@ package com.carterz30cal.mining;
 
 import com.carterz30cal.entities.player.GamePlayer;
 import com.carterz30cal.items.ItemFactory;
+import com.carterz30cal.items.abilities.implementation.AbilityWithMiningEffect;
 import com.carterz30cal.main.Dungeons;
 import com.carterz30cal.stats.Stat;
 import com.carterz30cal.utils.FileUtils;
@@ -100,6 +101,10 @@ public class MiningManager {
 
             for (var miningBlock : mining) {
                 int conversion = RandomUtils.getRandom(1, 1000);
+                var abilities = player.getAbilitiesWith(AbilityWithMiningEffect.class);
+                for (var ab : abilities) {
+                    ((AbilityWithMiningEffect)ab.ability).miningEffect(ab, ore, miningBlock);
+                }
                 if (conversion <= ore.conversionChance) {
                     miningBlock.getBlock().setType(ore.convertsInto);
                     instance.originalBlock.put(miningBlock.getBlock().getLocation(), ore.blockType);

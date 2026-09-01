@@ -49,6 +49,16 @@ necropolis_talismans:
   icon: spirit_lantern_uncommon
   parent: necropolis
 
+necropolis_potions:
+  name: Brewing Ingredients
+  icon: POTION
+  parent: necropolis
+
+necropolis_potions_bottles:
+  name: Bottles
+  icon: GLASS_BOTTLE
+  parent: necropolis_potions
+
 necropolis_ingredients:
   name: Ingredients
   icon: roasted_bone_dust

@@ -7,6 +7,7 @@ import com.carterz30cal.items.abilities.generic.*;
 import com.carterz30cal.items.abilities.implementation.GameAbility;
 import com.carterz30cal.items.abilities.implementation.PlayerAbilityContext;
 import com.carterz30cal.items.abilities.necropolis.enchants.ThornsEnchantment;
+import com.carterz30cal.items.abilities.necropolis.items.SandShovelAbility;
 import com.carterz30cal.items.abilities.waterway.*;
 import com.carterz30cal.items.abilities.waterway.factory.CatalystDustCoagulatorFactoryUpgrade;
 import com.carterz30cal.items.abilities.waterway.pets.*;
@@ -114,7 +115,8 @@ public enum Abilities
 	PET_DUSTED_COMMON(new PlayerStatAbility("Active: Dust-ball", Stat.DEFENCE, 80)),
 	PET_RED_SLIME_COMMON(new PlayerStatAbility("Active: Slime Layers", Stat.INSULATION, 150)),
 	LESSER_LIFE_SWORD(new GrantStatOnLevelAbility("Signs of Life", Stat.STRENGTH, 8)),
-	TITAN_BLADE_LEGENDARY(new GrantStatOnLevelAbility("Irremovable Defence", Stat.DEFENCE, 4))
+	TITAN_BLADE_LEGENDARY(new GrantStatOnLevelAbility("Irremovable Defence", Stat.DEFENCE, 4)),
+	SAND_SHOVEL(new SandShovelAbility()),
 	;
 	public final GameAbility ability;
 

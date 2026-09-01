@@ -24,6 +24,21 @@ spirit_pickaxe_very_rare:
     enchant_power: 5
     level_requirement: 6
 
+sand_shovel_epic:
+  name: Sand Shovel
+  type: PICKAXE
+  rarity: EPIC
+  material: GOLDEN_SHOVEL
+  abilities:
+    - SAND_SHOVEL
+  stats:
+    mining_speed: +280
+    breaking_power: +1
+    mining_fortune: +60
+    clearing: +60
+    enchant_power: +15
+    level_requirement: 5
+
 clearing_test_pickaxe:
   name: Testing Pickaxe
   type: PICKAXE

@@ -36,3 +36,11 @@ cooked_necropolis_fish:
   category: necropolis_ingredients
   items:
     necropolis_fish: 192
+
+compressed_sand:
+  amount: 1
+  discovery: sand_collection
+  discovery-tier: 2
+  category: necropolis_ingredients
+  items:
+    sand: 320
