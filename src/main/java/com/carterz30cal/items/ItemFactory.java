@@ -81,7 +81,7 @@ public class ItemFactory
             "waterway/items/pet_items", "waterway/items/quest_items",
             "necropolis/items/weapons/common","necropolis/items/weapons/uncommon",
             "necropolis/items/weapons/rare",
-            "necropolis/items/tools/pickaxes",
+            "necropolis/items/tools/pickaxes","necropolis/items/tools/rods","necropolis/items/tools/detectors",
             "necropolis/items/weapons/waterway_upgraded_legendary_swords",
             "necropolis/items/armour/uncommon","necropolis/items/armour/rare",
             "necropolis/items/armour/sets",

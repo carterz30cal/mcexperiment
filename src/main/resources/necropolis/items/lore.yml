@@ -7,5 +7,21 @@ necropolis_note_1:
   lore:
     - Prevention is an unprofitable business. Treatment, now
     - that is where the money is at. If only Tracy had known
-    - that <aqua>two water elements</aqua> made a healing
+    - that <aqua>three water elements</aqua> made a healing
     - potion... maybe she'd still be here with me.
+    - Now, how to make people sick?
+
+necropolis_note_2:
+  name: Remnants of a Potionmaker's Notes II
+  type: QUEST_ITEM
+  rarity: EPIC
+  material: PAPER
+  value: 1500
+  lore:
+    - Okay, I've stumbled upon another element, which might
+    - come in handy for my new business venture. It might
+    - be unethical, but it sure sounds profitable to me!
+    - In the mean time, I'll sell these defence potions to
+    - make ends meet, as they're just <green>three earth elements</green>
+    - which is pretty easy now that I've got my ingredient
+    - pipeline down to the letter. Maybe I'll talk to more vendors..

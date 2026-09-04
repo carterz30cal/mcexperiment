@@ -55,3 +55,35 @@ necropolis_fishing_common:
     - <grey>Lowest tier fishing mobs found</grey>
     - <grey>exclusively in <white>Necropolis</white>!</grey>
   parent: necropolis_fishing
+
+necropolis_fishing_uncommon:
+  icon: YELLOW_CONCRETE
+  name: "<yellow><b>UNCOMMON</b></grey> Bracket"
+  description:
+    - <grey>Lowest tier fishing mobs found</grey>
+    - <grey>exclusively in <white>Necropolis</white>!</grey>
+  parent: necropolis_fishing
+
+necropolis_fishing_rare:
+  icon: LIME_CONCRETE
+  name: "<green><b>RARE</b></grey> Bracket"
+  description:
+    - <grey>Lowest tier fishing mobs found</grey>
+    - <grey>exclusively in <white>Necropolis</white>!</grey>
+  parent: necropolis_fishing
+
+necropolis_fishing_very_rare:
+  icon: BLUE_CONCRETE
+  name: "<blue><b>VERY RARE</b></grey> Bracket"
+  description:
+    - <grey>Lowest tier fishing mobs found</grey>
+    - <grey>exclusively in <white>Necropolis</white>!</grey>
+  parent: necropolis_fishing
+
+necropolis_fishing_epic:
+  icon: PURPLE_CONCRETE
+  name: "<dark_purple><b>EPIC</b></grey> Bracket"
+  description:
+    - <grey>The highest tier of fishing mobs found</grey>
+    - <grey>exclusively in <white>Necropolis</white>!</grey>
+  parent: necropolis_fishing

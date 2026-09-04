@@ -28,7 +28,9 @@ public class CommandForce implements CommandExecutor {
 			GamePlayer p = PlayerManager.players.get(((Player) sender).getUniqueId());
 			switch (args[0]) {
 				case "rain":
-					GameAreaWaterway.downpour.start();
+					var downpour = GameAreaWaterway.downpour;
+					if (downpour.active()) downpour.end();
+					else downpour.start();
 					break;
 				case "calcxp":
 					int arg = Integer.parseInt(args[1]);

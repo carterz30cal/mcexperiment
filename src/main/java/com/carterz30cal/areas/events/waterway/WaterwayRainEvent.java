@@ -47,6 +47,7 @@ public class WaterwayRainEvent extends AbstractEventWithArea {
 
     @Override
     public void end() {
+        duration = 0;
         Areas.WATERWAY.getArea().context().spawningMode = "NORMAL";
     }
 
@@ -82,7 +83,7 @@ public class WaterwayRainEvent extends AbstractEventWithArea {
      */
     @Override
     public boolean active() {
-        return active;
+        return active && duration > 0;
     }
 
     /**

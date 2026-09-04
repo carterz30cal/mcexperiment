@@ -74,6 +74,18 @@ roasted_bone_dust:
     - Warrior bone, roasted into a aromatic powder.
     - Makes a great treat for pets.
 
+gold_nugget:
+  name: Gold Nugget
+  type: INGREDIENT
+  rarity: VERY_RARE
+  material: RAW_GOLD
+  discovery: gold_nugget_collection
+  discovery-progress: 1
+  value: 20
+  lore:
+    - A small nugget of gold, found in the sands of Necropolis.
+    - Shinier than gold leaf, but less tasty.
+
 red_slime:
   name: Red Slime
   type: INGREDIENT

@@ -87,14 +87,20 @@ necropolis_fish_collection:
     - Fresh outta Waterway
     - The Art of Handling Dangerous Fish
     - Delicate Prep 101
+    - Don't eat Pufferfish at Home
+    - The Art of Running out of Things to say
   tiers:
     - 5
     - 25
-    - 175
+    - 200
+    - 500
+    - 2500
   xp-rewards:
     - 10
     - 10
     - 10
+    - 5
+    - 5
 
 sand_collection:
   name: Sand
@@ -104,9 +110,16 @@ sand_collection:
     - impressive deposit of sand. This is very important
     - for brewing, as bottles are made from glass.
   tier-descriptions:
-    - unwritten
-    - unwritten
-    - unwritten
+    - Colloid
+    - Clay
+    - Silt
+    - Very fine sand
+    - Fine sand
+    - Medium sand
+    - Coarse sand
+    - Very coarse sand
+    - Granule
+    - Pebble
   tiers:
     - 5
     - 100
@@ -114,4 +127,16 @@ sand_collection:
   xp-rewards:
     - 5
     - 5
+    - 5
+
+gold_nugget_collection:
+  name: Gold Nuggets
+  display-item: gold_nugget
+  description:
+    - Found whilst treasure hunting!
+  tier-descriptions:
+    - N
+  tiers:
+    - 5
+  xp-rewards:
     - 5

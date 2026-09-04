@@ -27,7 +27,7 @@ mulch:
     - EARTH,1
     - WATER,1
     - EARTH,1
-    - WATER,1
+    - EARTH,1
 
 everlasting_flame:
   name: Everlasting Flame
@@ -114,6 +114,8 @@ potion_lesser_health:
     - HEALTH_POTION
   recipe:
     - WATER,1
+    - WATER,1
+    - WATER,1
   lore:
     - Potions work like talismans, but they last for
     - a limited time only! Open your player menu and
@@ -154,6 +156,7 @@ potion_lesser_fortitude:
   tags:
     - DEFENCE_POTION
   recipe:
+    - EARTH,1
     - EARTH,1
     - EARTH,1
   lore:

@@ -1,0 +1,10 @@
+treasure_detector_common:
+  name: Treasure Detector
+  type: TOOL
+  rarity: COMMON
+  material: IRON_HOE
+  abilities:
+    - TREASURE_DETECTOR
+  stats:
+    DETECTION: +10
+    level_requirement: 3

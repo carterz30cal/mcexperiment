@@ -17,7 +17,7 @@ sand:
   power-required: 1
   block-type: SAND
   item: sand
-  lower-bound: 2
+  lower-bound: 1
   upper-bound: 3
   conversion-chance: 0
   mines-into: BLACK_CONCRETE_POWDER

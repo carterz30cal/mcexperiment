@@ -33,7 +33,7 @@ public enum ItemType
 	PRODUCTION_CORE("Production Core"),
 	FACTORY_UPGRADE("Factory Upgrade"),
 	POTION_INGREDIENT("Potion Ingredient", ItemTypeUse.CONSUMABLE),
-	POTION_FUMES("Potion Fumes"),
+	POTION_FUMES("Potion Fumes", ItemTypeUse.CONSUMABLE),
 	POTION_BOTTLE("Bottle", ItemTypeUse.CONSUMABLE),
 	POTION(ItemTypeUse.TALISMAN),
 	VIRTUAL_SET(ItemTypeUse.VIRTUAL_NON_EXIST);

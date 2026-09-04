@@ -18,10 +18,7 @@ import com.carterz30cal.events.GameEventHandler;
 import com.carterz30cal.fishing.FishingArea;
 import com.carterz30cal.gui.AbstractGUI;
 import com.carterz30cal.items.*;
-import com.carterz30cal.items.abilities.implementation.Ability;
-import com.carterz30cal.items.abilities.implementation.AbilityWithStats;
-import com.carterz30cal.items.abilities.implementation.ContextWithAbility;
-import com.carterz30cal.items.abilities.implementation.PlayerAbilityContext;
+import com.carterz30cal.items.abilities.implementation.*;
 import com.carterz30cal.items.discoveries.Collection;
 import com.carterz30cal.items.discoveries.DiscoveryManager;
 import com.carterz30cal.items.recipes.Recipe;
@@ -332,10 +329,14 @@ public class GamePlayer extends GameEntity implements DamageableEntity, Aggressi
         stats.execute();
         abilities.addAll(skillTree.getUnderlyingAbilities());
         for (var a : abilities) {
+			if (a.ability instanceof AbilityWithTick tick) {
+				tick.tick(a, areaCheckTick);
+			}
             if (!(a.ability instanceof AbilityWithStats is)) {
                 continue;
             }
             is.modifyStats(a, stats, AbilityWithStats.Situation.PLAYER);
+
         }
         stats.scheduleOperation(Stat.BACKPACK_PAGES, StatOperationType.ADD, 2);
         stats.scheduleOperation(Stat.BACKPACK_PAGES, StatOperationType.CAP_MIN, 1);
@@ -354,7 +355,7 @@ public class GamePlayer extends GameEntity implements DamageableEntity, Aggressi
         var actionStatBar = text();
         actionStatBar.append(text(healthSystem.getHealth() + "\u2665", NamedTextColor.RED));
         if (stats.stat(Stat.MANA) > 0) {
-            actionStatBar.append(text(" " + getMana() + "/" + stats.stat(Stat.MANA) + "\u2605", NamedTextColor.LIGHT_PURPLE));
+            actionStatBar.append(text(" " + getMana() + "/" + stats.stat(Stat.MANA) + "♠", NamedTextColor.LIGHT_PURPLE));
         }
         if (rewardTick > 0) {
             if (lastXpReward > 0) {

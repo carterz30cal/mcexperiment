@@ -60,7 +60,7 @@ public class StatEnchantment extends GameAbstractEnchant
         if (statOperation == StatOperationType.MULTIPLY) {
             description.append(text("% ", statGranted.textColour));
         }
-        description.append(text(statGranted.getIcon(), statGranted.textColour)).append(text(".", NamedTextColor.GRAY));
+        description.append(statGranted.getReversed()).append(text(".", NamedTextColor.GRAY));
 
         var d = new ArrayList<TextComponent.Builder>();
         d.add(description);

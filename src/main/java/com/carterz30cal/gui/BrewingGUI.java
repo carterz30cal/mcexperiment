@@ -233,12 +233,13 @@ public class BrewingGUI extends AbstractGUI {
         if (bottle == null || packets.isEmpty()) return null;
         ItemPotion result;
         for (int length = bottle.capacity; length > 0; length--) {
-            for (int i = 0; i < bottle.capacity - length; i++) {
+            for (int i = 0; i <= bottle.capacity - length; i++) {
                 var recipe = new StringBuilder();
-                for (int j = 0; j < length && j < packets.size(); j++) {
-                    var packet = packets.get(j);
+                for (int j = 0; j < length && j + i < packets.size(); j++) {
+                    var packet = packets.get(j + i);
                     recipe.append(packet.element().name()).append("-").append(packet.level()).append(",");
                 }
+                if (recipe.isEmpty()) continue;
                 recipe.deleteCharAt(recipe.length() - 1);
                 result = ItemPotion.recipes.getOrDefault(recipe.toString(), null);
                 if (result != null) {

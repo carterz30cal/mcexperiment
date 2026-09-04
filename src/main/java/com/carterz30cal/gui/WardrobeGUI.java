@@ -10,6 +10,11 @@ import org.bukkit.inventory.ItemStack;
 
 import static net.kyori.adventure.text.format.NamedTextColor.*;
 
+/**
+ * @author carterz30cal
+ * @version 2
+ * @since 1.0.0
+ */
 public class WardrobeGUI extends AbstractGUI {
     private static final int EQUIP_BUTTON_POS = calc(5, 4);
     private static final int BACK_BUTTON_POS = calc(4, 4);
@@ -42,7 +47,7 @@ public class WardrobeGUI extends AbstractGUI {
             page--;
             owner.playSound(Sound.BLOCK_DISPENSER_DISPENSE, 0.3, 1);
         }
-        else if (clickPos == NEXT_BUTTON_POS && page < owner.stats.getStat(Stat.WARDROBE_SLOTS)) {
+        else if (clickPos == NEXT_BUTTON_POS && page < owner.stats.stat(Stat.WARDROBE_SLOTS)) {
             page++;
             owner.playSound(Sound.BLOCK_DISPENSER_DISPENSE, 0.3, 1);
         }
@@ -78,7 +83,7 @@ public class WardrobeGUI extends AbstractGUI {
                         calc(3 + i, 1));
             }
             else {
-                inventory.setSlot(ItemFactory.build(wardrobe.talismans().get(i)), calc(3 + i, 1));
+                inventory.setSlot(ItemFactory.buildItemFromString(wardrobe.talismans().get(i)), calc(3 + i, 1));
             }
         }
         if (page > 1) {
@@ -91,7 +96,7 @@ public class WardrobeGUI extends AbstractGUI {
                         current ? "Equipped!" : "Click to equip!",
                         current ? GREEN : YELLOW)
                 , EQUIP_BUTTON_POS);
-        if (page < owner.stats.getStat(Stat.WARDROBE_SLOTS)) {
+        if (page < owner.stats.stat(Stat.WARDROBE_SLOTS)) {
             inventory.setSlot(ItemFactory.customItem("ARROW", "Next", GREEN), NEXT_BUTTON_POS);
         }
         inventory.update();
