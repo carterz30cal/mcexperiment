@@ -1,6 +1,7 @@
 # minecraft server, not included on git because it's not necessary
 server/logs
 server/bundler
+server/.paper
 server/banned-ips.json
 server/banned-players.json
 server/commands.yml
@@ -11,6 +12,29 @@ server/world*/stats
 server/world*/session.lock
 server/world*/uid.dat
 !server/start-server.bat
+
+/server/eula.txt
+/server/plugins/ProtocolLib/
+/server/ops.json
+/server/world/datapacks/
+/server/plugins/Dungeons/players.yml
+/server/world/data/
+!/server/world/data/chunks.dat
+!/server/world/data/world_border.dat
+/server/world/players/data
+/server/world/players/advancements
+/server/world/players/stats
+/server/usercache.json
+/server/waterway progression diagram.drawio
+/server/wepif.yml
+/server/whitelist.json
+/server/world*/*.dat_old
+/server/world*/poi
+wandering_trader.dat
+weather.dat
+raids.dat
+scheduled_events.dat
+ender_dragon_fight.dat
 
 
 # User-specific stuff
@@ -131,20 +155,7 @@ run/
 /server/plugins/WorldEdit/sessions/
 /server/debug/
 
-/server/eula.txt
-/server/plugins/ProtocolLib/
-/server/ops.json
-/server/world/datapacks/
-/server/plugins/Dungeons/players.yml
-/server/world/data/
-!/server/world/data/chunks.dat
-!/server/world/data/world_border.dat
-/server/usercache.json
-/server/waterway progression diagram.drawio
-/server/wepif.yml
-/server/whitelist.json
-/server/world*/*.dat_old
-/server/world*/poi
+
 
 .gradle
 **/build/
