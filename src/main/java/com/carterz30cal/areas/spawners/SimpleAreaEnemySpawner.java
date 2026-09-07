@@ -13,7 +13,7 @@ import java.util.UUID;
 
 /**
  * @author carterz30cal
- * @version 2
+ * @version 3
  * @since 1.0.0
  */
 public class SimpleAreaEnemySpawner extends AbstractEnemySpawner {
@@ -97,8 +97,11 @@ public class SimpleAreaEnemySpawner extends AbstractEnemySpawner {
         if (spawnTick >= spawnTimer && getCurrentlyValidToSpawn()) {
             int max = getPlayersWithinValidArea().size() + 2;
             while (mobs.size() < getMaxMobCount() && max > 0) {
-                GameEnemy enemy = getValidSpawningOption().spawn(spawnBox.getRandomMobLocation());
-                mobs.add(enemy.getUUID());
+                var option = getValidSpawningOption();
+                if (option != null) {
+                    GameEnemy enemy = option.spawn(spawnBox.getRandomMobLocation());
+                    mobs.add(enemy.getUUID());
+                }
                 max--;
             }
             spawnTick = 0;
