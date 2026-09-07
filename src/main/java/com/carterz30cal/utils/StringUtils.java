@@ -304,15 +304,19 @@ public class StringUtils
 		
 		return ticks;
 	}
-	
-	public static String truncatedDouble2(double val) {
-		return ((int)val) + "." + ((int)(val * 100) % 100);
-	}
 
-    public static String truncatedDouble1(double val) {
-        return ((int) val) + "." + ((int) (val * 10) % 10);
+    /**
+     * @param val the value to truncate
+     * @param dp  how many decimal places are we truncating to?
+     * @return a truncated string
+     */
+    public static String truncate(double val, int dp) {
+        return String.format("%%.%df".formatted(dp), val);
     }
 
+	public static String truncatedDouble2(double val) {
+        return truncate(val, 2);
+	}
 
 	public static Location getLocationFromString(String s) {
 		String[] sp = s.split(",");
