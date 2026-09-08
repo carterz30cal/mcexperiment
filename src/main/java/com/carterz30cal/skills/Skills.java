@@ -1,9 +1,6 @@
 package com.carterz30cal.skills;
 
-import com.carterz30cal.skills.implementations.PlayerSkillLifesteal;
-import com.carterz30cal.skills.implementations.PlayerSkillPetCollector;
-import com.carterz30cal.skills.implementations.PlayerSkillStat;
-import com.carterz30cal.skills.implementations.PlayerSkillStatCustomDescription;
+import com.carterz30cal.skills.implementations.*;
 import com.carterz30cal.stats.Stat;
 
 import java.util.Arrays;
@@ -12,7 +9,7 @@ import java.util.Set;
 
 /**
  * @author carterz30cal
- * @version 1
+ * @version 2
  * @since 1.0.0
  */
 public enum Skills {
@@ -21,9 +18,13 @@ public enum Skills {
     FORGE_NOVICE("Novice Forger", new PlayerSkillStat(SkillSoulType.WATERWAY, 1, Stat.FORGE_SLOTS, 1), 5, 4, 1, POWER_SURGE),
     FLEDGLING_VAMPIRE("Fledgling Vampire", new PlayerSkillLifesteal(SkillSoulType.WATERWAY, 10), 3, 4, 1, POWER_SURGE),
     PET_COLLECTOR("Pet Collector", new PlayerSkillPetCollector(SkillSoulType.WATERWAY, 10), 6, 4, 1, FORGE_NOVICE),
-    STERN_FACED("Stern-Faced", new PlayerSkillStatCustomDescription(SkillSoulType.WATERWAY, 25, Stat.INTIMIDATION, 1,
-            "<grey>Intimidation will scare off enemies at or below that level. </grey>"), 2, 4, 1, FLEDGLING_VAMPIRE),
-    SACKIER_SACKS1("Sackier Sacks I", new PlayerSkillStat(SkillSoulType.WATERWAY, 20, Stat.SACK_SPACE, 1000), 4, 3, 1, POWER_SURGE)
+    STERN_FACED("Stern-Faced", new PlayerSkillStatCustomDescription(SkillSoulType.WATERWAY, 10, Stat.INTIMIDATION, 1,
+            1.4, "<grey>Intimidation will scare off enemies at or below that level. </grey>"), 2, 4, 1, FLEDGLING_VAMPIRE),
+    SACKIER_SACKS1("Sackier Sacks I", new PlayerSkillStat(SkillSoulType.WATERWAY, 20, Stat.SACK_SPACE, 1000), 4, 3, 1, POWER_SURGE),
+    LUCKY1("The Price of Being Lucky", new PlayerSkillLucky(SkillSoulType.NECROPOLIS, 10, 1, 50), 4, 2, 1, SACKIER_SACKS1),
+    SNIFFER1("Sniffer's Nose", new PlayerSkillStat(SkillSoulType.NECROPOLIS, 10, Stat.DETECTION, 2), 5, 2, 1, LUCKY1),
+    FISHER1("Fisherman I", new PlayerSkillStat(SkillSoulType.NECROPOLIS, 10, Stat.FISHING_POWER, 5), 3, 2, 1, LUCKY1),
+    SACKIER_SACKS2("Sackier Sacks II", new PlayerSkillStat(SkillSoulType.NECROPOLIS, 40, Stat.SACK_SPACE, 1000), 6, 2, 1, SNIFFER1),
     ;
     public final TreePosition position;
     private final GameSkill skill;

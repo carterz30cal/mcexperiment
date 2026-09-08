@@ -19,7 +19,7 @@ public class GameAreaNecropolis extends AbstractGameArea {
     public GameAreaNecropolis() {
         this.areaName = "Necropolis";
         this.boundingBox = new Box(
-                new Location(Dungeons.w, 95, 255, 271),
+                new Location(Dungeons.w, 95, 255, 250),
                 new Location(Dungeons.w, -100, -60, 443)
         );
         this.context = new SpawnerContext();

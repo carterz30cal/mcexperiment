@@ -5,10 +5,10 @@ white_label_pickaxe:
   material: STONE_PICKAXE
   value: 500
   stats:
-    mining_speed: 150
+    mining_speed: 165
     breaking_power: 2
-    mining_fortune: 35
-    enchant_power: 5
+    mining_fortune: 40
+    enchant_power: 10
     level_requirement: 5
 
 spirit_pickaxe_very_rare:
@@ -18,10 +18,10 @@ spirit_pickaxe_very_rare:
   material: DIAMOND_PICKAXE
   value: 800
   stats:
-    mining_speed: 240
-    breaking_power: 2
-    mining_fortune: 125
-    enchant_power: 5
+    mining_speed: 250
+    breaking_power: 3
+    mining_fortune: 130
+    enchant_power: 10
     level_requirement: 6
 
 sand_shovel_epic:

@@ -18,22 +18,31 @@ import java.util.List;
  * Nothing more!
  *
  * @author carterz30cal
- * @version 1
+ * @version 2
  * @since 1.0.0
  */
 public class PlayerSkillStat extends GameSkill implements AbilityWithStats {
-    private final Stat stat;
-    private final long perLevel;
+    protected final Stat stat;
+    protected final long perLevel;
+    protected final double scaling;
 
     public PlayerSkillStat(SkillSoulType soulType, int maxLevel, Stat stat, long perLevel) {
         super(soulType, maxLevel);
         this.stat = stat;
         this.perLevel = perLevel;
+        this.scaling = 1.2;
+    }
+
+    public PlayerSkillStat(SkillSoulType soulType, int maxLevel, Stat stat, long perLevel, double scaling) {
+        super(soulType, maxLevel);
+        this.stat = stat;
+        this.perLevel = perLevel;
+        this.scaling = scaling;
     }
 
     @Override
     public long getSoulsNeedForLevel(long level) {
-        return Math.round(100 * Math.pow(1.2, level));
+        return Math.round(100 * Math.pow(this.scaling, level));
     }
 
     @Override

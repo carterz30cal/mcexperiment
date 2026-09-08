@@ -14,9 +14,6 @@ import org.bukkit.Sound;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import static net.kyori.adventure.text.format.NamedTextColor.*;
 
 public class ShopGUI extends AbstractGUI {
@@ -74,7 +71,6 @@ public class ShopGUI extends AbstractGUI {
 
         long pLevel = owner.getLevel();
 
-        List<String> requirements = new ArrayList<>();
         if (recipe.levelRequirement > pLevel) {
             return ItemFactory.buildCustom(
                     "RED_STAINED_GLASS_PANE",
@@ -142,7 +138,7 @@ public class ShopGUI extends AbstractGUI {
                     if (ItemFactory.isItemBaseModel(clicked)) {
                         int am = clicked.getAmount();
                         clicked.setAmount(0);
-                        owner.coins += am * item.value;
+                        owner.gainCoins(am * item.value);
                     }
                     else owner.sendMessage("<red>You can't sell modified items to the shop.");
                 }
@@ -192,9 +188,9 @@ public class ShopGUI extends AbstractGUI {
                     if (recipe.enchants == null && !data.isEmpty()) {
                         item.data = data;
                     }
-                    owner.giveItem(item.produce());
+                    owner.giveItem(item.produce(), false);
                 } else {
-                    owner.sendMessage("REDYou can't buy this item!");
+                    owner.sendMessage("<red>You can't buy this item!");
                     owner.playSound(Sound.ENTITY_CREEPER_HURT, 0.8, 0.6);
                 }
             }

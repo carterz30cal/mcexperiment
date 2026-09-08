@@ -363,8 +363,7 @@ public class GameEnemy extends GameEntity implements AggressiveEntity, Damageabl
             attacker.playSound(enemyData.deathSound, 0.6, 1);
             attacker.playSound(Sound.ENTITY_EXPERIENCE_ORB_PICKUP, 1, 1.35);
             var coins = getCoinValue(attacker);
-            attacker.coins += coins;
-            attacker.lastCoinReward = coins;
+            attacker.gainCoins(coins);
             attacker.lastXpReward = 0;
             attacker.rewardTick = 30;
             attacker.skillTree.gainSouls(getEnemyData());

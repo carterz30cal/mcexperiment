@@ -2,12 +2,12 @@ pet_dusted_common:
   name: Dusted
   type: PET
   rarity: COMMON
-  material: PLAYER_HEAD
+  material: SKELETON_SKULL
   pet-line: dusted
   active-ability: PET_DUSTED_COMMON
   value: 600
   stats:
-    defence: +20
+    defence: +25
 
 pet_red_slime_common:
   name: Red Slime

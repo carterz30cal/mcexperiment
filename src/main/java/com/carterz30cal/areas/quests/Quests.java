@@ -66,6 +66,11 @@ public enum Quests {
             "Yonna",
             new StringDescription(),
             Questgivers.NECROPOLIS_YONNA
+    ),
+    NECROPOLIS_SANDY_HAM(
+            "The Old Snout",
+            new StringDescription("Help out old prospector Sandriham Bootshold in the treasure pits of Necropolis."),
+            Questgivers.NECROPOLIS_SANDY_HAM
     )
 
     ;

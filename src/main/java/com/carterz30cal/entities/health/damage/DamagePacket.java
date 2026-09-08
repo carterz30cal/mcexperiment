@@ -87,7 +87,9 @@ public class DamagePacket {
             return 0L;
         }
         else {
-            return Math.max(0, statusEffects.getOrDefault(effect, 0L) - statusResistances.getOrDefault(StatusResistance.getDamageResistance(effect), 0L));
+            var dr = StatusResistance.getDamageResistance(effect);
+            var m = Math.round(statusResistances.getOrDefault(dr, 0L) * dr.resistanceMultiplier);
+            return Math.max(0, statusEffects.getOrDefault(effect, 0L) - m);
         }
     }
 

@@ -33,7 +33,9 @@ public class PetsGUI extends AbstractGUI {
         selectablePets = new String[54];
 
         if (owner.activePet != null) {
-            inventory.setSlot(ItemFactory.build(owner.activePet), calc(4, 0));
+            var pet = ItemFactory.build(owner.activePet);
+            ItemFactory.update(pet, owner.getItemContext());
+            inventory.setSlot(pet, calc(4, 0));
         }
         for (int i = 0; i < 7 * 4; i++) {
             int pi = ((page - 1) * 7 * 4) + i;
@@ -43,7 +45,9 @@ public class PetsGUI extends AbstractGUI {
             int y = (i / 7) + 1;
             int c = calc(x,y);
             selectablePets[c] = owner.pets.get(pi);
-            inventory.setSlot(ItemFactory.build(owner.pets.get(pi)), c);
+            var pet = ItemFactory.build(owner.pets.get(pi));
+            ItemFactory.update(pet, owner.getItemContext());
+            inventory.setSlot(pet, c);
         }
 
         List<String> lore = getLore();

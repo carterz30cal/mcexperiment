@@ -33,7 +33,7 @@ public class GameAreaWaterway extends AbstractGameArea implements EventProvider 
     public GameAreaWaterway() {
         this.areaName = "Waterway";
         this.boundingBox = new Box(
-                new Location(Dungeons.w, 308, -64, 270),
+                new Location(Dungeons.w, 308, -64, 249),
                 new Location(Dungeons.w, -256, 256, -156)
         );
         this.context = new SpawnerContext();

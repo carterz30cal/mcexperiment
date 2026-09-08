@@ -65,16 +65,19 @@ rainbow_slime_collection:
     - Slime Novice
     - Slime for Dummies
     - Slimealicious!
+    - Slimetastic!
   tiers:
     - 5
     - 75
-    - 300
-    - 1500
+    - 250
+    - 2000
+    - 10000
   xp-rewards:
     - 20
     - 15
     - 10
-    - 10
+    - 5
+    - 5
 
 necropolis_fish_collection:
   name: Necropolis Puffers
@@ -136,7 +139,25 @@ gold_nugget_collection:
     - Found whilst treasure hunting!
   tier-descriptions:
     - N
+    - U
+    - G
+    - G
+    - E
+    - T
+    - S
   tiers:
     - 5
+    - 20
+    - 50
+    - 100
+    - 250
+    - 500
+    - 1000
   xp-rewards:
     - 5
+    - 10
+    - 10
+    - 5
+    - 1
+    - 1
+    - 0

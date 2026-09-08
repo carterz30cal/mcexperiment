@@ -143,10 +143,10 @@ public class ListenerEntityDamage implements Listener
                 var victim = (DamageableEntity) v;
                 handleEntityDamageEntity(victim, aggressor);
             }
-            if (aggressor instanceof DamageableEntity body) {
+            if (aggressor instanceof DamageableEntity body && e.getEntityType() == EntityType.CREEPER) {
                 body.kill();
             }
-            Dungeons.w.createExplosion(aggressor.getLocation(), 4.5F, false, false);
+            Dungeons.w.createExplosion(aggressor.getLocation(), 7F, false, false);
         }
         e.setCancelled(true);
     }

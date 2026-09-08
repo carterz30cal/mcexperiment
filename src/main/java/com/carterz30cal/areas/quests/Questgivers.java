@@ -249,6 +249,25 @@ public enum Questgivers {
                     "sand",
                     12
             )
+    ),
+
+    NECROPOLIS_SANDY_HAM(
+            "Sandriham Bootshold", EntityType.PIG, new Location(Dungeons.w, -4, 65, 295, -27, 0),
+            new PreviousQuestRequirement(NECROPOLIS_YONNA),
+            new QuestSectionBringItem(
+                    new StringDescription("Well slap my snout and call me lucky!", "A visitor, to the ole prospectin' fields of Necropolis?",
+                            "Name's Sandriham, Sandriham Bootshold, and don't I have a quest for yoou.", "You see, this old snout o mine ain't what it used to be, and I can't find no damn nuggets anywhere!",
+                            "Fetch me 10 of your finest gold nuggets and I'll make it worth yer while - coins and stories to boot.",
+                            "Whaddya say partner? Ready to get diggin?"),
+                    new StringDescription("Well I'll be a truffle in a tuxedo — TEN nuggets, shinin' like the mornin' sun on a dew-soaked mud puddle! You actually did it!",
+                            "<i>*visibly salivating*", "This here is one fine haul. You've earned yerself a proper reward for helping out ole Sandriham Bootshold.",
+                            "Take this here potionmaking note, it's one fine specimen for any alchemist worth their salt."),
+                    new StringDescription("Back already? I don't hear no gold rattlin' about in them pockets!",
+                            "Waterway weren't built in a day, and neither's my nugget collection. Get on back out there!"),
+                    new ItemQuestReward(35, "necropolis_note_2", 1),
+                    "gold_nugget",
+                    10
+            )
     );
     private final String name;
     private final Location location;

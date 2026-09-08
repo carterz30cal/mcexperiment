@@ -40,7 +40,7 @@ public class ItemReqs
 	
 	public void execute(GamePlayer by)
 	{
-		by.coins -= coins;
+        by.takeCoins(coins);
 
         Map<String, Long> working = new HashMap<>(reqs);
 		for (String w : working.keySet()) {

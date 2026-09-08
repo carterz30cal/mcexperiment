@@ -38,10 +38,10 @@ public enum Stat
     PICKING("\u0194 Picking", NamedTextColor.YELLOW, StatType.ECONOMY),
     CLEARING("\u0190 Clearing", NamedTextColor.YELLOW, StatType.ECONOMY),
 
-    DETECTION("♠ Detection Power", NamedTextColor.GOLD, StatType.ECONOMY),
+    DETECTION("± Detection Power", NamedTextColor.GOLD, StatType.ECONOMY),
 
-    BONUS_COINS("\u00D7 Extra Coins", NamedTextColor.GOLD, StatType.ECONOMY, StatDisplayType.PERCENTAGE),
-    LUCK("\u00D7 Luck", NamedTextColor.GOLD, StatType.ECONOMY, StatDisplayType.PERCENTAGE),
+    BONUS_COINS("× Extra Coins", NamedTextColor.GOLD, StatType.ECONOMY, StatDisplayType.PERCENTAGE),
+    LUCK("♠ Luck", NamedTextColor.GOLD, StatType.ECONOMY, StatDisplayType.PERCENTAGE),
 
     INVULNERABILITY_TICKS("invul ticks", NamedTextColor.BLACK, StatType.HIDDEN, StatDisplayType.NO_DISPLAY),
 

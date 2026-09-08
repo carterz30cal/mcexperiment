@@ -64,7 +64,7 @@ import static net.kyori.adventure.text.Component.text;
 
 /**
  * @author carterz30cal
- * @version 4
+ * @version 5
  * @since 1.0.0
  */
 @SuppressWarnings("UnnecessaryUnicodeEscape")
@@ -116,6 +116,9 @@ public class GamePlayer extends GameEntity implements DamageableEntity, Aggressi
     public long lastCoinReward;
     public int abilityTick;
 	public int rewardTick;
+
+    public final Map<String, Long> toSack = new HashMap<>();
+    public int sackTick;
 	
 	public boolean mining;
 	public boolean allowInteract;
@@ -361,8 +364,8 @@ public class GamePlayer extends GameEntity implements DamageableEntity, Aggressi
             if (lastXpReward > 0) {
                 actionStatBar.append(text(" +" + lastXpReward + " XP", NamedTextColor.AQUA));
             }
-            if (lastCoinReward > 0) {
-                actionStatBar.append(text(" +" + lastCoinReward + " coins", NamedTextColor.GOLD));
+            if (lastCoinReward != 0) {
+                actionStatBar.append(text((lastCoinReward > 0 ? " +" : " ") + lastCoinReward + " coins", NamedTextColor.GOLD));
             }
             if (skillTree.getLastSoulReward() > 0) {
                 if (skillTree.getLastSoulReward() == 1) {
@@ -378,6 +381,10 @@ public class GamePlayer extends GameEntity implements DamageableEntity, Aggressi
 
             }
             rewardTick--;
+        }
+        else {
+            lastCoinReward = 0;
+            lastXpReward = 0;
         }
 		
 		if (attackTick > 0) attackTick--;
@@ -403,6 +410,31 @@ public class GamePlayer extends GameEntity implements DamageableEntity, Aggressi
         }
 
         abilityTick++;
+        if (!toSack.isEmpty()) {
+            sackTick++;
+            if (sackTick > 30 * 20) {
+                sackTick = 0;
+                var builder = new StringBuilder();
+                var start = true;
+                builder.append("<grey>Sack</grey> <dark_grey>[last 30s]: ");
+                for (var e : toSack.entrySet()) {
+                    var item = ItemFactory.getItem(e.getKey());
+                    if (!start) {
+                        builder.append(", ");
+                    }
+                    else {
+                        start = false;
+                    }
+                    builder.append(e.getValue()).append("x<")
+                            .append(item.rarity.textColor.asHexString())
+                            .append("> ").append(item.name)
+                            .append("</").append(item.rarity.textColor.asHexString())
+                            .append(">");
+                }
+                sendMessage(builder.toString());
+                toSack.clear();
+            }
+        }
 
         sendActionBar(actionStatBar);
 		player.getInventory().setItem(8, ItemFactory.menuItem);
@@ -462,6 +494,20 @@ public class GamePlayer extends GameEntity implements DamageableEntity, Aggressi
 		}
 		return false;
 	}
+
+    public void gainCoins(long amount) {
+        coins += amount;
+        lastCoinReward += amount;
+        rewardTick = 40;
+    }
+
+    public void takeCoins(long amount) {
+        coins -= amount;
+        lastCoinReward -= amount;
+        rewardTick = 40;
+    }
+
+
 	
 	public int getDiscoveryLevel(Collection discovery)
 	{
@@ -557,6 +603,7 @@ public class GamePlayer extends GameEntity implements DamageableEntity, Aggressi
 			{
                 long am = sack.getOrDefault(i.id, 0L) + item.getAmount();
 				sack.put(i.id, am);
+                toSack.compute(i.id, (_, v) -> v == null ? item.getAmount() : v + item.getAmount());
 			}
             else {
                 if (player.getInventory().firstEmpty() == -1) {

@@ -16,8 +16,8 @@ import java.util.List;
 public class PlayerSkillStatCustomDescription extends PlayerSkillStat {
     private final List<String> description;
 
-    public PlayerSkillStatCustomDescription(SkillSoulType soulType, int maxLevel, Stat stat, long perLevel, String... description) {
-        super(soulType, maxLevel, stat, perLevel);
+    public PlayerSkillStatCustomDescription(SkillSoulType soulType, int maxLevel, Stat stat, long perLevel, double scaling, String... description) {
+        super(soulType, maxLevel, stat, perLevel, scaling);
         this.description = Arrays.asList(description);
     }
 

@@ -7,7 +7,7 @@ water_seraph_ad_phase3_lunatic:
   always-display-health: false
   coin-multiplier: 0.5
   damage:
-    PHYSICAL: 38
+    PHYSICAL: 25
   stats:
     DEFENCE: -30
     ROBUSTNESS: 15
@@ -43,7 +43,7 @@ water_seraph_ad_phase3_magic_archer:
   speed: 1.5
   knockback: 100
   damage:
-    MAGIC: 6
+    MAGIC: 7
   stats:
     PADDING: -500
   bestiary:
@@ -69,7 +69,7 @@ water_seraph_ad_phase3_creeper:
   speed: 1.8
   knockback: 150
   damage:
-    EXPLOSIVE: 70
+    EXPLOSIVE: 55
   bestiary:
     category: waterway_seraph_summons
   souls:
@@ -96,7 +96,7 @@ water_seraph_ad_phase4_golem:
   speed: 1.7
   knockback: 0
   damage:
-    PHYSICAL: 125
+    PHYSICAL: 100
   stats:
     PADDING: 250
     INSULATION: -250

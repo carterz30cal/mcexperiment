@@ -125,7 +125,7 @@ public class StringUtils
 			}
 			var adjusted = s.replaceAll("<[^>]+>]", "");
 			var l = adjusted.strip().length();
-			if (len + l > targetLength) {
+            if (l > 2 && len + l > targetLength) {
 				var diff = (len + l) - targetLength;
 				if (diff > targetLength / 4) {
 					wraps.add(builder.toString());

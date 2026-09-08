@@ -47,7 +47,8 @@ green_storm_crystal:
   category: waterway_talismans
   items:
     storm_talisman_rare: 1
-    empty_storm_pearl: 4
+    empty_storm_pearl: 8
+    storm_crystals: 8
 
 zombies_head:
   level: 6

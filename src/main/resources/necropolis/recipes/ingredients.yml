@@ -30,16 +30,22 @@ green_slime:
 
 yellow_slime:
   category: necropolis_ingredients_slimes
+  discovery: rainbow_slime_collection
+  discovery-tier: 2
   items:
     red_slime: 50
 
 blue_slime:
   category: necropolis_ingredients_slimes
+  discovery: rainbow_slime_collection
+  discovery-tier: 4
   items:
     yellow_slime: 50
 
 purple_slime:
   category: necropolis_ingredients_slimes
+  discovery: rainbow_slime_collection
+  discovery-tier: 5
   items:
     blue_slime: 50
 

@@ -61,6 +61,19 @@ enchanted_book-FEROCITY1:
     red_slime: 80
     spiced_meat: 4
 
+enchanted_book-FIRE_ASPECT1:
+  custom-name: <red>Fire Aspect 1 <dark_grey>[Enchantment]
+  enchants: ENCHANT_FIRE_ASPECT-1
+  level: 8
+  time: 15m
+  category: necropolis_enchantments
+  discovery: gold_nugget_collection
+  discovery-tier: 2
+  items:
+    paper: 5
+    compressed_sand: 1
+    gold_nugget: 10
+
 enchanted_book-SENSITIVITY1:
   custom-name: <blue>Sensitivity 1 <dark_grey>[Enchantment]
   enchants: ENCHANT_SENSITIVITY-1

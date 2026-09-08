@@ -31,7 +31,7 @@ public class DamageOverTimeStatus extends AbstractStatus {
 
             @Override
             public void run() {
-                if (t == 0) {
+                if (t == 0 || !entity.isAlive()) {
                     cancel();
                 }
                 else {

@@ -44,6 +44,8 @@ public class TreasureDetectorAbility extends GameAbility
         option.enemies.add("treasure_mouldy_bull");
         option.enemies.add("treasure_randsplode");
         option.enemies.add("treasure_triblaze");
+        option.enemies.add("treasure_hound");
+        option.enemies.add("treasure_golem");
         options.put(Areas.NECROPOLIS, option);
     }
 

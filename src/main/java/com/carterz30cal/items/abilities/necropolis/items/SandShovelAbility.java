@@ -28,8 +28,7 @@ public class SandShovelAbility extends GameAbility implements AbilityWithStats, 
     public List<String> miniMessageDescription(@NotNull PlayerAbilityContext context) {
         var prog = context.getOwner() == null ? 0 : context.getOwner().getDiscoveryLevel(DiscoveryManager.get("sand_collection"));
         var text = "<grey>Each level of sand discovery obtained will grant an additional <yellow>15 " +
-                Stat.MINING_FORTUNE.getReverse() +
-                "</yellow>. You are currently <green>Sand " + prog + "!";
+                Stat.MINING_FORTUNE.name + "</yellow>. You are currently <green>Sand " + prog + "!";
         return StringUtils.wrapText(text, 48);
     }
 

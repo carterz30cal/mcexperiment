@@ -43,7 +43,7 @@ public class EnemyAbilityOverkill extends EnemyAbility implements AbilityWithDef
                 long value = dmg.getValue();
                 if (value > cap) {
                     packet.damages.put(dmg.getKey(), cap);
-                    player.coins += reward;
+                    player.gainCoins(reward);
                     hits.putIfAbsent(context.getOwner(), new HashMap<>());
                     hits.get(context.getOwner()).compute(player, (k, v) -> (v == null) ? 1 : v + 1);
                 }

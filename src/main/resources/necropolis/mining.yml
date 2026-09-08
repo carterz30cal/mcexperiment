@@ -1,19 +1,33 @@
 red_slime:
   name: "Red Slime"
-  hardness: 500
+  hardness: 400
   power-required: 2
-  block-type: RED_CONCRETE
+  block-type: RED_STAINED_GLASS
   item: red_slime
+  lower-bound: 2
+  upper-bound: 5
+  conversion-chance: 2
+  converts-into: YELLOW_STAINED_GLASS
+  mines-into: AIR
+  regen-time: 400
+  area: NECROPOLIS
+
+yellow_slime:
+  name: "Yellow Slime"
+  hardness: 3000
+  power-required: 3
+  block-type: YELLOW_STAINED_GLASS
+  item: yellow_slime
   lower-bound: 1
-  upper-bound: 2
-  conversion-chance: 0
+  upper-bound: 3
+  conversion-chance: -1
   mines-into: AIR
   regen-time: 400
   area: NECROPOLIS
 
 sand:
   name: "Sand"
-  hardness: 115
+  hardness: 100
   power-required: 1
   block-type: SAND
   item: sand

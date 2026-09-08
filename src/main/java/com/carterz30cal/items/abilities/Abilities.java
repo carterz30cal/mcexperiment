@@ -1,11 +1,13 @@
 package com.carterz30cal.items.abilities;
 
 import com.carterz30cal.entities.health.damage.DamageType;
+import com.carterz30cal.entities.health.status.StatusEffect;
 import com.carterz30cal.entities.player.GamePlayer;
 import com.carterz30cal.items.ItemType;
 import com.carterz30cal.items.abilities.generic.*;
 import com.carterz30cal.items.abilities.implementation.GameAbility;
 import com.carterz30cal.items.abilities.implementation.PlayerAbilityContext;
+import com.carterz30cal.items.abilities.necropolis.enchants.StatusEffectEnchantment;
 import com.carterz30cal.items.abilities.necropolis.enchants.ThornsEnchantment;
 import com.carterz30cal.items.abilities.necropolis.items.SandShovelAbility;
 import com.carterz30cal.items.abilities.necropolis.items.TreasureDetectorAbility;
@@ -115,6 +117,9 @@ public enum Abilities
     ENCHANT_SENSITIVITY(new StatEnchantment(
             "Sensitivity", 2, Stat.DETECTION, 0, 4, 5,
             ItemType.TOOL
+    )),
+    ENCHANT_FIRE_ASPECT(new StatusEffectEnchantment(
+            "Fire Aspect", StatusEffect.BURN, 10, 10, 4, 3, ItemType.WEAPON, ItemType.BOW
     )),
 
 	PET_DUSTED_COMMON(new PlayerStatAbility("Active: Dust-ball", Stat.DEFENCE, 80)),

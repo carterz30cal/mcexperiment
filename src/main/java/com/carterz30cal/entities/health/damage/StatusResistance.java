@@ -8,8 +8,14 @@ import org.jetbrains.annotations.Nullable;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * @author carterz30cal
+ * @version 2
+ * @since 1.0.0
+ */
 public enum StatusResistance {
     PHYSICAL(StatusEffect.BLEED, Stat.ROBUSTNESS),
+    FIRE(StatusEffect.BURN, Stat.DOUSING, 0.1)
     ;
     private static final Map<StatusEffect, StatusResistance> damageToResistanceMap = new HashMap<>();
     private static final Map<StatusEffect, Stat> damageToStatMap = new HashMap<>();
@@ -25,11 +31,20 @@ public enum StatusResistance {
 
     private final StatusEffect damageType;
     private final Stat resistanceStat;
+    public final double resistanceMultiplier;
 
     StatusResistance(StatusEffect damageType, Stat resistanceStat) {
         this.damageType = damageType;
         this.resistanceStat = resistanceStat;
+        this.resistanceMultiplier = 1;
     }
+
+    StatusResistance(StatusEffect damageType, Stat resistanceStat, double resistanceMultiplier) {
+        this.damageType = damageType;
+        this.resistanceStat = resistanceStat;
+        this.resistanceMultiplier = resistanceMultiplier;
+    }
+
 
     @Nullable
     public static StatusEffect getStatusEffect(@NotNull Stat stat) {

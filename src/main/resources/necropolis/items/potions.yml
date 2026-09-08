@@ -178,8 +178,8 @@ potion_lesser_strength:
     - ATTACK_POTION
   recipe:
     - FIRE,1
-    - EARTH,1
-    - EARTH,1
+    - FIRE,1
+    - FIRE,1
   lore:
     - Potions work like talismans, but they last for
     - a limited time only! Open your player menu and

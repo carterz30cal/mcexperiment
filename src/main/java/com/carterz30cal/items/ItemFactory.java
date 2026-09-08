@@ -508,6 +508,16 @@ public class ItemFactory
                 sections.add(setSection);
             }
         }
+        else {
+            Section setSection = new Section(new ArrayList<>());
+            var lr = item.stats.stat(Stat.LEVEL_REQUIREMENT);
+            if (lr != 0) {
+                setSection.section.add(text().append(text("\u00D7 Requires Level " + lr, RED)));
+            }
+            if (!setSection.section.isEmpty()) {
+                sections.add(setSection);
+            }
+        }
 
         if (item.lore != null && !item.lore.isEmpty()) {
             Section loreSection = new Section(new ArrayList<>());
