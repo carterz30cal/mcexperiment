@@ -202,7 +202,7 @@ meat_scraps:
 green_slime:
   name: Green Slime
   type: INGREDIENT
-  rarity: EPIC
+  rarity: RARE
   material: PLAYER_HEAD
   skull-profile-id: green_slime_v2
   value: 20

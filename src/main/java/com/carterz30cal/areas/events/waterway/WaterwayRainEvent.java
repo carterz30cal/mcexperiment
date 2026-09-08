@@ -83,7 +83,7 @@ public class WaterwayRainEvent extends AbstractEventWithArea {
      */
     @Override
     public boolean active() {
-        return active && duration > 0;
+        return active;
     }
 
     /**

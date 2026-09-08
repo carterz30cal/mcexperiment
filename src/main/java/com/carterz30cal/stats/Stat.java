@@ -25,6 +25,7 @@ public enum Stat
     PADDING("\u25CB Padding", NamedTextColor.WHITE, StatType.DEFENSIVE, StatDisplayType.NORMAL),
     INSULATION("\u03C8 Insulation", NamedTextColor.WHITE, StatType.DEFENSIVE, StatDisplayType.NORMAL),
     DOUSING("\u25CB Dousing", TextColor.fromHexString("#FFA500"), StatType.DEFENSIVE, StatDisplayType.NORMAL),
+    MAGIC_RESISTANCE("\u25CB Magic Resistance", NamedTextColor.LIGHT_PURPLE, StatType.DEFENSIVE, StatDisplayType.NORMAL),
 
     MANA("♠ Mana", NamedTextColor.LIGHT_PURPLE, StatType.OFFENSIVE, StatDisplayType.NORMAL),
     FOCUS("\u25C6 Focus", NamedTextColor.AQUA, StatType.OFFENSIVE, StatDisplayType.NORMAL),
@@ -37,7 +38,7 @@ public enum Stat
     PICKING("\u0194 Picking", NamedTextColor.YELLOW, StatType.ECONOMY),
     CLEARING("\u0190 Clearing", NamedTextColor.YELLOW, StatType.ECONOMY),
 
-    DETECTION("♠", NamedTextColor.GOLD, StatType.ECONOMY),
+    DETECTION("♠ Detection Power", NamedTextColor.GOLD, StatType.ECONOMY),
 
     BONUS_COINS("\u00D7 Extra Coins", NamedTextColor.GOLD, StatType.ECONOMY, StatDisplayType.PERCENTAGE),
     LUCK("\u00D7 Luck", NamedTextColor.GOLD, StatType.ECONOMY, StatDisplayType.PERCENTAGE),

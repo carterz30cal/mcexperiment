@@ -1,0 +1,7 @@
+treasure_detector_uncommon:
+  category: necropolis_detectors
+  discovery: gold_nugget_collection
+  discovery-tier: 1
+  items:
+    treasure_detector_common: 1
+    gold_nugget: 16

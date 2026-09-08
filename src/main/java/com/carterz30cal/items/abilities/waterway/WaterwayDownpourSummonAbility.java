@@ -7,6 +7,7 @@ import com.carterz30cal.items.abilities.implementation.AbilityWithDescription;
 import com.carterz30cal.items.abilities.implementation.GameAbility;
 import com.carterz30cal.items.abilities.implementation.PlayerAbilityContext;
 import com.carterz30cal.utils.StringUtils;
+import org.bukkit.Location;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
@@ -25,7 +26,7 @@ public class WaterwayDownpourSummonAbility extends GameAbility implements Abilit
     }
 
     @Override
-    public void click(PlayerAbilityContext context, Situation situation) {
+    public void click(PlayerAbilityContext context, Situation situation, Location location) {
         if (situation != Situation.RIGHT_CLICK) return;
         var check = ItemFactory.getItem(context.owner.getMainItem());
         if (check.abilities.stream().noneMatch(a -> a.ability instanceof WaterwayDownpourSummonAbility)) return;

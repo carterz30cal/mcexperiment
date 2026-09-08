@@ -23,10 +23,25 @@ green_slime:
   amount: 2
   discovery: rainbow_slime_collection
   discovery-tier: 1
-  category: necropolis_ingredients
+  category: necropolis_ingredients_slimes
   items:
     red_slime: 333
     calmed_spirit: 1
+
+yellow_slime:
+  category: necropolis_ingredients_slimes
+  items:
+    red_slime: 50
+
+blue_slime:
+  category: necropolis_ingredients_slimes
+  items:
+    yellow_slime: 50
+
+purple_slime:
+  category: necropolis_ingredients_slimes
+  items:
+    blue_slime: 50
 
 cooked_necropolis_fish:
   amount: 1
@@ -44,3 +59,9 @@ compressed_sand:
   category: necropolis_ingredients
   items:
     sand: 320
+
+compressed_purple_popcorn:
+  amount: 1
+  category: necropolis_ingredients
+  items:
+    purple_popcorn: 320

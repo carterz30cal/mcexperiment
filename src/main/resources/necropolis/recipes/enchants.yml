@@ -60,3 +60,13 @@ enchanted_book-FEROCITY1:
     incensed_spirit: 1
     red_slime: 80
     spiced_meat: 4
+
+enchanted_book-SENSITIVITY1:
+  custom-name: <blue>Sensitivity 1 <dark_grey>[Enchantment]
+  enchants: ENCHANT_SENSITIVITY-1
+  level: 8
+  time: 1h
+  category: necropolis_enchantments
+  items:
+    paper: 12
+    purple_popcorn: 32

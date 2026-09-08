@@ -6,6 +6,7 @@ import com.carterz30cal.items.abilities.implementation.GameAbility;
 import com.carterz30cal.items.abilities.implementation.PlayerAbilityContext;
 import com.carterz30cal.main.Dungeons;
 import com.carterz30cal.stats.Stat;
+import org.bukkit.Location;
 import org.bukkit.Sound;
 import org.bukkit.scheduler.BukkitRunnable;
 import org.jetbrains.annotations.NotNull;
@@ -45,7 +46,7 @@ public class HealingAbility extends GameAbility implements AbilityWithDescriptio
     }
 
     @Override
-    public void click(PlayerAbilityContext context, Situation situation) {
+    public void click(PlayerAbilityContext context, Situation situation, Location location) {
         if (situation == Situation.RIGHT_CLICK) {
             if (context.owner.useMana(manaCost)) {
                 new BukkitRunnable() {

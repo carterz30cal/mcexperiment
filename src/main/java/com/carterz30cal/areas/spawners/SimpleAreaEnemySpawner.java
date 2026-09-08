@@ -13,7 +13,7 @@ import java.util.UUID;
 
 /**
  * @author carterz30cal
- * @version 3
+ * @version 4
  * @since 1.0.0
  */
 public class SimpleAreaEnemySpawner extends AbstractEnemySpawner {
@@ -65,6 +65,22 @@ public class SimpleAreaEnemySpawner extends AbstractEnemySpawner {
             this.options.add(new SpawningOption(o, mode));
         }
         return this;
+    }
+
+    /**
+     * Does this spawner contain a mob type?
+     *
+     * @param type the type we're searching for
+     * @return whether we have this type or not
+     * @since 1.0.0 [4]
+     */
+    protected boolean containsType(String type) {
+        for (var o : this.options) {
+            if (o.mob.equals(type)) {
+                return true;
+            }
+        }
+        return false;
     }
 
     protected SpawningOption getValidSpawningOption() {

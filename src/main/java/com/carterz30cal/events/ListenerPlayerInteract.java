@@ -67,7 +67,7 @@ public class ListenerPlayerInteract implements Listener {
                         if (!(a.ability instanceof AbilityWithClick abilityWithClick)) {
                             continue;
                         }
-                        abilityWithClick.click(a, AbilityWithClick.Situation.RIGHT_CLICK);
+                        abilityWithClick.click(a, AbilityWithClick.Situation.RIGHT_CLICK, e.getInteractionPoint());
                     }
                 }
                 if (act == Action.RIGHT_CLICK_BLOCK && p.area != null) {
@@ -120,7 +120,7 @@ public class ListenerPlayerInteract implements Listener {
                 if (!(a.ability instanceof AbilityWithClick abilityWithClick)) {
                     continue;
                 }
-                abilityWithClick.click(a, AbilityWithClick.Situation.LEFT_CLICK);
+                abilityWithClick.click(a, AbilityWithClick.Situation.LEFT_CLICK_ARM_SWING, null);
             }
 		}
 	}

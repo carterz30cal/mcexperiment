@@ -38,7 +38,7 @@ public class EnemyManager
             "waterway/mobs/fishing/fishing_rare",
             "waterway/mobs/fishing/fishing_very_rare",
             "necropolis/mobs/dusted", "necropolis/mobs/sword_spirits", "necropolis/mobs/haunting_slimes",
-            "necropolis/mobs/bosses",
+            "necropolis/mobs/bosses", "necropolis/mobs/detecting",
             "necropolis/mobs/fishing/shocktopus"
 	};
 	

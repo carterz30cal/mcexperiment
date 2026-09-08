@@ -81,10 +81,31 @@ gold_nugget:
   material: RAW_GOLD
   discovery: gold_nugget_collection
   discovery-progress: 1
-  value: 20
+  value: 25
   lore:
     - A small nugget of gold, found in the sands of Necropolis.
     - Shinier than gold leaf, but less tasty.
+
+purple_popcorn:
+  name: Purple Popcorn
+  type: INGREDIENT
+  rarity: VERY_RARE
+  material: CHORUS_FRUIT
+  value: 3
+  lore:
+    - A delicious variety of popcorn favoured in the old days, which
+    - is seldom found in the current era due to the variety being
+    - rather delicate and unprofitable to grow.
+
+compressed_purple_popcorn:
+  name: Light and Airy Popcorn Snack
+  type: INGREDIENT
+  rarity: EPIC
+  material: POPPED_CHORUS_FRUIT
+  value: 960
+  lore:
+    - <red>write later!
+
 
 red_slime:
   name: Red Slime
@@ -101,6 +122,42 @@ red_slime:
     - before degrading. Unlike green slime, it does not
     - taste good in jams, nor other conserves.
     - Oozes from cracks in the walls of Necropolis.
+
+yellow_slime:
+  name: Yellow Slime
+  type: INGREDIENT
+  rarity: UNCOMMON
+  material: PLAYER_HEAD
+  skull-profile-id: yellow_slime
+  discovery: rainbow_slime_collection
+  discovery-progress: 50
+  value: 50
+  lore:
+    - <red>write later
+
+blue_slime:
+  name: Blue Slime
+  type: INGREDIENT
+  rarity: VERY_RARE
+  material: PLAYER_HEAD
+  skull-profile-id: blue_slime
+  discovery: rainbow_slime_collection
+  discovery-progress: 2500
+  value: 1250
+  lore:
+    - <red>write later
+
+purple_slime:
+  name: Purple Slime
+  type: INGREDIENT
+  rarity: INCREDIBLE
+  material: PLAYER_HEAD
+  skull-profile-id: purple_slime
+  discovery: rainbow_slime_collection
+  discovery-progress: 125000
+  value: 31250
+  lore:
+    - <red>write later
 
 necropolis_fish:
   name: Necropolis Puffer

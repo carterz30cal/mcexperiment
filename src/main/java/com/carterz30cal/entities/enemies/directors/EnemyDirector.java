@@ -29,7 +29,7 @@ import static com.carterz30cal.entities.enemies.core.GameEnemy.keyEnemy;
 
 /**
  * @author carterz30cal
- * @version 2
+ * @version 3
  * @since 1.0.0
  */
 public class EnemyDirector implements LocatableEntity, TargetableEntity {
@@ -72,6 +72,24 @@ public class EnemyDirector implements LocatableEntity, TargetableEntity {
             skeleton.getEquipment().setItemInMainHand(new ItemStack(Material.BOW), true);
         }
         directingEntity = mob;
+    }
+
+    /**
+     * Enable director, generally used by subclasses.
+     *
+     * @since 1.0.0 [3]
+     */
+    public void enable() {
+        directingEntity.setAI(true);
+    }
+
+    /**
+     * Disable director, generally used by subclasses.
+     *
+     * @since 1.0.0 [3]
+     */
+    public void disable() {
+        directingEntity.setAI(false);
     }
 
     public void tick(GameEnemy owner) {

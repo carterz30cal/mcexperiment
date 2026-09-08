@@ -20,7 +20,7 @@ necropolis_armour:
 
 necropolis_armour_pufferfish:
   name: Pufferfish Armour
-  icon: puffer_chestplate
+  icon: pufferfish_chestplate
   parent: necropolis_armour
 
 necropolis_armour_hydra:
@@ -32,6 +32,11 @@ necropolis_armour_hydra:
 necropolis_pickaxes:
   name: Pickaxes
   icon: DIAMOND_PICKAXE
+  parent: necropolis
+
+necropolis_detectors:
+  name: Detectors
+  icon: treasure_detector_common
   parent: necropolis
 
 necropolis_pets:
@@ -62,4 +67,9 @@ necropolis_potions_bottles:
 necropolis_ingredients:
   name: Ingredients
   icon: roasted_bone_dust
+  parent: necropolis
+
+necropolis_ingredients_slimes:
+  name: Slimes
+  icon: purple_slime
   parent: necropolis

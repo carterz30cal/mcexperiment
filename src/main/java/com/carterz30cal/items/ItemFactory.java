@@ -38,7 +38,10 @@ import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
-import org.bukkit.inventory.meta.*;
+import org.bukkit.inventory.meta.ArmorMeta;
+import org.bukkit.inventory.meta.ItemMeta;
+import org.bukkit.inventory.meta.LeatherArmorMeta;
+import org.bukkit.inventory.meta.SkullMeta;
 import org.bukkit.inventory.meta.trim.ArmorTrim;
 import org.bukkit.persistence.PersistentDataType;
 import org.bukkit.profile.PlayerTextures;
@@ -109,7 +112,7 @@ public class ItemFactory
             "waterway/recipes/talismans", "waterway/recipes/fishing_rods", "waterway/recipes/pickaxes",
             "necropolis/recipes/swords/common","necropolis/recipes/swords/uncommon",
             "necropolis/recipes/swords/rare",
-            "necropolis/recipes/talismans", "necropolis/recipes/pickaxes",
+            "necropolis/recipes/talismans", "necropolis/recipes/pickaxes", "necropolis/recipes/detectors",
             "necropolis/recipes/armour/uncommon","necropolis/recipes/armour/rare",
             "necropolis/recipes/ingredients", "necropolis/recipes/enchants", "necropolis/recipes/pet_upgrades",
             "necropolis/recipes/potions",

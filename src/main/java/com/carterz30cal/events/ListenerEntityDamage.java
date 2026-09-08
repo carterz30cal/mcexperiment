@@ -202,6 +202,7 @@ public class ListenerEntityDamage implements Listener
             }
         }
         else if (e.getEntity() instanceof AbstractArrow arrow) {
+            var victee = GameEntity.get(e.getEntity());
             if (e.getHitBlock() != null) {
                 new BukkitRunnable() {
 
@@ -210,6 +211,15 @@ public class ListenerEntityDamage implements Listener
                         arrow.remove();
                     }
                 }.runTaskLater(Dungeons.instance, 20);
+            }
+            if (e.getHitEntity() != null && victee instanceof AggressiveEntity aggro) {
+                var victim = GameEntity.get(e.getHitEntity());
+                if (victim instanceof DamageableEntity damageableEntity) {
+                    if (!damageableEntity.isDamageable(aggro)) {
+                        e.setCancelled(true);
+                        return;
+                    }
+                }
             }
         }
         else if (e.getEntity() instanceof FishHook hook) {
@@ -286,6 +296,9 @@ public class ListenerEntityDamage implements Listener
 		if (shooter instanceof Player) return;
 		
 		GameEnemy enemy = (GameEnemy)GameEnemy.get(shooter);
+        if (e.getEntity() instanceof Fireball fireball) {
+            fireball.setIsIncendiary(false);
+        }
         if (enemy == null)
 		{
 			e.setCancelled(true);

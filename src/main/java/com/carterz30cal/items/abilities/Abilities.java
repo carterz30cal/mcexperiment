@@ -112,6 +112,10 @@ public enum Abilities
 			"Ferocity", 2, Stat.SAVAGERY, 0, 1, 10,
 			ItemType.WEAPON, ItemType.BOW, ItemType.ROD
 	)),
+    ENCHANT_SENSITIVITY(new StatEnchantment(
+            "Sensitivity", 2, Stat.DETECTION, 0, 4, 5,
+            ItemType.TOOL
+    )),
 
 	PET_DUSTED_COMMON(new PlayerStatAbility("Active: Dust-ball", Stat.DEFENCE, 80)),
 	PET_RED_SLIME_COMMON(new PlayerStatAbility("Active: Slime Layers", Stat.INSULATION, 150)),

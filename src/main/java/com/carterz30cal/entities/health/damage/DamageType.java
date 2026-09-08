@@ -8,7 +8,7 @@ import net.kyori.adventure.text.minimessage.MiniMessage;
 
 /**
  * @author carterz30cal
- * @version 1
+ * @version 2
  * @since 1.0.0
  */
 public enum DamageType {
@@ -24,11 +24,13 @@ public enum DamageType {
     BLEED("<red><em>Bleed</em></red>", NamedTextColor.RED),
     FALL("<grey>Fall</grey>", NamedTextColor.GRAY),
     SUFFOCATION("<yellow>Suffocation</yellow>", NamedTextColor.YELLOW);
-    private final Component name;
+    private final Component component;
+    private final String name;
     private final TextColor colour;
 
     DamageType(String name, TextColor colour) {
-        this.name = MiniMessage.miniMessage().deserialize(name).decorationIfAbsent(TextDecoration.ITALIC, TextDecoration.State.FALSE);
+        this.component = MiniMessage.miniMessage().deserialize(name).decorationIfAbsent(TextDecoration.ITALIC, TextDecoration.State.FALSE);
+        this.name = name;
         this.colour = colour;
     }
 
@@ -36,8 +38,16 @@ public enum DamageType {
         this(name, TextColor.color(colour));
     }
 
-    public Component getName() {
-        return name;
+    public Component getComponent() {
+        return component;
+    }
+
+    /**
+     * @return the unformatted name of this <code>DamageType</code>, typically in <code>MiniMessage</code> format.
+     * @since 1.0.0 [2]
+     */
+    public String getName() {
+        return this.name;
     }
 
     public TextColor getColour() {

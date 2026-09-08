@@ -10,3 +10,15 @@ slime_sword_common:
     paper: 1
     chilli_powder: 4
     red_slime: 10
+
+flaming_sword_common:
+  item: flaming_sword_common
+  amount: 1
+  level: 6
+  time: 5s
+  category: necropolis_weapons
+  discovery: sand_collection
+  discovery-tier: 1
+  items:
+    chilli_powder: 12
+    sand: 32

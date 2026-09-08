@@ -114,6 +114,7 @@ public class GamePlayer extends GameEntity implements DamageableEntity, Aggressi
 	
 	public long lastXpReward;
     public long lastCoinReward;
+    public int abilityTick;
 	public int rewardTick;
 	
 	public boolean mining;
@@ -152,7 +153,6 @@ public class GamePlayer extends GameEntity implements DamageableEntity, Aggressi
 	{
 		for (ForgingItem item : forge)
 		{
-			//item.time--;
 			if (LocalDateTime.now().isAfter(item.finished))
 			{
 				if (player.getInventory().firstEmpty() == -1) {
@@ -330,7 +330,7 @@ public class GamePlayer extends GameEntity implements DamageableEntity, Aggressi
         abilities.addAll(skillTree.getUnderlyingAbilities());
         for (var a : abilities) {
 			if (a.ability instanceof AbilityWithTick tick) {
-				tick.tick(a, areaCheckTick);
+                tick.tick(a, abilityTick);
 			}
             if (!(a.ability instanceof AbilityWithStats is)) {
                 continue;
@@ -401,6 +401,8 @@ public class GamePlayer extends GameEntity implements DamageableEntity, Aggressi
             area = AreaManager.getPlayerArea(this);
             areaCheckTick = 100;
         }
+
+        abilityTick++;
 
         sendActionBar(actionStatBar);
 		player.getInventory().setItem(8, ItemFactory.menuItem);

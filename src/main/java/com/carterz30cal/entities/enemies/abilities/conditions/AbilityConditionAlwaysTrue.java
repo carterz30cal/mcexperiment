@@ -9,13 +9,23 @@ import org.bukkit.configuration.ConfigurationSection;
  * A conditional that always returns true, to avoid null cases.
  *
  * @author carterz30cal
- * @version 1
+ * @version 2
  * @since 1.0.0
  */
 @SuppressWarnings("unused")
 public class AbilityConditionAlwaysTrue extends AbilityCondition {
+    @Deprecated
     public AbilityConditionAlwaysTrue(ConfigurationSection section) {
         super(section);
+    }
+
+    /**
+     * This condition needs no information
+     *
+     * @since 1.0.0 [2]
+     */
+    public AbilityConditionAlwaysTrue() {
+        super(null);
     }
 
     @Override

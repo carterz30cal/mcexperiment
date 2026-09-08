@@ -6,6 +6,7 @@ import com.carterz30cal.items.abilities.implementation.AbilityWithClick;
 import com.carterz30cal.items.abilities.implementation.AbilityWithDescription;
 import com.carterz30cal.items.abilities.implementation.GameAbility;
 import com.carterz30cal.items.abilities.implementation.PlayerAbilityContext;
+import org.bukkit.Location;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
@@ -33,7 +34,7 @@ public class SeraphKeyAbility extends GameAbility implements AbilityWithDescript
     }
 
     @Override
-    public void click(PlayerAbilityContext context, Situation situation) {
+    public void click(PlayerAbilityContext context, Situation situation, Location location) {
         if (situation != Situation.RIGHT_CLICK) {
             return;
         }

@@ -38,6 +38,14 @@ necropolis_bosses:
     - <grey>These are exceptional enemies found deep in
     - <grey>the heart of <white>Necropolis</white>, which
     - <grey>reward powerful equipment upon defeat.
+
+necropolis_detecting:
+  icon: IRON_HOE
+  name: "Treasure Hunting"
+  parent: necropolis
+  description:
+    - <red>write later!
+
 necropolis_fishing:
   icon: FISHING_ROD
   name: "Fishing"
@@ -58,7 +66,7 @@ necropolis_fishing_common:
 
 necropolis_fishing_uncommon:
   icon: YELLOW_CONCRETE
-  name: "<yellow><b>UNCOMMON</b></grey> Bracket"
+  name: "<yellow><b>UNCOMMON</b></yellow> Bracket"
   description:
     - <grey>Lowest tier fishing mobs found</grey>
     - <grey>exclusively in <white>Necropolis</white>!</grey>
@@ -66,7 +74,7 @@ necropolis_fishing_uncommon:
 
 necropolis_fishing_rare:
   icon: LIME_CONCRETE
-  name: "<green><b>RARE</b></grey> Bracket"
+  name: "<green><b>RARE</b></green> Bracket"
   description:
     - <grey>Lowest tier fishing mobs found</grey>
     - <grey>exclusively in <white>Necropolis</white>!</grey>
@@ -74,7 +82,7 @@ necropolis_fishing_rare:
 
 necropolis_fishing_very_rare:
   icon: BLUE_CONCRETE
-  name: "<blue><b>VERY RARE</b></grey> Bracket"
+  name: "<blue><b>VERY RARE</b></blue> Bracket"
   description:
     - <grey>Lowest tier fishing mobs found</grey>
     - <grey>exclusively in <white>Necropolis</white>!</grey>
@@ -82,7 +90,7 @@ necropolis_fishing_very_rare:
 
 necropolis_fishing_epic:
   icon: PURPLE_CONCRETE
-  name: "<dark_purple><b>EPIC</b></grey> Bracket"
+  name: "<dark_purple><b>EPIC</b></dark_purple> Bracket"
   description:
     - <grey>The highest tier of fishing mobs found</grey>
     - <grey>exclusively in <white>Necropolis</white>!</grey>

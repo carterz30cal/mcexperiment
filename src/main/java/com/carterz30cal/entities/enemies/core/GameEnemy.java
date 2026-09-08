@@ -16,6 +16,7 @@ import com.carterz30cal.entities.health.damage.handlers.DamageableEntity;
 import com.carterz30cal.entities.health.status.StatusEffect;
 import com.carterz30cal.entities.player.GamePlayer;
 import com.carterz30cal.items.abilities.implementation.AbilityWithKillEffect;
+import com.carterz30cal.items.abilities.implementation.AbilityWithTick;
 import com.carterz30cal.items.abilities.implementation.ContextWithAbility;
 import com.carterz30cal.items.abilities.implementation.RegisterableAbility;
 import com.carterz30cal.main.Dungeons;
@@ -40,7 +41,7 @@ import static net.kyori.adventure.text.Component.text;
 
 /**
  * @author carterz30cal
- * @version 7
+ * @version 9
  * @since 1.0.0
  */
 @SuppressWarnings("UnnecessaryUnicodeEscape")
@@ -49,6 +50,7 @@ public class GameEnemy extends GameEntity implements AggressiveEntity, Damageabl
 	public static NamespacedKey keyEnemy = new NamespacedKey(Dungeons.instance, "keyEnemy");
 
     private final BukkitRunnable ticker;
+    private int aliveTick;
 
     protected EnemyRepresentation representation;
     protected EntityHealthSystem healthSystem;
@@ -116,6 +118,14 @@ public class GameEnemy extends GameEntity implements AggressiveEntity, Damageabl
 
     public EnemyData getEnemyData() {
         return enemyData;
+    }
+
+    /**
+     * @return the type id of this enemy
+     * @since 1.0.0 [9]
+     */
+    public String getTypeId() {
+        return typeId;
     }
 
     public void setEnemyData(EnemyData data) {
@@ -221,6 +231,14 @@ public class GameEnemy extends GameEntity implements AggressiveEntity, Damageabl
             remove();
             return;
         }
+
+        for (var a : abilities) {
+            if (a.getAbility() instanceof AbilityWithTick tickable) {
+                tickable.tick(a, aliveTick);
+            }
+        }
+        aliveTick++;
+
         enemyDirector.tick(this);
         representation.tick(enemyDirector.getLocation());
         healthSystem.tick();

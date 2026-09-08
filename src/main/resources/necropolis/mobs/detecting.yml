@@ -1,0 +1,106 @@
+treasure_mouldy_bull:
+  name: Mouldy Bull
+  level: 9
+  health: 5500
+  knockback: 40
+  speed: 1.7
+  damage:
+    PHYSICAL: 175
+  stats:
+    DEFENCE: 0
+  souls:
+    NECROPOLIS: 2
+  bestiary:
+    category: necropolis_detecting
+  tags:
+    - NECROPOLIS
+    - UNDEAD
+    - TREASURE_DETECTION
+  entities:
+    _:
+      type: MOOSHROOM
+      scale: 1
+      offset: [ 0,0,0 ]
+  loot:
+    purple_popcorn:
+      chance: 1/1
+      amount: 1/2
+    bull_hat:
+      chance: 1/150
+      amount: 1/1
+
+treasure_randsplode:
+  name: Randsplode
+  level: 9
+  health: 6650
+  knockback: 110
+  speed: 1.8
+  directors:
+    phase-time: 120
+    options:
+      - CREEPER
+      - COW
+  damage:
+    EXPLOSIVE: 300
+  stats:
+    DOUSING: -150
+    INSULATION: 50
+  souls:
+    NECROPOLIS: 2
+  bestiary:
+    category: necropolis_detecting
+  tags:
+    - NECROPOLIS
+    - TREASURE_DETECTION
+  entities:
+    _:
+      type: CREEPER
+      scale: 1.4
+      offset: [ 0,-0.5,0 ]
+  loot:
+    purple_popcorn:
+      chance: 1/1
+      amount: 1/2
+
+treasure_triblaze:
+  name: Ancient Triblaze
+  level: 12
+  health: 14000
+  knockback: 20
+  speed: 1.8
+  director: BLAZE
+  damage:
+    FIRE: 100
+  stats:
+    DOUSING: 550
+    INSULATION: -50
+  souls:
+    NECROPOLIS: 10
+  bestiary:
+    category: necropolis_detecting
+  tags:
+    - NECROPOLIS
+    - TREASURE_DETECTION
+    - MINIBOSS
+  entities:
+    _:
+      type: BLAZE
+      scale: 1.1
+      offset: [ 0,0,0 ]
+    m:
+      type: BLAZE
+      scale: 1.1
+      offset: [ 0,2,0 ]
+      allow-ai: true
+    t:
+      type: BLAZE
+      scale: 1.1
+      offset: [ 0,4,0 ]
+      allow-ai: true
+  loot:
+    purple_popcorn:
+      chance: 1/1
+      amount: 1/2
+    everlasting_flame:
+      chance: 1/4
+      amount: 1/2

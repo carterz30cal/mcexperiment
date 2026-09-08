@@ -13,7 +13,10 @@ flaming_sword_uncommon:
   amount: 1
   level: 7
   category: necropolis_weapons
+  discovery: sand_collection
+  discovery-tier: 3
   items:
     flaming_sword_common: 1
     hydra_flesh: 10
     roasted_bone_dust: 1
+    compressed_sand: 1

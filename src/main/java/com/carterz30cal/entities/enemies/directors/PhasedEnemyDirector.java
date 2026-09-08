@@ -59,8 +59,10 @@ public class PhasedEnemyDirector extends EnemyDirector {
         }
         var controller = getCurrentPhase();
         controller.tick(owner);
+        controller.enable();
         for (var follower : phases) {
             if (follower.equals(controller)) continue;
+            follower.disable();
             follower.teleport(controller.getLocation());
         }
     }

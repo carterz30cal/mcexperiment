@@ -15,3 +15,26 @@ armour-hydra:
     health: 75, 125, 100, 50
     enchant_power: +12
     level_requirement: 7
+
+detection_enthusiast_hat:
+  name: Detection Enthusiast's Hat
+  type: HELMET
+  material: COPPER_HELMET
+  rarity: RARE
+  value: 2000
+  stats:
+    detection: +30
+    level_requirement: 10
+    enchant_power: +100
+
+bull_hat:
+  name: Bull Hat
+  type: HELMET
+  material: LEATHER_HELMET
+  rarity: RARE
+  value: 1000
+  stats:
+    mining_fortune: 55
+    clearing: 2
+    level_requirement: 7
+    enchant_power: +20

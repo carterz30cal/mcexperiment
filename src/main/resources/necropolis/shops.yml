@@ -38,3 +38,23 @@ necropolis_shop:
       enchants: ENCHANT_TITANIC-1
       coins: 750
       level: 7
+
+scavenger_shop:
+  shop-name: "Enthusiast's Detection Supplies Inc"
+  shopkeeper-name: "Treasure Enthusiast"
+  shopkeeper-type: MANNEQUIN
+  location: 20.15,69,335.3,7,1
+  entities:
+    _:
+      type: MANNEQUIN
+      offset: [ 0,0,0 ]
+      scale: 1
+  items:
+    treasure_detector_common:
+      item: treasure_detector_common
+      coins: 1600
+      level: 5
+    detection_enthusiast_hat:
+      item: detection_enthusiast_hat
+      coins: 4000
+      level: 8

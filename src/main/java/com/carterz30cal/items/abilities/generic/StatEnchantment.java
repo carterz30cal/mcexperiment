@@ -7,7 +7,6 @@ import com.carterz30cal.items.abilities.implementation.*;
 import com.carterz30cal.stats.Stat;
 import com.carterz30cal.stats.StatContainer;
 import com.carterz30cal.stats.StatOperationType;
-import com.carterz30cal.stats.operations.AddStatOperation;
 import com.carterz30cal.stats.operations.LegacyStatOperation;
 import net.kyori.adventure.text.TextComponent;
 import net.kyori.adventure.text.format.NamedTextColor;
@@ -58,9 +57,9 @@ public class StatEnchantment extends GameAbstractEnchant
         description.append(text("Grants ", NamedTextColor.GRAY));
         description.append(text(getStat(context) > 0 ? "+" : "-").append(text(getStat(context))).color(statGranted.textColour));
         if (statOperation == StatOperationType.MULTIPLY) {
-            description.append(text("% ", statGranted.textColour));
+            description.append(text("%", statGranted.textColour));
         }
-        description.append(statGranted.getReversed()).append(text(".", NamedTextColor.GRAY));
+        description.append(text(" "), statGranted.getReversed()).append(text(".", NamedTextColor.GRAY));
 
         var d = new ArrayList<TextComponent.Builder>();
         d.add(description);

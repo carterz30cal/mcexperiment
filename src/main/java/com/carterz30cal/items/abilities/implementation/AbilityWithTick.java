@@ -1,14 +1,16 @@
 package com.carterz30cal.items.abilities.implementation;
 
 import com.carterz30cal.entities.GameEntity;
+import com.carterz30cal.entities.enemies.core.GameEnemy;
 import com.carterz30cal.main.Dungeons;
 import org.bukkit.scheduler.BukkitRunnable;
 
 /**
  * Provides a cleaner way to interact with ticks using abilities implementing
- * <code>RegisterableAbility</code>.
+ * <code>RegisterableAbility</code>. <code>GameEnemy</code>s get ignored as they hold
+ * context and emit a tick every server tick anyway.
  * @author carterz30cal
- * @version 1
+ * @version 2
  * @since 1.0.0
  */
 public interface AbilityWithTick extends RegisterableAbility {
@@ -28,6 +30,9 @@ public interface AbilityWithTick extends RegisterableAbility {
      */
     @Override
     default void register(ContextWithAbility<? extends GameEntity> context) {
+        if (context.getOwner() instanceof GameEnemy) {
+            return;
+        }
         var runnable = new BukkitRunnable() {
             private int tick = 0;
             @Override

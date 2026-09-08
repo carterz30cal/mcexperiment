@@ -7,4 +7,17 @@ treasure_detector_common:
     - TREASURE_DETECTOR
   stats:
     DETECTION: +10
+    enchant_power: +4
+    level_requirement: 3
+
+treasure_detector_uncommon:
+  name: Treasure Detector
+  type: TOOL
+  rarity: UNCOMMON
+  material: IRON_HOE
+  abilities:
+    - TREASURE_DETECTOR
+  stats:
+    DETECTION: +20
+    enchant_power: +8
     level_requirement: 3
