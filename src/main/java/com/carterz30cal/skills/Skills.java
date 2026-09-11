@@ -9,7 +9,7 @@ import java.util.Set;
 
 /**
  * @author carterz30cal
- * @version 2
+ * @version 3
  * @since 1.0.0
  */
 public enum Skills {
@@ -29,6 +29,7 @@ public enum Skills {
     public final TreePosition position;
     private final GameSkill skill;
     public final Set<Skills> parents = new HashSet<>();
+    public final Set<Skills> children = new HashSet<>();
 
     Skills(String name, GameSkill skill, int x, int y, int page, Skills... skills) {
         this.skill = skill;
@@ -36,6 +37,9 @@ public enum Skills {
         this.skill.name = name;
         this.position = new TreePosition(x, y, page);
         this.parents.addAll(Arrays.asList(skills));
+        for (Skills p : skills) {
+            p.children.add(this);
+        }
     }
 
     /**
@@ -49,7 +53,7 @@ public enum Skills {
         }
         boolean hasParent = false;
         for (Skills skill : skills) {
-            if (parents.contains(skill)) {
+            if (parents.contains(skill) || children.contains(skill)) {
                 hasParent = true;
                 break;
             }
