@@ -1,0 +1,246 @@
+bone_dust:
+  name: Bone Dust
+  type: INGREDIENT
+  rarity: COMMON
+  material: LIGHT_GRAY_DYE
+  discovery: bone_dust_collection
+  discovery-progress: 1
+  value: 3
+  lore:
+    - Finely powdered warrior bone.
+    - Found throughout Necropolis abundantly.
+
+sand:
+  name: Sand
+  type: INGREDIENT
+  rarity: COMMON
+  material: SAND
+  discovery: sand_collection
+  discovery-progress: 1
+  value: 1
+  lore:
+    - Sand - it's annoying and gets everywhere.
+
+compressed_sand:
+  name: Compressed Sand
+  type: INGREDIENT
+  rarity: RARE
+  material: SANDSTONE
+  discovery: sand_collection
+  discovery-progress: 320
+  value: 320
+  lore:
+    - This is a whole lot of sand, making it
+    - extremely annoying, especially when
+    - it gets everywhere.
+
+calmed_spirit:
+  name: Calmed Spirit
+  type: INGREDIENT
+  rarity: RARE
+  material: ALLAY_SPAWN_EGG
+  discovery: calmed_spirit_collection
+  discovery-progress: 1
+  value: 100
+  lore:
+    - Apparently, spirits can take a form. These
+    - have calmed into a somewhat goopy syrup.
+    - Found by slaying Sword Spirits.
+
+incensed_spirit:
+  name: Incensed Spirits
+  type: INGREDIENT
+  rarity: EPIC
+  material: ALLAY_SPAWN_EGG
+  glow: true
+  discovery: calmed_spirit_collection
+  discovery-progress: 16
+  value: 1500
+  lore:
+    - Compressing calm spirits into a small space
+    - and assaulting them with chilli powder
+    - will, generally, make them angry again.
+
+
+roasted_bone_dust:
+  name: Roasted Bone Dust
+  type: INGREDIENT
+  rarity: VERY_RARE
+  material: BLACK_DYE
+  discovery: bone_dust_collection
+  discovery-progress: 300
+  value: 850
+  lore:
+    - Warrior bone, roasted into a aromatic powder.
+    - Makes a great treat for pets.
+
+gold_nugget:
+  name: Gold Nugget
+  type: INGREDIENT
+  rarity: VERY_RARE
+  material: RAW_GOLD
+  discovery: gold_nugget_collection
+  discovery-progress: 1
+  value: 25
+  lore:
+    - A small nugget of gold, found in the sands of Necropolis.
+    - Shinier than gold leaf, but less tasty.
+
+purple_popcorn:
+  name: Purple Popcorn
+  type: INGREDIENT
+  rarity: VERY_RARE
+  material: CHORUS_FRUIT
+  value: 3
+  lore:
+    - A delicious variety of popcorn favoured in the old days, which
+    - is seldom found in the current era due to the variety being
+    - rather delicate and unprofitable to grow.
+
+compressed_purple_popcorn:
+  name: Light and Airy Popcorn Snack
+  type: INGREDIENT
+  rarity: EPIC
+  material: POPPED_CHORUS_FRUIT
+  value: 960
+  lore:
+    - <red>write later!
+
+
+red_slime:
+  name: Red Slime
+  type: INGREDIENT
+  rarity: COMMON
+  material: PLAYER_HEAD
+  skull-profile-id: red_slime
+  discovery: rainbow_slime_collection
+  discovery-progress: 1
+  value: 2
+  lore:
+    - Slightly higher grade slime than the green stuff, it
+    - can handle higher temperatures for longer durations
+    - before degrading. Unlike green slime, it does not
+    - taste good in jams, nor other conserves.
+    - Oozes from cracks in the walls of Necropolis.
+
+yellow_slime:
+  name: Yellow Slime
+  type: INGREDIENT
+  rarity: UNCOMMON
+  material: PLAYER_HEAD
+  skull-profile-id: yellow_slime
+  discovery: rainbow_slime_collection
+  discovery-progress: 50
+  value: 50
+  lore:
+    - <red>write later
+
+blue_slime:
+  name: Blue Slime
+  type: INGREDIENT
+  rarity: VERY_RARE
+  material: PLAYER_HEAD
+  skull-profile-id: blue_slime
+  discovery: rainbow_slime_collection
+  discovery-progress: 2500
+  value: 1250
+  lore:
+    - <red>write later
+
+purple_slime:
+  name: Purple Slime
+  type: INGREDIENT
+  rarity: INCREDIBLE
+  material: PLAYER_HEAD
+  skull-profile-id: purple_slime
+  discovery: rainbow_slime_collection
+  discovery-progress: 125000
+  value: 31250
+  lore:
+    - <red>write later
+
+necropolis_fish:
+  name: Necropolis Puffer
+  type: INGREDIENT
+  rarity: COMMON
+  material: PUFFERFISH
+  discovery: necropolis_fish_collection
+  discovery-progress: 1
+  value: 4
+  lore:
+    - A highly unusual species of pufferfish in that it
+    - lives in the frigid waters of Necropolis, which
+    - is unsuitable for all other puffers. These are
+    - a local delicacy, being completely nontoxic, buttery
+    - and a little sweet, if prepared correctly.
+
+cooked_necropolis_fish:
+  name: Fried Puffer
+  type: INGREDIENT
+  rarity: VERY_RARE
+  material: PUFFERFISH
+  discovery: necropolis_fish_collection
+  discovery-progress: 192
+  value: 768
+  lore:
+    - Fried pufferfish is a delicacy in Necropolis, especially
+    - due to the difficulty in preparing such a dish, as the
+    - flesh burns easily. These were once consumed before
+    - great battles in the days gone. There are rumours that
+    - there were once cookbooks that had methods for greater success
+    - in preparation of such a delicate breed of fish.
+
+debug_necropolis_fish:
+  name: DEBUG NECROPOLIS FISH COLLECTION ITEM
+  type: INGREDIENT
+  rarity: MYSTERIOUS
+  discovery: necropolis_fish_collection
+  discovery-progress: 1000000
+  value: 1
+
+debug_rainbow_slime:
+  name: DEBUG RAINBOW SLIME COLLECTION ITEM
+  type: INGREDIENT
+  rarity: MYSTERIOUS
+  discovery: rainbow_slime_collection
+  discovery-progress: 1000000
+  value: 1
+
+debug_spirit:
+  name: DEBUG CALMED SPIRIT COLLECTION ITEM
+  type: INGREDIENT
+  rarity: MYSTERIOUS
+  discovery: calmed_spirit_collection
+  discovery-progress: 1000000
+  value: 1
+
+debug_bone_dust:
+  name: DEBUG BONE DUST COLLECTION ITEM
+  type: INGREDIENT
+  rarity: MYSTERIOUS
+  discovery: bone_dust_collection
+  discovery-progress: 1000000
+  value: 1
+
+hydra_flesh:
+  name: Hydra Flesh
+  type: INGREDIENT
+  rarity: RARE
+  material: PRISMARINE_SHARD
+  value: 15
+  lore:
+    - A small scrap of flesh dropped by slaying a head
+    - of a hydra. Does not require permanently killing
+    - the beast, but captures a small amount of the regenerative
+    - power of it. Used to improve weaponry and produce
+    - health-boosting armour pieces.
+
+hydra_heart:
+  name: Hydra Heart
+  type: INGREDIENT
+  rarity: VERY_RARE
+  material: RED_DYE
+  value: 100
+  lore:
+    - The beating heart of a great Hydra. Can only
+    - be obtained by permanently slaying the beast.

@@ -3,5 +3,71 @@ sams_apple:
   type: QUEST_ITEM
   rarity: VERY_RARE
   material: APPLE
-  description:
-    - Little cheers Sam up like a juicy apple does.
+  lore:
+    - Little cheers Sam up like a nice, juicy apple.
+
+waterway_note_1:
+  name: Tattered Note I
+  type: QUEST_ITEM
+  rarity: VERY_RARE
+  material: PAPER
+  value: 1000
+  lore:
+    - There have been rumours going around about the shortage of
+    - Waterway Sacs in the area. Some say the <blue>Seraph</blue> is
+    - using them to build some form of homunculus, others say it's
+    - being used as supply control to starve out the natives.
+    - <dark_grey>- Katy, of Necropolis
+
+waterway_note_2:
+  name: Tattered Note II
+  type: QUEST_ITEM
+  rarity: VERY_RARE
+  material: PAPER
+  value: 1000
+  lore:
+    - Something is definitely going on. I can hear whisperings
+    - of the Lunatics when they're congregating. They're hunting
+    - the Sea Slimes for something, but I haven't figured out what
+    - exactly it is that they need them for yet.
+    - <dark_grey>- Katy, of Necropolis
+
+waterway_note_3:
+  name: Tattered Note III
+  type: QUEST_ITEM
+  rarity: VERY_RARE
+  material: PAPER
+  value: 1000
+  lore:
+    - The Fanatics seem to be getting frustrated, can't say why.
+    - In any case, it's getting dangerous to sneak around the old
+    - temple, so I better be more careful from now on, can't have
+    - them getting suspicious.
+    - <dark_grey>- Katy, of Necropolis
+
+waterway_note_4:
+  name: Tattered Note IV
+  type: QUEST_ITEM
+  rarity: VERY_RARE
+  material: PAPER
+  value: 1000
+  lore:
+    - They've given up with the sea slimes. Clearly, something
+    - isn't working with their plan. I've seen notes about a
+    - shipment of some kind, but they're keeping that detail
+    - even more secret than the rest of this conspiracy.
+    - Waterway Sac supply has still yet to recover, so they
+    - must still be key to the plan.
+    - <dark_grey>- Katy, of Necropolis
+
+waterway_note_5:
+  name: Tattered Note V
+  type: QUEST_ITEM
+  rarity: VERY_RARE
+  material: PAPER
+  value: 1000
+  lore:
+    - I'm being watched. It's in the corner of my eye, nigh
+    - constantly. Whenever I turn my head, it seemingly
+    - vanishes. Further study needed.
+    - <dark_grey>- Katy, of Necropolis

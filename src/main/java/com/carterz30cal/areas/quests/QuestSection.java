@@ -64,7 +64,7 @@ public abstract class QuestSection {
         public StringDescription Talk() {
             if (!initialInteraction) {
                 initialInteraction = true;
-                player.SetSelectedQuest(parent);
+                player.setSelectedQuest(parent);
                 return GetStartDialogue();
             }
             else {

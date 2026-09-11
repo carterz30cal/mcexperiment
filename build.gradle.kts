@@ -4,8 +4,7 @@
 
 plugins {
     `java-library`
-    `maven-publish`
-    id("com.gradleup.shadow") version "9.0.0"
+    id("com.gradleup.shadow") version "9.4.3"
 }
 
 repositories {
@@ -35,34 +34,28 @@ repositories {
 dependencies {
     api(libs.org.jetbrains.annotations)
     compileOnly(libs.net.dmulloy2.protocollib)
-    //compileOnly(libs.org.spigotmc.spigot.api)
-    compileOnly(libs.paper.api)
-    implementation("net.megavex:scoreboard-library-api:2.7.4")
-    runtimeOnly("net.megavex:scoreboard-library-implementation:2.7.4")
+    compileOnly("io.papermc.paper:paper-api:26.2.build.+")
+    implementation("net.megavex:scoreboard-library-api:2.8.2")
+    runtimeOnly("net.megavex:scoreboard-library-implementation:2.8.2")
 }
 
 group = "com.carterz30cal"
 version = "1.0.0"
 description = "mcexperiment"
 
-publishing {
-    publications.create<MavenPublication>("maven") {
-        from(components["java"])
-    }
-}
-
 java {
-    toolchain.languageVersion.set(JavaLanguageVersion.of(21))
+    toolchain.languageVersion.set(JavaLanguageVersion.of(25))
 }
 
 tasks.shadowJar {
     relocate("net.megavex", "com.carterz30cal.libs.megavex")
+    mergeServiceFiles()
     archiveClassifier.set("") // replaces the normal jar as the output
 }
 
 tasks.withType<JavaCompile> {
     options.encoding = "UTF-8"
-    options.compilerArgs.add("--enable-preview")
+    //options.compilerArgs.add("--enable-preview")
 }
 
 tasks.withType<Javadoc> {
@@ -71,7 +64,7 @@ tasks.withType<Javadoc> {
 
 tasks.withType<Test>().configureEach {
     useJUnitPlatform()
-    jvmArgs("--enable-preview")
+    //jvmArgs("--enable-preview")
 }
 
 

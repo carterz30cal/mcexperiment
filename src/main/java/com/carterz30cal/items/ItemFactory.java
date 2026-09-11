@@ -1,22 +1,21 @@
 package com.carterz30cal.items;
 
+import com.carterz30cal.brewing.PotionElement;
+import com.carterz30cal.brewing.PotionPacket;
 import com.carterz30cal.entities.Shop;
 import com.carterz30cal.entities.damage.StatusEffects;
 import com.carterz30cal.entities.health.status.StatusEffect;
 import com.carterz30cal.entities.player.GamePlayer;
-import com.carterz30cal.gui.GooeyInventory;
-import com.carterz30cal.items.abilities2.Abilities;
-import com.carterz30cal.items.abilities2.implementation.AbilityWithStats;
-import com.carterz30cal.items.abilities2.implementation.GameAbstractEnchant;
-import com.carterz30cal.items.abilities2.implementation.PlayerAbilityContext;
+import com.carterz30cal.items.abilities.Abilities;
+import com.carterz30cal.items.abilities.implementation.AbilityWithStats;
+import com.carterz30cal.items.abilities.implementation.GameAbstractEnchant;
+import com.carterz30cal.items.abilities.implementation.PlayerAbilityContext;
 import com.carterz30cal.items.recipes.Recipe;
 import com.carterz30cal.items.recipes.RecipeCategory;
 import com.carterz30cal.items.sets.ItemSet;
 import com.carterz30cal.items.trims.TrimMaterialWrapper;
 import com.carterz30cal.items.trims.TrimPatternWrapper;
-import com.carterz30cal.items.types.ItemAttuner;
-import com.carterz30cal.items.types.ItemLootbox;
-import com.carterz30cal.items.types.ItemPet;
+import com.carterz30cal.items.types.*;
 import com.carterz30cal.main.Dungeons;
 import com.carterz30cal.stats.Stat;
 import com.carterz30cal.stats.StatContainer;
@@ -59,7 +58,7 @@ import static net.kyori.adventure.text.format.NamedTextColor.*;
 
 /**
  * @author carterz30cal
- * @version 3
+ * @version 6
  * @since 1.0.0
  */
 public class ItemFactory
@@ -81,32 +80,54 @@ public class ItemFactory
             "waterway/items/armours/very_rare_armours", "waterway/items/armours/epic_armours",
             "waterway/items/armours/sets/uncommon_sets", "waterway/items/armours/sets/rare_sets",
             "waterway/items/armours/sets/very_rare_sets",
-            "waterway/items/pet_items", "waterway/items/quest_items"
+            "waterway/items/item_generation",
+            "waterway/items/pet_items", "waterway/items/quest_items",
+            "necropolis/items/weapons/common","necropolis/items/weapons/uncommon",
+            "necropolis/items/weapons/rare",
+            "necropolis/items/tools/pickaxes","necropolis/items/tools/rods","necropolis/items/tools/detectors",
+            "necropolis/items/weapons/waterway_upgraded_legendary_swords",
+            "necropolis/items/armour/uncommon","necropolis/items/armour/rare",
+            "necropolis/items/armour/sets",
+            "necropolis/items/upgrades/attuners",
+            "necropolis/items/tools/talismans",
+            "necropolis/items/lootboxes",
+            "necropolis/items/potions",
+            "necropolis/items/pets/common_pets",
+            "necropolis/items/ingredients",
+            "necropolis/items/lore"
 	};
 	
 	
 	public static NamespacedKey kItem = new NamespacedKey(Dungeons.instance, "item");
 	public static NamespacedKey kData = new NamespacedKey(Dungeons.instance, "data");
 	public static NamespacedKey kUUID = new NamespacedKey(Dungeons.instance, "uuid");
-	public static String[] categoryFiles = {
-            "waterway/recipes/categories"
-	};
+    private static final Map<String, PlayerProfile> skullProfiles = new HashMap<>();
 	public static String[] recipeFiles = {
             "waterway/recipes/swords", "waterway/recipes/bows", "waterway/recipes/ingredients",
             "waterway/recipes/armours/uncommon_armours", "waterway/recipes/armours/rare_armours",
             "waterway/recipes/armours/very_rare_armours",
             "waterway/recipes/attuners_offensive",
             "waterway/recipes/enchantments/sharpness",
-            "waterway/recipes/talismans", "waterway/recipes/fishing_rods", "waterway/recipes/pickaxes"
+            "waterway/recipes/item_generation",
+            "waterway/recipes/talismans", "waterway/recipes/fishing_rods", "waterway/recipes/pickaxes",
+            "necropolis/recipes/swords/common","necropolis/recipes/swords/uncommon",
+            "necropolis/recipes/swords/rare",
+            "necropolis/recipes/talismans", "necropolis/recipes/pickaxes", "necropolis/recipes/detectors",
+            "necropolis/recipes/armour/uncommon","necropolis/recipes/armour/rare",
+            "necropolis/recipes/ingredients", "necropolis/recipes/enchants", "necropolis/recipes/pet_upgrades",
+            "necropolis/recipes/potions",
+            "necropolis/recipes/waterway_upgraded_legendary_swords"
 	};
     public static String[] skullFiles = {
             "waterway/skulls"
     };
 
 	public static String[] shopFiles = {
-            "waterway/items/shops"
+            "waterway/items/shops", "necropolis/shops"
 	};
-    private static Map<String, PlayerProfile> skullProfiles = new HashMap<>();
+	public static String[] categoryFiles = {
+            "waterway/recipes/categories", "necropolis/recipes/categories"
+	};
 	
 	private static List<String> itemList;
 	
@@ -116,14 +137,20 @@ public class ItemFactory
 	{
 		instance = this;
 
-		menuItem = GooeyInventory.produceElement("EMERALD", "GOLDMenu DARK_GRAY(Click)");
+        menuItem = ItemFactory.customItem("EMERALD", "<gold>Menu</gold> <dark_grey>(Click!)</dark_grey>");
 		itemList = new ArrayList<>();
 		for (String file : files)
 		{
 			FileConfiguration c = FileUtils.getData(file);
-			for (String p : c.getKeys(false))
+            if (c == null) {
+                continue;
+            }
+            for (String p : c.getKeys(false))
 			{
 				ConfigurationSection i = c.getConfigurationSection(p);
+                if (i == null) {
+                    continue;
+                }
 				
 				String temp = p.split("-")[0];
 				switch (temp)
@@ -146,8 +173,9 @@ public class ItemFactory
 			for (String p : c.getKeys(false))
 			{
 				ConfigurationSection i = c.getConfigurationSection(p);
-				
-				cat.add(new RecipeCategory(i));
+
+                assert i != null;
+                cat.add(new RecipeCategory(i));
 			}
 		}
 		
@@ -220,7 +248,7 @@ public class ItemFactory
 
         itemNameB.append(text(item.name, item.rarity.textColor));
 
-        var enchantments = getItemEnchants(stack);
+        var enchantments = getItemEnchants(stack, context.player);
         StatContainer stats = item.stats.clone();
         int maxEnchantPower = getItemMaxEnchantPower(stack, context.player);
         int usedEnchantPower = Math.max(0, sumEnchantPower(enchantments));
@@ -232,18 +260,13 @@ public class ItemFactory
             descriptor.append(text(item.rarity.name).append(text(" ")).append(text(item.type.toString())).color(DARK_GRAY));
         }
         if (maxEnchantPower > 0) {
-            if (usedEnchantPower > maxEnchantPower) {
-                descriptor.append(text(" [", DARK_GRAY)).append(text("OVERMAX", DARK_RED));
-            }
-            else if (usedEnchantPower == maxEnchantPower) {
-                descriptor.append(text(" [", DARK_GRAY)).append(text("MAX", AQUA));
-            }
-            else {
-                descriptor.append(text(" [", DARK_GRAY))
-                        .append(text(usedEnchantPower, AQUA))
-                        .append(text("/", DARK_GRAY))
-                        .append(text(maxEnchantPower, AQUA));
-            }
+            descriptor.append(text(" [", DARK_GRAY))
+                    .append(text(usedEnchantPower,
+                            usedEnchantPower > maxEnchantPower
+                                    ? DARK_RED
+                                    : AQUA))
+                    .append(text("/", DARK_GRAY))
+                    .append(text(maxEnchantPower, AQUA));
             descriptor.append(text("]", DARK_GRAY));
         }
         else if (item.type == ItemType.ENCHANTMENT) {
@@ -278,7 +301,7 @@ public class ItemFactory
 
         record Section(List<TextComponent.Builder> section) {
         }
-        ;
+
         List<Section> sections = new ArrayList<>();
         Section statSection = new Section(new ArrayList<>());
         {
@@ -356,6 +379,7 @@ public class ItemFactory
                         }
                         if (item.type == ItemType.ENCHANTMENT) {
                             if (enchant.ability instanceof GameAbstractEnchant enchAbility) {
+                                enchantSection.section.add(text().content(" Max level: " + enchAbility.getMaximumLevel()).color(DARK_GRAY));
                                 var validTypes = enchAbility.getValidTypes();
                                 if (!validTypes.isEmpty()) {
                                     var k = text();
@@ -380,7 +404,7 @@ public class ItemFactory
             sections.add(enchantSection);
         }
 
-        var abilities = getItemAbilities(item);
+        var abilities = getItemAbilities(item, context.player);
         Section specificSection = new Section(new ArrayList<>());
         boolean drawSpecificSection = false;
         {
@@ -393,6 +417,48 @@ public class ItemFactory
                 drawSpecificSection = true;
                 specificSection.section.add(text().append(text("You may apply up to five attuners onto").color(GRAY)));
                 specificSection.section.add(text().append(text("any wieldable item using the anvil menu.").color(GRAY)));
+            }
+            else if (item instanceof ItemPotionBottle bottle) {
+                drawSpecificSection = true;
+                specificSection.section.add(
+                        text().append(text().content("Capacity: ").color(GRAY),
+                                text().content("" + bottle.capacity).color(AQUA))
+                );
+            }
+            else if (item instanceof ItemIngredientGenerator generator) {
+                drawSpecificSection = true;
+                specificSection.section.add(
+                        text().append(text("Production").color(GOLD))
+                );
+                var produces = getItem(generator.generates);
+                specificSection.section.add(
+                        text().append(text(" Produces: ").color(GRAY), produces.text())
+                );
+                specificSection.section.add(
+                        text().append(text(" Time: ").color(GRAY), text(Math.round(generator.timePerItem() / 100D) / 10D).color(GREEN), text("s", GREEN))
+                );
+            }
+            else if (item instanceof ItemPotionIngredient potionIngredient) {
+                drawSpecificSection = true;
+                specificSection.section.add(text().content("Potion Elements:").color(GRAY));
+                for (var element : potionIngredient.elements) {
+                    var mm = MiniMessage.miniMessage().deserialize("<dark_grey>-</dark_grey> " + element.element().miniMessage() + " " + element.element().pretty());
+                    specificSection.section.add(text().append(mm).append(text(" " + element.level()).color(element.element().colour())));
+                }
+            }
+            else if (item.type == ItemType.POTION_FUMES) {
+                drawSpecificSection = true;
+                specificSection.section.add(text().content("Fumes:").color(GRAY));
+                var fumes = getPotionPackets(stack);
+                for (var fume : fumes) {
+                    var mm = MiniMessage.miniMessage().deserialize("<dark_grey>-</dark_grey> " + fume.element().miniMessage() + " " + fume.element().pretty());
+                    specificSection.section.add(text().append(mm).append(text(" " + fume.level()).color(fume.element().colour())));
+                }
+            }
+            else if (item.type == ItemType.POTION) {
+                drawSpecificSection = true;
+                var duration = getPotionDuration(stack);
+                specificSection.section.add(text().content("Time until empty:").color(GRAY).append(text().content(StringUtils.getPrettyTime(duration)).color(AQUA)));
             }
         }
         if (drawSpecificSection) {
@@ -437,6 +503,16 @@ public class ItemFactory
 
             if (context.player.getLevel() < item.stats.stat(Stat.LEVEL_REQUIREMENT)) {
                 setSection.section.add(text().append(text("\u00D7 Requires Level " + item.stats.stat(Stat.LEVEL_REQUIREMENT), RED)));
+            }
+            if (!setSection.section.isEmpty()) {
+                sections.add(setSection);
+            }
+        }
+        else {
+            Section setSection = new Section(new ArrayList<>());
+            var lr = item.stats.stat(Stat.LEVEL_REQUIREMENT);
+            if (lr != 0) {
+                setSection.section.add(text().append(text("\u00D7 Requires Level " + lr, RED)));
             }
             if (!setSection.section.isEmpty()) {
                 sections.add(setSection);
@@ -542,17 +618,15 @@ public class ItemFactory
             {
                 meta.getPersistentDataContainer().set(kItem, PersistentDataType.STRING, item.id);
                 if (item.type != ItemType.INGREDIENT && item.type.use != ItemTypeUse.CONSUMABLE) meta.getPersistentDataContainer().set(kUUID, PersistentDataType.STRING, UUID.randomUUID().toString());
-
             }
             meta.getPersistentDataContainer().set(kData, PersistentDataType.STRING, "");
             meta.addItemFlags(ItemFlag.values());
-            //meta.removeItemFlags(ItemFlag.HIDE_LORE);
             meta.setUnbreakable(true);
         }
 
 		stack.setItemMeta(meta);
         if (item != null) {
-            update(stack, (FactoryBuildContext) null);
+            update(stack, null);
         }
 		
 		return stack;
@@ -606,7 +680,6 @@ public class ItemFactory
 	{
 		return getItemEnchants(i, null);
 	}
-
     /**
      *
      * @param i     the ItemStack we're checking
@@ -726,7 +799,8 @@ public class ItemFactory
 
     public static ItemStack customItem(String base, String name, List<String> lore) {
         ItemStack stack = build(base);
-        return customItem(stack, name, lore);
+        if (stack == null) return customItem("BARRIER", "<red>CANNOT BUILD!: " + base, "<red>Gah!");
+        else return customItem(stack, name, lore);
     }
 
 
@@ -841,7 +915,7 @@ public class ItemFactory
      * @param name   Whatever you want the ItemStack's custom name to be, in plaintext.
      * @param colour Either null, which will use the Item default, or a specified TextColor.
      * @param lore   List of Builders that determines the item lore. If null it sets the lore to empty.
-     * @return ItemStack that has been made 'invalid' (isn't recognized by the game as a custom item) with specified name and lore.
+     * @return ItemStack that has been made 'invalid' (isn't recognised by the game as a custom item) with specified name and lore.
      * @implNote This isn't safe to run on players' items, make sure you clone the ItemStack first.
      * @since 1.0.0
      */
@@ -869,7 +943,7 @@ public class ItemFactory
      * @param stack The template ItemStack that we want to turn into a display item.
      * @param name  Whatever you want the ItemStack's custom name to be, in plaintext.
      * @param lore  List of Builders that determines the item lore. If null it sets the lore to empty.
-     * @return ItemStack that has been made 'invalid' (isn't recognized by the game as a custom item) with specified name and lore.
+     * @return ItemStack that has been made 'invalid' (isn't recognised by the game as a custom item) with specified name and lore.
      * @implNote This isn't safe to run on players' items, make sure you clone the ItemStack first.
      * @since 1.0.0
      */
@@ -891,7 +965,7 @@ public class ItemFactory
      * @param stack The template ItemStack that we want to turn into a display item.
      * @param name  Whatever you want the ItemStack's custom name to be, in plaintext.
      * @param lore  List of Builders that determines the item lore. If null it sets the lore to empty.
-     * @return ItemStack that has been made 'invalid' (isn't recognized by the game as a custom item) with specified name and lore.
+     * @return ItemStack that has been made 'invalid' (isn't recognised by the game as a custom item) with specified name and lore.
      * @implNote This isn't safe to run on players' items, make sure you clone the ItemStack first.
      * @since 1.0.0
      */
@@ -926,7 +1000,7 @@ public class ItemFactory
      * @param stack The template ItemStack that we want to turn into a display item.
      * @param name  Whatever you want the ItemStack's custom name to be, in MiniMessage format.
      * @param lore  List of Strings in MiniMessage format.
-     * @return ItemStack that has been made 'invalid' (isn't recognized by the game as a custom item) with specified name and lore.
+     * @return ItemStack that has been made 'invalid' (isn't recognised by the game as a custom item) with specified name and lore.
      * @implNote This isn't safe to run on players' items, make sure you clone the ItemStack first.
      * @since 1.0.0
      */
@@ -1018,6 +1092,73 @@ public class ItemFactory
 		
 		return attunerList;
 	}
+
+    /**
+     * Get <code>PotionPacket</code>s from a <code>POTION_FUMES</code> item.
+     * @param item what are we getting from?
+     * @return a list of <code>PotionPacket</code>s
+     * @implSpec potion packets are stored as ELEMENT-LEVEL,ELEMENT2-LEVEL
+     * @since 1.0.0 [6]
+     * @see PotionPacket
+     */
+    public static List<PotionPacket> getPotionPackets(ItemStack item) {
+        Map<String, String> data = getItemData(item);
+        String[] potions = data.getOrDefault("potionPackets", "").split(",");
+
+        List<PotionPacket> packets = new ArrayList<>();
+        for (var pot : potions) {
+            var p = pot.split("-");
+            if (p.length == 1) continue;
+            packets.add(new PotionPacket(PotionElement.valueOf(p[0]), Integer.parseInt(p[1])));
+        }
+        return packets;
+    }
+
+    /**
+     * Set the packets for a <code>POTION_FUMES</code> item.
+     * @param item what item are we setting the packets onto?
+     * @param packets what packets are we setting?
+     * @since 1.0.0 [6]
+     * @see PotionPacket
+     */
+    public static void setPotionPackets(ItemStack item, List<PotionPacket> packets) {
+        var data = getItemData(item);
+        StringBuilder builder = new StringBuilder();
+        for (var packet : packets) {
+            builder.append(packet.element().name()).append("-").append(packet.level()).append(",");
+        }
+        builder.deleteCharAt(builder.length() - 1);
+        data.put("potionPackets", builder.toString());
+        setItemData(item, data);
+    }
+
+    /**
+     * Get the duration left on a <code>POTION</code>.
+     * @param item what item are we checking?
+     * @return the duration left, or <code>-1</code> if this item doesn't support durations.
+     * @since 1.0.0 [6]
+     */
+    public static long getPotionDuration(ItemStack item) {
+        Map<String, String> data = getItemData(item);
+        var type = getItem(item);
+        if (!(type instanceof ItemPotion duration)) return -1;
+        if (data.containsKey("potionDuration")) {
+            return Long.parseLong(data.getOrDefault("potionDuration", "-1"));
+        }
+        else return duration.duration;
+    }
+
+    /**
+     * Set the duration left on a <code>POTION</code>.
+     * @param item what item are we setting the duration on?
+     * @param duration the duration we're setting
+     * @since 1.0.0 [6]
+     */
+    public static void setPotionDuration(ItemStack item, long duration) {
+        var data = getItemData(item);
+        data.put("potionDuration", Long.toString(duration));
+        setItemData(item, data);
+    }
 	
 	public static void addItemData(ItemStack item, String key, String data)
 	{
@@ -1243,6 +1384,39 @@ public class ItemFactory
                 }
 
 				break;
+            case POTION_INGREDIENT:
+                var potion = new ItemPotionIngredient();
+                for (var elem : i.getStringList("elements")) {
+                    var spl = elem.split(",");
+                    var element = PotionElement.valueOf(spl[0]);
+                    var level = spl.length > 1 ? Integer.parseInt(spl[1]) : 1;
+                    potion.elements.add(new PotionPacket(element, level));
+                }
+                item = potion;
+                break;
+            case POTION_BOTTLE:
+                var bottle = new ItemPotionBottle();
+                bottle.capacity = i.getInt("capacity");
+                item = bottle;
+                break;
+            case POTION:
+                var pot = new ItemPotion();
+                pot.duration = i.getLong("duration");
+                for (var elem : i.getStringList("recipe")) {
+                    var spl = elem.split(",");
+                    var element = PotionElement.valueOf(spl[0]);
+                    var level = spl.length > 1 ? Integer.parseInt(spl[1]) : 1;
+                    pot.recipe.add(new PotionPacket(element, level));
+                }
+                pot.generate();
+                item = pot;
+                break;
+            case PRODUCTION_CORE:
+                var generator = new ItemIngredientGenerator();
+                item = generator;
+                generator.generates = i.getString("generator.item");
+                generator.time = i.getLong("generator.milliseconds", 5000);
+                break;
 			case LOOTBOX:
 				item = new ItemLootbox();
                 ((ItemLootbox) item).table = new ItemLootTable(i.getConfigurationSection("drops"));
@@ -1258,7 +1432,7 @@ public class ItemFactory
 				pet.petLine = i.getString("pet-line");
 				try {
 					pet.activeAbility = Abilities.valueOf(i.getString("active-ability"));
-				} catch (IllegalArgumentException e) {
+				} catch (IllegalArgumentException e ) {
                     Dungeons.instance.getLogger().severe("ItemFactory: couldn't find " + i.getString("active-ability") + " ability.");
 				}
 

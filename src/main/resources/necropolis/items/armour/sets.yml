@@ -1,0 +1,11 @@
+set_hydra:
+  name: Eternal Regrowth
+  type: VIRTUAL_SET
+  requireCount: 3
+  lore:
+    - <dark_grey>Regeneration is in your nature.
+  stats:
+    vitality: 5
+    focus: 5
+    health: 100
+    visibility: 4

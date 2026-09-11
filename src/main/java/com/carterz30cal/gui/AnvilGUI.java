@@ -2,8 +2,8 @@ package com.carterz30cal.gui;
 
 import com.carterz30cal.entities.player.GamePlayer;
 import com.carterz30cal.items.*;
-import com.carterz30cal.items.abilities2.Abilities;
-import com.carterz30cal.items.abilities2.implementation.GameAbstractEnchant;
+import com.carterz30cal.items.abilities.Abilities;
+import com.carterz30cal.items.abilities.implementation.GameAbstractEnchant;
 import com.carterz30cal.items.types.ItemAttuner;
 import com.carterz30cal.stats.Stat;
 import com.carterz30cal.utils.StringUtils;

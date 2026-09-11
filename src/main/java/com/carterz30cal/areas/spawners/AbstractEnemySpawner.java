@@ -9,6 +9,11 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+/**
+ * @author carterz30cal
+ * @version 2
+ * @since 1.0.0
+ */
 public abstract class AbstractEnemySpawner {
     protected AbstractGameArea parent;
 
@@ -20,11 +25,15 @@ public abstract class AbstractEnemySpawner {
 
     }
 
-    public void RegisterParent(AbstractGameArea parent) {
+    public void register(AbstractGameArea parent) {
         this.parent = parent;
     }
 
-
+    /**
+     * @author carterz30cal
+     * @version 2
+     * @since 1.0.0
+     */
     protected class SpawningOption {
         public String mob;
         public int weight;
@@ -61,14 +70,14 @@ public abstract class AbstractEnemySpawner {
             this.modes = modes;
         }
 
-        public GameEnemy Spawn(Location location) {
+        public GameEnemy spawn(Location location) {
             GameEnemy enemy = EnemyManager.spawn(this.mob, location);
             enemy.spawnedArea = parent;
             return enemy;
         }
 
-        public boolean IsValid() {
-            return modes.contains(parent.GetContext().spawningMode);
+        public boolean valid() {
+            return modes.contains(parent.context().spawningMode);
         }
     }
 }

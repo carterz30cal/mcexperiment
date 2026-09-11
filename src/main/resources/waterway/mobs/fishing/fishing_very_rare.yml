@@ -172,6 +172,7 @@ sea_slime_VERY_RARE:
     - FISHING_WATERWAY
     - FISHING_VERY_RARE
     - SLIME
+    - SEA_SLIME
   loot:
     waterway_cod:
       amount: 10/65
@@ -225,7 +226,7 @@ scared_shockreaver_VERY_RARE:
       amount: 2/2
     waterway_cod:
       amount: 20/50
-    storm_talisman_VERY_RARE:
+    storm_talisman_rare:
       chance: 1/4
     fishing_berries:
       chance: 1/250

@@ -1,0 +1,8 @@
+lesser_life_sword_rare:
+  time: 10m
+  level: 8
+  category: necropolis_weapons
+  items:
+    hydra_heart: 1
+    hydra_flesh: 12
+    leaf_mash: 600

@@ -11,6 +11,11 @@ import org.bukkit.Location;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * @author carterz30cal
+ * @version 2
+ * @since 1.0.0
+ */
 public abstract class AbstractGameArea {
     public Areas parent;
     protected Box boundingBox;
@@ -20,32 +25,30 @@ public abstract class AbstractGameArea {
     protected List<AbstractAreaBoss> registeredBosses = new ArrayList<>();
 
 
-    public void Tick() {
+    public void tick() {
         for (var spawner : registeredSpawners) {
             spawner.tick();
         }
     }
 
-    public void OnKill(GameEnemy enemy) {
+    public void onKill(GameEnemy enemy) {
         for (var spawner : registeredSpawners) {
             spawner.onAreaKill(enemy);
         }
     }
 
-    public void OnPlayerDeath(GamePlayer player) {
+    public void onPlayerDeath(GamePlayer player) {
         for (var boss : registeredBosses) {
             boss.onLeftFight(player, AbstractAreaBoss.LeftFightReason.DEATH);
         }
     }
 
-    public void RegisterSpawner(AbstractEnemySpawner spawner) {
+    public void register(AbstractEnemySpawner spawner) {
+        if (spawner instanceof AbstractAreaBoss boss) {
+            registeredBosses.add(boss);
+        }
         registeredSpawners.add(spawner);
-        spawner.RegisterParent(this);
-    }
-
-    public void RegisterBoss(AbstractAreaBoss boss) {
-        registeredBosses.add(boss);
-        RegisterSpawner(boss);
+        spawner.register(this);
     }
 
     /**
@@ -54,39 +57,39 @@ public abstract class AbstractGameArea {
      * @param location Not guaranteed to be within bounds.
      * @since 1.0.0
      */
-    public void OnRightClick(GamePlayer player, Location location) {
+    public void onRightClick(GamePlayer player, Location location) {
         for (var boss : registeredBosses) {
 
         }
     }
 
-    public void OnTeleport(GamePlayer player, PlayerTeleport teleport) {
+    public void onTeleport(GamePlayer player, PlayerTeleport teleport) {
         for (var boss : registeredBosses) {
             boss.onLeftFight(player, AbstractAreaBoss.LeftFightReason.TELEPORTED);
         }
     }
 
-    public List<String> GetScoreboard(GamePlayer player) {
+    public List<String> scoreboard(GamePlayer player) {
         List<String> list = new ArrayList<>();
         return list;
     }
 
 
-    public String GetSubAreaName(GamePlayer player) {
+    public String getSubAreaName(GamePlayer player) {
         return areaName;
     }
 
-    public abstract PlayerTeleport GetRespawnPoint(GamePlayer died);
+    public abstract PlayerTeleport getRespawnPoint(GamePlayer died);
 
-    public boolean IsInBounds(GameEntity entity) {
+    public boolean isInBounds(GameEntity entity) {
         return boundingBox.isWithin(entity.getLocation());
     }
 
-    public boolean IsInBounds(GamePlayer player) {
-        return IsInBounds((GameEntity) player);
+    public boolean isInBounds(GamePlayer player) {
+        return isInBounds((GameEntity) player);
     }
 
-    public SpawnerContext GetContext() {
+    public SpawnerContext context() {
         return context;
     }
 

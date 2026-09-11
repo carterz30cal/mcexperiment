@@ -5,9 +5,9 @@ import com.carterz30cal.entities.health.damage.handlers.AggressiveEntity;
 import com.carterz30cal.entities.health.damage.handlers.DamageHandler;
 import com.carterz30cal.entities.health.status.StatusEffect;
 import com.carterz30cal.entities.player.GamePlayer;
-import com.carterz30cal.items.abilities2.implementation.AbilityWithDefend;
-import com.carterz30cal.items.abilities2.implementation.AbilityWithStatusProc;
-import com.carterz30cal.items.abilities2.implementation.AggressiveAbility;
+import com.carterz30cal.items.abilities.implementation.AbilityWithDefend;
+import com.carterz30cal.items.abilities.implementation.AbilityWithStatusProc;
+import com.carterz30cal.items.abilities.implementation.AggressiveAbility;
 import com.carterz30cal.utils.EntityUtils;
 import com.carterz30cal.utils.RandomUtils;
 import net.kyori.adventure.text.format.NamedTextColor;
@@ -23,13 +23,14 @@ import static net.kyori.adventure.text.Component.text;
  * Handles all health systems for entities, including DOTs, damage types and resistances.
  *
  * @author carterz30cal
- * @version 3
+ * @version 5
  * @since 1.0.0
  */
 public class EntityHealthSystem {
     private final List<DamageHandler> damageHandlers;
     private final Set<AggressiveEntity> attackers = new HashSet<>();
     private final Map<StatusEffect, Long> builtUpStatusEffects = new HashMap<>();
+    private final Map<StatusEffect, Integer> statusProcs = new HashMap<>();
     private long maxHealth;
     private double health;
     private AggressiveEntity lastAttacker;
@@ -58,7 +59,7 @@ public class EntityHealthSystem {
         }
 
         if (immune) {
-            var location = RandomUtils.getRandomInCircle(damagePacket.defender.getLocation().clone().add(0, 1, 0), 0.2, 0.4);
+            var location = RandomUtils.getRandomAround(damagePacket.defender.getLocation().clone().add(0, 1, 0), 0.1 , 0.5);
             var hologram = EntityUtils.spawnTextHologram(location, 30);
             if (hologram != null) {
                 hologram.setBillboard(Display.Billboard.CENTER);
@@ -118,6 +119,7 @@ public class EntityHealthSystem {
                 }
 
                 status.effect.apply(damagePacket.defender);
+                statusProcs.compute(status, (_, v) -> v == null ? 1 : v + 1);
                 builtUpStatusEffects.put(status, 0L);
             }
             else {
@@ -135,7 +137,7 @@ public class EntityHealthSystem {
             vector = damagePacket.defender.getLocation().clone().add(0, 0, 0).subtract(damagePacket.aggressor.getLocation()).multiply(-0.3).toVector();
         }
         for (var damage : damagePacket.damages.keySet()) {
-            var location = RandomUtils.getRandomInCircle(damagePacket.defender.getLocation().clone().add(vector).add(0, 1, 0), 0.2, 0.4);
+            var location = RandomUtils.getRandomAround(damagePacket.defender.getLocation().clone().add(vector).add(0, 1, 0), 0.1, 0.5);
             var amount = Math.round((double) damagePacket.damages.get(damage)
                     * damagePacket.getResistanceMultiplier(damage));
             if (amount <= 0) {
@@ -163,9 +165,9 @@ public class EntityHealthSystem {
         return builtUpStatusEffects.getOrDefault(status, 0L);
     }
 
-    // TODO readd stacking buildup requirement
     public long getRequiredBuildup(StatusEffect status) {
-        return status.defaultResistance;
+        int procs = statusProcs.getOrDefault(status, 0);
+        return Math.round(status.defaultResistance * Math.pow(status.resistanceMultiplier, procs));
     }
 
     public double getBuildupPercentage(StatusEffect status) {

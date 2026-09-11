@@ -1,0 +1,9 @@
+titan_blade_legendary:
+  amount: 1
+  category: necropolis_weapons_waterway_upgrades
+  discovery: rainbow_slime_collection
+  discovery-tier: 3
+  items:
+    titan_blade_incredible: 1
+    red_slime: 400
+    hydra_flesh: 24

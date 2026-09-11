@@ -163,6 +163,7 @@ sea_slime_UNCOMMON:
     - FISHING_WATERWAY
     - FISHING_UNCOMMON
     - SLIME
+    - SEA_SLIME
   loot:
     waterway_cod:
       amount: 10/20

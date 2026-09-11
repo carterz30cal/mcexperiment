@@ -24,6 +24,12 @@ public final class AddStatOperation implements StatOperation {
     }
 
     @Override
+    public String display() {
+        var sym = amount >= 0 ? "+" : "-";
+        return "<" + stat.textColour.asHexString() + ">" + sym + amount + " " + stat.getReverse();
+    }
+
+    @Override
     public StatOperationType getOperationType() {
         return StatOperationType.ADD;
     }

@@ -75,7 +75,9 @@ public class AdminItemGUI extends AbstractGUI
                 if (current.type.use != ItemTypeUse.VIRTUAL_NON_EXIST) {
                     if (showUnobtainable || (current.rarity != ItemRarity.UNOBTAINABLE && current.rarity != ItemRarity.MYSTERIOUS)) {
                         p++;
-                        inventory.setSlot(ItemFactory.build(current), calc(x, y));
+						var item = ItemFactory.build(current);
+						ItemFactory.update(item, owner.getItemContext());
+                        inventory.setSlot(item, calc(x, y));
                     }
                 }
 			}

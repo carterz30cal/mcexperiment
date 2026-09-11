@@ -11,7 +11,7 @@ public class PreviousQuestRequirement implements QuestRequirement {
     }
 
     @Override
-    public boolean HasMetRequirements(GamePlayer player) {
-        return questgiver.GetParent().hasCompletedQuestgiver(player, questgiver);
+    public boolean hasMetRequirements(GamePlayer player) {
+        return questgiver.getParent().hasCompletedQuestgiver(player, questgiver);
     }
 }

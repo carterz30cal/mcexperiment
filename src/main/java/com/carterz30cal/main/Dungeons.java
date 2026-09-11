@@ -1,5 +1,6 @@
 package com.carterz30cal.main;
 
+import com.carterz30cal.areas.events.EventManager;
 import com.carterz30cal.commands.*;
 import com.carterz30cal.entities.GameEntity;
 import com.carterz30cal.entities.PlayerManager;
@@ -49,6 +50,7 @@ public class Dungeons extends JavaPlugin
         new ItemFactory();
         new PlayerManager();
         new EnemyManager();
+		new EventManager();
 		
 		registerEvent(new ListenerPlayerJoinLeave());
 		registerEvent(new ListenerEntityDamage());

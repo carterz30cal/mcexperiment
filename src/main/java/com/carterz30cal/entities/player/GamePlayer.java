@@ -13,20 +13,19 @@ import com.carterz30cal.entities.health.damage.DamageType;
 import com.carterz30cal.entities.health.damage.handlers.AggressiveEntity;
 import com.carterz30cal.entities.health.damage.handlers.DamageableEntity;
 import com.carterz30cal.entities.health.status.StatusEffect;
+import com.carterz30cal.entities.player.summons.GamePet;
 import com.carterz30cal.events.GameEventHandler;
 import com.carterz30cal.fishing.FishingArea;
 import com.carterz30cal.gui.AbstractGUI;
 import com.carterz30cal.items.*;
-import com.carterz30cal.items.abilities2.implementation.Ability;
-import com.carterz30cal.items.abilities2.implementation.AbilityWithStats;
-import com.carterz30cal.items.abilities2.implementation.ContextWithAbility;
-import com.carterz30cal.items.abilities2.implementation.PlayerAbilityContext;
+import com.carterz30cal.items.abilities.implementation.*;
 import com.carterz30cal.items.discoveries.Collection;
 import com.carterz30cal.items.discoveries.DiscoveryManager;
 import com.carterz30cal.items.recipes.Recipe;
 import com.carterz30cal.items.sets.ItemSet;
 import com.carterz30cal.items.types.ItemAttuner;
 import com.carterz30cal.items.types.ItemPet;
+import com.carterz30cal.items.types.ItemPotion;
 import com.carterz30cal.main.Dungeons;
 import com.carterz30cal.mining.Mineable;
 import com.carterz30cal.stats.Stat;
@@ -65,7 +64,7 @@ import static net.kyori.adventure.text.Component.text;
 
 /**
  * @author carterz30cal
- * @version 2
+ * @version 5
  * @since 1.0.0
  */
 @SuppressWarnings("UnnecessaryUnicodeEscape")
@@ -115,13 +114,19 @@ public class GamePlayer extends GameEntity implements DamageableEntity, Aggressi
 	
 	public long lastXpReward;
     public long lastCoinReward;
+    public int abilityTick;
 	public int rewardTick;
+
+    public final Map<String, Long> toSack = new HashMap<>();
+    public int sackTick;
 	
 	public boolean mining;
 	public boolean allowInteract;
 
     public PlayerWardrobe wardrobe = new PlayerWardrobe(this);
     public PlayerSkillTree skillTree = new PlayerSkillTree(this);
+    public GamePet pet;
+    public PlayerItemProducer factory;
     public EntityHealthSystem healthSystem;
 	
 	public Map<String, Long> discoveries = new HashMap<>();
@@ -151,7 +156,6 @@ public class GamePlayer extends GameEntity implements DamageableEntity, Aggressi
 	{
 		for (ForgingItem item : forge)
 		{
-			//item.time--;
 			if (LocalDateTime.now().isAfter(item.finished))
 			{
 				if (player.getInventory().firstEmpty() == -1) {
@@ -260,16 +264,41 @@ public class GamePlayer extends GameEntity implements DamageableEntity, Aggressi
                 ItemFactory.update(off, getItemContext());
             }
 		}
-		
-		for (String talisman : talismans) items.add(ItemFactory.build(talisman));
+
+		var updated = new ArrayList<String>();
+		for (String talisman : talismans) {
+			var item = ItemFactory.buildItemFromString(talisman);
+			var check = ItemFactory.getItem(item);
+			if (check instanceof ItemPotion) {
+				var duration = ItemFactory.getPotionDuration(item);
+                if (duration >= 1) {
+                    ItemFactory.setPotionDuration(item, duration - 1);
+                    updated.add(ItemFactory.buildStringFromItem(item));
+                    items.add(item);
+                }
+				else sendMessage("<red>One of your potions has just expired!");
+            }
+			else {
+				items.add(item);
+				updated.add(talisman);
+			}
+		}
+		talismans = updated;
 		for (String pet : pets) items.add(ItemFactory.build(pet));
 		if (activePet != null) {
 			ItemPet itemActivePet = (ItemPet) ItemFactory.getItem(activePet);
-			if (itemActivePet !=null && itemActivePet.activeAbility != null) {
+			if (itemActivePet != null && itemActivePet.activeAbility != null) {
 				abilities.add(itemActivePet.activeAbility.getContext(this, itemActivePet.rarity.ordinal()));
 				items.add(ItemFactory.build(activePet));
 			}
-
+            if (player.getGameMode() == GameMode.CREATIVE) {
+                if (pet != null) {
+                    pet.remove();
+                }
+            }
+            else if (pet == null || pet.dead) {
+                pet = GamePet.spawn(this, getLocation(), activePet);
+            }
 		}
 
 		for (String s : sets.keySet()) {
@@ -303,10 +332,14 @@ public class GamePlayer extends GameEntity implements DamageableEntity, Aggressi
         stats.execute();
         abilities.addAll(skillTree.getUnderlyingAbilities());
         for (var a : abilities) {
+			if (a.ability instanceof AbilityWithTick tick) {
+                tick.tick(a, abilityTick);
+			}
             if (!(a.ability instanceof AbilityWithStats is)) {
                 continue;
             }
             is.modifyStats(a, stats, AbilityWithStats.Situation.PLAYER);
+
         }
         stats.scheduleOperation(Stat.BACKPACK_PAGES, StatOperationType.ADD, 2);
         stats.scheduleOperation(Stat.BACKPACK_PAGES, StatOperationType.CAP_MIN, 1);
@@ -325,14 +358,14 @@ public class GamePlayer extends GameEntity implements DamageableEntity, Aggressi
         var actionStatBar = text();
         actionStatBar.append(text(healthSystem.getHealth() + "\u2665", NamedTextColor.RED));
         if (stats.stat(Stat.MANA) > 0) {
-            actionStatBar.append(text(" " + getMana() + "/" + stats.stat(Stat.MANA) + "\u2605", NamedTextColor.LIGHT_PURPLE));
+            actionStatBar.append(text(" " + getMana() + "/" + stats.stat(Stat.MANA) + "♠", NamedTextColor.LIGHT_PURPLE));
         }
         if (rewardTick > 0) {
             if (lastXpReward > 0) {
                 actionStatBar.append(text(" +" + lastXpReward + " XP", NamedTextColor.AQUA));
             }
-            if (lastCoinReward > 0) {
-                actionStatBar.append(text(" +" + lastCoinReward + " coins", NamedTextColor.GOLD));
+            if (lastCoinReward != 0) {
+                actionStatBar.append(text((lastCoinReward > 0 ? " +" : " ") + lastCoinReward + " coins", NamedTextColor.GOLD));
             }
             if (skillTree.getLastSoulReward() > 0) {
                 if (skillTree.getLastSoulReward() == 1) {
@@ -348,6 +381,10 @@ public class GamePlayer extends GameEntity implements DamageableEntity, Aggressi
 
             }
             rewardTick--;
+        }
+        else {
+            lastCoinReward = 0;
+            lastXpReward = 0;
         }
 		
 		if (attackTick > 0) attackTick--;
@@ -370,6 +407,33 @@ public class GamePlayer extends GameEntity implements DamageableEntity, Aggressi
         else {
             area = AreaManager.getPlayerArea(this);
             areaCheckTick = 100;
+        }
+
+        abilityTick++;
+        if (!toSack.isEmpty()) {
+            sackTick++;
+            if (sackTick > 30 * 20) {
+                sackTick = 0;
+                var builder = new StringBuilder();
+                var start = true;
+                builder.append("<grey>Sack</grey> <dark_grey>[last 30s]: ");
+                for (var e : toSack.entrySet()) {
+                    var item = ItemFactory.getItem(e.getKey());
+                    if (!start) {
+                        builder.append(", ");
+                    }
+                    else {
+                        start = false;
+                    }
+                    builder.append(e.getValue()).append("x<")
+                            .append(item.rarity.textColor.asHexString())
+                            .append("> ").append(item.name)
+                            .append("</").append(item.rarity.textColor.asHexString())
+                            .append(">");
+                }
+                sendMessage(builder.toString());
+                toSack.clear();
+            }
         }
 
         sendActionBar(actionStatBar);
@@ -430,6 +494,20 @@ public class GamePlayer extends GameEntity implements DamageableEntity, Aggressi
 		}
 		return false;
 	}
+
+    public void gainCoins(long amount) {
+        coins += amount;
+        lastCoinReward += amount;
+        rewardTick = 40;
+    }
+
+    public void takeCoins(long amount) {
+        coins -= amount;
+        lastCoinReward -= amount;
+        rewardTick = 40;
+    }
+
+
 	
 	public int getDiscoveryLevel(Collection discovery)
 	{
@@ -464,6 +542,17 @@ public class GamePlayer extends GameEntity implements DamageableEntity, Aggressi
 	public boolean hasSackSpace(int am) {
         return getSackSpaceUsed() + am <= getSackSize();
 	}
+
+    /**
+     * Use this method to check if we can add a certain number of items to
+     * this player's ingredient sack.
+     * @param amount how much do we want to add to the sack?
+     * @return whether there's room for <code>amount</code> of items.
+     * @since 1.0.0
+     */
+    public boolean hasSackSpace(long amount) {
+        return getSackSpaceRemaining() >= amount;
+    }
 	
 	
 	public void giveItem(ItemStack item)
@@ -514,6 +603,7 @@ public class GamePlayer extends GameEntity implements DamageableEntity, Aggressi
 			{
                 long am = sack.getOrDefault(i.id, 0L) + item.getAmount();
 				sack.put(i.id, am);
+                toSack.compute(i.id, (_, v) -> v == null ? item.getAmount() : v + item.getAmount());
 			}
             else {
                 if (player.getInventory().firstEmpty() == -1) {
@@ -526,6 +616,88 @@ public class GamePlayer extends GameEntity implements DamageableEntity, Aggressi
 		}
 		else player.getInventory().addItem(item);
 	}
+
+    /**
+     * Platform for granting players large quantities of items, beyond the
+     * normal <code>ItemStack</code> scope.
+     * @param items a map of the item ids that we want to give to the player
+     * @param grantDiscoveryProgress should these items contribute towards discoveries?
+     * @implSpec <code>ItemType.INGREDIENT</code>s should preferentially go into the ingredient sack, then into the inventory if
+     * there isn't enough room in the sack.<br>
+     * <code>ItemType.ARROW</code> should be essentially ignored for space checks as they can always go into the quiver.
+     * <br>Other item types should try to go into the inventory if possible. If all else fails, <code>return false</code>.
+     * Storage space should be checked <b>before</b> items are actually added.
+     * @return <code>true</code> if we managed to add the items to an available storage location, <code>false</code> otherwise.
+     * @see ItemStack
+     * @see ItemType
+     * @since 1.0.0
+     */
+    public boolean giveItems(
+            @Nullable Map<String, Long> items,
+            boolean grantDiscoveryProgress) {
+        if (items == null || items.isEmpty()) return true;
+        boolean space = true;
+        long spaceUsed = 0;
+		var storage = player.getInventory().getStorageContents();
+		var empty = player.getInventory().firstEmpty();
+        for (var entry : items.entrySet()) {
+            var item = ItemFactory.getItem(entry.getKey());
+            long amount = entry.getValue();
+            if (item == null || amount == 0 || item.type == ItemType.ARROW) continue;
+            if (item.type == ItemType.INGREDIENT) {
+                if (hasSackSpace(spaceUsed + amount)) {
+                    spaceUsed += amount;
+                    continue;
+                }
+				else {
+					var rem = getSackSpaceRemaining() - spaceUsed;
+					spaceUsed += rem;
+					amount -= rem;
+				}
+            }
+            if (empty == -1 || empty >= storage.length) {
+                space = false;
+				break;
+            }
+			else {
+				while (empty < storage.length && amount > 0) {
+					if (storage[empty] == null) {
+						amount -= item.type.maxStackSize();
+					}
+					empty++;
+				}
+			}
+
+        }
+        if (!space) return false;
+		for (var entry : items.entrySet()) {
+			var item = ItemFactory.getItem(entry.getKey());
+			long amount = entry.getValue();
+			if (item == null || amount == 0) continue;
+			if (item.type == ItemType.ARROW) {
+				quiver.put(item.id, quiver.getOrDefault(item.id, 0) + (int)amount);
+			}
+			else if (item.type == ItemType.INGREDIENT)
+			{
+				if (hasSackSpace(amount)) {
+					sack.put(item.id, sack.getOrDefault(item.id, 0L) + amount);
+					continue;
+				}
+				else if (getSackSpaceRemaining() > 0) {
+					sack.put(item.id, sack.getOrDefault(item.id, 0L) + getSackSpaceRemaining());
+					amount -= getSackSpaceRemaining();
+				}
+			}
+			while (amount > 0) {
+				var sam = (int)Math.min(item.type.maxStackSize(), amount);
+				var stack = ItemFactory.build(entry.getKey(), sam);
+                assert stack != null;
+                player.getInventory().addItem(stack);
+				amount -= sam;
+			}
+		}
+        return true;
+    }
 
 
     public void sendMessage(String message)
@@ -631,6 +803,7 @@ public class GamePlayer extends GameEntity implements DamageableEntity, Aggressi
 	
 	public double getLevelProgress()
 	{
+        var _ = getLevel();
 		return ((double)xp) / LevelUtils.getXpForLevel(level + 1);
 	}
 	
@@ -825,8 +998,8 @@ public class GamePlayer extends GameEntity implements DamageableEntity, Aggressi
 		player.teleport(new Location(Dungeons.w, 0.5, 65, 0.5));
         player.setFallDistance(0);
         if (area != null) {
-            area.getArea().OnPlayerDeath(this);
-            teleport(area.getArea().GetRespawnPoint(this), false);
+            area.getArea().onPlayerDeath(this);
+            teleport(area.getArea().getRespawnPoint(this), false);
         }
         else {
             teleport(PlayerTeleport.WATERWAY_SPAWN, false);
@@ -843,7 +1016,7 @@ public class GamePlayer extends GameEntity implements DamageableEntity, Aggressi
             playSound(Sound.ENTITY_ENDERMAN_TELEPORT, 0.8, 1.1);
         }
         if (area != null) {
-            area.getArea().OnTeleport(this, teleport);
+            area.getArea().onTeleport(this, teleport);
         }
         player.teleport(teleport.GetLocation());
     }
@@ -920,42 +1093,50 @@ public class GamePlayer extends GameEntity implements DamageableEntity, Aggressi
         return eventHandlers.values();
     }
 
-    public Quests GetSelectedQuest() {
+    public Quests getSelectedQuest() {
         if (selectedQuest == null) {
             return null;
         }
-        else if (GetQuestSave(selectedQuest).completedQuest) {
-            selectedQuest = null;
-            return null;
+        else if (getQuestSave(selectedQuest).completedQuest) {
+            var filt = quests.keySet().stream().filter(q -> !getQuestSave(q).completedQuest);
+            var g = filt.findFirst();
+            if (g.isPresent()) {
+                selectedQuest = g.get();
+                return selectedQuest;
+            }
+            else {
+                return null;
+            }
         }
         else {
             return selectedQuest;
         }
     }
 
-    public void SetSelectedQuest(Quests selectedQuest) {
+    public void setSelectedQuest(Quests selectedQuest) {
         this.selectedQuest = selectedQuest;
     }
 
-    public void ClearQuests() {
+    public void clearQuests() {
         quests.clear();
     }
 
-    public Quests.QuestSave GetQuestSave(Quests quest) {
+    public Quests.QuestSave getQuestSave(Quests quest) {
         Quests.QuestSave save = quests.getOrDefault(quest, null);
         if (save == null) {
-            // GENERATE QUEST SAVE
             save = quest.createSave(this);
-            quests.put(quest, save);
+            if (save != null) {
+                quests.put(quest, save);
+            }
         }
         return save;
     }
 
-    public void LoadQuestSave(Quests.QuestSave quest) {
+    public void loadQuestSave(Quests.QuestSave quest) {
         quests.put(quest.GetQuest(), quest);
     }
 
-    public java.util.Collection<Quests.QuestSave> GetQuestSaves() {
+    public java.util.Collection<Quests.QuestSave> getQuestSaves() {
         return quests.values();
     }
 
@@ -1091,7 +1272,8 @@ public class GamePlayer extends GameEntity implements DamageableEntity, Aggressi
                 return false;
             }
             else {
-                return dist <= stats.stat(Stat.VISIBILITY) && yDist <= 7 && enemy.getEnemyData().level > stats.stat(Stat.INTIMIDATION);
+                var level = enemy.getEnemyData() == null ? 0 : enemy.getEnemyData().level;
+                return dist <= stats.stat(Stat.VISIBILITY) && yDist <= 7 && level > stats.stat(Stat.INTIMIDATION);
             }
         }
         else {

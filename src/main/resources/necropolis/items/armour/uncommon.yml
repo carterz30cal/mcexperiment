@@ -1,0 +1,35 @@
+ethereal_raincoat_uncommon:
+  name: Ethereal Raincoat
+  type: CHESTPLATE
+  rarity: UNCOMMON
+  material: LEATHER_CHESTPLATE
+  colour:
+    r: 167
+    g: 231
+    b: 255
+  stats:
+    padding: 20
+    insulation: 100
+    enchant_power: 30
+    level_requirement: 6
+
+armour-pufferfish:
+  name:
+    - Pufferfish Helmet
+    - Pufferfish Chestplate
+    - Pufferfish Trousers
+    - Pufferfish Wellies
+  material: LEATHER
+  rarity: UNCOMMON
+  colour:
+    r: 240
+    g: 175
+    b: 30
+  trim-pattern: RIB
+  trim-material: RESIN
+  stats:
+    health: +50
+    fishing_power: +8
+    defence: +20,+40,+30,+10
+    enchant_power: +20
+    level_requirement: 5

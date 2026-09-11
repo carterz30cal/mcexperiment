@@ -72,10 +72,10 @@ public final class AreaBossWaterwaySeraph extends AbstractAreaBoss {
         drops(new WeightedDrop("enchanted_book£1£enchants:ENCHANT_LUCK-1~", 40),
                 new WeightedDrop("seraph_sword£1", 8),
                 new WeightedDrop("enchanted_book£1£enchants:ENCHANT_CONCENTRATION-1~", 25),
-                new WeightedDrop("enchanted_book£1£enchants:ENCHANT_SHARPNESS-3~", 10),
+                new WeightedDrop("enchanted_book£1£enchants:ENCHANT_SHARPNESS-4~", 10),
                 new WeightedDrop("enchanted_book£1£enchants:ENCHANT_BLADE-1~", 30),
                 new WeightedDrop("waterway_seraph_key£5", 5),
-                new WeightedDrop("seraphs_eye£3", 2),
+                new WeightedDrop("seraphs_eye£8", 2),
                 new WeightedDrop("clear_glass_helmet£1", 5),
                 new WeightedDrop("seraphs_pyjamas£1", 5),
                 new WeightedDrop("seraph_ooze", 5),
@@ -186,6 +186,9 @@ public final class AreaBossWaterwaySeraph extends AbstractAreaBoss {
 
         if (isRegistered(player)) {
             deregister(player);
+            if (reason == LeftFightReason.WALKED_OUT) {
+                player.teleport(new Location(Dungeons.w, 59, 88, 167));
+            }
         }
     }
 
@@ -351,7 +354,9 @@ public final class AreaBossWaterwaySeraph extends AbstractAreaBoss {
         for (var registered : registered()) {
             if (BOSS_ARENA.isWithin(registered.getLocation())) {
                 left = false;
-                break;
+            }
+            else {
+                onLeftFight(registered, LeftFightReason.WALKED_OUT);
             }
         }
         if (left) {

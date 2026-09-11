@@ -21,7 +21,7 @@ public class AreaManager extends BukkitRunnable {
             return null;
         }
         for (var area : Areas.values()) {
-            if (area.getArea().IsInBounds(player)) {
+            if (area.getArea().isInBounds(player)) {
                 return area;
             }
         }
@@ -41,7 +41,7 @@ public class AreaManager extends BukkitRunnable {
     @Override
     public void run() {
         for (var area : Areas.values()) {
-            area.getArea().Tick();
+            area.getArea().tick();
         }
     }
 }

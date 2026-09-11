@@ -1,0 +1,124 @@
+necropolis_hydra_1_summon:
+  name: Hydra's Head
+  level: 9
+  health: 2000
+  speed: 1.9
+  knockback: 10
+  directors:
+    phase-time: 200
+    options:
+      - MAGMA_CUBE
+      - SKELETON
+  damage:
+    PROJECTILE: 75
+    FROST: 8
+  stats:
+    DEFENCE: 40
+    MAGIC_RESISTANCE: 40
+    INSULATION: -25
+    DOUSING: -75
+  entities:
+    _:
+      type: SLIME
+      scale: 2
+      offset: [ 0,-0.4,0 ]
+    h:
+      type: SLIME
+      scale: 2.2
+      offset: [ 0,0,0 ]
+      invisible: true
+
+  bestiary:
+    category: necropolis_bosses
+  souls:
+    NECROPOLIS: 50
+  tags:
+    - MINIBOSS
+    - SUMMON
+    - NECROPOLIS
+    - HYDRA
+  loot:
+    hydra_flesh:
+      chance: 1/2
+      amount: 1/2
+
+necropolis_hydra_1:
+  name: Hydra
+  level: 35
+  health: 25000
+  speed: 1.9
+  knockback: 10
+  damage:
+    PHYSICAL: 50
+    FROST: 25
+  stats:
+    DEFENCE: 50
+    MAGIC_RESISTANCE: 100
+    INSULATION: -25
+    DOUSING: -75
+  bestiary:
+    category: necropolis_bosses
+  souls:
+    NECROPOLIS: 50
+  tags:
+    - BOSS
+    - MINIBOSS
+    - NECROPOLIS
+    - HYDRA
+  abilities:
+    overkill:
+      class: generic.EnemyAbilityOverkill
+      percentage: 0.015
+      reward: 7
+    ## ADD DESPAWN!
+    summons:
+      class: necropolis.EnemyAbilityHydraSummoner
+      type: necropolis_hydra_1_summon
+      max-summon-count: 25
+      allow-respawn: false
+      spawn-time: 25
+      summon-range: 6
+      condition:
+        class: AbilityConditionAlwaysTrue
+    slash:
+      class: waterway.titan.EnemyAbilityTitanSlash
+      distance: 6
+      cooldown: 70
+      delay: 22
+      degrees: 60
+      raise: 0.2
+      condition:
+        class: AbilityConditionAlwaysTrue
+  loot:
+    hydra_lootbox:
+      chance: 1/1
+      amount: 1/1
+    hydra_flesh:
+      chance: 1/1
+      amount: 12/24
+  entities:
+    _:
+      type: DROWNED
+      scale: 1.15
+      offset: [0,0,0]
+    h:
+      type: SLIME
+      scale: 1.4
+      offset: [0,1.8,0]
+    h1:
+      type: SLIME
+      scale: 0.8
+      offset: [0,1.7,-0.45]
+    h11:
+      type: SLIME
+      scale: 1.1
+      offset: [0.25,1.75,-0.45]
+    h2:
+      type: SLIME
+      scale: 0.8
+      offset: [0,1.7,0.45]
+    h21:
+      type: SLIME
+      scale: 1.1
+      offset: [0.25,1.75,0.45]
+

@@ -6,3 +6,13 @@ WATERWAY:
     UNCOMMON: 75
     RARE: 20
     VERY_RARE: 5
+
+NECROPOLIS:
+  power-subtraction: 150
+  power-reduction: 5
+  brackets:
+    COMMON: 350
+    UNCOMMON: 100
+    RARE: 40
+    VERY_RARE: 8
+    EPIC: 2

@@ -1,0 +1,75 @@
+necropolis:
+  name: Necropolis
+  icon: BONE_BLOCK
+  parent: base
+
+necropolis_weapons:
+  name: Weapons
+  icon: WOODEN_SWORD
+  parent: necropolis
+
+necropolis_weapons_waterway_upgrades:
+  name: Waterway Upgrades
+  icon: BLUE_CONCRETE_POWDER
+  parent: necropolis_weapons
+
+necropolis_armour:
+  name: Armour
+  icon: ethereal_raincoat_uncommon
+  parent: necropolis
+
+necropolis_armour_pufferfish:
+  name: Pufferfish Armour
+  icon: pufferfish_chestplate
+  parent: necropolis_armour
+
+necropolis_armour_hydra:
+  name: Hydra Armour
+  icon: hydra_chestplate
+  parent: necropolis_armour
+
+
+necropolis_pickaxes:
+  name: Pickaxes
+  icon: DIAMOND_PICKAXE
+  parent: necropolis
+
+necropolis_detectors:
+  name: Detectors
+  icon: treasure_detector_common
+  parent: necropolis
+
+necropolis_pets:
+  name: Pets
+  icon: BONE
+  parent: necropolis
+
+necropolis_enchantments:
+  name: Enchants
+  icon: EXPERIENCE_BOTTLE
+  parent: necropolis
+
+necropolis_talismans:
+  name: Talismans
+  icon: spirit_lantern_uncommon
+  parent: necropolis
+
+necropolis_potions:
+  name: Brewing Ingredients
+  icon: POTION
+  parent: necropolis
+
+necropolis_potions_bottles:
+  name: Bottles
+  icon: GLASS_BOTTLE
+  parent: necropolis_potions
+
+necropolis_ingredients:
+  name: Ingredients
+  icon: roasted_bone_dust
+  parent: necropolis
+
+necropolis_ingredients_slimes:
+  name: Slimes
+  icon: purple_slime
+  parent: necropolis

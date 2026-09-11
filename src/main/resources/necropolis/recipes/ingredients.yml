@@ -1,0 +1,73 @@
+roasted_bone_dust:
+  time: 8m
+  amount: 1
+  discovery: bone_dust_collection
+  discovery-tier: 2
+  level: 5
+  category: necropolis_ingredients
+  items:
+    bone_dust: 300
+
+incensed_spirit:
+  time: 15m
+  amount: 1
+  discovery: calmed_spirit_collection
+  discovery-tier: 2
+  level: 6
+  category: necropolis_ingredients
+  items:
+    calmed_spirit: 16
+    chilli_powder: 8
+
+green_slime:
+  amount: 2
+  discovery: rainbow_slime_collection
+  discovery-tier: 1
+  category: necropolis_ingredients_slimes
+  items:
+    red_slime: 333
+    calmed_spirit: 1
+
+yellow_slime:
+  category: necropolis_ingredients_slimes
+  discovery: rainbow_slime_collection
+  discovery-tier: 2
+  items:
+    red_slime: 50
+
+blue_slime:
+  category: necropolis_ingredients_slimes
+  discovery: rainbow_slime_collection
+  discovery-tier: 4
+  items:
+    yellow_slime: 50
+
+purple_slime:
+  category: necropolis_ingredients_slimes
+  discovery: rainbow_slime_collection
+  discovery-tier: 5
+  items:
+    blue_slime: 50
+
+cooked_necropolis_fish:
+  amount: 1
+  time: 20m
+  discovery: necropolis_fish_collection
+  discovery-tier: 3
+  category: necropolis_ingredients
+  items:
+    necropolis_fish: 192
+
+compressed_sand:
+  amount: 1
+  discovery: sand_collection
+  discovery-tier: 2
+  category: necropolis_ingredients
+  items:
+    sand: 320
+
+compressed_purple_popcorn:
+  amount: 1
+  category: necropolis_ingredients
+  items:
+    purple_popcorn: 320

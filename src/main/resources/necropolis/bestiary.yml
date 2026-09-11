@@ -1,0 +1,97 @@
+necropolis:
+  icon: BONE_BLOCK
+  name: "Necropolis"
+  description:
+    - <grey>Once the graveyard for nobles and knights, this
+    - <grey>long sacred ground has become overrun with skeletons, spirits
+    - <grey>and oozing slime. Some claim a <green>Hydra</green> has taken up residence!
+  parent: base
+
+necropolis_dusted:
+  icon: LIGHT_GRAY_CONCRETE_POWDER
+  name: "Dusted"
+  parent: necropolis
+  description:
+    - <grey>Barely animated amalgamations of dust
+    - <grey>held together by a warrior's dying thirst
+    - <grey>for battle.
+
+necropolis_sword_spirits:
+  icon: DIAMOND_SWORD
+  name: "Sword Spirits"
+  parent: necropolis
+  description:
+    - <red>Write later!
+
+necropolis_haunting_slime:
+  icon: red_slime
+  name: "Haunting Slimes"
+  parent: necropolis
+  description:
+    - <red>Write later!
+
+necropolis_bosses:
+  icon: PRISMARINE_SHARD
+  name: "Great Foes"
+  parent: necropolis
+  description:
+    - <grey>These are exceptional enemies found deep in
+    - <grey>the heart of <white>Necropolis</white>, which
+    - <grey>reward powerful equipment upon defeat.
+
+necropolis_detecting:
+  icon: IRON_HOE
+  name: "Treasure Hunting"
+  parent: necropolis
+  description:
+    - <red>write later!
+
+necropolis_fishing:
+  icon: FISHING_ROD
+  name: "Fishing"
+  parent: necropolis
+  description:
+    - <grey>Fish up a variety of powerful creatures
+    - <grey>for powerful rewards! Raise your <aqua>fishing power</aqua>
+    - <grey>to raise your odds of fishing up high tier mob brackets!
+    - <grey>Necropolis requires at least <aqua>150 fishing power</aqua>
+    - <grey>in order to catch anything.
+necropolis_fishing_common:
+  icon: WHITE_CONCRETE
+  name: "<grey><b>COMMON</b></grey> Bracket"
+  description:
+    - <grey>Lowest tier fishing mobs found</grey>
+    - <grey>exclusively in <white>Necropolis</white>!</grey>
+  parent: necropolis_fishing
+
+necropolis_fishing_uncommon:
+  icon: YELLOW_CONCRETE
+  name: "<yellow><b>UNCOMMON</b></yellow> Bracket"
+  description:
+    - <grey>Lowest tier fishing mobs found</grey>
+    - <grey>exclusively in <white>Necropolis</white>!</grey>
+  parent: necropolis_fishing
+
+necropolis_fishing_rare:
+  icon: LIME_CONCRETE
+  name: "<green><b>RARE</b></green> Bracket"
+  description:
+    - <grey>Lowest tier fishing mobs found</grey>
+    - <grey>exclusively in <white>Necropolis</white>!</grey>
+  parent: necropolis_fishing
+
+necropolis_fishing_very_rare:
+  icon: BLUE_CONCRETE
+  name: "<blue><b>VERY RARE</b></blue> Bracket"
+  description:
+    - <grey>Lowest tier fishing mobs found</grey>
+    - <grey>exclusively in <white>Necropolis</white>!</grey>
+  parent: necropolis_fishing
+
+necropolis_fishing_epic:
+  icon: PURPLE_CONCRETE
+  name: "<dark_purple><b>EPIC</b></dark_purple> Bracket"
+  description:
+    - <grey>The highest tier of fishing mobs found</grey>
+    - <grey>exclusively in <white>Necropolis</white>!</grey>
+  parent: necropolis_fishing

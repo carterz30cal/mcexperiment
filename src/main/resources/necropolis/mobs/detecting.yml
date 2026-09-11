@@ -1,0 +1,174 @@
+treasure_mouldy_bull:
+  name: Mouldy Bull
+  level: 10
+  health: 7500
+  knockback: 40
+  speed: 1.7
+  damage:
+    PHYSICAL: 175
+  stats:
+    DEFENCE: 0
+  souls:
+    NECROPOLIS: 2
+  bestiary:
+    category: necropolis_detecting
+  tags:
+    - NECROPOLIS
+    - UNDEAD
+    - TREASURE_DETECTION
+  entities:
+    _:
+      type: MOOSHROOM
+      scale: 1
+      offset: [ 0,0,0 ]
+  loot:
+    purple_popcorn:
+      chance: 1/1
+      amount: 1/2
+    bull_hat:
+      chance: 1/150
+      amount: 1/1
+
+treasure_randsplode:
+  name: Randsplode
+  level: 10
+  health: 6000
+  knockback: 110
+  speed: 1.8
+  directors:
+    phase-time: 120
+    options:
+      - CREEPER
+      - COW
+  damage:
+    EXPLOSIVE: 300
+  stats:
+    DOUSING: -150
+    INSULATION: 50
+  souls:
+    NECROPOLIS: 2
+  bestiary:
+    category: necropolis_detecting
+  tags:
+    - NECROPOLIS
+    - TREASURE_DETECTION
+  entities:
+    _:
+      type: CREEPER
+      scale: 1.4
+      offset: [ 0,-0.5,0 ]
+  loot:
+    purple_popcorn:
+      chance: 1/1
+      amount: 1/2
+    enchanted_book-LC1:
+      chance: 1/100
+      enchants: ENCHANT_LAST_CHANCE-1
+
+treasure_triblaze:
+  name: Ancient Triblaze
+  level: 12
+  health: 17000
+  knockback: 20
+  speed: 1.8
+  director: BLAZE
+  damage:
+    FIRE: 100
+  stats:
+    DOUSING: 550
+    INSULATION: -50
+  souls:
+    NECROPOLIS: 10
+  bestiary:
+    category: necropolis_detecting
+  tags:
+    - NECROPOLIS
+    - TREASURE_DETECTION
+    - MINIBOSS
+    - SPIRIT
+  entities:
+    _:
+      type: BLAZE
+      scale: 1.1
+      offset: [ 0,0,0 ]
+    m:
+      type: BLAZE
+      scale: 1.1
+      offset: [ 0,2,0 ]
+      allow-ai: true
+    t:
+      type: BLAZE
+      scale: 1.1
+      offset: [ 0,4,0 ]
+      allow-ai: true
+  loot:
+    purple_popcorn:
+      chance: 1/1
+      amount: 1/2
+    everlasting_flame:
+      chance: 1/4
+      amount: 1/2
+
+treasure_hound:
+  name: Hihound
+  level: 10
+  health: 6000
+  knockback: 110
+  speed: 1.8
+  directors:
+    phase-time: 400
+    options:
+      - WOLF
+      - FOX
+  damage:
+    PHYSICAL: 130
+  stats:
+    DOUSING: -50
+  souls:
+    NECROPOLIS: 2
+  bestiary:
+    category: necropolis_detecting
+  tags:
+    - NECROPOLIS
+    - TREASURE_DETECTION
+    - ANIMAL
+  entities:
+    _:
+      type: WOLF
+      scale: 1.1
+      offset: [ 0,0,0 ]
+  loot:
+    purple_popcorn:
+      chance: 1/1
+      amount: 1/2
+
+treasure_golem:
+  name: Ancient Golem
+  level: 13
+  health: 25000
+  knockback: 20
+  speed: 1.8
+  director: IRON_GOLEM
+  damage:
+    PHYSICAL: 180
+    EXPLOSIVE: 20
+  stats:
+    INSULATION: 200
+  souls:
+    NECROPOLIS: 10
+  bestiary:
+    category: necropolis_detecting
+  tags:
+    - NECROPOLIS
+    - TREASURE_DETECTION
+    - MINIBOSS
+    - GOLEM
+  entities:
+    _:
+      type: IRON_GOLEM
+      scale: 1.5
+      offset: [ 0,0,0 ]
+  loot:
+    purple_popcorn:
+      chance: 1/1
+      amount: 1/2

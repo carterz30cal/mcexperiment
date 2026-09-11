@@ -1,0 +1,64 @@
+necropolis_shop:
+  shop-name: "Herb's Necrotic Niceties"
+  shopkeeper-name: "Herb Bloombert"
+  shopkeeper-type: MANNEQUIN
+  location: 40.4, 69.06, 379.3, 170, 0
+  entities:
+    _:
+      type: MANNEQUIN
+      offset: [ 0,0,0 ]
+      scale: 1
+  items:
+    tiny_potion_bottle:
+      item: tiny_potion_bottle
+      coins: 100
+      level: 5
+    drop_of_sadness:
+      item: drop_of_sadness
+      coins: 125
+      level: 5
+    catalyst:
+      item: combination_catalyst_shard
+      coins: 475
+      level: 5
+    white_label_pickaxe:
+      item: white_label_pickaxe
+      level: 5
+      coins: 1250
+    bone_sword:
+      item: bone_sword
+      level: 5
+      coins: 4000
+    roasted_bone_dust:
+      item: roasted_bone_dust
+      level: 6
+      coins: 1100
+    enchanted_book_titanic:
+      item: enchanted_book
+      enchants: ENCHANT_TITANIC-1
+      coins: 750
+      level: 7
+
+scavenger_shop:
+  shop-name: "Enthusiast's Supplies Inc"
+  shopkeeper-name: "Treasure Enthusiast"
+  shopkeeper-type: MANNEQUIN
+  location: 20.15,69,335.3,7,1
+  entities:
+    _:
+      type: MANNEQUIN
+      offset: [ 0,0,0 ]
+      scale: 1
+  items:
+    gold_nugget:
+      item: gold_nugget
+      coins: 60
+      level: 4
+    treasure_detector_common:
+      item: treasure_detector_common
+      coins: 1600
+      level: 5
+    detection_enthusiast_hat:
+      item: detection_enthusiast_hat
+      coins: 4000
+      level: 8

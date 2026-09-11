@@ -1,0 +1,52 @@
+white_label_pickaxe:
+  name: White Label Pickaxe
+  type: PICKAXE
+  rarity: UNCOMMON
+  material: STONE_PICKAXE
+  value: 500
+  stats:
+    mining_speed: 165
+    breaking_power: 2
+    mining_fortune: 40
+    enchant_power: 10
+    level_requirement: 5
+
+spirit_pickaxe_very_rare:
+  name: Spirit Pickaxe
+  type: PICKAXE
+  rarity: VERY_RARE
+  material: DIAMOND_PICKAXE
+  value: 800
+  stats:
+    mining_speed: 250
+    breaking_power: 3
+    mining_fortune: 130
+    enchant_power: 10
+    level_requirement: 6
+
+sand_shovel_epic:
+  name: Sand Shovel
+  type: PICKAXE
+  rarity: EPIC
+  material: GOLDEN_SHOVEL
+  abilities:
+    - SAND_SHOVEL
+  stats:
+    mining_speed: +280
+    breaking_power: +1
+    mining_fortune: +60
+    clearing: +60
+    enchant_power: +15
+    level_requirement: 5
+
+clearing_test_pickaxe:
+  name: Testing Pickaxe
+  type: PICKAXE
+  rarity: MYSTERIOUS
+  material: NETHERITE_PICKAXE
+  value: 1
+  stats:
+    mining_speed: 200
+    breaking_power: 10
+    enchant_power: 100
+    clearing: 250

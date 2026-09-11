@@ -23,19 +23,23 @@ import java.util.Objects;
 
 /**
  * @author carterz30cal
- * @version 3
+ * @version 4
  * @since 1.0.0
  */
 public class EnemyManager 
 {
 	public static String[] files = {
             "waterway/mobs/lunatics", "waterway/mobs/titans",
+            "waterway/mobs/shockers",
             "waterway/mobs/spiders",
             "waterway/mobs/seraph/boss", "waterway/mobs/seraph/summons",
             "waterway/mobs/fishing/fishing_common",
             "waterway/mobs/fishing/fishing_uncommon",
             "waterway/mobs/fishing/fishing_rare",
             "waterway/mobs/fishing/fishing_very_rare",
+            "necropolis/mobs/dusted", "necropolis/mobs/sword_spirits", "necropolis/mobs/haunting_slimes",
+            "necropolis/mobs/bosses", "necropolis/mobs/detecting",
+            "necropolis/mobs/fishing/shocktopus"
 	};
 	
 	public static EnemyManager instance;
@@ -62,9 +66,17 @@ public class EnemyManager
 
                 var director = new EnemyDirectorBuilder();
                 director.setKnockback(c.getInt(p + ".knockback", 100))
-                        .setSpeed(c.getDouble(p + ".speed", 1D))
-                        .setEntityType(EntityType.valueOf(c.getString(p + ".director", "ZOMBIE").toUpperCase()))
-                        .setTargetingBehaviour(new SimpleTargetingBehaviour(false));
+                        .setSpeed(c.getDouble(p + ".speed", 1D));
+                if (c.contains(p + ".directors")) {
+                    director.setPhaseTime(c.getInt(p + ".directors.phase-time"));
+                    for (var d : c.getStringList(p + ".directors.options")) {
+                        director.addEntityType(EntityType.valueOf(d));
+                    }
+                }
+                else {
+                    director.setEntityType(EntityType.valueOf(c.getString(p + ".director", "ZOMBIE").toUpperCase()));
+                }
+                director.setTargetingBehaviour(new SimpleTargetingBehaviour(false));
 
                 var data = new EnemyData();
                 data.name = MiniMessage.miniMessage().deserialize(c.getString(p + ".name", "null"));

@@ -25,5 +25,5 @@ gold_leaf_pickaxe:
   material: GOLDEN_PICKAXE
   stats:
     mining_speed: 200
-    breaking_power: 2
-    mining_fortune: 110
+    breaking_power: 3
+    mining_fortune: 120

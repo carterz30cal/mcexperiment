@@ -1,0 +1,16 @@
+dusty_honeycomb:
+  name: Dusty Honeycomb
+  type: ATTUNER
+  rarity: RARE
+  material: HONEYCOMB
+  value: 750
+  attuner-icon: '@'
+  attuner-colour:
+    r: 235
+    g: 188
+    b: 78
+  stats:
+    clearing: +5
+    health: +10
+    power: +7
+    

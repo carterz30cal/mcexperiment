@@ -14,9 +14,6 @@ import org.bukkit.Sound;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import static net.kyori.adventure.text.format.NamedTextColor.*;
 
 public class ShopGUI extends AbstractGUI {
@@ -74,7 +71,6 @@ public class ShopGUI extends AbstractGUI {
 
         long pLevel = owner.getLevel();
 
-        List<String> requirements = new ArrayList<>();
         if (recipe.levelRequirement > pLevel) {
             return ItemFactory.buildCustom(
                     "RED_STAINED_GLASS_PANE",
@@ -139,14 +135,12 @@ public class ShopGUI extends AbstractGUI {
             if (clicked != null) {
                 Item item = ItemFactory.getItem(clicked);
                 if (item != null && item.value > 0) {
-                    String data = ItemFactory.getFlatItemData(clicked);
-                    //System.out.println(data);
                     if (ItemFactory.isItemBaseModel(clicked)) {
                         int am = clicked.getAmount();
                         clicked.setAmount(0);
-                        owner.coins += am * item.value;
+                        owner.gainCoins(am * item.value);
                     }
-                    else owner.sendMessage("REDYou can't sell modified items to the shop.");
+                    else owner.sendMessage("<red>You can't sell modified items to the shop.");
                 }
             }
             return false;
@@ -172,12 +166,12 @@ public class ShopGUI extends AbstractGUI {
 
 
             if (recipe.levelRequirement > owner.getLevel() || !collectionUnlocked) {
-                owner.sendMessage("REDYou aren't at a high enough level to buy this!");
+                owner.sendMessage("<red>You aren't at a high enough level to buy this!");
                 owner.playSound(Sound.ENTITY_CREEPER_HURT, 0.4, 0.9);
 
             }
             else if (owner.player.getInventory().firstEmpty() == -1) {
-                owner.sendMessage("REDFree up some inventory space!");
+                owner.sendMessage("<red>Free up some inventory space!");
                 owner.playSound(Sound.ENTITY_CREEPER_HURT, 0.4, 0.9);
             }else {
                 ItemReqs requirements = new ItemReqs();
@@ -194,9 +188,9 @@ public class ShopGUI extends AbstractGUI {
                     if (recipe.enchants == null && !data.isEmpty()) {
                         item.data = data;
                     }
-                    owner.giveItem(item.produce());
+                    owner.giveItem(item.produce(), false);
                 } else {
-                    owner.sendMessage("REDYou can't buy this item!");
+                    owner.sendMessage("<red>You can't buy this item!");
                     owner.playSound(Sound.ENTITY_CREEPER_HURT, 0.8, 0.6);
                 }
             }

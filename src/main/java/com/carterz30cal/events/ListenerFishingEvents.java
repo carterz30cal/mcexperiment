@@ -14,7 +14,11 @@ import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.player.PlayerFishEvent;
 import org.bukkit.event.player.PlayerFishEvent.State;
 
-
+/**
+ * @author carterz30cal
+ * @version 2
+ * @since 1.0.0
+ */
 public class ListenerFishingEvents implements Listener
 {
 	@EventHandler
@@ -50,16 +54,14 @@ public class ListenerFishingEvents implements Listener
 			e.setExpToDrop(0);
 
             if (p.area == null) {
-                p.sendMessage("REDThere's no fish to catch!");
+                p.sendMessage("<red>There's nothing to catch here!");
             }
             else {
-//                if (p.bobber != null && !p.bobber.isCancelled()) {
-//                    p.sendMessage("REDReplacing current bobber!");
-//                    p.bobber.remove();
-//                }
-                FishingArea.FishingBobber bobber = FishingArea.getFishingArea(p.area.name()).getBobberUsingPower(e.getHook().getLocation(), p);
-                p.bobber = bobber;
-                p.sendMessage("You've fished up a " + p.bobber.rarity.colour + "BOLD" + p.bobber.rarity.name.toUpperCase() + " WHITEBobber!");
+                p.bobber = FishingArea.getFishingArea(p.area.name()).getBobberUsingPower(e.getHook().getLocation(), p);
+				if (p.bobber == null) {
+					p.sendMessage("<red>You do not have enough fishing power to fish here!");
+				}
+                else p.sendMessage("<white>You've fished up a <" + p.bobber.rarity.textColor.asHexString() + "><b>" + p.bobber.rarity.name.toUpperCase() + "</b> <white>bobber!");
             }
 
 

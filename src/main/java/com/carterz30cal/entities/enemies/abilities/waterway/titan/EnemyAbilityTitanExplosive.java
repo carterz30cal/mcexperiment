@@ -10,8 +10,8 @@ import com.carterz30cal.entities.health.damage.AttackType;
 import com.carterz30cal.entities.health.damage.DamagePacket;
 import com.carterz30cal.entities.health.damage.DamageType;
 import com.carterz30cal.entities.player.GamePlayer;
-import com.carterz30cal.items.abilities2.implementation.ContextWithAbility;
-import com.carterz30cal.items.abilities2.implementation.RegisterableAbility;
+import com.carterz30cal.items.abilities.implementation.ContextWithAbility;
+import com.carterz30cal.items.abilities.implementation.RegisterableAbility;
 import com.carterz30cal.main.Dungeons;
 import org.bukkit.Location;
 import org.bukkit.Material;
@@ -123,7 +123,7 @@ public class EnemyAbilityTitanExplosive extends EnemyAbility implements Register
     }
 
     @Override
-    public void unregister(ContextWithAbility<? extends GameEntity> context) {
+    public void deregister(ContextWithAbility<? extends GameEntity> context) {
         if (tickers.containsKey(context.getOwner())) {
             var ticker = tickers.get(context.getOwner());
             ticker.cancel();

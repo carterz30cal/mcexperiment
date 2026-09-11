@@ -24,7 +24,7 @@ import java.util.Objects;
 
 /**
  * @author carterz30cal
- * @version 2
+ * @version 3
  * @since 1.0.0
  */
 public class EnemyRepresentationData {
@@ -33,6 +33,7 @@ public class EnemyRepresentationData {
     public Vector offset;
     public EntityType type;
     public boolean invisible;
+    public boolean allowAI = false;
     public Map<EquipmentSlot, String> equipment = new HashMap<>();
 
     /**
@@ -56,6 +57,7 @@ public class EnemyRepresentationData {
         this.type = existing.type;
         this.invisible = existing.invisible;
         this.equipment.putAll(existing.equipment);
+        this.allowAI = existing.allowAI;
     }
 
     public EnemyRepresentationData(@NotNull ConfigurationSection yaml) {
@@ -64,6 +66,7 @@ public class EnemyRepresentationData {
         offset = new Vector(list.get(0), list.get(1), list.get(2));
         type = EntityType.valueOf(Objects.requireNonNull(yaml.getString("type")).toUpperCase());
         invisible = yaml.getBoolean("invisible", false);
+        allowAI = yaml.getBoolean("allow-ai", false);
 
         if (yaml.contains("equipment")) {
             ConfigurationSection e = yaml.getConfigurationSection("equipment");
@@ -82,6 +85,7 @@ public class EnemyRepresentationData {
     public static EnemyRepresentationData fromYaml(@NotNull ConfigurationSection yaml) {
         EntityType type = EntityType.valueOf(Objects.requireNonNull(yaml.getString("type")).toUpperCase());
         return switch (type) {
+            case ITEM_DISPLAY -> new ItemDisplayRepresentationData(yaml);
             default -> new EnemyRepresentationData(yaml);
         };
 
@@ -93,7 +97,7 @@ public class EnemyRepresentationData {
         entity.setSilent(true);
         if (entity instanceof LivingEntity livingEntity) {
             livingEntity.setCollidable(false);
-            livingEntity.setAI(false);
+            livingEntity.setAI(allowAI);
             EntityUtils.applyPotionEffect(livingEntity, PotionEffectType.FIRE_RESISTANCE, 999999, 1, false);
             if (invisible) {
                 livingEntity.addPotionEffect(new PotionEffect(PotionEffectType.INVISIBILITY, PotionEffect.INFINITE_DURATION, 0, false, false));

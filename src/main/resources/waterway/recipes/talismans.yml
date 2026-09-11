@@ -42,6 +42,14 @@ storm_talisman_epic:
     storm_talisman_very_rare: 6
     storm_crystals: 64
 
+green_storm_crystal:
+  level: 3
+  category: waterway_talismans
+  items:
+    storm_talisman_rare: 1
+    empty_storm_pearl: 8
+    storm_crystals: 8
+
 zombies_head:
   level: 6
   time: 1h

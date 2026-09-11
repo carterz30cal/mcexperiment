@@ -8,15 +8,17 @@ import com.carterz30cal.entities.enemies.abilities.EnemyAbilityContext;
 import com.carterz30cal.entities.enemies.directors.EnemyDirector;
 import com.carterz30cal.entities.enemies.representation.EnemyInformationDisplay;
 import com.carterz30cal.entities.enemies.representation.EnemyRepresentation;
+import com.carterz30cal.entities.enemies.representation.RepresentedEntity;
 import com.carterz30cal.entities.health.EntityHealthSystem;
 import com.carterz30cal.entities.health.damage.DamagePacket;
 import com.carterz30cal.entities.health.damage.handlers.AggressiveEntity;
 import com.carterz30cal.entities.health.damage.handlers.DamageableEntity;
 import com.carterz30cal.entities.health.status.StatusEffect;
 import com.carterz30cal.entities.player.GamePlayer;
-import com.carterz30cal.items.abilities2.implementation.AbilityWithKillEffect;
-import com.carterz30cal.items.abilities2.implementation.ContextWithAbility;
-import com.carterz30cal.items.abilities2.implementation.RegisterableAbility;
+import com.carterz30cal.items.abilities.implementation.AbilityWithKillEffect;
+import com.carterz30cal.items.abilities.implementation.AbilityWithTick;
+import com.carterz30cal.items.abilities.implementation.ContextWithAbility;
+import com.carterz30cal.items.abilities.implementation.RegisterableAbility;
 import com.carterz30cal.main.Dungeons;
 import com.carterz30cal.stats.Stat;
 import com.carterz30cal.utils.StringUtils;
@@ -39,15 +41,16 @@ import static net.kyori.adventure.text.Component.text;
 
 /**
  * @author carterz30cal
- * @version 5
+ * @version 9
  * @since 1.0.0
  */
 @SuppressWarnings("UnnecessaryUnicodeEscape")
-public class GameEnemy extends GameEntity implements AggressiveEntity, DamageableEntity, TagHavingEntity
+public class GameEnemy extends GameEntity implements AggressiveEntity, DamageableEntity, TagHavingEntity, RepresentedEntity
 {
 	public static NamespacedKey keyEnemy = new NamespacedKey(Dungeons.instance, "keyEnemy");
 
     private final BukkitRunnable ticker;
+    private int aliveTick;
 
     protected EnemyRepresentation representation;
     protected EntityHealthSystem healthSystem;
@@ -115,6 +118,14 @@ public class GameEnemy extends GameEntity implements AggressiveEntity, Damageabl
 
     public EnemyData getEnemyData() {
         return enemyData;
+    }
+
+    /**
+     * @return the type id of this enemy
+     * @since 1.0.0 [9]
+     */
+    public String getTypeId() {
+        return typeId;
     }
 
     public void setEnemyData(EnemyData data) {
@@ -216,10 +227,18 @@ public class GameEnemy extends GameEntity implements AggressiveEntity, Damageabl
     }
 
     public void tick() {
-        if (!enemyDirector.getTargetableEntity().isValid()) {
+        if (!enemyDirector.getTargetableEntity().isValid() || !representation.valid()) {
             remove();
             return;
         }
+
+        for (var a : abilities) {
+            if (a.getAbility() instanceof AbilityWithTick tickable) {
+                tickable.tick(a, aliveTick);
+            }
+        }
+        aliveTick++;
+
         enemyDirector.tick(this);
         representation.tick(enemyDirector.getLocation());
         healthSystem.tick();
@@ -277,13 +296,13 @@ public class GameEnemy extends GameEntity implements AggressiveEntity, Damageabl
         }
 
         if (spawnedArea != null && !healthSystem.getPlayerAttackers().isEmpty()) {
-            spawnedArea.OnKill(this);
+            spawnedArea.onKill(this);
         }
         dropLoot();
 
         for (var a : abilities) {
             if (a.getAbility() instanceof RegisterableAbility registerable) {
-                registerable.unregister(a);
+                registerable.deregister(a);
             }
         }
 
@@ -295,8 +314,10 @@ public class GameEnemy extends GameEntity implements AggressiveEntity, Damageabl
     public DamagePacket getBlankDamagePacket() {
         var packet = new DamagePacket();
         packet.aggressor = this;
-        for (var damage : enemyData.damages.entrySet()) {
-            packet.addDamage(damage.getKey(), damage.getValue());
+        if (enemyData != null) {
+            for (var damage : enemyData.damages.entrySet()) {
+                packet.addDamage(damage.getKey(), damage.getValue());
+            }
         }
         return packet;
     }
@@ -342,8 +363,8 @@ public class GameEnemy extends GameEntity implements AggressiveEntity, Damageabl
             attacker.playSound(enemyData.deathSound, 0.6, 1);
             attacker.playSound(Sound.ENTITY_EXPERIENCE_ORB_PICKUP, 1, 1.35);
             var coins = getCoinValue(attacker);
-            attacker.coins += coins;
-            attacker.lastCoinReward = coins;
+            attacker.gainCoins(coins);
+            attacker.lastXpReward = 0;
             attacker.rewardTick = 30;
             attacker.skillTree.gainSouls(getEnemyData());
         }

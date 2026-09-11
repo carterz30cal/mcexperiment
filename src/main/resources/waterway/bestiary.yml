@@ -14,6 +14,15 @@ waterway_lunatics:
     - <grey>of the <red>Lava Seraph</red>.
   parent: waterway
 
+waterway_shockers:
+  icon: GOLDEN_SWORD
+  name: "Shockers"
+  description:
+    - <grey>These creatures normally hide away in small burrows
+    - <grey>but will come out during a heavy downpour which are
+    - <grey>luckily quite frequent in <blue>Waterway</blue>.
+  parent: waterway
+
 waterway_titans:
   icon: pungent_sword
   name: "Titans"
@@ -42,21 +51,21 @@ waterway_fishing_common:
   name: "<grey><b>COMMON</b></grey> Bracket"
   description:
     - <grey>Lowest tier fishing mobs found</grey>
-    - <grey>exclusively in <blue>Waterway</blue>!</grey>
+    - <grey>exclusively in <blue>Waterway</blue>!
   parent: waterway_fishing
 waterway_fishing_uncommon:
   icon: YELLOW_CONCRETE
   name: "<yellow><b>UNCOMMON</b></yellow> Bracket"
   description:
     - <grey>Stronger fishing mobs found</grey>
-    - <grey>by fishing in <blue>Waterway</blue></grey>!
+    - <grey>by fishing in <blue>Waterway</blue>!
   parent: waterway_fishing
 waterway_fishing_rare:
   icon: LIME_CONCRETE
   name: "<green><b>RARE</b></green> Bracket"
   description:
     - <grey>Difficult fishing beasts!</grey>
-    - <grey>Found exclusively within <blue>Waterway</blue>!</grey>
+    - <grey>Found exclusively within <blue>Waterway</blue>!
   parent: waterway_fishing
 waterway_fishing_very_rare:
   icon: BLUE_CONCRETE
@@ -64,7 +73,7 @@ waterway_fishing_very_rare:
   description:
     - <grey>Only the best fishers can consistently</grey>
     - <grey>fish up these beasts!</grey>
-    - <grey>Found exclusively within <blue>Waterway</blue>!</grey>
+    - <grey>Found exclusively within <blue>Waterway</blue>!
   parent: waterway_fishing
 
 waterway_waterway_seraph:

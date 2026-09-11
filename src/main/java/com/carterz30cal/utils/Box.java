@@ -137,9 +137,6 @@ public class Box {
                 return getRandomMobLocation();
             }
         }
-        if (location.clone().subtract(0, 1, 0).getBlock().isLiquid()) {
-            return getRandomMobLocation();
-        }
 
         return location;
     }

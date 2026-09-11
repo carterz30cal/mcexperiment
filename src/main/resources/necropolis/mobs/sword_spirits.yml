@@ -1,0 +1,77 @@
+sword_spirit_test:
+  name: Sword Spirit
+  level: 8
+  health: 2000
+  knockback: 110
+  speed: 1.1
+  damage:
+    MAGIC: 50
+  stats:
+    DOUSING: -200
+  souls:
+    NECROPOLIS: 1
+  bestiary:
+    category: NO_REGISTER
+  tags:
+    - NECROPOLIS
+    - SPIRIT
+  loot:
+    calmed_spirit:
+      amount: 1/1
+      chance: 1/20
+  entities:
+    hitbox:
+      type: ZOMBIE
+      scale: 1.1
+      offset: [ 0,0,0 ]
+      invisible: true
+    1:
+      type: ITEM_DISPLAY
+      item: DIAMOND_SWORD
+      scale: 1.2
+      offset: [ 0.4,0.5,0 ]
+    2:
+      type: ITEM_DISPLAY
+      item: DIAMOND_SWORD
+      scale: 1.2
+      offset: [ -0.4,0.5,0 ]
+    3:
+      type: ITEM_DISPLAY
+      item: DIAMOND_SWORD
+      scale: 1.2
+      offset: [ 0,0.5,0.4 ]
+    4:
+      type: ITEM_DISPLAY
+      item: DIAMOND_SWORD
+      scale: 1.2
+      offset: [ 0,0.5,-0.4 ]
+
+sword_spirit_1:
+  name: Sword Spirit
+  level: 8
+  health: 2000
+  knockback: 110
+  speed: 1.2
+  damage:
+    MAGIC: 40
+  stats:
+    DOUSING: -200
+  souls:
+    NECROPOLIS: 1
+  bestiary:
+    category: necropolis_sword_spirits
+  tags:
+    - NECROPOLIS
+    - SPIRIT
+  loot:
+    calmed_spirit:
+      amount: 1/1
+      chance: 1/15
+  entities:
+    hitbox:
+      type: ZOMBIE
+      scale: 1.1
+      offset: [ 0,0,0 ]
+      invisible: true
+      equipment:
+        HAND: DIAMOND_SWORD

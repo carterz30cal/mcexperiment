@@ -1,0 +1,9 @@
+flesh_production_core:
+  time: 2h
+  category: waterway
+  discovery: weird_flesh_collection
+  discovery-tier: 5
+  items:
+    spiced_meat: 80
+    weird_flesh: 5000
+    leaf_mash: 1250

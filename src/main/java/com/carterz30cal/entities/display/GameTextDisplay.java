@@ -2,6 +2,7 @@ package com.carterz30cal.entities.display;
 
 import com.carterz30cal.entities.GameEntity;
 import com.carterz30cal.entities.LocatableEntity;
+import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.minimessage.MiniMessage;
 import org.bukkit.Location;
 import org.bukkit.entity.Display;
@@ -17,7 +18,7 @@ import java.util.UUID;
  * Provides a method of displaying text without the faff
  *
  * @author carterz30cal
- * @version 1
+ * @version 2
  * @see TextDisplay
  * @since 1.0.0
  */
@@ -50,7 +51,7 @@ public class GameTextDisplay extends GameEntity implements LocatableEntity {
         if (entities.containsKey(id)) {
             var entity = entities.get(id);
             if (!entity.id.equals(id)) {
-                throw new IllegalStateException("Somehow the GameBossTextDisplay entity has a mismatched id with the mapped id?");
+                throw new IllegalStateException("Somehow the GameTextDisplay entity has a mismatched id with the mapped id?");
             }
             if (entity.dead || !entity.display.isValid()) {
                 entities.remove(id);
@@ -88,6 +89,17 @@ public class GameTextDisplay extends GameEntity implements LocatableEntity {
     public void name(@NotNull String name) {
         var component = MiniMessage.miniMessage().deserialize(name);
         this.display.text(component);
+    }
+
+    /**
+     * Set the display text of the <code>TextDisplay</code> entity within.
+     *
+     * @param name the text you want to display, in <code>Component</code> format.
+     * @see Component
+     * @since 1.0.0
+     */
+    public void name(@NotNull Component name) {
+        this.display.text(name);
     }
 
     @Override

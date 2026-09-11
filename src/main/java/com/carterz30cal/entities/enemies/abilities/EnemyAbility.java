@@ -1,6 +1,6 @@
 package com.carterz30cal.entities.enemies.abilities;
 
-import com.carterz30cal.items.abilities2.implementation.Ability;
+import com.carterz30cal.items.abilities.implementation.Ability;
 import com.carterz30cal.main.Dungeons;
 import org.bukkit.configuration.ConfigurationSection;
 import org.jetbrains.annotations.NotNull;

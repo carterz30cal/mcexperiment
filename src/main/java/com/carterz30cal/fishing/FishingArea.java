@@ -1,12 +1,18 @@
 package com.carterz30cal.fishing;
 
+import com.carterz30cal.entities.display.GameTextDisplay;
 import com.carterz30cal.entities.enemies.core.EnemyManager;
 import com.carterz30cal.entities.enemies.core.GameEnemy;
 import com.carterz30cal.entities.player.GamePlayer;
 import com.carterz30cal.items.ItemRarity;
 import com.carterz30cal.main.Dungeons;
 import com.carterz30cal.stats.Stat;
-import com.carterz30cal.utils.*;
+import com.carterz30cal.utils.Box;
+import com.carterz30cal.utils.EntityUtils;
+import com.carterz30cal.utils.FileUtils;
+import com.carterz30cal.utils.RandomUtils;
+import net.kyori.adventure.text.format.NamedTextColor;
+import net.kyori.adventure.text.format.TextDecoration;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.configuration.ConfigurationSection;
@@ -14,10 +20,9 @@ import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.ArmorStand;
 import org.bukkit.scheduler.BukkitRunnable;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
+
+import static net.kyori.adventure.text.Component.text;
 
 /**
  * @author carterz30cal
@@ -69,11 +74,12 @@ public class FishingArea {
     }
 
     public FishingBobber getBobberUsingPower(Location location, GamePlayer owner) {
-        int fishingPower;
-        fishingPower = owner.stats.getStat(Stat.FISHING_POWER) - powerSubtraction;
+        long fishingPower;
+        fishingPower = owner.stats.stat(Stat.FISHING_POWER) - powerSubtraction;
 
-        int adjustedPower = fishingPower;
-        int startPower = 0;
+        long adjustedPower = fishingPower;
+        if (adjustedPower < 0) return null;
+        long startPower = 0;
         int i = 0;
         while (adjustedPower > 0 && i < brackets.size() - 1) {
             startPower += Math.min(adjustedPower, brackets.get(i).bracketWeight);
@@ -86,7 +92,7 @@ public class FishingArea {
         }
 
 
-        int choice = RandomUtils.getRandom(Math.max(0, startPower), getTotalWeight());
+        long choice = RandomUtils.getRandom(Math.max(0L, startPower), getTotalWeight());
         i = 0;
         while (choice > 0 && i <= brackets.size() - 1) {
             choice -= brackets.get(i).bracketWeight;
@@ -108,13 +114,20 @@ public class FishingArea {
 
         Location bobberSpot = location.getBlock().getLocation().add(0, 1, 0);
         bobber.location = bobberSpot;
-        bobber.displayTop = EntityUtils.spawnHologram(bobberSpot.clone().add(0, 0.4, 0), -1);
-        bobber.displayBottom = EntityUtils.spawnHologram(bobberSpot.clone().add(0, 0.4, 0), -1);
-        bobber.displayBottom.setGravity(true);
-        bobber.displayBottom.setMarker(false);
-        EntityUtils.applyKnockback(owner, bobber.displayBottom, -100);
-        bobber.displayBottom.setVelocity(owner.getLocation().subtract(bobberSpot).toVector().normalize().setY(0.6));
+        bobber.uuid = UUID.randomUUID();
+        bobber.title = GameTextDisplay.create(bobber.uuid + "_title", bobberSpot);
+        bobber.subtitle = GameTextDisplay.create(bobber.uuid + "_subtitle", bobberSpot);
+
+        bobber.physics = EntityUtils.spawnHologram(bobberSpot.clone().add(0, 0.4, 0), -1);
+        bobber.physics.setGravity(true);
+        bobber.physics.setMarker(false);
+        bobber.physics.setVisible(false);
+        bobber.physics.customName(text().build());
+        bobber.physics.setCustomNameVisible(false);
+        EntityUtils.applyKnockback(owner, bobber.physics, -100);
+        bobber.physics.setVelocity(owner.getLocation().subtract(bobberSpot).toVector().normalize().setY(0.6));
         bobber.lifetime = (int)Math.round(20 * 45 * Math.log(bobber.rarity.ordinal() + 2));
+        bobber.maxLifetime = bobber.lifetime;
         bobbers.put(owner, bobber);
 
         bobber.runTaskTimer(Dungeons.instance, 1, 1);
@@ -136,28 +149,36 @@ public class FishingArea {
         }
     }
 
+    /**
+     * @author carterz30cal
+     * @version 2
+     * @since 1.0.0
+     */
     public static class FishingBobber extends BukkitRunnable {
+        public UUID uuid;
         public ItemRarity rarity;
         public List<String> bracketMobs;
         public GamePlayer owner;
         public Location location;
         public List<GameEnemy> enemies = new ArrayList<>();
 
-        public ArmorStand displayTop;
-        public ArmorStand displayBottom;
+        public GameTextDisplay title;
+        public GameTextDisplay subtitle;
+
+        public ArmorStand physics;
 
         public int lifetime = 45 * 20;
+        public int maxLifetime;
 
         public void remove() {
-            cancel();
-            displayTop.remove();
-            displayBottom.remove();
+            physics.remove();
+            title.remove();
+            subtitle.remove();
         }
 
         @Override
         public void cancel() {
-            displayTop.remove();
-            displayBottom.remove();
+            remove();
             super.cancel();
         }
 
@@ -165,29 +186,39 @@ public class FishingArea {
         public void run() {
             lifetime--;
 
-            location = displayBottom.getLocation();
-            displayTop.teleport(location.clone().add(0, 0.5, 0));
+            location = physics.getLocation();
+            title.teleport(location.clone().add(0, 0.8, 0));
+            subtitle.teleport(location.clone().add(0, 0.5, 0));
             Box attemptBox = new Box(location.clone().add(0, 0, 0)).expand(1, 0, 1);
 
             if (lifetime < 1 || bracketMobs.isEmpty()) {
                 cancel();
             }
             else {
-                displayTop.setCustomName(
-                        StringUtils.colourString(owner.player.getDisplayName())
-                );
-                displayBottom.setCustomName(
-                        StringUtils.colourString(
-                                rarity.colour + "BOLD" + rarity.name.toUpperCase()
-                                + " DARK_GRAY[" + (lifetime / 20) + "s]"
-                        )
+                title.name(owner.player.displayName());
+                subtitle.name(
+                        text().append(
+                                text(rarity.name.toUpperCase(), rarity.textColor).decorate(TextDecoration.BOLD),
+                                text().color(NamedTextColor.DARK_GRAY).append(
+                                        text(" ["),
+                                        text(lifetime / 20),
+                                        text("s]")
+                                )
+                        ).build()
                 );
                 if (lifetime % 20 == 0) enemies.removeIf((e) -> e.dead);
-                if (lifetime % (20 * 4) == 1 && enemies.size() < 4) {
+                if (lifetime < maxLifetime - 40 && enemies.isEmpty()) {
                     if (attemptBox.getMiddleAsLocation().subtract(0, 1, 0).getBlock().getType() == Material.AIR) {
                         return;
                     }
-                    //Location spawnLocation = location.clone().add(0,1.25,0);
+                    Location attempt = attemptBox.getRandomMobLocation();
+                    enemies.add(EnemyManager.spawn(RandomUtils.getChoice(bracketMobs), attempt.add(0, 0.25, 0)));
+                    lifetime -= 20;
+                }
+                else if (lifetime % (20 * 4) == 1 && enemies.size() < 4) {
+                    if (attemptBox.getMiddleAsLocation().subtract(0, 1, 0).getBlock().getType() == Material.AIR) {
+                        return;
+                    }
                     Location attempt = attemptBox.getRandomMobLocation();
                     enemies.add(EnemyManager.spawn(RandomUtils.getChoice(bracketMobs), attempt.add(0, 0.25, 0)));
                 }

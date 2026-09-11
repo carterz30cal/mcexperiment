@@ -1,0 +1,41 @@
+necropolis_note_1:
+  name: Remnants of a Potionmaker's Notes I
+  type: QUEST_ITEM
+  rarity: EPIC
+  material: PAPER
+  value: 1500
+  lore:
+    - Prevention is an unprofitable business. Treatment, now
+    - that is where the money is at. If only Tracy had known
+    - that <aqua>three water elements</aqua> made a healing
+    - potion... maybe she'd still be here with me.
+    - Now, how to make people sick?
+
+necropolis_note_2:
+  name: Remnants of a Potionmaker's Notes II
+  type: QUEST_ITEM
+  rarity: EPIC
+  material: PAPER
+  value: 1500
+  lore:
+    - Okay, I've stumbled upon another element, which might
+    - come in handy for my new business venture. It might
+    - be unethical, but it sure sounds profitable to me!
+    - In the mean time, I'll sell these defence potions to
+    - make ends meet, as they're just <green>three earth elements</green>
+    - which is pretty easy now that I've got my ingredient
+    - pipeline down to the letter. Maybe I'll talk to more vendors..
+
+necropolis_note_3:
+  name: Remnants of a Potionmaker's Notes III
+  type: QUEST_ITEM
+  rarity: EPIC
+  material: PAPER
+  value: 1500
+  lore:
+    - Fire! How didn't I think of that first!
+    - I've been juicing on strength potions, by combining a total
+    - of <red>three fire elements</red> together, which have really
+    - boosted my chances against these ruffians who keep
+    - trying to steal my merchandise. Little progress on making
+    - a new disease however - yet more research is required!

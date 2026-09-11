@@ -13,7 +13,7 @@ import java.util.List;
 
 /**
  * @author carterz30cal
- * @version 2
+ * @version 3
  * @since 1.0.0
  */
 public class ItemLootTable
@@ -49,6 +49,26 @@ public class ItemLootTable
 		return drops;
 	}
 
+	/**
+	 * Receive one item from the loot table, using the chances as weights.
+	 * @param player the player we're dropping for
+	 * @return a drop
+	 * @since 1.0.0 [3]
+	 * @throws IllegalStateException if somehow we don't have correct weights?
+	 */
+	public ContextualDrop generateContextOne(GamePlayer player) {
+		var total = 0;
+		for (var l : loot) total += l.chance[0];
+		var choice = RandomUtils.getRandomEx(0, total);
+		for (var l : loot) {
+			if (choice < l.chance[0]) {
+				return new ContextualDrop(l);
+			}
+			else choice -= l.chance[0];
+		}
+		throw new IllegalStateException("Somehow the weights didn't add up!");
+	}
+
 	
 	public void addDrop(String item, int[] amount, int[] chance)
 	{
@@ -57,30 +77,32 @@ public class ItemLootTable
 		drop.amount = amount;
 		drop.chance = chance;
 		
-		//double percent = ((double)(chance[0]) / chance[1]) * 100;
-		double oddsIn = (double) chance[1] / chance[0];
-		for (int r = ItemRarity.values().length - 1; r >= 0; r--)
-		{
-			ItemRarity rarity = ItemRarity.values()[r];
-			if (rarity.lootboxOdds == -1) continue;
-			if (rarity.lootboxOdds <= oddsIn)
-			{
-				drop.rarity = rarity;
-				break;
-			}
-		}
-		for (int r = ItemRarity.values().length - 1; r >= 0; r--)
-		{
-			ItemRarity rarity = ItemRarity.values()[r];
-			if (rarity.lootOdds == -1) continue;
-			if (rarity.lootOdds <= oddsIn) {
-				drop.announcementRarity = rarity;
-				break;
-			}
-		}
+		figureOutRarity(drop);
 
 		loot.add(drop);
 	}
+
+	/**
+	 *
+	 * @param item the item to drop
+	 * @param lowerAmount lower bound of the amount dropped
+	 * @param upperAmount upper bound of the amount dropped
+	 * @param chance the numerator of the chance
+	 * @param outOf the denominator of the chance
+	 * @apiNote if using <code>ItemLootTable</code> as a weighted loot table, set <code>outOf = 1</code>.
+	 * @since 1.0.0 [3]
+	 */
+	public void add(String item, int lowerAmount, int upperAmount, int chance, int outOf) {
+		var drop = new ItemLoot();
+		drop.item = item;
+		drop.amount = new int[] {lowerAmount, upperAmount};
+		drop.chance = new int[] {chance, outOf};
+
+		figureOutRarity(drop);
+		loot.add(drop);
+	}
+
+
 	public void addDrop(String item, int[] amount, int[] chance, String enchants)
 	{
 		ItemLoot drop = new ItemLoot();
@@ -89,15 +111,24 @@ public class ItemLootTable
 		drop.chance = chance;
 		drop.enchant = enchants;
 		
-		//double percent = ((double)(chance[0]) / chance[1]) * 100;
-		double oddsIn = (double) chance[1] / chance[0];
+		figureOutRarity(drop);
+		loot.add(drop);
+	}
+
+	/**
+	 * Figure out the rarity of an <code>ItemLoot</code>.
+	 * @param loot the <code>ItemLoot</code>
+	 * @since 1.0.0 [3]
+	 */
+	private void figureOutRarity(ItemLoot loot) {
+		double oddsIn = (double) loot.chance[1] / loot.chance[0];
 		for (int r = ItemRarity.values().length - 1; r >= 0; r--)
 		{
 			ItemRarity rarity = ItemRarity.values()[r];
 			if (rarity.lootboxOdds == -1) continue;
 			if (rarity.lootboxOdds <= oddsIn)
 			{
-				drop.rarity = rarity;
+				loot.rarity = rarity;
 				break;
 			}
 		}
@@ -106,12 +137,10 @@ public class ItemLootTable
 			ItemRarity rarity = ItemRarity.values()[r];
 			if (rarity.lootOdds == -1) continue;
 			if (rarity.lootOdds <= oddsIn) {
-				drop.announcementRarity = rarity;
+				loot.announcementRarity = rarity;
 				break;
 			}
 		}
-
-		loot.add(drop);
 	}
 
     public List<ItemLoot> GetLoot() {
@@ -191,7 +220,7 @@ public class ItemLootTable
 				ItemFactory.addItemData(gen, "enchants", enchant);
 			}
 
-            ItemFactory.update(gen, (ItemFactory.FactoryBuildContext) null);
+            ItemFactory.update(gen, null);
 			return gen;
 		}
 	}

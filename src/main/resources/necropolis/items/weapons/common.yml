@@ -1,0 +1,34 @@
+bone_sword:
+  name: Bone Bonker
+  type: WEAPON
+  rarity: COMMON
+  material: STONE_SWORD
+  stats:
+    damage: +40
+    enchant_power: +10
+    level_requirement: 6
+
+flaming_sword_common:
+  name: Flaming Sword
+  type: WEAPON
+  rarity: COMMON
+  material: COPPER_SWORD
+  glow: true
+  statuses:
+    BURN: 25
+  stats:
+    damage: +30
+    enchant_power: +10
+    level_requirement: 6
+
+slime_sword_common:
+  name: Red Slimeblade
+  type: WEAPON
+  rarity: COMMON
+  material: DIAMOND_SWORD
+  stats:
+    damage: +34
+    health: +50
+    insulation: +10
+    enchant_power: +20
+    level_requirement: 6
