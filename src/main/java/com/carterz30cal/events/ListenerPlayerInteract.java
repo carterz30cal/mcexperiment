@@ -28,7 +28,7 @@ import org.bukkit.event.player.PlayerInteractEvent;
 
 /**
  * @author carterz30cal
- * @version 2
+ * @version 3
  * @since 1.0.0
  */
 public class ListenerPlayerInteract implements Listener {
@@ -74,11 +74,15 @@ public class ListenerPlayerInteract implements Listener {
                     assert e.getClickedBlock() != null;
                     p.area.getArea().onRightClick(p, e.getClickedBlock().getLocation());
                 }
-				
-				if (item != null && item.material == Material.FISHING_ROD) e.setCancelled(false);
+
                 if (act == Action.RIGHT_CLICK_BLOCK) {
                     assert e.getClickedBlock() != null;
                     if (e.getClickedBlock().getType() == Material.BARREL) {
+                        e.setCancelled(false);
+                    }
+                }
+                else {
+                    if (item != null && item.material == Material.FISHING_ROD) {
                         e.setCancelled(false);
                     }
                 }
