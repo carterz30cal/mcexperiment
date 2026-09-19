@@ -53,6 +53,7 @@ pungent_sword_very_rare:
   items:
     pungent_sword: 1
     spiced_meat: 5
+    waterway_sac: 1
 
 spearfish_scythe_very_rare:
   level: 4
