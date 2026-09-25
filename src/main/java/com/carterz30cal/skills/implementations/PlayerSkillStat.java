@@ -1,9 +1,9 @@
 package com.carterz30cal.skills.implementations;
 
+import com.carterz30cal.entities.GameEntity;
 import com.carterz30cal.entities.StatHavingEntity;
 import com.carterz30cal.items.abilities.implementation.AbilityWithStats;
 import com.carterz30cal.items.abilities.implementation.ContextWithAbility;
-import com.carterz30cal.items.abilities.implementation.PlayerAbilityContext;
 import com.carterz30cal.skills.GameSkill;
 import com.carterz30cal.skills.SkillSoulType;
 import com.carterz30cal.stats.Stat;
@@ -46,7 +46,7 @@ public class PlayerSkillStat extends GameSkill implements AbilityWithStats {
     }
 
     @Override
-    public List<String> miniMessageDescription(@NotNull PlayerAbilityContext context) {
+    public List<String> miniMessageDescription(@NotNull ContextWithAbility<? extends GameEntity> context) {
         var lore = super.miniMessageDescription(context);
         lore.add("<grey>Grants <" + stat.textColour.asHexString() + ">" + (Math.max(1, context.getLevel()) * perLevel) + stat.name + "<grey>!");
         return lore;

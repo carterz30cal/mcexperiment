@@ -17,6 +17,11 @@ spider_1:
       type: SPIDER
       scale: 0.7
       offset: [ 0,0,0 ]
+    head:
+      type: ITEM_DISPLAY
+      item: pet_water_spider_common
+      scale: 1
+      offset: [ 0,0.65,0.35 ]
   bestiary:
     category: waterway_spiders
   tags:
@@ -28,5 +33,5 @@ spider_1:
     spider_silk:
       amount: 1/4
     pet_water_spider_common:
-      chance: 1/200
+      chance: 1/300
       amount: 1/1

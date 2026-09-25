@@ -11,3 +11,50 @@ titan_blade_legendary:
     defence: +172
     enchant_power: +28
     level_requirement: 7
+
+pungent_sword_legendary:
+  name: Pungent Sword
+  type: WEAPON
+  rarity: LEGENDARY
+  material: GOLDEN_SWORD
+  stats:
+    damage: +52
+    enchant_power: +35
+    level_requirement: 7
+
+spearfish_scythe_legendary:
+  name: Spearfish Scythe
+  type: WEAPON
+  rarity: LEGENDARY
+  material: IRON_HOE
+  stats:
+    damage: +33
+    strength: +150
+    enchant_power: +25
+    level_requirement: 7
+
+piranha_dagger_legendary:
+  name: Piranha Dagger
+  type: WEAPON
+  rarity: LEGENDARY
+  material: IRON_SWORD
+  statuses:
+    BLEED: 65
+  stats:
+    damage: +18
+    savagery: +26
+    enchant_power: +25
+    level_requirement: 7
+
+zombie_sword_legendary:
+  name: Zombie Dustblade
+  type: WEAPON
+  rarity: LEGENDARY
+  material: COPPER_SWORD
+  stats:
+    damage: +4
+    power: +125
+    might: +225
+    vitality: +10
+    enchant_power: +20
+    level_requirement: 7

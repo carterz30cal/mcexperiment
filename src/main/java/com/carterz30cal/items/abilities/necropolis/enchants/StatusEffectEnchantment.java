@@ -1,5 +1,6 @@
 package com.carterz30cal.items.abilities.necropolis.enchants;
 
+import com.carterz30cal.entities.GameEntity;
 import com.carterz30cal.entities.StatHavingEntity;
 import com.carterz30cal.entities.health.status.StatusEffect;
 import com.carterz30cal.items.ItemReq;
@@ -32,7 +33,7 @@ public class StatusEffectEnchantment extends GameAbstractEnchant implements Abil
     }
 
     @Override
-    public List<String> miniMessageDescription(@NotNull PlayerAbilityContext context) {
+    public List<String> miniMessageDescription(@NotNull ContextWithAbility<? extends GameEntity> context) {
         var d = "<grey>Grants <" + status.textColour.asHexString() + ">" + buildup(context.getLevel()) + " " + status.name + " " + status.symbol + "</" + status.textColour.asHexString()
                 + "> status buildup to this item, which is inflicted upon hitting an enemy.";
         return StringUtils.wrapText(d, 45);

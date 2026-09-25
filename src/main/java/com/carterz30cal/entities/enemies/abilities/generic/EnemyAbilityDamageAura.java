@@ -1,12 +1,16 @@
 package com.carterz30cal.entities.enemies.abilities.generic;
 
 import com.carterz30cal.entities.GameEntity;
+import com.carterz30cal.entities.enemies.abilities.AbilityCondition;
 import com.carterz30cal.entities.enemies.abilities.EnemyAbility;
+import com.carterz30cal.entities.enemies.abilities.conditions.AbilityConditionAlwaysTrue;
 import com.carterz30cal.entities.enemies.core.GameEnemy;
 import com.carterz30cal.items.abilities.implementation.AbilityWithTick;
 import com.carterz30cal.items.abilities.implementation.ContextWithAbility;
 import com.carterz30cal.utils.EntityUtils;
 import org.bukkit.configuration.ConfigurationSection;
+
+import java.util.Objects;
 
 /**
  * @author carterz30cal
@@ -32,6 +36,9 @@ public class EnemyAbilityDamageAura extends EnemyAbility implements AbilityWithT
      * How often does this ability tick?
      */
     protected final int period;
+
+    protected final AbilityCondition condition;
+
     public EnemyAbilityDamageAura(ConfigurationSection section) {
         super(section);
 
@@ -39,14 +46,26 @@ public class EnemyAbilityDamageAura extends EnemyAbility implements AbilityWithT
         radius = section.getDouble("radius", 1);
         dropoff = section.getBoolean("dropoff", false);
         period = section.getInt("period", 1);
+        if (section.contains("condition")) {
+            this.condition = AbilityCondition.get(Objects.requireNonNull(section.getString("condition.class")), Objects.requireNonNull(section.getConfigurationSection("condition")));
+        }
+        else {
+            this.condition = new AbilityConditionAlwaysTrue();
+        }
     }
 
     @Override
     public void tick(ContextWithAbility<? extends GameEntity> context, int tick) {
         if (!(context.getOwner() instanceof GameEnemy enemy)) return;
+        if (!condition.hasConditionMet(context)) {
+            return;
+        }
         if (tick % period == 0) {
             var players = EntityUtils.getNearbyPlayers(context.getOwner().getLocation(), radius);
             for (var player : players) {
+                if (!player.isDamageable(enemy)) {
+                    continue;
+                }
                 var packet = enemy.getBlankDamagePacket();
                 double falloff = dropoff ? (1D / Math.max(1, player.distance(enemy.getLocation()))): 1;
                 packet.multiply(damagePercent);

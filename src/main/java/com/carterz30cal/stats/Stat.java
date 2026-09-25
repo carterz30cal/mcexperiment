@@ -20,7 +20,7 @@ public enum Stat
 
     HEALTH("\u2665 Health", NamedTextColor.RED, StatType.DEFENSIVE, StatDisplayType.NORMAL),
     DEFENCE("\u25CB Defence", NamedTextColor.GREEN, StatType.DEFENSIVE, StatDisplayType.NORMAL),
-    VITALITY("\u25C6 Vitality", NamedTextColor.GREEN, StatType.DEFENSIVE, StatDisplayType.NORMAL),
+    VITALITY("◆ Vitality", NamedTextColor.GREEN, StatType.DEFENSIVE, StatDisplayType.NORMAL),
     ROBUSTNESS("\u00B1 Robustness", NamedTextColor.RED, StatType.DEFENSIVE, StatDisplayType.NORMAL),
     PADDING("\u25CB Padding", NamedTextColor.WHITE, StatType.DEFENSIVE, StatDisplayType.NORMAL),
     INSULATION("\u03C8 Insulation", NamedTextColor.WHITE, StatType.DEFENSIVE, StatDisplayType.NORMAL),
@@ -28,9 +28,11 @@ public enum Stat
     MAGIC_RESISTANCE("\u25CB Magic Resistance", NamedTextColor.LIGHT_PURPLE, StatType.DEFENSIVE, StatDisplayType.NORMAL),
 
     MANA("♠ Mana", NamedTextColor.LIGHT_PURPLE, StatType.OFFENSIVE, StatDisplayType.NORMAL),
-    FOCUS("\u25C6 Focus", NamedTextColor.AQUA, StatType.OFFENSIVE, StatDisplayType.NORMAL),
+    FOCUS("◆ Focus", NamedTextColor.AQUA, StatType.OFFENSIVE, StatDisplayType.NORMAL),
+    SPEED("♠ Swiftness", NamedTextColor.WHITE, StatType.OFFENSIVE, StatDisplayType.PERCENTAGE),
 
     FISHING_POWER("\u023E Fishing Power", NamedTextColor.AQUA, StatType.ECONOMY),
+    BONUS_FISH_MOBS("bonus fish mobs", NamedTextColor.WHITE, StatType.ECONOMY, StatDisplayType.NO_DISPLAY),
 
     BREAKING_POWER("\u03C8 Mining Power", NamedTextColor.YELLOW, StatType.ECONOMY),
     MINING_SPEED("\u023E Mining Speed", NamedTextColor.YELLOW, StatType.ECONOMY),
@@ -40,7 +42,7 @@ public enum Stat
 
     DETECTION("± Detection Power", NamedTextColor.GOLD, StatType.ECONOMY),
 
-    BONUS_COINS("× Extra Coins", NamedTextColor.GOLD, StatType.ECONOMY, StatDisplayType.PERCENTAGE),
+    BONUS_COINS("& Greed", NamedTextColor.GOLD, StatType.ECONOMY, StatDisplayType.PERCENTAGE),
     LUCK("♠ Luck", NamedTextColor.GOLD, StatType.ECONOMY, StatDisplayType.PERCENTAGE),
 
     INVULNERABILITY_TICKS("invul ticks", NamedTextColor.BLACK, StatType.HIDDEN, StatDisplayType.NO_DISPLAY),

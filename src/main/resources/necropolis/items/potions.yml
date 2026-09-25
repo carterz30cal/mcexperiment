@@ -29,6 +29,20 @@ mulch:
     - EARTH,1
     - EARTH,1
 
+crypt_pebble:
+  name: Crypt Pebble
+  type: POTION_INGREDIENT
+  material: STONE_BUTTON
+  rarity: RARE
+  value: 75
+  elements:
+    - EARTH,1
+    - EARTH,1
+    - WATER,1
+    - WATER,1
+    - WATER,1
+    - EARTH,1
+
 everlasting_flame:
   name: Everlasting Flame
   type: POTION_INGREDIENT
@@ -42,6 +56,30 @@ everlasting_flame:
     - FIRE,1
     - FIRE,1
     - FIRE,1
+
+decaying_hydra_head:
+  name: Decaying Hydra Head
+  type: POTION_INGREDIENT
+  material: PLAYER_HEAD
+  skull-profile-id: hydra_placeholder
+  rarity: EPIC
+  value: 100
+  lore:
+    - A small decaying head of a once mighty hydra, this is
+    - generally used in brewing defensive-style potions due
+    - to its large quantity of earth and water elements.
+  elements:
+    - WATER,1
+    - EARTH,1
+    - EARTH,1
+    - WATER,1
+    - WATER,1
+    - FIRE,2
+    - WATER,1
+    - WATER,1
+    - EARTH,1
+    - EARTH,1
+    - WATER,1
 
 
 drop_of_sadness:
@@ -128,7 +166,7 @@ potion_health:
   name: Potion of Health
   type: POTION
   material: POTION
-  rarity: RARE
+  rarity: VERY_RARE
   duration: 18000
   value: 150
   tags:
@@ -187,3 +225,24 @@ potion_lesser_strength:
   stats:
     strength: +90
     level_requirement: 1
+
+potion_strength:
+  name: Potion of Strength
+  type: POTION
+  material: POTION
+  rarity: VERY_RARE
+  duration: 18000
+  value: 125
+  tags:
+    - ATTACK_POTION
+  recipe:
+    - FIRE,2
+    - FIRE,2
+    - FIRE,2
+  lore:
+    - Potions work like talismans, but they last for
+    - a limited time only! Open your player menu and
+    - equip one today for powerful buffs!
+  stats:
+    strength: +120
+    level_requirement: 10

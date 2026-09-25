@@ -5,6 +5,11 @@ import com.carterz30cal.entities.player.GamePlayer;
 import com.carterz30cal.items.discoveries.Collection;
 import com.carterz30cal.items.discoveries.DiscoveryManager;
 
+/**
+ * @author carterz30cal
+ * @version 2
+ * @since 1.0.0
+ */
 public class LevelUtils
 {
 	public final static int LEVEL_MAX = 1000;

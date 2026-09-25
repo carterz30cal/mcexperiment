@@ -30,7 +30,7 @@ public class SimpleTargetingBehaviour implements TargetingBehaviour {
         }
         else {
             for (var player : PlayerManager.getOnlinePlayers()) {
-                if (player.getLocation().distance(location) > player.stats.stat(Stat.VISIBILITY)) {
+                if (player.distance(location) > player.stats.stat(Stat.VISIBILITY)) {
                     continue;
                 }
                 if (player.targeted.size() >= player.getMaxTargets() && !ignoresTargetLimit) {

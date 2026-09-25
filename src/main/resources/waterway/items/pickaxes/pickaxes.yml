@@ -11,8 +11,7 @@ leaf_pickaxe:
   name: Leaf Pickaxe
   type: PICKAXE
   rarity: UNCOMMON
-  material: WOODEN_PICKAXE
-  glow: true
+  custom-model-id: leaf_pickaxe_v1
   stats:
     mining_speed: 150
     breaking_power: 2

@@ -62,3 +62,25 @@ scavenger_shop:
       item: detection_enthusiast_hat
       coins: 4000
       level: 8
+
+infrequent_merchant_necropolis:
+  shop-name: "Infrequent Merchant"
+  shopkeeper-name: "Infrequent Merchant"
+  shopkeeper-type: MANNEQUIN
+  location: -3.5, 62, 354.5, 170, 0
+  entities:
+    _:
+      type: MANNEQUIN
+      offset: [ 0,0,0 ]
+      scale: 1
+  items:
+    stack_of_books_sharpness:
+      item: stack_of_books_sharpness
+      enchants: ENCHANT_SHARPNESS-4
+      coins: 2000
+      level: 6
+    infrequent_merchant_hat:
+      item: infrequent_merchant_hat
+      level: 10
+      coins: 100000
+

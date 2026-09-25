@@ -11,7 +11,7 @@ import java.util.Objects;
 
 /**
  * @author carterz30cal
- * @version 3
+ * @version 4
  * @since 1.0.0
  */
 public enum Quests {
@@ -108,7 +108,7 @@ public enum Quests {
     }
 
     public List<String> getDescription() {
-        return description.GetList();
+        return description.list();
     }
 
     @SuppressWarnings("unused")
@@ -140,6 +140,31 @@ public enum Quests {
         return count;
     }
 
+    /**
+     * Is this <code>Questgivers</code> complete?
+     *
+     * @param player who are we asking about?
+     * @param quest  what quest are we asking about?
+     * @return a boolean stating whether this <code>Questgivers</code> has been completed by this <code>GamePlayer</code>.
+     * @since 1.0.0 [4]
+     **/
+    public boolean complete(GamePlayer player, Questgivers quest) {
+        QuestSave save = player.getQuestSave(this);
+        if (save == null) {
+            return false;
+        }
+        int r = save.currentSection;
+        int i = 0;
+        int s = 0;
+        while (!quests.get(i).equals(quest)) {
+            i++;
+            s += quests.get(i).getQuestCount();
+        }
+        r -= s;
+        return r >= quest.getQuestCount();
+    }
+
+    @Deprecated(since = "1.0.0 [4]")
     public boolean hasCompletedQuestgiver(GamePlayer player, Questgivers questgiver) {
         QuestSave save = player.getQuestSave(this);
         if (save == null) {

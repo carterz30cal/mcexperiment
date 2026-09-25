@@ -52,10 +52,13 @@ public class ThornsEnchantment extends GameAbstractEnchant implements AbilityWit
     }
 
     @Override
-    public List<String> miniMessageDescription(@NotNull PlayerAbilityContext context) {
+    public List<String> miniMessageDescription(@NotNull ContextWithAbility<? extends GameEntity> context) {
         List<String> description = new ArrayList<>();
+        if (!(context.getOwner() instanceof AggressiveEntity aggro)) {
+            return description;
+        }
         description.add("<grey>When you are attacked, return <" + this.damageType.getColour().asHexString()
-                            + ">" + getDamageAmount(context.getLevel(), context.getOwner()) + " <grey>damage.");
+                + ">" + getDamageAmount(context.getLevel(), aggro) + " <grey>damage.");
         description.add("<grey>This damage scales with enchantment level");
         description.add("<grey>and your <" + this.scalingStat.textColour.asHexString() + ">" + this.scalingStat.name + "<grey> stat!");
         return description;

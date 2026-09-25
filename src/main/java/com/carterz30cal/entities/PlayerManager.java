@@ -84,14 +84,14 @@ public class PlayerManager
 	public static void loadPlayer(GamePlayer p)
 	{
 		if (!f.contains(p.player.getUniqueId().toString())) {
-			System.out.println("Could not load player: " + p.player.getUniqueId().toString());
+            System.out.println("Could not load player: " + p.player.getUniqueId());
 			return;
 		}
 		ConfigurationSection c = f.getConfigurationSection(p.player.getUniqueId().toString());
 
-		p.level = c.getInt("level", 0);
-		p.xp = c.getInt("xp", 0);
-		p.coins = c.getInt("coins", 0);
+        p.level = c.getLong("level", 0);
+        p.xp = c.getLong("xp", 0);
+        p.coins = c.getLong("coins", 0L);
 
 		ConfigurationSection forging = c.getConfigurationSection("forging");
 		if (forging != null)

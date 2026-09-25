@@ -8,7 +8,7 @@ flaming_sword_uncommon:
     BURN: 30
   stats:
     damage: +35
-    enchant_power: +12
+    enchant_power: +20
     level_requirement: 6
 
 slime_sword_uncommon:
@@ -16,9 +16,23 @@ slime_sword_uncommon:
   type: WEAPON
   rarity: UNCOMMON
   material: DIAMOND_SWORD
+  custom-model-id: red_slimeblade_v1
   stats:
-    damage: +37
-    health: +75
-    insulation: +20
+    damage: +42
+    health: +100
+    insulation: +25
+    enchant_power: +25
+    level_requirement: 6
+
+puffer_sword_uncommon:
+  name: Puffersword
+  type: WEAPON
+  rarity: UNCOMMON
+  custom-model-id: puffer_sword_v1
+  abilities:
+    - PUFFER_SWORD
+  stats:
+    damage: +25
+    savagery: +50
     enchant_power: +20
     level_requirement: 6

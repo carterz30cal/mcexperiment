@@ -28,7 +28,7 @@ public class NecromancerAbility extends GameAbility implements AbilityWithDescri
     }
 
     @Override
-    public List<String> miniMessageDescription(@NotNull PlayerAbilityContext context) {
+    public List<String> miniMessageDescription(@NotNull ContextWithAbility<? extends GameEntity> context) {
         var list = new ArrayList<String>();
         list.add("<grey>Killing enemies will summon their soul to fight");
         list.add("<grey>for your cause. Each soul consumes " + Stat.MANA.getReverse() + " to keep existing.");

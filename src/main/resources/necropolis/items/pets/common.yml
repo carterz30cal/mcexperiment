@@ -1,0 +1,52 @@
+pet_dusted_common:
+  name: Dusted
+  type: PET
+  rarity: COMMON
+  material: SKELETON_SKULL
+  pet-line: dusted
+  active-ability: PET_DUSTED_COMMON
+  abilities:
+    - PET_DUSTED_PASSIVE
+  value: 600
+  stats:
+    defence: +25
+    level_requirement: 5
+
+pet_red_slime_common:
+  name: Red Slime
+  type: PET
+  rarity: COMMON
+  material: PLAYER_HEAD
+  pet-line: red_slime
+  active-ability: PET_RED_SLIME_COMMON
+  skull-profile-id: red_slime
+  value: 1000
+  stats:
+    might: +10
+    level_requirement: 5
+
+pet_baby_hydra_common:
+  name: Baby Hydra
+  type: PET
+  rarity: COMMON
+  material: PLAYER_HEAD
+  pet-line: baby_hydra
+  active-ability: PET_BABY_HYDRA_COMMON
+  value: 1000
+  stats:
+    vitality: +1
+    level_requirement: 7
+
+pet_crypt_dweller_common:
+  name: Crypt Dweller
+  type: PET
+  rarity: COMMON
+  material: ZOMBIE_HEAD
+  pet-line: crypt_dweller
+  abilities:
+    - PET_CRYPT_DWELLER_PASSIVE
+  value: 1000
+  stats:
+    defence: +5
+    bonus_coins: +1
+    level_requirement: 7

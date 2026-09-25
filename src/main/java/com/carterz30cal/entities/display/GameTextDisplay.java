@@ -33,6 +33,7 @@ public class GameTextDisplay extends GameEntity implements LocatableEntity {
         this.display.setBillboard(Display.Billboard.CENTER);
         this.display.setTeleportDuration(1);
         this.display.setAlignment(TextDisplay.TextAlignment.CENTER);
+        this.display.setPersistent(false);
         this.uuid = UUID.randomUUID();
         register(this.uuid);
     }

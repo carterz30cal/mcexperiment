@@ -19,7 +19,7 @@ public class PetTargetingBehaviour implements TargetingBehaviour {
 
     @Override
     public LivingEntity findTarget(GameEnemy brain, Location location) {
-        if (owner.getLocation().distance(location) > 6) {
+        if (owner.distance(location) > 6) {
             return owner.getTargetableEntity();
         }
         else {

@@ -1,5 +1,6 @@
 package com.carterz30cal.areas;
 
+import com.carterz30cal.areas.bosses.necropolis.AreaCryptNecropolis;
 import com.carterz30cal.entities.PlayerManager;
 import com.carterz30cal.entities.player.GamePlayer;
 import com.carterz30cal.main.Dungeons;
@@ -19,6 +20,9 @@ public class AreaManager extends BukkitRunnable {
     public static Areas getPlayerArea(GamePlayer player) {
         if (player == null) {
             return null;
+        }
+        if (AreaCryptNecropolis.inCrypt(player)) {
+            return Areas.NECROPOLIS;
         }
         for (var area : Areas.values()) {
             if (area.getArea().isInBounds(player)) {

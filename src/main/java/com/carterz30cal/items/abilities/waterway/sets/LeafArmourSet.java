@@ -1,5 +1,6 @@
 package com.carterz30cal.items.abilities.waterway.sets;
 
+import com.carterz30cal.entities.GameEntity;
 import com.carterz30cal.entities.StatHavingEntity;
 import com.carterz30cal.items.abilities.implementation.*;
 import com.carterz30cal.stats.Stat;
@@ -27,7 +28,7 @@ public class LeafArmourSet extends GameAbility implements AbilityWithDescription
     }
 
     @Override
-    public List<String> miniMessageDescription(@NotNull PlayerAbilityContext context) {
+    public List<String> miniMessageDescription(@NotNull ContextWithAbility<? extends GameEntity> context) {
         var list = new ArrayList<String>();
         list.add("<grey>All of your " + Stat.DEFENCE.getReverse() + " is converted");
         list.add("<grey>into " + Stat.HEALTH.getReverse() + " at a ratio of <green>1</green><dark_grey>:</dark_grey><red>6</red>.");

@@ -11,6 +11,7 @@ public enum ItemType
 	QUEST_ITEM("Quest Item"),
 	ENCHANTMENT(ItemTypeUse.NORMAL),
 	ATTUNER(ItemTypeUse.NORMAL),
+    RUNE(ItemTypeUse.NORMAL),
 	CATALYST(ItemTypeUse.CONSUMABLE),
 	WEAPON(ItemTypeUse.WIELDABLE),
     BOW(ItemTypeUse.WIELDABLE),

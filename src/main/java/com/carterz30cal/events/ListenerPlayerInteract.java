@@ -102,6 +102,8 @@ public class ListenerPlayerInteract implements Listener {
                         p.bowTick = 4;
                         if (p.getQuiverCount() > 0) {
                             Arrow arrow = p.player.launchProjectile(Arrow.class);
+                            arrow.setPierceLevel(5);
+                            arrow.setVelocity(arrow.getVelocity().multiply(0.9));
                             var projectile = new GameProjectile(p, arrow);
                             var arrowType = p.useArrow();
                             projectile.setContextualAbilities(ItemFactory.getItem(arrowType));

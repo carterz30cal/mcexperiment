@@ -1,6 +1,6 @@
 armour-hydra:
   name:
-    - Hydra Head
+    - Hydra Helmet
     - Hydra Shirt
     - Hydra Trousers
     - Hydra Boots
@@ -12,8 +12,50 @@ armour-hydra:
     g: 200
     b: 100
   stats:
-    health: 75, 125, 100, 50
-    enchant_power: +12
+    health: 125, 175, 150, 100
+    defence: +10
+    mana: +10
+    enchant_power: +20
+    level_requirement: 7
+
+armour-crypt_dweller:
+  name:
+    - Crypt Dweller Helmet
+    - Crypt Dweller Chestplate
+    - Crypt Dweller Leggings
+    - Crypt Dweller Boots
+  material: LEATHER
+  rarity: RARE
+  value: 100
+  colour:
+    r: 200
+    g: 80
+    b: 0
+  stats:
+    health: +50
+    defence: +20
+    might: +5
+    enchant_power: +10
+    level_requirement: 7
+
+armour-crypt_tank:
+  name:
+    - Crypt Tank Helmet
+    - Crypt Tank Chestplate
+    - Crypt Tank Greaves
+    - Crypt Tank Boots
+  material: LEATHER
+  rarity: RARE
+  value: 100
+  colour:
+    r: 120
+    g: 120
+    b: 120
+  abilities:
+    - CRYPT_TANK_ARMOUR_PIECE
+  stats:
+    defence: +25
+    enchant_power: +15
     level_requirement: 7
 
 detection_enthusiast_hat:
@@ -24,8 +66,8 @@ detection_enthusiast_hat:
   value: 2000
   stats:
     detection: +30
-    level_requirement: 10
-    enchant_power: +100
+    level_requirement: 9
+    enchant_power: +40
 
 bull_hat:
   name: Bull Hat
@@ -34,7 +76,7 @@ bull_hat:
   rarity: RARE
   value: 1000
   stats:
-    mining_fortune: 55
+    mining_fortune: 50
     clearing: 2
     level_requirement: 7
     enchant_power: +20

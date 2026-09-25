@@ -8,6 +8,18 @@ roasted_bone_dust:
   items:
     bone_dust: 300
 
+roasted_bone_dust_bulk:
+  time: 10m
+  amount: 5
+  custom-name: <blue>Roasted Bone Dust</blue> <dark_grey>x5
+  item: roasted_bone_dust
+  discovery: bone_dust_collection
+  discovery-tier: 5
+  level: 7
+  category: necropolis_ingredients
+  items:
+    bone_dust: 1500
+
 incensed_spirit:
   time: 15m
   amount: 1

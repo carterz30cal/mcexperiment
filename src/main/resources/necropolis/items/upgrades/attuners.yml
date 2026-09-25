@@ -13,4 +13,19 @@ dusty_honeycomb:
     clearing: +5
     health: +10
     power: +7
+
+living_metal:
+  name: Living Metal
+  type: ATTUNER
+  rarity: RARE
+  material: RAW_COPPER
+  value: 400
+  glow: true
+  attuner-icon: '@'
+  attuner-colour:
+    r: 0
+    g: 255
+    b: 0
+  stats:
+    health: +22
     

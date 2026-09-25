@@ -39,12 +39,6 @@ necropolis_bosses:
     - <grey>the heart of <white>Necropolis</white>, which
     - <grey>reward powerful equipment upon defeat.
 
-necropolis_detecting:
-  icon: IRON_HOE
-  name: "Treasure Hunting"
-  parent: necropolis
-  description:
-    - <red>write later!
 
 necropolis_fishing:
   icon: FISHING_ROD
@@ -95,3 +89,25 @@ necropolis_fishing_epic:
     - <grey>The highest tier of fishing mobs found</grey>
     - <grey>exclusively in <white>Necropolis</white>!</grey>
   parent: necropolis_fishing
+
+necropolis_crypts:
+  icon: BONE
+  name: "Crypt Diving"
+  parent: necropolis
+  description:
+    - <red>write later!
+
+necropolis_crypts_lesser:
+  icon: WHITE_CONCRETE
+  name: "Lesser"
+  parent: necropolis_crypts
+  description:
+    - <red>write later!
+
+necropolis_detecting:
+  icon: IRON_HOE
+  name: "Treasure Hunting"
+  parent: necropolis
+  description:
+    - <red>write later!
+

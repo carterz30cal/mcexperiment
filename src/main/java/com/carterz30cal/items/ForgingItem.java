@@ -6,8 +6,17 @@ import org.bukkit.inventory.ItemStack;
 
 import java.time.LocalDateTime;
 
+/**
+ * @author carterz30cal
+ * @version 2
+ * @since 1.0.0
+ */
 public class ForgingItem
 {
+    /**
+     * @since 1.0.0 [2]
+     */
+    public Recipe recipe;
 	public String item;
 	public String data;
 	public int amount;
@@ -24,6 +33,7 @@ public class ForgingItem
 		item = recipe.item;
 		isDone = false;
 		haveNotified = false;
+        this.recipe = recipe;
 
 		finished = LocalDateTime.now().plusNanos(Math.round((recipe.time / 20d) * 1000000000));
 		
@@ -40,6 +50,7 @@ public class ForgingItem
 		amount = s.getInt("amount", 1);
 		time = s.getInt("time", 0);
 		finished = LocalDateTime.parse(s.getString("finished"));
+        recipe = ItemFactory.recipes.get(s.getString("recipe"));
 	}
 	// path should be forging.
 	public void save(ConfigurationSection s)
@@ -53,6 +64,7 @@ public class ForgingItem
 		f.set("amount", amount);
 		f.set("time", time);
 		f.set("finished", finished.toString());
+        f.set("recipe", recipe.id);
 	}
 	
 	public ItemStack produce()
@@ -61,7 +73,7 @@ public class ForgingItem
 		
 		ItemFactory.setItemData(i, data);
         assert i != null;
-        ItemFactory.update(i, (ItemFactory.FactoryBuildContext) null);
+        ItemFactory.update(i, null);
 		
 		return i;
 	}

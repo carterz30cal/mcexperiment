@@ -4,5 +4,33 @@ lesser_life_sword_rare:
   category: necropolis_weapons
   items:
     hydra_heart: 1
-    hydra_flesh: 12
+    hydra_flesh: 36
     leaf_mash: 600
+
+flaming_sword_rare:
+  level: 8
+  category: necropolis_weapons
+  items:
+    flaming_sword_uncommon: 1
+    hydra_heart: 1
+    hydra_flesh: 24
+    compressed_sand: 3
+
+slime_sword_rare:
+  level: 8
+  category: necropolis_weapons
+  items:
+    slime_sword_uncommon: 1
+    hydra_heart: 1
+    hydra_flesh: 24
+    yellow_slime: 8
+
+puffer_sword_rare:
+  level: 8
+  category: necropolis_weapons
+  discovery: necropolis_fish_collection
+  discovery-tier: 4
+  items:
+    puffer_sword_uncommon: 1
+    roasted_bone_dust: 4
+    cooked_necropolis_fish: 2

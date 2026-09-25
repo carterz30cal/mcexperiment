@@ -1,6 +1,7 @@
 package com.carterz30cal.commands;
 
 import com.carterz30cal.areas.areas.GameAreaWaterway;
+import com.carterz30cal.areas.bosses.necropolis.AreaCryptNecropolis;
 import com.carterz30cal.areas.bosses.waterway.AreaBossWaterwaySeraph;
 import com.carterz30cal.entities.PlayerManager;
 import com.carterz30cal.entities.Shop;
@@ -40,6 +41,9 @@ public class CommandForce implements CommandExecutor {
                 case "calcxp":
                     int arg = Integer.parseInt(args[1]);
                     p.sendMessage(Long.toString(LevelUtils.getEnemyBaseXpReward(arg)));
+                    break;
+                case "crypt":
+                    new AreaCryptNecropolis(p, AreaCryptNecropolis.NecropolisCryptTier.LESSER);
                     break;
                 case "clearquests":
                     p.clearQuests();

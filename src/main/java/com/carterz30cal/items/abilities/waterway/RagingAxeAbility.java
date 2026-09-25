@@ -1,5 +1,6 @@
 package com.carterz30cal.items.abilities.waterway;
 
+import com.carterz30cal.entities.GameEntity;
 import com.carterz30cal.entities.StatHavingEntity;
 import com.carterz30cal.entities.health.damage.handlers.DamageableEntity;
 import com.carterz30cal.items.abilities.implementation.*;
@@ -25,7 +26,7 @@ public class RagingAxeAbility extends GameAbility implements AbilityWithStats, A
     }
 
     @Override
-    public List<String> miniMessageDescription(@NotNull PlayerAbilityContext context) {
+    public List<String> miniMessageDescription(@NotNull ContextWithAbility<? extends GameEntity> context) {
         var lore = new ArrayList<String>();
         lore.add("<grey>This weapon gains " + formattedDisplay(Stat.POWER, 125) + " if you are below <red>250\u2665</red>.");
         return lore;

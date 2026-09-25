@@ -12,7 +12,7 @@ import java.util.*;
 
 /**
  * @author carterz30cal
- * @version 1
+ * @version 2
  * @since 1.0.0
  */
 public class PlayerSkillTree implements PlayerSavable {
@@ -89,12 +89,19 @@ public class PlayerSkillTree implements PlayerSavable {
     /**
      * @param type what soul type do we care about?
      * @return the amount of that soul we have.
-     * @since 1.0.0
+     * @since 1.0.0 [1]
      */
     public long getSoulCount(SkillSoulType type) {
         return souls.getOrDefault(type, 0L);
     }
 
+    /**
+     * Gets the level of a skill
+     *
+     * @param skill the skill we want the level of
+     * @return the level of the skill
+     * @since 1.0.0 [1]
+     */
     public int getSkillLevel(Skills skill) {
         return tree.getOrDefault(skill, 0);
     }
@@ -103,6 +110,7 @@ public class PlayerSkillTree implements PlayerSavable {
      * This assumes that you have already called canLevel and it has returned true.
      *
      * @param skill what skill are we levelling up?
+     * @since 1.0.0 [1]
      */
     public void addSkillLevel(Skills skill) {
         var level = getSkillLevel(skill);
@@ -143,7 +151,7 @@ public class PlayerSkillTree implements PlayerSavable {
      * Add the contents of <code>data.souls</code> to our <code>souls</code> map.
      *
      * @param data the <code>EnemyData</code> we're extracting from.
-     * @since 1.0.0
+     * @since 1.0.0 [1]
      */
     public void gainSouls(EnemyData data) {
         for (var s : data.souls.keySet()) {
@@ -157,7 +165,7 @@ public class PlayerSkillTree implements PlayerSavable {
      *
      * @param type   what soul type are we granting?
      * @param amount how many?
-     * @since 1.0.0
+     * @since 1.0.0 [1]
      */
     public void gainSouls(SkillSoulType type, long amount) {
         souls.put(type, souls.getOrDefault(type, 0L) + amount);
@@ -168,15 +176,25 @@ public class PlayerSkillTree implements PlayerSavable {
      * The amount of souls we should show on the player's action bar.
      *
      * @return the sum of all soul types rewarded to this player last.
-     * @since 1.0.0
+     * @since 1.0.0 [1]
      */
     public long getLastSoulReward() {
         return lastSoulReward;
     }
 
     /**
+     * Sets the displayed total of souls awarded. Does not affect actual souls.
+     *
+     * @param lastSoulReward the amount of souls to display as awarded.
+     * @since 1.0.0 [2]
+     */
+    public void setLastSoulReward(long lastSoulReward) {
+        this.lastSoulReward = lastSoulReward;
+    }
+
+    /**
      * @return A set of all skills that the player has unlocked
-     * @since 1.0.0
+     * @since 1.0.0 [1]
      */
     public Set<Skills> getSkills() {
         Set<Skills> skills = new HashSet<>();

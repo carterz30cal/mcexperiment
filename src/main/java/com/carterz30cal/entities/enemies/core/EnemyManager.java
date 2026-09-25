@@ -12,6 +12,7 @@ import com.carterz30cal.items.ItemRarity;
 import com.carterz30cal.skills.SkillSoulType;
 import com.carterz30cal.stats.Stat;
 import com.carterz30cal.utils.FileUtils;
+import net.kyori.adventure.key.Key;
 import net.kyori.adventure.text.minimessage.MiniMessage;
 import org.bukkit.Location;
 import org.bukkit.configuration.ConfigurationSection;
@@ -23,10 +24,11 @@ import java.util.Objects;
 
 /**
  * @author carterz30cal
- * @version 4
+ * @version 5
  * @since 1.0.0
  */
-public class EnemyManager 
+@SuppressWarnings("PatternValidation")
+public class EnemyManager
 {
 	public static String[] files = {
             "waterway/mobs/lunatics", "waterway/mobs/titans",
@@ -38,8 +40,8 @@ public class EnemyManager
             "waterway/mobs/fishing/fishing_rare",
             "waterway/mobs/fishing/fishing_very_rare",
             "necropolis/mobs/dusted", "necropolis/mobs/sword_spirits", "necropolis/mobs/haunting_slimes",
-            "necropolis/mobs/bosses", "necropolis/mobs/detecting",
-            "necropolis/mobs/fishing/shocktopus"
+            "necropolis/mobs/bosses", "necropolis/mobs/detecting", "necropolis/mobs/crypt_lesser",
+            "necropolis/mobs/fishing/shocktopus", "necropolis/mobs/fishing/lost_fisherman"
 	};
 	
 	public static EnemyManager instance;
@@ -84,6 +86,12 @@ public class EnemyManager
                 data.level = c.getLong(p + ".level", 1L);
                 data.alwaysDisplayHealth = c.getBoolean(p + ".always-display-health", false);
                 data.coinMultiplier = c.getDouble(p + ".coin-multiplier", 1D);
+                String hurtKey = c.getString(p + ".sounds.hurt", "entity.zombie.hurt");
+                data.hurtSoundKey = Key.key(hurtKey);
+                var deathKey = c.getString(p + ".sounds.death", "entity.zombie.death");
+                data.deathSoundKey = Key.key(deathKey);
+
+
                 if (c.contains(p + ".loot")) {
                     data.lootTable = new ItemLootTable(Objects.requireNonNull(c.getConfigurationSection(p + ".loot")));
                 }
@@ -137,13 +145,20 @@ public class EnemyManager
                     data.bestiaryCategory = c.getString(p + ".bestiary.category");
                     assert data.bestiaryCategory != null;
                     BestiaryGUI.registerTypeIntoCategory(enemy.getId(), data.bestiaryCategory);
+                    data.bestiaryGrants = c.getString(p + ".bestiary.grants", enemy.getId());
                 }
                 if (c.contains(p + ".fishing")) {
                     ConfigurationSection section = c.getConfigurationSection(p + ".fishing");
+                    var rare = c.getBoolean(p + ".rare-fish", false);
                     if (section != null) {
                         for (String area : section.getKeys(false)) {
                             ItemRarity rarity = ItemRarity.valueOf(section.getString(area));
-                            FishingArea.getFishingArea(area).addToBracket(rarity, enemy.getId());
+                            if (rare) {
+                                FishingArea.getFishingArea(area).addRare(rarity, enemy.getId());
+                            }
+                            else {
+                                FishingArea.getFishingArea(area).addToBracket(rarity, enemy.getId());
+                            }
                         }
                     }
                 }
@@ -154,8 +169,13 @@ public class EnemyManager
 	
 	public static GameEnemy spawn(String type, Location l)
 	{
+        return spawn(type, l, false);
+    }
+
+    public static GameEnemy spawn(String type, Location l, boolean persistent) {
         var enemy = EnemyBuilder.getBuilder(type).build(l);
         enemy.register();
+        enemy.persistent = persistent;
         return enemy;
-	}
+    }
 }

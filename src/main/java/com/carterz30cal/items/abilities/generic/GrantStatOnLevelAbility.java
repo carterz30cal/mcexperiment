@@ -1,5 +1,6 @@
 package com.carterz30cal.items.abilities.generic;
 
+import com.carterz30cal.entities.GameEntity;
 import com.carterz30cal.entities.StatHavingEntity;
 import com.carterz30cal.entities.player.GamePlayer;
 import com.carterz30cal.items.abilities.implementation.*;
@@ -13,7 +14,7 @@ import java.util.List;
 /**
  * Generic class that grants a certain amount of a stat per player level.
  * @author carterz30cal
- * @version 1
+ * @version 2
  * @since 1.0.0
  */
 public class GrantStatOnLevelAbility extends GameAbility
@@ -43,9 +44,9 @@ public class GrantStatOnLevelAbility extends GameAbility
     }
 
     @Override
-    public List<String> miniMessageDescription(@NotNull PlayerAbilityContext context) {
+    public List<String> miniMessageDescription(@NotNull ContextWithAbility<? extends GameEntity> context) {
         var description = AbilityWithDescription.super.miniMessageDescription(context);
-        long level = context.owner == null ? 0 : context.owner.getLevel();
+        long level = !(context.getOwner() instanceof GamePlayer owner) ? 0 : owner.getLevel();
         description.add("<grey>This item gains " + formattedDisplay(stat, amount) + " per player");
         description.add("<grey>level. Currently, this bonus is " + formattedDisplay(stat, amount * level));
         return description;

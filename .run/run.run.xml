@@ -1,15 +1,4 @@
 <component name="ProjectRunConfigurationManager">
-  <configuration default="false" name="run" type="BatchConfigurationType" factoryName="Batch" focusToolWindowBeforeRun="true">
-    <module name="mcexperiment" />
-    <option name="INTERPRETER_OPTIONS" value="" />
-    <option name="WORKING_DIRECTORY" value="./server" />
-    <option name="PARENT_ENVS" value="true" />
-    <option name="SCRIPT_NAME" value="run.bat" />
-    <option name="PARAMETERS" value="" />
-    <method v="2">
-      <option name="Gradle.BeforeRunTask" enabled="true" tasks="clean test build" externalProjectPath="$PROJECT_DIR$" vmOptions="" scriptParameters="" />
-    </method>
-  </configuration>
   <configuration default="false" name="run" type="ShConfigurationType">
     <option name="SCRIPT_TEXT" value="" />
     <option name="INDEPENDENT_SCRIPT_PATH" value="false" />
@@ -24,7 +13,8 @@
     <option name="EXECUTE_SCRIPT_FILE" value="true" />
     <envs />
     <method v="2">
-      <option name="Gradle.BeforeRunTask" enabled="true" tasks="clean build" externalProjectPath="$PROJECT_DIR$" vmOptions="" scriptParameters="" />
+        <option name="Gradle.BeforeRunTask" enabled="false" tasks="clean build" externalProjectPath="$PROJECT_DIR$"
+                vmOptions="" scriptParameters=""/>
     </method>
   </configuration>
 </component>

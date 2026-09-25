@@ -4,10 +4,13 @@ import com.carterz30cal.entities.GameEntity;
 import com.carterz30cal.entities.enemies.core.GameEnemy;
 import com.carterz30cal.entities.health.damage.AttackType;
 import com.carterz30cal.entities.health.damage.DamagePacket;
+import com.carterz30cal.entities.health.damage.DamageSource;
 import com.carterz30cal.entities.health.damage.handlers.AggressiveEntity;
 import com.carterz30cal.entities.health.damage.handlers.DamageableEntity;
 import com.carterz30cal.entities.player.GamePlayer;
 import com.carterz30cal.entities.player.GameProjectile;
+import com.carterz30cal.items.ItemFactory;
+import com.carterz30cal.items.ItemType;
 import com.carterz30cal.main.Dungeons;
 import com.carterz30cal.stats.Stat;
 import com.carterz30cal.utils.EntityUtils;
@@ -32,39 +35,29 @@ import static org.bukkit.event.entity.EntityDamageEvent.DamageCause.ENTITY_SWEEP
 
 /**
  * @author carterz30cal
- * @version 3
+ * @version 4
  * @since 1.0.0
  */
 public class ListenerEntityDamage implements Listener
 {
-	public static ListenerEntityDamage Instance;
+    public static ListenerEntityDamage instance;
 
 	public ListenerEntityDamage() {
-		Instance = this;
+        instance = this;
 	}
 
-	@EventHandler
-	public void onEntityDamageEntity(EntityDamageByEntityEvent e)
-	{
-		GameEntity damager = GameEntity.get(e.getDamager());
-		GameEntity damaged = GameEntity.get(e.getEntity());
-
-        if (damaged == null || damager == null) {
-            e.setCancelled(true);
+    public static void handleEntityDamageEntity(DamageableEntity victim, AggressiveEntity aggressor, DamageSource source) {
+        if (aggressor instanceof GamePlayer player) {
+            var held = ItemFactory.getItem(player.getMainItem());
+            if (held != null) {
+                if (held.type == ItemType.ROD && source != DamageSource.FISHING_ROD) {
+                    return;
+                }
+                else if (held.type == ItemType.BOW && source != DamageSource.RANGED) {
+                    return;
+                }
+            }
         }
-        if (!(damager instanceof AggressiveEntity aggressor) || !(damaged instanceof DamageableEntity victim)) {
-            e.setCancelled(true);
-            return;
-        }
-        if (!victim.isDamageable(aggressor) || e.getCause() == ENTITY_SWEEP_ATTACK) {
-            e.setCancelled(true);
-            return;
-        }
-        e.setCancelled(true);
-        handleEntityDamageEntity(victim, aggressor);
-    }
-
-    public static void handleEntityDamageEntity(DamageableEntity victim, AggressiveEntity aggressor) {
         var packet = aggressor.getBlankDamagePacket();
         packet.defender = victim;
         aggressor.attack();
@@ -128,6 +121,27 @@ public class ListenerEntityDamage implements Listener
         }
     }
 
+	@EventHandler
+	public void onEntityDamageEntity(EntityDamageByEntityEvent e)
+	{
+		GameEntity damager = GameEntity.get(e.getDamager());
+		GameEntity damaged = GameEntity.get(e.getEntity());
+
+        if (damaged == null || damager == null) {
+            e.setCancelled(true);
+        }
+        if (!(damager instanceof AggressiveEntity aggressor) || !(damaged instanceof DamageableEntity victim)) {
+            e.setCancelled(true);
+            return;
+        }
+        if (!victim.isDamageable(aggressor) || e.getCause() == ENTITY_SWEEP_ATTACK) {
+            e.setCancelled(true);
+            return;
+        }
+        e.setCancelled(true);
+        handleEntityDamageEntity(victim, aggressor, DamageSource.MELEE);
+    }
+
     @EventHandler
 	public void onEntityCombust(EntityCombustEvent e) {
 		e.setCancelled(true);
@@ -141,7 +155,7 @@ public class ListenerEntityDamage implements Listener
             entities.removeIf((b) -> !(b instanceof DamageableEntity damageable) || !damageable.isDamageable(aggressor));
             for (var v : entities) {
                 var victim = (DamageableEntity) v;
-                handleEntityDamageEntity(victim, aggressor);
+                handleEntityDamageEntity(victim, aggressor, DamageSource.EXPLOSION);
             }
             if (aggressor instanceof DamageableEntity body && e.getEntityType() == EntityType.CREEPER) {
                 body.kill();
@@ -164,7 +178,7 @@ public class ListenerEntityDamage implements Listener
                     if (victim.equals(projectile)) {
                         continue;
                     }
-                    handleEntityDamageEntity(victim, projectile);
+                    handleEntityDamageEntity(victim, projectile, DamageSource.EXPLOSION);
                 }
             }
         }
@@ -185,7 +199,7 @@ public class ListenerEntityDamage implements Listener
                 if (e.getHitEntity() != null && e.getHitEntity().getType() == EntityType.ENDERMAN) {
                     var v = GameEntity.get(e.getHitEntity());
                     if (v instanceof DamageableEntity victim) {
-                        handleEntityDamageEntity(victim, gameProjectile);
+                        handleEntityDamageEntity(victim, gameProjectile, DamageSource.RANGED);
                     }
                 }
 
@@ -222,19 +236,6 @@ public class ListenerEntityDamage implements Listener
                 }
             }
         }
-        else if (e.getEntity() instanceof FishHook hook) {
-            if (hook.getOwnerUniqueId() == null) {
-                return;
-            }
-            if (e.getHitEntity() != null) {
-                var player = (GamePlayer) GameEntity.get(hook.getOwnerUniqueId());
-                GameEntity entity = GameEntity.get(e.getHitEntity());
-                if (entity instanceof DamageableEntity victim) {
-                    handleEntityDamageEntity(victim, player);
-                }
-                e.getEntity().remove();
-            }
-        }
 
 		e.setCancelled(false);
 	}
@@ -261,7 +262,7 @@ public class ListenerEntityDamage implements Listener
                 if (e.getEntity().getFallDistance() < 5) {
                     break;
                 }
-                long fallDamage = Math.round(e.getEntity().getFallDistance() * e.getEntity().getFallDistance() * 0.15);
+                long fallDamage = Math.round(e.getEntity().getFallDistance() * e.getEntity().getFallDistance() * 0.25);
                 packet.addDamage(com.carterz30cal.entities.health.damage.DamageType.FALL, fallDamage);
                 e.setCancelled(false);
                 e.setDamage(1);

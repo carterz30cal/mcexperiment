@@ -85,4 +85,4 @@ super_rod:
   rarity: MYSTERIOUS
   material: FISHING_ROD
   stats:
-    fishing_power: 750
+    fishing_power: 10000

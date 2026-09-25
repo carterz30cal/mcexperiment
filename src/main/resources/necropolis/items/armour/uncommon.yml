@@ -29,7 +29,27 @@ armour-pufferfish:
   trim-material: RESIN
   stats:
     health: +50
-    fishing_power: +8
-    defence: +20,+40,+30,+10
+    defence: +30,+50,+40,+20
+    fishing_power: +25
+    enchant_power: +20
+    level_requirement: 5
+
+armour-bone:
+  name:
+    - Bone Helm
+    - Bone Chestplate
+    - Bone Leggings
+    - Bone Boots
+  material: LEATHER
+  rarity: UNCOMMON
+  colour:
+    r: 190
+    g: 190
+    b: 190
+  trim-pattern: DUNE
+  trim-material: IRON
+  stats:
+    defence: +35
+    health: +40
     enchant_power: +20
     level_requirement: 5

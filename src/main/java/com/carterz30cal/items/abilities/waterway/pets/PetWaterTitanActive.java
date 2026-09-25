@@ -22,7 +22,7 @@ public class PetWaterTitanActive extends GameAbility implements AbilityWithDescr
     }
 
     @Override
-    public List<String> miniMessageDescription(@NotNull PlayerAbilityContext context) {
+    public List<String> miniMessageDescription(@NotNull ContextWithAbility<? extends GameEntity> context) {
         var list = new ArrayList<String>();
         list.add("<grey>You find 1 wet paper with every kill!</grey>");
         return list;

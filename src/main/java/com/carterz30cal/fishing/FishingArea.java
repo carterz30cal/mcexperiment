@@ -1,6 +1,7 @@
 package com.carterz30cal.fishing;
 
 import com.carterz30cal.entities.display.GameTextDisplay;
+import com.carterz30cal.entities.enemies.core.EnemyBuilder;
 import com.carterz30cal.entities.enemies.core.EnemyManager;
 import com.carterz30cal.entities.enemies.core.GameEnemy;
 import com.carterz30cal.entities.player.GamePlayer;
@@ -19,6 +20,7 @@ import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.ArmorStand;
 import org.bukkit.scheduler.BukkitRunnable;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.*;
 
@@ -26,16 +28,13 @@ import static net.kyori.adventure.text.Component.text;
 
 /**
  * @author carterz30cal
- * @version 3
+ * @version 4
  * @since 1.0.0
  */
 public class FishingArea {
     private static final Map<String, FishingArea> fishingAreas = new HashMap<>();
     private static final Map<GamePlayer, FishingBobber> bobbers = new HashMap<>();
     private final List<FishingBracket> brackets;
-    private int powerSubtraction;
-    private int powerReduction;
-
     static {
         String[] areaFiles = {
                 "waterway/fishing_areas"
@@ -51,15 +50,21 @@ public class FishingArea {
                 assert section != null;
                 for (String r : section.getKeys(false)) {
                     ItemRarity rarity = ItemRarity.valueOf(r);
-                    area.brackets.get(rarity.ordinal()).bracketWeight = section.getInt(r);
+                    area.brackets.get(rarity.ordinal()).bracketWeight = section.getLong(r + ".weight");
+                    area.brackets.get(rarity.ordinal()).mobCount = section.getInt(r + ".mobs", 1);
                 }
                 area.brackets.removeIf((b) -> b.bracketWeight == 0);
-                area.powerSubtraction = pa.getInt("power-subtraction", 0);
-                area.powerReduction = pa.getInt("power-reduction", 2);
+                area.powerSubtraction = pa.getLong("power-subtraction", 0);
+                area.powerReduction = pa.getLong("power-reduction", 2);
+                area.powerMultiplier = pa.getLong("power-multiplier", 1);
                 fishingAreas.put(p, area);
             }
         }
     }
+
+    private long powerSubtraction;
+    private long powerReduction;
+    private long powerMultiplier;
 
 
     public static FishingArea getFishingArea(String area) {
@@ -73,11 +78,20 @@ public class FishingArea {
         brackets.get(rarity.ordinal()).bracketMobs.add(mob);
     }
 
+    /**
+     * @param rarity what bracket should this go in?
+     * @param mob    the rare mob to spawn
+     * @since 1.0.0 [4]
+     */
+    public void addRare(ItemRarity rarity, String mob) {
+        brackets.get(rarity.ordinal()).rareMobs.add(mob);
+    }
+
     public FishingBobber getBobberUsingPower(Location location, GamePlayer owner) {
         long fishingPower;
         fishingPower = owner.stats.stat(Stat.FISHING_POWER) - powerSubtraction;
 
-        long adjustedPower = fishingPower;
+        long adjustedPower = fishingPower * powerMultiplier;
         if (adjustedPower < 0) return null;
         long startPower = 0;
         int i = 0;
@@ -92,7 +106,7 @@ public class FishingArea {
         }
 
 
-        long choice = RandomUtils.getRandom(Math.max(0L, startPower), getTotalWeight());
+        long choice = RandomUtils.getRandom(Math.max(0L, startPower), weight());
         i = 0;
         while (choice > 0 && i <= brackets.size() - 1) {
             choice -= brackets.get(i).bracketWeight;
@@ -111,12 +125,14 @@ public class FishingArea {
         bobber.owner = owner;
         bobber.rarity = bracket.bracketRarity;
         bobber.bracketMobs = bracket.bracketMobs;
+        bobber.mobCount = bracket.mobCount + (int) owner.getStat(Stat.BONUS_FISH_MOBS);
 
         Location bobberSpot = location.getBlock().getLocation().add(0, 1, 0);
         bobber.location = bobberSpot;
         bobber.uuid = UUID.randomUUID();
         bobber.title = GameTextDisplay.create(bobber.uuid + "_title", bobberSpot);
         bobber.subtitle = GameTextDisplay.create(bobber.uuid + "_subtitle", bobberSpot);
+        bobber.subsubtitle = GameTextDisplay.create(bobber.uuid + "_subtitle2", bobberSpot);
 
         bobber.physics = EntityUtils.spawnHologram(bobberSpot.clone().add(0, 0.4, 0), -1);
         bobber.physics.setGravity(true);
@@ -126,16 +142,22 @@ public class FishingArea {
         bobber.physics.setCustomNameVisible(false);
         EntityUtils.applyKnockback(owner, bobber.physics, -100);
         bobber.physics.setVelocity(owner.getLocation().subtract(bobberSpot).toVector().normalize().setY(0.6));
-        bobber.lifetime = (int)Math.round(20 * 45 * Math.log(bobber.rarity.ordinal() + 2));
+        bobber.lifetime = (int) Math.round(20 * 55 * Math.log(bobber.rarity.ordinal() + 2));
         bobber.maxLifetime = bobber.lifetime;
+        if (bracket.rareMobs.isEmpty()) {
+            bobber.rare = null;
+        }
+        else {
+            bobber.rare = RandomUtils.getChoice(bracket.rareMobs);
+        }
         bobbers.put(owner, bobber);
 
         bobber.runTaskTimer(Dungeons.instance, 1, 1);
         return bobber;
     }
 
-    private int getTotalWeight() {
-        int power = 0;
+    private long weight() {
+        long power = 0L;
         for (FishingBracket bracket : brackets) {
             power += bracket.bracketWeight;
         }
@@ -151,7 +173,7 @@ public class FishingArea {
 
     /**
      * @author carterz30cal
-     * @version 2
+     * @version 3
      * @since 1.0.0
      */
     public static class FishingBobber extends BukkitRunnable {
@@ -161,24 +183,29 @@ public class FishingArea {
         public GamePlayer owner;
         public Location location;
         public List<GameEnemy> enemies = new ArrayList<>();
+        public @Nullable String rare;
 
         public GameTextDisplay title;
         public GameTextDisplay subtitle;
+        public GameTextDisplay subsubtitle;
 
         public ArmorStand physics;
 
         public int lifetime = 45 * 20;
         public int maxLifetime;
+        public int mobCount;
 
         public void remove() {
             physics.remove();
             title.remove();
             subtitle.remove();
+            subsubtitle.remove();
         }
 
         @Override
         public void cancel() {
             remove();
+            owner.bobber = null;
             super.cancel();
         }
 
@@ -187,11 +214,20 @@ public class FishingArea {
             lifetime--;
 
             location = physics.getLocation();
-            title.teleport(location.clone().add(0, 0.8, 0));
-            subtitle.teleport(location.clone().add(0, 0.5, 0));
+            title.teleport(location.clone().add(0, 0.9, 0));
+            subtitle.teleport(location.clone().add(0, 0.6, 0));
+            subsubtitle.teleport(location.clone().add(0, 0.3, 0));
             Box attemptBox = new Box(location.clone().add(0, 0, 0)).expand(1, 0, 1);
 
-            if (lifetime < 1 || bracketMobs.isEmpty()) {
+            if (lifetime < 1 || mobCount == 0 || bracketMobs.isEmpty()) {
+                if (lifetime < 1) {
+                    for (var mob : enemies) mob.remove();
+                }
+                if (rare != null) {
+                    Location attempt = attemptBox.getRandomMobLocation();
+                    enemies.add(EnemyManager.spawn(rare, attempt.add(0, 0.25, 0)));
+                    owner.sendMessage("<blue><b>ELUSIVE!</b></blue><aqua> This bobber has lured in a " + EnemyBuilder.getBuilder(rare).getEnemyData().mmName);
+                }
                 cancel();
             }
             else {
@@ -206,33 +242,44 @@ public class FishingArea {
                                 )
                         ).build()
                 );
-                if (lifetime % 20 == 0) enemies.removeIf((e) -> e.dead);
-                if (lifetime < maxLifetime - 40 && enemies.isEmpty()) {
-                    if (attemptBox.getMiddleAsLocation().subtract(0, 1, 0).getBlock().getType() == Material.AIR) {
-                        return;
-                    }
-                    Location attempt = attemptBox.getRandomMobLocation();
-                    enemies.add(EnemyManager.spawn(RandomUtils.getChoice(bracketMobs), attempt.add(0, 0.25, 0)));
-                    lifetime -= 20;
+                subsubtitle.name("<gold>" + mobCount + " mobs left!</gold>");
+                if (lifetime % 20 == 0) {
+                    int check = enemies.size();
+                    enemies.removeIf((e) -> e.dead);
+                    mobCount = mobCount - (check - enemies.size());
                 }
-                else if (lifetime % (20 * 4) == 1 && enemies.size() < 4) {
-                    if (attemptBox.getMiddleAsLocation().subtract(0, 1, 0).getBlock().getType() == Material.AIR) {
-                        return;
+
+                if (mobCount - enemies.size() > 0) {
+                    if (lifetime < maxLifetime - 100 && enemies.isEmpty()) {
+                        if (attemptBox.getMiddleAsLocation().subtract(0, 1, 0).getBlock().getType() == Material.AIR) {
+                            return;
+                        }
+                        Location attempt = attemptBox.getRandomMobLocation();
+                        enemies.add(EnemyManager.spawn(RandomUtils.getChoice(bracketMobs), attempt.add(0, 0.25, 0)));
+                        lifetime -= 20;
                     }
-                    Location attempt = attemptBox.getRandomMobLocation();
-                    enemies.add(EnemyManager.spawn(RandomUtils.getChoice(bracketMobs), attempt.add(0, 0.25, 0)));
+                    else if (lifetime < maxLifetime - 15 && lifetime % (20 * 2) == 1 && enemies.size() < 3) {
+                        if (attemptBox.getMiddleAsLocation().subtract(0, 1, 0).getBlock().getType() == Material.AIR) {
+                            return;
+                        }
+                        Location attempt = attemptBox.getRandomMobLocation();
+                        enemies.add(EnemyManager.spawn(RandomUtils.getChoice(bracketMobs), attempt.add(0, 0.25, 0)));
+                    }
                 }
             }
         }
     }
 
     private static class FishingBracket {
-        public int bracketWeight;
+        public long bracketWeight;
         public ItemRarity bracketRarity;
         public List<String> bracketMobs;
+        public List<String> rareMobs;
+        public int mobCount;
 
         private FishingBracket(ItemRarity rarity) {
             bracketMobs = new ArrayList<>();
+            rareMobs = new ArrayList<>();
             bracketRarity = rarity;
         }
     }

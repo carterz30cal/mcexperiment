@@ -31,3 +31,27 @@ spirit_lantern_very_rare:
   stats:
     mining_fortune: +55
     dousing: +20
+
+gold_chunk:
+  name: Gold Chunk
+  type: TALISMAN
+  rarity: VERY_RARE
+  material: YELLOW_WOOL
+  tags:
+    - GREY_CHUNK
+  stats:
+    damage: +1
+    might: +35
+
+green_chunk:
+  name: Green Chunk
+  type: TALISMAN
+  rarity: EPIC
+  material: GREEN_WOOL
+  value: 1000
+  tags:
+    - GREY_CHUNK
+  stats:
+    damage: -1
+    health: +25
+    vitality: +5

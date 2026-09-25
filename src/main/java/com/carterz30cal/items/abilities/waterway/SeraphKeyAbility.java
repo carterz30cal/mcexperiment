@@ -1,11 +1,9 @@
 package com.carterz30cal.items.abilities.waterway;
 
 import com.carterz30cal.areas.bosses.waterway.AreaBossWaterwaySeraph;
+import com.carterz30cal.entities.GameEntity;
 import com.carterz30cal.items.ItemFactory;
-import com.carterz30cal.items.abilities.implementation.AbilityWithClick;
-import com.carterz30cal.items.abilities.implementation.AbilityWithDescription;
-import com.carterz30cal.items.abilities.implementation.GameAbility;
-import com.carterz30cal.items.abilities.implementation.PlayerAbilityContext;
+import com.carterz30cal.items.abilities.implementation.*;
 import org.bukkit.Location;
 import org.jetbrains.annotations.NotNull;
 
@@ -25,7 +23,7 @@ public class SeraphKeyAbility extends GameAbility implements AbilityWithDescript
     }
 
     @Override
-    public List<String> miniMessageDescription(@NotNull PlayerAbilityContext context) {
+    public List<String> miniMessageDescription(@NotNull ContextWithAbility<? extends GameEntity> context) {
         var lore = new ArrayList<String>();
         lore.add("<grey>Head to the Seraph's Temple and <gold>right click</gold> at the altar");
         lore.add("<grey>to register your interest in fighting the Seraph. This");

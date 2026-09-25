@@ -3,6 +3,7 @@ package com.carterz30cal.entities.player;
 import com.carterz30cal.entities.player.interfaces.PlayerSavable;
 import com.carterz30cal.items.Item;
 import com.carterz30cal.items.ItemFactory;
+import com.carterz30cal.items.ItemReqs;
 import com.carterz30cal.items.abilities.implementation.AbilityWithItemProducer;
 import com.carterz30cal.items.types.ItemIngredientGenerator;
 import com.carterz30cal.main.Dungeons;
@@ -17,7 +18,7 @@ import java.util.Map;
 
 /**
  * @author carterz30cal
- * @version 1
+ * @version 2
  * @since 1.0.0
  * @see AbilityWithItemProducer
  * @see com.carterz30cal.entities.player.interfaces.PlayerSavable
@@ -30,7 +31,7 @@ public class PlayerItemProducer implements PlayerSavable {
     /**
      * Determines the main item generator, and generation speed.
      */
-    private ItemIngredientGenerator generator;
+    private @Nullable ItemIngredientGenerator generator;
     /**
      * Last time, in milliseconds, that we checked the items generated.
      */
@@ -38,16 +39,30 @@ public class PlayerItemProducer implements PlayerSavable {
     private List<Item> upgrades;
 
     /**
+     * Get the level of this item producer.
+     *
+     * @return the level of this item producer
+     * @since 1.0.0 [2]
+     **/
+    public long level() {
+        return level;
+    }
+
+    /**
      * Calculate what items have been produced between the last calculation and
      * the latest attempt. If it is zero, don't update the last calculation time.
      * @return a map of all the items produced.
      * @param update should we update the last production time?
-     * @since 1.0.0
+     * @since 1.0.0 [1]
      * @see Item
      * @see GamePlayer
      */
     public Map<String, Long> calculate(boolean update) {
         Map<String, Long> items = new HashMap<>();
+        if (generator == null) {
+            return items;
+        }
+
         long current = System.currentTimeMillis();
         long timeDiff = current - lastCheck;
         var context = new ProducingContext();
@@ -75,6 +90,25 @@ public class PlayerItemProducer implements PlayerSavable {
         return items;
     }
 
+    /**
+     * Get the items needed to upgrade this factory to the next level
+     *
+     * @return the requirements to upgrade, or <code>null</code> if this cannot be upgraded.
+     * @since 1.0.0 [2]
+     */
+    public @Nullable ItemReqs upgradeRequirements() {
+        ItemReqs reqs;
+        if (level == 0) {
+            reqs = new ItemReqs();
+            reqs.coins = 12_500;
+        }
+        else {
+            reqs = null;
+        }
+        return reqs;
+    }
+
+
     @Override
     public void save(ConfigurationSection section) {
         section.set("generator", null);
@@ -82,8 +116,13 @@ public class PlayerItemProducer implements PlayerSavable {
         section.set("generator.level", level);
         section.set("generator.last-check", lastCheck);
         section.set("generator.primary-item", generator == null ? null : generator.id);
-        var idList = upgrades.stream().map((i) -> i.id).toList();
-        section.set("generator.upgrades", idList);
+        if (upgrades != null) {
+            var idList = upgrades.stream().map((i) -> i.id).toList();
+            section.set("generator.upgrades", idList);
+        }
+        else {
+            section.set("generator.upgrades", new ArrayList<>());
+        }
     }
 
     /**
@@ -121,7 +160,7 @@ public class PlayerItemProducer implements PlayerSavable {
      * @since 1.0.0
      * @param generator what are we setting?
      */
-    public void setGenerator(ItemIngredientGenerator generator) {
+    public void setGenerator(@Nullable ItemIngredientGenerator generator) {
         this.generator = generator;
     }
 

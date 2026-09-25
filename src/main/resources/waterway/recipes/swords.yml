@@ -139,19 +139,6 @@ titan_blade_incredible:
     seraphs_eye: 1
     chilli_powder: 20
 
-
-healing_wand_waterway_incredible:
-  level: 6
-  category: waterway_weapons
-  coins: 4000
-  items:
-    healing_wand_waterway: 1
-    seraphs_eye: 2
-    spiced_meat: 32
-    paper: 8
-    cooked_waterway_cod: 3
-    green_slime: 4
-
 zombie_sword:
   level: 6
   category: waterway_weapons

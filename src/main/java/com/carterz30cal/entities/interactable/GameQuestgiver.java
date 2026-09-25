@@ -34,7 +34,7 @@ public class GameQuestgiver extends GameEntityInteractable {
         if (quest == null) {
             return true;
         }
-        else if (quest.hasCompletedQuestgiver(viewer, backing)) {
+        else if (quest.complete(viewer, backing)) {
             return false;
         }
         else {
@@ -61,7 +61,7 @@ public class GameQuestgiver extends GameEntityInteractable {
         save.sectionSave.Interact();
         if (save.sectionSave.IsFinished()) {
             int delay = 0;
-            for (var l : save.sectionSave.GetSection().GetEndDialogue().GetList()) {
+            for (var l : save.sectionSave.GetSection().GetEndDialogue().list()) {
                 interactingPlayer.sendMessage(title + l, delay);
                 delay += 30;
             }
@@ -96,7 +96,7 @@ public class GameQuestgiver extends GameEntityInteractable {
         }
         else {
             int delay = 0;
-            for (var l : save.sectionSave.Talk().GetList()) {
+            for (var l : save.sectionSave.Talk().list()) {
                 interactingPlayer.sendMessage(title + l, delay);
                 interactingPlayer.playSound(Sound.ENTITY_VILLAGER_AMBIENT, 0.3, 0.8, delay);
                 delay += 30;

@@ -1,6 +1,7 @@
 package com.carterz30cal.items.abilities.waterway;
 
 
+import com.carterz30cal.entities.GameEntity;
 import com.carterz30cal.entities.StatHavingEntity;
 import com.carterz30cal.items.abilities.implementation.*;
 import com.carterz30cal.stats.Stat;
@@ -23,7 +24,7 @@ public class SeraphSwordAbility extends GameAbility implements AbilityWithDescri
     }
 
     @Override
-    public List<String> miniMessageDescription(@NotNull PlayerAbilityContext context) {
+    public List<String> miniMessageDescription(@NotNull ContextWithAbility<? extends GameEntity> context) {
         var list = new ArrayList<String>();
         list.add("<grey>Grants " + formattedDisplay(Stat.POWER, 5) + " for every<grey>");
         list.add("<grey>" + formattedDisplay(Stat.FOCUS, 2) + " that this weapon has.<grey>");

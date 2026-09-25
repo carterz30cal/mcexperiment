@@ -50,12 +50,13 @@ public class TreasureDetectorAbility extends GameAbility
     }
 
     @Override
-    public List<String> miniMessageDescription(@NotNull PlayerAbilityContext context) {
+    public List<String> miniMessageDescription(@NotNull ContextWithAbility<? extends GameEntity> context) {
         var desc = "<grey>Look around selected areas for buried treasure! You'll see particles when you're nearby.";
-        if (context.getOwner() != null && !options.containsKey(context.getOwner().area)) {
+        var owner = (context.getOwner() instanceof GamePlayer gamePlayer) ? gamePlayer : null;
+        if (owner != null && !options.containsKey(owner.area)) {
             desc += " Your current zone contains <red>no treasure</red>.";
         }
-        else if (context.getOwner() == null) {
+        else if (owner == null) {
             desc += " This zone may have treasure.";
         }
         else {

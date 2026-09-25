@@ -48,7 +48,7 @@ public class SeraphSummonGuideAbility extends GameAbility implements AbilityWith
     }
 
     @Override
-    public List<String> miniMessageDescription(@NotNull PlayerAbilityContext context) {
+    public List<String> miniMessageDescription(@NotNull ContextWithAbility<? extends GameEntity> context) {
         var list = new ArrayList<String>();
         list.add("<grey>A helpful soul will follow you.");
         list.add("<dark_grey>" + cooldown + " second cooldown if killed.");

@@ -62,6 +62,7 @@ public class GameOwnable extends GameEntity implements RepresentedEntity {
     @Override
 	public void remove() {
         this.representation.remove();
+        this.display.remove(true);
         this.ticker.cancel();
         deregister(this.uuid);
 	}
@@ -113,22 +114,22 @@ public class GameOwnable extends GameEntity implements RepresentedEntity {
     }
 
     protected void tick() {
-        if (!representation.valid()) {
+        if (!representation.valid() || !display.valid()) {
             representation.remove();
+            display.remove(true);
             if (!getLocation().isChunkLoaded()) {
                 return;
             }
             representation = repBuilder.build(location);
             representation.register(this);
-            display.reset();
-        }
-        for (var player : PlayerManager.players.values()) {
-            representation.display(player, isVisible(player));
-            display.display(player, isVisible(player));
         }
         display.setLine(0, title);
         display.setLine(1, subtitle);
         display.tick();
+        for (var player : PlayerManager.players.values()) {
+            representation.display(player, isVisible(player));
+            display.display(player, isVisible(player));
+        }
     }
 
     @Override

@@ -87,6 +87,7 @@ paper:
   type: INGREDIENT
   rarity: RARE
   material: PAPER
+  value: 90
   lore:
     - Reconstituted parchment, formed by layering
     - old soggy bits of paper together and then
@@ -135,6 +136,7 @@ combination_catalyst_shard:
   type: CATALYST
   rarity: LEGENDARY
   material: QUARTZ
+  value: 50
   lore:
     - This is a small sample of a shard
     - of a <red>Combination Catalyst</red>. Luckily,

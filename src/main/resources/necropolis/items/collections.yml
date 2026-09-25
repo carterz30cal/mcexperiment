@@ -127,10 +127,16 @@ sand_collection:
     - 5
     - 100
     - 500
+    - 2000
+    - 10000
+    - 50000
   xp-rewards:
     - 5
     - 5
     - 5
+    - 5
+    - 0
+    - 0
 
 gold_nugget_collection:
   name: Gold Nuggets

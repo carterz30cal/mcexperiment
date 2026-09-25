@@ -6,6 +6,7 @@ import com.carterz30cal.entities.player.GamePlayer;
 import com.carterz30cal.utils.Box;
 import com.carterz30cal.utils.EntityUtils;
 import com.carterz30cal.utils.RandomUtils;
+import org.bukkit.Location;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,7 +14,7 @@ import java.util.UUID;
 
 /**
  * @author carterz30cal
- * @version 4
+ * @version 5
  * @since 1.0.0
  */
 public class SimpleAreaEnemySpawner extends AbstractEnemySpawner {
@@ -24,8 +25,10 @@ public class SimpleAreaEnemySpawner extends AbstractEnemySpawner {
     protected int spawnTimer;
     protected List<UUID> mobs = new ArrayList<>();
     protected double spawnMultiplier = 1;
+    protected double validRadius = 4;
+    protected boolean cullDead = true;
 
-    private int spawnTick = 0;
+    protected int spawnTick = 0;
 
     public SimpleAreaEnemySpawner(int x1, int y1, int z1, int x2, int y2, int z2) {
         spawnBox = new Box(x1, y1, z1, x2, y2, z2);
@@ -51,6 +54,12 @@ public class SimpleAreaEnemySpawner extends AbstractEnemySpawner {
         spawnTimer = DEFAULT_SPAWN_TIMER;
         this.spawnMultiplier = spawnMultiplier;
 
+        options("NORMAL", options);
+    }
+
+    public SimpleAreaEnemySpawner(Location location, String... options) {
+        spawnBox = new Box(location);
+        spawnTimer = DEFAULT_SPAWN_TIMER;
         options("NORMAL", options);
     }
 
@@ -122,7 +131,9 @@ public class SimpleAreaEnemySpawner extends AbstractEnemySpawner {
             }
             spawnTick = 0;
         }
-        mobs.removeIf((e) -> !GameEntity.entities.containsKey(e) || GameEntity.entities.get(e).dead);
+        if (cullDead) {
+            mobs.removeIf((e) -> !GameEntity.entities.containsKey(e) || GameEntity.entities.get(e).dead);
+        }
         super.tick();
     }
 
@@ -138,7 +149,7 @@ public class SimpleAreaEnemySpawner extends AbstractEnemySpawner {
     }
 
     protected List<GamePlayer> getPlayersWithinValidArea() {
-        return EntityUtils.getNearbyPlayers(spawnBox.getMiddleAsLocation(), spawnBox.getHorizontalLongestSide() + 4);
+        return EntityUtils.getNearbyPlayers(spawnBox.getMiddleAsLocation(), spawnBox.getHorizontalLongestSide() + validRadius);
     }
 
     protected boolean getCurrentlyValidToSpawn() {

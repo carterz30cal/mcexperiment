@@ -6,7 +6,6 @@ import com.carterz30cal.entities.health.status.StatusEffect;
 import com.carterz30cal.entities.player.GamePlayer;
 import com.carterz30cal.items.abilities.implementation.AbilityWithStatusProc;
 import com.carterz30cal.items.abilities.implementation.ContextWithAbility;
-import com.carterz30cal.items.abilities.implementation.PlayerAbilityContext;
 import com.carterz30cal.skills.GameSkill;
 import com.carterz30cal.skills.SkillSoulType;
 import org.jetbrains.annotations.NotNull;
@@ -25,7 +24,7 @@ public class PlayerSkillLifesteal extends GameSkill implements AbilityWithStatus
     }
 
     @Override
-    public List<String> miniMessageDescription(@NotNull PlayerAbilityContext context) {
+    public List<String> miniMessageDescription(@NotNull ContextWithAbility<? extends GameEntity> context) {
         var lore = super.miniMessageDescription(context);
         lore.add("<grey>You will heal <red>" + healing(context.getLevel()) + "\u2665" + "</red> every time that you proc any status effect.");
         lore.add("<grey>This can activate as often as you can proc a status effect, and");

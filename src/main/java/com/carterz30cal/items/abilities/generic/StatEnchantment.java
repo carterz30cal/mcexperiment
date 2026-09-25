@@ -55,7 +55,7 @@ public class StatEnchantment extends GameAbstractEnchant
         var description = text();
 
         description.append(text("Grants ", NamedTextColor.GRAY));
-        description.append(text(getStat(context) > 0 ? "+" : "-").append(text(getStat(context))).color(statGranted.textColour));
+        description.append(text(getStat(context) > 0 ? "+" : "").append(text(getStat(context))).color(statGranted.textColour));
         if (statOperation == StatOperationType.MULTIPLY) {
             description.append(text("%", statGranted.textColour));
         }

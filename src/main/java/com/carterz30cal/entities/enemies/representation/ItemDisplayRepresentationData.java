@@ -38,11 +38,11 @@ public class ItemDisplayRepresentationData extends EnemyRepresentationData {
         ItemDisplay entity = (ItemDisplay) super.spawn(base);
         entity.setItemStack(ItemFactory.buildItemFromString(itemInformation));
         entity.setInvisible(false);
-        entity.setTeleportDuration(1);
+        entity.setTeleportDuration(3);
         Matrix4f mat = new Matrix4f().scale((float) scale);
         entity.setTransformationMatrix(mat.rotateY((float) Math.toRadians(180)));
         //entity.setTransformation(new Transformation(new Vector3f(), new AxisAngle4f(0, 0, (float) Math.toRadians(180), 0), new Vector3f(), new AxisAngle4f()));
-        entity.setInterpolationDuration(1);
+        entity.setInterpolationDuration(3);
         entity.setGravity(false);
         entity.setNoPhysics(true);
         return entity;

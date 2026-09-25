@@ -1,0 +1,31 @@
+warrior_rune:
+  name: Warrior Rune
+  type: RUNE
+  rarity: VERY_RARE
+  custom-model-id: warrior_rune
+  stats:
+    strength: +40
+
+flow_rune:
+  name: Flow Rune
+  type: RUNE
+  rarity: VERY_RARE
+  custom-model-id: flow_rune
+  stats:
+    power: +40
+
+standstill_rune:
+  name: Standstill Rune
+  type: RUNE
+  rarity: VERY_RARE
+  custom-model-id: standstill_rune
+  stats:
+    defence: +75
+
+separation_rune:
+  name: Separation Rune
+  type: RUNE
+  rarity: VERY_RARE
+  custom-model-id: separation_rune
+  stats:
+    might: +40

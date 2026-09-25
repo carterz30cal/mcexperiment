@@ -1,5 +1,7 @@
 package com.carterz30cal.items.abilities;
 
+import com.carterz30cal.areas.bosses.necropolis.AreaCryptNecropolis;
+import com.carterz30cal.areas.bosses.necropolis.AreaMinibossNecropolisHydra;
 import com.carterz30cal.entities.health.damage.DamageType;
 import com.carterz30cal.entities.health.status.StatusEffect;
 import com.carterz30cal.entities.player.GamePlayer;
@@ -7,10 +9,10 @@ import com.carterz30cal.items.ItemType;
 import com.carterz30cal.items.abilities.generic.*;
 import com.carterz30cal.items.abilities.implementation.GameAbility;
 import com.carterz30cal.items.abilities.implementation.PlayerAbilityContext;
+import com.carterz30cal.items.abilities.necropolis.enchants.CryptStatEnchantment;
 import com.carterz30cal.items.abilities.necropolis.enchants.StatusEffectEnchantment;
 import com.carterz30cal.items.abilities.necropolis.enchants.ThornsEnchantment;
-import com.carterz30cal.items.abilities.necropolis.items.SandShovelAbility;
-import com.carterz30cal.items.abilities.necropolis.items.TreasureDetectorAbility;
+import com.carterz30cal.items.abilities.necropolis.items.*;
 import com.carterz30cal.items.abilities.waterway.*;
 import com.carterz30cal.items.abilities.waterway.factory.CatalystDustCoagulatorFactoryUpgrade;
 import com.carterz30cal.items.abilities.waterway.pets.*;
@@ -19,6 +21,7 @@ import com.carterz30cal.items.abilities.waterway.sets.ZombieArmourSet;
 import com.carterz30cal.stats.Stat;
 import com.carterz30cal.stats.StatOperationType;
 import com.carterz30cal.stats.operations.AddStatOperation;
+import com.carterz30cal.stats.operations.LegacyStatOperation;
 
 /**
  * @author carterz30cal
@@ -121,14 +124,30 @@ public enum Abilities
     ENCHANT_FIRE_ASPECT(new StatusEffectEnchantment(
             "Fire Aspect", StatusEffect.BURN, 10, 10, 4, 3, ItemType.WEAPON, ItemType.BOW
     )),
+    ENCHANT_LIGHT_FEET(new StatEnchantment(
+            "Light-Footed", 2, Stat.SPEED, 0, 2, 5, ItemType.BOOTS
+    )),
 
 	PET_DUSTED_COMMON(new PlayerStatAbility("Active: Dust-ball", Stat.DEFENCE, 80)),
+    PET_DUSTED_UNCOMMON(new PlayerStatAbility("Active: Dust-ball", Stat.DEFENCE, 90)),
+    PET_DUSTED_PASSIVE(new DamageToTagAbility("Passive: Skeleton Destroyer", "UNDEAD", "dusted & other skeletal", 1.2, 0.05, DamageType.PHYSICAL)),
 	PET_RED_SLIME_COMMON(new PlayerStatAbility("Active: Slime Layers", Stat.INSULATION, 150)),
+    PET_BABY_HYDRA_COMMON(new PlayerStatAbility("Active: Regrowth", Stat.VITALITY, 5)),
 	LESSER_LIFE_SWORD(new GrantStatOnLevelAbility("Signs of Life", Stat.STRENGTH, 8)),
 	TITAN_BLADE_LEGENDARY(new GrantStatOnLevelAbility("Irremovable Defence", Stat.DEFENCE, 4)),
+    PUFFER_SWORD(new DamageToTagAbility("Ocean Biodiversity Removal", "FISHING", "fishing", 1, 0.25, DamageType.PHYSICAL)),
 	SAND_SHOVEL(new SandShovelAbility()),
 	TREASURE_DETECTOR(new TreasureDetectorAbility()),
-	;
+    HYDRA_KEY_LESSER(new HydraKeyAbility(AreaMinibossNecropolisHydra.HydraBossTier.LESSER, "hydra_key_lesser")),
+    NECROPOLIS_CRYPT_KEY_LESSER(new NecropolisCryptKeyAbility(AreaCryptNecropolis.NecropolisCryptTier.LESSER, "crypt_key_lesser")),
+    CRYPT_TANK_ARMOUR_PIECE(new CryptStatAbility("Endless Defence",
+            "This item has <green>3x Defence</green> whilst in a crypt.", new LegacyStatOperation(StatOperationType.MULTIPLY, 3, Stat.DEFENCE))),
+    CRYPT_KNIGHT_SWORD(new CryptStatAbility("Smashing Strength", "This sword has <blue>3x Strength</blue> whilst in a crypt.",
+            new LegacyStatOperation(StatOperationType.MULTIPLY, 3, Stat.STRENGTH))),
+    ENCHANT_CRYPT_MIGHT(new CryptStatEnchantment("Crypt Might", 2, Stat.MIGHT, 0, 10, 5, ItemType.WEAPON, ItemType.BOW, ItemType.ROD)),
+    ENCHANT_STEALTH(new StatEnchantment("Stealth", 1, Stat.VISIBILITY, 0, -1, 3, ItemType.LEGGINGS, ItemType.BOOTS)),
+    PET_CRYPT_DWELLER_PASSIVE(new DamageToTagAbility("Passive: Plundering", "CRYPT", "crypt", 1.05, 0.05, DamageType.PHYSICAL)),
+    ;
 	public final GameAbility ability;
 
 	Abilities(GameAbility ability) {

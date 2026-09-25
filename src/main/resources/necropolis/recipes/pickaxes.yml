@@ -17,3 +17,13 @@ sand_shovel_epic:
   items:
     sand: 180
     cooked_waterway_cod: 2
+
+sand_shovel_incredible:
+  level: 5
+  discovery: sand_collection
+  discovery-tier: 5
+  category: necropolis_pickaxes
+  items:
+    sand_shovel_epic: 1
+    compressed_sand: 32
+    cooked_necropolis_fish: 2

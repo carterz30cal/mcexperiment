@@ -21,6 +21,6 @@ public class QuestSectionBringItemCustomDescription extends QuestSectionBringIte
 
     @Override
     public List<String> GetDescription(SectionSave save) {
-        return customScoreboard.GetList();
+        return customScoreboard.list();
     }
 }

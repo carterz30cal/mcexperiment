@@ -24,7 +24,7 @@ public class FlimsyPersistenceEnchant extends GameAbstractEnchant implements Abi
     }
 
     @Override
-    public List<String> miniMessageDescription(@NotNull PlayerAbilityContext context) {
+    public List<String> miniMessageDescription(@NotNull ContextWithAbility<? extends GameEntity> context) {
         var description = "<grey>On kill, gain 1 Flimsy Arrow.";
         return StringUtils.wrapText(description, 26);
     }

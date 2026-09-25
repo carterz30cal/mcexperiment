@@ -84,15 +84,17 @@ public class ItemFactory
             "waterway/items/pet_items", "waterway/items/quest_items",
             "necropolis/items/weapons/common","necropolis/items/weapons/uncommon",
             "necropolis/items/weapons/rare",
-            "necropolis/items/tools/pickaxes","necropolis/items/tools/rods","necropolis/items/tools/detectors",
+            "necropolis/items/weapons/epic",
+            "necropolis/items/weapons/legendary",
             "necropolis/items/weapons/waterway_upgraded_legendary_swords",
-            "necropolis/items/armour/uncommon","necropolis/items/armour/rare",
-            "necropolis/items/armour/sets",
-            "necropolis/items/upgrades/attuners",
-            "necropolis/items/tools/talismans",
+            "necropolis/items/tools/pickaxes", "necropolis/items/tools/rods", "necropolis/items/tools/detectors", "necropolis/items/tools/boss_summons",
+            "necropolis/items/armour/uncommon", "necropolis/items/armour/rare", "necropolis/items/armour/very_rare",
+            "necropolis/items/armour/legendary",
+            "necropolis/items/armour/sets", "necropolis/items/talismans",
+            "necropolis/items/upgrades/attuners", "necropolis/items/upgrades/runes",
             "necropolis/items/lootboxes",
             "necropolis/items/potions",
-            "necropolis/items/pets/common_pets",
+            "necropolis/items/pets/common", "necropolis/items/pets/uncommon",
             "necropolis/items/ingredients",
             "necropolis/items/lore"
 	};
@@ -112,7 +114,7 @@ public class ItemFactory
             "waterway/recipes/talismans", "waterway/recipes/fishing_rods", "waterway/recipes/pickaxes",
             "necropolis/recipes/swords/common","necropolis/recipes/swords/uncommon",
             "necropolis/recipes/swords/rare",
-            "necropolis/recipes/talismans", "necropolis/recipes/pickaxes", "necropolis/recipes/detectors",
+            "necropolis/recipes/talismans", "necropolis/recipes/pickaxes", "necropolis/recipes/detectors", "necropolis/recipes/rods",
             "necropolis/recipes/armour/uncommon","necropolis/recipes/armour/rare",
             "necropolis/recipes/ingredients", "necropolis/recipes/enchants", "necropolis/recipes/pet_upgrades",
             "necropolis/recipes/potions",
@@ -245,11 +247,17 @@ public class ItemFactory
         var itemNameB = text().decorationIfAbsent(TextDecoration.ITALIC, TextDecoration.State.FALSE);
         var descriptor = text().decorationIfAbsent(TextDecoration.ITALIC, TextDecoration.State.FALSE);
         List<Component> lore = new ArrayList<>();
+        StatContainer stats = item.stats.clone();
+        var rune = getRune(stack);
+        if (rune != null) {
+            itemNameB.append(text("Runic ", item.rarity.textColor));
+            rune.stats.pushIntoContainer(stats);
+        }
 
         itemNameB.append(text(item.name, item.rarity.textColor));
 
         var enchantments = getItemEnchants(stack, context.player);
-        StatContainer stats = item.stats.clone();
+
         int maxEnchantPower = getItemMaxEnchantPower(stack, context.player);
         int usedEnchantPower = Math.max(0, sumEnchantPower(enchantments));
 
@@ -273,6 +281,12 @@ public class ItemFactory
             descriptor
                     .append(text(" [").color(DARK_GRAY))
                     .append(text(usedEnchantPower).color(AQUA))
+                    .append(text("]").color(DARK_GRAY));
+        }
+        if (rune != null) {
+            descriptor
+                    .append(text(" [").color(DARK_GRAY))
+                    .append(text(rune.name.replace(" Rune", "")).color(rune.rarity.textColor))
                     .append(text("]").color(DARK_GRAY));
         }
         if (item.value > 0 && isItemBaseModel(stack)) {
@@ -418,6 +432,11 @@ public class ItemFactory
                 specificSection.section.add(text().append(text("You may apply up to five attuners onto").color(GRAY)));
                 specificSection.section.add(text().append(text("any wieldable item using the anvil menu.").color(GRAY)));
             }
+            else if (item.type == ItemType.RUNE) {
+                drawSpecificSection = true;
+                specificSection.section.add(text().append(text("You may apply a single rune to").color(GRAY)));
+                specificSection.section.add(text().append(text("any wieldable item using the anvil menu.").color(GRAY)));
+            }
             else if (item instanceof ItemPotionBottle bottle) {
                 drawSpecificSection = true;
                 specificSection.section.add(
@@ -544,14 +563,20 @@ public class ItemFactory
         lore.addFirst(descriptor.build());
         meta.customName(itemNameB.build());
         meta.lore(lore);
+        if (item.customModelId != null) {
+            var model = meta.getCustomModelDataComponent();
+            var str = List.of(item.customModelId);
+            model.setStrings(str);
+            meta.setCustomModelDataComponent(model);
+        }
 
         if (meta instanceof LeatherArmorMeta leather) {
             leather.setColor(Color.fromRGB(item.r, item.g, item.b));
         }
-        if (meta instanceof ArmorMeta armor) {
+        if (meta instanceof ArmorMeta armour) {
             if (item.trimMaterial != TrimMaterialWrapper.NULL && item.trimPattern != TrimPatternWrapper.NULL) {
                 ArmorTrim trim = new ArmorTrim(item.trimMaterial.GetTrimMaterial(), item.trimPattern.GetTrimPattern());
-                armor.setTrim(trim);
+                armour.setTrim(trim);
             }
         }
         if (item.glow) {
@@ -747,6 +772,12 @@ public class ItemFactory
 			abilities.add(a.getContext(p, i.rarity.ordinal()));
 		}
 		abilities.addAll(getItemEnchants(item, p));
+        var rune = getRune(item);
+        if (rune != null) {
+            for (var a : rune.abilities) {
+                abilities.add(a.getContext(p, i.rarity.ordinal()));
+            }
+        }
 
 		return abilities;
 	}
@@ -1093,6 +1124,13 @@ public class ItemFactory
 		return attunerList;
 	}
 
+    public static Item getRune(ItemStack item) {
+        Map<String, String> data = getItemData(item);
+        String rune = data.getOrDefault("rune", "");
+
+        return getItem(rune);
+    }
+
     /**
      * Get <code>PotionPacket</code>s from a <code>POTION_FUMES</code> item.
      * @param item what are we getting from?
@@ -1432,11 +1470,12 @@ public class ItemFactory
 				pet.petLine = i.getString("pet-line");
 				try {
 					pet.activeAbility = Abilities.valueOf(i.getString("active-ability"));
-				} catch (IllegalArgumentException e ) {
+                } catch (IllegalArgumentException | NullPointerException e) {
                     Dungeons.instance.getLogger().severe("ItemFactory: couldn't find " + i.getString("active-ability") + " ability.");
+                    pet.activeAbility = null;
 				}
 
-				item = pet ;
+                item = pet;
 				break;
 			default:
 				item = new Item();
@@ -1460,6 +1499,16 @@ public class ItemFactory
 		item.discoveryProgress = i.getInt("discovery-progress", 0);
 		item.set = i.getString("set", "null");
         item.skullProfileId = i.getString("skull-profile-id", null);
+
+        if (i.contains("custom-model-id")) {
+            if (item.type.use == ItemTypeUse.WIELDABLE) {
+                item.material = Material.DIAMOND_SWORD;
+            }
+            else {
+                item.material = Material.PAPER;
+            }
+            item.customModelId = i.getString("custom-model-id");
+        }
 
         if (item.lore == null) {
             item.lore = new ArrayList<>();

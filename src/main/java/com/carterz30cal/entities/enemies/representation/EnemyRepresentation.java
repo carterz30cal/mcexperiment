@@ -21,7 +21,7 @@ import static com.carterz30cal.entities.enemies.core.GameEnemy.keyEnemy;
 
 /**
  * @author carterz30cal
- * @version 3
+ * @version 4
  * @since 1.0.0
  */
 public class EnemyRepresentation {
@@ -47,6 +47,9 @@ public class EnemyRepresentation {
     public double getTallestPoint() {
         if (tallestPoint == -1) {
             for (var e : entities.entrySet()) {
+                if (!e.getKey().contributeHeight) {
+                    continue;
+                }
                 tallestPoint = Math.max(tallestPoint, e.getKey().offset.getY() + (e.getValue().getHeight() * e.getKey().scale));
             }
             if (tallestPoint == -1) {
@@ -79,12 +82,12 @@ public class EnemyRepresentation {
      * @since 1.0.0
      */
     public void display(GamePlayer viewer, boolean visible) {
-        for (var e : entities.values()) {
-            if (visible) {
-                viewer.showEntity(e);
+        for (var e : entities.entrySet()) {
+            if (visible && !e.getKey().hidden) {
+                viewer.showEntity(e.getValue());
             }
             else {
-                viewer.hideEntity(e);
+                viewer.hideEntity(e.getValue());
             }
         }
     }

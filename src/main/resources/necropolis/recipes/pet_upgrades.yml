@@ -1,5 +1,6 @@
 red_slime_common:
   item: pet_red_slime_common
+  custom-name: <grey>Red Slime</grey> <dark_grey>[Pet]</dark_grey>
   amount: 1
   time: 1h
   category: necropolis_pets
@@ -12,6 +13,7 @@ red_slime_common:
 
 drenched_uncommon:
   item: pet_drenched_uncommon
+  custom-name: <yellow>Drenched</yellow> <dark_grey>[Pet]</dark_grey>
   amount: 1
   level: 6
   time: 1h
@@ -21,3 +23,16 @@ drenched_uncommon:
   items:
     pet_drenched_common: 2
     roasted_bone_dust: 1
+
+pet_dusted_uncommon:
+  amount: 1
+  custom-name: <yellow>Dusted</yellow> <dark_grey>[Pet]</dark_grey>
+  level: 7
+  time: 1h
+  category: necropolis_pets
+  discovery: bone_dust_collection
+  discovery-tier: 4
+  items:
+    pet_dusted_common: 3
+    roasted_bone_dust: 3
+    gold_leaf: 50

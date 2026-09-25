@@ -13,7 +13,7 @@ import java.util.List;
 
 /**
  * @author carterz30cal
- * @version 3
+ * @version 4
  * @since 1.0.0
  */
 public class ItemLootTable
@@ -30,7 +30,7 @@ public class ItemLootTable
             int[] chance = StringUtils.convertStringToFraction(section.getString(drop + ".chance", "1/1"));
             int[] amount = StringUtils.convertStringToFraction(section.getString(drop + ".amount", "1/1"));
 
-            String enchants = section.getString(drop + ".enchants", "");
+            String enchants = section.getString(drop + ".enchants", null);
 
             addDrop(drop.split("-")[0], amount, chance, enchants);
         }

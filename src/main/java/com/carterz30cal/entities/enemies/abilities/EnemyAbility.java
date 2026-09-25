@@ -14,7 +14,7 @@ import java.lang.reflect.InvocationTargetException;
  * @since 1.0.0
  */
 public abstract class EnemyAbility implements Ability {
-    public EnemyAbility(ConfigurationSection section) {
+    public EnemyAbility(ConfigurationSection ignoredSection) {
 
     }
 

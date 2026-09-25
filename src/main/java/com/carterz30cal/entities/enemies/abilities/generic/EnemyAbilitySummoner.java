@@ -12,10 +12,11 @@ import com.carterz30cal.utils.RandomUtils;
 import org.bukkit.configuration.ConfigurationSection;
 
 import java.util.*;
+import java.util.stream.Stream;
 
 /**
  * @author carterz30cal
- * @version 1
+ * @version 2
  * @since 1.0.0
  */
 public class EnemyAbilitySummoner extends EnemyAbility implements AbilityWithTick {
@@ -24,6 +25,7 @@ public class EnemyAbilitySummoner extends EnemyAbility implements AbilityWithTic
     public int maxSummons;
     public int spawnTime;
     public boolean allowRespawn;
+    public boolean despawnOnDeath;
     public double summonRange;
     public AbilityCondition condition;
 
@@ -35,6 +37,7 @@ public class EnemyAbilitySummoner extends EnemyAbility implements AbilityWithTic
         this.spawnTime = section.getInt("spawn-time", -1);
         this.allowRespawn = section.getBoolean("allow-respawn", false);
         this.summonRange = section.getDouble("summon-range", 5);
+        this.despawnOnDeath = section.getBoolean("despawn-on-death", false);
         if (section.contains("condition")) {
             this.condition = AbilityCondition.get(Objects.requireNonNull(section.getString("condition.class")), Objects.requireNonNull(section.getConfigurationSection("condition")));
         }
@@ -46,6 +49,17 @@ public class EnemyAbilitySummoner extends EnemyAbility implements AbilityWithTic
     protected List<GameEnemy> getSummons(GameEnemy owner) {
         summons.putIfAbsent(owner, new ArrayList<>());
         return summons.get(owner);
+    }
+
+    /**
+     * @param owner context owner
+     * @return a stream of alive enemies
+     * @since 1.0.0 [2]
+     */
+    protected Stream<GameEnemy> getAliveSummons(GameEnemy owner) {
+        summons.putIfAbsent(owner, new ArrayList<>());
+        var enemies = summons.get(owner);
+        return enemies.stream().filter(GameEnemy::isAlive);
     }
 
     @Override
@@ -64,5 +78,16 @@ public class EnemyAbilitySummoner extends EnemyAbility implements AbilityWithTic
             }
         }
         summons.put(owner, enemies);
+    }
+
+    @Override
+    public void deregister(ContextWithAbility<? extends GameEntity> context) {
+        AbilityWithTick.super.deregister(context);
+        if (despawnOnDeath && context.getOwner() instanceof GameEnemy enemy) {
+            var summons = getSummons(enemy);
+            for (var s : summons) {
+                s.remove();
+            }
+        }
     }
 }

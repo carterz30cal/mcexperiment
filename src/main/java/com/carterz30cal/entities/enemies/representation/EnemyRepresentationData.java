@@ -7,10 +7,7 @@ import org.bukkit.NamespacedKey;
 import org.bukkit.attribute.Attribute;
 import org.bukkit.attribute.AttributeModifier;
 import org.bukkit.configuration.ConfigurationSection;
-import org.bukkit.entity.Entity;
-import org.bukkit.entity.EntityType;
-import org.bukkit.entity.LivingEntity;
-import org.bukkit.entity.Mob;
+import org.bukkit.entity.*;
 import org.bukkit.inventory.EquipmentSlot;
 import org.bukkit.inventory.EquipmentSlotGroup;
 import org.bukkit.potion.PotionEffect;
@@ -24,7 +21,7 @@ import java.util.Objects;
 
 /**
  * @author carterz30cal
- * @version 3
+ * @version 4
  * @since 1.0.0
  */
 public class EnemyRepresentationData {
@@ -33,7 +30,9 @@ public class EnemyRepresentationData {
     public Vector offset;
     public EntityType type;
     public boolean invisible;
+    public boolean hidden;
     public boolean allowAI = false;
+    public boolean contributeHeight = true;
     public Map<EquipmentSlot, String> equipment = new HashMap<>();
 
     /**
@@ -57,7 +56,9 @@ public class EnemyRepresentationData {
         this.type = existing.type;
         this.invisible = existing.invisible;
         this.equipment.putAll(existing.equipment);
+        this.hidden = existing.hidden;
         this.allowAI = existing.allowAI;
+        this.contributeHeight = existing.contributeHeight;
     }
 
     public EnemyRepresentationData(@NotNull ConfigurationSection yaml) {
@@ -66,7 +67,9 @@ public class EnemyRepresentationData {
         offset = new Vector(list.get(0), list.get(1), list.get(2));
         type = EntityType.valueOf(Objects.requireNonNull(yaml.getString("type")).toUpperCase());
         invisible = yaml.getBoolean("invisible", false);
+        hidden = yaml.getBoolean("hidden", false);
         allowAI = yaml.getBoolean("allow-ai", false);
+        contributeHeight = yaml.getBoolean("contribute-height", !invisible && !hidden);
 
         if (yaml.contains("equipment")) {
             ConfigurationSection e = yaml.getConfigurationSection("equipment");
@@ -99,6 +102,9 @@ public class EnemyRepresentationData {
             livingEntity.setCollidable(false);
             livingEntity.setAI(allowAI);
             EntityUtils.applyPotionEffect(livingEntity, PotionEffectType.FIRE_RESISTANCE, 999999, 1, false);
+            if (hidden) {
+                livingEntity.setVisibleByDefault(false);
+            }
             if (invisible) {
                 livingEntity.addPotionEffect(new PotionEffect(PotionEffectType.INVISIBILITY, PotionEffect.INFINITE_DURATION, 0, false, false));
             }
@@ -110,6 +116,20 @@ public class EnemyRepresentationData {
             //mob.setRemoveWhenFarAway(false);
 
             var scaleAttribute = mob.getAttribute(Attribute.SCALE);
+            if (scaleAttribute != null) {
+                scaleAttribute.addModifier(
+                        new AttributeModifier(KEY_SCALE,
+                                scale - 1,
+                                AttributeModifier.Operation.MULTIPLY_SCALAR_1,
+                                EquipmentSlotGroup.ANY)
+                );
+            }
+        }
+        if (entity instanceof Mannequin mannequin) {
+            for (EquipmentSlot slot : equipment.keySet()) {
+                EntityUtils.setArmourPiece(mannequin, slot, equipment.get(slot));
+            }
+            var scaleAttribute = mannequin.getAttribute(Attribute.SCALE);
             if (scaleAttribute != null) {
                 scaleAttribute.addModifier(
                         new AttributeModifier(KEY_SCALE,

@@ -1,5 +1,6 @@
 package com.carterz30cal.items.abilities.necropolis.items;
 
+import com.carterz30cal.entities.GameEntity;
 import com.carterz30cal.entities.StatHavingEntity;
 import com.carterz30cal.entities.player.GamePlayer;
 import com.carterz30cal.items.abilities.implementation.*;
@@ -14,7 +15,7 @@ import java.util.List;
 
 /**
  * @author carterz30cal
- * @version 1
+ * @version 2
  * @since 1.0.0
  */
 public class SandShovelAbility extends GameAbility implements AbilityWithStats, AbilityWithDescription {
@@ -25,8 +26,8 @@ public class SandShovelAbility extends GameAbility implements AbilityWithStats, 
     }
 
     @Override
-    public List<String> miniMessageDescription(@NotNull PlayerAbilityContext context) {
-        var prog = context.getOwner() == null ? 0 : context.getOwner().getDiscoveryLevel(DiscoveryManager.get("sand_collection"));
+    public List<String> miniMessageDescription(@NotNull ContextWithAbility<? extends GameEntity> context) {
+        var prog = !(context.getOwner() instanceof GamePlayer owner) ? 0 : owner.getDiscoveryLevel(DiscoveryManager.get("sand_collection"));
         var text = "<grey>Each level of sand discovery obtained will grant an additional <yellow>15 " +
                 Stat.MINING_FORTUNE.name + "</yellow>. You are currently <green>Sand " + prog + "!";
         return StringUtils.wrapText(text, 48);

@@ -1,10 +1,8 @@
 package com.carterz30cal.items.abilities.waterway.factory;
 
+import com.carterz30cal.entities.GameEntity;
 import com.carterz30cal.entities.player.PlayerItemProducer;
-import com.carterz30cal.items.abilities.implementation.AbilityWithDescription;
-import com.carterz30cal.items.abilities.implementation.AbilityWithItemProducer;
-import com.carterz30cal.items.abilities.implementation.GameAbility;
-import com.carterz30cal.items.abilities.implementation.PlayerAbilityContext;
+import com.carterz30cal.items.abilities.implementation.*;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
@@ -27,7 +25,7 @@ public class CatalystDustCoagulatorFactoryUpgrade extends GameAbility implements
     }
 
     @Override
-    public List<String> miniMessageDescription(@NotNull PlayerAbilityContext context) {
+    public List<String> miniMessageDescription(@NotNull ContextWithAbility<? extends GameEntity> context) {
         var lore = new ArrayList<String>();
         lore.add("<grey>Enables the factory to produce <gold>Combination Catalyst Shards</gold> at");
         lore.add("<grey>a very slow rate. Expect 1 shard per ~1000 other items.");

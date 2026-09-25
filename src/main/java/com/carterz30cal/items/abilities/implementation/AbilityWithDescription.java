@@ -1,5 +1,6 @@
 package com.carterz30cal.items.abilities.implementation;
 
+import com.carterz30cal.entities.GameEntity;
 import net.kyori.adventure.text.TextComponent;
 import org.jetbrains.annotations.NotNull;
 
@@ -8,7 +9,7 @@ import java.util.List;
 
 /**
  * @author carterz30cal
- * @version 1
+ * @version 2
  * @since 1.0.0
  */
 public interface AbilityWithDescription extends AbilityWithName {
@@ -33,7 +34,7 @@ public interface AbilityWithDescription extends AbilityWithName {
      * @return a list of component builders
      * @since 1.0.0
      */
-    default List<String> miniMessageDescription(@NotNull PlayerAbilityContext context) {
+    default List<String> miniMessageDescription(@NotNull ContextWithAbility<? extends GameEntity> context) {
         return new ArrayList<>();
     }
 }

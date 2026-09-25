@@ -43,6 +43,9 @@ haunting_slime_1:
     yellow_slime:
       chance: 1/100
       amount: 1/1
+    hydra_key_lesser:
+      chance: 1/175
+      amount: 1/1
     blue_slime:
       chance: 1/20000
       amount: 1/1

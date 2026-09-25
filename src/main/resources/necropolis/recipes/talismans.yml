@@ -1,6 +1,15 @@
+gold_chunk:
+  category: necropolis_talismans
+  discovery: gold_nugget_collection
+  discovery-tier: 2
+  items:
+    grey_chunk: 1
+    gold_nugget: 25
+    hydra_heart: 1
+
 spirit_lantern_uncommon:
   time: 5m
-  category: necropolis_talismans
+  category: necropolis_talismans_spirit_lantern
   discovery: calmed_spirit_collection
   discovery-tier: 1
   items:
@@ -9,7 +18,7 @@ spirit_lantern_uncommon:
     calmed_spirit: 2
 
 spirit_lantern_rare:
-  category: necropolis_talismans
+  category: necropolis_talismans_spirit_lantern
   discovery: calmed_spirit_collection
   discovery-tier: 2
   items:
@@ -18,7 +27,7 @@ spirit_lantern_rare:
     roasted_bone_dust: 1
 
 spirit_lantern_very_rare:
-  category: necropolis_talismans
+  category: necropolis_talismans_spirit_lantern
   discovery: calmed_spirit_collection
   discovery-tier: 3
   items:

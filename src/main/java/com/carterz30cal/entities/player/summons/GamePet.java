@@ -66,6 +66,11 @@ public class GamePet extends GameEnemy {
     }
 
     @Override
+    public boolean isDamageable(AggressiveEntity by) {
+        return false;
+    }
+
+    @Override
     public void tick() {
         super.tick();
         if (owner.activePet == null || !owner.activePet.equals(petType)) {

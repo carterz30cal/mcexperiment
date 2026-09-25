@@ -178,7 +178,8 @@ public class ShopGUI extends AbstractGUI {
                 requirements.coins = recipe.coinCost;
                 for (String i : recipe.items.keySet()) requirements.addRequirement(new ItemReq(i, recipe.items.get(i)));
 
-                if (requirements.areRequirementsMet(owner)) {
+                var outcome = requirements.areRequirementsMet(owner);
+                if (outcome == ItemReqs.FailureReason.NONE) {
                     String data = requirements.grabDataFromRequirements(owner);
                     requirements.execute(owner);
 

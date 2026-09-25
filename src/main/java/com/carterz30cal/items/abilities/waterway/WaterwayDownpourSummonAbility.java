@@ -1,11 +1,9 @@
 package com.carterz30cal.items.abilities.waterway;
 
 import com.carterz30cal.areas.areas.GameAreaWaterway;
+import com.carterz30cal.entities.GameEntity;
 import com.carterz30cal.items.ItemFactory;
-import com.carterz30cal.items.abilities.implementation.AbilityWithClick;
-import com.carterz30cal.items.abilities.implementation.AbilityWithDescription;
-import com.carterz30cal.items.abilities.implementation.GameAbility;
-import com.carterz30cal.items.abilities.implementation.PlayerAbilityContext;
+import com.carterz30cal.items.abilities.implementation.*;
 import com.carterz30cal.utils.StringUtils;
 import org.bukkit.Location;
 import org.jetbrains.annotations.NotNull;
@@ -40,7 +38,7 @@ public class WaterwayDownpourSummonAbility extends GameAbility implements Abilit
     }
 
     @Override
-    public List<String> miniMessageDescription(@NotNull PlayerAbilityContext context) {
+    public List<String> miniMessageDescription(@NotNull ContextWithAbility<? extends GameEntity> context) {
         var desc = "<grey>Right click with this to bring forward the rains of <blue>Waterway</blue>, which allows unique mobs to spawn for a short while!";
         return StringUtils.wrapText(desc, 32);
     }

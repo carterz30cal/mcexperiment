@@ -1,16 +1,11 @@
 package com.carterz30cal.utils;
 
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
-
+import com.carterz30cal.main.Dungeons;
 import org.bukkit.configuration.InvalidConfigurationException;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 
-import com.carterz30cal.main.Dungeons;
+import java.io.*;
 
 public class FileUtils 
 {
@@ -29,6 +24,20 @@ public class FileUtils
 		catch (NullPointerException | IOException e) { return null;}
 		return file;
 	}
+
+    public static void deleteDir(File dirFile) {
+        if (dirFile.isDirectory()) {
+            File[] dirs = dirFile.listFiles();
+            if (dirs != null) {
+                for (File dir : dirs) {
+                    deleteDir(dir);
+                }
+            }
+        }
+        if (!dirFile.delete()) {
+            Dungeons.instance.getLogger().warning("Failed to delete: " + dirFile.getAbsolutePath());
+        }
+    }
 	
 	public static FileConfiguration getExistingData(String path)
 	{

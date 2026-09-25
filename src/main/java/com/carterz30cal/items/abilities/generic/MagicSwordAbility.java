@@ -23,7 +23,7 @@ public class MagicSwordAbility extends GameAbility implements AbilityWithDescrip
     }
 
     @Override
-    public List<String> miniMessageDescription(@NotNull PlayerAbilityContext context) {
+    public List<String> miniMessageDescription(@NotNull ContextWithAbility<? extends GameEntity> context) {
         var list = new ArrayList<String>();
         list.add("<grey>This weapon converts <white>physical</white> damage</grey>");
         list.add("<grey>into <aqua>magic</aqua> damage.</grey>");

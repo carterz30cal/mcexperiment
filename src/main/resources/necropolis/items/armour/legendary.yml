@@ -1,0 +1,12 @@
+infrequent_merchant_hat:
+  name: Infrequent Merchant's Special Cap
+  type: HELMET
+  material: GOLDEN_HELMET
+  rarity: LEGENDARY
+  value: 75000
+  stats:
+    damage: -5
+    vitality: -5
+    focus: -5
+    enchant_power: +100
+    level_requirement: 10

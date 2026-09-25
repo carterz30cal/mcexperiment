@@ -16,6 +16,11 @@ import java.util.regex.Pattern;
 
 import static net.kyori.adventure.text.Component.text;
 
+/**
+ * @author carterz30cal
+ * @version 3
+ * @since 1.0.0
+ */
 public class StringUtils
 {
     @Deprecated
@@ -60,6 +65,14 @@ public class StringUtils
         return progressBar(length, percentFilled, TextColor.color(filledColour), TextColor.color(unfilledColour));
     }
 
+    public static String coins(long amount) {
+        if (amount == 1) {
+            return "<gold>1 coin</gold>";
+        }
+        else {
+            return "<gold>" + addCommas(amount) + " coins";
+        }
+    }
 
     /**
      * @param length         character length of the bar

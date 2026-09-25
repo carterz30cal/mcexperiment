@@ -17,7 +17,7 @@ import java.util.List;
  * An <code>EnemyDirector</code> that switches between multiple <code>EntityType</code>s to interact
  * with the world. An example would be using a Zombie and a Skeleton for melee/ranged combat.
  * @author carterz30cal
- * @version 1
+ * @version 2
  * @since 1.0.0
  * @see EnemyDirector
  */
@@ -148,11 +148,6 @@ public class PhasedEnemyDirector extends EnemyDirector {
     @Override
     public boolean isTargetable(AggressiveEntity by) {
         return getCurrentPhase().isTargetable(by);
-    }
-
-    @Override
-    public double distance(Location location) {
-        return super.distance(location);
     }
 
     @Override

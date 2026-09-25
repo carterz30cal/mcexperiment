@@ -14,6 +14,7 @@ import com.comphenix.protocol.events.PacketContainer;
 import com.comphenix.protocol.wrappers.BlockPosition;
 import org.bukkit.Location;
 import org.bukkit.Material;
+import org.bukkit.block.data.BlockData;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.scheduler.BukkitRunnable;
@@ -22,7 +23,7 @@ import java.util.*;
 
 /**
  * @author carterz30cal
- * @version 3
+ * @version 4
  * @since 1.0.0
  */
 public class MiningManager {
@@ -57,10 +58,55 @@ public class MiningManager {
     }
 
     /**
+     * @since 1.0.0 [4]
+     */
+    public static BukkitRunnable set(Location location, BlockData set) {
+        if (!instance.originalBlock.containsKey(location)) {
+            instance.originalBlock.put(location, location.getBlock().getType());
+        }
+        location.getBlock().setBlockData(set, false);
+
+        BukkitRunnable runnable =
+                new BukkitRunnable() {
+
+                    @Override
+                    public void run() {
+                        location.getBlock().setType(instance.originalBlock.get(location));
+                    }
+                };
+        instance.runnables.add(runnable);
+        return runnable;
+    }
+
+    /**
+     * @since 1.0.0 [4]
+     */
+    public static BukkitRunnable set(Location location, Material set) {
+        if (!instance.originalBlock.containsKey(location)) {
+            instance.originalBlock.put(location, location.getBlock().getType());
+        }
+        location.getBlock().setType(set, false);
+
+        BukkitRunnable runnable =
+                new BukkitRunnable() {
+
+                    @Override
+                    public void run() {
+                        if (!location.isWorldLoaded()) {
+                            return;
+                        }
+                        location.getBlock().setType(instance.originalBlock.get(location));
+                    }
+                };
+        instance.runnables.add(runnable);
+        return runnable;
+    }
+
+    /**
      * Attempt to mine a block in the world using our custom mining system.
      * @param player who is trying to mine a <code>Block</code>?
      * @param location where is the <code>Block</code> being mined?
-     * @since 1.0.0
+     * @since 1.0.0 [1]
      */
     public static void attemptMine(GamePlayer player, Location location) {
         OreType ore = instance.ores.getOrDefault(location.getBlock().getType(), null);
@@ -106,35 +152,13 @@ public class MiningManager {
                     ((AbilityWithMiningEffect)ab.ability).miningEffect(ab, ore, miningBlock);
                 }
                 if (conversion <= ore.conversionChance) {
-                    miningBlock.getBlock().setType(ore.convertsInto);
-                    instance.originalBlock.put(miningBlock.getBlock().getLocation(), ore.blockType);
-                    BukkitRunnable runnable =
-                            new BukkitRunnable() {
-
-                                @Override
-                                public void run() {
-                                    miningBlock.getBlock().setType(ore.blockType);
-                                }
-                            };
-                    instance.runnables.add(runnable);
+                    set(miningBlock, ore.convertsInto);
                 }
                 else {
-                    miningBlock.getBlock().setType(ore.minesInto);
-                    BukkitRunnable runnable =
-                            new BukkitRunnable() {
-
-                                @Override
-                                public void run() {
-                                    if (instance.originalBlock.containsKey(miningBlock.getBlock().getLocation())) {
-                                        miningBlock.getBlock().setType(instance.originalBlock.get(miningBlock.getBlock().getLocation()));
-                                    }
-                                    else {
-                                        miningBlock.getBlock().setType(ore.blockType);
-                                    }
-                                }
-                            };
-                    runnable.runTaskLater(Dungeons.instance, ore.regenTime);
-                    instance.runnables.add(runnable);
+                    var task = set(miningBlock, ore.minesInto);
+                    if (miningBlock.getWorld().equals(Dungeons.w)) {
+                        task.runTaskLater(Dungeons.instance, ore.regenTime);
+                    }
                 }
             }
 

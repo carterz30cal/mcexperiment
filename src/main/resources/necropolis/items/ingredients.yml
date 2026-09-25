@@ -227,7 +227,7 @@ hydra_flesh:
   type: INGREDIENT
   rarity: RARE
   material: PRISMARINE_SHARD
-  value: 15
+  value: 8
   lore:
     - A small scrap of flesh dropped by slaying a head
     - of a hydra. Does not require permanently killing
@@ -244,3 +244,43 @@ hydra_heart:
   lore:
     - The beating heart of a great Hydra. Can only
     - be obtained by permanently slaying the beast.
+
+
+gilded_handle:
+  name: Gilded Handle
+  type: INGREDIENT
+  rarity: LEGENDARY
+  material: STICK
+  value: 10000
+  custom-model-id: gilded_handle
+  lore:
+    - An exquisite handle for a particular type of sword, which
+    - must have been crafted many thousands of years ago in a
+    - long forgotten forge. Can be used to upgrade several
+    - top-tier <blue>Waterway</blue> weapons to their legendary variants.
+
+stack_of_books_sharpness:
+  name: Tightly-bound Sharpness Books
+  type: ENCHANTMENT
+  rarity: MYSTERIOUS
+  material: PLAYER_HEAD
+  skull-profile-id: stack_of_books_placeholder
+  value: 1000
+  lore:
+    - A tightly bound stack of books, woven with
+    - enchantment, this particular bundle will
+    - imbue a weapon with Sharpness 4.
+    - Purchased from the Infrequent Merchant.
+
+magic_cactus:
+  name: Magic Cactus
+  type: ARTEFACT
+  rarity: INCREDIBLE
+  material: CACTUS
+  glow: true
+  value: 1000
+  lore:
+    - A very strange variety of cactus, using this in
+    - the anvil with a wieldable item will remove all
+    - attuners and runes from the item. Does not
+    - affect any enchantments present on the item.

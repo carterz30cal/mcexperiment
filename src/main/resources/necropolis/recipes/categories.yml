@@ -18,6 +18,11 @@ necropolis_armour:
   icon: ethereal_raincoat_uncommon
   parent: necropolis
 
+necropolis_armour_bone:
+  name: Bone Armour
+  icon: bone_chestplate
+  parent: necropolis_armour
+
 necropolis_armour_pufferfish:
   name: Pufferfish Armour
   icon: pufferfish_chestplate
@@ -39,6 +44,17 @@ necropolis_detectors:
   icon: treasure_detector_common
   parent: necropolis
 
+necropolis_fishing:
+  name: Fishing
+  icon: amazing_fishing_rod
+  parent: necropolis
+
+necropolis_fishing_rods:
+  name: Rods
+  icon: amazing_fishing_rod
+  parent: necropolis_fishing
+
+
 necropolis_pets:
   name: Pets
   icon: BONE
@@ -51,8 +67,13 @@ necropolis_enchantments:
 
 necropolis_talismans:
   name: Talismans
-  icon: spirit_lantern_uncommon
+  icon: gold_chunk
   parent: necropolis
+
+necropolis_talismans_spirit_lantern:
+  name: Spirit Lanterns
+  icon: spirit_lantern_rare
+  parent: necropolis_talismans
 
 necropolis_potions:
   name: Brewing Ingredients

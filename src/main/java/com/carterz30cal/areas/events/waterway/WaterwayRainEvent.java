@@ -1,6 +1,7 @@
 package com.carterz30cal.areas.events.waterway;
 
 import com.carterz30cal.areas.Areas;
+import com.carterz30cal.areas.bosses.waterway.AreaBossWaterwaySeraph;
 import com.carterz30cal.areas.events.AbstractEventWithArea;
 import com.carterz30cal.areas.events.EventManager;
 import com.carterz30cal.entities.PlayerManager;
@@ -59,6 +60,9 @@ public class WaterwayRainEvent extends AbstractEventWithArea {
         duration--;
         for (var player : PlayerManager.getOnlinePlayers()) {
             if (player.area != area()) continue;
+            if (AreaBossWaterwaySeraph.instance.isRegistered(player)) {
+                continue;
+            }
             ParticleUtils.spawn(player.getLocation(), Particle.RAIN, 16, 120);
         }
     }

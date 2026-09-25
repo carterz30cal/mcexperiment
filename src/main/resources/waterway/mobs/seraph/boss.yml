@@ -13,6 +13,9 @@ water_seraph_boss:
     INSULATION: -20
   bestiary:
     category: waterway_waterway_seraph
+  sounds:
+    hurt: entity.enderman.hurt
+    death: entity.enderman.death
   abilities:
     overkill:
       class: generic.EnemyAbilityOverkill

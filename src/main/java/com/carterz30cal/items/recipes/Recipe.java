@@ -10,6 +10,11 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * @author carterz30cal
+ * @version 2
+ * @since 1.0.0
+ */
 public class Recipe 
 {
 	public String customName;
@@ -23,7 +28,7 @@ public class Recipe
 	
 	public int time;
 	public int amount;
-	public int coinCost;
+    public long coinCost;
 	public Map<String, Integer> items = new HashMap<>();
 	
 	public String discoveryReq;
@@ -39,8 +44,8 @@ public class Recipe
 		id = i.getCurrentPath();
 		item = i.getString("item", i.getCurrentPath().split("-")[0]);
 		enchants = i.getString("enchants", null);
-		
-		coinCost = i.getInt("coins", 0);
+
+        coinCost = i.getLong("coins", 0);
 		if (i.contains("items"))
 		{
 			for (String r : i.getConfigurationSection("items").getKeys(false))

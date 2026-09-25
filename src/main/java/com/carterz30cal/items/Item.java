@@ -7,13 +7,14 @@ import com.carterz30cal.stats.StatContainer;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.TextComponent;
 import org.bukkit.Material;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
 import java.util.List;
 
 /**
  * @author carterz30cal
- * @version 3
+ * @version 4
  * @since 1.0.0
  */
 public class Item 
@@ -53,6 +54,10 @@ public class Item
 
 	public String set;
     public String skullProfileId;
+    /**
+     * @since 1.0.0 [4]
+     */
+    public @Nullable String customModelId;
 
 	public String discovery;
 	public long discoveryProgress;

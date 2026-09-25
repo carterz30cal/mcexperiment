@@ -36,7 +36,7 @@ public class PotionPacket {
      */
     public PotionPacket(PotionElement element, int level) {
         this.element = element;
-        this.level = 1;
+        this.level = level;
     }
 
     /**

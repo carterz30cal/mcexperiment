@@ -30,7 +30,7 @@ public abstract class QuestSectionTalking extends QuestSection {
 
     @Override
     public String GetChatter() {
-        return description.GetRandomChoice();
+        return description.random();
     }
 
     @Override

@@ -1,0 +1,25 @@
+pet_dusted_uncommon:
+  name: Dusted
+  type: PET
+  rarity: UNCOMMON
+  material: SKELETON_SKULL
+  pet-line: dusted
+  active-ability: PET_DUSTED_UNCOMMON
+  abilities:
+    - PET_DUSTED_PASSIVE
+  value: 800
+  stats:
+    defence: +25
+
+pet_crypt_dweller_uncommon:
+  name: Crypt Dweller
+  type: PET
+  rarity: UNCOMMON
+  material: ZOMBIE_HEAD
+  pet-line: crypt_dweller
+  abilities:
+    - PET_CRYPT_DWELLER_PASSIVE
+  stats:
+    defence: +10
+    bonus_coins: +1
+    level_requirement: 7

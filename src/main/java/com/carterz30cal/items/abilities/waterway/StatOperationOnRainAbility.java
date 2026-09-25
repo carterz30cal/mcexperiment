@@ -2,6 +2,7 @@ package com.carterz30cal.items.abilities.waterway;
 
 import com.carterz30cal.areas.Areas;
 import com.carterz30cal.areas.areas.GameAreaWaterway;
+import com.carterz30cal.entities.GameEntity;
 import com.carterz30cal.entities.StatHavingEntity;
 import com.carterz30cal.entities.player.GamePlayer;
 import com.carterz30cal.items.abilities.implementation.*;
@@ -53,7 +54,7 @@ public class StatOperationOnRainAbility extends GameAbility implements AbilityWi
     }
 
     @Override
-    public List<String> miniMessageDescription(@NotNull PlayerAbilityContext context) {
+    public List<String> miniMessageDescription(@NotNull ContextWithAbility<? extends GameEntity> context) {
         var description = raining ? "<grey>When raining" : "<grey>When not raining";
         description += ", grant " + operation.display() + "<grey>.";
         return StringUtils.wrapText(description, 40);

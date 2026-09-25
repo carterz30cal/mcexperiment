@@ -1,6 +1,7 @@
 package com.carterz30cal.skills.implementations;
 
-import com.carterz30cal.items.abilities.implementation.PlayerAbilityContext;
+import com.carterz30cal.entities.GameEntity;
+import com.carterz30cal.items.abilities.implementation.ContextWithAbility;
 import com.carterz30cal.skills.SkillSoulType;
 import com.carterz30cal.stats.Stat;
 import org.jetbrains.annotations.NotNull;
@@ -22,7 +23,7 @@ public class PlayerSkillStatCustomDescription extends PlayerSkillStat {
     }
 
     @Override
-    public List<String> miniMessageDescription(@NotNull PlayerAbilityContext context) {
+    public List<String> miniMessageDescription(@NotNull ContextWithAbility<? extends GameEntity> context) {
         var lore = super.miniMessageDescription(context);
         lore.addAll(description);
         return lore;

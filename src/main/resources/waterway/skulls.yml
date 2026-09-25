@@ -30,3 +30,12 @@ purple_slime:
 
 drowned_v1:
   skull-url: "https://textures.minecraft.net/texture/ae7c358bdbf410d71859e84387d38205f6d2438f06f7f1fd5a459e7ea122041b"
+
+water_spider_v1:
+  skull-url: "https://textures.minecraft.net/texture/5b036c6c7f9d0941fd6c7ba2b8238e8930d80b0a00c2d2f0e0239083b2a45c44"
+
+hydra_placeholder:
+  skull-url: "https://textures.minecraft.net/texture/f82dcf327886c45f7ade3b1d9a068ba523005ffd96c6c94c32282d641ebac120"
+
+stack_of_books_placeholder:
+  skull-url: "https://textures.minecraft.net/texture/4bc4e89b1a65f68ffe5d83d8b0bf1fb2d20be113bc1e57ec74d736ee20acf665"

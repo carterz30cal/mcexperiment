@@ -13,7 +13,7 @@ import java.util.List;
 
 /**
  * @author carterz30cal
- * @version 2
+ * @version 3
  * @since 1.0.0
  */
 public abstract class AbstractGameArea {
@@ -23,12 +23,18 @@ public abstract class AbstractGameArea {
     protected SpawnerContext context;
     protected List<AbstractEnemySpawner> registeredSpawners = new ArrayList<>();
     protected List<AbstractAreaBoss> registeredBosses = new ArrayList<>();
+    private final List<AbstractEnemySpawner> toRegister = new ArrayList<>();
+    private final List<AbstractEnemySpawner> toRemove = new ArrayList<>();
 
 
     public void tick() {
         for (var spawner : registeredSpawners) {
             spawner.tick();
         }
+        registeredSpawners.addAll(toRegister);
+        registeredSpawners.removeAll(toRemove);
+        toRegister.clear();
+        toRemove.clear();
     }
 
     public void onKill(GameEnemy enemy) {
@@ -47,8 +53,20 @@ public abstract class AbstractGameArea {
         if (spawner instanceof AbstractAreaBoss boss) {
             registeredBosses.add(boss);
         }
-        registeredSpawners.add(spawner);
+        toRegister.add(spawner);
         spawner.register(this);
+    }
+
+    /**
+     *
+     * @param spawner
+     * @since 1.0.0 [3]
+     */
+    public void deregister(AbstractEnemySpawner spawner) {
+        if (spawner instanceof AbstractAreaBoss boss) {
+            registeredBosses.remove(boss);
+        }
+        toRemove.add(spawner);
     }
 
     /**
@@ -59,7 +77,7 @@ public abstract class AbstractGameArea {
      */
     public void onRightClick(GamePlayer player, Location location) {
         for (var boss : registeredBosses) {
-
+            boss.onRightClick(player, location);
         }
     }
 
@@ -71,7 +89,24 @@ public abstract class AbstractGameArea {
 
     public List<String> scoreboard(GamePlayer player) {
         List<String> list = new ArrayList<>();
+        for (var boss : registeredBosses) {
+            var s = boss.scoreboard(player);
+            if (s != null) {
+                list.addAll(s);
+            }
+        }
         return list;
+    }
+
+    /**
+     * Called when the server shuts down
+     *
+     * @since 1.0.0 [3]
+     */
+    public void disable() {
+        for (var boss : registeredBosses) {
+            boss.disable();
+        }
     }
 
 

@@ -1,5 +1,6 @@
 package com.carterz30cal.items.abilities.waterway;
 
+import com.carterz30cal.entities.GameEntity;
 import com.carterz30cal.entities.StatHavingEntity;
 import com.carterz30cal.entities.player.GamePlayer;
 import com.carterz30cal.items.ItemReq;
@@ -15,7 +16,7 @@ import java.util.List;
 
 /**
  * @author carterz30cal
- * @version 3
+ * @version 4
  * @since 1.0.0
  */
 public class LastChanceEnchantment extends GameAbstractEnchant implements AbilityWithDescription, AbilityWithStats {
@@ -29,9 +30,9 @@ public class LastChanceEnchantment extends GameAbstractEnchant implements Abilit
      * @since 1.0.0 [1]
      */
     @Override
-    public List<String> miniMessageDescription(@NotNull PlayerAbilityContext context) {
+    public List<String> miniMessageDescription(@NotNull ContextWithAbility<? extends GameEntity> context) {
         var description = new ArrayList<String>();
-        description.add("<grey>Grants " + formattedDisplay(Stat.DEFENCE, 10L * context.level) + " if you're below <red>15% " + Stat.HEALTH.getIcon() + "</red>");
+        description.add("<grey>Grants " + formattedDisplay(Stat.DEFENCE, 10L * context.getLevel()) + " if you're below <red>15% " + Stat.HEALTH.getIcon() + "</red>");
         return description;
     }
 

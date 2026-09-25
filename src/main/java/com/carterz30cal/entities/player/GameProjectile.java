@@ -4,6 +4,7 @@ import com.carterz30cal.entities.GameEntity;
 import com.carterz30cal.entities.enemies.core.GameEnemy;
 import com.carterz30cal.entities.health.damage.AttackType;
 import com.carterz30cal.entities.health.damage.DamagePacket;
+import com.carterz30cal.entities.health.damage.DamageSource;
 import com.carterz30cal.entities.health.damage.DamageType;
 import com.carterz30cal.entities.health.damage.handlers.AggressiveEntity;
 import com.carterz30cal.entities.health.damage.handlers.DamageableEntity;
@@ -15,7 +16,10 @@ import com.carterz30cal.main.Dungeons;
 import com.carterz30cal.stats.Stat;
 import com.carterz30cal.stats.StatContainer;
 import com.carterz30cal.utils.EntityUtils;
+import com.carterz30cal.utils.ParticleUtils;
+import org.bukkit.Color;
 import org.bukkit.Location;
+import org.bukkit.Particle;
 import org.bukkit.entity.Projectile;
 import org.bukkit.persistence.PersistentDataType;
 import org.bukkit.scheduler.BukkitRunnable;
@@ -32,7 +36,7 @@ import java.util.Set;
  * @since 1.0.0
  */
 public class GameProjectile extends GameEntity implements AggressiveEntity {
-    private static final int CHECKS = 10;
+    private static final int CHECKS = 15;
     private final AggressiveEntity owner;
     private final Projectile projectile;
     private final List<ContextWithAbility<? extends GameEntity>> contextualAbilities = new ArrayList<>();
@@ -65,18 +69,22 @@ public class GameProjectile extends GameEntity implements AggressiveEntity {
         }
         var dir = previousLocation.clone().subtract(projectile.getLocation()).multiply(1D / CHECKS);
         Set<DamageableEntity> hit = new HashSet<>();
-        for (int i = 0; i < CHECKS + 4; i++) {
-            var cloc = previousLocation.clone().add(dir.clone().multiply(i + 1));
-            for (var entity : EntityUtils.getNearbyDamageableEntities(cloc, 1.2)) {
+        for (int i = -1; i <= CHECKS + 1; i++) {
+            var cloc = previousLocation.clone().add(dir.clone().multiply(i));
+            ParticleUtils.spawn(cloc, new Particle.DustOptions(Color.RED, 0.2F), 0);
+            for (var entity : EntityUtils.getNearbyDamageableEntities(cloc, 1)) {
                 if (entity.equals(owner) || hit.contains(entity)) {
                     continue;
                 }
                 if (entity.isDamageable(owner)) {
-                    ListenerEntityDamage.handleEntityDamageEntity(entity, this);
+                    ListenerEntityDamage.handleEntityDamageEntity(entity, this, DamageSource.RANGED);
                     pierceTicks--;
                     hit.add(entity);
                     break;
                 }
+            }
+            if (pierceTicks < 1) {
+                break;
             }
         }
         previousLocation = projectile.getLocation();

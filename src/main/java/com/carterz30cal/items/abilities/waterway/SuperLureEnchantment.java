@@ -1,12 +1,13 @@
 package com.carterz30cal.items.abilities.waterway;
 
+import com.carterz30cal.entities.GameEntity;
 import com.carterz30cal.entities.StatHavingEntity;
 import com.carterz30cal.items.ItemReq;
 import com.carterz30cal.items.ItemType;
 import com.carterz30cal.items.abilities.implementation.*;
 import com.carterz30cal.stats.Stat;
 import com.carterz30cal.stats.StatContainer;
-import com.carterz30cal.stats.StatOperationType;
+import com.carterz30cal.stats.operations.AddStatOperation;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
@@ -14,7 +15,7 @@ import java.util.List;
 
 /**
  * @author carterz30cal
- * @version 1
+ * @version 2
  * @since 1.0.0
  */
 public class SuperLureEnchantment extends GameAbstractEnchant implements AbilityWithDescription, AbilityWithStats {
@@ -23,10 +24,10 @@ public class SuperLureEnchantment extends GameAbstractEnchant implements Ability
     }
 
     @Override
-    public List<String> miniMessageDescription(@NotNull PlayerAbilityContext context) {
+    public List<String> miniMessageDescription(@NotNull ContextWithAbility<? extends GameEntity> context) {
         var list = new ArrayList<String>();
-        list.add("<grey>Grants " + formattedDisplay(Stat.FISHING_POWER, 20L * context.level)
-                + " and also " + formattedDisplay(Stat.FOCUS, 3L * context.level) + "!");
+        list.add("<grey>Grants " + formattedDisplay(Stat.FISHING_POWER, 20L * context.getLevel())
+                + " and also " + formattedDisplay(Stat.FOCUS, 3L * context.getLevel()) + "!");
         return list;
     }
 
@@ -48,7 +49,7 @@ public class SuperLureEnchantment extends GameAbstractEnchant implements Ability
             return;
         }
         var level = context.getLevel();
-        stats.scheduleOperation(Stat.FISHING_POWER, StatOperationType.ADD, 20 * level);
-        stats.scheduleOperation(Stat.FOCUS, StatOperationType.ADD, 3 * level);
+        stats.operation(new AddStatOperation(Stat.FISHING_POWER, 20 * level));
+        stats.operation(new AddStatOperation(Stat.FOCUS, 3 * level));
     }
 }

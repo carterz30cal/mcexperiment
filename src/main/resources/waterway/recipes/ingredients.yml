@@ -2,8 +2,17 @@ spiced_meat:
   level: 1
   category: waterway_ingredients
   items:
-    weird_flesh: 32
+    weird_flesh: 48
     chilli_powder: 1
+
+spiced_meat_64:
+  level: 4
+  item: spiced_meat
+  amount: 64
+  category: waterway_ingredients
+  items:
+    weird_flesh: 3072
+    chilli_powder: 64
 
 paper:
   level: 2
@@ -30,7 +39,7 @@ mini_bulk_cooked_waterway_cod:
   item: cooked_waterway_cod
   amount: 4
   time: 30m
-  custom-name: <gold>4x <blue>Cooked Waterway Cod
+  custom-name: <blue>Cooked Waterway Cod</blue><dark_grey> x4
   category: waterway_ingredients
   discovery: waterway_cod_collection
   discovery-tier: 5
@@ -41,7 +50,7 @@ bulk_cooked_waterway_cod:
   item: cooked_waterway_cod
   amount: 64
   time: 1h
-  custom-name: <gold>64x <blue>Cooked Waterway Cod
+  custom-name: <blue>Cooked Waterway Cod</blue><dark_grey> x64
   category: waterway_ingredients
   discovery: waterway_cod_collection
   discovery-tier: 8
@@ -63,6 +72,7 @@ waterway_cod_meal:
 waterway_downpour_key:
   category: waterway
   level: 3
+  time: 10m
   items:
     empty_storm_pearl: 2
     leaf_mash: 200
@@ -74,5 +84,5 @@ waterway_seraph_key:
   items:
     waterway_sac: 1
     leaf_mash: 150
-    spiced_meat: 2
+    spiced_meat: 3
 

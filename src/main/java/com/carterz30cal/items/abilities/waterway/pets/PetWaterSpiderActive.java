@@ -30,7 +30,7 @@ public class PetWaterSpiderActive extends GameAbility implements AbilityWithDesc
     }
 
     @Override
-    public List<String> miniMessageDescription(@NotNull PlayerAbilityContext context) {
+    public List<String> miniMessageDescription(@NotNull ContextWithAbility<? extends GameEntity> context) {
         var lore = new ArrayList<String>();
         lore.add("<grey>You will get <aqua>3</aqua> more <blue>Waterway</blue> souls with every kill");
         lore.add("<grey>even if the creature wouldn't normally give them.");

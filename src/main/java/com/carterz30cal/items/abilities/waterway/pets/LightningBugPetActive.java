@@ -26,7 +26,7 @@ public class LightningBugPetActive extends GameAbility implements AggressiveAbil
     }
 
     @Override
-    public List<String> miniMessageDescription(@NotNull PlayerAbilityContext context) {
+    public List<String> miniMessageDescription(@NotNull ContextWithAbility<? extends GameEntity> context) {
         var desc = "<grey>Your attacks gain <blue>5%</blue> of your <white>physical</white> damage as <yellow>lightning</yellow> damage.";
         return StringUtils.wrapText(desc, 42);
     }

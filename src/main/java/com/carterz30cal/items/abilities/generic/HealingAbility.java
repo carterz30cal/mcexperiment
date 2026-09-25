@@ -1,9 +1,7 @@
 package com.carterz30cal.items.abilities.generic;
 
-import com.carterz30cal.items.abilities.implementation.AbilityWithClick;
-import com.carterz30cal.items.abilities.implementation.AbilityWithDescription;
-import com.carterz30cal.items.abilities.implementation.GameAbility;
-import com.carterz30cal.items.abilities.implementation.PlayerAbilityContext;
+import com.carterz30cal.entities.GameEntity;
+import com.carterz30cal.items.abilities.implementation.*;
 import com.carterz30cal.main.Dungeons;
 import com.carterz30cal.stats.Stat;
 import org.bukkit.Location;
@@ -37,7 +35,7 @@ public class HealingAbility extends GameAbility implements AbilityWithDescriptio
     }
 
     @Override
-    public List<String> miniMessageDescription(@NotNull PlayerAbilityContext context) {
+    public List<String> miniMessageDescription(@NotNull ContextWithAbility<? extends GameEntity> context) {
         var list = new ArrayList<String>();
         list.add("<grey><gold>Right click</gold> to consume " + formattedDisplay(Stat.MANA, manaCost) + " and then");
         list.add("<grey>heal you for at least " + formattedDisplay(Stat.HEALTH, healing) + "<dark_grey>x" + ticks);

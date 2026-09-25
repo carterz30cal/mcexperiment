@@ -2,6 +2,7 @@ package com.carterz30cal.items.abilities.waterway.sets;
 
 import com.carterz30cal.entities.GameEntity;
 import com.carterz30cal.entities.health.damage.DamagePacket;
+import com.carterz30cal.entities.player.GamePlayer;
 import com.carterz30cal.items.abilities.implementation.*;
 import com.carterz30cal.stats.Stat;
 import org.jetbrains.annotations.NotNull;
@@ -14,8 +15,8 @@ import java.util.List;
  * Provides best-in-slot on-hit healing for Waterway and probably Necropolis too.
  *
  * @author carterz30cal
- * @version 2
- * @implSpec Healing scales with the log10 of the Vitality stat and some base value.
+ * @version 3
+ * @implSpec Healing scales with the log of the Vitality stat and some base value.
  * @since 1.0.0
  */
 public class ZombieArmourSet extends GameAbility implements AbilityWithDescription, AbilityWithDefend {
@@ -25,20 +26,21 @@ public class ZombieArmourSet extends GameAbility implements AbilityWithDescripti
     }
 
     @Override
-    public List<String> miniMessageDescription(@NotNull PlayerAbilityContext context) {
+    public List<String> miniMessageDescription(@NotNull ContextWithAbility<? extends GameEntity> context) {
         var list = new ArrayList<String>();
-        if (context.owner == null || context.owner.lastStats == null) {
+        var owner = (context.getOwner() instanceof GamePlayer o) ? o : null;
+        if (owner == null) {
             return list;
         }
         list.add("<grey>Whenever an enemy hits you, heal <red>" +
-                getHealing(context.owner.lastStats.stat(Stat.VITALITY))
+                getHealing(owner.getStatLast(Stat.VITALITY))
                 + Stat.HEALTH.getIcon() + "</red>.");
         list.add("<dark_grey>Scales somewhat with Vitality.</dark_grey>");
         return list;
     }
 
     private long getHealing(long vitality) {
-        return 2 + Math.round(Math.log10(vitality) * 2D);
+        return Math.round(Math.log(vitality + 1));
     }
 
     @Override

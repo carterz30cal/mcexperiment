@@ -1,5 +1,6 @@
 package com.carterz30cal.items.abilities.generic;
 
+import com.carterz30cal.entities.GameEntity;
 import com.carterz30cal.entities.StatHavingEntity;
 import com.carterz30cal.items.abilities.implementation.*;
 import com.carterz30cal.stats.Stat;
@@ -39,7 +40,7 @@ public class PlayerStatAbility extends GameAbility implements AbilityWithDescrip
     }
 
     @Override
-    public List<String> miniMessageDescription(@NotNull PlayerAbilityContext context) {
-        return Collections.singletonList("<grey>Grants <" + stat.textColour.asHexString() + ">" + amount + stat.name + "</" + stat.textColour.asHexString() + "> to your person.");
+    public List<String> miniMessageDescription(@NotNull ContextWithAbility<? extends GameEntity> context) {
+        return Collections.singletonList("<grey>Grants <" + stat.textColour.asHexString() + ">+" + amount + stat.name + "</" + stat.textColour.asHexString() + "> to your person.");
     }
 }

@@ -17,6 +17,7 @@ pet_water_spider_common:
   material: PLAYER_HEAD
   pet-line: water_spider
   active-ability: PET_WATER_SPIDER_ACTIVE
+  skull-profile-id: water_spider_v1
   value: 100
   stats:
     mana: +5

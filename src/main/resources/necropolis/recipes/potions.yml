@@ -20,6 +20,16 @@ mulch:
     weird_flesh: 555
     sand: 55
 
+decaying_hydra_head:
+  amount: 4
+  time: 30m
+  category: necropolis_potions
+  level: 9
+  items:
+    hydra_heart: 6
+    hydra_flesh: 120
+    potion_gunk: 8
+
 
 tiny_potion_bottle:
   time: 1m

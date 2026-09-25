@@ -31,7 +31,7 @@ public abstract class AbstractEnemySpawner {
 
     /**
      * @author carterz30cal
-     * @version 2
+     * @version 3
      * @since 1.0.0
      */
     protected class SpawningOption {
@@ -77,7 +77,12 @@ public abstract class AbstractEnemySpawner {
         }
 
         public boolean valid() {
-            return modes.contains(parent.context().spawningMode);
+            if (parent == null) {
+                return true;
+            }
+            else {
+                return modes.contains(parent.context().spawningMode);
+            }
         }
     }
 }

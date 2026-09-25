@@ -261,6 +261,7 @@ seraph_sword:
   type: WEAPON
   rarity: LEGENDARY
   material: DIAMOND_SWORD
+  value: 800
   abilities:
     - WATERWAY_SERAPH_SWORD
     - MAGIC_SWORD

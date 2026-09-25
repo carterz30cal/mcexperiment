@@ -5,7 +5,9 @@ import com.carterz30cal.areas.Areas;
 import com.carterz30cal.areas.PlayerTeleport;
 import com.carterz30cal.areas.quests.Quests;
 import com.carterz30cal.entities.GameEntity;
+import com.carterz30cal.entities.enemies.core.EnemyBuilder;
 import com.carterz30cal.entities.enemies.core.GameEnemy;
+import com.carterz30cal.entities.enemies.directors.EnemyDirector;
 import com.carterz30cal.entities.health.EntityHealthSystem;
 import com.carterz30cal.entities.health.damage.AttackType;
 import com.carterz30cal.entities.health.damage.DamagePacket;
@@ -27,14 +29,14 @@ import com.carterz30cal.items.types.ItemAttuner;
 import com.carterz30cal.items.types.ItemPet;
 import com.carterz30cal.items.types.ItemPotion;
 import com.carterz30cal.main.Dungeons;
-import com.carterz30cal.mining.Mineable;
 import com.carterz30cal.stats.Stat;
 import com.carterz30cal.stats.StatContainer;
 import com.carterz30cal.stats.StatOperationType;
 import com.carterz30cal.stats.operations.AddStatOperation;
-import com.carterz30cal.utils.EntityUtils;
+import com.carterz30cal.stats.operations.LegacyStatOperation;
 import com.carterz30cal.utils.LevelUtils;
 import net.kyori.adventure.audience.Audience;
+import net.kyori.adventure.key.Key;
 import net.kyori.adventure.text.TextComponent;
 import net.kyori.adventure.text.format.NamedTextColor;
 import net.kyori.adventure.text.format.TextColor;
@@ -43,11 +45,12 @@ import org.bukkit.GameMode;
 import org.bukkit.Location;
 import org.bukkit.Sound;
 import org.bukkit.attribute.Attribute;
-import org.bukkit.block.Block;
+import org.bukkit.attribute.AttributeModifier;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.entity.EntityRegainHealthEvent.RegainReason;
+import org.bukkit.inventory.EquipmentSlotGroup;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.persistence.PersistentDataType;
 import org.bukkit.potion.PotionEffect;
@@ -56,6 +59,7 @@ import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.util.Vector;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import org.jetbrains.annotations.Range;
 
 import java.time.LocalDateTime;
 import java.util.*;
@@ -64,7 +68,7 @@ import static net.kyori.adventure.text.Component.text;
 
 /**
  * @author carterz30cal
- * @version 5
+ * @version 6
  * @since 1.0.0
  */
 @SuppressWarnings("UnnecessaryUnicodeEscape")
@@ -119,8 +123,7 @@ public class GamePlayer extends GameEntity implements DamageableEntity, Aggressi
 
     public final Map<String, Long> toSack = new HashMap<>();
     public int sackTick;
-	
-	public boolean mining;
+
 	public boolean allowInteract;
 
     public PlayerWardrobe wardrobe = new PlayerWardrobe(this);
@@ -178,14 +181,6 @@ public class GamePlayer extends GameEntity implements DamageableEntity, Aggressi
 			}
 		}
 		forge.removeIf((f) -> f.isDone);
-		
-		
-		if (mining) {
-			Block b = player.getTargetBlockExact(5);
-			Mineable m = Mineable.get(b);
-			EntityUtils.applyPotionEffect(player, PotionEffectType.MINING_FATIGUE, 5, 4, false);
-			if (m != null) m.damage(this);
-		}
 
         var miningFatigue = player.getPotionEffect(PotionEffectType.MINING_FATIGUE);
         if (miningFatigue == null) {
@@ -214,6 +209,7 @@ public class GamePlayer extends GameEntity implements DamageableEntity, Aggressi
 		stats.scheduleOperation(Stat.VISIBILITY, StatOperationType.CAP_MAX, 24);
         stats.scheduleOperation(Stat.FOCUS, StatOperationType.ADD, 1);
         stats.scheduleOperation(Stat.FOCUS, StatOperationType.CAP_MIN, 0);
+        stats.operation(new LegacyStatOperation(StatOperationType.CAP_MAX, 200, Stat.SPEED));
         stats.scheduleOperation(Stat.INVULNERABILITY_TICKS, StatOperationType.ADD, 4);
         stats.scheduleOperation(Stat.WARDROBE_SLOTS, StatOperationType.ADD, PlayerWardrobe.DEFAULT_SLOT_COUNT);
 
@@ -385,6 +381,7 @@ public class GamePlayer extends GameEntity implements DamageableEntity, Aggressi
         else {
             lastCoinReward = 0;
             lastXpReward = 0;
+            skillTree.setLastSoulReward(0);
         }
 		
 		if (attackTick > 0) attackTick--;
@@ -443,6 +440,14 @@ public class GamePlayer extends GameEntity implements DamageableEntity, Aggressi
                         .append(text(level, NamedTextColor.WHITE))
                         .append(text("] " + player.getName())).build()
         );
+        var speed = player.getAttribute(Attribute.MOVEMENT_SPEED);
+        if (speed != null) {
+            speed.removeModifier(EnemyDirector.KEY_SPEED);
+            speed.addModifier(new AttributeModifier(EnemyDirector.KEY_SPEED,
+                    getStat(Stat.SPEED) / 100D,
+                    AttributeModifier.Operation.MULTIPLY_SCALAR_1,
+                    EquipmentSlotGroup.ANY));
+        }
 		
 		regenTick++;
 		if (regenTick >= 40)
@@ -971,12 +976,14 @@ public class GamePlayer extends GameEntity implements DamageableEntity, Aggressi
 		player.setFoodLevel(20);
         player.setHealth(Math.max(2, healthSystem.getHealthPercentage() * 20));
 	}
-	
+
+    @Deprecated(since = "1.0.0 [6]")
 	public void playSound(Sound sound, double volume, double pitch)
 	{
 		player.playSound(getLocation(), sound, (float)volume, (float)pitch);
 	}
-	
+
+    @Deprecated(since = "1.0.0 [6]")
 	public void playSound(Sound sound, double volume, double pitch, int delay)
 	{
 		if (delay == 0) playSound(sound, volume, pitch);
@@ -990,12 +997,65 @@ public class GamePlayer extends GameEntity implements DamageableEntity, Aggressi
 		}.runTaskLater(Dungeons.instance, delay);
 		
 	}
+
+
+    /**
+     *
+     * @param soundKey the key for this sound we're playing
+     * @param source   what 'channel' are we using?
+     * @param volume   how loud should this be?
+     * @param pitch    what should the pitch of this sound be?
+     * @implSpec should call the delayed version of <code>play()</code> with <code>delay = 0</code>.
+     * @apiNote volume likely determines listenable distance, but I don't think it has any actual effect on volume
+     * @since 1.0.0 [6]
+     **/
+    public void play(@NotNull Key soundKey,
+                     @NotNull net.kyori.adventure.sound.Sound.Source source,
+                     double volume,
+                     @Range(from = 0, to = 2) double pitch) {
+        play(soundKey, source, volume, pitch, 0);
+    }
+
+    /**
+     *
+     * @param soundKey the key for this sound we're playing
+     * @param source   what 'channel' are we using?
+     * @param volume   how loud should this be?
+     * @param pitch    what should the pitch of this sound be?
+     * @param delay    tick delay before playing this sound
+     * @apiNote volume likely determines listenable distance, but I don't think it has any actual effect on volume
+     * @implSpec if <code>delay = 0</code>, this must play immediately.
+     * @since 1.0.0 [6]
+     */
+    public void play(@NotNull Key soundKey,
+                     @NotNull net.kyori.adventure.sound.Sound.Source source,
+                     double volume,
+                     @Range(from = 0, to = 2) double pitch,
+                     @Range(from = 0, to = Integer.MAX_VALUE) int delay) {
+        if (delay == 0) {
+            player.playSound(net.kyori.adventure.sound.Sound.sound(soundKey, source, (float) volume, (float) pitch));
+        }
+        else {
+            new BukkitRunnable() {
+
+                @Override
+                public void run() {
+                    play(soundKey, source, (float) volume, (float) pitch, 0);
+                }
+
+            }.runTaskLater(Dungeons.instance, delay);
+        }
+
+    }
 	
-	public void kill()
-	{
-        sendMessage("<red>You were slain..</red>");
-		playSound(Sound.ENTITY_PLAYER_DEATH, 1, 0.9);
-		player.teleport(new Location(Dungeons.w, 0.5, 65, 0.5));
+	public void kill() {
+        kill("<red>You were slain...</red>");
+    }
+
+    public void kill(String message) {
+        sendMessage(message);
+        playSound(Sound.ENTITY_PLAYER_DEATH, 1, 0.9);
+        player.teleport(new Location(Dungeons.w, 0.5, 65, 0.5));
         player.setFallDistance(0);
         if (area != null) {
             area.getArea().onPlayerDeath(this);
@@ -1005,7 +1065,7 @@ public class GamePlayer extends GameEntity implements DamageableEntity, Aggressi
             teleport(PlayerTeleport.WATERWAY_SPAWN, false);
         }
         healthSystem.setHealthPercentage(1);
-	}
+    }
 
     public void teleport(PlayerTeleport teleport) {
         teleport(teleport, true);
@@ -1018,7 +1078,7 @@ public class GamePlayer extends GameEntity implements DamageableEntity, Aggressi
         if (area != null) {
             area.getArea().onTeleport(this, teleport);
         }
-        player.teleport(teleport.GetLocation());
+        player.teleport(teleport.location());
     }
 	
 	public ItemStack getMainItem()
@@ -1040,7 +1100,8 @@ public class GamePlayer extends GameEntity implements DamageableEntity, Aggressi
 
 
     public void incrementKill(String mobId) {
-        kills.put(mobId, kills.getOrDefault(mobId, 0L) + 1);
+        var data = Objects.requireNonNull(EnemyBuilder.getBuilder(mobId)).getEnemyData().bestiaryGrants;
+        kills.put(data, kills.getOrDefault(data, 0L) + 1);
     }
 
     public long getKills(String mobId) {
@@ -1227,13 +1288,12 @@ public class GamePlayer extends GameEntity implements DamageableEntity, Aggressi
     }
 
     /**
-     *
      * @param by what is attempting to attack us
      * @return false if the victim is currently invulnerable, true otherwise
      */
     @Override
     public boolean isDamageable(AggressiveEntity by) {
-        return !isOnInvulnerableCooldown();
+        return !isOnInvulnerableCooldown() && player.getGameMode() == GameMode.SURVIVAL && by instanceof GameEnemy;
     }
 
     @Override
@@ -1249,10 +1309,24 @@ public class GamePlayer extends GameEntity implements DamageableEntity, Aggressi
     @Override
     public long getStat(Stat stat) {
         if (stats == null) {
-            return 0;
+            if (lastStats == null) {
+                return 0;
+            }
+            else {
+                return lastStats.stat(stat);
+            }
         }
         else {
             return stats.stat(stat);
+        }
+    }
+
+    public long getStatLast(Stat stat) {
+        if (lastStats == null) {
+            return 0;
+        }
+        else {
+            return lastStats.stat(stat);
         }
     }
 
@@ -1264,7 +1338,7 @@ public class GamePlayer extends GameEntity implements DamageableEntity, Aggressi
     @Override
     public boolean isTargetable(AggressiveEntity by) {
         if (by instanceof GameEnemy enemy) {
-            double dist = by.getLocation().distance(getLocation());
+            double dist = enemy.distance(getLocation());
             double yDist = by.getLocation().getY() - getLocation().getY();
             yDist = Math.abs(yDist);
 

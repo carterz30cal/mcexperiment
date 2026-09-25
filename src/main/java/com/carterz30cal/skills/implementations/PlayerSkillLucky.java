@@ -5,7 +5,6 @@ import com.carterz30cal.entities.StatHavingEntity;
 import com.carterz30cal.entities.player.GamePlayer;
 import com.carterz30cal.items.abilities.implementation.AbilityWithTick;
 import com.carterz30cal.items.abilities.implementation.ContextWithAbility;
-import com.carterz30cal.items.abilities.implementation.PlayerAbilityContext;
 import com.carterz30cal.skills.SkillSoulType;
 import com.carterz30cal.stats.Stat;
 import com.carterz30cal.stats.StatContainer;
@@ -28,7 +27,7 @@ public class PlayerSkillLucky extends PlayerSkillStat implements AbilityWithTick
     }
 
     @Override
-    public List<String> miniMessageDescription(@NotNull PlayerAbilityContext context) {
+    public List<String> miniMessageDescription(@NotNull ContextWithAbility<? extends GameEntity> context) {
         var lore = "<grey>Grants <" + stat.textColour.asHexString() + ">" + (Math.max(1, context.getLevel()) * perLevel) + stat.name + "<grey>, but you lose <gold>" + coinLoss
                 + " coins</gold> every minute. If you do not have enough coins, the luck vanishes until you're no longer broke.";
         return StringUtils.wrapText(lore, 50);
@@ -50,7 +49,7 @@ public class PlayerSkillLucky extends PlayerSkillStat implements AbilityWithTick
         if (!(context.getOwner() instanceof GamePlayer player)) {
             return;
         }
-        if (tick % (20 * 60) == 1) {
+        if (tick % (20 * 60) == 1 && player.coins >= coinLoss) {
             player.takeCoins(coinLoss);
         }
     }

@@ -1,19 +1,15 @@
 package com.carterz30cal.utils;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
+import com.carterz30cal.main.Dungeons;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.block.data.BlockData;
 import org.bukkit.block.data.type.Leaves;
 
-import com.carterz30cal.main.Dungeons;
+import java.util.*;
 
+@Deprecated
 public class BlockUtils
 {
 	public static Map<String, BlockStructure> structures = new HashMap<>();
