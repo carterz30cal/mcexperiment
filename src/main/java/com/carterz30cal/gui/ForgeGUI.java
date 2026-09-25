@@ -20,6 +20,11 @@ import java.util.Objects;
 
 import static net.kyori.adventure.text.Component.text;
 
+/**
+ * @author carterz30cal
+ * @version 2
+ * @since 1.0.0
+ */
 public class ForgeGUI extends AbstractGUI 
 {
 	public RecipeCategory category;
@@ -74,6 +79,12 @@ public class ForgeGUI extends AbstractGUI
 			inventory.setSlot(createCategoryDisplay(category.id, false), calc(3, 0));
             inventory.setSlot(ItemFactory.customItem("ARROW", "<red>Back</red>"), calc(3, 5));
 		}
+        else {
+            inventory.setSlot(
+                    ItemFactory.customItem("ARROW", "<green>Back"),
+                    calc(4, 5)
+            );
+        }
 		
 		
 		categories = new String[54];
@@ -150,6 +161,18 @@ public class ForgeGUI extends AbstractGUI
                 return ItemFactory.customItem("RED_STAINED_GLASS_PANE", "<red>Slot locked!</red>");
             }
 		}
+        else if (f == 11 && owner.forge.size() > 12) {
+            var lore = new ArrayList<String>();
+            lore.add("<grey>You have these items forging that won't fit in the menu!");
+            for (int i = 11; i < owner.forge.size(); i++) {
+                var forging = owner.forge.get(i);
+                var item = ItemFactory.getItem(forging.item);
+                lore.add("<" + item.rarity.textColor.asHexString() + ">" +
+                        (forging.recipe.customName == null ? (item.name + " <dark_grey>x" + forging.amount + "</dark_grey>") : forging.recipe.customName)
+                        + " <dark_grey>-</dark_grey> <green>" + StringUtils.getPrettyTime(forging.finished));
+            }
+            return ItemFactory.customItem("CHEST", "<green>Also forging...", lore);
+        }
 		else 
 		{
 			ItemStack p = owner.forge.get(f).produce();
@@ -209,7 +232,7 @@ public class ForgeGUI extends AbstractGUI
 		
 		lore.add("");
         lore.add(rec.time == 0 ? "<white>Time: <green>Instant</green></white>" : "<white>Time:" + StringUtils.getPrettyTime(rec.time));
-        lore.add("<white><b>Requirements: </b></white>");
+        lore.add("<white>Ingredients: </white>");
         if (rec.coinCost != 0) {
             lore.add("<dark_grey>-</dark_grey> <gold>" +
                     (rec.coinCost == 1 ? "1 coin" : rec.coinCost + " coins") + "</gold>");
@@ -254,7 +277,7 @@ public class ForgeGUI extends AbstractGUI
                 }
                 else {
                     if (total == 0) {
-                        builder.append("<red>none</red>]</dark_grey>");
+                        builder.append("<red>0</red>]</dark_grey>");
                     }
                     else if (sack == total) {
                         builder.append("<red>");
@@ -337,82 +360,76 @@ public class ForgeGUI extends AbstractGUI
 		if (clickPos >= 54) return false;
 		
 		if (clickPos == calc(3, 5) && category != ItemFactory.baseCategory) moveTo(category.parent);
-		else if (clickPos == calc(1, 5) && page > 1) 
-		{
-			page--;
-			update();
-		}
-		else if (clickPos == calc(5, 5) && allowNextPage)
-		{
-			page++;
-			update();
-		}
-		else 
-		{
-			String clickCat = categories[clickPos];
-			if (clickCat != null) moveTo(clickCat);
-			else
-			{
-				String clickRecipe = recipes[clickPos];
-				
-				if (clickRecipe != null)
-				{
-					Recipe recipe = ItemFactory.recipes.get(clickRecipe);
-					
-					boolean collectionUnlocked = true;
-					if (recipe.discoveryReq != null)
-					{
-						Collection col = DiscoveryManager.get(recipe.discoveryReq);
-						if (owner.getDiscoveryLevel(col) < recipe.discoveryReqLevel + 1)
-						{
-							collectionUnlocked = false;
-						}
-					}
-					
-					
-					if (recipe.levelRequirement > owner.getLevel() || !collectionUnlocked)
-					{
+        else if (clickPos == calc(4, 5) && category == ItemFactory.baseCategory) {
+            owner.openGui(new MenuGUI(owner));
+        }
+        else if (clickPos == calc(1, 5) && page > 1) {
+            page--;
+            update();
+        }
+        else if (clickPos == calc(5, 5) && allowNextPage) {
+            page++;
+            update();
+        }
+        else {
+            String clickCat = categories[clickPos];
+            if (clickCat != null) moveTo(clickCat);
+            else {
+                String clickRecipe = recipes[clickPos];
+
+                if (clickRecipe != null) {
+                    Recipe recipe = ItemFactory.recipes.get(clickRecipe);
+
+                    boolean collectionUnlocked = true;
+                    if (recipe.discoveryReq != null) {
+                        Collection col = DiscoveryManager.get(recipe.discoveryReq);
+                        if (owner.getDiscoveryLevel(col) < recipe.discoveryReqLevel + 1) {
+                            collectionUnlocked = false;
+                        }
+                    }
+
+
+                    if (recipe.levelRequirement > owner.getLevel() || !collectionUnlocked) {
                         owner.sendMessage("<red>You haven't unlocked this recipe yet!</red>");
-						owner.playSound(Sound.ENTITY_CREEPER_HURT, 0.4, 0.9);
-					}
-					else if (owner.isForgeFull() && recipe.time != 0)
-					{
+                        owner.playSound(Sound.ENTITY_CREEPER_HURT, 0.4, 0.9);
+                    }
+                    else if (owner.isForgeFull() && recipe.time != 0) {
                         owner.sendMessage("<red>You have no free forge slots available!</red>");
-						owner.playSound(Sound.ENTITY_CREEPER_HURT, 0.4, 0.9);
-					}
-					else
-					{
-						ItemReqs requirements = new ItemReqs();
-						requirements.coins = recipe.coinCost;
-						for (String i : recipe.items.keySet()) requirements.addRequirement(new ItemReq(i, recipe.items.get(i)));
-						
-						if (requirements.areRequirementsMet(owner))
-						{
-							String data = requirements.grabDataFromRequirements(owner);
-							requirements.execute(owner);
-							
-							owner.playSound(Sound.BLOCK_ANVIL_USE, 0.9, 1.1);
-							
-							ForgingItem item = new ForgingItem(recipe);
+                        owner.playSound(Sound.ENTITY_CREEPER_HURT, 0.4, 0.9);
+                    }
+                    else {
+                        ItemReqs requirements = new ItemReqs();
+                        requirements.coins = recipe.coinCost;
+                        for (String i : recipe.items.keySet())
+                            requirements.addRequirement(new ItemReq(i, recipe.items.get(i)));
+
+                        var outcome = requirements.areRequirementsMet(owner);
+                        if (outcome == ItemReqs.FailureReason.NONE) {
+                            String data = requirements.grabDataFromRequirements(owner);
+                            requirements.execute(owner);
+
+                            owner.playSound(Sound.BLOCK_ANVIL_USE, 0.9, 1.1);
+
+                            ForgingItem item = new ForgingItem(recipe);
                             if (recipe.enchants == null && !data.isEmpty()) {
                                 item.data = data;
                             }
-							owner.scheduleForgeItem(item);
-						}
-						else 
-						{
-                            owner.sendMessage("<red>Cannot forge, requirements not met!</red>");
-							owner.playSound(Sound.ENTITY_CREEPER_HURT, 0.8, 0.6);
-						}
-					}
-					
-					
-					
-				}
-				
-			}
-			update();
-		}
+                            owner.scheduleForgeItem(item);
+                        }
+                        else {
+                            if (outcome == ItemReqs.FailureReason.NOT_ENOUGH_COINS) {
+                                owner.sendMessage("<red>You don't have enough coins for this!");
+                            }
+                            else {
+                                owner.sendMessage("<red>You don't have the items for this!");
+                            }
+                            owner.playSound(Sound.ENTITY_CREEPER_HURT, 0.8, 0.6);
+                        }
+                    }
+                }
+            }
+            update();
+        }
 		
 		return false;
 	}

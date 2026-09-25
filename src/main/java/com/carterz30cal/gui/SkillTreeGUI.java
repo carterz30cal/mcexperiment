@@ -2,7 +2,7 @@ package com.carterz30cal.gui;
 
 import com.carterz30cal.entities.player.GamePlayer;
 import com.carterz30cal.items.ItemFactory;
-import com.carterz30cal.items.abilities2.implementation.PlayerAbilityContext;
+import com.carterz30cal.items.abilities.implementation.PlayerAbilityContext;
 import com.carterz30cal.skills.SkillSoulType;
 import com.carterz30cal.skills.Skills;
 import com.carterz30cal.utils.StringUtils;
@@ -15,7 +15,7 @@ import java.util.List;
 
 /**
  * @author carterz30cal
- * @version 1
+ * @version 2
  * @since 1.0.0
  */
 public class SkillTreeGUI extends AbstractGUI {
@@ -95,6 +95,7 @@ public class SkillTreeGUI extends AbstractGUI {
     private ItemStack getSkillInfo(Skills skill) {
         var tree = owner.skillTree;
         var level = tree.getSkillLevel(skill);
+        var maxLevel = skill.getSkill().maxLevel;
         var soulReq = skill.getSkill().getSoulsNeedForLevel(level + 1);
         var soulType = skill.getSkill().soulType;
         var mockContext = new PlayerAbilityContext(skill.getSkill());
@@ -105,6 +106,14 @@ public class SkillTreeGUI extends AbstractGUI {
         var material = (level == 0) ? (!unlockable ? "COAL" : "REDSTONE") : ((level == skill.getSkill().maxLevel) ? "DIAMOND" : "EMERALD");
         var lore = new ArrayList<String>();
         lore.add("<dark_grey>Level " + level + "/" + skill.getSkill().maxLevel + "</dark_grey>");
+        if (level > 0 && maxLevel > 1) {
+            var spent = skill.getSkill().getTotalSoulsUsed(level);
+            var max = skill.getSkill().getTotalSoulsUsed(maxLevel);
+            var percent = spent / (double) max;
+            var colour = percent < 0.25 ? "red>" : (percent > 0.9) ? "green>" : "gold>";
+            lore.add("<dark_grey>Spent <" + colour + spent + "</" + colour + "/<green>"
+                    + max + "</green> souls (<" + colour + StringUtils.truncate(percent * 100, (level == skill.getSkill().maxLevel || spent == 0) ? 0 : 1) + "%</" + colour + ")");
+        }
         lore.add("");
         lore.addAll(skill.getSkill().miniMessageDescription(mockContext));
         lore.add("");
@@ -135,8 +144,9 @@ public class SkillTreeGUI extends AbstractGUI {
         }
 
         var nameColour = level == skill.getSkill().maxLevel ? "<aqua>" : (level > 0 ? "<green>" : "<red>");
-
-        return ItemFactory.customItem(material, nameColour + skill.getSkill().name(mockContext), lore);
+        var custom = ItemFactory.customItem(material, nameColour + skill.getSkill().name(mockContext), lore);
+        custom.setAmount(Math.max(1, level));
+        return custom;
     }
 
     private @NotNull List<String> getInfo() {

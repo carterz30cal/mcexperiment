@@ -7,6 +7,11 @@ import com.carterz30cal.utils.EntityUtils;
 
 import java.util.List;
 
+/**
+ * @author carterz30cal
+ * @version 2
+ * @since 1.0.0
+ */
 public class KillEnemySpawner extends SimpleAreaEnemySpawner {
     protected int killsToSpawn;
     private int killCount;
@@ -21,21 +26,24 @@ public class KillEnemySpawner extends SimpleAreaEnemySpawner {
     @Override
     public void tick() {
         mobs.removeIf((e) -> !GameEntity.entities.containsKey(e) || GameEntity.entities.get(e).dead);
-        if (killCount >= killsToSpawn && GetCurrentlyValidToSpawn() && mobs.isEmpty()) {
-            killCount = 0;
-            GameEnemy enemy = GetValidSpawningOption().Spawn(spawnBox.getRandomMobLocation());
+        if (killCount >= killsToSpawn && getCurrentlyValidToSpawn()) {
+            killCount -= killsToSpawn;
+            GameEnemy enemy = getValidSpawningOption().spawn(spawnBox.getRandomMobLocation());
             mobs.add(enemy.getUUID());
         }
     }
 
     @Override
-    protected boolean GetCurrentlyValidToSpawn() {
+    protected boolean getCurrentlyValidToSpawn() {
         List<GamePlayer> players = EntityUtils.getNearbyPlayers(spawnBox.getMiddleAsLocation(), 20);
-        return !players.isEmpty();
+        return !players.isEmpty() && mobs.isEmpty();
     }
 
     @Override
     public void onAreaKill(GameEnemy killed) {
+        if (containsType(killed.getTypeId())) {
+            return;
+        }
         killCount++;
         super.onAreaKill(killed);
     }

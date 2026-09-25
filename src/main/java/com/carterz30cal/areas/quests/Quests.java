@@ -11,7 +11,7 @@ import java.util.Objects;
 
 /**
  * @author carterz30cal
- * @version 2
+ * @version 4
  * @since 1.0.0
  */
 public enum Quests {
@@ -24,7 +24,8 @@ public enum Quests {
     WATERWAY_FISHING_TUTORIAL(
             "Fisherman Freddy",
             new StringDescription(),
-            Questgivers.TUTORIAL_FISHING
+            Questgivers.TUTORIAL_FISHING,
+            Questgivers.FISHERMAN_FREDDY_2
     ),
     JIM(
             "Creepy Jim",
@@ -53,6 +54,25 @@ public enum Quests {
             new StringDescription(),
             Questgivers.WATERWAY_CHARLOTTE_1
     ),
+
+    WATERWAY_JAYLO_KATY(
+            "The Hunt for Necropolis Knight Katy",
+            new StringDescription("Help Jaylo find Katy, a fellow Necropolis Knight!", "This quest will take you throughout Waterway!"),
+            Questgivers.WATERWAY_MAIN,
+            Questgivers.WATERWAY_MAIN_2
+    ),
+
+    NECROPOLIS_YONNA(
+            "Yonna",
+            new StringDescription(),
+            Questgivers.NECROPOLIS_YONNA
+    ),
+    NECROPOLIS_SANDY_HAM(
+            "The Old Snout",
+            new StringDescription("Help out old prospector Sandriham Bootshold in the treasure pits of Necropolis."),
+            Questgivers.NECROPOLIS_SANDY_HAM
+    )
+
     ;
     private final List<Questgivers> quests;
     private final String name;
@@ -66,11 +86,11 @@ public enum Quests {
         this.name = name;
         this.description = description;
         this.quests = Arrays.asList(quests);
-        this.quests.forEach(q -> q.RegisterQuests(this));
+        this.quests.forEach(q -> q.registerQuests(this));
     }
 
     public QuestSection getQuestSection(GamePlayer player) {
-        QuestSave save = player.GetQuestSave(this);
+        QuestSave save = player.getQuestSave(this);
         return getQuestSection(save.currentSection);
     }
 
@@ -88,11 +108,12 @@ public enum Quests {
     }
 
     public List<String> getDescription() {
-        return description.GetList();
+        return description.list();
     }
 
+    @SuppressWarnings("unused")
     public List<QuestSection> getCompletedSections(GamePlayer player) {
-        QuestSave save = player.GetQuestSave(this);
+        QuestSave save = player.getQuestSave(this);
         return getCompletedSections(save.currentSection);
     }
 
@@ -119,8 +140,33 @@ public enum Quests {
         return count;
     }
 
+    /**
+     * Is this <code>Questgivers</code> complete?
+     *
+     * @param player who are we asking about?
+     * @param quest  what quest are we asking about?
+     * @return a boolean stating whether this <code>Questgivers</code> has been completed by this <code>GamePlayer</code>.
+     * @since 1.0.0 [4]
+     **/
+    public boolean complete(GamePlayer player, Questgivers quest) {
+        QuestSave save = player.getQuestSave(this);
+        if (save == null) {
+            return false;
+        }
+        int r = save.currentSection;
+        int i = 0;
+        int s = 0;
+        while (!quests.get(i).equals(quest)) {
+            i++;
+            s += quests.get(i).getQuestCount();
+        }
+        r -= s;
+        return r >= quest.getQuestCount();
+    }
+
+    @Deprecated(since = "1.0.0 [4]")
     public boolean hasCompletedQuestgiver(GamePlayer player, Questgivers questgiver) {
-        QuestSave save = player.GetQuestSave(this);
+        QuestSave save = player.getQuestSave(this);
         if (save == null) {
             return false;
         }
@@ -139,8 +185,14 @@ public enum Quests {
     public QuestSave createSave(GamePlayer player) {
         QuestSave save = new QuestSave();
         save.currentSection = 0;
-        save.sectionSave = quests.getFirst().getQuest(0).CreateBlankSectionSave(player);
-        return save;
+        var q = quests.getFirst().getQuest(0);
+        if (q == null) {
+            return null;
+        }
+        else {
+            save.sectionSave = q.CreateBlankSectionSave(player);
+            return save;
+        }
     }
 
     public void fixSave(QuestSave save, GamePlayer player) {
@@ -154,15 +206,16 @@ public enum Quests {
         save.completedQuest = section.getBoolean("is-finished", false);
         if (!save.completedQuest) {
             QuestSection qs = getQuestSection(save.currentSection);
-            assert qs != null;
-            save.sectionSave = qs.CreateBlankSectionSave(player);
-            save.sectionSave.Load(section);
+            if (qs != null) {
+                save.sectionSave = qs.CreateBlankSectionSave(player);
+                save.sectionSave.Load(section);
+            }
         }
         return save;
     }
 
     public void saveSave(GamePlayer player, ConfigurationSection section) {
-        QuestSave save = player.GetQuestSave(this);
+        QuestSave save = player.getQuestSave(this);
         if (save == null) {
             return;
         }
@@ -174,7 +227,7 @@ public enum Quests {
     }
 
     public void moveSave(GamePlayer player) {
-        QuestSave save = player.GetQuestSave(this);
+        QuestSave save = player.getQuestSave(this);
         player.DeregisterEventHandler(save.sectionSave.GetUUID());
         save.currentSection++;
         QuestSection section = getQuestSection(player);

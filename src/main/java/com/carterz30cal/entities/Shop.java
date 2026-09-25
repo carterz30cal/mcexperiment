@@ -1,5 +1,6 @@
 package com.carterz30cal.entities;
 
+import com.carterz30cal.entities.enemies.representation.EnemyRepresentationBuilder;
 import com.carterz30cal.entities.interactable.GameShopkeeper;
 import com.carterz30cal.items.recipes.Recipe;
 import com.carterz30cal.utils.StringUtils;
@@ -11,6 +12,11 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
 
+/**
+ * @author carterz30cal
+ * @version 2
+ * @since 1.0.0
+ */
 public class Shop {
     public static Map<String, Shop> shops = new HashMap<>();
 
@@ -21,6 +27,7 @@ public class Shop {
 
     public String shopkeeperName;
     public EntityType shopkeeperType;
+    public EnemyRepresentationBuilder representationBuilder;
     public Location shopkeeperLocation;
     public String skullProfileId;
 
@@ -35,6 +42,13 @@ public class Shop {
         shopkeeperName = section.getString("shopkeeper-name", "null");
         shopkeeperType = EntityType.valueOf(section.getString("shopkeeper-type", "ZOMBIE").toUpperCase());
         skullProfileId = section.getString("skull-profile-id");
+
+        representationBuilder = new EnemyRepresentationBuilder();
+        var entitiesSection = section.getConfigurationSection("entities");
+        assert entitiesSection != null;
+        for (var e : entitiesSection.getKeys(false)) {
+            representationBuilder.add(Objects.requireNonNull(entitiesSection.getConfigurationSection(e)));
+        }
 
         shopkeeperLocation = StringUtils.getLocationFromString(Objects.requireNonNull(section.getString("location")));
 

@@ -30,7 +30,7 @@ import java.util.concurrent.atomic.AtomicInteger;
  * Provides methods for dealing with sign-up, teleports and deaths.
  *
  * @author carterz30cal
- * @version 2
+ * @version 3
  * @since 1.0.0
  */
 @SuppressWarnings("unused")
@@ -39,44 +39,43 @@ public abstract class AbstractAreaBoss extends AbstractEnemySpawner {
      * Our set of registered players. These should be targeted by effects
      * and also granted loot upon victory. This field is <code>private</code> as derivative classes
      * should not touch this field directly and instead use the appropriate methods to handle the data.
-     * @since 1.0.0
+     * @since 1.0.0 [1]
      */
     private final Set<GamePlayer> registeredPlayers = new HashSet<>();
     /**
      * What abilities are on cooldown?
      * Ticked down in <code>tick()</code>.
      * Accessed only through appropriate methods
-     * @since 1.0.0
+     * @since 1.0.0 [1]
      */
     private final Map<String, Integer> cooldowns = new HashMap<>();
+    /**
+     * Our list of owned entities. These should be guaranteed to disappear when the fight has ended.
+     * All enemies present in the ownedEnemies array should also be present here.
+     *
+     * @since 1.0.0 [1]
+     */
+    private final List<GameEntity> ownedEntities = new ArrayList<>();
     /**
      * What phase of the boss fight are we in?<br>
      * -1 should be <b>inactive</b><br>
      * 0 should be reserved for <b>preparing</b><br>
      * Negative numbers should never be used for active phases
      * of the boss fight.
-     * @since 1.0.0
+     * @since 1.0.0 [1]
      */
     protected int phase = -1;
     /**
      * Internal audience for sending messages to. Automatically populated using
      * <code>register()</code> and <code>deregister()</code>.
-     * @since 1.0.0
+     * @since 1.0.0 [1]
      */
     private Audience fightingAudience = Audience.empty();
-
-    /**
-     * Our list of owned entities. These should be guaranteed to disappear when the fight has ended.
-     * All enemies present in the ownedEnemies array should also be present here.
-     *
-     * @since 1.0.0
-     */
-    private final List<GameEntity> ownedEntities = new ArrayList<>();
     /**
      * Our array of weighted drops. Modified using <code>drops()</code>.<br>
      * We can determine what drops to give a player using the <code>drop()</code> method,
      * which can also specify the number of drops to give to the player.
-     * @since 1.0.0
+     * @since 1.0.0 [1]
      */
     private WeightedDrop[] drops;
     /**
@@ -88,14 +87,14 @@ public abstract class AbstractAreaBoss extends AbstractEnemySpawner {
      * Boss bar displayed for the <code>fightingAudience</code>. Should only be created
      * after all players have registered.
      *
-     * @since 1.0.0
+     * @since 1.0.0 [1]
      */
     private BossBar bossBar;
 
     /**
      * Called after all players who want to participate have signed up, basically
      * actually starts the boss fight. <br>Usually will involve a warp into the boss arena.
-     * @since 1.0.0
+     * @since 1.0.0 [1]
      */
     public abstract void start();
 
@@ -107,9 +106,16 @@ public abstract class AbstractAreaBoss extends AbstractEnemySpawner {
      * @implNote This should not be called if the fight is not at least in the
      * preparation stage, or that will result in undefined behaviour.
      * phase should be set to <b>-1</b> when using this method.
-     * @since 1.0.0
+     * @since 1.0.0 [1]
      */
     public abstract void end();
+
+    /**
+     * Called when the server is closing, should clean up any lingering effects
+     *
+     * @since 1.0.0 [3]
+     */
+    public abstract void disable();
 
     /**
      * Handles general boss mechanics, that need to be ran on a tick-by-tick basis.
@@ -170,6 +176,16 @@ public abstract class AbstractAreaBoss extends AbstractEnemySpawner {
     }
 
     /**
+     *
+     * @param player  who clicked?
+     * @param clicked where did they click?
+     * @since 1.0.0 [3]
+     */
+    public void onRightClick(GamePlayer player, Location clicked) {
+
+    }
+
+    /**
      * Get the register of <code>GamePlayer</code>s.
      *
      * @return A <code>Set</code> of <code>GamePlayer</code>s.
@@ -222,6 +238,22 @@ public abstract class AbstractAreaBoss extends AbstractEnemySpawner {
      */
     public void scoreboard(@NotNull GamePlayer player, @NotNull LineDrawable board) {
 
+    }
+
+    /**
+     * Register a player for scoreboard display
+     *
+     * @param player the player we're interacting with
+     * @return <code>null</code> if this shouldn't be used, a list otherwise.
+     * @since 1.0.0 [3]
+     */
+    public @Nullable List<String> scoreboard(@NotNull GamePlayer player) {
+        if (!isRegistered(player) || phase == -1) {
+            return null;
+        }
+        else {
+            return new ArrayList<>();
+        }
     }
 
     /**

@@ -1,5 +1,7 @@
 package com.carterz30cal.main;
 
+import com.carterz30cal.areas.Areas;
+import com.carterz30cal.areas.events.EventManager;
 import com.carterz30cal.commands.*;
 import com.carterz30cal.entities.GameEntity;
 import com.carterz30cal.entities.PlayerManager;
@@ -49,6 +51,7 @@ public class Dungeons extends JavaPlugin
         new ItemFactory();
         new PlayerManager();
         new EnemyManager();
+		new EventManager();
 		
 		registerEvent(new ListenerPlayerJoinLeave());
 		registerEvent(new ListenerEntityDamage());
@@ -89,6 +92,8 @@ public class Dungeons extends JavaPlugin
 			if (e instanceof Player) continue;
 			e.remove();
 		}
+
+        for (var a : Areas.values()) a.getArea().disable();
 
         MiningManager.onDisable();
         scoreboardLibrary.close();

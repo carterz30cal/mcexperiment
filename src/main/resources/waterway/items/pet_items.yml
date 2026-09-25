@@ -17,6 +17,7 @@ pet_water_spider_common:
   material: PLAYER_HEAD
   pet-line: water_spider
   active-ability: PET_WATER_SPIDER_ACTIVE
+  skull-profile-id: water_spider_v1
   value: 100
   stats:
     mana: +5
@@ -30,10 +31,24 @@ pet_drenched_common:
   pet-line: drenched
   active-ability: PET_DRENCHED_ACTIVE
   value: 2000
+  skull-profile-id: drowned_v1
   abilities:
     - PET_DRENCHED_PASSIVE
   stats:
     health: +10
+
+pet_lightning_bug_common:
+  name: Lightning Bug
+  type: PET
+  rarity: COMMON
+  material: PLAYER_HEAD
+  pet-line: lightning_bug
+  active-ability: STORM_PET_ACTIVE_COMMON
+  abilities:
+    - STORM_PET_PASSIVE_COMMON
+  stats:
+    power: +5
+    mana: +5
 
 pet_drenched_uncommon:
   name: Drenched
@@ -42,6 +57,7 @@ pet_drenched_uncommon:
   material: PLAYER_HEAD
   pet-line: drenched
   active-ability: PET_DRENCHED_ACTIVE
+  skull-profile-id: drowned_v1
   abilities:
     - PET_DRENCHED_PASSIVE
   stats:
@@ -54,6 +70,7 @@ pet_drenched_rare:
   material: PLAYER_HEAD
   pet-line: drenched
   active-ability: PET_DRENCHED_ACTIVE
+  skull-profile-id: drowned_v1
   abilities:
     - PET_DRENCHED_PASSIVE
   stats:
@@ -66,6 +83,7 @@ pet_drenched_very_rare:
   material: PLAYER_HEAD
   pet-line: drenched
   active-ability: PET_DRENCHED_ACTIVE
+  skull-profile-id: drowned_v1
   abilities:
     - PET_DRENCHED_PASSIVE
   stats:
@@ -78,6 +96,7 @@ pet_drenched_epic:
   material: PLAYER_HEAD
   pet-line: drenched
   active-ability: PET_DRENCHED_ACTIVE
+  skull-profile-id: drowned_v1
   abilities:
     - PET_DRENCHED_PASSIVE
   stats:

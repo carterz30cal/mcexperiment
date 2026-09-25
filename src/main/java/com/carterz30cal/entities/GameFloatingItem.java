@@ -20,6 +20,11 @@ import org.bukkit.util.Vector;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * @author carterz30cal
+ * @version 2
+ * @since 1.0.0
+ */
 public class GameFloatingItem extends GameEntity {
 	public boolean collected;
 	
@@ -31,14 +36,12 @@ public class GameFloatingItem extends GameEntity {
 
 	@Override
 	public void remove() {
-		// TODO Auto-generated method stub
 		deregister(display.getUniqueId());
 		display.remove();
 	}
 
 	@Override
 	public Location getLocation() {
-		// TODO Auto-generated method stub
 		return display.getLocation();
 	}
 
@@ -73,8 +76,7 @@ public class GameFloatingItem extends GameEntity {
 		PacketContainer packet = Dungeons.proto.createPacket(PacketType.Play.Server.ENTITY_DESTROY);
 		List<Integer> ids = new ArrayList<>();
 		ids.add(item.display.getEntityId());
-		
-		//packet.getIntegers().write(0, 1);
+
 		try {
 			packet.getIntLists().write(0, ids);
 			
@@ -87,16 +89,18 @@ public class GameFloatingItem extends GameEntity {
 		item.ticker = new BukkitRunnable()
 				{
 					double angle = RandomUtils.getDouble(0, 360);
+                    int time = 0;
 					@Override
 					public void run() {
 						angle += 2D;
+                        time++;
 						
 						Location rot = item.display.getLocation();
 						rot.setDirection(new Vector(MathsUtils.getCircleX(angle), Math.PI / 2, MathsUtils.getCircleZ(angle)));
 						item.display.teleport(rot);
 						
 						double dist = item.owner.getLocation().distance(item.getLocation());
-						if (dist < 1.5 || dist > 20)
+                        if (dist < 1.5 || dist > 40 || time > 20 * 60 * 2)
 						{
 							owner.giveItem(item.reward);
 							owner.playSound(Sound.ENTITY_ITEM_PICKUP, 1.8, 1);

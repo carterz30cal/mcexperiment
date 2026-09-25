@@ -11,6 +11,11 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.UUID;
 
+/**
+ * @author carterz30cal
+ * @version ? + 1
+ * @since 1.0.0
+ */
 public abstract class GameEntity
 {
 	public static Map<UUID, GameEntity> entities = new HashMap<>();
@@ -22,9 +27,17 @@ public abstract class GameEntity
     protected UUID uuid;
 
 	public abstract void remove();
-	
+
+    /**
+     * @deprecated in favour of <code>LocatableEntity</code> interface
+     */
+    @Deprecated
 	public abstract Location getLocation();
-	
+
+    /**
+     * @deprecated in favour of <code>LocatableEntity</code> interface
+     */
+    @Deprecated
 	public double getDistance(Location l) {
 		return l.distance(getLocation());
 	}

@@ -5,19 +5,22 @@ water_seraph_boss:
   speed: 2.1
   knockback: 45
   damage:
-    PHYSICAL: 70
-    MAGIC: 5
+    PHYSICAL: 40
+    MAGIC: 10
   stats:
     PADDING: -100
     ROBUSTNESS: -10
     INSULATION: -20
   bestiary:
     category: waterway_waterway_seraph
+  sounds:
+    hurt: entity.enderman.hurt
+    death: entity.enderman.death
   abilities:
     overkill:
       class: generic.EnemyAbilityOverkill
-      percentage: 0.015
-      reward: 4
+      percentage: 0.02
+      reward: 5
   tags:
     - BOSS
     - SERAPH

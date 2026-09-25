@@ -12,11 +12,11 @@ enchanted_book-HEALTHY:
   custom-name: <green>Healthy <dark_grey>[Enchantment]
   enchants: ENCHANT_HEALTHY-1
   level: 3
-  time: 4m
+  time: 3m
   category: waterway_enchantments
   items:
-    paper: 1
-    waterway_sac: 1
+    paper: 2
+    leaf_mash: 100
 
 enchanted_book-PEARLED:
   custom-name: <light_purple>Pearled <dark_grey>[Enchantment]

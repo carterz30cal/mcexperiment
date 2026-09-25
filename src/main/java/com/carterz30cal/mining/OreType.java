@@ -1,8 +1,14 @@
 package com.carterz30cal.mining;
 
+import com.carterz30cal.areas.Areas;
 import org.bukkit.Material;
 import org.bukkit.configuration.ConfigurationSection;
 
+/**
+ * @author carterz30cal
+ * @version 2
+ * @since 1.0.0
+ */
 public class OreType {
     public String name;
     public int hardness;
@@ -18,6 +24,7 @@ public class OreType {
 
     public Material minesInto;
     public int regenTime;
+    public Areas area;
 
     public OreType(ConfigurationSection config) {
         name = config.getString("name");
@@ -32,6 +39,6 @@ public class OreType {
 
         minesInto = Material.valueOf(config.getString("mines-into"));
         regenTime = config.getInt("regen-time", 40);
-
+        area = Areas.valueOf(config.getString("area"));
     }
 }

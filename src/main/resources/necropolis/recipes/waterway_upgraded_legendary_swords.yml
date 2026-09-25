@@ -1,0 +1,47 @@
+titan_blade_legendary:
+  amount: 1
+  category: necropolis_weapons_waterway_upgrades
+  discovery: rainbow_slime_collection
+  discovery-tier: 3
+  items:
+    titan_blade_incredible: 1
+    red_slime: 400
+    hydra_flesh: 24
+
+pungent_sword_legendary:
+  category: necropolis_weapons_waterway_upgrades
+  discovery: gold_nugget_collection
+  discovery-tier: 4
+  items:
+    pungent_sword_incredible: 1
+    gilded_handle: 1
+    gold_nugget: 64
+
+spearfish_scythe_legendary:
+  category: necropolis_weapons_waterway_upgrades
+  discovery: gold_nugget_collection
+  discovery-tier: 3
+  items:
+    spearfish_scythe_incredible: 1
+    gilded_handle: 1
+    gold_nugget: 32
+    compressed_sand: 4
+
+piranha_dagger_legendary:
+  category: necropolis_weapons_waterway_upgrades
+  discovery: gold_nugget_collection
+  discovery-tier: 3
+  items:
+    piranha_dagger_incredible: 1
+    gilded_handle: 1
+    gold_nugget: 32
+    cooked_necropolis_fish: 2
+
+zombie_sword_legendary:
+  category: necropolis_weapons_waterway_upgrades
+  discovery: bone_dust_collection
+  discovery-tier: 5
+  items:
+    zombie_sword_incredible: 1
+    roasted_bone_dust: 6
+    weird_flesh: 4000

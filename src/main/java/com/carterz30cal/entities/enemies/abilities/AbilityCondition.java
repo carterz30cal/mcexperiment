@@ -1,7 +1,7 @@
 package com.carterz30cal.entities.enemies.abilities;
 
 import com.carterz30cal.entities.GameEntity;
-import com.carterz30cal.items.abilities2.implementation.ContextWithAbility;
+import com.carterz30cal.items.abilities.implementation.ContextWithAbility;
 import com.carterz30cal.main.Dungeons;
 import org.bukkit.configuration.ConfigurationSection;
 import org.jetbrains.annotations.NotNull;

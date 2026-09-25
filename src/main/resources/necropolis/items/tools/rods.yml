@@ -1,0 +1,10 @@
+amazing_fishing_rod:
+  name: Amazing Fishing Rod
+  type: ROD
+  rarity: INCREDIBLE
+  material: FISHING_ROD
+  stats:
+    damage: +15
+    fishing_power: +250
+    enchant_power: +30
+    level_requirement: 9

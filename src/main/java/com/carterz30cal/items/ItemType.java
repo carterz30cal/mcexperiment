@@ -1,20 +1,24 @@
 package com.carterz30cal.items;
 
-import com.carterz30cal.entities.DamageType;
-
+/**
+ * @author carterz30cal
+ * @version 4
+ * @since 1.0.0
+ */
 public enum ItemType 
 {
 	INGREDIENT(ItemTypeUse.NORMAL),
 	QUEST_ITEM("Quest Item"),
 	ENCHANTMENT(ItemTypeUse.NORMAL),
 	ATTUNER(ItemTypeUse.NORMAL),
+    RUNE(ItemTypeUse.NORMAL),
 	CATALYST(ItemTypeUse.CONSUMABLE),
 	WEAPON(ItemTypeUse.WIELDABLE),
-	BOW(ItemTypeUse.WIELDABLE, DamageType.PROJECTILE),
-	TOME(ItemTypeUse.WIELDABLE, DamageType.MAGICAL),
-	WAND(ItemTypeUse.WIELDABLE, DamageType.MAGICAL),
-	TOOL(ItemTypeUse.WIELDABLE, DamageType.PHYSICAL),
-    PICKAXE(ItemTypeUse.WIELDABLE, DamageType.PHYSICAL),
+    BOW(ItemTypeUse.WIELDABLE),
+    TOME(ItemTypeUse.WIELDABLE),
+    WAND(ItemTypeUse.WIELDABLE),
+    TOOL(ItemTypeUse.WIELDABLE),
+    PICKAXE(ItemTypeUse.WIELDABLE),
 	ARTEFACT(ItemTypeUse.WIELDABLE_CONSUMABLE),
     KEY(ItemTypeUse.WIELDABLE_CONSUMABLE),
 	LOOTBOX(ItemTypeUse.CONSUMABLE),
@@ -27,26 +31,32 @@ public enum ItemType
 	LEGGINGS(ItemTypeUse.WEARABLE),
 	BOOTS(ItemTypeUse.WEARABLE),
 	PET(ItemTypeUse.NORMAL),
+	PRODUCTION_CORE("Production Core"),
+	FACTORY_UPGRADE("Factory Upgrade"),
+	POTION_INGREDIENT("Potion Ingredient", ItemTypeUse.CONSUMABLE),
+	POTION_FUMES("Potion Fumes", ItemTypeUse.CONSUMABLE),
+	POTION_BOTTLE("Bottle", ItemTypeUse.CONSUMABLE),
+	POTION(ItemTypeUse.TALISMAN),
 	VIRTUAL_SET(ItemTypeUse.VIRTUAL_NON_EXIST);
     public final ItemTypeUse use;
-    public final DamageType damageType;
 	public String cute;
+	private final int maxStackSize = 64;
 	
 	ItemType(ItemTypeUse use)
 	{
 		this.use = use;
-		this.damageType = DamageType.PHYSICAL;
-	}
-	
-	ItemType(ItemTypeUse use, DamageType damageType)
-	{
-		this.use = use;
-		this.damageType = damageType;
 	}
 	
 	ItemType(String cute) {
 		this.use = ItemTypeUse.NORMAL;
-		this.damageType = DamageType.PHYSICAL;
+		this.cute = cute;
+	}
+
+	/**
+	 * @since 1.0.0 [4]
+	 */
+	ItemType(String cute, ItemTypeUse use) {
+		this.use = use;
 		this.cute = cute;
 	}
 	
@@ -66,4 +76,14 @@ public enum ItemType
             return name + 's';
         }
     }
+
+	/**
+	 * Gets the defined maximum stack size for this item type.
+	 * This is typically 1 for most items, but 64 for ingredients, catalysts and keys.
+	 * @return the maximum stack size allowed for this item type.
+	 * @since 1.0.0 [3]
+	 */
+	public int maxStackSize() {
+		return maxStackSize;
+	}
 }

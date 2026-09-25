@@ -64,6 +64,25 @@ armour-paper:
     health: -15, -30, -20, -10
     enchant_power: +8
 
+armour-shocker:
+  name:
+    - Shock Helmet
+    - Shock Shirt
+    - Shock Trousers
+    - Shock Shoes
+  material: LEATHER
+  rarity: UNCOMMON
+  value: 40
+  colour:
+    r: 255
+    g: 255
+    b: 0
+  stats:
+    strength: 15,25,20,10
+    vitality: 1
+    enchant_power: +3
+    level_requirement: 1
+
 chainmail_helmet:
   name: Chainmail Helmet
   material: CHAINMAIL_HELMET

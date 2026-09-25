@@ -1,0 +1,26 @@
+hydra_key_lesser:
+  name: Immortal Head of a Lesser Hydra
+  type: KEY
+  rarity: EPIC
+  material: PLAYER_HEAD
+  skull-profile-id: hydra_placeholder
+  value: 500
+  abilities:
+    - HYDRA_KEY_LESSER
+  lore:
+    - The immortal head of a <blue>Lesser Hydra</blue>. Placing this
+    - upon the altar located on the upper level of Necropolis may
+    - cause the reappearance of this great foe!
+
+crypt_key_lesser:
+  name: Lesser Crypt Key
+  type: KEY
+  rarity: VERY_RARE
+  material: TRIPWIRE_HOOK
+  value: 400
+  abilities:
+    - NECROPOLIS_CRYPT_KEY_LESSER
+  lore:
+    - A rather unassuming key that opens an old, abandoned crypt within
+    - the depths of <white>Necropolis</white>, which likely still contains
+    - powerful enemies and valuable loot, if you explore deep enough!

@@ -1,0 +1,8 @@
+amazing_fishing_rod:
+  category: necropolis_fishing_rods
+  discovery: necropolis_fish_collection
+  discovery-tier: 3
+  items:
+    great_fishing_rod: 1
+    cooked_waterway_cod: 12
+    cooked_necropolis_fish: 1

@@ -11,7 +11,7 @@ waterway_weapons:
 waterway_weapons_attuners:
   name: Attuners
   icon: FLINT
-  parent: waterway_weapons
+  parent: waterway
 
 waterway_weapons_bows:
   name: Bows
@@ -27,11 +27,6 @@ waterway_armours:
   icon: water_chestplate
   parent: waterway
 
-waterway_fishing:
-  name: Fishing
-  icon: flimsy_fishing_rod
-  parent: waterway
-
 waterway_pickaxes:
   name: Pickaxes
   icon: leaf_pickaxe
@@ -40,7 +35,7 @@ waterway_pickaxes:
 waterway_fishing_rods:
   name: Fishing Rods
   icon: flimsy_fishing_rod
-  parent: waterway_fishing
+  parent: waterway
 
 
 waterway_ingredients:

@@ -1,7 +1,8 @@
 package com.carterz30cal.entities.player;
 
 import com.carterz30cal.entities.enemies.core.EnemyData;
-import com.carterz30cal.items.abilities2.implementation.PlayerAbilityContext;
+import com.carterz30cal.entities.player.interfaces.PlayerSavable;
+import com.carterz30cal.items.abilities.implementation.PlayerAbilityContext;
 import com.carterz30cal.skills.SkillSoulType;
 import com.carterz30cal.skills.Skills;
 import com.carterz30cal.stats.Stat;
@@ -10,13 +11,11 @@ import org.bukkit.configuration.ConfigurationSection;
 import java.util.*;
 
 /**
- * TODO FINISH!
- *
  * @author carterz30cal
- * @version 1
+ * @version 2
  * @since 1.0.0
  */
-public class PlayerSkillTree {
+public class PlayerSkillTree implements PlayerSavable {
     private final GamePlayer owner;
     private final Map<Skills, Integer> tree = new EnumMap<>(Skills.class);
     private final Map<SkillSoulType, Long> souls = new EnumMap<>(SkillSoulType.class);
@@ -90,12 +89,19 @@ public class PlayerSkillTree {
     /**
      * @param type what soul type do we care about?
      * @return the amount of that soul we have.
-     * @since 1.0.0
+     * @since 1.0.0 [1]
      */
     public long getSoulCount(SkillSoulType type) {
         return souls.getOrDefault(type, 0L);
     }
 
+    /**
+     * Gets the level of a skill
+     *
+     * @param skill the skill we want the level of
+     * @return the level of the skill
+     * @since 1.0.0 [1]
+     */
     public int getSkillLevel(Skills skill) {
         return tree.getOrDefault(skill, 0);
     }
@@ -104,6 +110,7 @@ public class PlayerSkillTree {
      * This assumes that you have already called canLevel and it has returned true.
      *
      * @param skill what skill are we levelling up?
+     * @since 1.0.0 [1]
      */
     public void addSkillLevel(Skills skill) {
         var level = getSkillLevel(skill);
@@ -144,7 +151,7 @@ public class PlayerSkillTree {
      * Add the contents of <code>data.souls</code> to our <code>souls</code> map.
      *
      * @param data the <code>EnemyData</code> we're extracting from.
-     * @since 1.0.0
+     * @since 1.0.0 [1]
      */
     public void gainSouls(EnemyData data) {
         for (var s : data.souls.keySet()) {
@@ -158,7 +165,7 @@ public class PlayerSkillTree {
      *
      * @param type   what soul type are we granting?
      * @param amount how many?
-     * @since 1.0.0
+     * @since 1.0.0 [1]
      */
     public void gainSouls(SkillSoulType type, long amount) {
         souls.put(type, souls.getOrDefault(type, 0L) + amount);
@@ -169,15 +176,25 @@ public class PlayerSkillTree {
      * The amount of souls we should show on the player's action bar.
      *
      * @return the sum of all soul types rewarded to this player last.
-     * @since 1.0.0
+     * @since 1.0.0 [1]
      */
     public long getLastSoulReward() {
         return lastSoulReward;
     }
 
     /**
+     * Sets the displayed total of souls awarded. Does not affect actual souls.
+     *
+     * @param lastSoulReward the amount of souls to display as awarded.
+     * @since 1.0.0 [2]
+     */
+    public void setLastSoulReward(long lastSoulReward) {
+        this.lastSoulReward = lastSoulReward;
+    }
+
+    /**
      * @return A set of all skills that the player has unlocked
-     * @since 1.0.0
+     * @since 1.0.0 [1]
      */
     public Set<Skills> getSkills() {
         Set<Skills> skills = new HashSet<>();

@@ -53,6 +53,7 @@ pungent_sword_very_rare:
   items:
     pungent_sword: 1
     spiced_meat: 5
+    waterway_sac: 1
 
 spearfish_scythe_very_rare:
   level: 4
@@ -61,6 +62,13 @@ spearfish_scythe_very_rare:
     spearfish_scythe_rare: 1
     spiced_meat: 6
     waterway_sac: 1
+
+storm_axe_very_rare:
+  category: waterway_weapons
+  items:
+    waterway_sac: 1
+    empty_storm_pearl: 4
+    spiced_meat: 8
 
 piranha_dagger_very_rare:
   item: piranha_dagger_very_rare
@@ -130,19 +138,6 @@ titan_blade_incredible:
     titan_blade: 1
     seraphs_eye: 1
     chilli_powder: 20
-
-
-healing_wand_waterway_incredible:
-  level: 6
-  category: waterway_weapons
-  coins: 4000
-  items:
-    healing_wand_waterway: 1
-    seraphs_eye: 2
-    spiced_meat: 32
-    paper: 8
-    cooked_waterway_cod: 3
-    green_slime: 4
 
 zombie_sword:
   level: 6

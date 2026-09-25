@@ -120,6 +120,7 @@ sea_slug_RARE:
       type: ZOMBIE
       offset: [ 0,0,0 ]
       invisible: true
+      contribute-height: false
   loot:
     waterway_cod:
       amount: 10/40
@@ -168,6 +169,7 @@ sea_slime_RARE:
     - FISHING_WATERWAY
     - FISHING_RARE
     - SLIME
+    - SEA_SLIME
   loot:
     waterway_cod:
       amount: 10/55

@@ -1,6 +1,6 @@
 package com.carterz30cal.entities.enemies.abilities;
 
-import com.carterz30cal.items.abilities2.implementation.Ability;
+import com.carterz30cal.items.abilities.implementation.Ability;
 import com.carterz30cal.main.Dungeons;
 import org.bukkit.configuration.ConfigurationSection;
 import org.jetbrains.annotations.NotNull;
@@ -14,7 +14,7 @@ import java.lang.reflect.InvocationTargetException;
  * @since 1.0.0
  */
 public abstract class EnemyAbility implements Ability {
-    public EnemyAbility(ConfigurationSection section) {
+    public EnemyAbility(ConfigurationSection ignoredSection) {
 
     }
 

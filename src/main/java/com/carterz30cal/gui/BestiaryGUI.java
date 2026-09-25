@@ -1,6 +1,8 @@
 package com.carterz30cal.gui;
 
 import com.carterz30cal.entities.enemies.core.EnemyBuilder;
+import com.carterz30cal.entities.health.damage.DamageResistance;
+import com.carterz30cal.entities.health.damage.DamageType;
 import com.carterz30cal.entities.player.GamePlayer;
 import com.carterz30cal.items.Item;
 import com.carterz30cal.items.ItemFactory;
@@ -15,7 +17,7 @@ import java.util.*;
 
 /**
  * @author carterz30cal
- * @version 2
+ * @version 3
  * @since 1.0.0
  */
 public class BestiaryGUI extends AbstractGUI {
@@ -23,7 +25,7 @@ public class BestiaryGUI extends AbstractGUI {
     private static final Map<String, BestiaryCategory> categories = new HashMap<>();
     private static final Map<String, List<BestiaryCategory>> parents = new HashMap<>();
     private static final String[] files = {
-            "waterway/bestiary"
+            "waterway/bestiary", "necropolis/bestiary"
     };
 
     static {
@@ -147,6 +149,46 @@ public class BestiaryGUI extends AbstractGUI {
         if (!data.souls.isEmpty()) {
             lore.add("<grey>Souls: </grey><aqua>" + data.getTotalSouls() + "</aqua>");
         }
+        var resistances = new HashMap<DamageType, Long>();
+        List<DamageType> weak = new ArrayList<>();
+        List<DamageType> strong = new ArrayList<>();
+        for (var resistance : DamageResistance.values()) {
+            var r = builder.getEnemyData().stats.getOrDefault(resistance.getResistanceStat(), 0L);
+            resistances.put(resistance.getDamageType(), resistances.getOrDefault(resistance.getDamageType(), 0L) + r);
+        }
+        for (var r : resistances.entrySet()) {
+            var v = r.getValue();
+            if (v > 0) {
+                strong.add(r.getKey());
+            }
+            else if (v < 0) {
+                weak.add(r.getKey());
+            }
+        }
+        if (!weak.isEmpty() || !strong.isEmpty()) {
+            lore.add("");
+            StringBuilder sb = new StringBuilder();
+            StringBuilder wb = new StringBuilder();
+            for (var w : weak) {
+                if (!wb.isEmpty()) {
+                    wb.append(", ");
+                }
+                wb.append(w.getName());
+            }
+            for (var s : strong) {
+                if (!sb.isEmpty()) {
+                    sb.append(", ");
+                }
+                sb.append(s.getName());
+            }
+            if (!sb.isEmpty()) {
+                lore.addAll(StringUtils.wrapText("<grey>Strong against " + sb + ".", 70));
+            }
+            if (!wb.isEmpty()) {
+                lore.addAll(StringUtils.wrapText("<grey>Weak to " + wb + ".", 70));
+            }
+        }
+
         lore.add("");
         if (data.lootTable != null && !data.lootTable.GetLoot().isEmpty()) {
             lore.add("<gold>Drops:");
@@ -172,12 +214,14 @@ public class BestiaryGUI extends AbstractGUI {
                 }
                 if ((double) loot.chance[0] / loot.chance[1] < 0.99) {
                     displayLuckMessage = true;
-                    drop = "<dark_grey>(<aqua>" + StringUtils.asPercent2DP((double) loot.chance[0] / loot.chance[1]) + "</aqua>)</dark_grey>";
+                    var ch = (loot.chance[0] / (double) loot.chance[1]) * 100;
+                    int dp = Math.max(1, (int) Math.log10(1 / ch) + 1);
+                    drop = "<dark_grey>(<aqua>" + StringUtils.truncate(ch, dp) + "%</aqua>)</dark_grey>";
                 }
                 else {
                     drop = "";
                 }
-                lore.add("<dark_grey>-</dark_grey> " + main + " " + amount + " " + drop);
+                lore.add("<dark_grey>-</dark_grey> " + main + (amount.isEmpty() ? "" : (" " + amount)) + " " + drop);
             }
             if (displayLuckMessage) {
                 lore.add("<dark_grey>Drop chances are displayed as base rates");

@@ -87,11 +87,25 @@ paper:
   type: INGREDIENT
   rarity: RARE
   material: PAPER
+  value: 90
   lore:
     - Reconstituted parchment, formed by layering
     - old soggy bits of paper together and then
     - drying them into this. There's a bit of
     - a smell lingering. Used to upgrade weaponry.
+
+
+empty_storm_pearl:
+  name: Empty Storm Pearl
+  type: INGREDIENT
+  rarity: VERY_RARE
+  material: ENDER_PEARL
+  glow: true
+  value: 40
+  lore:
+    - You'd expect there to be a miniature storm swirling
+    - about within this pearl, but yet there is only
+    - the notable absence of one. Only found during a downpour.
 
 waterway_sac:
   name: Waterway Sac
@@ -122,6 +136,7 @@ combination_catalyst_shard:
   type: CATALYST
   rarity: LEGENDARY
   material: QUARTZ
+  value: 50
   lore:
     - This is a small sample of a shard
     - of a <red>Combination Catalyst</red>. Luckily,
@@ -189,9 +204,9 @@ meat_scraps:
 green_slime:
   name: Green Slime
   type: INGREDIENT
-  rarity: EPIC
+  rarity: RARE
   material: PLAYER_HEAD
-  skull-profile-id: green_slime
+  skull-profile-id: green_slime_v2
   value: 20
   lore:
     - The lowest grade of slime. Is frequently
@@ -221,6 +236,15 @@ waterway_seraph_key:
   value: 500
   abilities:
     - WATERWAY_SERAPH_KEY
+
+waterway_downpour_key:
+  name: Divining Rod of Storms
+  type: KEY
+  rarity: INCREDIBLE
+  material: END_ROD
+  value: 100
+  abilities:
+    - WATERWAY_DOWNPOUR_KEY
 
 
 

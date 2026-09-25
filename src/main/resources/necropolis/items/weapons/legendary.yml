@@ -1,0 +1,12 @@
+slime_sword_legendary:
+  name: Purple Slimeblade
+  type: WEAPON
+  rarity: LEGENDARY
+  material: DIAMOND_SWORD
+  custom-model-id: purple_slimeblade_v1
+  stats:
+    damage: +55
+    health: +100
+    insulation: +25
+    enchant_power: +30
+    level_requirement: 7

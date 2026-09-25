@@ -1,10 +1,10 @@
 package com.carterz30cal.skills.implementations;
 
+import com.carterz30cal.entities.GameEntity;
 import com.carterz30cal.entities.StatHavingEntity;
 import com.carterz30cal.entities.player.GamePlayer;
-import com.carterz30cal.items.abilities2.implementation.AbilityWithStats;
-import com.carterz30cal.items.abilities2.implementation.ContextWithAbility;
-import com.carterz30cal.items.abilities2.implementation.PlayerAbilityContext;
+import com.carterz30cal.items.abilities.implementation.AbilityWithStats;
+import com.carterz30cal.items.abilities.implementation.ContextWithAbility;
 import com.carterz30cal.skills.GameSkill;
 import com.carterz30cal.skills.SkillSoulType;
 import com.carterz30cal.stats.Stat;
@@ -44,7 +44,7 @@ public class PlayerSkillPetCollector extends GameSkill implements AbilityWithSta
     }
 
     @Override
-    public List<String> miniMessageDescription(@NotNull PlayerAbilityContext context) {
+    public List<String> miniMessageDescription(@NotNull ContextWithAbility<? extends GameEntity> context) {
         var lore = super.miniMessageDescription(context);
         lore.add("<grey>You gain <red>" + context.getLevel() + Stat.HEALTH.name + "</red> per unique pet that");
         lore.add("<grey>you own and is present in your pets menu.");

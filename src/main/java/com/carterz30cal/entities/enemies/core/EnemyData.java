@@ -5,8 +5,8 @@ import com.carterz30cal.entities.health.damage.DamageType;
 import com.carterz30cal.items.ItemLootTable;
 import com.carterz30cal.skills.SkillSoulType;
 import com.carterz30cal.stats.Stat;
+import net.kyori.adventure.key.Key;
 import net.kyori.adventure.text.Component;
-import org.bukkit.Sound;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.HashMap;
@@ -16,7 +16,7 @@ import java.util.Set;
 
 /**
  * @author carterz30cal
- * @version 4
+ * @version 5
  * @since 1.0.0
  */
 public class EnemyData implements TagHavingEntity {
@@ -31,8 +31,9 @@ public class EnemyData implements TagHavingEntity {
     public double coinMultiplier;
     public ItemLootTable lootTable;
     public String bestiaryCategory;
-    public Sound hurtSound = Sound.ENTITY_ZOMBIE_HURT; // TODO add to files
-    public Sound deathSound = Sound.ENTITY_ZOMBIE_DEATH;
+    public String bestiaryGrants;
+    public Key hurtSoundKey;
+    public Key deathSoundKey;
 
     /**
      * Default empty constructor, doesn't set any fields.
@@ -59,8 +60,8 @@ public class EnemyData implements TagHavingEntity {
         this.coinMultiplier = existing.coinMultiplier;
         this.lootTable = existing.lootTable;
         this.bestiaryCategory = existing.bestiaryCategory;
-        this.hurtSound = existing.hurtSound;
-        this.deathSound = existing.deathSound;
+        this.hurtSoundKey = existing.hurtSoundKey;
+        this.deathSoundKey = existing.deathSoundKey;
     }
 
     /**

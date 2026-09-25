@@ -1,6 +1,7 @@
 package com.carterz30cal.skills.implementations;
 
-import com.carterz30cal.items.abilities2.implementation.PlayerAbilityContext;
+import com.carterz30cal.entities.GameEntity;
+import com.carterz30cal.items.abilities.implementation.ContextWithAbility;
 import com.carterz30cal.skills.SkillSoulType;
 import com.carterz30cal.stats.Stat;
 import org.jetbrains.annotations.NotNull;
@@ -16,13 +17,13 @@ import java.util.List;
 public class PlayerSkillStatCustomDescription extends PlayerSkillStat {
     private final List<String> description;
 
-    public PlayerSkillStatCustomDescription(SkillSoulType soulType, int maxLevel, Stat stat, long perLevel, String... description) {
-        super(soulType, maxLevel, stat, perLevel);
+    public PlayerSkillStatCustomDescription(SkillSoulType soulType, int maxLevel, Stat stat, long perLevel, double scaling, String... description) {
+        super(soulType, maxLevel, stat, perLevel, scaling);
         this.description = Arrays.asList(description);
     }
 
     @Override
-    public List<String> miniMessageDescription(@NotNull PlayerAbilityContext context) {
+    public List<String> miniMessageDescription(@NotNull ContextWithAbility<? extends GameEntity> context) {
         var lore = super.miniMessageDescription(context);
         lore.addAll(description);
         return lore;

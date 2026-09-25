@@ -6,7 +6,9 @@ package com.carterz30cal.skills;
  * @since 1.0.0
  */
 public enum SkillSoulType {
-    WATERWAY("<blue>Waterway</blue>");
+    WATERWAY("<blue>Waterway</blue>"),
+    NECROPOLIS("<white>Necropolis</white>"),
+    ;
     private final String name;
 
     SkillSoulType(String name) {

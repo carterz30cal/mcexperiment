@@ -1,44 +1,28 @@
 package com.carterz30cal.entities.interactable;
 
-import com.carterz30cal.entities.enemies.core.GameEnemy;
+import com.carterz30cal.areas.quests.requirements.QuestRequirement;
+import com.carterz30cal.entities.enemies.representation.EnemyRepresentationBuilder;
 import com.carterz30cal.entities.player.GamePlayer;
 import org.bukkit.Location;
-import org.bukkit.entity.Entity;
-import org.bukkit.entity.EntityType;
-import org.bukkit.persistence.PersistentDataType;
 
-import java.util.HashMap;
-import java.util.Map;
-import java.util.UUID;
-
+/**
+ * @author carterz30cal
+ * @version 2
+ * @since 1.0.0
+ */
 public class GameEntityInteractable extends GameOwnable {
-    private static final Map<UUID, GameEntityInteractable> entities = new HashMap<>();
+    protected QuestRequirement requirement = null;
 
-    public GameEntityInteractable(EntityType entityType, Location location, String title, String subtitle) {
-        super(entityType, location, title, subtitle);
-        entities.put(getUUID(), this);
+    public GameEntityInteractable(EnemyRepresentationBuilder builder, Location location) {
+        super(builder, location);
     }
 
-    public GameEntityInteractable(String skullProfileId, Location location, String title, String subtitle) {
-        super(skullProfileId, location, title, subtitle);
-        entities.put(getUUID(), this);
-    }
+    public void interact(GamePlayer interactingPlayer) {
 
-    public static GameEntityInteractable GetEntity(Entity entity) {
-        UUID uuid = UUID.fromString(entity.getPersistentDataContainer().getOrDefault(GameEnemy.keyEnemy, PersistentDataType.STRING, UUID.randomUUID().toString()));
-        return entities.getOrDefault(uuid, null);
-    }
-
-    public void Interact(GamePlayer interactingPlayer) {
-
-    }
-
-    protected boolean HasMetRequirements(GamePlayer interactingPlayer) {
-        return true;
     }
 
     @Override
-    protected boolean getVisibility(GamePlayer player) {
-        return HasMetRequirements(player);
+    protected boolean isVisible(GamePlayer viewer) {
+        return requirement == null || requirement.hasMetRequirements(viewer);
     }
 }

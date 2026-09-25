@@ -1,0 +1,26 @@
+slime_sword_epic:
+  name: Blue Slimeblade
+  type: WEAPON
+  rarity: EPIC
+  material: DIAMOND_SWORD
+  custom-model-id: blue_slimeblade_v1
+  stats:
+    damage: +55
+    health: +100
+    insulation: +25
+    enchant_power: +30
+    level_requirement: 7
+
+crypt_knight_sword_epic:
+  name: Crypt Knight's Sword
+  type: WEAPON
+  rarity: EPIC
+  material: GOLDEN_SWORD
+  value: 1750
+  abilities:
+    - CRYPT_KNIGHT_SWORD
+  stats:
+    damage: +60
+    strength: +85
+    enchant_power: +35
+    level_requirement: 9

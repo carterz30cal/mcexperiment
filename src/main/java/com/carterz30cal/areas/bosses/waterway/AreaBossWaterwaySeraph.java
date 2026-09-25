@@ -21,6 +21,7 @@ import org.bukkit.Material;
 import org.bukkit.Particle;
 import org.bukkit.Sound;
 import org.bukkit.block.data.BlockData;
+import org.bukkit.block.structure.StructureRotation;
 import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.util.Vector;
 import org.jetbrains.annotations.NotNull;
@@ -39,6 +40,7 @@ import java.util.Objects;
 public final class AreaBossWaterwaySeraph extends AbstractAreaBoss {
     private final static String BOSS_MESSAGE_PREFIX = "<dark_grey>[<#7335db>Water Seraph</#7335db>]: </dark_grey>";
     private final static Box BOSS_ARENA = new Box(118, 66, 143, 170, 110, 191);
+    private final static Box PORTAL_BOX = new Box(110, 87, 165, 110, 97, 169);
     private final static double DAMAGING_WATER_HEIGHT = 66.8D;
     private final static long DAMAGING_WATER_DAMAGE = 40;
     private final static Vector INVERT_Y_VECTOR = new Vector(1, 0, 1);
@@ -64,7 +66,7 @@ public final class AreaBossWaterwaySeraph extends AbstractAreaBoss {
     private final static List<GameEnemy> phase4Golems = new ArrayList<>();
     private final static BlockData PILLAR_WARNING_BLOCK = Dungeons.instance.getServer().createBlockData(Material.ORANGE_STAINED_GLASS);
     private final static BlockData PILLAR_DANGEROUS_BLOCK = Dungeons.instance.getServer().createBlockData(Material.RED_STAINED_GLASS);
-    private final static long PILLAR_DAMAGE = 35;
+    private final static long PILLAR_DAMAGE = 20;
     private final static Vector PILLAR_BOUNCE_VECTOR = new Vector(0, 0.9, 0);
     public static AreaBossWaterwaySeraph instance = new AreaBossWaterwaySeraph();
 
@@ -72,10 +74,10 @@ public final class AreaBossWaterwaySeraph extends AbstractAreaBoss {
         drops(new WeightedDrop("enchanted_book£1£enchants:ENCHANT_LUCK-1~", 40),
                 new WeightedDrop("seraph_sword£1", 8),
                 new WeightedDrop("enchanted_book£1£enchants:ENCHANT_CONCENTRATION-1~", 25),
-                new WeightedDrop("enchanted_book£1£enchants:ENCHANT_SHARPNESS-3~", 10),
+                new WeightedDrop("enchanted_book£1£enchants:ENCHANT_SHARPNESS-4~", 10),
                 new WeightedDrop("enchanted_book£1£enchants:ENCHANT_BLADE-1~", 30),
                 new WeightedDrop("waterway_seraph_key£5", 5),
-                new WeightedDrop("seraphs_eye£3", 2),
+                new WeightedDrop("seraphs_eye£8", 2),
                 new WeightedDrop("clear_glass_helmet£1", 5),
                 new WeightedDrop("seraphs_pyjamas£1", 5),
                 new WeightedDrop("seraph_ooze", 5),
@@ -119,6 +121,12 @@ public final class AreaBossWaterwaySeraph extends AbstractAreaBoss {
         phase4Golems.clear();
         removeEnemies();
         removeBossBar();
+        PORTAL_BOX.reset();
+    }
+
+    @Override
+    public void disable() {
+
     }
 
     @Override
@@ -186,6 +194,9 @@ public final class AreaBossWaterwaySeraph extends AbstractAreaBoss {
 
         if (isRegistered(player)) {
             deregister(player);
+            if (reason == LeftFightReason.WALKED_OUT) {
+                player.teleport(new Location(Dungeons.w, 59, 88, 167));
+            }
         }
     }
 
@@ -336,6 +347,11 @@ public final class AreaBossWaterwaySeraph extends AbstractAreaBoss {
         if (seraph == null || seraph.dead) {
             message("<grey>You have defeated the <#7335db>Water Seraph</#7335db>! Congratulations! <em>Please collect your loot.</em>", 10);
             phase = 7;
+
+            BlockData data = Material.NETHER_PORTAL.createBlockData();
+            data.rotate(StructureRotation.CLOCKWISE_90);
+
+            PORTAL_BOX.setTemporaryWithin(data);
             for (var registered : registered()) {
                 var drops = drops(registered, ITEM_REWARD_LOCATION.length);
                 for (var i = 0; i < ITEM_REWARD_LOCATION.length; i++) {
@@ -351,7 +367,9 @@ public final class AreaBossWaterwaySeraph extends AbstractAreaBoss {
         for (var registered : registered()) {
             if (BOSS_ARENA.isWithin(registered.getLocation())) {
                 left = false;
-                break;
+            }
+            else {
+                onLeftFight(registered, LeftFightReason.WALKED_OUT);
             }
         }
         if (left) {
@@ -369,7 +387,8 @@ public final class AreaBossWaterwaySeraph extends AbstractAreaBoss {
         final var data = pillar.getBlock().getBlockData();
         for (var player : registered()) player.player.sendBlockChange(pillar, PILLAR_WARNING_BLOCK);
         new BukkitRunnable() {
-            int time = 100;
+            final int DANGEROUS_TIME = 80;
+            int time = 160;
 
             @Override
             public void run() {
@@ -378,7 +397,7 @@ public final class AreaBossWaterwaySeraph extends AbstractAreaBoss {
                     cancel();
                     for (var player : registered()) player.player.sendBlockChange(pillar, data);
                 }
-                else if (time < 40) {
+                else if (time < DANGEROUS_TIME) {
                     for (int y = pillar.getBlockY(); y <= pillar.getBlockY() + 13; y++) {
                         var fire = pillar.clone().set(pillar.getX(), y, pillar.getZ());
                         ParticleUtils.spawn(fire, Particle.SMALL_FLAME, 0.5, 4);
@@ -408,14 +427,14 @@ public final class AreaBossWaterwaySeraph extends AbstractAreaBoss {
                         Dungeons.w.playSound(pillar, Sound.BLOCK_NOTE_BLOCK_CHIME, 0.8F, 1.4F);
                     }
                 }
-                else if (time == 40) {
+                else if (time == DANGEROUS_TIME) {
                     for (var player : registered()) player.player.sendBlockChange(pillar, PILLAR_DANGEROUS_BLOCK);
                 }
                 else {
                     for (int y = pillar.getBlockY(); y <= pillar.getBlockY() + 1; y++) {
                         ParticleUtils.spawn(pillar.clone().set(pillar.getX(), y, pillar.getZ()), Particle.SMALL_FLAME, 0.3, 1);
                     }
-                    if (time < 70 && time % 8 == 0) {
+                    if (time < DANGEROUS_TIME + 40 && time % 8 == 0) {
                         Dungeons.w.playSound(pillar, Sound.BLOCK_NOTE_BLOCK_CHIME, 0.6F, 1.2F);
                     }
                 }

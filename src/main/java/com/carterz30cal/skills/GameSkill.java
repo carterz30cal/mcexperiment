@@ -1,8 +1,8 @@
 package com.carterz30cal.skills;
 
-import com.carterz30cal.items.abilities2.implementation.AbilityWithDescription;
-import com.carterz30cal.items.abilities2.implementation.GameAbility;
-import com.carterz30cal.items.abilities2.implementation.PlayerAbilityContext;
+import com.carterz30cal.items.abilities.implementation.AbilityWithDescription;
+import com.carterz30cal.items.abilities.implementation.GameAbility;
+import com.carterz30cal.items.abilities.implementation.PlayerAbilityContext;
 
 /**
  * @author carterz30cal
@@ -20,6 +20,7 @@ public abstract class GameSkill extends GameAbility implements AbilityWithDescri
         this.soulType = soulType;
     }
 
+    @Override
     public String name(PlayerAbilityContext context) {
         return name;
     }

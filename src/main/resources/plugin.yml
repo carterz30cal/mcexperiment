@@ -4,8 +4,7 @@ version: 1.0.0
 api-version: 1.19
 author: carterz30cal
 depend: [ProtocolLib]
-softdepend:
-  - ActionBarAPI
+softdepend: [ViaVersion]
 commands:
   item: 
     description: "Creates an item from thin air"

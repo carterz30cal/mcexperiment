@@ -33,7 +33,9 @@ public class PetsGUI extends AbstractGUI {
         selectablePets = new String[54];
 
         if (owner.activePet != null) {
-            inventory.setSlot(ItemFactory.build(owner.activePet), calc(4, 0));
+            var pet = ItemFactory.build(owner.activePet);
+            ItemFactory.update(pet, owner.getItemContext());
+            inventory.setSlot(pet, calc(4, 0));
         }
         for (int i = 0; i < 7 * 4; i++) {
             int pi = ((page - 1) * 7 * 4) + i;
@@ -43,13 +45,19 @@ public class PetsGUI extends AbstractGUI {
             int y = (i / 7) + 1;
             int c = calc(x,y);
             selectablePets[c] = owner.pets.get(pi);
-            inventory.setSlot(ItemFactory.build(owner.pets.get(pi)), c);
+            var pet = ItemFactory.build(owner.pets.get(pi));
+            ItemFactory.update(pet, owner.getItemContext());
+            inventory.setSlot(pet, c);
         }
 
         List<String> lore = getLore();
         inventory.setSlot(
                 ItemFactory.customItem("REDSTONE_TORCH", "<red>Information!</red>", lore)
-                , calc(4, 5));
+                , calc(3, 5));
+        inventory.setSlot(
+                ItemFactory.customItem("ARROW", "<green>Back"),
+                calc(4, 5)
+        );
 
         if (page > 1) {
             inventory.setSlot(
@@ -100,6 +108,9 @@ public class PetsGUI extends AbstractGUI {
                     owner.pets.add(cli.id);
                 }
             }
+        }
+        else if (clickPos == calc(4, 5)) {
+            owner.openGui(new MenuGUI(owner));
         }
         else if (clickPos == BACK_PAGE_POS && page > 1) page--;
         else if (clickPos == NEXT_PAGE_POS && owner.pets.size() >= (page * 7 * 4)) page++;

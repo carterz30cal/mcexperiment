@@ -1,17 +1,20 @@
 package com.carterz30cal.items;
 
-import com.carterz30cal.items.abilities2.Abilities;
+import com.carterz30cal.items.abilities.Abilities;
 import com.carterz30cal.items.trims.TrimMaterialWrapper;
 import com.carterz30cal.items.trims.TrimPatternWrapper;
 import com.carterz30cal.stats.StatContainer;
+import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.TextComponent;
 import org.bukkit.Material;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
 import java.util.List;
 
 /**
- *
  * @author carterz30cal
+ * @version 4
  * @since 1.0.0
  */
 public class Item 
@@ -31,7 +34,7 @@ public class Item
      * by default this will render in dark_grey
      * replaces description.
      *
-     * @implNote should be serialized into components using MiniMessage format.
+     * @implSpec should be serialized into components using MiniMessage format.
      * @since 1.0.0
      */
     public List<String> lore;
@@ -51,6 +54,10 @@ public class Item
 
 	public String set;
     public String skullProfileId;
+    /**
+     * @since 1.0.0 [4]
+     */
+    public @Nullable String customModelId;
 
 	public String discovery;
 	public long discoveryProgress;
@@ -60,4 +67,8 @@ public class Item
 	public int r;
 	public int g;
 	public int b;
+
+	public TextComponent.Builder text() {
+		return Component.text().content(name).color(rarity.textColor);
+	}
 }

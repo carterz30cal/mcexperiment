@@ -1,8 +1,14 @@
 package com.carterz30cal.utils;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
+/**
+ * @author carterz30cal
+ * @version 2
+ * @since 1.0.0
+ */
 public class StringDescription {
     private final List<String> list;
 
@@ -11,17 +17,14 @@ public class StringDescription {
     }
 
     public StringDescription(String... strings) {
-        list = new ArrayList<>();
-        for (String string : strings) {
-            list.add(StringUtils.colourString(string));
-        }
+        list = Arrays.asList(strings);
     }
 
-    public String GetRandomChoice() {
+    public String random() {
         return RandomUtils.getChoice(list);
     }
 
-    public List<String> GetList() {
+    public List<String> list() {
         return list;
     }
 }

@@ -8,10 +8,15 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+/**
+ * @author carterz30cal
+ * @version 2
+ * @since 1.0.0
+ */
 public class ItemReqs 
 {
     public Map<String, Long> reqs = new HashMap<>();
-	public int coins;
+    public long coins;
 	
 	public void addRequirement(ItemReq requirement)
 	{
@@ -40,7 +45,7 @@ public class ItemReqs
 	
 	public void execute(GamePlayer by)
 	{
-		by.coins -= coins;
+        by.takeCoins(coins);
 
         Map<String, Long> working = new HashMap<>(reqs);
 		for (String w : working.keySet()) {
@@ -70,10 +75,20 @@ public class ItemReqs
             i.setAmount(Math.toIntExact(setAm));
 		}
 	}
-	
-	public boolean areRequirementsMet(GamePlayer by)
+
+    /**
+     * @param by the player trying to forge.
+     * @return a <code>FailureReason</code>, specifically <code>FailureReason.NONE</code> if the requirements are met.
+     * @since 1.0.0 [1]
+     */
+    public FailureReason areRequirementsMet(GamePlayer by)
 	{
-		if (by.coins < coins) return false;
+        //System.out.println("owner = " + by.coins);
+        //System.out.println("req = " + coins);
+
+        if (by.coins < coins) {
+            return FailureReason.NOT_ENOUGH_COINS;
+        }
 
         Map<String, Long> working = new HashMap<>(reqs);
 		for (String w : working.keySet()) {
@@ -87,18 +102,22 @@ public class ItemReqs
 			Item item = ItemFactory.getItem(i);
 			if (item == null) continue;
 			if (!working.containsKey(item.id)) continue;
-			if (working.get(item.id) == 0) working.remove(item.id);
+            if (working.get(item.id) <= 0) {
+                working.remove(item.id);
+            }
 
-            long am = working.getOrDefault(item.id, 0L) - i.getAmount();
+            long am = working.getOrDefault(item.id, 0L) - (long) i.getAmount();
 			if (am <= 0) working.remove(item.id);
 			else working.put(item.id, am);
 		}
 
 
         for (long w : working.values()) {
-			if (w > 0) return false;
+            if (w > 0) {
+                return FailureReason.MISSING_ITEMS;
+            }
 		}
-		return true;
+        return FailureReason.NONE;
 	}
 	
 	public String grabDataFromRequirements(GamePlayer by)
@@ -125,4 +144,15 @@ public class ItemReqs
 		
 		return ItemFactory.getFlatItemData(dataHolder);
 	}
+
+    /**
+     * @author carterz30cal
+     * @version 1
+     * @since 1.0.0 [2]
+     */
+    public enum FailureReason {
+        NONE,
+        NOT_ENOUGH_COINS,
+        MISSING_ITEMS
+    }
 }

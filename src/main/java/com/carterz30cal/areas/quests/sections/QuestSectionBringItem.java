@@ -9,6 +9,11 @@ import com.carterz30cal.utils.StringDescription;
 import java.util.List;
 import java.util.UUID;
 
+/**
+ * @author carterz30cal
+ * @version 2
+ * @since 1.0.0
+ */
 public class QuestSectionBringItem extends QuestSectionTalking {
     protected String itemId;
     protected int amount;
@@ -33,8 +38,15 @@ public class QuestSectionBringItem extends QuestSectionTalking {
     @Override
     public List<String> GetDescription(SectionSave save) {
         var list = super.GetDescription(save);
-
-        list.add("<white>Bring " + this.amount + "x " + itemName + " to " + questgiver.toString() + ".");
+        var check = "<white>Bring " + this.amount + "x " + itemName + " to " + questgiver.toString() + ".";
+        if (check.length() > 24) {
+            list.add("<white>Bring " + this.amount + "x ");
+            list.add("<white>" + itemName + " to ");
+            list.add("<white>" + questgiver.toString() + ".</white>");
+        }
+        else {
+            list.add(check);
+        }
         return list;
     }
 

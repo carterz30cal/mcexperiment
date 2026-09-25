@@ -2,19 +2,18 @@ package com.carterz30cal.entities.enemies.directors.behaviour;
 
 import com.carterz30cal.areas.bosses.AbstractAreaBoss;
 import com.carterz30cal.entities.enemies.core.GameEnemy;
-import com.carterz30cal.stats.Stat;
 import com.carterz30cal.utils.EntityUtils;
+import com.carterz30cal.utils.RandomUtils;
 import org.bukkit.Location;
 import org.bukkit.entity.LivingEntity;
 
-import java.util.Comparator;
 import java.util.List;
 
 /**
  * Targeting behaviour for mobs in a boss room that should always have a target
  *
  * @author carterz30cal
- * @version 1
+ * @version 2
  * @since 1.0.0
  */
 public class BossRoomTargetingBehaviour implements TargetingBehaviour {
@@ -38,11 +37,12 @@ public class BossRoomTargetingBehaviour implements TargetingBehaviour {
             return enemies.getFirst().getTargetableEntity();
         }
         else {
-            for (var player : boss.registered().stream().sorted(Comparator.comparingLong((p) -> p.stats.stat(Stat.VISIBILITY) - p.targeted.size())).toList()) {
-                player.targeted.add(brain);
-                return player.player;
+            if (boss.registered().isEmpty()) {
+                return null;
             }
-            return null;
+            else {
+                return RandomUtils.getChoice(boss.registered()).player;
+            }
         }
     }
 }

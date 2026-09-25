@@ -1,0 +1,226 @@
+shocktopus_common:
+  name: <grey>Shocktopus
+  level: 8
+  health: 4000
+  knockback: 0
+  damage:
+    PHYSICAL: 50
+  stats:
+    DEFENCE: 10
+  souls:
+    NECROPOLIS: 2
+  bestiary:
+    category: necropolis_fishing_common
+  fishing:
+    NECROPOLIS: COMMON
+  abilities:
+    aura:
+      class: generic.EnemyAbilityDamageAura
+      damage-multiplier: 0.8
+      radius: 7
+      dropoff: true
+      period: 20
+  tags:
+    - FISHING
+    - FISHING_NECROPOLIS
+    - FISHING_COMMON
+    - NECROPOLIS
+  entities:
+    _:
+      type: SQUID
+      scale: 0.9
+      offset: [0,0,0]
+    g:
+      type: GLOW_SQUID
+      scale: 1.1
+      offset: [0,0.35,0]
+  loot:
+    necropolis_fish:
+      amount: 1/3
+    hydra_key_lesser:
+      chance: 1/175
+      amount: 1/1
+
+shocktopus_uncommon:
+  name: <yellow>Shocktopus
+  level: 9
+  health: 6000
+  knockback: 0
+  damage:
+    LIGHTNING: 50
+  stats:
+    DEFENCE: 10
+  souls:
+    NECROPOLIS: 3
+  bestiary:
+    category: necropolis_fishing_uncommon
+  fishing:
+    NECROPOLIS: UNCOMMON
+  abilities:
+    aura:
+      class: generic.EnemyAbilityDamageAura
+      damage-multiplier: 0.8
+      radius: 7
+      dropoff: true
+      period: 20
+  tags:
+    - FISHING
+    - FISHING_NECROPOLIS
+    - FISHING_UNCOMMON
+    - NECROPOLIS
+  entities:
+    _:
+      type: SQUID
+      scale: 0.9
+      offset: [0,0,0]
+    g:
+      type: GLOW_SQUID
+      scale: 1.1
+      offset: [0,0.35,0]
+  loot:
+    necropolis_fish:
+      amount: 3/5
+    jellied_pufferfish:
+      chance: 1/150
+      amount: 1/2
+    hydra_key_lesser:
+      chance: 1/175
+      amount: 1/1
+
+shocktopus_rare:
+  name: <green>Shocktopus
+  level: 11
+  health: 10000
+  knockback: 0
+  damage:
+    LIGHTNING: 95
+  stats:
+    DEFENCE: 20
+  souls:
+    NECROPOLIS: 3
+  bestiary:
+    category: necropolis_fishing_rare
+  fishing:
+    NECROPOLIS: RARE
+  abilities:
+    aura:
+      class: generic.EnemyAbilityDamageAura
+      damage-multiplier: 0.8
+      radius: 7
+      dropoff: true
+      period: 20
+  tags:
+    - FISHING
+    - FISHING_NECROPOLIS
+    - FISHING_RARE
+    - NECROPOLIS
+  entities:
+    _:
+      type: SQUID
+      scale: 0.9
+      offset: [ 0,0,0 ]
+    g:
+      type: GLOW_SQUID
+      scale: 1.1
+      offset: [ 0,0.35,0 ]
+  loot:
+    necropolis_fish:
+      amount: 8/11
+    jellied_pufferfish:
+      chance: 1/150
+      amount: 1/3
+    hydra_key_lesser:
+      chance: 1/175
+      amount: 1/1
+
+shocktopus_very_rare:
+  name: <blue>Shocktopus
+  level: 15
+  health: 15000
+  knockback: 0
+  damage:
+    LIGHTNING: 160
+  stats:
+    DEFENCE: 30
+  souls:
+    NECROPOLIS: 4
+  bestiary:
+    category: necropolis_fishing_very_rare
+  fishing:
+    NECROPOLIS: VERY_RARE
+  abilities:
+    aura:
+      class: generic.EnemyAbilityDamageAura
+      damage-multiplier: 0.8
+      radius: 7
+      dropoff: true
+      period: 20
+  tags:
+    - FISHING
+    - FISHING_NECROPOLIS
+    - FISHING_VERY_RARE
+    - NECROPOLIS
+  entities:
+    _:
+      type: SQUID
+      scale: 0.9
+      offset: [ 0,0,0 ]
+    g:
+      type: GLOW_SQUID
+      scale: 1.1
+      offset: [ 0,0.35,0 ]
+  loot:
+    necropolis_fish:
+      amount: 10/20
+    jellied_pufferfish:
+      chance: 1/150
+      amount: 1/4
+    hydra_key_lesser:
+      chance: 1/175
+      amount: 1/1
+
+shocktopus_epic:
+  name: <dark_purple>Shocktopus
+  level: 20
+  health: 40000
+  knockback: 0
+  damage:
+    LIGHTNING: 280
+  stats:
+    DEFENCE: 40
+  souls:
+    NECROPOLIS: 6
+  bestiary:
+    category: necropolis_fishing_epic
+  fishing:
+    NECROPOLIS: EPIC
+  abilities:
+    aura:
+      class: generic.EnemyAbilityDamageAura
+      damage-multiplier: 0.8
+      radius: 7
+      dropoff: true
+      period: 20
+  tags:
+    - FISHING
+    - FISHING_NECROPOLIS
+    - FISHING_EPIC
+    - NECROPOLIS
+  entities:
+    _:
+      type: SQUID
+      scale: 0.9
+      offset: [ 0,0,0 ]
+    g:
+      type: GLOW_SQUID
+      scale: 1.1
+      offset: [ 0,0.35,0 ]
+  loot:
+    necropolis_fish:
+      amount: 20/40
+    jellied_pufferfish:
+      chance: 1/150
+      amount: 1/4
+    hydra_key_lesser:
+      chance: 1/175
+      amount: 1/1

@@ -88,7 +88,9 @@ public class EntityUtils
 		List<GamePlayer> nearby = new ArrayList<>();
 		for (GamePlayer player : PlayerManager.players.values())
 		{
-			if (player.getLocation().distance(l) <= radius) nearby.add(player);
+            if (player.distance(l) <= radius) {
+                nearby.add(player);
+            }
 		}
 
 		return nearby;
@@ -102,9 +104,11 @@ public class EntityUtils
             if (e.dead) {
                 continue;
             }
-			if (e instanceof GameEnemy)
+            if (e instanceof GameEnemy enemy)
 			{
-				if (e.getLocation().distance(l) <= radius) enemies.add((GameEnemy)e);
+                if (enemy.distance(l) <= radius) {
+                    enemies.add(enemy);
+                }
 			}
 		}
 		
@@ -115,9 +119,11 @@ public class EntityUtils
 		List<GameEntity> enemies = new ArrayList<>();
 		for (GameEntity e : GameEntity.entities.values())
 		{
-			if (e instanceof GameEnemy)
+            if (e instanceof GameEnemy enemy)
 			{
-				if (e.getLocation().distance(l) <= radius) enemies.add(e);
+                if (enemy.distance(l) <= radius) {
+                    enemies.add(e);
+                }
 			}
 		}
 		
@@ -127,6 +133,9 @@ public class EntityUtils
     public static List<GameEntity> getNearbyEntities(Location l, double radius) {
         List<GameEntity> entities = new ArrayList<>();
         for (GameEntity e : GameEntity.entities.values()) {
+            if (!e.getLocation().getWorld().equals(l.getWorld())) {
+                continue;
+            }
             if (e.getLocation().distance(l) <= radius) {
                 entities.add(e);
             }
@@ -136,9 +145,13 @@ public class EntityUtils
 
     public static Set<DamageableEntity> getNearbyDamageableEntities(Location l, double radius) {
         Set<DamageableEntity> entities = new HashSet<>();
-        for (GameEntity e : GameEntity.entities.values()) {
-            if (e instanceof DamageableEntity d) {
-                if (d.getLocation().distance(l) <= radius || d.getLocation().add(0, 1, 0).distance(l) <= radius) {
+        for (var e : l.getWorld().getNearbyLivingEntities(l, radius)) {
+            var ge = GameEntity.get(e);
+            if (ge == null) {
+                continue;
+            }
+            if (ge instanceof DamageableEntity d && !entities.contains(d)) {
+                if (e.getLocation().distance(l) <= radius || e.getEyeLocation().distance(l) <= radius) {
                     entities.add(d);
                 }
             }
@@ -188,6 +201,10 @@ public class EntityUtils
 	{
 		mob.getEquipment().setItem(slot, ItemFactory.build(item));
 	}
+
+    public static void setArmourPiece(Mannequin mob, EquipmentSlot slot, String item) {
+        mob.getEquipment().setItem(slot, ItemFactory.build(item));
+    }
 
     @Deprecated
 	public static void setEntityName(LivingEntity e, String name)

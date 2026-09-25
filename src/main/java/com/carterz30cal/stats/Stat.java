@@ -3,8 +3,12 @@ package com.carterz30cal.stats;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
 import net.kyori.adventure.text.format.TextColor;
-import org.bukkit.ChatColor;
 
+/**
+ * @author carterz30cal
+ * @version 3
+ * @since 1.0.0
+ */
 @SuppressWarnings("UnnecessaryUnicodeEscape")
 public enum Stat
 {
@@ -16,15 +20,19 @@ public enum Stat
 
     HEALTH("\u2665 Health", NamedTextColor.RED, StatType.DEFENSIVE, StatDisplayType.NORMAL),
     DEFENCE("\u25CB Defence", NamedTextColor.GREEN, StatType.DEFENSIVE, StatDisplayType.NORMAL),
-    VITALITY("\u25C6 Vitality", NamedTextColor.GREEN, StatType.DEFENSIVE, StatDisplayType.NORMAL),
+    VITALITY("◆ Vitality", NamedTextColor.GREEN, StatType.DEFENSIVE, StatDisplayType.NORMAL),
     ROBUSTNESS("\u00B1 Robustness", NamedTextColor.RED, StatType.DEFENSIVE, StatDisplayType.NORMAL),
     PADDING("\u25CB Padding", NamedTextColor.WHITE, StatType.DEFENSIVE, StatDisplayType.NORMAL),
     INSULATION("\u03C8 Insulation", NamedTextColor.WHITE, StatType.DEFENSIVE, StatDisplayType.NORMAL),
+    DOUSING("\u25CB Dousing", TextColor.fromHexString("#FFA500"), StatType.DEFENSIVE, StatDisplayType.NORMAL),
+    MAGIC_RESISTANCE("\u25CB Magic Resistance", NamedTextColor.LIGHT_PURPLE, StatType.DEFENSIVE, StatDisplayType.NORMAL),
 
-    MANA("\u00D7 Mana", NamedTextColor.LIGHT_PURPLE, StatType.OFFENSIVE, StatDisplayType.NORMAL),
-    FOCUS("\u25C6 Focus", NamedTextColor.AQUA, StatType.OFFENSIVE, StatDisplayType.NORMAL),
+    MANA("♠ Mana", NamedTextColor.LIGHT_PURPLE, StatType.OFFENSIVE, StatDisplayType.NORMAL),
+    FOCUS("◆ Focus", NamedTextColor.AQUA, StatType.OFFENSIVE, StatDisplayType.NORMAL),
+    SPEED("♠ Swiftness", NamedTextColor.WHITE, StatType.OFFENSIVE, StatDisplayType.PERCENTAGE),
 
     FISHING_POWER("\u023E Fishing Power", NamedTextColor.AQUA, StatType.ECONOMY),
+    BONUS_FISH_MOBS("bonus fish mobs", NamedTextColor.WHITE, StatType.ECONOMY, StatDisplayType.NO_DISPLAY),
 
     BREAKING_POWER("\u03C8 Mining Power", NamedTextColor.YELLOW, StatType.ECONOMY),
     MINING_SPEED("\u023E Mining Speed", NamedTextColor.YELLOW, StatType.ECONOMY),
@@ -32,8 +40,10 @@ public enum Stat
     PICKING("\u0194 Picking", NamedTextColor.YELLOW, StatType.ECONOMY),
     CLEARING("\u0190 Clearing", NamedTextColor.YELLOW, StatType.ECONOMY),
 
-    BONUS_COINS("\u00D7 Extra Coins", NamedTextColor.GOLD, StatType.ECONOMY, StatDisplayType.PERCENTAGE),
-    LUCK("\u00D7 Luck", NamedTextColor.GOLD, StatType.ECONOMY, StatDisplayType.PERCENTAGE),
+    DETECTION("± Detection Power", NamedTextColor.GOLD, StatType.ECONOMY),
+
+    BONUS_COINS("& Greed", NamedTextColor.GOLD, StatType.ECONOMY, StatDisplayType.PERCENTAGE),
+    LUCK("♠ Luck", NamedTextColor.GOLD, StatType.ECONOMY, StatDisplayType.PERCENTAGE),
 
     INVULNERABILITY_TICKS("invul ticks", NamedTextColor.BLACK, StatType.HIDDEN, StatDisplayType.NO_DISPLAY),
 
@@ -48,8 +58,6 @@ public enum Stat
     SKILL_TREE_TOKENS("skill tree tokens", NamedTextColor.WHITE, StatType.HIDDEN, StatDisplayType.NO_DISPLAY),
 	;
     public final String name;
-    @Deprecated
-    public final ChatColor colour;
     public final TextColor textColour;
     public final StatType type;
     public final StatDisplayType display;
@@ -57,20 +65,24 @@ public enum Stat
     Stat(String name, NamedTextColor colour, StatType type, StatDisplayType display)
 	{
 		this.name = name;
-        this.colour = ChatColor.STRIKETHROUGH;
         this.textColour = TextColor.color(colour);
 		this.type = type;
 		this.display = display;
 	}
-
     Stat(String name, NamedTextColor colour, StatType type)
 	{
 		this.name = name;
-        this.colour = ChatColor.STRIKETHROUGH;
         this.textColour = TextColor.color(colour);
 		this.type = type;
 		this.display = StatDisplayType.NORMAL;
 	}
+
+    Stat(String name, TextColor colour, StatType type, StatDisplayType display) {
+        this.name = name;
+        this.textColour = colour;
+        this.type = type;
+        this.display = display;
+    }
 	
 	public String getReverse()
 	{

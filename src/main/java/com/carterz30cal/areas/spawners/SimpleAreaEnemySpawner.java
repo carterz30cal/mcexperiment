@@ -6,11 +6,17 @@ import com.carterz30cal.entities.player.GamePlayer;
 import com.carterz30cal.utils.Box;
 import com.carterz30cal.utils.EntityUtils;
 import com.carterz30cal.utils.RandomUtils;
+import org.bukkit.Location;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
+/**
+ * @author carterz30cal
+ * @version 5
+ * @since 1.0.0
+ */
 public class SimpleAreaEnemySpawner extends AbstractEnemySpawner {
     public static final int DEFAULT_SPAWN_TIMER = 20 * 3;
 
@@ -19,8 +25,10 @@ public class SimpleAreaEnemySpawner extends AbstractEnemySpawner {
     protected int spawnTimer;
     protected List<UUID> mobs = new ArrayList<>();
     protected double spawnMultiplier = 1;
+    protected double validRadius = 4;
+    protected boolean cullDead = true;
 
-    private int spawnTick = 0;
+    protected int spawnTick = 0;
 
     public SimpleAreaEnemySpawner(int x1, int y1, int z1, int x2, int y2, int z2) {
         spawnBox = new Box(x1, y1, z1, x2, y2, z2);
@@ -46,16 +54,49 @@ public class SimpleAreaEnemySpawner extends AbstractEnemySpawner {
         spawnTimer = DEFAULT_SPAWN_TIMER;
         this.spawnMultiplier = spawnMultiplier;
 
-        for (var o : options) {
-            this.options.add(new SpawningOption(o, "NORMAL"));
-        }
+        options("NORMAL", options);
     }
 
-    protected SpawningOption GetValidSpawningOption() {
+    public SimpleAreaEnemySpawner(Location location, String... options) {
+        spawnBox = new Box(location);
+        spawnTimer = DEFAULT_SPAWN_TIMER;
+        options("NORMAL", options);
+    }
+
+    /**
+     * Adds a set of options to a specific mode. Can be chained.
+     * @param mode what mode are we targeting?
+     * @param options what options are we adding for this mode?
+     * @since 1.0.0
+     */
+    public SimpleAreaEnemySpawner options(String mode, String... options) {
+        for (var o : options) {
+            this.options.add(new SpawningOption(o, mode));
+        }
+        return this;
+    }
+
+    /**
+     * Does this spawner contain a mob type?
+     *
+     * @param type the type we're searching for
+     * @return whether we have this type or not
+     * @since 1.0.0 [4]
+     */
+    protected boolean containsType(String type) {
+        for (var o : this.options) {
+            if (o.mob.equals(type)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    protected SpawningOption getValidSpawningOption() {
         List<SpawningOption> validOptions = new ArrayList<>();
         int totalWeight = 0;
         for (var option : options) {
-            if (option.IsValid()) {
+            if (option.valid()) {
                 validOptions.add(option);
                 totalWeight += option.weight;
             }
@@ -78,16 +119,21 @@ public class SimpleAreaEnemySpawner extends AbstractEnemySpawner {
     @Override
     public void tick() {
         spawnTick++;
-        if (spawnTick >= spawnTimer && GetCurrentlyValidToSpawn()) {
-            int max = GetPlayersWithinValidArea().size() + 2;
-            while (mobs.size() < GetMaxMobCount() && max > 0) {
-                GameEnemy enemy = GetValidSpawningOption().Spawn(spawnBox.getRandomMobLocation());
-                mobs.add(enemy.getUUID());
+        if (spawnTick >= spawnTimer && getCurrentlyValidToSpawn()) {
+            int max = getPlayersWithinValidArea().size() + 2;
+            while (mobs.size() < getMaxMobCount() && max > 0) {
+                var option = getValidSpawningOption();
+                if (option != null) {
+                    GameEnemy enemy = option.spawn(spawnBox.getRandomMobLocation());
+                    mobs.add(enemy.getUUID());
+                }
                 max--;
             }
             spawnTick = 0;
         }
-        mobs.removeIf((e) -> !GameEntity.entities.containsKey(e) || GameEntity.entities.get(e).dead);
+        if (cullDead) {
+            mobs.removeIf((e) -> !GameEntity.entities.containsKey(e) || GameEntity.entities.get(e).dead);
+        }
         super.tick();
     }
 
@@ -97,17 +143,17 @@ public class SimpleAreaEnemySpawner extends AbstractEnemySpawner {
         super.onAreaKill(killed);
     }
 
-    protected int GetMaxMobCount() {
+    protected int getMaxMobCount() {
         int crossArea = spawnBox.getHorizontalCrossSectionalArea();
         return (int) Math.round((crossArea / 81D) * spawnMultiplier);
     }
 
-    protected List<GamePlayer> GetPlayersWithinValidArea() {
-        return EntityUtils.getNearbyPlayers(spawnBox.getMiddleAsLocation(), spawnBox.getHorizontalLongestSide() + 4);
+    protected List<GamePlayer> getPlayersWithinValidArea() {
+        return EntityUtils.getNearbyPlayers(spawnBox.getMiddleAsLocation(), spawnBox.getHorizontalLongestSide() + validRadius);
     }
 
-    protected boolean GetCurrentlyValidToSpawn() {
-        List<GamePlayer> players = GetPlayersWithinValidArea();
+    protected boolean getCurrentlyValidToSpawn() {
+        List<GamePlayer> players = getPlayersWithinValidArea();
         return !players.isEmpty();
     }
 }

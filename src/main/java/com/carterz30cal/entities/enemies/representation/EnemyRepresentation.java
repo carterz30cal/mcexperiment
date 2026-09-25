@@ -2,6 +2,7 @@ package com.carterz30cal.entities.enemies.representation;
 
 import com.carterz30cal.entities.GameEntity;
 import com.carterz30cal.entities.enemies.core.GameEnemy;
+import com.carterz30cal.entities.player.GamePlayer;
 import com.carterz30cal.main.Dungeons;
 import org.bukkit.Location;
 import org.bukkit.entity.Entity;
@@ -20,7 +21,7 @@ import static com.carterz30cal.entities.enemies.core.GameEnemy.keyEnemy;
 
 /**
  * @author carterz30cal
- * @version 2
+ * @version 4
  * @since 1.0.0
  */
 public class EnemyRepresentation {
@@ -31,7 +32,7 @@ public class EnemyRepresentation {
     public void tick(Location baseLocation) {
         for (var e : entities.entrySet()) {
             var offset = e.getKey().offset.clone();
-            var yaw = baseLocation.getYaw() * Math.PI / 180;
+            var yaw = -baseLocation.getYaw() * Math.PI / 180;
             var ox = (offset.getX() * Math.cos(yaw)
                     + (offset.getZ() * Math.sin(yaw)));
             var oz = (-offset.getX() * Math.sin(yaw)
@@ -46,6 +47,9 @@ public class EnemyRepresentation {
     public double getTallestPoint() {
         if (tallestPoint == -1) {
             for (var e : entities.entrySet()) {
+                if (!e.getKey().contributeHeight) {
+                    continue;
+                }
                 tallestPoint = Math.max(tallestPoint, e.getKey().offset.getY() + (e.getValue().getHeight() * e.getKey().scale));
             }
             if (tallestPoint == -1) {
@@ -53,6 +57,39 @@ public class EnemyRepresentation {
             }
         }
         return tallestPoint;
+    }
+
+    /**
+     * Checks to see if any entities have been made invalid or dead.
+     *
+     * @return <code>true</code> if all entities are still valid, <code>false</code> otherwise.
+     */
+    public boolean valid() {
+        for (var e : entities.values()) {
+            if (!e.isValid() || e.isDead()) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    /**
+     * Makes this representation either visible or invisible to
+     * a specific <code>GamePlayer</code>.
+     *
+     * @param viewer  who are we changing the status of this rep for?
+     * @param visible should this be invisible or visible?
+     * @since 1.0.0
+     */
+    public void display(GamePlayer viewer, boolean visible) {
+        for (var e : entities.entrySet()) {
+            if (visible && !e.getKey().hidden) {
+                viewer.showEntity(e.getValue());
+            }
+            else {
+                viewer.hideEntity(e.getValue());
+            }
+        }
     }
 
     public void damage() {

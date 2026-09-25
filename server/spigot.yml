@@ -160,17 +160,17 @@ commands:
   send-namespaced: true
   log: true
   replace-commands:
-    - setblock
-    - summon
-    - testforblock
-    - tellraw
+  - setblock
+  - summon
+  - testforblock
+  - tellraw
   spam-exclusions:
-    - /skill
+  - /skill
   enable-spam-exclusions: false
 advancements:
   disable-saving: false
   disabled:
-    - minecraft:story/disabled
+  - minecraft:story/disabled
 messages:
   restart: Server is restarting
   whitelist: You are not whitelisted on this server!
@@ -178,7 +178,7 @@ messages:
   server-full: The server is full!
   outdated-client: Outdated client! Please use {0}
   outdated-server: Outdated server! I'm still on {0}
-config-version: 12
+config-version: 13
 stats:
   disable-saving: false
-  forced-stats: { }
+  forced-stats: {}

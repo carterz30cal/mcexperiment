@@ -8,8 +8,8 @@ import com.carterz30cal.entities.enemies.abilities.conditions.AbilityConditionAl
 import com.carterz30cal.entities.enemies.core.GameEnemy;
 import com.carterz30cal.entities.health.damage.DamageType;
 import com.carterz30cal.entities.player.GamePlayer;
-import com.carterz30cal.items.abilities2.implementation.ContextWithAbility;
-import com.carterz30cal.items.abilities2.implementation.RegisterableAbility;
+import com.carterz30cal.items.abilities.implementation.ContextWithAbility;
+import com.carterz30cal.items.abilities.implementation.RegisterableAbility;
 import com.carterz30cal.main.Dungeons;
 import com.carterz30cal.utils.MathsUtils;
 import com.carterz30cal.utils.ParticleUtils;
@@ -103,9 +103,12 @@ public class EnemyAbilityTitanSlash extends EnemyAbility implements Registerable
                         for (double d = degrees - slashDegrees; d <= degrees + slashDegrees; d += 4) {
                             double x = pos.getX() + MathsUtils.getCircleX(d) * distance;
                             double z = pos.getZ() + MathsUtils.getCircleZ(d) * distance;
+                            double ex = pos.getX() + MathsUtils.getCircleX(d) * (distance - 0.4);
+                            double ez = pos.getZ() + MathsUtils.getCircleZ(d) * (distance - 0.4);
                             double y = pos.getY() + 1.3 + (slashRaise * ((d - degrees) / slashDegrees));
                             double doy = pos.getY() + 1.3 - (slashRaise * ((d - degrees) / slashDegrees));
 
+                            Location extra = new Location(pos.getWorld(), ex, y, ez);
                             Location location = new Location(pos.getWorld(), x, y, z);
                             Location location2 = new Location(pos.getWorld(), x, doy, z);
                             if (time == 0) {
@@ -144,6 +147,7 @@ public class EnemyAbilityTitanSlash extends EnemyAbility implements Registerable
 
                                 if (time % 3 == 0) {
                                     ParticleUtils.spawn(location, DUST_WARNING, 0);
+                                    ParticleUtils.spawn(extra, DUST_WARNING, 0);
                                     if (doubleSlash) {
                                         ParticleUtils.spawn(location2, DUST_WARNING_2, 0);
                                     }
@@ -163,7 +167,7 @@ public class EnemyAbilityTitanSlash extends EnemyAbility implements Registerable
     }
 
     @Override
-    public void unregister(ContextWithAbility<? extends GameEntity> context) {
+    public void deregister(ContextWithAbility<? extends GameEntity> context) {
         if (tickers.containsKey(context.getOwner())) {
             var ticker = tickers.get(context.getOwner());
             ticker.cancel();

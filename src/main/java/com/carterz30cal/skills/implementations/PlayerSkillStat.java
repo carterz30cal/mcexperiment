@@ -1,9 +1,9 @@
 package com.carterz30cal.skills.implementations;
 
+import com.carterz30cal.entities.GameEntity;
 import com.carterz30cal.entities.StatHavingEntity;
-import com.carterz30cal.items.abilities2.implementation.AbilityWithStats;
-import com.carterz30cal.items.abilities2.implementation.ContextWithAbility;
-import com.carterz30cal.items.abilities2.implementation.PlayerAbilityContext;
+import com.carterz30cal.items.abilities.implementation.AbilityWithStats;
+import com.carterz30cal.items.abilities.implementation.ContextWithAbility;
 import com.carterz30cal.skills.GameSkill;
 import com.carterz30cal.skills.SkillSoulType;
 import com.carterz30cal.stats.Stat;
@@ -18,26 +18,35 @@ import java.util.List;
  * Nothing more!
  *
  * @author carterz30cal
- * @version 1
+ * @version 2
  * @since 1.0.0
  */
 public class PlayerSkillStat extends GameSkill implements AbilityWithStats {
-    private final Stat stat;
-    private final long perLevel;
+    protected final Stat stat;
+    protected final long perLevel;
+    protected final double scaling;
 
     public PlayerSkillStat(SkillSoulType soulType, int maxLevel, Stat stat, long perLevel) {
         super(soulType, maxLevel);
         this.stat = stat;
         this.perLevel = perLevel;
+        this.scaling = 1.2;
+    }
+
+    public PlayerSkillStat(SkillSoulType soulType, int maxLevel, Stat stat, long perLevel, double scaling) {
+        super(soulType, maxLevel);
+        this.stat = stat;
+        this.perLevel = perLevel;
+        this.scaling = scaling;
     }
 
     @Override
     public long getSoulsNeedForLevel(long level) {
-        return Math.round(100 * Math.pow(1.2, level));
+        return Math.round(100 * Math.pow(this.scaling, level));
     }
 
     @Override
-    public List<String> miniMessageDescription(@NotNull PlayerAbilityContext context) {
+    public List<String> miniMessageDescription(@NotNull ContextWithAbility<? extends GameEntity> context) {
         var lore = super.miniMessageDescription(context);
         lore.add("<grey>Grants <" + stat.textColour.asHexString() + ">" + (Math.max(1, context.getLevel()) * perLevel) + stat.name + "<grey>!");
         return lore;

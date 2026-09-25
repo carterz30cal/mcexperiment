@@ -2,8 +2,8 @@ package com.carterz30cal.gui;
 
 import com.carterz30cal.entities.player.GamePlayer;
 import com.carterz30cal.items.*;
-import com.carterz30cal.items.abilities2.Abilities;
-import com.carterz30cal.items.abilities2.implementation.GameAbstractEnchant;
+import com.carterz30cal.items.abilities.Abilities;
+import com.carterz30cal.items.abilities.implementation.GameAbstractEnchant;
 import com.carterz30cal.items.types.ItemAttuner;
 import com.carterz30cal.stats.Stat;
 import com.carterz30cal.utils.StringUtils;
@@ -37,6 +37,7 @@ public class AnvilGUI extends AbstractGUI
 		inventory.setSlot(null, calc(1, 4));
 		inventory.setSlot(null, calc(7, 4));
 		inventory.setSlot(null, calc(4, 1));
+        inventory.setSlot(ItemFactory.customItem("ARROW", "<green>Back"), calc(4, 5));
 		update(false);
 		inventory.update();
 	}
@@ -59,7 +60,10 @@ public class AnvilGUI extends AbstractGUI
 	
 	public boolean allowClick(int clickPos, ItemStack clicked)
 	{
-		if ((clickPos == calc(1, 4) || clickPos == calc(7, 4)) && clicked != null)
+        if (clickPos == calc(4, 5)) {
+            owner.openGui(new MenuGUI(owner));
+        }
+        else if ((clickPos == calc(1, 4) || clickPos == calc(7, 4)) && clicked != null)
 		{
 			owner.giveItem(clicked);
 			inventory.setSlot(null, clickPos);
@@ -70,7 +74,8 @@ public class AnvilGUI extends AbstractGUI
 		}
 		else if (clickPos == calc(4, 4) && clicked != null && clicked.getType() == Material.ANVIL)
 		{
-			if (requirements.areRequirementsMet(owner))
+            var failure = requirements.areRequirementsMet(owner);
+            if (failure == ItemReqs.FailureReason.NONE)
 			{
 				requirements.execute(owner);
 				
@@ -84,7 +89,12 @@ public class AnvilGUI extends AbstractGUI
 				update(false);
 				inventory.update();
 			}
-			else owner.sendMessage("REDYou do not meet the requirements!");
+            else if (failure == ItemReqs.FailureReason.NOT_ENOUGH_COINS) {
+                owner.sendMessage("<red>You don't have enough coins for this!");
+            }
+            else {
+                owner.sendMessage("<red>You're missing items for this!");
+            }
 		}
 		else if (clickPos >= 54 && clicked != null)
 		{
@@ -92,7 +102,7 @@ public class AnvilGUI extends AbstractGUI
 			if (click == null) return false;
 			ItemStack one = clicked.clone();
 			one.setAmount(1);
-			if ((click.type == ItemType.ENCHANTMENT || click.type == ItemType.ATTUNER) && inventory.getSlot(calc(7, 4)) == null)
+            if ((click.type == ItemType.ENCHANTMENT || click.type == ItemType.ATTUNER || click.type == ItemType.RUNE || click.id.equals("magic_cactus")) && inventory.getSlot(calc(7, 4)) == null)
 			{
 				inventory.setSlot(one, calc(7, 4));
 				clicked.setAmount(clicked.getAmount() - 1);
@@ -201,6 +211,19 @@ public class AnvilGUI extends AbstractGUI
 						product = preprod;
 					}
 				}
+                else if (bookItem != null && bookItem.type == ItemType.RUNE && apply.type.use == ItemTypeUse.WIELDABLE) {
+                    ItemFactory.addItemData(product, "rune", bookItem.id);
+                    changeMade = true;
+                }
+                else if (bookItem != null && bookItem.id.equals("magic_cactus") && apply.type.use == ItemTypeUse.WIELDABLE) {
+                    var data = ItemFactory.getItemData(product);
+                    if (data.containsKey("attuners") || data.containsKey("rune")) {
+                        data.remove("attuners");
+                        data.remove("rune");
+                        ItemFactory.setItemData(product, data);
+                        changeMade = true;
+                    }
+                }
 				
 				
 				// final production thing after all checks.

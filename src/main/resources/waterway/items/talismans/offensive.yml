@@ -77,6 +77,20 @@ storm_talisman_epic:
   stats:
     strength: +70
 
+green_storm_crystal:
+  name: Green Storm Crystal
+  type: TALISMAN
+  rarity: EPIC
+  material: EMERALD
+  glow: true
+  tags:
+    - STORM_CRYSTAL
+  abilities:
+    - STORM_TALISMAN
+  stats:
+    health: 20
+    level_requirement: 2
+
 seraphs_guide_to_summoning_spirits:
   name: "A Seraph's Guide to Summoning Spirits"
   type: TALISMAN

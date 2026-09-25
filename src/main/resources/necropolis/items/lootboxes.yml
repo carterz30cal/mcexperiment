@@ -1,0 +1,52 @@
+hydra_lootbox_lesser:
+  name: Spoils of a Lesser Hydra
+  type: LOOTBOX
+  material: CHEST
+  rarity: VERY_RARE
+  value: 3500
+  drops:
+    hydra_heart:
+      chance: 1/1
+      amount: 1/1
+    hydra_flesh:
+      chance: 1/1
+      amount: 32/64
+    paper:
+      chance: 1/3
+      amount: 2/8
+    chilli_powder:
+      chance: 1/4
+      amount: 16/32
+    combination_catalyst_shard:
+      chance: 1/5
+      amount: 2/5
+    drop_of_sadness:
+      chance: 1/25
+      amount: 1/4
+    enchanted_book-SPEED1:
+      item: enchanted_book
+      chance: 1/33
+      amount: 1/2
+      enchants: ENCHANT_LIGHT_FEET-1
+    calmed_spirit:
+      chance: 1/50
+      amount: 5/10
+    hydra_key_lesser:
+      chance: 1/50
+      amount: 2/3
+    hydra_bow:
+      chance: 1/85
+      amount: 1/1
+    living_metal:
+      chance: 1/90
+      amount: 1/2
+    stack_of_books_sharpness:
+      chance: 1/100
+      amount: 1/1
+      enchants: ENCHANT_SHARPNESS-4
+    tiny_potion_bottle:
+      chance: 1/300
+      amount: 32/48
+    blue_slime:
+      chance: 1/500
+      amount: 5/10

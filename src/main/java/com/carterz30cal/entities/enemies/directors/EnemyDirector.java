@@ -29,11 +29,11 @@ import static com.carterz30cal.entities.enemies.core.GameEnemy.keyEnemy;
 
 /**
  * @author carterz30cal
- * @version 2
+ * @version 3
  * @since 1.0.0
  */
 public class EnemyDirector implements LocatableEntity, TargetableEntity {
-    private static final NamespacedKey KEY_SPEED = new NamespacedKey(Dungeons.instance, "speed");
+    public static final NamespacedKey KEY_SPEED = new NamespacedKey(Dungeons.instance, "speed");
     private Mob directingEntity;
     private EntityType directorType = EntityType.ZOMBIE;
     private TargetingBehaviour behaviour;
@@ -42,8 +42,7 @@ public class EnemyDirector implements LocatableEntity, TargetableEntity {
     private double speed = 1;
     private boolean summon = false;
 
-    public EnemyDirector(Location location, double knockbackResistance) {
-        this.knockbackResistance = knockbackResistance / 100D;
+    public EnemyDirector(Location location) {
         this.cachedLocation = location;
     }
 
@@ -65,15 +64,39 @@ public class EnemyDirector implements LocatableEntity, TargetableEntity {
     }
 
     public void createDirector() {
-        var mob = (Mob) Dungeons.w.spawnEntity(cachedLocation, directorType, false);
-        //mob.addPotionEffect(new PotionEffect(PotionEffectType.INVISIBILITY, Integer.MAX_VALUE, 0, false, false));
+        if (cachedLocation == null) {
+            Dungeons.instance.getLogger().warning("attempted to create a director without a cached location!");
+            return;
+        }
+        if (directingEntity != null) {
+            directingEntity.remove();
+        }
+        var mob = (Mob) cachedLocation.getWorld().spawnEntity(cachedLocation, directorType, false);
+        mob.setPersistent(false);
         mob.setVisibleByDefault(false);
         mob.setSilent(true);
         if (mob instanceof AbstractSkeleton skeleton) {
             skeleton.getEquipment().setItemInMainHand(new ItemStack(Material.BOW), true);
         }
-        //mob.setRemoveWhenFarAway(false);
         directingEntity = mob;
+    }
+
+    /**
+     * Enable director, generally used by subclasses.
+     *
+     * @since 1.0.0 [3]
+     */
+    public void enable() {
+        directingEntity.setAI(true);
+    }
+
+    /**
+     * Disable director, generally used by subclasses.
+     *
+     * @since 1.0.0 [3]
+     */
+    public void disable() {
+        directingEntity.setAI(false);
     }
 
     public void tick(GameEnemy owner) {
@@ -100,9 +123,6 @@ public class EnemyDirector implements LocatableEntity, TargetableEntity {
             else {
                 setTarget(null);
             }
-//                if (target instanceof GamePlayer) {
-//                    type.onTarget(this, (GamePlayer) target);
-//                }
         }
         if (getLocation().isChunkLoaded()) {
             cachedLocation = getLocation();

@@ -14,6 +14,11 @@ import org.jetbrains.annotations.Nullable;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * @author carterz30cal
+ * @version 2
+ * @since 1.0.0
+ */
 public class CommandWarp implements CommandExecutor {
 
     public CommandWarp() {
@@ -27,9 +32,9 @@ public class CommandWarp implements CommandExecutor {
                 return false;
             }
 
-            PlayerTeleport teleport = PlayerTeleport.GetTeleport(args[0]);
+            PlayerTeleport teleport = PlayerTeleport.teleport(args[0]);
             GamePlayer player = PlayerManager.players.get(((Player) commandSender).getUniqueId());
-            if (teleport == null || !teleport.HasRequirements(player)) {
+            if (teleport == null || !teleport.requirements(player)) {
                 return false;
             }
             else {
@@ -51,8 +56,8 @@ public class CommandWarp implements CommandExecutor {
                     GamePlayer player = PlayerManager.players.get(((Player) commandSender).getUniqueId());
                     List<String> autos = new ArrayList<>();
                     for (var pt : PlayerTeleport.values()) {
-                        if (pt.HasRequirements(player)) {
-                            autos.add(pt.GetCommandShorthand());
+                        if (pt.visible(player)) {
+                            autos.add(pt.shorthand());
                         }
                     }
                     autos.removeIf(a -> !a.contains(args[0]));

@@ -5,6 +5,11 @@ import com.carterz30cal.entities.player.GamePlayer;
 import com.carterz30cal.items.discoveries.Collection;
 import com.carterz30cal.items.discoveries.DiscoveryManager;
 
+/**
+ * @author carterz30cal
+ * @version 2
+ * @since 1.0.0
+ */
 public class LevelUtils
 {
 	public final static int LEVEL_MAX = 1000;
@@ -47,7 +52,7 @@ public class LevelUtils
             }
             xp += gross;
         }
-        for (var questSave : player.GetQuestSaves()) {
+        for (var questSave : player.getQuestSaves()) {
             for (var sections : questSave.GetQuest().getCompletedSections(questSave.currentSection)) {
                 QuestReward reward = sections.GetQuestReward();
                 if (reward == null) {

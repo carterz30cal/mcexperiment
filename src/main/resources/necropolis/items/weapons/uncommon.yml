@@ -1,0 +1,38 @@
+flaming_sword_uncommon:
+  name: Flaming Sword
+  type: WEAPON
+  rarity: UNCOMMON
+  material: COPPER_SWORD
+  glow: true
+  statuses:
+    BURN: 30
+  stats:
+    damage: +35
+    enchant_power: +20
+    level_requirement: 6
+
+slime_sword_uncommon:
+  name: Red Slimeblade
+  type: WEAPON
+  rarity: UNCOMMON
+  material: DIAMOND_SWORD
+  custom-model-id: red_slimeblade_v1
+  stats:
+    damage: +42
+    health: +100
+    insulation: +25
+    enchant_power: +25
+    level_requirement: 6
+
+puffer_sword_uncommon:
+  name: Puffersword
+  type: WEAPON
+  rarity: UNCOMMON
+  custom-model-id: puffer_sword_v1
+  abilities:
+    - PUFFER_SWORD
+  stats:
+    damage: +25
+    savagery: +50
+    enchant_power: +20
+    level_requirement: 6

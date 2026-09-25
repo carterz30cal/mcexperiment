@@ -5,7 +5,7 @@ import org.jetbrains.annotations.NotNull;
 
 /**
  * @author carterz30cal
- * @version 3
+ * @version 4
  * @since 1.0.0
  */
 public interface LocatableEntity {
@@ -19,6 +19,11 @@ public interface LocatableEntity {
     void teleport(@NotNull Location location);
 
     default double distance(Location location) {
-        return getLocation().distance(location);
+        if (!location.getWorld().equals(getLocation().getWorld())) {
+            return Double.MAX_VALUE;
+        }
+        else {
+            return getLocation().distance(location);
+        }
     }
 }

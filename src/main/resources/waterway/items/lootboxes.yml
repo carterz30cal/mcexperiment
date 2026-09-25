@@ -18,7 +18,6 @@ titan_lootbox_1:
     spiced_meat:
       amount: 2/6
       chance: 1/5
-
     weird_flesh:
       chance: 1/8
       amount: 80/700
@@ -59,6 +58,86 @@ titan_lootbox_1:
       chance: 1/20
       amount: 1/1
       enchants: ENCHANT_TITANIC-2
+    paper_production_core:
+      chance: 1/110
+      amount: 1/1
+    combination_catalyst_shard-ag:
+      chance: 1/120
+      amount: 10/15
+
+titan_lootbox_2:
+  name: Lightning Titan Box
+  type: LOOTBOX
+  material: BARREL
+  rarity: EPIC
+  drops:
+    wet_paper:
+      amount: 20/500
+    paper_arrow:
+      amount: 120/200
+      chance: 1/2
+    chilli_powder:
+      amount: 4/8
+      chance: 1/3
+    paper:
+      amount: 2/6
+      chance: 1/3
+    spiced_meat:
+      amount: 2/10
+      chance: 1/5
+    weird_flesh:
+      chance: 1/8
+      amount: 500/1200
+    empty_storm_pearl:
+      chance: 1/9
+      amount: 1/1
+    enchanted_book-SHARPNESS2:
+      chance: 1/10
+      amount: 1/1
+      enchants: ENCHANT_SHARPNESS-2
+    combination_catalyst_shard:
+      chance: 1/3
+      amount: 2/3
+    enchanted_book-TITANIC1:
+      chance: 1/6
+      amount: 1/1
+      enchants: ENCHANT_TITANIC-1
+    pet_lightning_bug_common:
+      chance: 1/18
+      amount: 1/1
+    enchanted_book-SHARPNESS3:
+      chance: 1/20
+      amount: 1/1
+      enchants: ENCHANT_SHARPNESS-3
+    titans_talisman:
+      chance: 1/20
+      amount: 1/1
+    titan_helmet:
+      chance: 1/25
+      amount: 1/1
+    titan_blade:
+      chance: 1/35
+      amount: 1/1
+    titan_bow:
+      chance: 1/40
+      amount: 1/1
+    titan_lootbox_1:
+      chance: 1/40
+      amount: 1/3
+    enchanted_book-TITANIC2:
+      chance: 1/20
+      amount: 1/1
+      enchants: ENCHANT_TITANIC-2
+    enchanted_book-TITANIC3:
+      chance: 1/50
+      amount: 1/1
+      enchants: ENCHANT_TITANIC-3
+    pet_water_titan_common:
+      chance: 1/90
+      amount: 1/1
+    paper_production_core:
+      chance: 1/100
+      amount: 1/1
     combination_catalyst_shard-ag:
       chance: 1/120
       amount: 10/15

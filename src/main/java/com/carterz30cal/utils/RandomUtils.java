@@ -8,17 +8,37 @@ import java.util.Set;
 
 import org.bukkit.Location;
 
+/**
+ * @author carterz30cal
+ * @version 4
+ * @since 1.0.0
+ */
 public class RandomUtils
 {
 	private static final Random r = new Random();
 	
-	/*
-	 * INCLUSIVE MIN + MAX
+	/**
+	 * @param min inclusive minimum integer value
+	 * @param max inclusive maximum integer value
+	 * @return a value between <code>min</code> and <code>max</code>.
+	 * @since 1.0.0 [1]
 	 */
 	public static int getRandom(int min, int max)
 	{
 		return min + r.nextInt((max-min)+1);
 	}
+
+	/**
+	 * @implNote implements <code>Random.nextLong(min, max)</code>
+	 * @param min inclusive minimum long integer value
+	 * @param max inclusive maximum long integer value
+	 * @return a long integer value between <code>min</code> and <code>max</code>.
+	 * @since 1.0.0 [3]
+	 */
+	public static long getRandom(long min, long max) {
+		return r.nextLong(min, max + 1);
+	}
+
 	public static int getRandomEx(int min, int max)
 	{
 		return min + r.nextInt(max-min);
@@ -48,7 +68,7 @@ public class RandomUtils
 
 		List<T> shuffling = new ArrayList<T>(Arrays.asList(array));
 		int i = 0;
-		while (shuffling.size() > 0) {
+		while (!shuffling.isEmpty()) {
 			T ch = getChoice(shuffling);
 			shuffled[i] = ch;
 			i++;
@@ -91,5 +111,25 @@ public class RandomUtils
 		double deg = getDouble(0, 2 * Math.PI);
 		
 		return c.clone().add(Math.sin(deg) * r, 0, Math.cos(deg) * r);
+	}
+
+	/**
+	 * Get a random point between <code>[rMin, rMax]</code> on each axis. Point cloud would produce a cube.
+	 * @param c centre of our random point
+	 * @param rMin the minimum distance on each axis from the centre
+	 * @param rMax the maximum distance on each axis from the centre
+	 * @return a <code>Location</code> at a random point that meets these criteria
+	 * @since 1.0.0 [4]
+	 */
+	public static Location getRandomAround(Location c, double rMin, double rMax)
+	{
+		double x = getDouble(rMin, rMax);
+		double sx = (getRandom(0, 1) * 2) - 1;
+		double y = getDouble(rMin, rMax);
+		double sy = (getRandom(0, 1) * 2) - 1;
+		double z = getDouble(rMin, rMax);
+		double sz = (getRandom(0, 1) * 2) - 1;
+
+		return c.clone().add(x * sx, y * sy, z * sz);
 	}
 }

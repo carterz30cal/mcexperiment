@@ -1,0 +1,24 @@
+hydra_helmet:
+  level: 7
+  time: 1m
+  category: necropolis_armour_hydra
+  items:
+    hydra_flesh: 32
+hydra_chestplate:
+  level: 7
+  time: 1m
+  category: necropolis_armour_hydra
+  items:
+    hydra_flesh: 32
+hydra_leggings:
+  level: 7
+  time: 1m
+  category: necropolis_armour_hydra
+  items:
+    hydra_flesh: 32
+hydra_boots:
+  level: 7
+  time: 1m
+  category: necropolis_armour_hydra
+  items:
+    hydra_flesh: 32

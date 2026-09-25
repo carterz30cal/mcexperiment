@@ -13,7 +13,7 @@ import java.util.*;
 
 /**
  * @author carterz30cal
- * @version 4
+ * @version 5
  * @since 1.0.0
  */
 @SuppressWarnings({"UnusedReturnValue", "unused"})
@@ -121,6 +121,7 @@ public class EnemyBuilder {
                 healthSystemBuilder.build(),
                 directorBuilder.build(spawnLocation),
                 data, id);
+        enemy.setRepresentationBuilder(representationBuilder);
         enemy.setAbilities(abilities);
         return enemy;
     }

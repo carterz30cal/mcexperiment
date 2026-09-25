@@ -1,8 +1,38 @@
 WATERWAY:
   power-subtraction: 0
   power-reduction: 5
+  power-multiplier: 1
   brackets:
-    COMMON: 200
-    UNCOMMON: 75
-    RARE: 20
-    VERY_RARE: 5
+    COMMON:
+      weight: 200
+      mobs: 3
+    UNCOMMON:
+      weight: 75
+      mobs: 4
+    RARE:
+      weight: 20
+      mobs: 6
+    VERY_RARE:
+      weight: 5
+      mobs: 8
+
+NECROPOLIS:
+  power-subtraction: 150
+  power-reduction: 5
+  power-multiplier: 1
+  brackets:
+    COMMON:
+      weight: 350
+      mobs: 5
+    UNCOMMON:
+      weight: 100
+      mobs: 6
+    RARE:
+      weight: 40
+      mobs: 8
+    VERY_RARE:
+      weight: 8
+      mobs: 10
+    EPIC:
+      weight: 2
+      mobs: 12

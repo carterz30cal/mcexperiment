@@ -30,6 +30,11 @@ public class GrantStatFromStatOperation implements StatOperation {
     }
 
     @Override
+    public String display() {
+        return "<red>no display!";
+    }
+
+    @Override
     public StatOperationType getOperationType() {
         return StatOperationType.LINKAGES;
     }

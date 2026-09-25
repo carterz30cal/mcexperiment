@@ -12,9 +12,15 @@ import java.time.Duration;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.regex.Pattern;
 
 import static net.kyori.adventure.text.Component.text;
 
+/**
+ * @author carterz30cal
+ * @version 3
+ * @since 1.0.0
+ */
 public class StringUtils
 {
     @Deprecated
@@ -59,6 +65,14 @@ public class StringUtils
         return progressBar(length, percentFilled, TextColor.color(filledColour), TextColor.color(unfilledColour));
     }
 
+    public static String coins(long amount) {
+        if (amount == 1) {
+            return "<gold>1 coin</gold>";
+        }
+        else {
+            return "<gold>" + addCommas(amount) + " coins";
+        }
+    }
 
     /**
      * @param length         character length of the bar
@@ -97,6 +111,70 @@ public class StringUtils
                 + "</" + unfilledColour.asHexString() + ">";
     }
 
+	/**
+	 *
+	 * @param text what are we wrapping?
+	 * @param targetLength how long, roughly, should each line be?
+	 * @return a list of strings that are roughly the right sort of length.
+	 * @implNote will unwrap the last line if it is less than ~34% of the target length, as particularly short lines look worse than longer lines.
+	 */
+	public static List<String> wrapText(String text, int targetLength) {
+		var split = text.split(" ");
+		List<String> wraps = new ArrayList<>();
+		List<String> openTags = new ArrayList<>();
+		var open = Pattern.compile("<[^/>]+>");
+		var close = Pattern.compile("</[^>]+>");
+		var builder = new StringBuilder();
+		var len = 0;
+		for (var s : split) {
+			var omatch = open.matcher(s);
+			while (omatch.find()) {
+				openTags.add(omatch.group());
+			}
+			var cmatch = close.matcher(s);
+			while (cmatch.find()) {
+				var edit = "<" + cmatch.group().substring(2);
+				openTags.remove(edit);
+			}
+			var adjusted = s.replaceAll("<[^>]+>]", "");
+			var l = adjusted.strip().length();
+            if (l > 2 && len + l > targetLength) {
+				var diff = (len + l) - targetLength;
+				if (diff > targetLength / 4) {
+					wraps.add(builder.toString());
+					len = l;
+					builder = new StringBuilder();
+					for (var o : openTags) builder.append(o);
+					builder.append(s);
+				}
+				else {
+					if (len > 0) builder.append(" ");
+					builder.append(s);
+					wraps.add(builder.toString());
+					len = 0;
+					builder = new StringBuilder();
+					for (var o : openTags) builder.append(o);
+				}
+			}
+			else {
+				if (len > 0) builder.append(" ");
+				builder.append(s);
+				len += l;
+			}
+		}
+		if (!builder.isEmpty() && len > 0) {
+			if (len < targetLength / 3) {
+				var adj = wraps.getLast() + " " + builder;
+				wraps.set(wraps.size() - 1, adj);
+			}
+			else wraps.add(builder.toString());
+		}
+		if (wraps.size() > 1 && wraps.getLast().length() < targetLength / 4) {
+			wraps.set(wraps.size() - 2, wraps.get(wraps.size() - 2) + " " + wraps.getLast());
+			wraps.removeLast();
+		}
+		return wraps;
+	}
 
 	
 	public static String asPercent(double percent)
@@ -170,6 +248,26 @@ public class StringUtils
         return sentence.toString();
 	}
 
+	public static String getPrettyTime(long ticks)
+	{
+		if (ticks < 20) return " Soon";
+
+		long[] divs = {20*60*60, 20*60, 20};
+		String[] suffix = {"h", "m", "s"};
+
+		StringBuilder sentence = new StringBuilder();
+		long remaining = ticks;
+		for (int d = 0; d < divs.length; d++)
+		{
+			long rounded = remaining / divs[d];
+			remaining = remaining % divs[d];
+
+			if (rounded == 0) continue;
+			sentence.append(" ").append(rounded).append(suffix[d]);
+		}
+		return sentence.toString();
+	}
+
 	public static String getPrettyTime(LocalDateTime finishes)
 	{
 		Duration duration = Duration.between(LocalDateTime.now(), finishes);
@@ -219,15 +317,19 @@ public class StringUtils
 		
 		return ticks;
 	}
-	
-	public static String truncatedDouble2(double val) {
-		return ((int)val) + "." + ((int)(val * 100) % 100);
-	}
 
-    public static String truncatedDouble1(double val) {
-        return ((int) val) + "." + ((int) (val * 10) % 10);
+    /**
+     * @param val the value to truncate
+     * @param dp  how many decimal places are we truncating to?
+     * @return a truncated string
+     */
+    public static String truncate(double val, int dp) {
+        return String.format("%%.%df".formatted(dp), val);
     }
 
+	public static String truncatedDouble2(double val) {
+        return truncate(val, 2);
+	}
 
 	public static Location getLocationFromString(String s) {
 		String[] sp = s.split(",");

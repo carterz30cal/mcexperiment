@@ -19,6 +19,7 @@ import org.bukkit.util.Vector;
 import java.util.HashMap;
 import java.util.Map;
 
+@Deprecated
 public class Mineable
 {
 	public static Map<String, Mineable> mining = new HashMap<>();

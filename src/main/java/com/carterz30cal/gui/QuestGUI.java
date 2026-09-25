@@ -34,18 +34,18 @@ public class QuestGUI extends AbstractGUI {
     private void update() {
         List<Quests.QuestSave> quests = new ArrayList<>();
         List<Quests.QuestSave> complete = new ArrayList<>();
-        if (owner.GetSelectedQuest() != null) {
-            quests.add(owner.GetQuestSave(owner.GetSelectedQuest()));
+        if (owner.getSelectedQuest() != null) {
+            quests.add(owner.getQuestSave(owner.getSelectedQuest()));
         }
-        for (var q : owner.GetQuestSaves()) {
-            if (owner.GetSelectedQuest() == q.GetQuest()) {
+        for (var q : owner.getQuestSaves()) {
+            if (owner.getSelectedQuest() == q.GetQuest()) {
                 continue;
             }
             if (q.completedQuest) {
                 complete.add(q);
             }
             else {
-                if (q.currentSection == 0 && !q.sectionSave.HasTalkedTo()) {
+                if (q.sectionSave == null || (q.currentSection == 0 && !q.sectionSave.HasTalkedTo())) {
                     continue;
                 }
                 quests.add(q);
@@ -87,7 +87,7 @@ public class QuestGUI extends AbstractGUI {
         }
         Quests.QuestSave save = saves[clickPos];
         if (save != null) {
-            owner.SetSelectedQuest(save.GetQuest());
+            owner.setSelectedQuest(save.GetQuest());
             update();
         }
         else if (clickPos == calc(1, 5) && page > 1) {
@@ -132,7 +132,7 @@ public class QuestGUI extends AbstractGUI {
                 loreList.add(text().color(NamedTextColor.GRAY).append(MiniMessage.miniMessage().deserialize(description)));
             }
             loreList.add(text());
-            if (q.GetQuest() != owner.GetSelectedQuest()) {
+            if (q.GetQuest() != owner.getSelectedQuest()) {
                 loreList.add(text().content("Click to select this quest!").color(NamedTextColor.GOLD));
             }
             else {

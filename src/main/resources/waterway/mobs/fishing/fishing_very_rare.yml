@@ -120,6 +120,7 @@ sea_slug_VERY_RARE:
       type: ZOMBIE
       offset: [ 0,0,0 ]
       invisible: true
+      contribute-height: false
   tags:
     - FISHING
     - FISHING_WATERWAY
@@ -172,6 +173,7 @@ sea_slime_VERY_RARE:
     - FISHING_WATERWAY
     - FISHING_VERY_RARE
     - SLIME
+    - SEA_SLIME
   loot:
     waterway_cod:
       amount: 10/65
@@ -225,7 +227,7 @@ scared_shockreaver_VERY_RARE:
       amount: 2/2
     waterway_cod:
       amount: 20/50
-    storm_talisman_VERY_RARE:
+    storm_talisman_rare:
       chance: 1/4
     fishing_berries:
       chance: 1/250
@@ -352,13 +354,13 @@ lonely_seahorse_VERY_RARE:
 
 water_spirit_VERY_RARE:
   name: <blue><b>Water Spirit
-  entity-type: BREEZE
+  rare-fish: true
   fishing:
     WATERWAY: VERY_RARE
   director: BREEZE
   #ignore-target-limit: true
   level: 10
-  health: 5000
+  health: 6000
   knockback: 0
   speed: 1.4
   damage:
@@ -397,11 +399,12 @@ water_spirit_VERY_RARE:
 
 titan_fishing_VERY_RARE:
   name: <blue><b>Young Titan
+  rare-fish: true
   fishing:
     WATERWAY: VERY_RARE
   #ignore-target-limit: true
   level: 21
-  health: 6500
+  health: 7500
   coin-multiplier: 4
   knockback: 40
   damage:

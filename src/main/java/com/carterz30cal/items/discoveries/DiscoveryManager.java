@@ -13,7 +13,7 @@ public class DiscoveryManager {
 	private static Map<String, Collection> discoveries = new HashMap<>();
 	private static List<Collection> list = new ArrayList<>();
 	private static final String[] files = {
-			"waterway/items/collections"
+            "waterway/items/collections", "necropolis/items/collections"
 	};
 	
 	public DiscoveryManager() 
