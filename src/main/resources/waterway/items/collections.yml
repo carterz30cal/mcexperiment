@@ -20,8 +20,8 @@ weird_flesh_collection:
     - 75000
   xp-rewards:
     - 90
-    - 70
-    - 35
+    - 45
+    - 30
     - 10
     - 5
     - 1
@@ -53,8 +53,8 @@ waterway_cod_collection:
     - 100000
     - 500000
   xp-rewards:
-    - 75
-    - 25
+    - 50
+    - 35
     - 25
     - 15
     - 10
@@ -88,11 +88,11 @@ leaf_mash_collection:
     - 100000
     - 250000
   xp-rewards:
-    - 50
-    - 35
     - 25
+    - 20
     - 15
     - 10
+    - 5
     - 5
     - 2
     - 1
@@ -119,8 +119,8 @@ chilli_powder_collection:
     - 5000
     - 20000
   xp-rewards:
-    - 50
     - 25
+    - 50
     - 25
     - 10
     - 5
@@ -148,30 +148,9 @@ gold_leaf_collection:
     - 1000
     - 10000
   xp-rewards:
-    - 50
-    - 25
     - 15
     - 10
+    - 10
+    - 10
     - 5
-    - 1
-
-meat_scraps_collection:
-  name: Meat Scraps
-  display-item: meat_scraps
-  description:
-    - Not very tasty.
-  tier-descriptions:
-    - Vegan
-    - Vegetarian
-    - Omnivore
-    - Carnivore
-  tiers:
-    - 2
-    - 10
-    - 50
-    - 250
-  xp-rewards:
-    - 25
-    - 10
-    - 2
     - 1

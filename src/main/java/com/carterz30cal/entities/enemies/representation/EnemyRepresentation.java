@@ -1,9 +1,11 @@
 package com.carterz30cal.entities.enemies.representation;
 
 import com.carterz30cal.entities.GameEntity;
+import com.carterz30cal.entities.LocatableEntity;
 import com.carterz30cal.entities.enemies.core.GameEnemy;
 import com.carterz30cal.entities.player.GamePlayer;
 import com.carterz30cal.main.Dungeons;
+import io.papermc.paper.entity.LookAnchor;
 import org.bukkit.Location;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.LivingEntity;
@@ -12,6 +14,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.persistence.PersistentDataType;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.util.Vector;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -21,15 +24,17 @@ import static com.carterz30cal.entities.enemies.core.GameEnemy.keyEnemy;
 
 /**
  * @author carterz30cal
- * @version 4
+ * @version 5
  * @since 1.0.0
  */
-public class EnemyRepresentation {
+public class EnemyRepresentation implements LocatableEntity {
     public Map<EnemyRepresentationData, Entity> entities = new HashMap<>();
     public GameEnemy owner;
     private double tallestPoint = -1;
+    private Location cached;
 
     public void tick(Location baseLocation) {
+        cached = baseLocation;
         for (var e : entities.entrySet()) {
             var offset = e.getKey().offset.clone();
             var yaw = -baseLocation.getYaw() * Math.PI / 180;
@@ -71,6 +76,28 @@ public class EnemyRepresentation {
             }
         }
         return true;
+    }
+
+    /**
+     *
+     * @param at who we are looking at?
+     * @since 1.0.0 [5]
+     */
+    public void look(LocatableEntity at) {
+        look(at.getLocation());
+    }
+
+    /**
+     *
+     * @param location where do we want to look?
+     * @since 1.0.0 [5]
+     */
+    public void look(Location location) {
+        for (var e : entities.values()) {
+            if (e instanceof LivingEntity l) {
+                l.lookAt(location.getX(), location.getY(), location.getZ(), LookAnchor.EYES);
+            }
+        }
     }
 
     /**
@@ -143,5 +170,15 @@ public class EnemyRepresentation {
         for (var e : entities.values()) {
             e.getPersistentDataContainer().set(keyEnemy, PersistentDataType.STRING, entity.getUUID().toString());
         }
+    }
+
+    @Override
+    public Location getLocation() {
+        return cached.clone();
+    }
+
+    @Override
+    public void teleport(@NotNull Location location) {
+        tick(location);
     }
 }

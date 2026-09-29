@@ -14,7 +14,7 @@ WATERWAY:
       mobs: 6
     VERY_RARE:
       weight: 5
-      mobs: 8
+      mobs: 9
 
 NECROPOLIS:
   power-subtraction: 150

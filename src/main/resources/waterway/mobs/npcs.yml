@@ -1,0 +1,185 @@
+tutorial_tam_1:
+  name: NPC
+  entities:
+    _:
+      type: IRON_GOLEM
+      scale: 0.8
+      offset: [ 0,0,0 ]
+  bestiary:
+    category: NO_REGISTER
+
+fisherman_1:
+  name: NPC
+  entities:
+    _:
+      type: MANNEQUIN
+      scale: 1
+      offset: [ 0,0,0 ]
+      equipment:
+        HAND: STICK
+  bestiary:
+    category: NO_REGISTER
+
+fisherman_2:
+  name: NPC
+  entities:
+    _:
+      type: MANNEQUIN
+      scale: 1
+      offset: [ 0,0,0 ]
+      equipment:
+        CHEST: LEATHER_CHESTPLATE
+        HAND: flimsy_fishing_rod
+  bestiary:
+    category: NO_REGISTER
+
+
+raintown_resident:
+  name: NPC
+  entities:
+    _:
+      type: MANNEQUIN
+      scale: 1
+      offset: [ 0,0,0 ]
+      equipment:
+        CHEST: water_chestplate
+        FEET: water_boots
+        HAND: SUGAR
+  bestiary:
+    category: NO_REGISTER
+
+raintown_resident_warrior:
+  name: NPC
+  entities:
+    _:
+      type: MANNEQUIN
+      scale: 1
+      offset: [ 0,0,0 ]
+      equipment:
+        CHEST: water_chestplate
+        FEET: water_boots
+        HAND: pungent_sword
+  bestiary:
+    category: NO_REGISTER
+
+raintown_resident_larry:
+  name: <gold>Larry
+  level: 5
+  health: 1100
+  speed: 1.9
+  knockback: 170
+  coin-multiplier: 0
+  damage:
+    PHYSICAL: 60
+  stats:
+    DEFENCE: 200
+    PADDING: 300
+  directors:
+    phase-time: 200
+    options:
+      - ZOMBIE
+      - SKELETON
+  entities:
+    _:
+      type: MANNEQUIN
+      scale: 1
+      offset: [ 0,0,0 ]
+      equipment:
+        CHEST: water_chestplate
+        FEET: water_boots
+        HAND: pungent_sword
+        OFF_HAND: lunatic_bow
+  bestiary:
+    category: NO_REGISTER
+
+joe_tavern_joe_1:
+  name: NPC
+  entities:
+    _:
+      type: MANNEQUIN
+      scale: 1
+      offset: [ 0,0,0 ]
+      skull: bartender
+      equipment:
+        HAND: tiny_potion_bottle
+  bestiary:
+    category: NO_REGISTER
+
+joe_tavern_joe_2:
+  name: NPC
+  entities:
+    _:
+      type: MANNEQUIN
+      scale: 1
+      offset: [ 0,0,0 ]
+      skull: bartender
+      pose: SLEEPING
+      equipment:
+        HAND: paper
+  bestiary:
+    category: NO_REGISTER
+
+joe_tavern_patron_sleeping:
+  name: NPC
+  entities:
+    _:
+      type: MANNEQUIN
+      scale: 1
+      offset: [ 0,0,0 ]
+      skull: smuggler
+      pose: SLEEPING
+      equipment:
+        HAND: potion_ale
+  bestiary:
+    category: NO_REGISTER
+
+joe_tavern_patron_aggressive:
+  name: <red>Aggressive Patron
+  level: 4
+  health: 300
+  speed: 1.4
+  knockback: 170
+  coin-multiplier: 0
+  damage:
+    POISON: 15
+  stats:
+    DEFENCE: 100
+    PADDING: 50
+  directors:
+    phase-time: 60
+    options:
+      - ZOMBIE
+      - FOX
+  entities:
+    _:
+      type: MANNEQUIN
+      scale: 1
+      offset: [ 0,0,0 ]
+      skull: joe_tavern_riffraff
+      equipment:
+        CHEST: leather_chestplate
+        FEET: leather_boots
+        HAND: potion_ale
+  bestiary:
+    category: NO_REGISTER
+
+tutorial_tam_1_fighter:
+  name: Tam
+  level: 6
+  health: 600
+  knockback: 140
+  speed: 1.6
+  coin-multiplier: 0
+  director: ZOMBIE
+  damage:
+    PHYSICAL: 80
+  stats:
+    DEFENCE: 600
+    PADDING: 600
+  entities:
+    _:
+      type: IRON_GOLEM
+      scale: 0.8
+      offset: [ 0,0,0 ]
+  bestiary:
+    category: NO_REGISTER

@@ -81,6 +81,7 @@ public class ShopGUI extends AbstractGUI {
         }
 
         ItemStack base = ItemFactory.build(recipe.item);
+        base.setAmount(recipe.amount);
         String data;
         if (recipe.enchants != null) data = "enchants:" + recipe.enchants;
         else data = "";

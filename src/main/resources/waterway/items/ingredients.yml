@@ -189,18 +189,6 @@ waterway_cod_meal:
     - be transformed into various upgrades.
     - <em>Truly divine!</em>
 
-meat_scraps:
-  name: Meat Scraps
-  type: INGREDIENT
-  rarity: VERY_RARE
-  material: LEAF_LITTER
-  value: 100
-  discovery: meat_scraps_collection
-  discovery-progress: 1
-  description:
-    - Almost inedible.
-    - Drops exclusively from the Drenched.
-
 green_slime:
   name: Green Slime
   type: INGREDIENT

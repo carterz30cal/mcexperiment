@@ -1,0 +1,184 @@
+tutorial_tam_1:
+  name: Tutorial Tam I
+  repeatable: false
+  class: KillTagQuest
+  count: 5
+  tag: LUNATIC
+  pretty-name: Lunatics
+  npc:
+    name: Tutorial Tam
+    location: -11.5, 64, 14.5, -140, 0
+    representation: tutorial_tam_1
+  reward:
+    class: QuestReward
+    xp: 5
+  dialog:
+    voice: Tutorial Tam
+    beginning:
+      - Hi there!
+      - Welcome to mcExperiment!
+      - This is a dangerous world, so you'll need to arm yourself. Start off by killing some nearby lunatics.
+      - They can be found in this cave, or in that field behind you.
+    chatter:
+      - Kill some lunatics, they're weak!
+      - Kill some lunatics, they drop flesh which can be made into weapons.
+      - Your fists don't deal much damage, so you'll need to forge a sword.
+    ending:
+      - Good job!
+      - You should now have 10 weird flesh, which can be forged into a weapon.
+      - Don't expect much from your new weapon though, turns out a blade made entirely from flesh isn't very strong.
+      - Talk to me again after forging a Flimsy Sword!
+
+tutorial_tam_2:
+  name: Tutorial Tam II
+  repeatable: false
+  class: CollectQuest
+  item: flimsy_sword
+  count: 1
+  consume: false
+  npc:
+    name: Tutorial Tam
+    location: -11.5, 64, 14.5, -140, 0
+    representation: tutorial_tam_1
+  reward:
+    class: QuestReward
+    xp: 5
+  dialog:
+    voice: Tutorial Tam
+    beginning:
+      - Welcome back! I hope you've got a Flimsy Sword to show me!
+    chatter:
+      - Have you not forged a Flimsy Sword yet?
+      - Come back when you've got yourself a Flimsy Sword.
+      - I'm afraid other weapons won't satisfy me, it must be a Flimsy Sword. No shortcuts in my teaching!
+    ending:
+      - That's... definitely a weapon!
+      - You'll probably want to upgrade it sharpish.
+      - From here, you can choose a few different upgrade paths, and they should all perform relatively similarly.
+      - There's even bows!
+      - Check out the all the new things you can forge at Level 1, and then meet me further into Waterway when you're ready.
+  requirement:
+    class: CompleteQuestRequirement
+    quest: tutorial_tam_1
+
+tutorial_tam_3:
+  name: Tutorial Tam III
+  repeatable: false
+  class: CollectQuest
+  item: chilli_powder
+  count: 2
+  consume: false
+  npc:
+    name: Tutorial Tam
+    location: -98.5, 68, 41.5, -140, 5
+    representation: tutorial_tam_1
+  reward:
+    class: QuestReward
+    xp: 10
+  dialog:
+    voice: Tutorial Tam
+    beginning:
+      - We've gotten a bit further in now!
+      - Now, just up ahead there's a camp. A small group of Lunatic Warriors have made their base here, at the foot of the route up the mountain.
+      - It just so happens that these warriors are very keen on <red>chilli powder</red>, which we need to upgrade our weapons and make spiced meats!
+      - Report back to me when you've gotten 2 samples of this delicacy.
+    chatter:
+      - Only strong lunatics are trusted with their precious chilli powders.
+      - Not all of the warriors will be carrying chilli powder!
+      - You must be holding the chilli powder, or how else am i meant to know you've gotten it?
+    ending:
+      - Yum! Now that looks like high-quality chilli powder!
+      - You can use that powder to upgrade a Pungent Sword, a Piranha Dagger, or even craft a new weapon!
+      - Or you could make some upgrades... it's up to you now!
+  requirement:
+    class: CompleteQuestRequirement
+    quest: tutorial_tam_2
+
+tutorial_tam_4:
+  name: Tutorial Tam IV
+  repeatable: false
+  class: KillTagQuest
+  tag: TITAN
+  count: 1
+  pretty-name: Titan
+  npc:
+    name: Tutorial Tam
+    location: -52.5, 93, 114.5, 120, 29
+    representation: tutorial_tam_1
+  reward:
+    class: ItemQuestReward
+    xp: 10
+    items:
+      - titan_lootbox_1£3
+  dialog:
+    voice: Tutorial Tam
+    beginning:
+      - You see this gloomy cave?
+      - It turns out that this particular cave is in fact a Titan's Lair!
+      - What's a Titan's lair? - Well - Basically when enough enemies are killed in the nearby area, Waterway in this case, the titan will smell the blood.
+      - Build up enough of an enticing scent and a titan will appear, hungry for carnage!
+      - You must slay one of these beasts, as they horde valuable books and paper, both of which are invaluable for upgrading your gear.
+      - Not to mention you might find <light_purple>rare loot</light_purple>!
+    chatter:
+      - Head into the cave. If a titan doesn't spawn, then you need to kill more enemies.
+      - Any bloodshed will do, the titan doesn't care.
+      - The titan's slashes do massive <red>bleed</red> damage, which you can't defend against with your basic defence stat.
+      - When the ground darkens, it's time to run - the titan is likely building up an explosive attack!
+      - I've heard the titan can drop its helmet.
+      - I've heard the titan can drop a valuable defensive talisman.
+      - Titans are special, if you deal too much damage they'll shrug off anything over a certain cap - but you will be rewarded for your strength!
+    ending:
+      - Wow. That was an amazing fight!
+      - Here, take a few more lootboxes earlier!
+  requirement:
+    class: CompleteQuestRequirement
+    quest: tutorial_tam_3
+
+tutorial_tam_5:
+  name: Tutorial Tam V
+  repeatable: false
+  class: waterway.TamSeraphQuest
+  tag: WATERWAY_SERAPH
+  count: 1
+  pretty-name: Seraph
+  entity: tutorial_tam_1_fighter
+  npc:
+    name: Tutorial Tam
+    location: 47.5, 96, 171.5, 140, 0
+    representation: tutorial_tam_1
+  reward:
+    class: ItemQuestReward
+    xp: 25
+    items:
+      - seraphs_eye£1
+  dialog:
+    voice: Tutorial Tam
+    beginning:
+      - Are you ready?
+      - Ready for what, you ask?
+      - The Seraph, of course!
+      - Make sure your gear is well suited to the dangers within! Our scouts indicate you'll need a lot of <red>Health</red> and <green>Defence</green>!
+      - A healing wand wouldn't hurt too!
+      - Talk to me again if you need tips!
+      - If not, I'll see you in there!
+    chatter:
+      - If you're worried, take a friend or two! They'll need their own key though.
+      - This fight has plenty of opportunities to deal environmental damage, so your survivability is more important than your damage.
+      - A healing wand is vital for this fight. It's unlikely you'll have enough effective health to survive on natural healing.
+      - Rumour has it the Seraph is weak to <red>Bleed</red>, and takes extra damage from especially hot or cold things.
+      - Don't get overwhelmed by summons! Friendly fire may kill some of them, but let them build up and you will certainly perish.
+    ending:
+      - What an incredible rush! That's one for the history books!
+      - I think my fighting days are finally behind me, though.
+      - I'm getting old, and I'm not sure anything else in Waterway can come close to what we just did.
+      - Yep, think I'm retired from now on. Here, take my spoils from that fight too, you'll need them more than I shall in retirement.
+  requirement:
+    class: ComboQuestRequirement
+    require-all: true
+    sub-requirements:
+      quest-progression:
+        class: CompleteQuestRequirement
+        quest: tutorial_tam_4
+      level:
+        class: LevelQuestRequirement
+        level: 4

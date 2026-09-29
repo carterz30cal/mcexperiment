@@ -1,7 +1,9 @@
 package com.carterz30cal.entities.enemies.representation;
 
+import com.carterz30cal.items.ItemFactory;
 import com.carterz30cal.main.Dungeons;
 import com.carterz30cal.utils.EntityUtils;
+import io.papermc.paper.datacomponent.item.ResolvableProfile;
 import org.bukkit.Location;
 import org.bukkit.NamespacedKey;
 import org.bukkit.attribute.Attribute;
@@ -21,7 +23,7 @@ import java.util.Objects;
 
 /**
  * @author carterz30cal
- * @version 4
+ * @version 5
  * @since 1.0.0
  */
 public class EnemyRepresentationData {
@@ -34,6 +36,8 @@ public class EnemyRepresentationData {
     public boolean allowAI = false;
     public boolean contributeHeight = true;
     public Map<EquipmentSlot, String> equipment = new HashMap<>();
+    public String skull;
+    public Pose pose;
 
     /**
      * Default blank constructor
@@ -58,7 +62,9 @@ public class EnemyRepresentationData {
         this.equipment.putAll(existing.equipment);
         this.hidden = existing.hidden;
         this.allowAI = existing.allowAI;
+        this.skull = existing.skull;
         this.contributeHeight = existing.contributeHeight;
+        this.pose = existing.pose;
     }
 
     public EnemyRepresentationData(@NotNull ConfigurationSection yaml) {
@@ -70,6 +76,8 @@ public class EnemyRepresentationData {
         hidden = yaml.getBoolean("hidden", false);
         allowAI = yaml.getBoolean("allow-ai", false);
         contributeHeight = yaml.getBoolean("contribute-height", !invisible && !hidden);
+        skull = yaml.getString("skull", null);
+        pose = Pose.valueOf(yaml.getString("pose", "STANDING"));
 
         if (yaml.contains("equipment")) {
             ConfigurationSection e = yaml.getConfigurationSection("equipment");
@@ -129,6 +137,16 @@ public class EnemyRepresentationData {
             for (EquipmentSlot slot : equipment.keySet()) {
                 EntityUtils.setArmourPiece(mannequin, slot, equipment.get(slot));
             }
+            if (skull != null) {
+                var player = ItemFactory.getSkullProfile(skull);
+                if (player != null) {
+                    mannequin.setProfile(ResolvableProfile.resolvableProfile(player));
+                }
+                else {
+                    Dungeons.instance.getLogger().warning("EnemyRepresentationData: could not find playerprofile: " + skull);
+                }
+            }
+            mannequin.setPose(pose);
             var scaleAttribute = mannequin.getAttribute(Attribute.SCALE);
             if (scaleAttribute != null) {
                 scaleAttribute.addModifier(

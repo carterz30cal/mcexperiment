@@ -39,3 +39,15 @@ hydra_placeholder:
 
 stack_of_books_placeholder:
   skull-url: "https://textures.minecraft.net/texture/4bc4e89b1a65f68ffe5d83d8b0bf1fb2d20be113bc1e57ec74d736ee20acf665"
+
+bartender:
+  skull-url: "https://textures.minecraft.net/texture/e78197b26d7e3836ce95fde9bb92e300e1ec7f3f5ceca0b3ede39d21e64d8770"
+
+bartender_casual:
+  skull-url: "https://textures.minecraft.net/texture/5c909eb76a1028956a11d8cdf5d6550604b58364bf4861aa5683953134ce9691"
+
+smuggler:
+  skull-url: "https://textures.minecraft.net/texture/fe9ae337d8fd5074cae4c8eb96af4e301f267b4cb4911f484d8fed6b282550a0"
+
+joe_tavern_riffraff:
+  skull-url: "https://textures.minecraft.net/texture/5dcc46b0b839415ba756c1a2067d358749e017f72701bb40214005838792b83d"

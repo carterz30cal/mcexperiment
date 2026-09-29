@@ -7,7 +7,7 @@ import org.bukkit.Location;
 
 /**
  * @author carterz30cal
- * @version 1
+ * @version 2
  * @since 1.0.0
  */
 public class GameFactoryOwnerEntity extends GameEntityInteractable {
@@ -15,6 +15,8 @@ public class GameFactoryOwnerEntity extends GameEntityInteractable {
         super(builder, location);
         title("<gold>Factory</gold>");
         subtitle("<gold><b>Click!</b></gold>");
+
+        this.focusRadius = 4;
     }
 
     @Override

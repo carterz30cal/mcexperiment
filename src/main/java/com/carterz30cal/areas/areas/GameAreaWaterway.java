@@ -47,7 +47,7 @@ public class GameAreaWaterway extends AbstractGameArea implements EventProvider 
         rep.invisible = false;
         rep.equipment = new HashMap<>();
         factoryEntityBuilder.add(rep);
-        new GameFactoryOwnerEntity(factoryEntityBuilder, new Location(Dungeons.w, -94.5, 65, 6.5, -120, 0));
+        new GameFactoryOwnerEntity(factoryEntityBuilder, new Location(Dungeons.w, 59.5, 74, 21.5, -90, -2));
 
         // BOSSES
         register(AreaBossWaterwaySeraph.instance);

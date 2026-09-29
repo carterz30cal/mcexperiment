@@ -21,6 +21,7 @@ public enum DamageType {
     HOLY("<gold>Holy</gold>", NamedTextColor.GOLD),
     LIGHTNING("<yellow>Lightning</yellow>", NamedTextColor.YELLOW),
     CORRUPTION("<dark_purple>Corruption</dark_purple>", NamedTextColor.DARK_PURPLE),
+    POISON("<dark_green>Poison</dark_green>", NamedTextColor.DARK_GREEN),
     BLEED("<red><em>Bleed</em></red>", NamedTextColor.RED),
     FALL("<grey>Fall</grey>", NamedTextColor.GRAY),
     SUFFOCATION("<yellow>Suffocation</yellow>", NamedTextColor.YELLOW);

@@ -20,6 +20,7 @@ import com.carterz30cal.utils.ParticleUtils;
 import org.bukkit.Color;
 import org.bukkit.Location;
 import org.bukkit.Particle;
+import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Projectile;
 import org.bukkit.persistence.PersistentDataType;
 import org.bukkit.scheduler.BukkitRunnable;
@@ -161,5 +162,15 @@ public class GameProjectile extends GameEntity implements AggressiveEntity {
             return 0;
         }
         return stats.stat(stat);
+    }
+
+    @Override
+    public LivingEntity getTargetableEntity() {
+        return null;
+    }
+
+    @Override
+    public boolean isTargetable(AggressiveEntity by) {
+        return false;
     }
 }

@@ -46,7 +46,7 @@ public class QuestSectionFinishOtherSection extends QuestSectionTalking {
 
         @Override
         public boolean IsFinished() {
-            return requirement.hasMetRequirements(player);
+            return requirement.satisfied(player);
         }
     }
 }

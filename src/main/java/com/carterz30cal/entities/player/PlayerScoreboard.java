@@ -1,6 +1,5 @@
 package com.carterz30cal.entities.player;
 
-import com.carterz30cal.areas.quests.Quests;
 import com.carterz30cal.main.Dungeons;
 import com.carterz30cal.utils.StringUtils;
 import net.kyori.adventure.text.Component;
@@ -98,22 +97,11 @@ public class PlayerScoreboard {
 
         @Override
         public void draw(@NotNull LineDrawable drawable) {
-            var chosenQuest = owner.getSelectedQuest();
+            var chosenQuest = owner.questing.selected();
             if (chosenQuest != null) {
-                Quests.QuestSave save = owner.getQuestSave(chosenQuest);
-                if (save == null || save.sectionSave == null) {
-                    return;
-                }
-                if (save.sectionSave.HasTalkedTo()) {
-                    drawable.drawLine(text());
-                    if (chosenQuest.getName().length() > 19) {
-                        drawable.drawLine(text("Quest: ", NamedTextColor.GOLD));
-                        drawable.drawLine(text(chosenQuest.getName(), NamedTextColor.WHITE));
-                    }
-                    else drawable.drawLine(text("Quest: ", NamedTextColor.GOLD).append(text(chosenQuest.getName(), NamedTextColor.WHITE)));
-                    for (var sc : save.sectionSave.GetDescription()) {
-                        drawable.drawLine(MiniMessage.miniMessage().deserialize(sc));
-                    }
+                drawable.drawLine(text());
+                for (var line : chosenQuest.scoreboard(null)) {
+                    drawable.drawLine(MiniMessage.miniMessage().deserialize(line));
                 }
             }
         }

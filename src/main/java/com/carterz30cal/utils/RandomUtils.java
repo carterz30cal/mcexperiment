@@ -1,16 +1,12 @@
 package com.carterz30cal.utils;
 
-import java.util.Arrays;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Random;
-import java.util.Set;
-
 import org.bukkit.Location;
+
+import java.util.*;
 
 /**
  * @author carterz30cal
- * @version 4
+ * @version 5
  * @since 1.0.0
  */
 public class RandomUtils
@@ -25,8 +21,32 @@ public class RandomUtils
 	 */
 	public static int getRandom(int min, int max)
 	{
-		return min + r.nextInt((max-min)+1);
-	}
+        return random(r, min, max);
+    }
+
+    /**
+     * @param s   the random object we're using for seeded input
+     * @param min inclusive minimum integer value
+     * @param max inclusive maximum integer value
+     * @return a value between <code>min</code> and <code>max</code>.
+     * @implNote implements <code>Random.nextInt(min, max)</code>
+     * @apiNote difference between <code>min</code> and <code>max</code> must be positive.
+     * @since 1.0.0 [5]
+     */
+    public static int random(Random s, int min, int max) {
+        return min + s.nextInt((max - min) + 1);
+    }
+
+    /**
+     * @param s      the random object we're using for seeded input
+     * @param chance how likely is it for this event to occur?
+     * @return whether the event succeeded or not
+     * @implNote implements <code>Random.nextDouble()</code>.
+     * @since 1.0.0 [5]
+     */
+    public static boolean probability(Random s, double chance) {
+        return s.nextDouble() < chance;
+    }
 
 	/**
 	 * @implNote implements <code>Random.nextLong(min, max)</code>

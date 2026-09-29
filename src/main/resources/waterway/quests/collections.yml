@@ -1,0 +1,37 @@
+tutorial_tam:
+  name: "Tam's Teachings"
+  description: Tam is here to teach you the basics! Follow his advice and you'll be a champion of Waterway in no time at all!
+  quests:
+    - tutorial_tam_1
+    - tutorial_tam_2
+    - tutorial_tam_3
+    - tutorial_tam_4
+    - tutorial_tam_5
+
+fisherman:
+  name: "Fishing 101"
+  description: Fishing is a key part of progressing through Waterway!
+  quests:
+    - fisherman_1
+    - fisherman_2
+
+raintown_residents:
+  name: "Helping out Raintown"
+  description: The residents of Raintown have various odd jobs for you to do!
+  quests:
+    - raintown_resident_1
+    - raintown_resident_2_2
+    - raintown_resident_3
+    - raintown_resident_4
+    - raintown_resident_5
+
+joes_tavern:
+  name: "Joe's Tavern"
+  description: Help out a new business owner and deal with the riffraff! Make his tavern a success and you may be rewarded with unique items!
+  quests:
+    - joe_tavern_1
+    - joe_tavern_2
+    - joe_tavern_3
+    - joe_tavern_lazy_drunkard
+    - joe_tavern_demanding_customer
+    - joe_tavern_jam_lover

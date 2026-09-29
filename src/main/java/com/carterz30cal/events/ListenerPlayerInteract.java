@@ -4,6 +4,7 @@ import com.carterz30cal.entities.GameEntity;
 import com.carterz30cal.entities.interactable.GameEntityInteractable;
 import com.carterz30cal.entities.player.GamePlayer;
 import com.carterz30cal.entities.player.GameProjectile;
+import com.carterz30cal.gui.AnvilGUI;
 import com.carterz30cal.gui.BrewingGUI;
 import com.carterz30cal.gui.LootboxGUI;
 import com.carterz30cal.gui.MenuGUI;
@@ -52,6 +53,11 @@ public class ListenerPlayerInteract implements Listener {
 			{
                 if (act == Action.RIGHT_CLICK_BLOCK && e.getClickedBlock().getType() == Material.BREWING_STAND) {
                     p.openGui(new BrewingGUI(p));
+                    e.setCancelled(true);
+                    return;
+                }
+                else if (act == Action.RIGHT_CLICK_BLOCK && e.getClickedBlock().getType() == Material.ANVIL) {
+                    p.openGui(new AnvilGUI(p));
                     e.setCancelled(true);
                     return;
                 }
