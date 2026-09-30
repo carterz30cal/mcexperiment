@@ -130,6 +130,11 @@ joe_tavern_patron_sleeping:
       pose: SLEEPING
       equipment:
         HAND: potion_ale
+    hitbox:
+      type: SLIME
+      scale: 2.4
+      offset: [0,0,0]
+      invisible: true
   bestiary:
     category: NO_REGISTER
 
