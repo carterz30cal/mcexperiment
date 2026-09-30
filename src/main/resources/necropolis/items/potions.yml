@@ -166,6 +166,31 @@ potion_ale:
     level_requirement: 1
 
 
+potion_spirits:
+  name: Something Stronger
+  type: POTION
+  rarity: UNCOMMON
+  duration: 6000
+  value: 125
+  custom-model-id: potion_ale
+  tags:
+    - HEALTH_POTION
+    - ALCOHOL
+    - ATTACK_POTION
+  recipe:
+    - VOID,0
+  lore:
+    - Some drinks count as potions, such as <yellow>Ale</yellow>!
+    - Potions work like talismans, but they last for
+    - a limited time only! Open your player menu and
+    - equip one today for powerful buffs!
+  stats:
+    health: -150
+    defence: +25
+    damage: +3
+    level_requirement: 1
+
+
 potion_lesser_health:
   name: Potion of Lesser Health
   type: POTION

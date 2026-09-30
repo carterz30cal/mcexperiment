@@ -141,15 +141,15 @@ joe_tavern_patron_sleeping:
 joe_tavern_patron_aggressive:
   name: <red>Aggressive Patron
   level: 4
-  health: 300
-  speed: 1.4
-  knockback: 170
+  health: 350
+  speed: 1.3
+  knockback: 180
   coin-multiplier: 0
   damage:
     POISON: 15
   stats:
-    DEFENCE: 100
-    PADDING: 50
+    DEFENCE: 200
+    PADDING: 80
   directors:
     phase-time: 60
     options:

@@ -130,6 +130,7 @@ public class GamePlayer extends GameEntity implements DamageableEntity, Aggressi
     public PlayerWardrobe wardrobe = new PlayerWardrobe(this);
     public PlayerSkillTree skillTree = new PlayerSkillTree(this);
     public PlayerQuests questing = new PlayerQuests(this);
+    public PlayerQuiver quiver2 = new PlayerQuiver(this);
     public GamePet pet;
     public PlayerItemProducer factory;
     public EntityHealthSystem healthSystem;

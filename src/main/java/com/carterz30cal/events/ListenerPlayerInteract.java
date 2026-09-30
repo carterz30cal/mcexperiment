@@ -106,16 +106,17 @@ public class ListenerPlayerInteract implements Listener {
                 if (item.type == ItemType.BOW) {
                     if (p.bowTick < 1) {
                         p.bowTick = 4;
-                        if (p.getQuiverCount() > 0) {
-                            Arrow arrow = p.player.launchProjectile(Arrow.class);
+
+                        var type = p.quiver2.get(ItemType.ARROW);
+                        if (type == null) {
+                            p.sendMessage("<red>You are out of arrows!</red>");
+                        }
+                        else if (p.quiver2.consume(type)) {
+                            var arrow = p.player.launchProjectile(Arrow.class);
                             arrow.setPierceLevel(5);
                             arrow.setVelocity(arrow.getVelocity().multiply(0.9));
                             var projectile = new GameProjectile(p, arrow);
-                            var arrowType = p.useArrow();
-                            projectile.setContextualAbilities(ItemFactory.getItem(arrowType));
-                        }
-                        else {
-                            p.sendMessage("<red>You are out of arrows!</red>");
+                            projectile.setContextualAbilities(type);
                         }
                     }
                 }
