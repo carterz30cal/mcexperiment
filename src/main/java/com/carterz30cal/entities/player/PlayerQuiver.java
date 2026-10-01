@@ -11,6 +11,7 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
@@ -54,10 +55,28 @@ public class PlayerQuiver implements PlayerSavable {
         var set = inventory.getOrDefault(type, new HashMap<>()).entrySet();
         var items = set.stream().filter(e -> e.getValue() > 0).map(Map.Entry::getKey).collect(Collectors.toSet());
         if (items.isEmpty()) return null;
-        cachedResult = strategy.implementation.best(items, owner);
+        var result = strategy.implementation.best(items, owner);
+        if (result.isEmpty()) {
+            return null;
+        }
+        cachedResult = result.getFirst();
         return cachedResult;
     }
 
+    /**
+     * Get quantity stored in the quiver
+     *
+     * @param item the item we care about
+     * @return the quantity stored
+     */
+    public long get(@NotNull Item item) {
+        if (!inventory.containsKey(item.type)) {
+            return 0;
+        }
+        else {
+            return inventory.get(item.type).getOrDefault(item, 0L);
+        }
+    }
     /**
      * Consumes an arrow and potentially clears the cache if we deplete one type.
      * @param type the arrow type to consume
@@ -108,6 +127,32 @@ public class PlayerQuiver implements PlayerSavable {
     }
 
     /**
+     * Get a list sorted by preference according to the current selection strategy
+     *
+     * @param type the item type we care about
+     * @return a sorted list of items
+     * @since 1.0.0 [1]
+     */
+    public List<Item> sorted(ItemType type) {
+        var set = inventory.getOrDefault(type, new HashMap<>()).entrySet();
+        var items = set.stream().filter(e -> e.getValue() > 0).map(Map.Entry::getKey).collect(Collectors.toSet());
+        if (items.isEmpty()) {
+            return List.of();
+        }
+        return strategy().best(items, owner);
+    }
+
+    /**
+     * Returns the selection strategy implementation for use in the GUI
+     *
+     * @return the implementation for the currently selected selection strategy
+     * @since 1.0.0 [1]
+     */
+    public ArrowSelectionStrategy strategy() {
+        return strategy.implementation;
+    }
+
+    /**
      * Clears the cache, for more accurate results.
      * @since 1.0.0 [1]
      */
@@ -124,7 +169,7 @@ public class PlayerQuiver implements PlayerSavable {
                 section.set("inventory." + item.getKey().id, item.getValue());
             }
         }
-        section.set("strategy", strategy);
+        section.set("strategy", strategy.name());
     }
 
     @Override

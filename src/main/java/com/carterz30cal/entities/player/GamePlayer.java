@@ -605,8 +605,11 @@ public class GamePlayer extends GameEntity implements DamageableEntity, Aggressi
 					currentLevel++;
 				}
 			}
-			
-			if (i.type == ItemType.ARROW) quiver.put(i.id, quiver.getOrDefault(i.id, 0) + item.getAmount());
+
+            if (i.type == ItemType.ARROW) {
+                quiver2.add(i, item.getAmount());
+                quiver.put(i.id, quiver.getOrDefault(i.id, 0) + item.getAmount());
+            }
 			else if (i.type == ItemType.INGREDIENT && hasSackSpace(item.getAmount()))
 			{
                 long am = sack.getOrDefault(i.id, 0L) + item.getAmount();

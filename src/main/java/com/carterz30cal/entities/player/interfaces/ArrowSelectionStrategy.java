@@ -5,6 +5,7 @@ import com.carterz30cal.items.Item;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -13,6 +14,5 @@ import java.util.Set;
  * @since 1.0.0
  */
 public interface ArrowSelectionStrategy {
-    @NotNull
-    Item best(@NotNull Set<Item> items, @Nullable GamePlayer owner);
+    @NotNull List<Item> best(@NotNull Set<Item> items, @Nullable GamePlayer owner);
 }

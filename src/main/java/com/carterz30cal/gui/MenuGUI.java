@@ -20,7 +20,7 @@ import static net.kyori.adventure.text.Component.text;
 
 /**
  * @author carterz30cal
- * @version 3
+ * @version 4
  * @since 1.0.0
  */
 public class MenuGUI extends AbstractGUI 
@@ -111,17 +111,11 @@ public class MenuGUI extends AbstractGUI
 
         inventory.setSlot(ItemFactory.customItem("PAPER", "<green>Calendar"), CALENDAR_POS);
 
-		int arrowCount = 0;
-		for (String a : owner.quiver.keySet()) arrowCount += owner.quiver.get(a);
         inventory.setSlot(
-                ItemFactory.customItem("ARROW",
-                        "<white>Quiver</white>",
-                        "<grey>Holding " + StringUtils.addCommas(arrowCount) + " arrows.</grey>"),
+                ItemFactory.customItem("leather_quiver",
+                        "<white>Quiver</white>"),
                 QUIVER_POS);
-		
-		//if (owner.talismans.size() == 0) inventory.setSlot(ItemFactory.buildCustom("MINECART", "GOLDTalisman Bag", "REDCurrently holding no talismans, go find some!"), TALIS_POS);
-		//else if (owner.talismans.size() == 1) inventory.setSlot(ItemFactory.buildCustom("MINECART", "GOLDTalisman Bag", "GRAYHolding WHITE1GRAY talisman."), TALIS_POS);
-		//else inventory.setSlot(ItemFactory.buildCustom("MINECART", "GOLDTalisman Bag", "GRAYHolding WHITE" + owner.talismans.size() + "GRAY talismans."), TALIS_POS);
+
         inventory.setSlot(ItemFactory.customItem("LEAD", "<red>Bestiary</red>"), BESTIARY_POS);
 		
 		if (owner.getLevel() < 2) {
