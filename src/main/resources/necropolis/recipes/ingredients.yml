@@ -81,5 +81,7 @@ compressed_sand:
 compressed_purple_popcorn:
   amount: 1
   category: necropolis_ingredients
+  discovery: gold_nugget_collection
+  discovery-tier: 1
   items:
     purple_popcorn: 320

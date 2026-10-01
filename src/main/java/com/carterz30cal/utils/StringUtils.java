@@ -136,7 +136,7 @@ public class StringUtils
 				var edit = "<" + cmatch.group().substring(2);
 				openTags.remove(edit);
 			}
-			var adjusted = s.replaceAll("<[^>]+>]", "");
+            var adjusted = s.replaceAll("<[^>]+>", "");
 			var l = adjusted.strip().length();
             if (l > 2 && len + l > targetLength) {
 				var diff = (len + l) - targetLength;

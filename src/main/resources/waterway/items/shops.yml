@@ -1,17 +1,50 @@
-bobs_simple_supplies:
-  shop-name: "Bob's Simple Supplies"
-  shopkeeper-name: "Bob"
-  shopkeeper-type: MANNEQUIN
-  location: -53.5, 76, 17.6, 117, 0
+bartender_1:
+  shop-name: "Joe's Tavern"
+  shopkeeper-name: Bartender
+  location: -41.5, 76, 21.65, 0, 6
+  requirement:
+    class: CompleteQuestRequirement
+    quest: joe_tavern_2
   entities:
     _:
       type: MANNEQUIN
       offset: [ 0,0,0 ]
       scale: 1
+      skull: bartender_casual
+  items:
+    potion_ale:
+      item: potion_ale
+      coins: 350
+      level: 2
+    spiced_meat:
+      item: spiced_meat
+      coins: 180
+      level: 3
+
+
+
+bobs_simple_supplies:
+  shop-name: "Bob's Supplies"
+  shopkeeper-name: "Smuggler"
+  location: -40.6, 76, 31.6, 90, 16
+  requirement:
+    class: CompleteQuestRequirement
+    quest: joe_tavern_2
+  entities:
+    _:
+      type: MANNEQUIN
+      offset: [ 0,0,0 ]
+      scale: 1
+      skull: smuggler
   items:
     weird_flesh:
       item: weird_flesh
       coins: 2
+      level: 1
+    weird_flesh_64:
+      item: weird_flesh
+      amount: 64
+      coins: 128
       level: 1
     paper_mache:
       item: paper_mache

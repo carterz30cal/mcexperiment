@@ -12,12 +12,13 @@ import com.carterz30cal.utils.StringUtils;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.inventory.ItemStack;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.*;
 
 /**
  * @author carterz30cal
- * @version 3
+ * @version 4
  * @since 1.0.0
  */
 public class BestiaryGUI extends AbstractGUI {
@@ -56,8 +57,8 @@ public class BestiaryGUI extends AbstractGUI {
         update();
     }
 
-    public static void registerTypeIntoCategory(String eid, String cid) {
-        if (cid.equals("NO_REGISTER")) {
+    public static void registerTypeIntoCategory(String eid, @Nullable String cid) {
+        if (cid == null || cid.equals("NO_REGISTER")) {
             return;
         }
         categories.getOrDefault(cid, categories.get("base")).types.add(eid);

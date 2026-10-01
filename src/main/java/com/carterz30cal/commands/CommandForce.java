@@ -42,12 +42,15 @@ public class CommandForce implements CommandExecutor {
                     int arg = Integer.parseInt(args[1]);
                     p.sendMessage(Long.toString(LevelUtils.getEnemyBaseXpReward(arg)));
                     break;
+                case "coins":
+                    int coins = Integer.parseInt(args[1]);
+                    p.gainCoins(coins);
+                    break;
                 case "crypt":
                     new AreaCryptNecropolis(p, AreaCryptNecropolis.NecropolisCryptTier.LESSER);
                     break;
                 case "clearquests":
-                    p.clearQuests();
-                    p.setSelectedQuest(null);
+                    p.questing.clear();
                     break;
                 case "seraph":
                     AreaBossWaterwaySeraph.instance.register(p);

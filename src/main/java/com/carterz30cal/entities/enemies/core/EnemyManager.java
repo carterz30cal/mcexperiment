@@ -32,7 +32,7 @@ public class EnemyManager
 {
 	public static String[] files = {
             "waterway/mobs/lunatics", "waterway/mobs/titans",
-            "waterway/mobs/shockers",
+            "waterway/mobs/shockers", "waterway/mobs/npcs",
             "waterway/mobs/spiders",
             "waterway/mobs/seraph/boss", "waterway/mobs/seraph/summons",
             "waterway/mobs/fishing/fishing_common",

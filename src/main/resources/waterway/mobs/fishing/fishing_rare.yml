@@ -30,9 +30,6 @@ drenched_RARE:
   loot:
     waterway_cod:
       amount: 10/15
-    meat_scraps:
-      chance: 1/300
-      amount: 3/3
     pet_drenched_common:
       chance: 1/130
 

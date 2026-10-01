@@ -159,7 +159,7 @@ treasure_hound:
 
 treasure_golem:
   name: Ancient Golem
-  level: 13
+  level: 20
   health: 50000
   knockback: 20
   speed: 1.8

@@ -4,9 +4,9 @@ import com.carterz30cal.entities.player.GamePlayer;
 
 /**
  * @author carterz30cal
- * @version 2
+ * @version 3
  * @since 1.0.0
  */
 public interface QuestRequirement {
-    boolean hasMetRequirements(GamePlayer player);
+    boolean satisfied(GamePlayer player);
 }

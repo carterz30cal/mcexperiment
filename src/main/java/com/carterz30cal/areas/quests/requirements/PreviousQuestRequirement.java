@@ -17,7 +17,7 @@ public class PreviousQuestRequirement implements QuestRequirement {
     }
 
     @Override
-    public boolean hasMetRequirements(GamePlayer player) {
+    public boolean satisfied(GamePlayer player) {
         var parent = questgiver.getParent();
         if (parent == null) {
             return true;

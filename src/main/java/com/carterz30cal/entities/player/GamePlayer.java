@@ -16,6 +16,7 @@ import com.carterz30cal.entities.health.damage.handlers.AggressiveEntity;
 import com.carterz30cal.entities.health.damage.handlers.DamageableEntity;
 import com.carterz30cal.entities.health.status.StatusEffect;
 import com.carterz30cal.entities.player.summons.GamePet;
+import com.carterz30cal.entities.player.summons.GameSummon;
 import com.carterz30cal.events.GameEventHandler;
 import com.carterz30cal.fishing.FishingArea;
 import com.carterz30cal.gui.AbstractGUI;
@@ -128,6 +129,8 @@ public class GamePlayer extends GameEntity implements DamageableEntity, Aggressi
 
     public PlayerWardrobe wardrobe = new PlayerWardrobe(this);
     public PlayerSkillTree skillTree = new PlayerSkillTree(this);
+    public PlayerQuests questing = new PlayerQuests(this);
+    public PlayerQuiver quiver2 = new PlayerQuiver(this);
     public GamePet pet;
     public PlayerItemProducer factory;
     public EntityHealthSystem healthSystem;
@@ -327,6 +330,7 @@ public class GamePlayer extends GameEntity implements DamageableEntity, Aggressi
 
         stats.execute();
         abilities.addAll(skillTree.getUnderlyingAbilities());
+        abilities.addAll(questing.contexts());
         for (var a : abilities) {
 			if (a.ability instanceof AbilityWithTick tick) {
                 tick.tick(a, abilityTick);
@@ -335,7 +339,6 @@ public class GamePlayer extends GameEntity implements DamageableEntity, Aggressi
                 continue;
             }
             is.modifyStats(a, stats, AbilityWithStats.Situation.PLAYER);
-
         }
         stats.scheduleOperation(Stat.BACKPACK_PAGES, StatOperationType.ADD, 2);
         stats.scheduleOperation(Stat.BACKPACK_PAGES, StatOperationType.CAP_MIN, 1);
@@ -602,8 +605,11 @@ public class GamePlayer extends GameEntity implements DamageableEntity, Aggressi
 					currentLevel++;
 				}
 			}
-			
-			if (i.type == ItemType.ARROW) quiver.put(i.id, quiver.getOrDefault(i.id, 0) + item.getAmount());
+
+            if (i.type == ItemType.ARROW) {
+                quiver2.add(i, item.getAmount());
+                quiver.put(i.id, quiver.getOrDefault(i.id, 0) + item.getAmount());
+            }
 			else if (i.type == ItemType.INGREDIENT && hasSackSpace(item.getAmount()))
 			{
                 long am = sack.getOrDefault(i.id, 0L) + item.getAmount();
@@ -1293,7 +1299,7 @@ public class GamePlayer extends GameEntity implements DamageableEntity, Aggressi
      */
     @Override
     public boolean isDamageable(AggressiveEntity by) {
-        return !isOnInvulnerableCooldown() && player.getGameMode() == GameMode.SURVIVAL && by instanceof GameEnemy;
+        return !isOnInvulnerableCooldown() && player.getGameMode() == GameMode.SURVIVAL && by instanceof GameEnemy && !(by instanceof GameSummon);
     }
 
     @Override

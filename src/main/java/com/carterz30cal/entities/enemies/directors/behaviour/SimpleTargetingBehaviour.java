@@ -11,7 +11,7 @@ import java.util.List;
 
 /**
  * @author carterz30cal
- * @version 2
+ * @version 3
  * @since 1.0.0
  */
 public class SimpleTargetingBehaviour implements TargetingBehaviour {
@@ -30,7 +30,7 @@ public class SimpleTargetingBehaviour implements TargetingBehaviour {
         }
         else {
             for (var player : PlayerManager.getOnlinePlayers()) {
-                if (player.distance(location) > player.stats.stat(Stat.VISIBILITY)) {
+                if (player.distance(location) > player.getStat(Stat.VISIBILITY)) {
                     continue;
                 }
                 if (player.targeted.size() >= player.getMaxTargets() && !ignoresTargetLimit) {
