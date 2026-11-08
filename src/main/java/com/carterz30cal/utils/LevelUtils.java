@@ -1,6 +1,5 @@
 package com.carterz30cal.utils;
 
-import com.carterz30cal.areas.quests.rewards.QuestReward;
 import com.carterz30cal.entities.player.GamePlayer;
 import com.carterz30cal.items.discoveries.Collection;
 import com.carterz30cal.items.discoveries.DiscoveryManager;
@@ -52,15 +51,7 @@ public class LevelUtils
             }
             xp += gross;
         }
-        for (var questSave : player.getQuestSaves()) {
-            for (var sections : questSave.GetQuest().getCompletedSections(questSave.currentSection)) {
-                QuestReward reward = sections.GetQuestReward();
-                if (reward == null) {
-                    continue;
-                }
-                xp += reward.GetXP();
-            }
-        }
+        xp += player.questing.xp();
 
         return xp;
     }

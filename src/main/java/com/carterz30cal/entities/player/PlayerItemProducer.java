@@ -7,18 +7,16 @@ import com.carterz30cal.items.ItemReqs;
 import com.carterz30cal.items.abilities.implementation.AbilityWithItemProducer;
 import com.carterz30cal.items.types.ItemIngredientGenerator;
 import com.carterz30cal.main.Dungeons;
+import com.carterz30cal.utils.RandomUtils;
 import org.bukkit.configuration.ConfigurationSection;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * @author carterz30cal
- * @version 2
+ * @version 3
  * @since 1.0.0
  * @see AbilityWithItemProducer
  * @see com.carterz30cal.entities.player.interfaces.PlayerSavable
@@ -49,6 +47,16 @@ public class PlayerItemProducer implements PlayerSavable {
     }
 
     /**
+     *
+     * @param level what level should the factory be?
+     * @since 1.0.0 [3]
+     */
+    public void level(long level) {
+        this.level = level;
+    }
+
+
+    /**
      * Calculate what items have been produced between the last calculation and
      * the latest attempt. If it is zero, don't update the last calculation time.
      * @return a map of all the items produced.
@@ -63,6 +71,7 @@ public class PlayerItemProducer implements PlayerSavable {
             return items;
         }
 
+        var seeded = new Random(lastCheck);
         long current = System.currentTimeMillis();
         long timeDiff = current - lastCheck;
         var context = new ProducingContext();
@@ -80,7 +89,11 @@ public class PlayerItemProducer implements PlayerSavable {
         for (var w : context.weights.values()) totalWeight += w;
         for (var i : context.weights.keySet()) {
             long amount = (long) Math.floor(expectedItems * ((double)context.weights.get(i) / totalWeight));
+            double remainder = (expectedItems * ((double) context.weights.get(i) / totalWeight)) - amount;
             if (amount < 1) continue;
+            if (RandomUtils.probability(seeded, remainder)) {
+                amount++;
+            }
             items.put(i, amount);
         }
         if (update && expectedItems > 0) {

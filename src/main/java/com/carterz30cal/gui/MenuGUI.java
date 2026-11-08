@@ -20,23 +20,25 @@ import static net.kyori.adventure.text.Component.text;
 
 /**
  * @author carterz30cal
- * @version 3
+ * @version 4
  * @since 1.0.0
  */
 public class MenuGUI extends AbstractGUI 
 {
-	public final int ANVIL_POS = calc(7, 1);
 	public final int FORGE_POS = calc(1, 1);
+    public final int SACK_POS = calc(2, 1);
 	public final int LEVEL_POS = calc(3, 1);
 	public final int DISCOVERY_POS = calc(4, 1);
-    public final int QUIVER_POS = calc(6, 2);
+    public final int WARDROBE_POS = calc(5, 1);
     public final int BESTIARY_POS = calc(6, 1);
-	public final int SACK_POS = calc(2, 1);
-	public final int BACKPACK_POS = calc(5, 2);
+    public final int ANVIL_POS = calc(7, 1);
+
+    public final int ENCHANT_GUIDE_POS = calc(1, 2);
     public final int PET_POS = calc(2, 2);
     public final int SKILL_TREE_POS = calc(3, 2);
     public final int QUEST_POS = calc(4, 2);
-    public final int WARDROBE_POS = calc(5, 1);
+    public final int BACKPACK_POS = calc(5, 2);
+    public final int QUIVER_POS = calc(6, 2);
     public final int CALENDAR_POS = calc(7, 2);
 
 	public final int LINES = 6;
@@ -111,17 +113,12 @@ public class MenuGUI extends AbstractGUI
 
         inventory.setSlot(ItemFactory.customItem("PAPER", "<green>Calendar"), CALENDAR_POS);
 
-		int arrowCount = 0;
-		for (String a : owner.quiver.keySet()) arrowCount += owner.quiver.get(a);
+        inventory.setSlot(ItemFactory.customItem("ENCHANTING_TABLE", "<green>Enchant Guide"), ENCHANT_GUIDE_POS);
         inventory.setSlot(
-                ItemFactory.customItem("ARROW",
-                        "<white>Quiver</white>",
-                        "<grey>Holding " + StringUtils.addCommas(arrowCount) + " arrows.</grey>"),
+                ItemFactory.customItem("leather_quiver",
+                        "<white>Quiver</white>"),
                 QUIVER_POS);
-		
-		//if (owner.talismans.size() == 0) inventory.setSlot(ItemFactory.buildCustom("MINECART", "GOLDTalisman Bag", "REDCurrently holding no talismans, go find some!"), TALIS_POS);
-		//else if (owner.talismans.size() == 1) inventory.setSlot(ItemFactory.buildCustom("MINECART", "GOLDTalisman Bag", "GRAYHolding WHITE1GRAY talisman."), TALIS_POS);
-		//else inventory.setSlot(ItemFactory.buildCustom("MINECART", "GOLDTalisman Bag", "GRAYHolding WHITE" + owner.talismans.size() + "GRAY talismans."), TALIS_POS);
+
         inventory.setSlot(ItemFactory.customItem("LEAD", "<red>Bestiary</red>"), BESTIARY_POS);
 		
 		if (owner.getLevel() < 2) {
@@ -197,6 +194,9 @@ public class MenuGUI extends AbstractGUI
 		else if (clickPos == BACKPACK_POS) owner.openGui(new BackpackGUI(owner));
 		else if (clickPos == PET_POS) owner.openGui(new PetsGUI(owner));
         else if (clickPos == CALENDAR_POS) owner.openGui(new CalendarGUI(owner));
+        else if (clickPos == ENCHANT_GUIDE_POS) {
+            owner.openGui(new EnchantGuideGUI(owner));
+        }
         else if (clickPos == SKILL_TREE_POS) {
             owner.openGui(new SkillTreeGUI(owner));
         }

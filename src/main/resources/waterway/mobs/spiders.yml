@@ -1,17 +1,21 @@
 spider_1:
   name: Water Spider
   level: 4
-  health: 240
+  health: 200
   director: CAVE_SPIDER
   knockback: 130
   speed: 1.4
   damage:
-    PHYSICAL: 60
+    PHYSICAL: 40
   stats:
     ROBUSTNESS: -5
     PADDING: -80
+    DOUSING: -200
   souls:
     WATERWAY: 1
+  sounds:
+    hurt: entity.spider.hurt
+    death: entity.spider.death
   entities:
     _:
       type: SPIDER
@@ -31,7 +35,133 @@ spider_1:
     - WATERWAY
   loot:
     spider_silk:
-      amount: 1/4
-    pet_water_spider_common:
-      chance: 1/300
+      amount: 1/5
+    water_matriarch_key:
       amount: 1/1
+      chance: 1/150
+    pet_water_spider_common:
+      chance: 1/1000
+      amount: 1/1
+
+
+water_spider_matriarch_baby:
+  name: Spiderling
+  level: 3
+  health: 150
+  directors:
+    phase-time: 100
+    options:
+      - CAVE_SPIDER
+      - CAVE_SPIDER
+      - BREEZE
+  knockback: 180
+  speed: 1.6
+  damage:
+    PHYSICAL: 15
+    POISON: 3
+  stats:
+    ROBUSTNESS: -5
+    PADDING: -80
+    DOUSING: -200
+  sounds:
+    hurt: entity.spider.hurt
+    death: entity.spider.death
+  souls:
+    WATERWAY: 1
+  abilities:
+    overkill:
+      class: generic.EnemyAbilityOverkill
+      percentage: 0.9
+      reward: 1
+  entities:
+    _:
+      type: CAVE_SPIDER
+      scale: 0.8
+      offset: [ 0,0,0 ]
+    hitbox:
+      type: ZOMBIE
+      scale: 0.9
+      invisible: true
+      offset: [ 0,0,0 ]
+  bestiary:
+    category: waterway_spiders
+  tags:
+    - SPIDER
+    - BUG
+    - ANIMAL
+    - WATERWAY
+  loot:
+    spider_silk:
+      amount: 1/1
+
+water_spider_matriarch:
+  name: Water Matriarch
+  level: 14
+  health: 15000
+  directors:
+    phase-time: 200
+    options:
+      - CAVE_SPIDER
+  director: CAVE_SPIDER
+  knockback: 30
+  speed: 1.4
+  damage:
+    PHYSICAL: 70
+    POISON: 10
+  stats:
+    ROBUSTNESS: -5
+    PADDING: -30
+    DOUSING: -500
+  souls:
+    WATERWAY: 100
+  sounds:
+    hurt: entity.spider.hurt
+    death: entity.spider.death
+  entities:
+    _:
+      type: SPIDER
+      scale: 3
+      offset: [ 0,0,0 ]
+    head:
+      type: ITEM_DISPLAY
+      item: pet_water_spider_common
+      scale: 3.1
+      offset: [ 0,2.57,1.54 ]
+  abilities:
+    overkill:
+      class: generic.EnemyAbilityOverkill
+      percentage: 0.02
+      reward: 5
+    summons:
+      class: generic.EnemyAbilitySummoner
+      type: water_spider_matriarch_baby
+      max-summon-count: 8
+      spawn-time: 60
+      allow-respawn: true
+      summon-range: 7
+      despawn-on-death: true
+      condition:
+        class: AbilityConditionHealthPercentage
+        min: 0
+        max: 0.5
+    aura:
+      class: generic.EnemyAbilityDamageAura
+      damage-multiplier: 0.2
+      radius: 20
+      dropoff: false
+      period: 40
+      condition:
+        class: AbilityConditionHealthPercentage
+        min: 0
+        max: 0.8
+  bestiary:
+    category: waterway_spiders
+  tags:
+    - SPIDER
+    - WATERWAY_SPIDER_MATRIARCH
+    - BUG
+    - ANIMAL
+    - WATERWAY
+    - MINIBOSS
+
+

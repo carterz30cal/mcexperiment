@@ -1,0 +1,226 @@
+joe_tavern_1:
+  name: Joe's Tavern I
+  repeatable: false
+  class: CollectQuest
+  item: paper
+  count: 1
+  consume: true
+  npc:
+    name: Lonely Joe
+    location: -43.3, 76, 21.7, 180, 13
+    representation: joe_tavern_joe_1
+  reward:
+    class: QuestReward
+    xp: 5
+  dialog:
+    voice: Joe
+    beginning:
+      - Welcome to Joe's!
+      - I'm Joe!
+      - As you can see, my bar is extremely empty. I just picked up the place and it seems like the last owner didn't do any advertising whatsoever!
+      - Help me out for the good of Waterway and my bank account!
+      - Could you fetch me some paper to make posters with?
+    chatter:
+      - I'll happily sell you <gold>ale</gold> once you've given me a hand.
+      - I could probably do with hiring some staff.
+      - It's very lonely in here!
+      - Can you believe this place cost me <gold>600k coins?</gold>
+    ending:
+      - Amazing. You're a star.
+      - I'll go put these posters up and hopefully we'll have some custom shortly!
+
+#
+
+joe_tavern_2:
+  name: Joe's Tavern II
+  repeatable: false
+  class: KillTagQuest
+  tag: LUNATIC_WARRIOR
+  count: 12
+  pretty-name: Lunatic Warriors
+  npc:
+    name: Injured Joe
+    location: -96.5, 68, 32, 90, 0
+    representation: joe_tavern_joe_2
+    focus-radius: 0
+  requirement:
+    class: CompleteQuestRequirement
+    quest: joe_tavern_1
+  reward:
+    class: QuestReward
+    xp: 10
+  dialog:
+    voice: Joe
+    beginning:
+      - <red>Ow...
+      - I've really done it this time...
+      - I got <red>ambushed</red> by some lunatic warriors whilst putting up my advertisements, and well, now I'm in this state.
+      - I'll recover, eventually, but the sheer anger at this humiliation is hindering my recovery and my business brain!
+      - Could you help me solve this problem by getting revenge on the lunatics?
+      - They should be in the camp just ahead.
+    chatter:
+      - I'll happily sell you <gold>ale</gold> once you've given me a hand.
+      - I could probably do with hiring some staff.
+      - Somehow I feel less lonely out here covered in my own blood.
+      - I don't think lunatics will be welcome in my bar.
+      - Has anyone ever figured out what created the lunatics?
+      - <red>*cough cough*</red>
+      - Hey, at least I got the posters up.
+    ending:
+      - That makes me feel better, thanks.
+      - <red>*cough cough*</red>
+      - I'll see you in the tavern. Better hope the posters work!
+
+joe_tavern_3:
+  name: Joe's Tavern III
+  repeatable: false
+  class: FightClubQuest
+  enemy: joe_tavern_patron_aggressive
+  location: -38.7, 82, 30.5
+  npc:
+    name: Joe
+    location: -44.225, 76, 21.3, -170, 11
+    representation: joe_tavern_joe_1
+    focus-radius: 4
+  requirement:
+    class: CompleteQuestRequirement
+    quest: joe_tavern_2
+  reward:
+    class: ItemQuestReward
+    xp: 10
+    items:
+      - potion_ale£1
+  dialog:
+    voice: Joe
+    beginning:
+      - Hiya!
+      - I'm feeling better now, thank you.
+      - As you can see, we've got a few patrons now!
+      - Unfortunately though, a couple have been scared off by some thug upstairs.
+      - Any chance you could.. get rid of the problem?
+      - Talk to me again if it's too much for you.
+    chatter:
+      - I guess I'll just have to hire a bouncer.
+    ending:
+      - Cheers for that. Have a pint, on me.
+      - I'm sure I'll have other work for you to do, so come back anytime!
+
+#
+
+joe_tavern_lazy_drunkard:
+  name: Joe's Tavern (Lazy Drunkard)
+  repeatable: false
+  class: CollectQuest
+  item: potion_ale
+  count: 1
+  consume: true
+  npc:
+    name: Lazy Drunkard
+    location: -36.8, 77.0625, 30, 0, 0
+    representation: joe_tavern_patron_sleeping
+    focus-radius: 0
+  requirement:
+    class: CompleteQuestRequirement
+    quest: joe_tavern_2
+  reward:
+    class: ItemQuestReward
+    xp: 2
+    items:
+      - combination_catalyst_shard£1
+  dialog:
+    voice: Lazy Drunkard
+    beginning:
+      - Uuuuuuhhhhhh
+      - Fetch me ano...
+      - another drink wouldya?
+    chatter:
+      - IM KING OF THE WORLD
+      - "*snores*"
+      - the world is spinning
+      - im never drinking again
+      - drinks tomorrow?
+      - 350 coins a pint? they're joking.. right?
+      - BOW BEFORE ME, MORTALS
+    ending:
+      - "*slurps*"
+      - Thas amazin' thanks
+      - Here.. take..
+      - take this crystal
+      - thing.
+
+joe_tavern_demanding_customer:
+  name: Joe's Tavern (Demanding)
+  repeatable: false
+  class: CollectQuest
+  item: chilli_powder
+  count: 7
+  consume: true
+  npc:
+    name: Demanding Patron
+    location: -45.4, 76, 30.675, -130, 3
+    representation: joe_tavern_patron_aggressive
+    focus-radius: 7
+  requirement:
+    class: CompleteQuestRequirement
+    quest: joe_tavern_2
+  reward:
+    class: QuestReward
+    xp: 2
+    coins: 300
+  dialog:
+    voice: Demanding Patron
+    beginning:
+      - HELLO? SERVICE? PLEASE?
+      - YOU! YOU LOOK LIKE A WAITER.
+      - THIS SPICED MEAT SHOULD BE CALLED BLAND MEAT.
+      - GET ME MORE CHILLI POWDER TO SEASON IT PROPERLY. THIS IS NOT A REQUEST
+    chatter:
+      - PRONTO.
+      - HURRY UP! YOU DON'T GET PAID FOR NOTHING
+      - No my name isn't Karen?
+      - SERIOUSLY, WHAT LEVEL OF SPICE IS THIS SUPPOSED TO BE? NANDOS GARLIC AND HERB?
+      - ITS CHILLI POWDER, NOT CHILI. THERE'S TWO Ls IN CHILLI.
+    ending:
+      - Well, that's certainly tastier.
+      - Here, have a tip I guess.
+      - Now get out of my sight!
+
+#
+
+joe_tavern_jam_lover:
+  name: Joe's Tavern (Jam Lover)
+  repeatable: false
+  class: CollectQuest
+  item: green_slime
+  count: 2
+  consume: true
+  npc:
+    name: Jam Lover Letty
+    location: -45.5, 76, 18.5, -1, 25
+    representation: joe_tavern_patron_aggressive
+    focus-radius: 5
+  requirement:
+    class: CompleteQuestRequirement
+    quest: joe_tavern_2
+  reward:
+    class: ItemQuestReward
+    xp: 2
+    items:
+      - chilli_powder£4
+      - weak_silk_mass£1
+  dialog:
+    voice: Letty
+    beginning:
+      - Hi..
+      - I really love jam, but this place doesn't serve it apparently.
+      - I don't know what I'm going to have on my toast at breakfast!
+      - Could you find me some <green>green slime?</green>
+      - It makes very tasty jams.
+    chatter:
+      - I don't really like spiced meats nor waterway cod.
+      - My one true passion is surfing. But jam is pretty nice too.
+      - Green slime is only really found inside sea slimes, at least in Waterway.
+    ending:
+      - Breakfast is saved!
+      - Thank you!
+      - Take this assortment of chilli powders I had lying around.

@@ -1,3 +1,13 @@
+crypt_talisman_common:
+  category: necropolis_talismans
+  level: 6
+  discovery: bone_dust_collection
+  discovery-tier: 2
+  items:
+    roasted_bone_dust: 1
+    bone_dust: 50
+    calmed_spirit: 1
+
 gold_chunk:
   category: necropolis_talismans
   discovery: gold_nugget_collection

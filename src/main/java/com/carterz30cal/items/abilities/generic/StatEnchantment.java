@@ -21,7 +21,7 @@ import static net.kyori.adventure.text.Component.text;
  * Simple enchantment that grants one type of stat, with optional amount granted independent of stat level.
  * <br>Always costs one combination catalyst shard.
  * @author carterz30cal
- * @version 4
+ * @version 5
  * @since 1.0.0
  */
 public class StatEnchantment extends GameAbstractEnchant
@@ -31,6 +31,7 @@ public class StatEnchantment extends GameAbstractEnchant
     public long flatStat;
     public long statPerLevel;
     public StatOperationType statOperation;
+    private final String obtaining;
 
     public StatEnchantment(String name, long powerPerLevel, Stat granted, long flat, long statPerLevel, int maxLevel, ItemType... types) {
         super(name, maxLevel, types);
@@ -39,6 +40,38 @@ public class StatEnchantment extends GameAbstractEnchant
         this.flatStat = flat;
         this.statPerLevel = statPerLevel;
         this.statOperation = StatOperationType.ADD;
+        this.obtaining = "A mystery!";
+    }
+
+    /**
+     *
+     * @since 1.0.0 [5]
+     */
+    public StatEnchantment(String name,
+                           String obtaining,
+                           long powerPerLevel,
+                           Stat granted,
+                           long flat,
+                           long statPerLevel,
+                           int maxLevel,
+                           ItemType... types) {
+        super(name, maxLevel, types);
+        this.powerPerLevel = powerPerLevel;
+        this.statGranted = granted;
+        this.flatStat = flat;
+        this.statPerLevel = statPerLevel;
+        this.statOperation = StatOperationType.ADD;
+        this.obtaining = obtaining;
+    }
+
+    public StatEnchantment(String name, String obtaining, long powerPerLevel, Stat granted, long flat, long statPerLevel, int maxLevel, StatOperationType statOperation, ItemType... types) {
+        super(name, maxLevel, types);
+        this.powerPerLevel = powerPerLevel;
+        this.statGranted = granted;
+        this.flatStat = flat;
+        this.statPerLevel = statPerLevel;
+        this.statOperation = statOperation;
+        this.obtaining = obtaining;
     }
 
     public StatEnchantment(String name, long powerPerLevel, Stat granted, long flat, long statPerLevel, int maxLevel, StatOperationType statOperation, ItemType... types) {
@@ -48,6 +81,7 @@ public class StatEnchantment extends GameAbstractEnchant
         this.flatStat = flat;
         this.statPerLevel = statPerLevel;
         this.statOperation = statOperation;
+        this.obtaining = "A mystery!";
     }
 
     @Override
@@ -64,6 +98,11 @@ public class StatEnchantment extends GameAbstractEnchant
         var d = new ArrayList<TextComponent.Builder>();
         d.add(description);
         return d;
+    }
+
+    @Override
+    public String obtaining() {
+        return obtaining;
     }
 
     @Override

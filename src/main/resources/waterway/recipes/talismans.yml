@@ -13,6 +13,25 @@ grey_chunk:
     chilli_powder: 20
     spiced_meat: 4
 
+leather_quiver:
+  level: 3
+  time: 5m
+  category: waterway_talismans
+  discovery: weird_flesh_collection
+  discovery-tier: 3
+  items:
+    spiced_meat: 5
+    spider_silk: 100
+
+a_promise_of_gold:
+  level: 3
+  time: 1m
+  category: waterway_talismans
+  discovery: gold_leaf_collection
+  discovery-tier: 3
+  items:
+    gold_leaf: 60
+
 titans_talisman:
   level: 4
   category: waterway_talismans
@@ -25,7 +44,7 @@ titans_talisman_very_rare:
   level: 5
   category: waterway_talismans
   items:
-    titans_talisman: 1
+    titans_talisman: 3
     paper: 8
     waterway_sac: 1
 
@@ -33,6 +52,7 @@ storm_talisman_very_rare:
   level: 5
   category: waterway_talismans
   items:
+    storm_crystals: 8
     storm_talisman_rare: 5
 
 storm_talisman_epic:

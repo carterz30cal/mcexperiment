@@ -10,7 +10,6 @@ import com.carterz30cal.areas.quests.sections.QuestSectionFinishOtherSection;
 import com.carterz30cal.areas.quests.sections.QuestSectionKill;
 import com.carterz30cal.entities.enemies.representation.EnemyRepresentationBuilder;
 import com.carterz30cal.entities.enemies.representation.EnemyRepresentationData;
-import com.carterz30cal.entities.interactable.GameQuestgiver;
 import com.carterz30cal.main.Dungeons;
 import com.carterz30cal.utils.StringDescription;
 import org.bukkit.Location;
@@ -288,7 +287,7 @@ public enum Questgivers {
         data.scale = 1;
         representationBuilder.add(data);
 
-        new GameQuestgiver(this);
+        //new GameQuestgiver(this);
     }
 
     Questgivers(String name, String skullProfileId, Location location, QuestRequirement requirement, QuestSection... quests) {
@@ -304,7 +303,7 @@ public enum Questgivers {
         data.scale = 1;
         representationBuilder.add(data);
 
-        new GameQuestgiver(this);
+        //new GameQuestgiver(this);
     }
 
     @Override

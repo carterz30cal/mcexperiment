@@ -14,8 +14,6 @@ import com.carterz30cal.entities.health.damage.DamagePacket;
 import com.carterz30cal.entities.health.damage.handlers.AggressiveEntity;
 import com.carterz30cal.entities.player.GamePlayer;
 import com.carterz30cal.utils.ParticleUtils;
-import net.kyori.adventure.text.Component;
-import net.kyori.adventure.text.format.NamedTextColor;
 import org.bukkit.Color;
 import org.bukkit.Location;
 import org.bukkit.Particle;
@@ -27,8 +25,6 @@ import org.bukkit.util.Vector;
 
 import java.util.HashMap;
 
-import static net.kyori.adventure.text.Component.text;
-
 /**
  * @author carterz30cal
  * @version 4
@@ -36,6 +32,7 @@ import static net.kyori.adventure.text.Component.text;
  */
 public class GameSummon extends GameEnemy {
     public boolean usesMana;
+    protected boolean exact = false;
     protected GamePlayer owner;
     private int useManaTick = 0;
     private static final EnemyRepresentationBuilder representationBuilder;
@@ -53,6 +50,15 @@ public class GameSummon extends GameEnemy {
 
     public GameSummon(EntityHealthSystem healthSystem, EnemyDirector director, EnemyData data) {
         super(representationBuilder.build(director.getLocation()), healthSystem, director, data);
+        typeId = uuid.toString();
+        representation.register(this);
+        enemyDirector.register(this);
+        usesMana = true;
+        register(uuid);
+    }
+
+    public GameSummon(EnemyRepresentationBuilder rep, EntityHealthSystem healthSystem, EnemyDirector director, EnemyData data) {
+        super(rep.build(director.getLocation()), healthSystem, director, data);
         typeId = uuid.toString();
         representation.register(this);
         enemyDirector.register(this);
@@ -80,6 +86,17 @@ public class GameSummon extends GameEnemy {
         return summon;
     }
 
+    public static GameSummon spawnExact(GamePlayer owner, Location where, EnemyBuilder builder) {
+        var healthBuilder = builder.getHealthSystemBuilder();
+        var director = new EnemyDirectorBuilder(builder.getDirectorBuilder())
+                .setSummon(true)
+                .setTargetingBehaviour(new SummonTargetingBehaviour(owner));
+        var summon = new GameSummon(builder.getRepresentationBuilder(), healthBuilder.build(), director.build(where), builder.getEnemyData());
+        summon.owner = owner;
+        summon.exact = true;
+        return summon;
+    }
+
     @Override
     public void tick() {
         super.tick();
@@ -94,10 +111,13 @@ public class GameSummon extends GameEnemy {
                     damage);
             damage(packet);
         }
-        representation.applyPotionEffect(new PotionEffect(PotionEffectType.INVISIBILITY, Integer.MAX_VALUE, 0, false, false));
-        ParticleUtils.spawn(getLocation().add(0, 1, 0), new Particle.DustOptions(Color.GRAY, 0.5F), 0.6);
+        if (!exact) {
+            representation.applyPotionEffect(new PotionEffect(PotionEffectType.INVISIBILITY, Integer.MAX_VALUE, 0, false, false));
+            ParticleUtils.spawn(getLocation().add(0, 1, 0), new Particle.DustOptions(Color.GRAY, 0.5F), 0.6);
+        }
 
-        if (enemyDirector.getTarget() == owner.player && owner.player.getLocation().distance(getLocation()) < 5) {
+
+        if (enemyDirector.getTarget() == owner.player && owner.distance(getLocation()) < 5) {
             enemyDirector.setTarget(null);
         }
     }
@@ -119,7 +139,12 @@ public class GameSummon extends GameEnemy {
     }
 
     @Override
-    protected Component getName() {
-        return super.getName().append(text(" Soul", NamedTextColor.AQUA));
+    public String name() {
+        if (exact) {
+            return super.name();
+        }
+        else {
+            return "<aqua>" + super.name() + " Soul</aqua>";
+        }
     }
 }

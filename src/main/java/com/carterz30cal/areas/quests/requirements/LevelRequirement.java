@@ -9,7 +9,7 @@ import com.carterz30cal.entities.player.GamePlayer;
  */
 public record LevelRequirement(long level) implements QuestRequirement {
     @Override
-    public boolean hasMetRequirements(GamePlayer player) {
+    public boolean satisfied(GamePlayer player) {
         return player.getLevel() >= level;
     }
 }

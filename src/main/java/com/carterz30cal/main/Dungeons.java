@@ -2,6 +2,8 @@ package com.carterz30cal.main;
 
 import com.carterz30cal.areas.Areas;
 import com.carterz30cal.areas.events.EventManager;
+import com.carterz30cal.areas.quests2.QuestCollection;
+import com.carterz30cal.areas.quests2.QuestData;
 import com.carterz30cal.commands.*;
 import com.carterz30cal.entities.GameEntity;
 import com.carterz30cal.entities.PlayerManager;
@@ -52,6 +54,8 @@ public class Dungeons extends JavaPlugin
         new PlayerManager();
         new EnemyManager();
 		new EventManager();
+        QuestData.init();
+        QuestCollection.init();
 		
 		registerEvent(new ListenerPlayerJoinLeave());
 		registerEvent(new ListenerEntityDamage());

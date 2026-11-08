@@ -36,7 +36,7 @@ spearfish_scythe_rare:
   time: 5m
   items:
     weird_flesh: 256
-    spiced_meat: 3
+    spiced_meat: 2
 
 piranha_dagger_rare:
   item: piranha_dagger_rare
@@ -44,8 +44,7 @@ piranha_dagger_rare:
   category: waterway_weapons
   items:
     piranha_dagger: 1
-    paper: 1
-    chilli_powder: 8
+    chilli_powder: 2
 
 pungent_sword_very_rare:
   level: 4

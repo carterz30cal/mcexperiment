@@ -30,9 +30,6 @@ drenched_VERY_RARE:
   loot:
     waterway_cod:
       amount: 10/25
-    meat_scraps:
-      chance: 1/300
-      amount: 4/4
     pet_drenched_common:
       chance: 1/100
     fishing_berries:

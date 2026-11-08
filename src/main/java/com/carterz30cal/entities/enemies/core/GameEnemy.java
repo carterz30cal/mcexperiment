@@ -110,6 +110,7 @@ public class GameEnemy extends GameEntity implements AggressiveEntity, Damageabl
      * @return the enemy's name, in <code>MiniMessage</code> format
      */
     public String name() {
+        //return "<dark_grey>[<aqua>" + enemyData.level + "</aqua>]</dark_grey> " + "<dark_grey>[<red>" + testAutomaticLevel() + "</red>]</dark_grey> " + enemyData.mmName;
         return "<dark_grey>[<aqua>" + enemyData.level + "</aqua>]</dark_grey> " + enemyData.mmName;
     }
 
@@ -157,6 +158,11 @@ public class GameEnemy extends GameEntity implements AggressiveEntity, Damageabl
             }
             if (healthSystem.isDead()) {
                 kill();
+            }
+            else {
+                if (damagePacket.aggressor != null && damagePacket.aggressor.isTargetable(this)) {
+                    enemyDirector.setTarget(damagePacket.aggressor.getTargetableEntity());
+                }
             }
 
             representation.damage();
@@ -321,6 +327,16 @@ public class GameEnemy extends GameEntity implements AggressiveEntity, Damageabl
         long levels = enemyData.level;
         double multiplier = (100D + rewardee.getStat(Stat.BONUS_COINS)) / 100D;
         return Math.round((health + damage + levels) * multiplier);
+    }
+
+    public long testAutomaticLevel() {
+        var raw = 0.8383 * Math.log(healthSystem.getMaxHealth()) + 0.5345 * Math.log(enemyData.getTotalRawDamage()) - 2.3195;
+        if (raw <= 5.893) {
+            return Math.round(raw);
+        }
+        else {
+            return Math.round(6 + 8.345 * (raw - 5.893));
+        }
     }
 
     protected void destroy()

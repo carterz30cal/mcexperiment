@@ -20,6 +20,7 @@ public enum PlayerTeleport {
     WATERWAY_LEAF_CAVE("leaf", new Location(Dungeons.w, -55, 84, 92, -170, 0), Areas.WATERWAY, new PreviousQuestRequirement(Questgivers.SCARED_SAM_SPOT1)),
     WATERWAY_TOP("andyapple", new Location(Dungeons.w, 23, 125, 97.5, 90, 0), Areas.WATERWAY, new PreviousQuestRequirement(Questgivers.ANDY_APPLE)),
     WATERWAY_PONDS("wwponds", new Location(Dungeons.w, -124, 78, 6), Areas.WATERWAY),
+    WATERWAY_TITAN_CAVE("wwtitancave", new Location(Dungeons.w, -46, 94, 108.5, -103, 0), Areas.WATERWAY),
     WATERWAY_SERAPH("seraph", new Location(Dungeons.w, 47, 96, 167.5, -90, 20), Areas.WATERWAY),
     NECROPOLIS_SPAWN("necropolis", new Location(Dungeons.w, 55.5, 69, 334.5, 12, 0)),
     NECROPOLIS_HYDRA("hydra", AreaMinibossNecropolisHydra.ALTAR_LOCATION.clone().add(1.5, 0, 0), Areas.NECROPOLIS, new HydraBossInactiveRequirement()),
@@ -108,7 +109,7 @@ public enum PlayerTeleport {
             return true;
         }
         else {
-            return requirement.hasMetRequirements(player);
+            return requirement.satisfied(player);
         }
     }
 

@@ -14,7 +14,7 @@ import static net.kyori.adventure.text.Component.text;
 
 /**
  * @author carterz30cal
- * @version 1
+ * @version 2
  * @since 1.0.0
  */
 public class PlayerAbilityContext implements ContextWithAbility<GamePlayer> {
@@ -22,9 +22,15 @@ public class PlayerAbilityContext implements ContextWithAbility<GamePlayer> {
     public int level;
     public Ability ability;
 
-    public PlayerAbilityContext(GameAbility ability) {
+    public PlayerAbilityContext(Ability ability) {
         this.ability = ability;
         this.owner = null;
+        this.level = 1;
+    }
+
+    public PlayerAbilityContext(GamePlayer owner, Ability ability) {
+        this.ability = ability;
+        this.owner = owner;
         this.level = 1;
     }
 

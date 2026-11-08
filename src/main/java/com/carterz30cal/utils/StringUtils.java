@@ -136,7 +136,7 @@ public class StringUtils
 				var edit = "<" + cmatch.group().substring(2);
 				openTags.remove(edit);
 			}
-			var adjusted = s.replaceAll("<[^>]+>]", "");
+            var adjusted = s.replaceAll("<[^>]+>", "");
 			var l = adjusted.strip().length();
             if (l > 2 && len + l > targetLength) {
 				var diff = (len + l) - targetLength;
@@ -163,7 +163,7 @@ public class StringUtils
 			}
 		}
 		if (!builder.isEmpty() && len > 0) {
-			if (len < targetLength / 3) {
+            if (len < targetLength / 3 && !wraps.isEmpty()) {
 				var adj = wraps.getLast() + " " + builder;
 				wraps.set(wraps.size() - 1, adj);
 			}

@@ -2,19 +2,23 @@ package com.carterz30cal.items.abilities.implementation;
 
 import com.carterz30cal.items.ItemReq;
 import com.carterz30cal.items.ItemType;
+import com.carterz30cal.items.abilities.Abilities;
 import net.kyori.adventure.text.format.NamedTextColor;
 import net.kyori.adventure.text.format.TextColor;
 
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
 /**
  * @author carterz30cal
- * @version 1
+ * @version 2
  * @since 1.0.0
  */
 public abstract class GameAbstractEnchant extends GameAbility implements AbilityWithName {
+    public static final List<Abilities> enchants = new ArrayList<>();
+
     private static final TextColor GOLD = TextColor.color(NamedTextColor.GOLD);
     private static final TextColor BLUE = TextColor.color(NamedTextColor.BLUE);
     private static final TextColor DARK_PURPLE = TextColor.color(NamedTextColor.DARK_PURPLE);
@@ -37,6 +41,12 @@ public abstract class GameAbstractEnchant extends GameAbility implements Ability
     }
 
     @Override
+    public void source(Abilities source) {
+        super.source(source);
+        enchants.add(this.source);
+    }
+
+    @Override
     public String name(PlayerAbilityContext context) {
         return name;
     }
@@ -55,6 +65,16 @@ public abstract class GameAbstractEnchant extends GameAbility implements Ability
     }
 
     /**
+     * How is this enchantment obtained?
+     *
+     * @return a <code>String</code> which details how to obtain the enchantment.
+     * @since 1.0.0 [2]
+     */
+    public String obtaining() {
+        return "A mystery!";
+    }
+
+    /**
      * Method for determining what item types this ability can work with.
      * Currently only used for enchantments
      *
@@ -66,6 +86,8 @@ public abstract class GameAbstractEnchant extends GameAbility implements Ability
     }
 
     public abstract List<ItemReq> getCatalystRequirements(PlayerAbilityContext context, long level);
+
+
 
     /**
      *

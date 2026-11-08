@@ -56,6 +56,7 @@ public class ItemProducerGUI extends AbstractGUI {
                         reqs.execute(owner);
                         owner.playSound(Sound.ENTITY_PLAYER_LEVELUP, 1, 1);
                         owner.sendMessage("<gold><b>BOOM!</b></gold><gold> You've unlocked this factory!");
+                        producer.level(1);
                     }
                     else if (result == ItemReqs.FailureReason.MISSING_ITEMS) {
                         owner.sendMessage("<red>You don't have the items required to unlock this factory!");

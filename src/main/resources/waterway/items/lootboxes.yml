@@ -58,12 +58,39 @@ titan_lootbox_1:
       chance: 1/20
       amount: 1/1
       enchants: ENCHANT_TITANIC-2
+    water_matriarch_key:
+      chance: 1/90
+      amount: 1/2
     paper_production_core:
       chance: 1/110
       amount: 1/1
     combination_catalyst_shard-ag:
       chance: 1/120
       amount: 10/15
+
+water_spider_matriarch_lootbox:
+  name: Water Matriarch Lootbox
+  type: LOOTBOX
+  material: WHITE_WOOL
+  rarity: VERY_RARE
+  drops:
+    spider_silk:
+      amount: 75/100
+    waterway_sac:
+      amount: 1/1
+    chilli_powder:
+      amount: 5/20
+      chance: 1/3
+    combination_catalyst_shard:
+      amount: 1/3
+      chance: 1/10
+    waterway_sac-2:
+      amount: 4/6
+      chance: 1/20
+    spider_bow:
+      amount: 1/1
+      chance: 1/35
+
 
 titan_lootbox_2:
   name: Lightning Titan Box

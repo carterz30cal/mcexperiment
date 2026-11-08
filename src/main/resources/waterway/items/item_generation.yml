@@ -27,6 +27,18 @@ flesh_production_core:
     - stinking flesh without any sustenance.
     - You are highly advised to hold your nose.
 
+bottomless_water_bucket:
+  name: Bottomless Water Bucket
+  type: PRODUCTION_CORE
+  material: WATER_BUCKET
+  rarity: LEGENDARY
+  value: 7500
+  generator:
+    item: waterway_cod
+    milliseconds: 10000
+  lore:
+    - You can't see the bottom.
+
 chilli_production_core:
   name: Chilli Portal
   type: PRODUCTION_CORE

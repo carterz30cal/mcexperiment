@@ -59,25 +59,31 @@ rainbow_slime_collection:
   description:
     - Slime comes in every colour of the rainbow!
     - Collect them all!
-    - <dark_grey>Every tier above green slime rewards progress</dark_grey>
+    - <dark_grey>Red, yellow, blue & purple slimes award progress!</dark_grey>
   tier-descriptions:
-    - Dry as a Bone
+    - Colourless
     - Slime Novice
     - Slime for Dummies
-    - Slimealicious!
+    - Slimalicious!
     - Slimetastic!
+    - Slip 'n' Slime
+    - Rainbow Slime Loom
   tiers:
     - 5
     - 75
     - 250
     - 2000
     - 10000
+    - 50000
+    - 200000
   xp-rewards:
     - 20
     - 15
     - 10
     - 5
-    - 5
+    - 4
+    - 2
+    - 1
 
 necropolis_fish_collection:
   name: Necropolis Puffers

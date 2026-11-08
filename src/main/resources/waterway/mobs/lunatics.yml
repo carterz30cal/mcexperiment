@@ -88,6 +88,7 @@ lunatic_3:
     category: waterway_lunatics
   tags:
     - LUNATIC
+    - LUNATIC_WARRIOR
   loot:
     weird_flesh:
       amount: 5/11
@@ -127,6 +128,7 @@ lunatic_4:
     category: waterway_lunatics
   tags:
     - LUNATIC
+    - LUNATIC_WARRIOR
     - LUNATIC_HIGH_RANK
   loot:
     weird_flesh:
