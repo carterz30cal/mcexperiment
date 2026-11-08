@@ -2,6 +2,7 @@ package com.carterz30cal.items.abilities;
 
 import com.carterz30cal.areas.bosses.necropolis.AreaCryptNecropolis;
 import com.carterz30cal.areas.bosses.necropolis.AreaMinibossNecropolisHydra;
+import com.carterz30cal.areas.bosses.waterway.AreaMinibossWaterMatriarch;
 import com.carterz30cal.entities.health.damage.DamageType;
 import com.carterz30cal.entities.health.status.StatusEffect;
 import com.carterz30cal.entities.player.GamePlayer;
@@ -10,9 +11,14 @@ import com.carterz30cal.items.abilities.generic.*;
 import com.carterz30cal.items.abilities.implementation.GameAbility;
 import com.carterz30cal.items.abilities.implementation.PlayerAbilityContext;
 import com.carterz30cal.items.abilities.necropolis.enchants.CryptStatEnchantment;
+import com.carterz30cal.items.abilities.necropolis.enchants.SlimaliciousEnchant;
 import com.carterz30cal.items.abilities.necropolis.enchants.StatusEffectEnchantment;
 import com.carterz30cal.items.abilities.necropolis.enchants.ThornsEnchantment;
 import com.carterz30cal.items.abilities.necropolis.items.*;
+import com.carterz30cal.items.abilities.necropolis.runes.FlowRune;
+import com.carterz30cal.items.abilities.necropolis.runes.SeparationRune;
+import com.carterz30cal.items.abilities.necropolis.runes.StandstillRune;
+import com.carterz30cal.items.abilities.necropolis.runes.WarriorRune;
 import com.carterz30cal.items.abilities.waterway.*;
 import com.carterz30cal.items.abilities.waterway.factory.CatalystDustCoagulatorFactoryUpgrade;
 import com.carterz30cal.items.abilities.waterway.pets.*;
@@ -31,49 +37,54 @@ import com.carterz30cal.stats.operations.LegacyStatOperation;
 public enum Abilities
 {
 	ENCHANT_SHARPNESS(new StatEnchantment(
-			"Sharpness", 2,
+            "Sharpness", "Various sources, can be dropped by lunatics or forged.",
+            2,
             Stat.STRENGTH, 0, 20, 5, ItemType.WEAPON, ItemType.BOW, ItemType.ROD)),
 	ENCHANT_HEALTHY(new StatEnchantment(
-			"Healthy", 1,
+            "Healthy",
+            "Forged using leaf mash and chilli powder.",
+            1,
             Stat.HEALTH, 30, 10, 3,
 			ItemType.HELMET, ItemType.CHESTPLATE, ItemType.LEGGINGS, ItemType.BOOTS
 	)),
 	ENCHANT_TITANIC(new StatEnchantment(
-			"Titanic", 1,
+            "Titanic", "Found in titan lootboxes or bought from smugglers.",
+            1,
             Stat.DEFENCE, 10, 5, 5,
 			ItemType.HELMET, ItemType.CHESTPLATE, ItemType.LEGGINGS, ItemType.BOOTS
 	)),
 	ENCHANT_PEARLED(new StatEnchantment(
-            "Pearled", 2,
+            "Pearled", "Forged using Waterway Sacs.", 2,
             Stat.MANA, 0, 10, 5,
 			ItemType.HELMET, ItemType.CHESTPLATE, ItemType.LEGGINGS, ItemType.BOOTS
 	)),
 	ENCHANT_BOOST(new StatEnchantment(
-			"Boost", 1,
+            "Boost", "Forged using Cooked Waterway Cod.", 1,
 			Stat.POWER, 0, 2, 8, ItemType.BOOTS
 	)),
 	ENCHANT_SUPERLURE(new SuperLureEnchantment()),
     ENCHANT_SLIMED(new StatEnchantment(
-            "Slimed", 2, Stat.DEFENCE,
+            "Slimed", "Forged using Green Slime, which can be found by killing Sea Slimes.", 2, Stat.DEFENCE,
             5, 5, 4, StatOperationType.MULTIPLY, ItemType.CHESTPLATE
     )),
     ENCHANT_LUCK(new StatEnchantment(
             "Luck", 1, Stat.LUCK, 0, 1, 5, ItemType.WEAPON, ItemType.ROD, ItemType.WAND, ItemType.BOW
     )),
     ENCHANT_CONCENTRATION(new StatEnchantment(
-            "Concentration", 3, Stat.FOCUS, 1, 1, 3, ItemType.HELMET, ItemType.WEAPON
+            "Concentration", "Dropped by the Water Seraph occasionally.", 3, Stat.FOCUS, 1, 1, 3, ItemType.HELMET, ItemType.WEAPON
     )),
 	ENCHANT_FLIMSY_PERSISTENCE(
 			new FlimsyPersistenceEnchant()
 	),
     ENCHANT_LAST_CHANCE(new LastChanceEnchantment()),
-    ENCHANT_POWER(new StatEnchantment("Power", 2, Stat.DAMAGE, 0, 1, 5, ItemType.BOW)),
-    ENCHANT_BLADE(new StatEnchantment("Blade", 2, Stat.DAMAGE, 0, 1, 4, ItemType.WEAPON)),
+    ENCHANT_POWER(new StatEnchantment("Power", "Dropped by archers.", 2, Stat.DAMAGE, 0, 1, 5, ItemType.BOW)),
+    ENCHANT_BLADE(new StatEnchantment("Blade", "Found by killing major bosses.",
+            2, Stat.DAMAGE, 0, 1, 4, ItemType.WEAPON)),
 
     ENCHANT_REGROWTH(new StatEnchantment("Regrowth", 2, Stat.VITALITY, 1, 1, 2, ItemType.WEAPON, ItemType.BOW, ItemType.ROD)),
 
 	NECROMANCY_SWORD(new NecromancerAbility()),
-    HEALING_WAND_WATERWAY(new HealingAbility(15, 10, 5)),
+    HEALING_WAND_WATERWAY(new HealingAbility(10, 8, 4)),
 	SET_LEAF(new LeafArmourSet()),
 	SET_ZOMBIE(new ZombieArmourSet()),
 	PET_DRENCHED_ACTIVE(new PetDrenchedActive()),
@@ -90,6 +101,8 @@ public enum Abilities
     MAGIC_SWORD(new MagicSwordAbility()),
     RAGING_AXE(new RagingAxeAbility()),
     SERAPH_SUMMON_GUIDE(new SeraphSummonGuideAbility("water_seraph_spirit", 20)),
+    LEATHER_QUIVER(new MultiplyDamageAbility("Arrow Amateur", DamageType.PROJECTILE, 1.1)),
+    WATER_MATRIARCH_LESSER_KEY(new MatriarchKeyAbility(AreaMinibossWaterMatriarch.MatriarchBossTier.LESSER, "water_matriarch_key")),
     ADMIN_INSTANT_DEATH_SWORD(new DeadAbility()),
 
 	CATALYST_DUST_COAGULATOR(new CatalystDustCoagulatorFactoryUpgrade()),
@@ -113,6 +126,7 @@ public enum Abilities
 			ItemType.HELMET, ItemType.CHESTPLATE, ItemType.LEGGINGS,
 			ItemType.BOOTS
 	)),
+    ENCHANT_SLIMALICIOUS(new SlimaliciousEnchant()),
 	ENCHANT_FEROCITY(new StatEnchantment(
 			"Ferocity", 2, Stat.SAVAGERY, 0, 1, 10,
 			ItemType.WEAPON, ItemType.BOW, ItemType.ROD
@@ -142,17 +156,30 @@ public enum Abilities
     NECROPOLIS_CRYPT_KEY_LESSER(new NecropolisCryptKeyAbility(AreaCryptNecropolis.NecropolisCryptTier.LESSER, "crypt_key_lesser")),
     CRYPT_TANK_ARMOUR_PIECE(new CryptStatAbility("Endless Defence",
             "This item has <green>3x Defence</green> whilst in a crypt.", new LegacyStatOperation(StatOperationType.MULTIPLY, 3, Stat.DEFENCE))),
+    CRYPT_DWELLER_ARMOUR_PIECE(new CryptStatAbility("The Smell of Bone Dust", "This armour piece gains <blue>20 Strength</blue> whilst you're in a crypt.",
+            new AddStatOperation(Stat.STRENGTH, 20))),
+    CRYPT_RANGER_ARMOUR_PIECE(new CryptStatAbility("The Smell of Bone Dust", "This armour piece gains <blue>25 Power</blue> whilst you're in a crypt.",
+            new AddStatOperation(Stat.POWER, 25))),
     CRYPT_KNIGHT_SWORD(new CryptStatAbility("Smashing Strength", "This sword has <blue>3x Strength</blue> whilst in a crypt.",
             new LegacyStatOperation(StatOperationType.MULTIPLY, 3, Stat.STRENGTH))),
     ENCHANT_CRYPT_MIGHT(new CryptStatEnchantment("Crypt Might", 2, Stat.MIGHT, 0, 10, 5, ItemType.WEAPON, ItemType.BOW, ItemType.ROD)),
+    CRYPT_TALISMAN_COMMON(new CryptStatAbility("Rapid Regenerative Rancours", "Whilst in a crypt, this talisman gains <green>25 Vitality</green>.", new AddStatOperation(Stat.VITALITY, 25))),
     ENCHANT_STEALTH(new StatEnchantment("Stealth", 1, Stat.VISIBILITY, 0, -1, 3, ItemType.LEGGINGS, ItemType.BOOTS)),
     PET_CRYPT_DWELLER_PASSIVE(new DamageToTagAbility("Passive: Plundering", "CRYPT", "crypt", 1.05, 0.05, DamageType.PHYSICAL)),
+
+    HAUNTING_PICKAXE(new CryptStatAbility("Plunderer's Fortune", "This pickaxe has <gold>double</gold> the fortune whilst mining in a crypt!",
+            new LegacyStatOperation(StatOperationType.MULTIPLY, 2, Stat.MINING_FORTUNE))),
+
+    FLOW_RUNE(new FlowRune()),
+    WARRIOR_RUNE(new WarriorRune()),
+    STANDSTILL_RUNE(new StandstillRune()),
+    SEPARATION_RUNE(new SeparationRune())
     ;
 	public final GameAbility ability;
 
 	Abilities(GameAbility ability) {
 		this.ability = ability;
-		this.ability.source = this;
+        this.ability.source(this);
 	}
 
     public PlayerAbilityContext getContext(GamePlayer owner, int level) {

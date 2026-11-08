@@ -118,7 +118,7 @@ public final class QuestCollection {
             lore.add("<grey>You have completed all <green>" + finished + "</green> quests!");
         }
         else if (finished == 0) {
-            lore.add("<grey>You have finished <red>0</red>/" + quests.size() + " quests!");
+            lore.add("<grey>You have finished <red>0</red>/<green>" + quests.size() + "</green> quests!");
         }
         else {
             lore.add("<grey>You have finished <yellow>" + finished + "</yellow>/<green>" + quests.size() + "</green> quests!");

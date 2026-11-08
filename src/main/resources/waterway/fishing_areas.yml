@@ -5,16 +5,16 @@ WATERWAY:
   brackets:
     COMMON:
       weight: 200
-      mobs: 3
+      mobs: 2
     UNCOMMON:
       weight: 75
-      mobs: 4
+      mobs: 5
     RARE:
       weight: 20
-      mobs: 6
+      mobs: 8
     VERY_RARE:
       weight: 5
-      mobs: 9
+      mobs: 16
 
 NECROPOLIS:
   power-subtraction: 150
@@ -23,7 +23,7 @@ NECROPOLIS:
   brackets:
     COMMON:
       weight: 350
-      mobs: 5
+      mobs: 3
     UNCOMMON:
       weight: 100
       mobs: 6

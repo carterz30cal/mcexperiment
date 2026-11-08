@@ -33,6 +33,17 @@ fisherman_2:
   bestiary:
     category: NO_REGISTER
 
+harold_spiderhater:
+  name: NPC
+  entities:
+    _:
+      type: MANNEQUIN
+      scale: 1
+      offset: [ 0,0,0 ]
+      skull: harold_spiderhater
+  bestiary:
+    category: NO_REGISTER
+
 
 raintown_resident:
   name: NPC

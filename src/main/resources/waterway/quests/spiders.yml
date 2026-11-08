@@ -1,0 +1,82 @@
+harold_1:
+  name: Arthropod Eliminator I
+  repeatable: false
+  class: RequirementQuest
+  message: Talk to Harold again when you've got more health or defence, or are at a higher level.
+  quest-requirement:
+    class: ComboQuestRequirement
+    require-all: false
+    sub-requirements:
+      health:
+        class: StatRequirement
+        stat: HEALTH
+        amount: 500
+      defence:
+        class: StatRequirement
+        stat: DEFENCE
+        amount: 120
+      level-skip:
+        class: LevelQuestRequirement
+        level: 6
+  npc:
+    name: Harold Spiderhater
+    location: -37.5, 96, 147.8, -140, 0
+    representation: harold_spiderhater
+  reward:
+    class: ItemQuestReward
+    xp: 5
+    items:
+      - water_matriarch_key£2
+  dialog:
+    voice: Harold
+    beginning:
+      - Hey! Up ahead is the Water Matriarch's lair!
+      - You aren't strong enough for it!
+      - Turn back!
+    chatter:
+      - Come back with more defensive stats, or a higher level.
+    ending:
+      - You're quite tanky, you should be fine for the Matriarch's lair up ahead.
+      - The little spiders' silk is quite useful for forging bows!
+      - Here, take these sweets, I've heard it lures in the Matriarch in her lair!
+      - If you need more, the little spiders should occasionally have one.
+
+harold_2:
+  name: Arthropod Eliminator II
+  repeatable: false
+  class: KillTagQuest
+  tag: WATERWAY_SPIDER_MATRIARCH
+  count: 1
+  pretty-name: Water Matriarch
+  requirement:
+    class: CompleteQuestRequirement
+    quest: harold_1
+  npc:
+    name: Harold Spiderhater
+    location: -101.7, 102, 172.8, -140,0
+    representation: harold_spiderhater
+  reward:
+    class: ItemQuestReward
+    coins: 5000
+    xp: 20
+    items:
+      - water_matriarch_key£2
+      - waterway_sac£1
+      - waterway_note_1£1
+  dialog:
+    voice: Harold
+    beginning:
+      - Good job making it this far into the lair. Just behind this pillar is the Matriarch's nest.
+      - Here is where you, and optionally a few friends, can fight the Water Matriarch, if you fancy.
+      - It's a very good way of obtaining Waterway Sacs, as well as some spider-themed loot.
+      - Kill her, and I'll reward you handsomely.
+      - Talk to me again for tips!
+    chatter:
+      - You won't be able to defend against the <dark_green>poison damage</dark_green> portion of her attacks, so focus on negating as much of the physical portion as you can and heal the rest.
+      - The Matriarch is quite weak to projectiles, if you already own a bow.
+      - Having a friend kill the spiderlings can be quite helpful, but be careful, they cannot be killed in one hit!
+      - If you can deal anything above about 50 damage a hit, you should be fine.
+    ending:
+      - Yikes, her death screech is quite painful on the ears.
+      - I think I'll have to go to Joe's after this.
+      - Here's your reward. Seeya!

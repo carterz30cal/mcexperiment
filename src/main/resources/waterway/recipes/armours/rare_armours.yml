@@ -5,7 +5,7 @@ leaf_helmet:
   items:
     waterway_sac: 1
     water_helmet: 2
-    leaf_mash: 128
+    leaf_ball: 1
 
 leaf_chestplate:
   level: 4
@@ -14,7 +14,7 @@ leaf_chestplate:
   items:
     waterway_sac: 1
     water_chestplate: 2
-    leaf_mash: 256
+    leaf_ball: 3
 
 leaf_leggings:
   level: 4
@@ -23,7 +23,7 @@ leaf_leggings:
   items:
     waterway_sac: 1
     water_leggings: 2
-    leaf_mash: 256
+    leaf_ball: 2
 
 leaf_boots:
   level: 4
@@ -32,7 +32,7 @@ leaf_boots:
   items:
     waterway_sac: 1
     water_boots: 2
-    leaf_mash: 128
+    leaf_ball: 1
 
 gold_leaf_helmet:
   level: 4
@@ -42,7 +42,7 @@ gold_leaf_helmet:
   items:
     leather_helmet: 1
     waterway_sac: 1
-    gold_leaf: 5
+    gold_leaf: 30
     spiced_meat: 5
 
 gold_leaf_chestplate:
@@ -53,7 +53,7 @@ gold_leaf_chestplate:
   items:
     leather_chestplate: 1
     waterway_sac: 1
-    gold_leaf: 5
+    gold_leaf: 50
     spiced_meat: 10
 
 gold_leaf_leggings:
@@ -64,7 +64,7 @@ gold_leaf_leggings:
   items:
     leather_leggings: 1
     waterway_sac: 1
-    gold_leaf: 5
+    gold_leaf: 40
     spiced_meat: 7
 
 gold_leaf_boots:
@@ -75,7 +75,7 @@ gold_leaf_boots:
   items:
     leather_boots: 1
     waterway_sac: 1
-    gold_leaf: 5
+    gold_leaf: 20
     spiced_meat: 3
 
 zombie_helmet:

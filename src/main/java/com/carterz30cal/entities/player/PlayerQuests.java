@@ -24,7 +24,7 @@ import java.util.Map;
 public final class PlayerQuests implements PlayerSavable {
     private final GamePlayer owner;
     private final Map<String, Quest> progressing = new HashMap<>();
-    private List<String> completed;
+    private List<String> completed = new ArrayList<>();
     private String selected;
 
     public PlayerQuests(GamePlayer owner) {
@@ -60,7 +60,7 @@ public final class PlayerQuests implements PlayerSavable {
     }
 
     public boolean finished(String quest) {
-        return completed.contains(quest);
+        return completed != null && completed.contains(quest);
     }
 
     public boolean started(String quest) {
@@ -90,7 +90,11 @@ public final class PlayerQuests implements PlayerSavable {
         if (from.complete(owner)) {
             return;
         }
-        selected = RandomUtils.getChoice(from.incomplete(owner));
+        var incomplete = from.incomplete(owner);
+        if (incomplete.isEmpty()) {
+            return;
+        }
+        selected = RandomUtils.getChoice(incomplete);
     }
 
     public void select(String qid) {
@@ -132,6 +136,9 @@ public final class PlayerQuests implements PlayerSavable {
 
     public long xp() {
         long total = 0;
+        if (completed == null) {
+            return 0L;
+        }
         for (var c : completed) {
             var data = QuestData.get(c);
             assert data != null;

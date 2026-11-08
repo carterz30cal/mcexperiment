@@ -65,7 +65,6 @@ public class BestiaryGUI extends AbstractGUI {
     }
 
     private void update() {
-
         clickableCategories = new String[54];
 
         List<String> list = new ArrayList<>();
@@ -74,8 +73,9 @@ public class BestiaryGUI extends AbstractGUI {
         unsorted.sort(Comparator.comparingLong(a -> -Objects.requireNonNull(EnemyBuilder.getBuilder(a)).getEnemyData().level));
         list.addAll(unsorted);
         inventory.initUsingTemplate(GooeyTemplate.SHOPPY_DARK);
+        int d = ((page - 1) * (7 * 4));
         for (int i = 0; i < 7 * 4; i++) {
-            int dex = ((page - 1) * (7 * 4)) + i;
+            int dex = d + i;
             if (dex >= list.size()) {
                 break;
             }
@@ -84,6 +84,17 @@ public class BestiaryGUI extends AbstractGUI {
 
             if (categories.containsKey(list.get(dex))) {
                 BestiaryCategory category = categories.get(list.get(dex));
+                boolean unlocked = false;
+                for (var k : category.types) {
+                    if (owner.kills.getOrDefault(k, 0L) > 0) {
+                        unlocked = true;
+                        break;
+                    }
+                }
+                if (!unlocked && false) {
+                    d--;
+                    continue;
+                }
                 clickableCategories[point] = category.id;
                 inventory.setSlot(generateCategory(list.get(dex)), point);
             }
@@ -95,8 +106,6 @@ public class BestiaryGUI extends AbstractGUI {
                     inventory.setSlot(generateBestiaryEntry(list.get(dex)), point);
                 }
             }
-
-
         }
 
         inventory.setSlot(generateCategory(category), calc(4, 0));
@@ -193,7 +202,6 @@ public class BestiaryGUI extends AbstractGUI {
         lore.add("");
         if (data.lootTable != null && !data.lootTable.GetLoot().isEmpty()) {
             lore.add("<gold>Drops:");
-            boolean displayLuckMessage = false;
             for (var loot : data.lootTable.GetLoot()) {
                 Item item = ItemFactory.getItem(loot.item);
                 if (item == null) {
@@ -202,32 +210,32 @@ public class BestiaryGUI extends AbstractGUI {
                 String main = "<" + item.rarity.textColor.asHexString() + ">" + item.name + "</" + item.rarity.textColor.asHexString() + ">";
                 String drop;
                 String amount;
-                if (loot.amount[0] == loot.amount[1]) {
-                    if (loot.amount[0] == 1) {
+
+                long minRolls = (owner.getStat(Stat.LUCK) / 100) + 1;
+                long maxRolls = minRolls + ((owner.getStat(Stat.LUCK) % 100 > 0) ? 1 : 0);
+                long a1 = loot.amount[0] * minRolls;
+                long a2 = loot.amount[1] * maxRolls;
+                var chance = ((loot.chance[0] * (owner.getStat(Stat.LUCK) / 100D)) / loot.chance[1]) * 100;
+
+                if (a1 == a2 || (loot.amount[0] == loot.amount[1])) {
+                    if (a1 == 1) {
                         amount = "";
                     }
                     else {
-                        amount = "<dark_grey>x" + loot.amount[0] + "</dark_grey>";
+                        amount = "<dark_grey>x" + a1 + "</dark_grey>";
                     }
                 }
                 else {
-                    amount = "<dark_grey>x" + loot.amount[0] + "-" + loot.amount[1] + "</dark_grey>";
+                    amount = "<dark_grey>x" + a1 + "-" + a2 + "</dark_grey>";
                 }
-                if ((double) loot.chance[0] / loot.chance[1] < 0.99) {
-                    displayLuckMessage = true;
-                    var ch = (loot.chance[0] / (double) loot.chance[1]) * 100;
-                    int dp = Math.max(1, (int) Math.log10(1 / ch) + 1);
-                    drop = "<dark_grey>(<aqua>" + StringUtils.truncate(ch, dp) + "%</aqua>)</dark_grey>";
+                if (chance < 99) {
+                    int dp = Math.max(1, (int) Math.log10(1 / chance) + 1);
+                    drop = "<dark_grey>(<aqua>" + StringUtils.truncate(chance, dp) + "%</aqua>)</dark_grey>";
                 }
                 else {
                     drop = "";
                 }
                 lore.add("<dark_grey>-</dark_grey> " + main + (amount.isEmpty() ? "" : (" " + amount)) + " " + drop);
-            }
-            if (displayLuckMessage) {
-                lore.add("<dark_grey>Drop chances are displayed as base rates");
-                lore.add("<dark_grey>so they may be higher in reality if");
-                lore.add("<dark_grey>you have any of the luck stat.");
             }
         }
         else {

@@ -163,7 +163,7 @@ public class StringUtils
 			}
 		}
 		if (!builder.isEmpty() && len > 0) {
-			if (len < targetLength / 3) {
+            if (len < targetLength / 3 && !wraps.isEmpty()) {
 				var adj = wraps.getLast() + " " + builder;
 				wraps.set(wraps.size() - 1, adj);
 			}

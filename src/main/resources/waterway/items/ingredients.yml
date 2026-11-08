@@ -43,8 +43,9 @@ wet_paper:
   glow: true
   value: 1
   lore:
-    - A heap of soggy mush.
-    - Dropped by <shadow:light_purple:0.25>titans</shadow>
+    - A heap of soggy mush. Titans love to read, but
+    - their soggy bodies cause the books to degrade
+    - into these sad sheets of lost information.
 
 spider_silk:
   name: Spider Silk
@@ -70,6 +71,18 @@ leaf_mash:
     - Blend of mushed-up leaves, devoid
     - of any nutritional content. Can be
     - mined throughout Waterway.
+
+leaf_ball:
+  name: Leaf Ball
+  type: INGREDIENT
+  rarity: RARE
+  material: SLIME_BALL
+  value: 320
+  discovery: leaf_mash_collection
+  discovery-progress: 320
+  lore:
+    - Leaf mash, compressed into a horrid stinking
+    - ball, still without nutritional content.
 
 gold_leaf:
   name: Gold Leaf
@@ -233,6 +246,15 @@ waterway_downpour_key:
   value: 100
   abilities:
     - WATERWAY_DOWNPOUR_KEY
+
+water_matriarch_key:
+  name: Matriarch-Luring Sweet
+  type: KEY
+  rarity: EPIC
+  material: RESIN_BRICK
+  value: 400
+  abilities:
+    - WATER_MATRIARCH_LESSER_KEY
 
 
 

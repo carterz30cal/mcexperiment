@@ -72,12 +72,15 @@ public class RandomUtils
 	{
 		return array[getRandomEx(0,array.length)];
 	}
-	public static <T> T getChoice(List<T> list)
+
+
+    public static <T> T getChoice(List<T> list)
 	{
 		return list.get(getRandomEx(0,list.size()));
 	}
-	
-	@SuppressWarnings("unchecked")
+
+
+    @SuppressWarnings("unchecked")
 	public static <T> T getChoice(Set<T> list)
 	{
 		return (T) getChoice(list.toArray());

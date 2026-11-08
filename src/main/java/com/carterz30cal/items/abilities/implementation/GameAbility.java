@@ -19,6 +19,10 @@ public abstract class GameAbility implements Ability {
 
     public Abilities source;
 
+    public void source(Abilities source) {
+        this.source = source;
+    }
+
     @Deprecated
     public void onKill(PlayerAbilityContext context, GameEnemy killed)
     {

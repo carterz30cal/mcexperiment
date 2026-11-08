@@ -35,7 +35,7 @@ import java.util.*;
 
 /**
  * @author carterz30cal
- * @version 1
+ * @version 2
  * @since 1.0.0
  */
 public class AreaCryptNecropolis extends AbstractAreaBoss implements BlockMutator {
@@ -53,6 +53,8 @@ public class AreaCryptNecropolis extends AbstractAreaBoss implements BlockMutato
     private final List<AbstractEnemySpawner> enemies = new ArrayList<>();
     private final List<Box> triggerZones = new ArrayList<>();
     private final List<Location> lootChests = new ArrayList<>();
+    @Nullable
+    private final NecropolisCryptModifier modifier;
     private PastingBox paste;
     private World instancedWorld;
     private boolean hasNotifiedLowTPS = false;
@@ -68,6 +70,10 @@ public class AreaCryptNecropolis extends AbstractAreaBoss implements BlockMutato
     private GameEnemy keyMiniboss;
     private int totalPlayers;
     private int ticksOpen;
+    private final GroupMap<String> mobs;
+    private final GroupMap<WeightedDrop> loot;
+    private final GroupMap<Material> materials;
+    private final int closingTime;
 
     public AreaCryptNecropolis(GamePlayer owner, NecropolisCryptTier tier) {
         uuid = UUID.randomUUID();
@@ -77,6 +83,22 @@ public class AreaCryptNecropolis extends AbstractAreaBoss implements BlockMutato
         phase = -1;
         this.owner = owner;
         activeCrypts.add(this);
+        if (RandomUtils.getRandom(1, 3) == 1 || true) {
+            modifier = RandomUtils.getChoice(tier.modifiers);
+        }
+        else {
+            modifier = null;
+        }
+        mobs = tier.mobs.extend(modifier != null ? modifier.mobs : null);
+        loot = tier.loot.extend(modifier != null ? modifier.loot : null);
+        materials = tier.materials.extend(modifier != null ? modifier.materials : null);
+
+        if (modifier == NecropolisCryptModifier.OLD) {
+            closingTime = 20 * 60 * 10;
+        }
+        else {
+            closingTime = 20 * 60 * 20;
+        }
         start();
     }
 
@@ -113,7 +135,7 @@ public class AreaCryptNecropolis extends AbstractAreaBoss implements BlockMutato
 
     @Override
     public void start() {
-        drops(tier.drops);
+        drops(loot.get("chest").contents());
     }
 
     @Override
@@ -158,21 +180,21 @@ public class AreaCryptNecropolis extends AbstractAreaBoss implements BlockMutato
                     doorBoss.setTemporaryWithin(Material.NETHER_BRICKS);
                     for (var group : doorBlocks.values()) {
                         var selection = RandomUtils.getChoice(group);
-                        selection.setTemporaryWithin(tier.wall);
+                        selection.setTemporaryWithin(materials.random("door", "wall"));
                     }
                     var runeg = RandomUtils.getChoice(runeDoors.keySet());
-                    rune = RandomUtils.getChoice(tier.runes);
+                    rune = Objects.requireNonNull(loot.random("rune")).data;
                     floatingRune = new AnimatedGameItemDisplay(rune, runes.get(runeg)).setBobSpeed(45).setRotationSpeed(45);
 
                     for (var r : runeDoors.entrySet()) {
                         if (Objects.equals(r.getKey(), runeg)) {
                             continue;
                         }
-                        r.getValue().setTemporaryWithin(tier.wall);
+                        r.getValue().setTemporaryWithin(materials.random("wall"));
                     }
                     var key = RandomUtils.getChoice(minibosses);
                     for (var miniboss : minibosses) {
-                        var spawning = EnemyManager.spawn(RandomUtils.getChoice(tier.minibosses), miniboss, true);
+                        var spawning = EnemyManager.spawn(mobs.random("miniboss"), miniboss, true);
                         if (miniboss.equals(key)) {
                             keyMiniboss = spawning;
                         }
@@ -183,14 +205,14 @@ public class AreaCryptNecropolis extends AbstractAreaBoss implements BlockMutato
         }
         else {
             ticksOpen++;
-            if (ticksOpen == 20 * 60 * 15) {
+            if (ticksOpen == Math.round((double) closingTime * (3 / 4D))) {
                 message("<grey><i>The crypt begins to shake, you should probably leave soon!");
             }
-            else if (ticksOpen == 20 * 60 * 19) {
+            else if (ticksOpen == closingTime - (20 * 60)) {
                 message("<grey><i>The crypt violently shakes!");
                 message("<grey><i>You probably have a minute left before this place collapses!", 1);
             }
-            else if (ticksOpen == 20 * 60 * 20) {
+            else if (ticksOpen == closingTime) {
                 message("<grey><i>The crypt has collapsed around you, killing everyone and everything inside.");
                 for (var p : registered()) {
                     p.kill("<red>You were killed by a falling rock.");
@@ -224,7 +246,7 @@ public class AreaCryptNecropolis extends AbstractAreaBoss implements BlockMutato
                     phase = 4;
                     doorBoss.reset();
                     bossDoorOpened = true;
-                    boss = EnemyManager.spawn(RandomUtils.getChoice(tier.bosses), bossLocation);
+                    boss = EnemyManager.spawn(mobs.random("boss"), bossLocation);
                 }
             }
             else if (phase == 4) {
@@ -242,6 +264,9 @@ public class AreaCryptNecropolis extends AbstractAreaBoss implements BlockMutato
         selectedSpawn.setWorld(instancedWorld);
         for (var r : registered()) {
             r.teleport(selectedSpawn);
+            if (modifier != null) {
+                r.sendMessage("<grey><i>" + modifier.announcement);
+            }
         }
     }
 
@@ -345,7 +370,13 @@ public class AreaCryptNecropolis extends AbstractAreaBoss implements BlockMutato
             data.update(true, false);
             player.play(Key.key("block.chest.open"), Sound.Source.BLOCK, 0.9, 0.9);
             for (var r : registered()) {
-                var drops = drops(r, RandomUtils.getRandom(3, 5));
+                var lb = 3;
+                var ub = 5;
+                if (modifier == NecropolisCryptModifier.OLD) {
+                    lb = 1;
+                    ub = 3;
+                }
+                var drops = drops(r, RandomUtils.getRandom(lb, ub));
                 r.sendMessage("<gold><b>CHEST LOOT!");
                 Map<String, Integer> loot = new HashMap<>();
                 for (var drop : drops) {
@@ -426,11 +457,7 @@ public class AreaCryptNecropolis extends AbstractAreaBoss implements BlockMutato
                     chdata.setFacing(((org.bukkit.block.data.type.Sign) data.getBlockData()).getRotation());
                     return chdata.createBlockState().copy(loc);
                 case "mob":
-                    List<String> options = switch (line2.strip()) {
-                        case "regular" -> tier.regularEnemyOptions;
-                        case "ranged" -> tier.rangedEnemyOptions;
-                        default -> new ArrayList<>();
-                    };
+                    var options = mobs.get(line2.strip()).contents();
                     var spawner = new FixedCountEnemySpawner(loc, Integer.parseInt(line3), Integer.parseInt(line4), options.toArray(new String[0]));
                     enemies.add(spawner);
                     break;
@@ -476,9 +503,11 @@ public class AreaCryptNecropolis extends AbstractAreaBoss implements BlockMutato
         var material = data.getBlockData().getMaterial();
         return switch (material) {
             case BROWN_WOOL ->
-                    RandomUtils.getChoice(tier.floor).createBlockData().createBlockState().copy(data.getLocation());
+                    Objects.requireNonNull(materials.random("floor")).createBlockData().createBlockState().copy(data.getLocation());
+            case PINK_WOOL ->
+                    Objects.requireNonNull(materials.random("accent", "wall")).createBlockData().createBlockState().copy(data.getLocation());
             case LIGHT_GRAY_WOOL ->
-                    RandomUtils.getChoice(tier.wall).createBlockData().createBlockState().copy(data.getLocation());
+                    Objects.requireNonNull(materials.random("wall")).createBlockData().createBlockState().copy(data.getLocation());
             case OAK_SIGN -> mutateSign(data);
             default -> data;
         };
@@ -487,53 +516,151 @@ public class AreaCryptNecropolis extends AbstractAreaBoss implements BlockMutato
     /**
      * @author carterz30cal
      * @version 1
-     * @since 1.0.0
+     * @since 1.0.0 [2]
+     */
+    public enum NecropolisCryptModifier {
+        HAUNTED(
+                "This crypt opens with a haunting shriek, and you feel a chill go down your spine...",
+                new GroupMap<>(
+                        new Group<>("regular", "crypt_dweller_spirit_lesser").replaces(true)
+                ),
+                new GroupMap<>(
+                        new Group<>(
+                                "loot",
+                                new WeightedDrop("calmed_spirit£2", 150),
+                                new WeightedDrop("calmed_spirit£3", 100),
+                                new WeightedDrop("incensed_spirit£1", 15),
+                                new WeightedDrop("spooky_sweet£1", 15)
+                        )
+                ),
+                new GroupMap<>(
+                        new Group<>("floor", Material.PURPLE_CONCRETE_POWDER, Material.GRAY_CONCRETE_POWDER, Material.MYCELIUM).replaces(true),
+                        new Group<>("wall", Material.OBSIDIAN, Material.CRYING_OBSIDIAN, Material.BLACKSTONE, Material.POLISHED_BLACKSTONE_BRICKS).replaces(true),
+                        new Group<>("accent", Material.PURPLE_WOOL, Material.PURPLE_CONCRETE, Material.PURPLE_CONCRETE_POWDER, Material.OBSIDIAN, Material.CRYING_OBSIDIAN)
+                )),
+        DAMP(
+                "There's a damp smell in the air as you descend into the crypt...",
+                new GroupMap<>(
+                        new Group<>(
+                                "regular", "lunatic_7_crypt"
+                        ).replaces(true)
+                ),
+                new GroupMap<>(
+                        new Group<>("loot",
+                                new WeightedDrop("weird_flesh£180", 650),
+                                new WeightedDrop("chilli_powder£4", 200),
+                                new WeightedDrop("necropolis_fish£20", 100),
+                                new WeightedDrop("red_slime£24", 400),
+                                new WeightedDrop("enchanted_book£1£enchants:ENCHANT_REGROWTH-1", 15)
+                        ),
+                        new Group<>("rune",
+                                new WeightedDrop("flow_rune", 2))
+                ),
+                new GroupMap<>(
+                        new Group<>("floor", Material.MUD, Material.MUD, Material.MUD, Material.MUD).replaces(true),
+                        new Group<>("wall", Material.PRISMARINE, Material.PRISMARINE_BRICKS, Material.STRIPPED_WARPED_HYPHAE, Material.CYAN_CONCRETE_POWDER, Material.LIGHT_BLUE_CONCRETE_POWDER).replaces(true),
+                        new Group<>("accent", Material.BLUE_GLAZED_TERRACOTTA, Material.PRISMARINE_BRICKS)
+                )
+        ),
+        OLD(
+                "This crypt feels much older than the others...",
+                new GroupMap<>(),
+                new GroupMap<>(
+                        new Group<>("loot",
+                                new WeightedDrop("gold_nugget£3", 10),
+                                new WeightedDrop("red_slime£24", 400)
+                        )
+                ),
+                new GroupMap<>(
+                        new Group<>("floor", Material.GRAVEL, Material.MYCELIUM),
+                        new Group<>("wall", Material.CRACKED_STONE_BRICKS),
+                        new Group<>("accent", Material.AIR),
+                        new Group<>("door", Material.AIR, Material.AIR, Material.AIR, Material.AIR, Material.AIR, Material.AIR, Material.AIR, Material.AIR, Material.CRACKED_STONE_BRICKS, Material.STONE_BRICKS, Material.STONE)
+                )
+        );
+        public final String announcement;
+        public final GroupMap<String> mobs;
+        public final GroupMap<WeightedDrop> loot;
+        public final GroupMap<Material> materials;
+
+        NecropolisCryptModifier(
+                String announcement,
+                GroupMap<String> mobs,
+                GroupMap<WeightedDrop> loot,
+                GroupMap<Material> materials
+        ) {
+            this.announcement = announcement;
+            this.mobs = mobs;
+            this.materials = materials;
+            this.loot = loot;
+        }
+    }
+
+    /**
+     * @author carterz30cal
+     * @version 2
+     * @since 1.0.0 [1]
      */
     public enum NecropolisCryptTier {
         LESSER(
-                List.of(Material.DIRT, Material.COARSE_DIRT, Material.PODZOL),
-                List.of(Material.STONE, Material.COBBLESTONE, Material.GRAVEL, Material.SUSPICIOUS_GRAVEL, Material.STONE_BRICKS),
-                List.of("warrior_rune", "flow_rune", "standstill_rune", "separation_rune"),
-                List.of("crypt_dweller_lesser", "crypt_tank_lesser"),
-                List.of("crypt_ranger_lesser", "crypt_ranger_unmoving_lesser"),
-                List.of("crypt_titan_lesser", "crypt_knight_lesser"),
-                List.of("crypt_boss_golem"),
-                new WeightedDrop("bone_dust£10", 1000),
-                new WeightedDrop("weird_flesh£48", 800),
-                new WeightedDrop("bone_dust£82", 400),
-                new WeightedDrop("bone_dust£93", 250),
-                new WeightedDrop("enchanted_book£1£enchants:ENCHANT_PEARLED-1", 25),
-                new WeightedDrop("crypt_pebble£1", 25),
-                new WeightedDrop("enchanted_book£1£enchants:ENCHANT_CRYPT_MIGHT-1", 20),
-                new WeightedDrop("enchanted_book£1£enchants:ENCHANT_STEALTH-1", 15),
-                new WeightedDrop("roasted_bone_dust£1", 15),
-                new WeightedDrop("magic_cactus", 10),
-                new WeightedDrop("crypt_knight_sword_epic", 1),
-                new WeightedDrop("pet_crypt_dweller_common", 1)
-        );
-        public final List<Material> floor;
-        public final List<Material> wall;
-        public final List<String> regularEnemyOptions;
-        public final List<String> rangedEnemyOptions;
-        public final List<String> minibosses;
-        public final List<String> bosses;
-        public final List<String> runes;
-        public final WeightedDrop[] drops;
+                new GroupMap<>(
+                        new Group<>("floor", Material.DIRT, Material.COARSE_DIRT, Material.PODZOL),
+                        new Group<>("wall", Material.STONE, Material.COBBLESTONE, Material.GRAVEL, Material.SUSPICIOUS_GRAVEL, Material.STONE_BRICKS)
+                ),
+                new GroupMap<>(
+                        new Group<>("regular", "crypt_dweller_lesser", "crypt_tank_lesser", "crypt_mage_lesser"),
+                        new Group<>("ranged", "crypt_ranger_lesser", "crypt_ranger_unmoving_lesser", "crypt_mage_lesser"),
+                        new Group<>("miniboss", "crypt_knight_lesser"),
+                        new Group<>("boss", "crypt_boss_golem")
+                ),
+                List.of(NecropolisCryptModifier.HAUNTED, NecropolisCryptModifier.DAMP, NecropolisCryptModifier.OLD),
+                new GroupMap<>(
+                        new Group<>(
+                                "chest",
+                                new WeightedDrop("bone_dust£10", 1000),
+                                new WeightedDrop("bone_dust£82", 700),
+                                new WeightedDrop("bone_dust£93", 250),
+                                new WeightedDrop("calmed_spirit£1", 150),
+                                new WeightedDrop("calmed_spirit£2", 75),
+                                new WeightedDrop("calmed_spirit£3", 32),
+                                new WeightedDrop("calmed_spirit£10", 5),
+                                new WeightedDrop("enchanted_book£1£enchants:ENCHANT_PEARLED-1", 25),
+                                new WeightedDrop("enchanted_book£1£enchants:ENCHANT_SLIMALICIOUS-1", 25),
+                                new WeightedDrop("crypt_pebble£1", 25),
+                                new WeightedDrop("enchanted_book£1£enchants:ENCHANT_CRYPT_MIGHT-1", 20),
+                                new WeightedDrop("enchanted_book£1£enchants:ENCHANT_STEALTH-1", 15),
+                                new WeightedDrop("roasted_bone_dust£1", 25),
+                                new WeightedDrop("roasted_bone_dust£2", 15),
+                                new WeightedDrop("magic_cactus", 10),
+                                new WeightedDrop("enchanted_book£1£enchants:ENCHANT_SLIMALICIOUS-2", 10),
+                                new WeightedDrop("enchanted_book£1£enchants:ENCHANT_SLIMALICIOUS-3", 3),
+                                new WeightedDrop("crypt_knight_sword_epic", 1),
+                                new WeightedDrop("pet_crypt_dweller_common", 1),
+                                new WeightedDrop("hydra_key_lesser", 1)
+                        ),
+                        new Group<>(
+                                "rune",
+                                new WeightedDrop("warrior_rune"),
+                                new WeightedDrop("standstill_rune"),
+                                new WeightedDrop("separation_rune")
+                        )
+                )
 
-        NecropolisCryptTier(List<Material> floor, List<Material> wall, List<String> runes,
-                            List<String> regularEnemyOptions,
-                            List<String> rangedEnemyOptions,
-                            List<String> minibosses,
-                            List<String> bosses,
-                            WeightedDrop... drops) {
-            this.floor = floor;
-            this.wall = wall;
-            this.regularEnemyOptions = regularEnemyOptions;
-            this.rangedEnemyOptions = rangedEnemyOptions;
-            this.minibosses = minibosses;
-            this.bosses = bosses;
-            this.runes = runes;
-            this.drops = drops;
+        );
+        public final GroupMap<Material> materials;
+        public final GroupMap<String> mobs;
+        public final GroupMap<WeightedDrop> loot;
+        public final List<NecropolisCryptModifier> modifiers;
+
+        NecropolisCryptTier(
+                GroupMap<Material> materials,
+                GroupMap<String> mobs,
+                List<NecropolisCryptModifier> modifiers,
+                GroupMap<WeightedDrop> loot) {
+            this.materials = materials;
+            this.mobs = mobs;
+            this.modifiers = modifiers;
+            this.loot = loot;
         }
     }
 }

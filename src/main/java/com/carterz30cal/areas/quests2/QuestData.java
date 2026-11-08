@@ -23,7 +23,7 @@ import java.util.Objects;
 public final class QuestData {
     private static final Map<String, QuestData> data = new HashMap<>();
     private static final String[] files = {
-            "waterway/quests/tutorial_tam", "waterway/quests/fisherman", "waterway/quests/raintown", "waterway/quests/joes_tavern"
+            "waterway/quests/tutorial_tam", "waterway/quests/fisherman", "waterway/quests/raintown", "waterway/quests/joes_tavern", "waterway/quests/spiders"
     };
     public String name;
     public String id;

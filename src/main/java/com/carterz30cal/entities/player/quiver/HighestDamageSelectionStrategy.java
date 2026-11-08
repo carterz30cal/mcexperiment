@@ -29,7 +29,7 @@ public class HighestDamageSelectionStrategy implements ArrowSelectionStrategy {
         var stats = owner == null ? new StatContainer() : owner.lastStats.clone();
         if (items.isEmpty()) throw new UnsupportedOperationException("cannot have an empty list of items!");
 
-        return items.stream().sorted((a, b) -> (int) (value(stats, a) - value(stats, b))).toList();
+        return items.stream().sorted((a, b) -> (int) (value(stats, b) - value(stats, a))).toList();
     }
 
     private long value(StatContainer stats, Item item) {

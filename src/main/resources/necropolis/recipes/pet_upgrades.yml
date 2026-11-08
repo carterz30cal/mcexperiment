@@ -23,6 +23,7 @@ drenched_uncommon:
   items:
     pet_drenched_common: 2
     roasted_bone_dust: 1
+    cooked_waterway_cod: 4
 
 pet_dusted_uncommon:
   amount: 1
@@ -33,6 +34,6 @@ pet_dusted_uncommon:
   discovery: bone_dust_collection
   discovery-tier: 4
   items:
-    pet_dusted_common: 3
+    pet_dusted_common: 2
     roasted_bone_dust: 3
     gold_leaf: 50

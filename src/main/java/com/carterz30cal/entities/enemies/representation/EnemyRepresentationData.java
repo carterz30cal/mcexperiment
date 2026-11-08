@@ -23,7 +23,7 @@ import java.util.Objects;
 
 /**
  * @author carterz30cal
- * @version 5
+ * @version 6
  * @since 1.0.0
  */
 public class EnemyRepresentationData {
@@ -75,7 +75,6 @@ public class EnemyRepresentationData {
         invisible = yaml.getBoolean("invisible", false);
         hidden = yaml.getBoolean("hidden", false);
         allowAI = yaml.getBoolean("allow-ai", false);
-        contributeHeight = yaml.getBoolean("contribute-height", !invisible && !hidden);
         skull = yaml.getString("skull", null);
         pose = Pose.valueOf(yaml.getString("pose", "STANDING"));
 
@@ -90,6 +89,10 @@ public class EnemyRepresentationData {
 
                 equipment.put(EquipmentSlot.valueOf(eq), item);
             }
+            contributeHeight = yaml.getBoolean("contribute-height", true);
+        }
+        else {
+            contributeHeight = yaml.getBoolean("contribute-height", !invisible && !hidden);
         }
     }
 

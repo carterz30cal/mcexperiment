@@ -46,8 +46,8 @@ public class PlayerScoreboard {
                 .addBlankLine()
                 .addDynamicLine(() -> text("Coins: ", NamedTextColor.GOLD).append(text(StringUtils.addCommas(owner.coins))))
                 .addDynamicLine(() -> text("Sack: ", NamedTextColor.GOLD).append(text(owner.getSackSpaceUsed())).append(text("/")).append(text(owner.getSackSize())))
-                .addComponent(new AreaInfoComponent())
                 .addComponent(new QuestInfoComponent())
+                .addComponent(new AreaInfoComponent())
                 .addBlankLine()
                 .addDynamicLine(() -> MiniMessage.miniMessage().deserialize("<aqua>Level " + owner.getLevel()
                         + " <dark_grey>[</dark_grey>+" + Math.round(owner.getLevelProgress() * 100) + "%<dark_grey>]"));

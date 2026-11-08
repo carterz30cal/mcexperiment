@@ -193,8 +193,8 @@ public class GamePlayer extends GameEntity implements DamageableEntity, Aggressi
         if (haste == null) {
             player.addPotionEffect(new PotionEffect(PotionEffectType.HASTE, PotionEffect.INFINITE_DURATION, 0, false, false, false));
         }
-        Objects.requireNonNull(player.getAttribute(Attribute.ATTACK_SPEED)).setBaseValue(10);
-
+        Objects.requireNonNull(player.getAttribute(Attribute.ATTACK_SPEED)).setBaseValue(1000);
+        player.stopSound("entity.player.attack.weak");
 
 		player.removePotionEffect(PotionEffectType.DARKNESS);
 		
@@ -685,6 +685,35 @@ public class GamePlayer extends GameEntity implements DamageableEntity, Aggressi
 			var item = ItemFactory.getItem(entry.getKey());
 			long amount = entry.getValue();
 			if (item == null || amount == 0) continue;
+
+            if (item.discovery != null && grantDiscoveryProgress) {
+                Collection col = DiscoveryManager.get(item.discovery);
+
+                int currentLevel = getDiscoveryLevel(col);
+                if (currentLevel == 0 && discoveries.getOrDefault(col.id, 0L) == 0) {
+                    sendMessage("<gold><b>New Discovery! " + col.name);
+                }
+
+                discoveries.put(col.id, discoveries.getOrDefault(col.id, 0L) + amount * item.discoveryProgress);
+
+                int newLevel = getDiscoveryLevel(col);
+                while (newLevel > currentLevel) {
+                    sendMessage("<yellow> - - - <gold>DISCOVERY LEVEL UP</gold> - - -");
+                    for (String recipe : col.recipes.getOrDefault(currentLevel, new ArrayList<>())) {
+                        Recipe r = ItemFactory.recipes.get(recipe);
+                        var recipeItem = ItemFactory.getItem(r.item);
+                        var colour = recipeItem.rarity.textColor.asHexString() + ">";
+
+                        String n = r.customName != null ? r.customName : recipeItem.name;
+                        sendMessage("<dark_grey>- <" + colour + n + "</" + colour + " [Recipe]");
+                    }
+                    sendMessage("<dark_grey>- <aqua>+" + col.xpRewards.get(currentLevel) + "XP");
+
+                    gainXp(col.xpRewards.get(currentLevel));
+                    currentLevel++;
+                }
+            }
+
 			if (item.type == ItemType.ARROW) {
 				quiver.put(item.id, quiver.getOrDefault(item.id, 0) + (int)amount);
 			}
@@ -692,10 +721,12 @@ public class GamePlayer extends GameEntity implements DamageableEntity, Aggressi
 			{
 				if (hasSackSpace(amount)) {
 					sack.put(item.id, sack.getOrDefault(item.id, 0L) + amount);
+                    toSack.put(item.id, sack.getOrDefault(item.id, 0L) + amount);
 					continue;
 				}
 				else if (getSackSpaceRemaining() > 0) {
 					sack.put(item.id, sack.getOrDefault(item.id, 0L) + getSackSpaceRemaining());
+                    toSack.put(item.id, sack.getOrDefault(item.id, 0L) + getSackSpaceRemaining());
 					amount -= getSackSpaceRemaining();
 				}
 			}
@@ -1280,7 +1311,7 @@ public class GamePlayer extends GameEntity implements DamageableEntity, Aggressi
 
     @Override
     public List<? extends ContextWithAbility<? extends GameEntity>> getDefensiveDamageModifiers() {
-        return List.of();
+        return abilities;
     }
 
     @Override

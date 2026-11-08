@@ -180,7 +180,7 @@ public class PlayerQuiver implements PlayerSavable {
                 Item item = ItemFactory.getItem(key);
                 if (item == null) continue;
                 inventory.putIfAbsent(item.type, new HashMap<>());
-                inventory.get(item.type).put(item, inv.getLong("inventory." + key));
+                inventory.get(item.type).put(item, inv.getLong(key));
             }
         }
         strategy = SelectionStrategy.valueOf(section.getString("strategy", "HIGHEST_MULTIPLIED_DAMAGE_STATS"));

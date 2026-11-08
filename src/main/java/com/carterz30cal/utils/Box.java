@@ -19,7 +19,7 @@ import java.util.stream.Stream;
 
 /**
  * @author carterz30cal
- * @version 3
+ * @version 4
  * @since 1.0.0
  */
 public class Box {
@@ -173,6 +173,20 @@ public class Box {
      */
     public void setTemporaryWithin(Material data) {
         getWithin().forEach(location -> temporary.add(MiningManager.set(location, data)));
+    }
+
+    /**
+     * Set blocks within on a temporary basis, calling <code>reset()</code> will undo changes.
+     *
+     * @param data block data we want to set it as
+     * @since 1.0.0 [4]
+     */
+    public void setTemporaryWithin(Material data, Material replacing) {
+        getWithin().forEach(location -> {
+            if (location.getBlock().getType().equals(replacing)) {
+                temporary.add(MiningManager.set(location, data));
+            }
+        });
     }
 
     /**

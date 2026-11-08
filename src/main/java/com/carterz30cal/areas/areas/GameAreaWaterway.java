@@ -3,6 +3,7 @@ package com.carterz30cal.areas.areas;
 import com.carterz30cal.areas.AbstractGameArea;
 import com.carterz30cal.areas.PlayerTeleport;
 import com.carterz30cal.areas.bosses.waterway.AreaBossWaterwaySeraph;
+import com.carterz30cal.areas.bosses.waterway.AreaMinibossWaterMatriarch;
 import com.carterz30cal.areas.events.AbstractEvent;
 import com.carterz30cal.areas.events.EventManager;
 import com.carterz30cal.areas.events.EventProvider;
@@ -79,12 +80,16 @@ public class GameAreaWaterway extends AbstractGameArea implements EventProvider 
         var stepsLunatic3 = new SimpleAreaEnemySpawner(-86, 61, -97, 73, 69, 2.5, "lunatic_3");
         stepsLunatic3.options("RAIN", "shocker_3");
         register(stepsLunatic3);
-        register(new SimpleAreaEnemySpawner(-107, 42, -121, 57, 64, 1.5, "lunatic_4"));
+        register(new SimpleAreaEnemySpawner(-107, 42, -121, 57, 64, 1.5, "lunatic_4")
+                .options("RAIN", "shocker_4"));
 
         register(new SimpleAreaEnemySpawner(-74, 161, -82, 151, 102, 2.8, "spider_1"));
 
         // LAVA AREA BELOW MAIN AREA
-        register(new SimpleAreaEnemySpawner(-20, -51, -41, -27, 38, 0.5, "lunatic_5_lava"));
+        register(
+                new SimpleAreaEnemySpawner(-20, -51, -41, -27, 38, 0.5, "lunatic_5_lava")
+                        .options("RAIN", "lunatic_5_lava")
+        );
 
         // SKY AREA
         var skyLunatics = new SimpleAreaEnemySpawner(-27, 75, -4, 106, 125, 0.75, "lunatic_5_sky");
@@ -95,6 +100,8 @@ public class GameAreaWaterway extends AbstractGameArea implements EventProvider 
         var fanaticTemple = new SimpleAreaEnemySpawner(59, 142, 45, 132, 96, 2, "lunatic_6");
         fanaticTemple.options("RAIN", "shocker_6");
         register(fanaticTemple);
+
+        register(AreaMinibossWaterMatriarch.instance);
     }
 
     @Override

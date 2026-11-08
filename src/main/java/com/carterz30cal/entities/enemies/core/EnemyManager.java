@@ -18,13 +18,15 @@ import org.bukkit.Location;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.EntityType;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.HashSet;
 import java.util.Objects;
 
 /**
  * @author carterz30cal
- * @version 5
+ * @version 6
  * @since 1.0.0
  */
 @SuppressWarnings("PatternValidation")
@@ -173,9 +175,25 @@ public class EnemyManager
     }
 
     public static GameEnemy spawn(String type, Location l, boolean persistent) {
-        var enemy = EnemyBuilder.getBuilder(type).build(l);
+        var builder = builder(type);
+        if (builder == null) {
+            return null;
+        }
+
+        var enemy = builder.build(l);
         enemy.register();
         enemy.persistent = persistent;
         return enemy;
+    }
+
+    /**
+     *
+     * @param type builder id
+     * @return an <code>EnemyBuilder</code> if one exists, or <code>null</code> otherwise.
+     * @since 1.0.0 [6]
+     */
+    @Nullable
+    public static EnemyBuilder builder(@NotNull String type) {
+        return EnemyBuilder.getBuilder(type);
     }
 }

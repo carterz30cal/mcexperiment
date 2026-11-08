@@ -31,11 +31,53 @@ armour-crypt_dweller:
     r: 200
     g: 80
     b: 0
+  abilities:
+    - CRYPT_DWELLER_ARMOUR_PIECE
   stats:
-    health: +50
+    health: +40
     defence: +20
-    might: +5
-    enchant_power: +10
+    enchant_power: +15
+    level_requirement: 7
+
+armour-crypt_ranger:
+  name:
+    - Crypt Ranger Helmet
+    - Crypt Ranger Chestplate
+    - Crypt Ranger Leggings
+    - Crypt Ranger Boots
+  material: LEATHER
+  rarity: RARE
+  value: 100
+  colour:
+    r: 220
+    g: 20
+    b: 0
+  abilities:
+    - CRYPT_RANGER_ARMOUR_PIECE
+  stats:
+    health: +10
+    defence: +5
+    enchant_power: +15
+    level_requirement: 7
+
+armour-crypt_mage:
+  name:
+    - Crypt Mage Helmet
+    - Crypt Mage Chestplate
+    - Crypt Mage Leggings
+    - Crypt Mage Sandals
+  material: LEATHER
+  rarity: RARE
+  value: 100
+  colour:
+    r: 0
+    g: 90
+    b: 200
+  stats:
+    health: +60
+    defence: +10
+    mana: +25
+    enchant_power: +15
     level_requirement: 7
 
 armour-crypt_tank:
@@ -54,7 +96,7 @@ armour-crypt_tank:
   abilities:
     - CRYPT_TANK_ARMOUR_PIECE
   stats:
-    defence: +25
+    defence: +30
     enchant_power: +15
     level_requirement: 7
 

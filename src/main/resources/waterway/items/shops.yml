@@ -20,6 +20,10 @@ bartender_1:
       item: spiced_meat
       coins: 180
       level: 3
+    potion_spirits:
+      item: potion_spirits
+      coins: 600
+      level: 5
 
 
 

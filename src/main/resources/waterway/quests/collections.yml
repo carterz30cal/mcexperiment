@@ -35,3 +35,10 @@ joes_tavern:
     - joe_tavern_lazy_drunkard
     - joe_tavern_demanding_customer
     - joe_tavern_jam_lover
+
+harold_spiderhater:
+  name: "Journey to the Depths of the Matriarch's Lair"
+  description: Squash some arthropods! The Matriarch is the most reliable source of Waterway Sacs!
+  quests:
+    - harold_1
+    - harold_2
