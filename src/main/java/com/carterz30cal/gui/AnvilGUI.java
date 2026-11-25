@@ -38,6 +38,7 @@ public class AnvilGUI extends AbstractGUI
 		inventory.setSlot(null, calc(7, 4));
 		inventory.setSlot(null, calc(4, 1));
         inventory.setSlot(ItemFactory.customItem("ARROW", "<green>Back"), calc(4, 5));
+        inventory.setSlot(ItemFactory.customItem("ENCHANTING_TABLE", "<green>Enchant Guide"), calc(8, 5));
 		update(false);
 		inventory.update();
 	}
@@ -62,6 +63,9 @@ public class AnvilGUI extends AbstractGUI
 	{
         if (clickPos == calc(4, 5)) {
             owner.openGui(new MenuGUI(owner));
+        }
+        else if (clickPos == calc(8, 5)) {
+            owner.openGui(new EnchantGuideGUI(owner));
         }
         else if ((clickPos == calc(1, 4) || clickPos == calc(7, 4)) && clicked != null)
 		{

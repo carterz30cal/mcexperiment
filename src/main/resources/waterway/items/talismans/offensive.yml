@@ -91,6 +91,20 @@ green_storm_crystal:
     health: 20
     level_requirement: 2
 
+leather_quiver:
+  name: Leather Quiver
+  type: TALISMAN
+  rarity: RARE
+  custom-model-id: leather_quiver
+  tags:
+    - QUIVER
+  abilities:
+    - LEATHER_QUIVER
+  stats:
+    power: +5
+    level_requirement: 2
+
+
 seraphs_guide_to_summoning_spirits:
   name: "A Seraph's Guide to Summoning Spirits"
   type: TALISMAN

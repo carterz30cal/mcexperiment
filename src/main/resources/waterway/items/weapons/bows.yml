@@ -13,6 +13,7 @@ titan_bow:
   type: BOW
   material: BOW
   rarity: VERY_RARE
+  value: 500
   stats:
     damage: +20
     defence: +50
@@ -36,6 +37,7 @@ spider_bow:
   material: BOW
   glow: true
   rarity: VERY_RARE
+  value: 300
   stats:
     damage: +15
     strength: +75
@@ -53,6 +55,55 @@ lunatic_bow:
     enchant_power: +15
     level_requirement: 3
 
+
+
+titan_bow_epic:
+  name: Titan's Bow
+  type: BOW
+  material: BOW
+  rarity: EPIC
+  stats:
+    damage: +26
+    defence: +70
+    enchant_power: +15
+    level_requirement: 4
+
+paper_mache_bow_epic:
+  name: Paper Mâché Bow
+  type: BOW
+  material: BOW
+  rarity: EPIC
+  stats:
+    damage: +22
+    power: +75
+    enchant_power: +15
+    level_requirement: 4
+
+spider_bow_epic:
+  name: Spider Bow
+  type: BOW
+  material: BOW
+  glow: true
+  rarity: EPIC
+  stats:
+    damage: +24
+    strength: +75
+    enchant_power: +15
+    level_requirement: 4
+
+lunatic_bow_epic:
+  name: Lunatic Bow
+  type: BOW
+  material: BOW
+  rarity: EPIC
+  stats:
+    damage: +22
+    might: +75
+    enchant_power: +15
+    level_requirement: 4
+
+
+
 flimsy_arrow:
   name: Flimsy Arrow
   type: ARROW
@@ -60,6 +111,10 @@ flimsy_arrow:
   rarity: TRASH
   lore:
     - An arrow of the poorest craftdwarfship.
+  colour:
+    r: 100
+    g: 100
+    b: 100
   stats:
     damage: -1
     power: -10
@@ -68,14 +123,22 @@ paper_arrow:
   type: ARROW
   material: ARROW
   rarity: COMMON
+  colour:
+    r: 200
+    g: 200
+    b: 200
   stats:
     power: +10
 
 spiced_arrow:
   name: Spiced Arrow
   type: ARROW
-  material: ARROW
+  custom-model-id: spiced_arrow
   rarity: UNCOMMON
+  colour:
+    r: 255
+    g: 0
+    b: 0
   stats:
     might: +20
 
@@ -86,5 +149,9 @@ storm_arrow:
   rarity: RARE
   abilities:
     - STORM_TALISMAN
+  colour:
+    r: 0
+    g: 150
+    b: 255
   stats:
     power: +5

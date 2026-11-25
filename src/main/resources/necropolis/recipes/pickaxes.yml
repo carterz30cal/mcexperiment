@@ -8,6 +8,17 @@ spirit_pickaxe_very_rare:
     calmed_spirit: 10
     spiced_meat: 4
 
+spirit_pickaxe_epic:
+  level: 8
+  category: necropolis_pickaxes
+  items:
+    spirit_pickaxe_very_rare: 1
+    incensed_spirit: 2
+    blue_slime: 1
+    spiced_meat: 32
+    spooky_sweet: 4
+    leaf_ball: 6
+
 sand_shovel_epic:
   level: 5
   time: 10m

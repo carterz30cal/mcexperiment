@@ -30,7 +30,7 @@ import java.util.concurrent.atomic.AtomicInteger;
  * Provides methods for dealing with sign-up, teleports and deaths.
  *
  * @author carterz30cal
- * @version 3
+ * @version 4
  * @since 1.0.0
  */
 @SuppressWarnings("unused")
@@ -315,6 +315,23 @@ public abstract class AbstractAreaBoss extends AbstractEnemySpawner {
             }
         }
         this.drops = drops;
+    }
+
+    /**
+     * Sets the drops that this boss can give to each player upon victory.
+     * Runs through the array and throws an exception if any drops are invalid.
+     *
+     * @param drops our array of new weighted drops.
+     * @throws IllegalArgumentException if any <code>weight < 1</code>.
+     * @since 1.0.0 [4]
+     */
+    public void drops(@NotNull List<WeightedDrop> drops) {
+        for (var drop : drops) {
+            if (drop.weight < 1) {
+                throw new IllegalArgumentException("Weight must be at least 1 for: " + drop.data);
+            }
+        }
+        this.drops = drops.toArray(new WeightedDrop[0]);
     }
 
     /**

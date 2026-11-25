@@ -1,7 +1,6 @@
 package com.carterz30cal.mining;
 
 import com.carterz30cal.entities.player.GamePlayer;
-import com.carterz30cal.items.ItemFactory;
 import com.carterz30cal.items.abilities.implementation.AbilityWithMiningEffect;
 import com.carterz30cal.main.Dungeons;
 import com.carterz30cal.stats.Stat;
@@ -16,7 +15,6 @@ import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.block.data.BlockData;
 import org.bukkit.configuration.file.FileConfiguration;
-import org.bukkit.inventory.ItemStack;
 import org.bukkit.scheduler.BukkitRunnable;
 
 import java.util.*;
@@ -144,10 +142,9 @@ public class MiningManager {
                 }
                 r++;
             }
-
+            var abilities = player.getAbilitiesWith(AbilityWithMiningEffect.class);
             for (var miningBlock : mining) {
                 int conversion = RandomUtils.getRandom(1, 1000);
-                var abilities = player.getAbilitiesWith(AbilityWithMiningEffect.class);
                 for (var ab : abilities) {
                     ((AbilityWithMiningEffect)ab.ability).miningEffect(ab, ore, miningBlock);
                 }
@@ -173,8 +170,12 @@ public class MiningManager {
             // grant regular drops
             long dropAmount = RandomUtils.getRandom(ore.lowerBound, ore.upperBound)
                     * (dropMultiplier + 1) * mining.size();
-            ItemStack dropItem = ItemFactory.build(ore.item, (int) dropAmount);
-            player.giveItem(dropItem, true);
+            var map = new HashMap<String, Long>();
+            map.put(ore.item, dropAmount);
+            for (var ab : abilities) {
+                ((AbilityWithMiningEffect) ab.ability).modifyItems(ab, ore, map);
+            }
+            player.giveItems(map, true);
             instance.currentlyMining.remove(location);
             instance.sendBlockDamage(player, location, -1);
         }

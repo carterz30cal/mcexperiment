@@ -36,6 +36,11 @@ public class LastChanceEnchantment extends GameAbstractEnchant implements Abilit
         return description;
     }
 
+    @Override
+    public String obtaining() {
+        return "Dropped rarely by angry creepers found by fishing in Waterway.";
+    }
+
     /**
      * @since 1.0.0 [1]
      */

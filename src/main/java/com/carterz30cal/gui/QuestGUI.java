@@ -1,25 +1,19 @@
 package com.carterz30cal.gui;
 
-import com.carterz30cal.areas.quests.Quests;
+import com.carterz30cal.areas.quests2.QuestCollection;
 import com.carterz30cal.entities.player.GamePlayer;
 import com.carterz30cal.items.ItemFactory;
-import net.kyori.adventure.text.TextComponent;
-import net.kyori.adventure.text.format.NamedTextColor;
-import net.kyori.adventure.text.minimessage.MiniMessage;
 import org.bukkit.inventory.ItemStack;
 
-import java.util.ArrayList;
 import java.util.List;
-
-import static net.kyori.adventure.text.Component.text;
 
 /**
  * @author carterz30cal
- * @version 2
+ * @version 3
  * @since 1.0.0
  */
 public class QuestGUI extends AbstractGUI {
-    private Quests.QuestSave[] saves;
+    private String[] quests;
     private int page;
 
     public QuestGUI(GamePlayer owner) {
@@ -32,118 +26,74 @@ public class QuestGUI extends AbstractGUI {
     }
 
     private void update() {
-        List<Quests.QuestSave> quests = new ArrayList<>();
-        List<Quests.QuestSave> complete = new ArrayList<>();
-        if (owner.getSelectedQuest() != null) {
-            quests.add(owner.getQuestSave(owner.getSelectedQuest()));
-        }
-        for (var q : owner.getQuestSaves()) {
-            if (owner.getSelectedQuest() == q.GetQuest()) {
-                continue;
-            }
-            if (q.completedQuest) {
-                complete.add(q);
-            }
-            else {
-                if (q.sectionSave == null || (q.currentSection == 0 && !q.sectionSave.HasTalkedTo())) {
-                    continue;
-                }
-                quests.add(q);
-            }
-        }
-        quests.addAll(complete);
-
+        quests = new String[54];
         inventory.initUsingTemplate(GooeyTemplate.SHOPPY_DARK);
-        saves = new Quests.QuestSave[54];
-        int j = (page - 1) * (7 * 4);
-        for (int i = 0; i < 28; i++) {
-            if (j >= quests.size()) {
-                break;
-            }
-            int k = calc((i % 7) + 1, (i / 7) + 1);
-            saves[k] = quests.get(j);
-            inventory.setSlot(getQuestDisplay(quests.get(j)), k);
-            j++;
+        List<QuestCollection> visible = QuestCollection.visibleList(owner);
+        visible.sort(this::sort);
+        int i = 0;
+        for (int j = (page - 1) * 28; j < visible.size() && j < page * 28; j++, i++) {
+            int x = (i % 7) + 1;
+            int y = (i / 7) + 1;
+            var c = visible.get(j);
+            quests[calc(x, y)] = c.id();
+            inventory.setSlot(c.item(owner), calc(x, y));
         }
         if (page > 1) {
-            inventory.setSlot(
-                    ItemFactory.customItem("ARROW", "Previous Page", NamedTextColor.RED),
-                    calc(1, 5)
-            );
+            inventory.setSlot(ItemFactory.customItem("ARROW", "<green>Previous Page"), calc(2, 5));
         }
-        if (j + 28 < quests.size()) {
-            inventory.setSlot(
-                    ItemFactory.customItem("ARROW", "Previous Page", NamedTextColor.GREEN),
-                    calc(7, 5)
-            );
+        else if (visible.size() >= page * 28) {
+            inventory.setSlot(ItemFactory.customItem("ARROW", "<green>Next Page"), calc(6, 5));
         }
         inventory.update();
     }
 
     @Override
     public boolean allowLeftClick(int clickPos, ItemStack current) {
-        if (clickPos >= 54) {
-            return false;
-        }
-        Quests.QuestSave save = saves[clickPos];
-        if (save != null) {
-            owner.setSelectedQuest(save.GetQuest());
-            update();
-        }
-        else if (clickPos == calc(1, 5) && page > 1) {
+        if (clickPos == calc(2, 5) && page > 1) {
             page--;
-            update();
         }
-        else if (clickPos == calc(7, 5)) { // TODO: Maybe put in a bounds check?
+        else if (clickPos == calc(6, 5)) {
             page++;
-            update();
         }
-
+        else if (quests[clickPos] != null) {
+            var collection = QuestCollection.get(quests[clickPos]);
+            if (collection != null) {
+                owner.questing.select(collection);
+            }
+        }
+        update();
         return false;
     }
 
-    private ItemStack getQuestDisplay(Quests.QuestSave q) {
-        var loreList = new ArrayList<TextComponent.Builder>();
-        var lore = text();
-        int completedCount = q.GetQuest().getCompletedSections(q.currentSection).size();
-
-        lore.append(
-                text("You've completed ", NamedTextColor.GRAY)
-        ).append(
-                text(completedCount, q.completedQuest ? NamedTextColor.GREEN : (completedCount == 0 ? NamedTextColor.RED : NamedTextColor.YELLOW))
-        ).append(
-                text("/", NamedTextColor.GRAY)
-        ).append(
-                text(q.GetQuest().getTotalSectionCount(), NamedTextColor.GREEN)
-        ).append(
-                text(" quests!", NamedTextColor.GRAY)
-        );
-        loreList.add(lore);
-        if (!q.GetQuest().getDescription().isEmpty()) {
-            loreList.add(text());
-            for (var description : q.GetQuest().getDescription())
-                loreList.add(text().append(text(description, NamedTextColor.GRAY)));
+    private int sort(QuestCollection a, QuestCollection b) {
+        var selectedA = a.selected(owner);
+        var selectedB = b.selected(owner);
+        if (selectedA && selectedB) {
+            return 0;
         }
-        var section = q.GetQuest().getQuestSection(q.currentSection);
-        if (!q.completedQuest && section != null && !section.GetDescription(q.sectionSave).isEmpty()) {
-            loreList.add(text());
-            loreList.add(text().content("Current goal:").color(NamedTextColor.GOLD));
-            for (var description : section.GetDescription(q.sectionSave)) {
-                loreList.add(text().color(NamedTextColor.GRAY).append(MiniMessage.miniMessage().deserialize(description)));
+        else if (selectedA) {
+            return -1;
+        }
+        else if (selectedB) {
+            return 1;
+        }
+        else {
+            var completeA = a.complete(owner);
+            var completeB = b.complete(owner);
+            if (completeA && completeB) {
+                return 0;
             }
-            loreList.add(text());
-            if (q.GetQuest() != owner.getSelectedQuest()) {
-                loreList.add(text().content("Click to select this quest!").color(NamedTextColor.GOLD));
+            else if (completeA) {
+                return 1;
+            }
+            else if (completeB) {
+                return -1;
             }
             else {
-                loreList.add(text().content("This is your active quest!").color(NamedTextColor.GOLD));
+                var vA = a.completed(owner);
+                var vB = b.completed(owner);
+                return vB - vA;
             }
         }
-
-        return ItemFactory.customItem(
-                q.completedQuest ? "BOOK" : "WRITTEN_BOOK",
-                text().content("Quest: " + q.GetQuest().getName()).color(NamedTextColor.GREEN),
-                loreList.toArray(new TextComponent.Builder[0])
-        );
     }
 }

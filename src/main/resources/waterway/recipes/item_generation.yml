@@ -7,3 +7,12 @@ flesh_production_core:
     spiced_meat: 80
     weird_flesh: 5000
     leaf_mash: 1250
+
+bottomless_water_bucket:
+  time: 6h
+  category: waterway
+  discovery: waterway_cod_collection
+  discovery-tier: 6
+  items:
+    cooked_waterway_cod: 72
+    seraphs_eye: 4

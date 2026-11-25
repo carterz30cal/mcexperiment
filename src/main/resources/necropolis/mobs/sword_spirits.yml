@@ -77,5 +77,6 @@ sword_spirit_1:
       scale: 1.1
       offset: [ 0,0,0 ]
       invisible: true
+      contribute-height: true
       equipment:
         HAND: DIAMOND_SWORD

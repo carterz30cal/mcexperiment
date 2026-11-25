@@ -117,6 +117,7 @@ public class ItemFactory
             "necropolis/recipes/talismans", "necropolis/recipes/pickaxes", "necropolis/recipes/detectors", "necropolis/recipes/rods",
             "necropolis/recipes/armour/uncommon","necropolis/recipes/armour/rare",
             "necropolis/recipes/ingredients", "necropolis/recipes/enchants", "necropolis/recipes/pet_upgrades",
+            "necropolis/recipes/crypt_keys",
             "necropolis/recipes/potions",
             "necropolis/recipes/waterway_upgraded_legendary_swords"
 	};
@@ -418,7 +419,7 @@ public class ItemFactory
             sections.add(enchantSection);
         }
 
-        var abilities = getItemAbilities(item, context.player);
+        var abilities = getItemAbilities(stack, context.player);
         Section specificSection = new Section(new ArrayList<>());
         boolean drawSpecificSection = false;
         {
@@ -485,11 +486,16 @@ public class ItemFactory
         }
 
         Section abilitySection = new Section(new ArrayList<>());
+        var showab = false;
         for (var ability : abilities) {
+            if (ability.ability instanceof GameAbstractEnchant) {
+                continue;
+            }
+            showab = true;
             abilitySection.section.add(text().append(text(ability.name(), ability.colour())));
             for (var d : ability.componentDescription()) abilitySection.section.add(text().append(text(" ")).append(d));
         }
-        if (!abilities.isEmpty()) {
+        if (showab) {
             sections.add(abilitySection);
         }
 
@@ -635,7 +641,6 @@ public class ItemFactory
 			}
 		}
 		else stack = new ItemStack(item.material, amount);
-		
 		ItemMeta meta = stack.getItemMeta();
 
         if (meta != null) {

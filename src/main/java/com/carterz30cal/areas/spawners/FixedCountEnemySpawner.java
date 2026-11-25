@@ -4,7 +4,7 @@ import org.bukkit.Location;
 
 /**
  * @author carterz30cal
- * @version 1
+ * @version 2
  * @since 1.0.0
  */
 public class FixedCountEnemySpawner extends SimpleAreaEnemySpawner {
@@ -17,11 +17,6 @@ public class FixedCountEnemySpawner extends SimpleAreaEnemySpawner {
         this.validRadius = 10;
         this.cullDead = false;
         this.spawnTimer = 4;
-    }
-
-    @Override
-    protected boolean getCurrentlyValidToSpawn() {
-        return true;
     }
 
     @Override

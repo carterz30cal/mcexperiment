@@ -20,6 +20,7 @@ import com.carterz30cal.utils.ParticleUtils;
 import org.bukkit.Color;
 import org.bukkit.Location;
 import org.bukkit.Particle;
+import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Projectile;
 import org.bukkit.persistence.PersistentDataType;
 import org.bukkit.scheduler.BukkitRunnable;
@@ -44,6 +45,8 @@ public class GameProjectile extends GameEntity implements AggressiveEntity {
     private final BukkitRunnable runnable;
     private Location previousLocation;
     private int pierceTicks;
+    private Item context;
+    private Color colour;
 
     public GameProjectile(AggressiveEntity owner, Projectile projectile) {
         this.owner = owner;
@@ -71,7 +74,7 @@ public class GameProjectile extends GameEntity implements AggressiveEntity {
         Set<DamageableEntity> hit = new HashSet<>();
         for (int i = -1; i <= CHECKS + 1; i++) {
             var cloc = previousLocation.clone().add(dir.clone().multiply(i));
-            ParticleUtils.spawn(cloc, new Particle.DustOptions(Color.RED, 0.2F), 0);
+            ParticleUtils.spawn(cloc, new Particle.DustOptions(colour, 0.2F), 0);
             for (var entity : EntityUtils.getNearbyDamageableEntities(cloc, 1)) {
                 if (entity.equals(owner) || hit.contains(entity)) {
                     continue;
@@ -99,6 +102,8 @@ public class GameProjectile extends GameEntity implements AggressiveEntity {
             var list = new ArrayList<ContextWithAbility<? extends GameEntity>>(ItemFactory.getItemAbilities(item, player));
             contextualAbilities.addAll(list);
             stats = item.stats.clone();
+            context = item;
+            colour = org.bukkit.Color.fromRGB(context.r, context.g, context.b);
         }
         else {
             throw new IllegalCallerException("item projectile contextual abilities must be set by a GamePlayer owner.");
@@ -161,5 +166,15 @@ public class GameProjectile extends GameEntity implements AggressiveEntity {
             return 0;
         }
         return stats.stat(stat);
+    }
+
+    @Override
+    public LivingEntity getTargetableEntity() {
+        return null;
+    }
+
+    @Override
+    public boolean isTargetable(AggressiveEntity by) {
+        return false;
     }
 }

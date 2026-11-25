@@ -1,3 +1,15 @@
+crypt_talisman_common:
+  name: Crypt Talisman
+  type: TALISMAN
+  rarity: COMMON
+  custom-model-id: crypt_talisman_common
+  tags:
+    - CRYPT_TALISMAN
+  abilities:
+    - CRYPT_TALISMAN_COMMON
+  stats:
+    power: +10
+
 spirit_lantern_uncommon:
   name: Spirit Lantern
   type: TALISMAN

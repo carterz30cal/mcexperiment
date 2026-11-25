@@ -18,6 +18,17 @@ fish_tank:
     FISHING_POWER: +40
 
 
+a_promise_of_gold:
+  name: A Promise Of Gold
+  type: TALISMAN
+  rarity: RARE
+  material: GOLD_NUGGET
+  stats:
+    mining_speed: +60
+    mining_fortune: +10
+    level_requirement: 1
+
+
 
 titans_talisman:
   name: Titan's Talisman

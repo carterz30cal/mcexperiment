@@ -75,6 +75,11 @@ necropolis_talismans_spirit_lantern:
   icon: spirit_lantern_rare
   parent: necropolis_talismans
 
+necropolis_crypt_keys:
+  name: Crypt Keys
+  icon: crypt_key_lesser
+  parent: necropolis
+
 necropolis_potions:
   name: Brewing Ingredients
   icon: POTION

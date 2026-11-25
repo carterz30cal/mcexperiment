@@ -27,7 +27,7 @@ public enum Skills {
     LUCKY1("The Price of Being Lucky", new PlayerSkillLucky(SkillSoulType.NECROPOLIS, 10, 1, 50), 4, 2, 1, SACKIER_SACKS1),
     SNIFFER1("Sniffer's Nose", new PlayerSkillStat(SkillSoulType.NECROPOLIS, 10, Stat.DETECTION, 2), 5, 2, 1, LUCKY1),
     FISHER1("Fisherman I", new PlayerSkillStat(SkillSoulType.NECROPOLIS, 10, Stat.FISHING_POWER, 5), 3, 2, 1, LUCKY1),
-    SACKIER_SACKS2("Sackier Sacks II", new PlayerSkillStat(SkillSoulType.NECROPOLIS, 40, Stat.SACK_SPACE, 1000), 6, 2, 1, SNIFFER1),
+    SACKIER_SACKS2("Sackier Sacks II", new PlayerSkillStat(SkillSoulType.NECROPOLIS, 40, Stat.SACK_SPACE, 1000), 6, 2, 1, SNIFFER1, MIDAS_TOUCH1),
     FORGE_AMATEUR("Amateur Forger", new PlayerSkillStat(SkillSoulType.NECROPOLIS, 6, Stat.FORGE_SLOTS, 1, 2.4), 4, 1, 1, LUCKY1),
     ;
     public final TreePosition position;

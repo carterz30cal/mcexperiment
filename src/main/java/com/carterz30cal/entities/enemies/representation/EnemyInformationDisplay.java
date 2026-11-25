@@ -22,7 +22,7 @@ import java.util.List;
  * @since 1.0.0
  */
 public class EnemyInformationDisplay extends GameEntity {
-    private static final double TEXT_GAP = 0.25;
+    private static final double TEXT_GAP = 0.275;
     private final RepresentedEntity owner;
     private final List<TextDisplay> displays = new ArrayList<>();
     private final List<Component> components = new ArrayList<>();

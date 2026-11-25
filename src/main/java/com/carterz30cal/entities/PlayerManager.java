@@ -127,10 +127,7 @@ public class PlayerManager
 		ConfigurationSection quiver = c.getConfigurationSection("quiver");
 		if (quiver != null)
 		{
-			for (String path : quiver.getKeys(false))
-			{
-				p.quiver.put(path, quiver.getInt(path, 0));
-			}
+			p.quiver2.load(quiver);
 		}
 
         ConfigurationSection kills = c.getConfigurationSection("kills");
@@ -175,6 +172,10 @@ public class PlayerManager
 		p.talismans = c.getStringList("talismans");
 
 		p.factory.load(c);
+        ConfigurationSection questing = c.getConfigurationSection("questing");
+        if (questing != null) {
+            p.questing.load(questing);
+        }
 	}
 	
 	public void registerPlayer(Player p)
@@ -234,6 +235,10 @@ public class PlayerManager
         p.wardrobe.save(c.createSection("wardrobe"));
 		p.factory.save(c);
         p.skillTree.save(c);
+        c.set("questing", null);
+        p.questing.save(c.createSection("questing"));
+		c.set("quiver",  null);
+		p.quiver2.save(c.createSection("quiver"));
 
 
         c.set("kills", null);

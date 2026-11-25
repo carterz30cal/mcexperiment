@@ -83,19 +83,27 @@ public class TreasureDetectorAbility extends GameAbility
             return;
         }
         var blocked = new Location(location.getWorld(), location.getBlockX(), location.getBlockY() - 1, location.getBlockZ());
+        var a = player.getStat(Stat.DETECTION) / 100L;
         if (blocked.equals(spot.location)) {
             var option = options.get(player.area);
             if (RandomUtils.getRandomEx(0, 100) < option.enemyChance && !option.enemies.isEmpty()) {
                 player.sendMessage("<red><b>AHH!</b> You dug up an angry creature!");
                 player.playSound(Sound.ENTITY_CREEPER_HURT, 1, 0.9);
-                EnemyManager.spawn(RandomUtils.getChoice(option.enemies), blocked.clone().add(0, 1, 0));
+
+                String choice;
+                do {
+                    choice = RandomUtils.getChoice(option.enemies);
+                }
+                while (EnemyManager.builder(choice) == null || EnemyManager.builder(choice).getEnemyData().stats.getOrDefault(Stat.DETECTION, 0L) > a);
+
+                EnemyManager.spawn(choice, blocked.clone().add(0, 1, 0));
             }
             else {
                 var item = option.items.generateContextOne(player);
                 var i = ItemFactory.getItem(item.getItemStack());
                 var name = i.name;
                 player.playSound(Sound.BLOCK_GRASS_BREAK, 0.8, 0.9);
-                var a = player.getStat(Stat.DETECTION) / 100L;
+
                 if (RandomUtils.getRandomEx(0, 100) < player.getStat(Stat.DETECTION) - (a * 100)) {
                     a++;
                 }

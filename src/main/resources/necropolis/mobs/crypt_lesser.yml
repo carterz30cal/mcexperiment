@@ -3,7 +3,7 @@ crypt_dweller_lesser:
   level: 8
   health: 1800
   knockback: 120
-  speed: 1.5
+  speed: 1.8
   damage:
     PHYSICAL: 105
   stats:
@@ -46,13 +46,126 @@ crypt_dweller_lesser:
     crypt_dweller_boots:
       chance: 1/400
       amount: 1/1
+    pet_crypt_dweller_common:
+      chance: 1/1200
+      amount: 1/1
+
+crypt_dweller_spirit_lesser:
+  name: Spirit Dweller
+  level: 8
+  health: 1800
+  knockback: 120
+  speed: 1.8
+  damage:
+    PHYSICAL: 105
+    MAGIC: 15
+  stats:
+    DOUSING: -50
+    MAGIC_RESISTANCE: 50
+  souls:
+    NECROPOLIS: 3
+  bestiary:
+    category: necropolis_crypts_lesser
+  tags:
+    - NECROPOLIS
+    - UNDEAD
+    - CRYPT
+  sounds:
+    hurt: entity.zombie.hurt
+    death: entity.zombie.death
+  entities:
+    _:
+      type: ZOMBIE
+      scale: 0.9
+      offset: [ 0,0,0 ]
+      invisible: true
+      contribute-height: true
+      equipment:
+        HAND: BONE
+        HEAD: crypt_dweller_helmet
+        CHEST: CHAINMAIL_CHESTPLATE
+        LEGS: crypt_dweller_leggings
+        FEET: crypt_dweller_boots
+  loot:
+    bone_dust:
+      chance: 1/1
+      amount: 1/4
+    crypt_dweller_helmet:
+      chance: 1/400
+      amount: 1/1
+    crypt_dweller_chestplate:
+      chance: 1/400
+      amount: 1/1
+    crypt_dweller_leggings:
+      chance: 1/400
+      amount: 1/1
+    crypt_dweller_boots:
+      chance: 1/400
+      amount: 1/1
+    pet_crypt_dweller_common:
+      chance: 1/1200
+      amount: 1/1
+
+
+lunatic_7_crypt:
+  name: Crypt Lunatic
+  level: 8
+  health: 3300
+  knockback: 10
+  speed: 1.7
+  always-display-health: false
+  coin-multiplier: 1
+  damage:
+    PHYSICAL: 55
+    FROST: 10
+  stats:
+    ROBUSTNESS: 12
+    PADDING: 20
+  souls:
+    WATERWAY: 5
+    NECROPOLIS: 1
+  entities:
+    _:
+      type: ZOMBIE
+      scale: 1.1
+      offset: [ 0,0,0 ]
+      equipment:
+        HAND: zombie_sword
+        HEAD: LIGHT_BLUE_STAINED_GLASS
+        CHEST: water_chestplate
+        LEGS: CHAINMAIL_LEGGINGS
+        FEET: water_boots
+  bestiary:
+    category: necropolis_crypts_lesser
+  tags:
+    - LUNATIC
+    - LUNATIC_HIGH_RANK
+    - NECROPOLIS
+    - CRYPT
+    - UNDEAD
+    - FANATIC
+  loot:
+    weird_flesh:
+      amount: 5/30
+    chilli_powder:
+      chance: 1/7
+      amount: 2/4
+    waterway_sac:
+      chance: 1/33
+      amount: 1/1
+    enchanted_book:
+      enchants: ENCHANT_SHARPNESS-2
+      chance: 1/120
+    enchanted_book-SH2:
+      enchants: ENCHANT_SHARPNESS-3
+      chance: 1/200
 
 crypt_tank_lesser:
   name: Crypt Tank
   level: 8
   health: 750
   knockback: 120
-  speed: 1.5
+  speed: 1.6
   damage:
     PHYSICAL: 105
   stats:
@@ -129,25 +242,28 @@ crypt_ranger_lesser:
       offset: [ 0,0,0 ]
       equipment:
         HAND: BOW
-        HEAD: crypt_dweller_helmet
-        CHEST: crypt_dweller_chestplate
+        HEAD: crypt_ranger_helmet
+        CHEST: crypt_ranger_chestplate
         LEGS: crypt_dweller_leggings
         FEET: crypt_dweller_boots
   loot:
     bone_dust:
       chance: 1/1
       amount: 1/4
-    crypt_dweller_helmet:
+    crypt_ranger_helmet:
       chance: 1/400
       amount: 1/1
-    crypt_dweller_chestplate:
+    crypt_ranger_chestplate:
       chance: 1/400
       amount: 1/1
-    crypt_dweller_leggings:
+    crypt_ranger_leggings:
       chance: 1/400
       amount: 1/1
-    crypt_dweller_boots:
+    crypt_ranger_boots:
       chance: 1/400
+      amount: 1/1
+    pet_crypt_dweller_common:
+      chance: 1/1200
       amount: 1/1
 
 crypt_ranger_unmoving_lesser:
@@ -180,44 +296,106 @@ crypt_ranger_unmoving_lesser:
       offset: [ 0,0,0 ]
       equipment:
         HAND: BOW
-        HEAD: crypt_dweller_helmet
-        CHEST: crypt_dweller_chestplate
+        HEAD: crypt_ranger_helmet
+        CHEST: crypt_ranger_chestplate
         LEGS: crypt_dweller_leggings
         FEET: crypt_dweller_boots
   loot:
     bone_dust:
       chance: 1/1
       amount: 1/4
-    crypt_dweller_helmet:
+    crypt_ranger_helmet:
       chance: 1/400
       amount: 1/1
-    crypt_dweller_chestplate:
+    crypt_ranger_chestplate:
       chance: 1/400
       amount: 1/1
-    crypt_dweller_leggings:
+    crypt_ranger_leggings:
       chance: 1/400
       amount: 1/1
-    crypt_dweller_boots:
+    crypt_ranger_boots:
       chance: 1/400
+      amount: 1/1
+    pet_crypt_dweller_common:
+      chance: 1/1200
+      amount: 1/1
+
+crypt_mage_lesser:
+  name: Crypt Mage
+  level: 8
+  health: 1400
+  knockback: 120
+  speed: 1.1
+  director: SKELETON
+  damage:
+    MAGIC: 50
+  stats:
+    DOUSING: -50
+  souls:
+    NECROPOLIS: 2
+  bestiary:
+    category: necropolis_crypts_lesser
+  tags:
+    - NECROPOLIS
+    - UNDEAD
+    - CRYPT
+    - MAGE
+  sounds:
+    hurt: entity.skeleton.hurt
+    death: entity.skeleton.death
+  entities:
+    _:
+      type: WITHER_SKELETON
+      scale: 0.9
+      offset: [ 0,0,0 ]
+      equipment:
+        HAND: BREEZE_ROD
+        HEAD: crypt_mage_helmet
+        CHEST: crypt_mage_chestplate
+        LEGS: crypt_mage_leggings
+        FEET: crypt_mage_boots
+    blaze:
+      type: BLAZE
+      hidden: true
+      offset: [ 0,0,0 ]
+      allow-ai: true
+  loot:
+    bone_dust:
+      chance: 1/1
+      amount: 1/4
+    crypt_mage_helmet:
+      chance: 1/400
+      amount: 1/1
+    crypt_mage_chestplate:
+      chance: 1/400
+      amount: 1/1
+    crypt_mage_leggings:
+      chance: 1/400
+      amount: 1/1
+    crypt_mage_boots:
+      chance: 1/400
+      amount: 1/1
+    pet_crypt_dweller_common:
+      chance: 1/1200
       amount: 1/1
 
 crypt_knight_lesser:
   name: <gold>Crypt Knight</gold>
-  level: 40
-  health: 35000
+  level: 20
+  health: 15000
   knockback: 25
-  speed: 1.5
+  speed: 2.1
   always-display-health: true
   coin-multiplier: 8
   director: ZOMBIE
   damage:
-    PHYSICAL: 500
-    BLEED: 50
+    PHYSICAL: 120
+    BLEED: 40
   stats:
     ROBUSTNESS: 10
     PADDING: 50
   souls:
-    NECROPOLIS: 15
+    NECROPOLIS: 20
   entities:
     _:
       type: ZOMBIE
@@ -240,24 +418,24 @@ crypt_knight_lesser:
     chilli_powder:
       amount: 5/6
     crypt_knight_sword_epic:
-      chance: 1/450
+      chance: 1/300
 
 crypt_titan_lesser:
   name: <light_purple>Crypt Titan</light_purple>
-  level: 40
-  health: 60000
+  level: 20
+  health: 20000
   knockback: 25
   speed: 1.5
   always-display-health: true
   coin-multiplier: 8
   director: ZOMBIE
   damage:
-    PHYSICAL: 300
+    PHYSICAL: 200
   stats:
     ROBUSTNESS: 10
     PADDING: 50
   souls:
-    NECROPOLIS: 15
+    NECROPOLIS: 20
   abilities:
     slash:
       class: waterway.titan.EnemyAbilityTitanSlash
@@ -310,16 +488,16 @@ crypt_titan_lesser:
 
 crypt_boss_golem:
   name: <red>Infested Golem</red>
-  level: 60
-  health: 250000
+  level: 30
+  health: 60000
   knockback: 0
   speed: 1.5
   always-display-health: true
   coin-multiplier: 25
   director: IRON_GOLEM
   damage:
-    PHYSICAL: 500
-    EXPLOSIVE: 80
+    PHYSICAL: 300
+    EXPLOSIVE: 60
   stats:
     DEFENCE: 25
     PADDING: 50

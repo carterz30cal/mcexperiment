@@ -21,8 +21,23 @@ spirit_pickaxe_very_rare:
     mining_speed: 250
     breaking_power: 3
     mining_fortune: 130
-    enchant_power: 10
+    enchant_power: 20
     level_requirement: 6
+
+spirit_pickaxe_epic:
+  name: Haunting Pickaxe
+  type: PICKAXE
+  rarity: EPIC
+  material: DIAMOND_PICKAXE
+  value: 800
+  abilities:
+    - HAUNTING_PICKAXE
+  stats:
+    mining_speed: 350
+    breaking_power: 3
+    mining_fortune: 180
+    enchant_power: 30
+    level_requirement: 8
 
 sand_shovel_epic:
   name: Sand Shovel

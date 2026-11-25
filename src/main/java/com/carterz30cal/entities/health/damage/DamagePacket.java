@@ -9,7 +9,7 @@ import java.util.*;
 
 /**
  * @author carterz30cal
- * @version 1
+ * @version 2
  * @since 1.0.0
  */
 public class DamagePacket {
@@ -21,6 +21,7 @@ public class DamagePacket {
     public DamageableEntity defender;
     public AggressiveEntity aggressor;
     public AttackType attack;
+    private boolean settled = false;
 
     public DamagePacket() {
 
@@ -46,18 +47,22 @@ public class DamagePacket {
 
     public void addOperation(DamagePacketOperation operation) {
         operations.add(operation);
+        settled = false;
     }
 
     public void settle() {
-        operations.sort(Comparator.comparing(DamagePacketOperation::getPriority));
-        for (var operation : operations) {
-            operation.run(this);
-        }
-        for (var resistance : DamageResistance.values()) {
-            this.resistances.put(resistance, defender.getStat(resistance.getResistanceStat()));
-        }
-        for (var resistance : StatusResistance.values()) {
-            this.statusResistances.put(resistance, defender.getStat(resistance.getResistanceStat()));
+        if (!settled) {
+            operations.sort(Comparator.comparing(DamagePacketOperation::getPriority));
+            for (var operation : operations) {
+                operation.run(this);
+            }
+            for (var resistance : DamageResistance.values()) {
+                this.resistances.put(resistance, defender.getStat(resistance.getResistanceStat()));
+            }
+            for (var resistance : StatusResistance.values()) {
+                this.statusResistances.put(resistance, defender.getStat(resistance.getResistanceStat()));
+            }
+            settled = true;
         }
     }
 
@@ -107,5 +112,16 @@ public class DamagePacket {
 
     public void multiply(double multiplier) {
         damages.replaceAll((i, b) -> Math.round(b * multiplier));
+    }
+
+    /**
+     *
+     * @param type       damage type to multiply
+     * @param multiplier how much do we want to increase the damage type by?
+     * @since 1.0.0 [2]
+     */
+    public void multiply(DamageType type, double multiplier) {
+        var dmg = damages.getOrDefault(type, 0L);
+        damages.put(type, Math.round(dmg * multiplier));
     }
 }

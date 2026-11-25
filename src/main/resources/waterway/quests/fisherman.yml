@@ -1,0 +1,66 @@
+fisherman_1:
+  name: What is Water?
+  repeatable: false
+  class: CollectQuest
+  item: weird_flesh
+  count: 12
+  consume: true
+  npc:
+    name: Freddy
+    location: -1.5, 64, 23.5, -150, 0
+    representation: fisherman_1
+  reward:
+    class: ItemQuestReward
+    xp: 5
+    items:
+      - flimsy_fishing_rod£1
+  dialog:
+    voice: Freddy
+    beginning:
+      - Hey! You looking to do some fishin'?
+      - Me too! Unfortunately it looks like neither of us have a fishing rod.
+      - However! I know how to make one!
+      - Find me some weird flesh and I will make us both a <i>brilliant</i> fishing rod.
+    chatter:
+      - You can't fish without a rod.
+      - Fishing is essential for <aqua>xp</aqua> and for some interesting <light_purple>enchantments</light_purple>, amongst other things.
+      - I heard you can even fish up <blue>Water Spirits</blue>, with a strong enough rod.
+    ending:
+      - Yes! That will do nicely!
+      - Give me two secs...
+      - Here we are. Two rods of completely identical quality.
+      - If you fancy getting up to some fishing, I'll just be up the path in one of these fancy fishing huts.
+
+fisherman_2:
+  name: Fred's Supper
+  repeatable: false
+  class: CollectQuest
+  item: waterway_cod
+  count: 25
+  consume: true
+  npc:
+    name: Fisherman Freddy
+    location: 60.8, 81, -0.6, 94.5, 20
+    representation: fisherman_2
+  reward:
+    class: QuestReward
+    xp: 5
+    coins: 1000
+  requirement:
+    class: CompleteQuestRequirement
+    quest: fisherman_1
+  dialog:
+    voice: Freddy
+    beginning:
+      - You again!
+      - I'm having a really hard time catching anything at the moment, and I'm absolutely starving!
+      - Any chance you could fish me up some supper? - I'd really appreciate the help.
+      - Thanks!
+    chatter:
+      - I'm so hungry...
+      - I only really like Waterway cod, nothing else hits the same.
+      - It's always been my dream to be a fishmonger, but how can I manage that if I can't even catch my tea?
+    ending:
+      - Oh, that smells <i>divine!</i>
+      - Time to smoke it!
+      - Oh, here, some coins for your trouble.

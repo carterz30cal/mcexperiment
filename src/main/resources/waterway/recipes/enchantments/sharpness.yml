@@ -51,8 +51,7 @@ enchanted_book-REGROWTH:
   level: 3
   items:
     paper: 3
-    leaf_mash: 130
-    chilli_powder: 3
+    leaf_ball: 2
 
 
 enchanted_book-SUPERLURE:

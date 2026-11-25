@@ -1,0 +1,8 @@
+crypt_key_lesser:
+  level: 6
+  category: necropolis_crypt_keys
+  discovery: bone_dust_collection
+  discovery-tier: 2
+  items:
+    roasted_bone_dust: 2
+    yellow_slime: 4

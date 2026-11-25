@@ -36,6 +36,11 @@ public class FlimsyPersistenceEnchant extends GameAbstractEnchant implements Abi
         return reqs;
     }
 
+    @Override
+    public String obtaining() {
+        return "Dropped rarely by shockers during a Waterway downpour.";
+    }
+
     /**
      *
      * @param context ability context, determines level.

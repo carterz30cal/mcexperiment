@@ -3,6 +3,7 @@ package com.carterz30cal.entities.health.damage.handlers;
 import com.carterz30cal.entities.GameEntity;
 import com.carterz30cal.entities.LocatableEntity;
 import com.carterz30cal.entities.StatHavingEntity;
+import com.carterz30cal.entities.TargetableEntity;
 import com.carterz30cal.entities.health.damage.DamagePacket;
 import com.carterz30cal.items.abilities.implementation.ContextWithAbility;
 
@@ -10,10 +11,10 @@ import java.util.List;
 
 /**
  * @author carterz30cal
- * @version 1
+ * @version 2
  * @since 1.0.0
  */
-public interface AggressiveEntity extends LocatableEntity, StatHavingEntity {
+public interface AggressiveEntity extends LocatableEntity, StatHavingEntity, TargetableEntity {
     List<? extends ContextWithAbility<? extends GameEntity>> getAggressiveDamageModifiers();
 
     /**

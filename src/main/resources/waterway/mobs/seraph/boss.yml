@@ -24,6 +24,7 @@ water_seraph_boss:
   tags:
     - BOSS
     - SERAPH
+    - WATERWAY_SERAPH
     - WATERWAY
   entities:
     _:
@@ -33,11 +34,11 @@ water_seraph_boss:
 
 water_seraph_boss_final:
   name: <#7335db>Water Seraph</#7335db>
-  level: 1
+  level: 10
   health: 50
-  speed: 2.1
+  speed: 0.4
   knockback: 45
-  director: SLIME
+  director: FOX
   damage:
     PHYSICAL: 1
   stats:

@@ -10,7 +10,7 @@ import com.carterz30cal.entities.player.GamePlayer;
  */
 public class HydraBossInactiveRequirement implements QuestRequirement {
     @Override
-    public boolean hasMetRequirements(GamePlayer player) {
+    public boolean satisfied(GamePlayer player) {
         return AreaMinibossNecropolisHydra.instance.phase() == -1;
     }
 }

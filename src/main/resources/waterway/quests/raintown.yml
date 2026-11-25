@@ -1,0 +1,209 @@
+raintown_resident_1:
+  name: Resident's Request (Amma)
+  repeatable: false
+  class: CollectQuest
+  item: cooked_waterway_cod
+  count: 1
+  consume: true
+  npc:
+    name: Amma
+    location: 73.9, 81, 16.3, 140, 10
+    representation: raintown_resident
+  reward:
+    class: QuestReward
+    xp: 5
+    coins: 1500
+  requirement:
+    class: CompleteQuestRequirement
+    quest: fisherman_1
+  dialog:
+    voice: Amma
+    beginning:
+      - My father, Raintown's only blacksmith, is currently recovering from a nasty case of being punched in the nose by a <red>Lunatic</red>!
+      - I want to make him something to eat, to lift his spirits, but I'm a terrible cook!
+      - His favourite is baked waterway cod, like most of the population of Waterway.
+      - Could you help me?
+    chatter:
+      - The lunatics are bad, but the shockers are worse. I'm glad my dad wasn't biffed by one of those.
+      - Personally, I don't get the obsession with waterway cod, but then I just don't really like fish.
+      - I tried making apple crumble and nearly burnt the forge down, which is impressive given its fire-proof.
+      - I'd bake him some cookies, but we can't get chocolate here.
+    ending:
+      - This will do wonderfully. I'm sure he'll love it.
+      - Thank you so much.
+
+raintown_resident_2_1:
+  name: Help Kirk
+  repeatable: false
+  class: CollectQuest
+  item: green_slime
+  count: 1
+  consume: true
+  npc:
+    name: Scared Kirk
+    location: 62.01, 84, 11.55, 65, 46
+    representation: raintown_resident
+  reward:
+    class: QuestReward
+    xp: 5
+    coins: 1500
+  requirement:
+    class: CompleteQuestRequirement
+    quest: fisherman_1
+  dialog:
+    voice: Kirk
+    beginning:
+      - <b>HELP ME!
+      - I hate heights!
+      - I need something bouncy to land on!
+    chatter:
+      - Please get me down...
+    ending:
+      - Let's give this a try!
+
+raintown_resident_2_2:
+  name: Resident's Request (Kirk)
+  repeatable: false
+  class: CollectQuest
+  item: pet_water_spider_common
+  count: 1
+  consume: true
+  npc:
+    name: Relieved Kirk
+    location: 60.5, 81, 12, 65, 46
+    representation: raintown_resident
+  reward:
+    class: QuestReward
+    xp: 5
+    coins: 3000
+  requirement:
+    class: CompleteQuestRequirement
+    quest: raintown_resident_2_1
+  dialog:
+    voice: Kirk
+    beginning:
+      - Thank you for getting me down. I won't forget this.
+      - Now, if you're up for it, I could do with another favour.
+      - It's my friend Amma's birthday soon, and I'd like to buy her a pet.
+      - She really likes <red>spiders</red>, don't ask me why, and the Water Spider found in Waterway is a particularly fine specimen of spider, apparently.
+      - If you could spare a pet spider, I will pay you handsomely for it.
+    chatter:
+      - I've heard sometimes a friendly spider will hang onto a hostile spider and appear for you when you eliminate the nasty one. Or something like that.
+      - If you find two, I've heard that water spiders are very good at looking after souls.
+      - Water spiders are easiest to find in the caves near the top of the mountain.
+    ending:
+      - Okay, I see the appeal, that spider is beautiful!
+      - She's really going to love this gift!
+      - Oh, here, your payment.
+
+raintown_resident_3:
+  name: Resident's Request (Ben)
+  repeatable: false
+  class: CollectQuest
+  item: chilli_powder
+  count: 5
+  consume: true
+  npc:
+    name: Ben
+    location: 61.7, 82, -10.3, -12.5, 5
+    representation: raintown_resident
+  reward:
+    class: ItemQuestReward
+    xp: 5
+    coins: 500
+    items:
+      - weak_silk_mass£2
+  requirement:
+    class: CompleteQuestRequirement
+    quest: fisherman_1
+  dialog:
+    voice: Ben
+    beginning:
+      - Uh.....
+      - Hi?
+      - As you can probably see, I've fell in this pond, and uh, it's very <aqua>cold.</aqua>
+      - Could you find me something to warm up with?
+    chatter:
+      - Hurry up, I'm freezing here!
+      - There's nowhere to get a good curry around here.
+      - Do you know if Kirk is single?
+      - Do you know if Amma is single?
+      - Please don't ask how I fell in the pond, its very embarrassing.
+    ending:
+      - Ooo.. <red><i>spicy!
+      - Thanks, that's really helped me out. I didn't need that much though, so have some of it back.
+
+
+raintown_resident_4:
+  name: Resident's Request (Sheila)
+  repeatable: false
+  class: RequirementQuest
+  message: Show Sheila that there's nothing to be scared of by achieving a high level <dark_grey>(6+)</dark_grey>.
+  quest-requirement:
+    class: LevelQuestRequirement
+    level: 6
+  npc:
+    name: Sheila
+    location: 68.3, 81, -9.3, 39, 10
+    representation: raintown_resident
+  reward:
+    class: QuestReward
+    xp: 5
+    coins: 250
+  requirement:
+    class: CompleteQuestRequirement
+    quest: fisherman_1
+  dialog:
+    voice: Sheila
+    beginning:
+      - Waterway is so scary!
+      - Monsters, everywhere!
+      - I spend most of my days cooped up behind this bush.
+      - People keep telling me all about these scary foes up the mountain, and since I've never been, I'm going off of their words.
+    chatter:
+      - Maybe if you managed to achieve a high level here, I could conquer my own fears?
+      - Even the ponds are scary! I hear <blue>Water Spirits</blue> lie in wait!
+      - I envy courageous individuals like Tam. I hear he's been all over the world!
+    ending:
+      - Wow. Looking at you, I can't help but feel safe.
+      - I've made up my mind, I'm going to explore the world. Maybe I'll make it out of Waterway!
+      - Please take some pocket money for helping me.
+
+raintown_resident_5:
+  name: Resident's Request (Harry)
+  repeatable: false
+  class: FightClubQuest
+  enemy: raintown_resident_larry
+  location: 81.5, 81, 31.5, 90, 0
+  npc:
+    name: Harry
+    location: 53, 81, 32.5, -80, 0
+    representation: raintown_resident
+  reward:
+    class: ItemQuestReward
+    xp: 15
+    coins: 1000
+    items:
+      - enchanted_book£1£enchants:ENCHANT_BLADE-1
+  requirement:
+    class: ComboQuestRequirement
+    sub-requirements:
+      quest:
+        class: CompleteQuestRequirement
+        quest: fisherman_1
+      level:
+        class: LevelQuestRequirement
+        level: 4
+  dialog:
+    voice: Harry
+    beginning:
+      - Hiya! We're the defenders of this fine town.
+      - Unfortunately, lunatics are no longer a threat to my brother and I.
+      - Could you help Larry train?
+      - He's standing over there. If you don't feel up for it, talk to me again and I'll call him off.
+      - Otherwise, defeat him! There's coins in it for you if you do.
+    chatter:
+      - Understandable, my brother is a tough opponent. Come back later when you feel ready.
+    ending:
+      - You're a tough opponent. My brother is quite the warrior but yet you defeated him.
+      - Here, take some coins for your effort, and this rare enchanted book to put on your weapon.

@@ -31,7 +31,7 @@ public class BossRoomTargetingBehaviour implements TargetingBehaviour {
 
     @Override
     public LivingEntity findTarget(GameEnemy brain, Location location) {
-        List<GameEnemy> enemies = EntityUtils.getNearbyEnemies(location, 14);
+        List<GameEnemy> enemies = EntityUtils.getNearbyEnemies(location, 20);
         enemies.removeIf((e) -> !e.isTargetable(brain));
         if (!enemies.isEmpty()) {
             return enemies.getFirst().getTargetableEntity();

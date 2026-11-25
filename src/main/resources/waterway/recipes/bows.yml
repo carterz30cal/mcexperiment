@@ -29,36 +29,69 @@ lunatic_bow:
     spider_silk: 200
     weird_flesh: 800
 
+titan_bow_epic:
+  level: 4
+  category: waterway_weapons_bows
+  items:
+    titan_bow: 1
+    waterway_sac: 2
+    spider_silk: 100
+
+spider_bow_epic:
+  level: 4
+  category: waterway_weapons_bows
+  items:
+    spider_bow: 1
+    waterway_sac: 2
+    spider_silk: 600
+
+paper_mache_bow_epic:
+  level: 4
+  category: waterway_weapons_bows
+  items:
+    paper_mache_bow_very_rare: 1
+    waterway_sac: 2
+    chilli_powder: 15
+
+lunatic_bow_epic:
+  level: 4
+  time: 5m
+  category: waterway_weapons_bows
+  items:
+    lunatic_bow: 1
+    waterway_sac: 2
+    weird_flesh: 1200
+
 flimsy_arrow:
-  custom-name: <gold>24x<grey> Flimsy Arrow
+  custom-name: <grey>Flimsy Arrow <dark_grey>x24</dark_grey>
   level: 2
   category: waterway_weapons_arrows
   amount: 24
   items:
     weird_flesh: 5
 paper_arrow:
-  custom-name: <gold>20x<grey> Paper Arrow
+  custom-name: <grey>Paper Arrow <dark_grey>x30</dark_grey>
   level: 3
   category: waterway_weapons_arrows
-  amount: 20
+  amount: 30
   items:
     wet_paper: 8
 spiced_arrow:
-  custom-name: <gold>100x <yellow>Spiced Arrow
+  custom-name: <yellow>Spiced Arrow <dark_grey>x140</dark_grey>
   level: 4
   category: waterway_weapons_arrows
-  discovery: weird_flesh_collection
-  discovery-tier: 3
-  amount: 100
+  discovery: chilli_powder_collection
+  discovery-tier: 2
+  amount: 140
   items:
     spiced_meat: 1
     chilli_powder: 2
 
 storm_arrow:
-  custom-name: <gold>300x <green>Storm Arrows
+  custom-name: <green>Storm Arrow <dark_grey>x400</dark_grey>
   level: 4
   category: waterway_weapons_arrows
-  amount: 300
+  amount: 400
   items:
-    weird_flesh: 50
+    weird_flesh: 100
     empty_storm_pearl: 1

@@ -39,20 +39,22 @@ calmed_spirit:
   type: INGREDIENT
   rarity: RARE
   material: ALLAY_SPAWN_EGG
+  custom-model-id: calmed_spirit
   discovery: calmed_spirit_collection
   discovery-progress: 1
   value: 100
   lore:
     - Apparently, spirits can take a form. These
     - have calmed into a somewhat goopy syrup.
-    - Found by slaying Sword Spirits.
+    - Found by slaying sword spirits and in crypts!
+
 
 incensed_spirit:
-  name: Incensed Spirits
+  name: Incensed Spirit
   type: INGREDIENT
   rarity: EPIC
   material: ALLAY_SPAWN_EGG
-  glow: true
+  custom-model-id: incensed_spirit
   discovery: calmed_spirit_collection
   discovery-progress: 16
   value: 1500
@@ -60,6 +62,16 @@ incensed_spirit:
     - Compressing calm spirits into a small space
     - and assaulting them with chilli powder
     - will, generally, make them angry again.
+
+spooky_sweet:
+  name: Spooky Sweet
+  type: INGREDIENT
+  rarity: EPIC
+  material: RESIN_CLUMP
+  value: 250
+  lore:
+    - Tastes like sadness and regret.
+    - Found exclusively in <dark_purple>haunted</dark_purple> crypts!
 
 
 roasted_bone_dust:
